@@ -1,0 +1,1 @@
+count (_this getVariable "camps")
