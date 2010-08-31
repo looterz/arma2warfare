@@ -139,7 +139,7 @@ while {alive player && dialog} do {
 				_txt = parseText(Format [localize 'STR_WF_BuyEffective',_listDescriptions select _currentValue]);
 				if (!isNil '_queu') then {if (count _queu > 0) then {_txt = parseText(Format [localize 'STR_WF_Queu',_listDescriptions select _currentValue])}};
 				hint _txt;
-				_params = if (_isInfantry) then {[_closest,_unit,[]]} else {[_closest,_unit,[_driver,_gunner,_commander,_isLocked]]};
+				_params = if (_isInfantry) then {[_type, _closest,_unit,[]]} else {[_type, _closest,_unit,[_driver,_gunner,_commander,_isLocked]]};
 				_params Spawn BuildUnit;
 				-(_currentCost) Call ChangePlayerFunds;
 			};
@@ -161,7 +161,7 @@ while {alive player && dialog} do {
 	if (MenuAction == 203) then {MenuAction = -1;_commander = if (_commander) then {false} else {true};_updateDetails = true};
 	
 	//--- Factory DropDown list value has changed.
-	if (MenuAction == 301) then {MenuAction = -1;_factSel = lbCurSel 12018;_closest = _sorted select _factSel;_updateMap = true};
+	if (MenuAction == 301) then {MenuAction = -1;_factSel = lbCurSel 12018;_closest = _sorted select _factSel;_updateMap = true;_update=true;};
 	
 	//--- Selection change, we update the details.
 	if (MenuAction == 302) then {MenuAction = -1;_updateDetails = true};
@@ -182,6 +182,18 @@ while {alive player && dialog} do {
 		_listUpgrades = Format ['WFBE_%1%2UPGRADES',sideJoinedText,_type] Call GetNamespace;
 		_listCrews = [];
 		
+		if (((typeOf _closest) in WFDEPOT) && (_type != "Depot")) then {
+		
+			_listCostsCopy = + _listCosts;
+			_listCosts = _listCostsCopy;
+		
+			for [{_i=0}, {_i<count _listCosts}, {_i = _i+1}] do {
+				_newCost = (ceil ((_listCosts select _i) * 2 / 10))*10;				
+				_listCosts set [_i, _newCost ];
+			}
+		};
+		
+		
 		//--- We load the crews if the type is not Barracks.
 		_isInfantry = true;
 		if (_type != 'Barracks') then {
@@ -199,8 +211,11 @@ while {alive player && dialog} do {
 		{_con = _display DisplayCtrl _x;_con ctrlSetTextColor [0.4, 0.4, 0.4, 1]} forEach _IDCS;
 		
 		_update = false;
-		_updateList = true;
-		_updateDetails = true;
+		
+		if (!_updateMap) then {		
+			_updateList = true;
+			_updateDetails = true;
+		};
 	};
 	
 	//--- Update factories.
@@ -221,9 +236,19 @@ while {alive player && dialog} do {
 			default {
 				_buildings = WF_Logic getVariable Format ['%1BaseStructures',sideJoinedText];
 				_factories = [sideJoined,Format ['WFBE_%1%2TYPE',sideJoinedText,_type] Call GetNamespace,_buildings] Call GetFactories;
+				
+				_countAlive = count _factories;
+				if (_countAlive > 0 && depotInRange && _type != 'Aircraft') then {
+					
+					_nearDepot = nearestObjects [player, WFDEPOT,('WFBE_TOWNPURCHASERANGE' Call GetNamespace)];
+					if (count _nearDepot > 0) then {
+						
+						_factories = _factories + _nearDepot;
+					};
+				};
+				
 				_sorted = [player,_factories] Call SortByDistance;
 				_closest = _sorted select 0;
-				_countAlive = count _factories;
 			};
 		};
 
