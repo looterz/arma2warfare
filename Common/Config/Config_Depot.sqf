@@ -90,7 +90,7 @@ if (WF_A2_Vanilla) then {
 		_u = _u		+ ["USMC_Soldier"];
 		_c = _c		+ [150];
 		_m = _m		+ [1];
-		_t = _t		+ [25];
+		_t = _t		+ [10];
 		_p = _p		+ [7];
 		_z = _z		+ [0];
 	};
@@ -150,7 +150,7 @@ if (WF_A2_Arrowhead) then {
 		_u = _u		+ ["US_Soldier_EP1"];
 		_c = _c		+ [150];
 		_m = _m		+ [1];
-		_t = _t		+ [25];
+		_t = _t		+ [10];
 		_p = _p		+ [7];
 		_z = _z		+ [0];
 	};
@@ -259,7 +259,7 @@ if (WF_A2_CombinedOps) then {
 		_u = _u		+ ["US_Soldier_EP1"];
 		_c = _c		+ [150];
 		_m = _m		+ [1];
-		_t = _t		+ [25];
+		_t = _t		+ [10];
 		_p = _p		+ [7];
 		_z = _z		+ [0];
 	};
@@ -376,7 +376,7 @@ if (WF_A2_Vanilla) then {
 		_u = _u		+ ["RU_Soldier"];
 		_c = _c		+ [150];
 		_m = _m		+ [1];
-		_t = _t		+ [25];
+		_t = _t		+ [10];
 		_p = _p		+ [7];
 		_z = _z		+ [0];
 	};
@@ -436,7 +436,7 @@ if (WF_A2_Arrowhead) then {
 		_u = _u		+ ["TK_Soldier_EP1"];
 		_c = _c		+ [150];
 		_m = _m		+ [1];
-		_t = _t		+ [25];
+		_t = _t		+ [10];
 		_p = _p		+ [7];
 		_z = _z		+ [0];
 	};
@@ -538,7 +538,7 @@ if (WF_A2_CombinedOps) then {
 		_u = _u		+ ["RU_Soldier"];
 		_c = _c		+ [150];
 		_m = _m		+ [1];
-		_t = _t		+ [25];
+		_t = _t		+ [10];
 		_p = _p		+ [7];
 		_z = _z		+ [0];
 	};

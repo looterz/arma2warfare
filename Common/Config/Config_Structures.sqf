@@ -2396,14 +2396,14 @@ if (WF_A2_Arrowhead) then {
 };
 
 if (WF_A2_CombinedOps) then {
-	WESTHQ = "LAV25_HQ_unfolded";
-	WESTBAR = "USMC_WarfareBBarracks";
-	WESTLVF = "USMC_WarfareBLightFactory";
-	WESTCC = "USMC_WarfareBUAVterminal";
-	WESTHEAVY = "USMC_WarfareBHeavyFactory";
-	WESTAIR = "USMC_WarfareBAircraftFactory";
-	WESTSP = "USMC_WarfareBVehicleServicePoint";
-	WESTAAR = "USMC_WarfareBAntiAirRadar";
+	WESTHQ = "M1130_HQ_unfolded_EP1";
+	WESTBAR = "US_WarfareBBarracks_EP1";
+	WESTLVF = "US_WarfareBLightFactory_EP1";
+	WESTCC = "US_WarfareBUAVterminal_EP1";
+	WESTHEAVY = "US_WarfareBHeavyFactory_EP1";
+	WESTAIR = "US_WarfareBAircraftFactory_EP1";
+	WESTSP = "US_WarfareBVehicleServicePoint_EP1";
+	WESTAAR = "US_WarfareBAntiAirRadar_EP1";
 	
 	['WFBE_WESTFLAG','\Ca\ca_e\Data\flag_us_co.paa',true] Call SetNamespace;
 	['WFBE_WESTFARP','Camp_EP1',true] Call SetNamespace;
@@ -2507,7 +2507,7 @@ if (WF_A2_CombinedOps) then {
 		[Format["WFBE_WEST%1TYPE",_v select _count],_count,true] Call SetNamespace;
 	};
 
-	['WFBE_WESTMHQNAME','LAV25_HQ',true] Call SetNamespace;
+	['WFBE_WESTMHQNAME','M1130_CV_EP1',true] Call SetNamespace;
 	
 	['WFBE_WESTSTRUCTURES',_v,true] Call SetNamespace;
 	['WFBE_WESTSTRUCTURENAMES',_n,true] Call SetNamespace;
@@ -2523,7 +2523,7 @@ if (WF_A2_CombinedOps) then {
 	//Note that cost of defenses is in money instead of supplies.
 	//WEST STATIONARY DEFENSES
 	_v			= ["MGNest"];
-	_n			= ["USMC_WarfareBMGNest_M240"];
+	_n			= ["WarfareBMGNest_M240_US_EP1"];
 	_d			= [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c			= [300];
 	_t			= [0];
@@ -2667,7 +2667,7 @@ if (WF_A2_CombinedOps) then {
 	_b = _b 		+ ["Fortification"];
 
 	_v = _v		+ ["Base_WarfareBBarrier5x"];
-	_n = _n		+ ["Base_WarfareBBarrier5x"];
+	_n = _n		+ ["US_WarfareBBarrier5x_EP1"];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [15];
 	_t = _t		+ [0];
@@ -2679,7 +2679,7 @@ if (WF_A2_CombinedOps) then {
 	_b = _b 		+ ["Fortification"];
 
 	_v = _v		+ ["Base_WarfareBBarrier10x"];
-	_n = _n		+ ["Base_WarfareBBarrier10x"];
+	_n = _n		+ ["US_WarfareBBarrier10x_EP1"];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [25];
 	_t = _t		+ [0];
@@ -2691,7 +2691,7 @@ if (WF_A2_CombinedOps) then {
 	_b = _b 		+ ["Fortification"];
 
 	_v = _v		+ ["Base_WarfareBBarrier10xTall"];
-	_n = _n		+ ["Base_WarfareBBarrier10xTall"];
+	_n = _n		+ ["US_WarfareBBarrier10xTall_EP1"];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [50];
 	_t = _t		+ [0];
@@ -2703,7 +2703,7 @@ if (WF_A2_CombinedOps) then {
 	_b = _b 		+ ["Fortification"];
 
 	_v = _v		+ ["MASH"];
-	_n = _n		+ ["MASH"];
+	_n = _n		+ ["MASH_EP1"];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [30];
 	_t = _t		+ [0];
@@ -2751,7 +2751,7 @@ if (WF_A2_CombinedOps) then {
 	_b = _b 		+ ["Fortification"];
 
 	_v = _v		+ ["Land_fortified_nest_small"];
-	_n = _n		+ ["Land_fortified_nest_small"];
+	_n = _n		+ ["Land_fortified_nest_small_EP1"];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [40];
 	_t = _t		+ [0];
@@ -2763,7 +2763,7 @@ if (WF_A2_CombinedOps) then {
 	_b = _b 		+ ["Fortification"];
 
 	_v = _v		+ ["Land_fort_rampart"];
-	_n = _n		+ ["Land_fort_rampart"];
+	_n = _n		+ ["Land_fort_rampart_EP1"];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [30];
 	_t = _t		+ [0];
@@ -2775,7 +2775,7 @@ if (WF_A2_CombinedOps) then {
 	_b = _b 		+ ["Fortification"];
 
 	_v = _v		+ ["Land_fort_artillery_nest"];
-	_n = _n		+ ["Land_fort_artillery_nest"];
+	_n = _n		+ ["Land_fort_artillery_nest_EP1"];
 	_d = _d		+ [localize "STR_WF_ArtilleryNest"];
 	_c = _c		+ [65];
 	_t = _t		+ [0];
@@ -2799,7 +2799,7 @@ if (WF_A2_CombinedOps) then {
 	_b = _b 		+ ["Fortification"];
 
 	_v = _v		+ ["Hedgehog"];
-	_n = _n		+ ["Hedgehog"];
+	_n = _n		+ ["Hedgehog_EP1"];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [5];
 	_t = _t		+ [0];
@@ -2811,7 +2811,7 @@ if (WF_A2_CombinedOps) then {
 	_b = _b 		+ ["Fortification"];
 
 	_v = _v		+ ["Land_CamoNet"];
-	_n = _n		+ ["Land_CamoNet_NATO"];
+	_n = _n		+ ["Land_CamoNet_NATO_EP1"];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [35];
 	_t = _t		+ [0];
@@ -2823,7 +2823,7 @@ if (WF_A2_CombinedOps) then {
 	_b = _b 		+ ["Strategic"];
 
 	_v = _v		+ ["Land_CamoNetVar"];
-	_n = _n		+ ["Land_CamoNetVar_NATO"];
+	_n = _n		+ ["Land_CamoNetVar_NATO_EP1"];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [45];
 	_t = _t		+ [0];
@@ -2835,7 +2835,7 @@ if (WF_A2_CombinedOps) then {
 	_b = _b 		+ ["Strategic"];
 
 	_v = _v		+ ["Land_CamoNetB"];
-	_n = _n		+ ["Land_CamoNetB_NATO"];
+	_n = _n		+ ["Land_CamoNetB_NATO_EP1"];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [55];
 	_t = _t		+ [0];
@@ -2955,15 +2955,14 @@ if (WF_A2_CombinedOps) then {
 	['WFBE_WESTDEFENSECATEGORIES',_b,true] Call SetNamespace;
 
 	//EAST STRUCTURES
-
-	EASTHQ = "BTR90_HQ_unfolded";
-	EASTBAR = "RU_WarfareBBarracks";
-	EASTLVF = "RU_WarfareBLightFactory";
-	EASTCC = "RU_WarfareBUAVterminal";
-	EASTHEAVY = "RU_WarfareBHeavyFactory";
-	EASTAIR = "RU_WarfareBAircraftFactory";
-	EASTSP = "RU_WarfareBVehicleServicePoint";
-	EASTAAR = "RU_WarfareBAntiAirRadar";
+	EASTHQ = "BMP2_HQ_TK_unfolded_EP1";
+	EASTBAR = "TK_WarfareBBarracks_EP1";
+	EASTLVF = "TK_WarfareBLightFactory_EP1";
+	EASTCC = "TK_WarfareBUAVterminal_EP1";
+	EASTHEAVY = "TK_WarfareBHeavyFactory_EP1";
+	EASTAIR = "TK_WarfareBAircraftFactory_EP1";
+	EASTSP = "TK_WarfareBVehicleServicePoint_EP1";
+	EASTAAR = "TK_WarfareBAntiAirRadar_EP1";
 	
 	['WFBE_EASTFLAG','\Ca\Data\flag_rus_co.paa',true] Call SetNamespace;
 	['WFBE_EASTFARP','CampEast',true] Call SetNamespace;
@@ -3063,7 +3062,7 @@ if (WF_A2_CombinedOps) then {
 		[Format["WFBE_EAST%1TYPE",_v select _count],_count,true] Call SetNamespace;
 	};
 
-	['WFBE_EASTMHQNAME','BTR90_HQ',true] Call SetNamespace;
+	['WFBE_EASTMHQNAME','BMP2_HQ_TK_EP1',true] Call SetNamespace;
 	
 	['WFBE_EASTSTRUCTURES',_v,true] Call SetNamespace;
 	['WFBE_EASTSTRUCTURENAMES',_n,true] Call SetNamespace;
@@ -3251,7 +3250,7 @@ if (WF_A2_CombinedOps) then {
 	_b = _b 		+ ["Fortification"];
 
 	_v = _v		+ ["Base_WarfareBBarrier5x"];
-	_n = _n		+ ["Base_WarfareBBarrier5x"];
+	_n = _n		+ ["TK_WarfareBBarrier5x_EP1"];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [15];
 	_t = _t		+ [0];
@@ -3263,7 +3262,7 @@ if (WF_A2_CombinedOps) then {
 	_b = _b 		+ ["Fortification"];
 
 	_v = _v		+ ["Base_WarfareBBarrier10x"];
-	_n = _n		+ ["Base_WarfareBBarrier10x"];
+	_n = _n		+ ["TK_WarfareBBarrier10x_EP1"];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [25];
 	_t = _t		+ [0];
@@ -3275,7 +3274,7 @@ if (WF_A2_CombinedOps) then {
 	_b = _b 		+ ["Fortification"];
 
 	_v = _v		+ ["Base_WarfareBBarrier10xTall"];
-	_n = _n		+ ["Base_WarfareBBarrier10xTall"];
+	_n = _n		+ ["TK_WarfareBBarrier10xTall_EP1"];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [50];
 	_t = _t		+ [0];
@@ -3335,7 +3334,7 @@ if (WF_A2_CombinedOps) then {
 	_b = _b 		+ ["Fortification"];
 
 	_v = _v		+ ["Land_fortified_nest_small"];
-	_n = _n		+ ["Land_fortified_nest_small"];
+	_n = _n		+ ["Land_fortified_nest_small_EP1"];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [40];
 	_t = _t		+ [0];
@@ -3347,7 +3346,7 @@ if (WF_A2_CombinedOps) then {
 	_b = _b 		+ ["Fortification"];
 
 	_v = _v		+ ["Land_fort_rampart"];
-	_n = _n		+ ["Land_fort_rampart"];
+	_n = _n		+ ["Land_fort_rampart_EP1"];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [30];
 	_t = _t		+ [0];
@@ -3359,7 +3358,7 @@ if (WF_A2_CombinedOps) then {
 	_b = _b 		+ ["Fortification"];
 
 	_v = _v		+ ["Land_fort_artillery_nest"];
-	_n = _n		+ ["Land_fort_artillery_nest"];
+	_n = _n		+ ["Land_fort_artillery_nest_EP1"];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [65];
 	_t = _t		+ [0];
@@ -3383,7 +3382,7 @@ if (WF_A2_CombinedOps) then {
 	_b = _b 		+ ["Fortification"];
 
 	_v = _v		+ ["Hedgehog"];
-	_n = _n		+ ["Hedgehog"];
+	_n = _n		+ ["Hedgehog_EP1"];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [5];
 	_t = _t		+ [0];
@@ -3395,7 +3394,7 @@ if (WF_A2_CombinedOps) then {
 	_b = _b 		+ ["Fortification"];
 
 	_v = _v		+ ["Land_CamoNet"];
-	_n = _n		+ ["Land_CamoNet_EAST"];
+	_n = _n		+ ["Land_CamoNet_EAST_EP1"];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [35];
 	_t = _t		+ [0];
@@ -3407,7 +3406,7 @@ if (WF_A2_CombinedOps) then {
 	_b = _b 		+ ["Strategic"];
 
 	_v = _v		+ ["Land_CamoNetVar"];
-	_n = _n		+ ["Land_CamoNetVar_EAST"];
+	_n = _n		+ ["Land_CamoNetVar_EAST_EP1"];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [45];
 	_t = _t		+ [0];
@@ -3419,7 +3418,7 @@ if (WF_A2_CombinedOps) then {
 	_b = _b 		+ ["Strategic"];
 
 	_v = _v		+ ["Land_CamoNetB"];
-	_n = _n		+ ["Land_CamoNetB_EAST"];
+	_n = _n		+ ["Land_CamoNetB_EAST_EP1"];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [55];
 	_t = _t		+ [0];

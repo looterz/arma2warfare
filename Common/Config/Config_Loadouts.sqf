@@ -4117,15 +4117,8 @@ if (WF_A2_CombinedOps) then {
 			_r = _r + [false];
 			_t = _t + ['primary'];
 			_l = _l + [0];
-			_b = _b + [true];
-			
-			_m = _m + ["20Rnd_556x45_Stanag"];
-			_c = _c + [5];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
+			_b = _b + [true];			
+						
 			_m = _m + ["30Rnd_556x45_G36"];
 			_c = _c + [6];
 			_r = _r + [false];
@@ -5123,6 +5116,34 @@ if (WF_A2_CombinedOps) then {
 			_l = _l + [0];
 			_b = _b + [true];
 
+			_w = _w + ['BAF_ied_v1'];
+			_c = _c + [50];
+			_t = _t + ['CfgMagazines'];
+			_r = _r + [false];
+			_l = _l + [0];
+			_b = _b + [true];
+
+			_w = _w + ['BAF_ied_v2'];
+			_c = _c + [100];
+			_t = _t + ['CfgMagazines'];
+			_r = _r + [false];
+			_l = _l + [1];
+			_b = _b + [true];
+
+			_w = _w + ['BAF_ied_v3'];
+			_c = _c + [150];
+			_t = _t + ['CfgMagazines'];
+			_r = _r + [false];
+			_l = _l + [2];
+			_b = _b + [true];
+
+			_w = _w + ['BAF_ied_v4'];
+			_c = _c + [200];
+			_t = _t + ['CfgMagazines'];
+			_r = _r + [false];
+			_l = _l + [3];
+			_b = _b + [true];
+
 			_w = _w + ['Binocular'];
 			_c = _c + [10];
 			_t = _t + ['Special'];
@@ -5451,6 +5472,118 @@ if (WF_A2_CombinedOps) then {
 			_l = [0];
 			_b = [true];
 
+			_m = _m + ["30Rnd_556x45_StanagSD"];
+			_c = _c + [7];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+			
+			_m = _m + ["30Rnd_556x45_Stanag"];
+			_c = _c + [5];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];			
+			
+			_m = _m + ["20Rnd_762x51_DMR"];
+			_c = _c + [9];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+
+			_m = _m + ["5Rnd_127x99_as50"];
+			_c = _c + [9];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [1];
+			_b = _b + [true];
+			
+			_m = _m + ["100Rnd_762x51_M240"];
+			_c = _c + [12];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+			
+			_m = _m + ["100Rnd_556x45_M249"];
+			_c = _c + [11];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];		
+			
+			_m = _m + ["200Rnd_556x45_M249"];
+			_c = _c + [22];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+			
+			_m = _m + ["6Rnd_HE_M203"];
+			_c = _c + [35];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+
+			_m = _m + ["6Rnd_FlareWhite_M203"];
+			_c = _c + [25];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+
+			_m = _m + ["6Rnd_FlareGreen_M203"];
+			_c = _c + [25];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+
+			_m = _m + ["6Rnd_FlareRed_M203"];
+			_c = _c + [25];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+
+			_m = _m + ["6Rnd_FlareYellow_M203"];
+			_c = _c + [25];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+
+			_m = _m + ["6Rnd_Smoke_M203"];
+			_c = _c + [25];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+
+			_m = _m + ["6Rnd_SmokeRed_M203"];
+			_c = _c + [25];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+
+			_m = _m + ["6Rnd_SmokeGreen_M203"];
+			_c = _c + [25];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+
+			_m = _m + ["6Rnd_SmokeYellow_M203"];
+			_c = _c + [25];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+
 			_m = _m + ["30Rnd_545x39_AK"];
 			_c = _c + [4];
 			_r = _r + [false];
@@ -5458,6 +5591,27 @@ if (WF_A2_CombinedOps) then {
 			_l = _l + [0];
 			_b = _b + [true];
 
+			_m = _m + ["5Rnd_86x70_L115A1"];
+			_c = _c + [4];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+
+			_m = _m + ["200Rnd_556x45_L110A1"];
+			_c = _c + [4];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+
+			_m = _m + ["200Rnd_762x54_GPMG"];
+			_c = _c + [4];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+			
 			_m = _m + ["10Rnd_127x99_m107"];
 			_c = _c + [18];
 			_r = _r + [false];
@@ -5645,6 +5799,13 @@ if (WF_A2_CombinedOps) then {
 			_r = _r + [false];
 			_t = _t + ['secondary'];
 			_l = _l + [1];
+			_b = _b + [false];	
+
+			_m = _m + ["NLAW"];
+			_c = _c + [400];
+			_r = _r + [false];
+			_t = _t + ['secondary'];
+			_l = _l + [1];
 			_b = _b + [false];
 
 			_m = _m + ["RPG18"];
@@ -5662,7 +5823,7 @@ if (WF_A2_CombinedOps) then {
 			_b = _b + [false];
 
 			_m = _m + ["Dragon_EP1"];
-			_c = _c + [400];
+			_c = _c + [300];
 			_r = _r + [false];
 			_t = _t + ['secondary'];
 			_l = _l + [2];
@@ -5908,12 +6069,55 @@ if (WF_A2_CombinedOps) then {
 			_l = _l + [2];
 			_b = _b + [true];
 
-			_w = _w + ['SCAR_H_STD_TWS_SD'];
-			_c = _c + [550];
+			_w = _w + ['BAF_L85A2_RIS_Holo'];
+			_c = _c + [220];
+			_a = _a + [true];
+			_l = _l + [1];
+			_b = _b + [true];
+
+			_w = _w + ['BAF_L85A2_RIS_SUSAT'];
+			_c = _c + [230];
+			_a = _a + [true];
+			_l = _l + [2];
+			_b = _b + [true];
+
+			_w = _w + ['BAF_L85A2_RIS_ACOG'];
+			_c = _c + [240];
+			_a = _a + [true];
+			_l = _l + [2];
+			_b = _b + [true];
+
+			_w = _w + ['BAF_L86A2_ACOG'];
+			_c = _c + [250];
+			_a = _a + [true];
+			_l = _l + [2];
+			_b = _b + [true];
+
+			_w = _w + ['BAF_L85A2_UGL_Holo'];
+			_c = _c + [275];
+			_a = _a + [true];
+			_l = _l + [2];
+			_b = _b + [true];
+
+			_w = _w + ['BAF_L85A2_UGL_SUSAT'];
+			_c = _c + [300];
 			_a = _a + [true];
 			_l = _l + [3];
 			_b = _b + [true];
 
+			_w = _w + ['BAF_L85A2_UGL_ACOG'];
+			_c = _c + [310];
+			_a = _a + [true];
+			_l = _l + [3];
+			_b = _b + [true];
+
+			_w = _w + ['BAF_L85A2_RIS_CWS'];
+			_c = _c + [325];
+			_a = _a + [true];
+			_l = _l + [3];
+			_b = _b + [true];			
+
+			
 			//--- MACHINE GUNS
 			
 			_w = _w + ['RPK_74'];
@@ -5927,19 +6131,25 @@ if (WF_A2_CombinedOps) then {
 			_a = _a + [true];
 			_l = _l + [0];
 			_b = _b + [true];
+
+			_w = _w + ['BAF_L7A2_GPMG'];
+			_c = _c + [325];
+			_a = _a + [true];
+			_l = _l + [1];
+			_b = _b + [true];
 			
 			_w = _w + ['Pecheneg'];
 			_c = _c + [350];
 			_a = _a + [true];
 			_l = _l + [1];
+			_b = _b + [true];	
+
+			_w = _w + ['BAF_L110A1_Aim'];
+			_c = _c + [375];
+			_a = _a + [true];
+			_l = _l + [2];
 			_b = _b + [true];
 
-			_w = _w + ['M249_TWS_EP1'];
-			_c = _c + [500];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];
-			
 			//--- SNIPER RIFLES
 						
 						
@@ -5960,7 +6170,19 @@ if (WF_A2_CombinedOps) then {
 			_a = _a + [true];
 			_l = _l + [1];
 			_b = _b + [true];
-						
+
+			_w = _w + ['BAF_LRR_scoped_W'];
+			_c = _c + [220];
+			_a = _a + [true];
+			_l = _l + [1];
+			_b = _b + [true];
+
+			_w = _w + ['BAF_LRR_scoped'];
+			_c = _c + [225];
+			_a = _a + [true];
+			_l = _l + [2];
+			_b = _b + [true];
+							
 			_w = _w + ['SVD'];
 			_c = _c + [250];
 			_a = _a + [true];
@@ -5986,23 +6208,29 @@ if (WF_A2_CombinedOps) then {
 			_b = _b + [true];
 
 			_w = _w + ['DMR'];
-			_c = _c + [350];
+			_c = _c + [300];
 			_a = _a + [true];
-			_l = _l + [3];
+			_l = _l + [2];
 			_b = _b + [true];
 			
+			_w = _w + ['BAF_AS50_scoped'];
+			_c = _c + [350];
+			_a = _a + [['5Rnd_127x99_as50']];
+			_l = _l + [2];
+			_b = _b + [true];
+
 			_w = _w + ['KSVK'];
 			_c = _c + [400];
 			_a = _a + [true];
 			_l = _l + [3];
 			_b = _b + [true];
 
-			_w = _w + ['m107_TWS_EP1'];
+			_w = _w + ['BAF_AS50_TWS'];
 			_c = _c + [500];
-			_a = _a + [true];
+			_a = _a + [['5Rnd_127x99_as50']];
 			_l = _l + [3];
-			_b = _b + [true];
-
+			_b = _b + [true];		
+		
 			_p = [];
 			_d = [];
 			_s = [];
@@ -6048,6 +6276,12 @@ if (WF_A2_CombinedOps) then {
 			_b = _b + [true];
 
 			_w = _w + ['M47Launcher_EP1'];
+			_c = _c + [300];
+			_a = _a + [true];
+			_l = _l + [2];
+			_b = _b + [false];
+
+			_w = _w + ['BAF_NLAW_Launcher'];
 			_c = _c + [400];
 			_a = _a + [true];
 			_l = _l + [2];
@@ -6328,6 +6562,34 @@ if (WF_A2_CombinedOps) then {
 			_t = _t + ['CfgMagazines'];
 			_r = _r + [false];
 			_l = _l + [0];
+			_b = _b + [true];
+
+			_w = _w + ['BAF_ied_v1'];
+			_c = _c + [50];
+			_t = _t + ['CfgMagazines'];
+			_r = _r + [false];
+			_l = _l + [0];
+			_b = _b + [true];
+
+			_w = _w + ['BAF_ied_v2'];
+			_c = _c + [100];
+			_t = _t + ['CfgMagazines'];
+			_r = _r + [false];
+			_l = _l + [2];
+			_b = _b + [true];
+
+			_w = _w + ['BAF_ied_v3'];
+			_c = _c + [150];
+			_t = _t + ['CfgMagazines'];
+			_r = _r + [false];
+			_l = _l + [2];
+			_b = _b + [true];
+
+			_w = _w + ['BAF_ied_v4'];
+			_c = _c + [200];
+			_t = _t + ['CfgMagazines'];
+			_r = _r + [false];
+			_l = _l + [3];
 			_b = _b + [true];
 
 			_w = _w + ['Binocular'];
