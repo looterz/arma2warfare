@@ -3,7 +3,8 @@ disableSerialization;
 MenuAction = -1;
 _tcr = 'WFBE_TOWNCAPTURERANGE' Call GetNamespace;
 
-_exchangeRate = 25;
+_exchangeRate = 5;
+_deltaRate = 5;
 
 _townDepotNear = 0;
 _nearestTownDepots = nearestObjects [player, WFDEPOT,('WFBE_TOWNPURCHASERANGE' Call GetNamespace)];
@@ -18,23 +19,27 @@ if (!isNull _nearTown) then {
 		if (_sideID == sideID) then {
 
 			if (player distance _nearTown < _tcr) then {
-				_exchangeRate = (10*60 / _maxSV) - (2 * _supplyValue / _maxSV );
-				
+				_deltaRate = ((120 / _maxSV) + (1 - (_supplyValue / _maxSV)));				
 				_townDepotNear = 1;
 			};
 		}
 	};
 };
 
-_exchangeRateSell = (ceil _exchangeRate*0.8*10) / 10;
-_exchangeRateBuy = (ceil _exchangeRate*1.2*10) / 10;
+exchangeNearTown = _nearTown;
+
+_exchangeRateSell = (ceil ((_exchangeRate -_deltaRate) *10)) / 10;
+_exchangeRateBuy = (ceil ((_exchangeRate + 1.5*_deltaRate) *10)) / 10;
+
+if (_exchangeRateSell < 0) then { _exchangeRateSell = 0.1; };
+if (_exchangeRateBuy > 100) then { _exchangeRateSell = 100; };
 
 
 ctrlSetText [17002, Format [localize "STR_WF_SellSupplyExchangeRate",_exchangeRateSell]];
 ctrlSetText [17003, Format [localize "STR_WF_BuySupplyExchangeRate",_exchangeRateBuy]];
 
-SliderSetRange[17005,0, 15000];
-SliderSetPosition[17005, 7500];
+SliderSetRange[17005,0, 150];
+SliderSetPosition[17005, 75];
 
 
 _isCommander = false;
@@ -49,7 +54,7 @@ while {alive player && dialog} do {
 	_currentFunds = Call GetPlayerfunds;
 
 	ctrlSetText [17004, Format [localize "STR_WF_BuySellSupplyStatus",_currentFunds, _currentSupply]];	
-	_exchangeSupplyAmount = ceil (SliderPosition 17005);
+	_exchangeSupplyAmount = (ceil (SliderPosition 17005))*100;
 
 	_buyMoney = _exchangeSupplyAmount * _exchangeRateBuy;
 	_sellMoney = _exchangeSupplyAmount * _exchangeRateSell;
