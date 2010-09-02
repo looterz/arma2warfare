@@ -37,6 +37,7 @@ class FSM
        "_spr = 'WFBE_SERVICEPOINTRANGE' Call GetNamespace;" \n
        "_tpr = 'WFBE_TOWNBUILDPROTECTIONRANGE' Call GetNamespace;" \n
        "_tcr = 'WFBE_TOWNCAPTURERANGE' Call GetNamespace;" \n
+	   "_tdr = 'WFBE_DEFENSEMANRANGE' Call GetNamespace;" \n
        "" \n
        "hqInRange = false;" \n
        "barracksInRange = false;" \n
@@ -47,6 +48,7 @@ class FSM
        "serviceInRange = false;" \n
        "commandInRange = false;" \n
        "depotInRange = false;" \n
+	   "townDefenceRange = false;" \n
        "antiAirRadarInRange = false;" \n
        "hangarInRange = false;" \n
        "_fastTravel = false;" \n
@@ -182,7 +184,19 @@ class FSM
        "	if !(isNil ""_sideID"") then {" \n
        "		if (_sideID == sideID) then {if (player distance _nObject < _tcr) then {serviceInRange = true;depotInRange = true} else {depotInRange = false}};" \n
        "	};" \n
-       "} else {depotInRange = false};" \n
+       "} else {depotInRange = false; };" \n
+       "" \n
+       "//--- Town Depot Build Static Defences" \n
+	   "_nObjects = nearestObjects [player, WFDEPOT,('WFBE_DEFENSEMANRANGE' Call GetNamespace)];" \n
+	   "_nObject = if (count _nObjects > 0) then {_nObjects select 0} else {objNull};" \n
+	   "_townDefenceRange = false;"\n
+       "if (!isNull _nObject) then {" \n
+       "	_sideID = _nObject getVariable ""sideID"";" \n
+       "	if !(isNil ""_sideID"") then {" \n
+	   "		if (_sideID == sideID) then {if (player distance _nObject < _tdr) then {_townDefenceRange = true; }};" \n
+       "	};" \n
+       "};" \n
+	   "townDefenceRange = _townDefenceRange;" \n
        "" \n
        "_checks = ['COMMANDCENTERTYPE',_buildings,_ccr,sideJoined,player] Call BuildingInRange;" \n
        "_commandCenter = _checks select 0;" \n

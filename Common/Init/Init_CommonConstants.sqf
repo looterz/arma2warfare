@@ -253,7 +253,13 @@ if (WF_A2_CombinedOps) then {['WFBE_RESISTANCEFACTION',1,false] Call SetNamespac
 //--- Victory Condition (0: Annihilation, 1: Assassination, 2: Supremacy).
 ['WFBE_VICTORYCONDITION',2,false] Call SetNamespace;
 //--- Commander vote time.
-['WFBE_VOTETIME',60,true] Call SetNamespace;
+
+if (WF_DEBUG) then { 
+	['WFBE_VOTETIME',10,true] Call SetNamespace;
+} else 
+{ 	['WFBE_VOTETIME',60,true] Call SetNamespace; };
+
+
 //--- Weather Transition period, need to be < server weather sleep (Jip Sync on next forecast).
 ['WFBE_WEATHERTRANSITION',400,true] Call SetNamespace;
 //--- Proper worlds (Radio town localization).

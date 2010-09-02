@@ -9,6 +9,7 @@ _direction = _this select 3;
 _index = _this select 4;
 
 _time = ((Format ["WFBE_%1STRUCTURETIMES",str _side] Call GetNamespace) select _index) / 2;
+if (WF_DEBUG) then { _time = _time / 10; };
 	
 _siteName = Format["WFBE_%1CONSTRUCTIONSITE",str _side] Call GetNamespace;
 
