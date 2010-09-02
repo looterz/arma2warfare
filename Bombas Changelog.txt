@@ -3,36 +3,18 @@ BombaS Changelog:
 Basically this modification tries to balance BLUEFOR and OPFOR with the drawback on technical/historical accuracy.
 All the below options get activated by "weapon balance" parameter.
 
-Reason 1: I did not want to change default models. Reason 2: The modification should work without any addons.
+Reason 1: I did not want to change default models. 
+Reason 2: The modification should work without any addons.
+Reason 3: Make game more irregular
+Reason 4: Shift priorities to capture cities, not attack enemy bases
 
-BombaS1
+BombaS,
 
-- T55 and T72 feature barrel launched ATGM > Counterpart for US tanks
-- ZSU features 8 IGLA > Counterpart for Avenger
-- Linebacker features TUNGUSKA missile > Counterpart for TUNGUSKA
-- AN2 has iron bombs in it > Fun :-)
-- L39 features 2 R73 AA missiles > Counterpart for Harrier
-- UH1 features flare launcher > was missing somehow
-- Mi24 D features R73 AA missiles instead of AT > No specific counterpart 
-- Mi24 V features 12 AT9 ATAKA ATGM > No specific counterpart; more of these bad missiles at least do a little damage
-- Ka52 features 8 Hellfire > Counterpart for AH64
-- Ka52 BLACK features 8 Hellfires and 2 R73 AA missiles > Counterpart for AH1z
-- MH6 features Laser designator > wanted it, did it. Transforms it into a kind of observation helicopter.
-- F35 features 2 more sidewinders and 8 Mavericks > Counterpart to SU34
-
-ZGMv3:
-
-- Implemented BAF rifles from 1.54 patch to OPFOR side
-- Static TOW usable again
-- US-ambulance on light factory LVL 1
-
-ZGMv4:
-
-- Changed "KAMOV" parameter to "Artillery Vehicles". Until Benny fixes the arty system, all artillery vehicles can be disabled by this parameter due to a serious exploit.
-
+- Added ability to sell and buy supplies in central depot of any captured cities
+- The possibility to build a static defences in the town for any player
+- Increase factories strength to x5 (Saboteurs cant now destroy all base with use 5 SMAW shells, 5 SMAW for one builing is required)
+- Buy tanks, light, and solidirs in central depot of any captured cities
 
 Regards,
-
-
-BombaS [Hotshots]
+BombaS
 
