@@ -425,6 +425,9 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 			_itemclass_preview = gettext (configfile >> "CfgVehicles" >> _itemclass >> "ghostpreview");
 			if (_itemclass_preview == "") then {_itemclass_preview = _itemclass};
 
+			_structs = Format["WFBE_%1STRUCTURENAMES",sideJoinedText] Call GetNamespace;  
+			_isBuilding = _itemclass in _structs;
+			
 			//--- Preview building
 			_preview = camtarget BIS_CONTROL_CAM;
 			if (typeof _preview != _itemclass_preview) then {
@@ -505,6 +508,7 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 				};
 				
 				_preview = _itemclass_preview createvehiclelocal (screentoworld [0.5,0.5]);
+				
 				BIS_CONTROL_CAM camsettarget _preview;
 				BIS_CONTROL_CAM camcommit 0;
 				_logic setvariable ["BIS_COIN_preview",_preview];
@@ -554,17 +558,19 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 					_fundsRemaining = _funds - _itemcost;
 					if (_fundsRemaining < 0) then {_color = _colorRed};
 
-					//--- No Place To Build
-					_isFlat = (position _preview) isflatempty [
-						(sizeof typeof _preview) / 4,	//--- Minimal distance from another object
-						0,				//--- If 0, just check position. If >0, select new one
-						0.7,				//--- Max gradient
-						(sizeof typeof _preview),	//--- Gradient area
-						0,				//--- 0 for restricted water, 2 for required water,
-						false,				//--- True if some water can be in 25m radius
-						_preview			//--- Ignored object
-					];
-					if (count _isFlat == 0) then {_color = _colorRed};
+					if (_isBuilding) then {
+						//--- No Place To Build
+						_isFlat = (position _preview) isflatempty [
+							(sizeof typeof _preview) / 128,	//--- Minimal distance from another object
+							0,				//--- If 0, just check position. If >0, select new one
+							0.7,				//--- Max gradient
+							(sizeof typeof _preview),	//--- Gradient area
+							0,				//--- 0 for restricted water, 2 for required water,
+							false,				//--- True if some water can be in 25m radius
+							_preview			//--- Ignored object
+						];
+						if (count _isFlat == 0) then {_color = _colorRed};
+					}
 				};
 				_preview setObjectTexture [0,_color];
 				_preview setVariable ["BIS_COIN_color",_color];
