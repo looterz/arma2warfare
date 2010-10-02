@@ -2,7 +2,10 @@
 _target = _this select 0;
 _nukeMarker = _this select 1;
 
-[CMDLOCALIZEMESSAGE,"TacticalLaunch"] Spawn CommandToClients;
+WFBE_LocalizeMessage = [nil,'CLTFNCLOCALIZEMESSAGE',['TacticalLaunch']];
+publicVariable 'WFBE_LocalizeMessage';
+if (!isMultiplayer || local player) then {[nil,'CLTFNCLOCALIZEMESSAGE',['TacticalLaunch']] Spawn HandlePVF};
+
 sleep 300;
 
 _path = "\ca\air2\cruisemissile\"; //";
@@ -17,10 +20,15 @@ _cruise setVelocity [0,2,0];
 _cruise flyInHeight 570;
 _cruise setSpeedMode "FULL";
 
-[CMDREQUESTSPECIAL,"ICBM",[_target,_cruise]] Spawn CommandToServer;
+WFBE_RequestSpecial = ['SRVFNCREQUESTSPECIAL',["ICBM",sideJoined,_target,_cruise,clientTeam]];
+publicVariable 'WFBE_RequestSpecial';
+if !(isMultiplayer) then {['SRVFNCREQUESTSPECIAL',["ICBM",sideJoined,_target,_cruise,clientTeam]] Spawn HandleSPVF};
 
-sleep 1.5; 
-[sideJoined,CMDDISPLAYICBM,_target,_cruise] Spawn CommandToSide;
+sleep 1.5;
+
+WFBE_DisplayICBM = [sideJoined,'CLTFNCDISPLAYICBM',[_target,_cruise]];
+publicVariable 'WFBE_DisplayICBM';
+if (!isMultiplayer || local player) then {[sideJoined,'CLTFNCDISPLAYICBM',[_target,_cruise]] Spawn HandlePVF};
 
 _misFlare = objNull;
 if (WF_A2_Vanilla || WF_A2_CombinedOps) then {

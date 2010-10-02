@@ -28,10 +28,10 @@ if (!_deployed) then {
 	["Constructed",_type,_side] Spawn SideMessage;
 	Call Compile Format ["_site addEventHandler ['killed',{[_this select 0,_this select 1,%1,'%2'] Spawn HQKilled}];",_side,typeOf _site];
 	_site addEventHandler ["hit",{_this Spawn BuildingDamaged}];
-	if (handleFF) then {Call Compile Format ["_site addEventHandler ['handleDamage',{[_this select 0,_this select 2,_this select 3, %1] Call BuildingHandleDamages}]",_side]};
+	if (paramHandleFF) then {Call Compile Format ["_site addEventHandler ['handleDamage',{[_this select 0,_this select 2,_this select 3, %1] Call BuildingHandleDamages}]",_side]};
 	
 	//--- base area limits.
-	if (baseArea) then {
+	if (paramBaseArea) then {
 		_update = true;
 		_areas = WF_Logic getVariable Format['%1Area',str _side];
 		_near = [_position,_areas] Call SortByDistance;
@@ -45,6 +45,8 @@ if (!_deployed) then {
 			WF_Logic setVariable [Format['%1Area',str _side],_areas + [_logic],true];
 		};
 	};
+	
+	diag_log Format["[WFBE (INFORMATION)] Construction_HQSite: The %1 MHQ (%2) was deployed",str _side,_type];
 	
 	deleteVehicle _HQ;
 } else {
@@ -64,10 +66,12 @@ if (!_deployed) then {
 	
 	["Constructed",_HQName,_side] Spawn SideMessage;
 	Call Compile Format ["_MHQ AddEventHandler [""killed"",{[_this select 0,_this select 1,%1,'%2'] Spawn HQKilled}];",_side,typeOf _MHQ];
-	if (handleFF) then {Call Compile Format ["_MHQ addEventHandler ['handleDamage',{[_this select 0,_this select 2,_this select 3, %1] Call BuildingHandleDamages}]",_side]};
+	if (paramHandleFF) then {Call Compile Format ["_MHQ addEventHandler ['handleDamage',{[_this select 0,_this select 2,_this select 3, %1] Call BuildingHandleDamages}]",_side]};
 	
 	_MHQ setVehicleInit Format["['Headquarters','ColorGreen',[1,1],'','HQUndeployed',this,0.2,false,'','',false,%1] ExecVM 'Common\Common_MarkerUpdate.sqf';",_side];
 	processInitCommands;
+	
+	diag_log Format["[WFBE (INFORMATION)] Construction_HQSite: The %1 MHQ (%2) was mobilized",str _side,_HQName];
 	
 	deleteVehicle _HQ;
 };

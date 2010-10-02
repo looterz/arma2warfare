@@ -187,7 +187,9 @@ class FSM
        "		hint Format[localize ""STR_WF_Supply_Equal"",_name,_currentSV,_maxSV];" \n
        "		_SV = _currentSV;" \n
        "	};" \n
-       "	[CMDREQUESTCHANGESCORE,player,score player + _spsp] Spawn CommandToServer;" \n
+	   "	WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + _spsp]];" \n
+	   "	publicVariable 'WFBE_RequestChangeScore';" \n
+	   "	if !(isMultiplayer) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + _spsp]] Spawn HandleSPVF};" \n
        "};"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links

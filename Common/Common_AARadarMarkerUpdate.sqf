@@ -19,7 +19,6 @@ _markerName setMarkerAlphaLocal 0;
 _height = 'WFBE_ANTIAIRRADARDETECTION' Call GetNamespace;
 
 while {alive _object && !(isNull _object)} do {
-	sleep 1;
 	if (antiAirRadarInRange) then {
 		_zOffset = (getPos _object) select 2;
 		if (_zOffset > _height) then {
@@ -29,6 +28,8 @@ while {alive _object && !(isNull _object)} do {
 			_markerName setMarkerAlphaLocal 0;
 		};
 	};
+	
+	sleep 1;
 };
 
 deleteMarkerLocal _markerName;

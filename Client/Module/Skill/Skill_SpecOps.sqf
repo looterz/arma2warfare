@@ -39,7 +39,9 @@ if (!_skip) then {
 	if (_ran <= _min) then {
 		//--- Unlocked, gain experience.
 		if (lockpickChance > -51) then {lockpickChance = lockpickChance - 1};
-		[CMDREQUESTVEHICLELOCK,_vehicle,false] Spawn CommandToServer;
+		WFBE_RequestVehicleLock = ['SRVFNCREQUESTVEHICLELOCK',[_vehicle,false]];
+		publicVariable 'WFBE_RequestVehicleLock';
+		if !(isMultiplayer) then {['SRVFNCREQUESTVEHICLELOCK',[_vehicle,false]] Spawn HandleSPVF};
 		hint (localize "STR_WF_Action_Lockpick_Succeed");
 	} else {
 		hint (localize "STR_WF_Action_Lockpick_Failed");

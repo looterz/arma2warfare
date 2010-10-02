@@ -3,6 +3,19 @@
 	  Only one side gear is defined at a time. west don't know east and vice versa.
 */
 
+/* Backpacks */
+['WFBE_BACKPACKS',
+ ['US_UAV_Pack_EP1','US_Assault_Pack_EP1','US_Assault_Pack_Ammo_EP1','US_Assault_Pack_AmmoSAW_EP1','US_Assault_Pack_AT_EP1','US_Assault_Pack_Explosives_EP1','US_Patrol_Pack_EP1',
+ 'US_Patrol_Pack_Ammo_EP1','US_Patrol_Pack_Specops_EP1','US_Backpack_EP1','US_Backpack_AmmoMG_EP1','US_Backpack_AT_EP1','US_Backpack_Specops_EP1','DE_Backpack_Specops_EP1',
+ 'CZ_Backpack_EP1','CZ_Backpack_Ammo_EP1','CZ_Backpack_Specops_EP1','CZ_Backpack_AmmoMG_EP1','CZ_VestPouch_EP1','CZ_VestPouch_Sa58_EP1','CZ_VestPouch_M4_EP1',
+ 'TK_RPG_Backpack_EP1','TK_ALICE_Pack_EP1','TK_ALICE_Pack_Explosives_EP1','TK_ALICE_Pack_AmmoMG_EP1','TKA_ALICE_Pack_Ammo_EP1','TKG_ALICE_Pack_AmmoAK47_EP1','TKG_ALICE_Pack_AmmoAK74_EP1',
+ 'TK_Assault_Pack_EP1','TK_Assault_Pack_RPK_EP1','TKA_Assault_Pack_Ammo_EP1','Tripod_Bag','M2HD_mini_TriPod_US_Bag_EP1','M2StaticMG_US_Bag_EP1','MK19_TriPod_US_Bag_EP1',
+ 'TOW_TriPod_US_Bag_EP1','M252_US_Bag_EP1','BAF_AssaultPack_ARAmmo','BAF_AssaultPack_MGAmmo','BAF_AssaultPack_ATAmmo','BAF_AssaultPack_HATAmmo','BAF_AssaultPack_Special',
+ 'BAF_AssaultPack_FAC','BAF_AssaultPack_HAAAmmo','BAF_AssaultPack_LRRAmmo','BAF_AssaultPack_RifleAmmo','BAF_L2A1_ACOG_minitripod_bag','BAF_L2A1_ACOG_tripod_bag',
+ 'BAF_GPMG_Minitripod_D_bag','BAF_GMG_ACOG_minitripod_bag'
+ ]
+,true] Call SetNamespace;
+
 /* Vanilla */
 if (WF_A2_Vanilla) then {
 	//*** WEST ***//
@@ -2055,7 +2068,7 @@ if (WF_A2_Arrowhead) then {
 			_l = _l + [0];
 			_b = _b + [true];			
 			
-			_m = _m + ["20rnd_762x51_SB_SCAR"];
+			_m = _m + ["20Rnd_762x51_SB_SCAR"];
 			_c = _c + [8];
 			_r = _r + [false];
 			_t = _t + ['primary'];
@@ -2146,13 +2159,6 @@ if (WF_A2_Arrowhead) then {
 			_l = _l + [0];
 			_b = _b + [true];
 
-			_m = _m + ["Dragon_EP1"];
-			_c = _c + [220];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["Javelin"];
 			_c = _c + [300];
 			_r = _r + [false];
@@ -2201,6 +2207,36 @@ if (WF_A2_Arrowhead) then {
 			_t = _t + ['sidearm'];
 			_l = _l + [0];
 			_b = _b + [true];
+			
+			if (paramDLCBAF) then {
+				_m = _m + ["5Rnd_127x99_AS50"];
+				_c = _c + [12];
+				_r = _r + [false];
+				_t = _t + ['primary'];
+				_l = _l + [0];
+				_b = _b + [true];
+				
+				_m = _m + ["5Rnd_86x70_L115A1"];
+				_c = _c + [8];
+				_r = _r + [false];
+				_t = _t + ['primary'];
+				_l = _l + [0];
+				_b = _b + [true];
+				
+				_m = _m + ["200Rnd_556x45_L110A1"];
+				_c = _c + [18];
+				_r = _r + [false];
+				_t = _t + ['primary'];
+				_l = _l + [0];
+				_b = _b + [true];
+				
+				_m = _m + ["NLAW"];
+				_c = _c + [170];
+				_r = _r + [false];
+				_t = _t + ['secondary'];
+				_l = _l + [0];
+				_b = _b + [false];
+			};
 
 			_p = [];
 			_d = [];
@@ -2438,9 +2474,10 @@ if (WF_A2_Arrowhead) then {
 			_l = _l + [1];
 			_b = _b + [true];
 
+			//--- BIS CFG Bug, Config = 20rnd_762x51_SB_SCAR & In Gear = 20Rnd_762x51_SB_SCAR (r R).
 			_w = _w + ['SCAR_H_CQC_CCO_SD'];
 			_c = _c + [270];
-			_a = _a + [true];
+			_a = _a + [['20Rnd_762x51_SB_SCAR']];
 			_l = _l + [2];
 			_b = _b + [true];
 
@@ -2458,15 +2495,101 @@ if (WF_A2_Arrowhead) then {
 
 			_w = _w + ['SCAR_H_LNG_Sniper_SD'];
 			_c = _c + [345];
-			_a = _a + [true];
+			_a = _a + [['20Rnd_762x51_SB_SCAR']];
 			_l = _l + [3];
 			_b = _b + [true];
 
 			_w = _w + ['SCAR_H_STD_TWS_SD'];
 			_c = _c + [395];
-			_a = _a + [true];
+			_a = _a + [['20Rnd_762x51_SB_SCAR']];
 			_l = _l + [3];
 			_b = _b + [true];
+			
+			if (paramDLCBAF) then {
+				_w = _w + ['BAF_AS50_scoped'];
+				_c = _c + [380];
+				_a = _a + [true];
+				_l = _l + [1];
+				_b = _b + [true];
+				
+				_w = _w + ['BAF_AS50_TWS'];
+				_c = _c + [440];
+				_a = _a + [true];
+				_l = _l + [3];
+				_b = _b + [false];
+				
+				_w = _w + ['BAF_LRR_scoped'];
+				_c = _c + [320];
+				_a = _a + [true];
+				_l = _l + [2];
+				_b = _b + [true];
+				
+				_w = _w + ['BAF_LRR_scoped_W'];
+				_c = _c + [290];
+				_a = _a + [true];
+				_l = _l + [1];
+				_b = _b + [true];
+				
+				_w = _w + ['BAF_L85A2_RIS_Holo'];
+				_c = _c + [240];
+				_a = _a + [true];
+				_l = _l + [1];
+				_b = _b + [true];
+				
+				_w = _w + ['BAF_L85A2_UGL_Holo'];
+				_c = _c + [260];
+				_a = _a + [true];
+				_l = _l + [2];
+				_b = _b + [true];
+				
+				_w = _w + ['BAF_L85A2_RIS_SUSAT'];
+				_c = _c + [250];
+				_a = _a + [true];
+				_l = _l + [1];
+				_b = _b + [true];
+				
+				_w = _w + ['BAF_L85A2_UGL_SUSAT'];
+				_c = _c + [270];
+				_a = _a + [true];
+				_l = _l + [2];
+				_b = _b + [true];
+				
+				_w = _w + ['BAF_L85A2_RIS_ACOG'];
+				_c = _c + [260];
+				_a = _a + [true];
+				_l = _l + [1];
+				_b = _b + [true];
+				
+				_w = _w + ['BAF_L85A2_UGL_ACOG'];
+				_c = _c + [280];
+				_a = _a + [true];
+				_l = _l + [2];
+				_b = _b + [true];
+				
+				_w = _w + ['BAF_L85A2_RIS_CWS'];
+				_c = _c + [340];
+				_a = _a + [true];
+				_l = _l + [2];
+				_b = _b + [false];
+				
+				_w = _w + ['BAF_L86A2_ACOG'];
+				_c = _c + [305];
+				_a = _a + [true];
+				_l = _l + [2];
+				_b = _b + [true];
+				
+				_w = _w + ['BAF_L110A1_Aim'];
+				_c = _c + [310];
+				_a = _a + [true];
+				_l = _l + [3];
+				_b = _b + [false];
+				
+				_w = _w + ['BAF_L7A2_GPMG'];
+				_c = _c + [285];
+				_a = _a + [true];
+				_l = _l + [0];
+				_b = _b + [true];
+			};
 
 			_p = [];
 			_d = [];
@@ -2511,12 +2634,14 @@ if (WF_A2_Arrowhead) then {
 			_a = _a + [true];
 			_l = _l + [2];
 			_b = _b + [false];
-
-			_w = _w + ['M47Launcher_EP1'];
-			_c = _c + [450];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
+			
+			if (paramDLCBAF) then {
+				_w = _w + ['BAF_NLAW_Launcher'];
+				_c = _c + [370];
+				_a = _a + [true];
+				_l = _l + [2];
+				_b = _b + [false];
+			};
 
 			_w = _w + ['Javelin'];
 			_c = _c + [650];
@@ -2535,6 +2660,99 @@ if (WF_A2_Arrowhead) then {
 			_a = _a + [true];
 			_l = _l + [3];
 			_b = _b + [true];
+			
+			/* Not all units are able to carry a backpack */
+			_get = getNumber(configFile >> 'CfgVehicles' >> typeOf player >> 'canCarryBackPack');
+			
+			if (_get == 1) then {
+				_w = _w + ['US_Assault_Pack_EP1'];
+				_c = _c + [80];
+				_a = _a + [-1];
+				_l = _l + [1];
+				_b = _b + [true];
+				
+				_w = _w + ['US_Patrol_Pack_EP1'];
+				_c = _c + [70];
+				_a = _a + [-1];
+				_l = _l + [0];
+				_b = _b + [true];
+				
+				_w = _w + ['US_Backpack_EP1'];
+				_c = _c + [90];
+				_a = _a + [-1];
+				_l = _l + [2];
+				_b = _b + [true];
+				
+				if (paramDLCBAF) then {
+					_w = _w + ['BAF_AssaultPack_RifleAmmo'];
+					_c = _c + [95];
+					_a = _a + [-1];
+					_l = _l + [2];
+					_b = _b + [true];
+				};
+				
+				_w = _w + ['Tripod_Bag'];
+				_c = _c + [40];
+				_a = _a + [-1];
+				_l = _l + [0];
+				_b = _b + [false];
+				
+				if (paramDLCBAF) then {
+					_w = _w + ['BAF_L2A1_ACOG_minitripod_bag'];
+					_c = _c + [165];
+					_a = _a + [-1];
+					_l = _l + [1];
+					_b = _b + [false];
+					
+					_w = _w + ['BAF_L2A1_ACOG_tripod_bag'];
+					_c = _c + [175];
+					_a = _a + [-1];
+					_l = _l + [1];
+					_b = _b + [false];
+					
+					_w = _w + ['BAF_GPMG_Minitripod_D_bag'];
+					_c = _c + [225];
+					_a = _a + [-1];
+					_l = _l + [0];
+					_b = _b + [false];
+					
+					_w = _w + ['BAF_GMG_ACOG_minitripod_bag'];
+					_c = _c + [235];
+					_a = _a + [-1];
+					_l = _l + [1];
+					_b = _b + [false];
+				};
+
+				_w = _w + ['M2HD_mini_TriPod_US_Bag_EP1'];
+				_c = _c + [155];
+				_a = _a + [-1];
+				_l = _l + [0];
+				_b = _b + [false];
+				
+				_w = _w + ['M2StaticMG_US_Bag_EP1'];
+				_c = _c + [190];
+				_a = _a + [-1];
+				_l = _l + [0];
+				_b = _b + [false];
+				
+				_w = _w + ['MK19_TriPod_US_Bag_EP1'];
+				_c = _c + [450];
+				_a = _a + [-1];
+				_l = _l + [1];
+				_b = _b + [false];
+
+				_w = _w + ['TOW_TriPod_US_Bag_EP1'];
+				_c = _c + [600];
+				_a = _a + [-1];
+				_l = _l + [2];
+				_b = _b + [false];
+
+				_w = _w + ['M252_US_Bag_EP1'];
+				_c = _c + [750];
+				_a = _a + [-1];
+				_l = _l + [1];
+				_b = _b + [false];
+			};
 
 			_p = [];
 			_d = [];
@@ -2542,18 +2760,24 @@ if (WF_A2_Arrowhead) then {
 			_u = 0;
 
 			{
-				_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
-				//--- Custom override, nested array.
-				if (typeName(_a select _u) == 'BOOL') then {
-					_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
-					_artm = _tm;
-					{
-						if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
-					} forEach _tm;
-					_s = _s + [_artm];
+				if (typeName(_a select _u) == 'SCALAR') then {
+					_p = _p + [getText(configFile >> 'CfgVehicles' >> _x >> 'picture')];
+					_d = _d + [getText(configFile >> 'CfgVehicles' >> _x >> 'displayName')];
+					_s = _s + [[]];
 				} else {
-					_s = _s + [_a select _u];
+					_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
+					_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
+					//--- Custom override, nested array.
+					if (typeName(_a select _u) == 'BOOL') then {
+						_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
+						_artm = _tm;
+						{
+							if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
+						} forEach _tm;
+						_s = _s + [_artm];
+					} else {
+						_s = _s + [_a select _u];
+					};
 				};
 				_u = _u + 1;
 			} forEach _w;
@@ -2630,6 +2854,15 @@ if (WF_A2_Arrowhead) then {
 			_r = [false];
 			_l = [0];
 			_b =  [true];
+
+			if (paramDLCBAF) then {
+				_w = _w + ['BAF_L109A1_HE'];
+				_c = _c + [12];
+				_t = _t + ['CfgMagazines'];
+				_r = _r + [false];
+				_l = _l + [0];
+				_b = _b + [true];
+			};
 
 			_w = _w + ['HandGrenade_Stone'];
 			_c = _c + [2];
@@ -2900,7 +3133,7 @@ if (WF_A2_Arrowhead) then {
 			_p = _p + [getText(configFile >> 'CfgWeapons' >> 'SCAR_H_STD_EGLM_Spect' >> 'picture')];
 			_t = _t + [['SCAR_H_STD_EGLM_Spect','MAAWS']];
 			_m = _m + [['20rnd_762x51_B_SCAR','20rnd_762x51_B_SCAR','20rnd_762x51_B_SCAR','20rnd_762x51_B_SCAR','20rnd_762x51_B_SCAR','20rnd_762x51_B_SCAR','MAAWS_HEAT',
-				'MAAWS_HEAT','MAAWS_HEDP','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203']];
+				'MAAWS_HEAT','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203']];
 			_s = _s + [['Binocular','NVGoggles']];
 			_i = _i + [_items];
 			_l = _l + [3];
@@ -2909,7 +3142,7 @@ if (WF_A2_Arrowhead) then {
 			_d = _d + [getText(configFile >> 'CfgWeapons' >> 'SCAR_L_STD_HOLO' >> 'displayName') + '/' + getText(configFile >> 'CfgWeapons' >> 'MAAWS' >> 'displayName') + '/' + getText(configFile >> 'CfgWeapons' >> 'M9' >> 'displayName')];
 			_p = _p + [getText(configFile >> 'CfgWeapons' >> 'SCAR_L_STD_HOLO' >> 'picture')];
 			_t = _t + [['SCAR_L_STD_HOLO','MAAWS','M9']];
-			_m = _m + [['30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','MAAWS_HEAT','MAAWS_HEAT','MAAWS_HEDP',
+			_m = _m + [['30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','MAAWS_HEAT','MAAWS_HEAT',
 				'15Rnd_9x19_M9','15Rnd_9x19_M9','15Rnd_9x19_M9','15Rnd_9x19_M9','15Rnd_9x19_M9','15Rnd_9x19_M9','15Rnd_9x19_M9','15Rnd_9x19_M9']];
 			_s = _s + [['Binocular','NVGoggles']];
 			_i = _i + [_items];
@@ -2949,7 +3182,7 @@ if (WF_A2_Arrowhead) then {
 			_d = _d + [getText(configFile >> 'CfgWeapons' >> 'SCAR_H_CQC_CCO_SD' >> 'displayName') + '/' + getText(configFile >> 'CfgWeapons' >> 'M9SD' >> 'displayName') + '/' + getText(configFile >> 'CfgMagazines' >> 'PipeBomb' >> 'displayName')];
 			_p = _p + [getText(configFile >> 'CfgWeapons' >> 'SCAR_H_CQC_CCO_SD' >> 'picture')];
 			_t = _t + [['SCAR_H_CQC_CCO_SD','M9SD']];
-			_m = _m + [['20rnd_762x51_SB_SCAR','20rnd_762x51_SB_SCAR','20rnd_762x51_SB_SCAR','20rnd_762x51_SB_SCAR','20rnd_762x51_SB_SCAR','20rnd_762x51_SB_SCAR','PipeBomb','PipeBomb','PipeBomb',
+			_m = _m + [['20Rnd_762x51_SB_SCAR','20Rnd_762x51_SB_SCAR','20Rnd_762x51_SB_SCAR','20Rnd_762x51_SB_SCAR','20Rnd_762x51_SB_SCAR','20Rnd_762x51_SB_SCAR','PipeBomb','PipeBomb','PipeBomb',
 				'15Rnd_9x19_M9SD','15Rnd_9x19_M9SD','15Rnd_9x19_M9SD','15Rnd_9x19_M9SD','15Rnd_9x19_M9SD','15Rnd_9x19_M9SD','15Rnd_9x19_M9SD','15Rnd_9x19_M9SD']];
 			_s = _s + [['Binocular','NVGoggles']];
 			_i = _i + [_items];
@@ -3076,16 +3309,16 @@ if (WF_A2_Arrowhead) then {
 		['WFBE_WESTLEADERAMMO13',['20Rnd_762x51_DMR','20Rnd_762x51_DMR','20Rnd_762x51_DMR','20Rnd_762x51_DMR','20Rnd_762x51_DMR','20Rnd_762x51_DMR','20Rnd_762x51_DMR','20Rnd_762x51_DMR','20Rnd_762x51_DMR','20Rnd_762x51_DMR','HandGrenade_West','HandGrenade_West','15Rnd_9x19_M9SD','15Rnd_9x19_M9SD','15Rnd_9x19_M9SD','15Rnd_9x19_M9SD'],true] Call SetNamespace;
 		//--- Upgrade 2.
 		['WFBE_WESTLEADERWEAPONS21',['SCAR_L_STD_HOLO','MAAWS','Colt1911','Binocular','NVGoggles','ItemRadio','ItemMap'],true] Call SetNamespace;
-		['WFBE_WESTLEADERAMMO21',['30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','MAAWS_HEAT','MAAWS_HEAT','MAAWS_HEDP','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911'],true] Call SetNamespace;
+		['WFBE_WESTLEADERAMMO21',['30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','MAAWS_HEAT','MAAWS_HEAT','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911'],true] Call SetNamespace;
 		['WFBE_WESTLEADERWEAPONS22',['G36C_camo','MAAWS','Colt1911','Binocular','NVGoggles','ItemRadio','ItemMap'],true] Call SetNamespace;
-		['WFBE_WESTLEADERAMMO22',['30Rnd_556x45_G36','30Rnd_556x45_G36','30Rnd_556x45_G36','30Rnd_556x45_G36','30Rnd_556x45_G36','30Rnd_556x45_G36','MAAWS_HEAT','MAAWS_HEAT','MAAWS_HEDP','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911'],true] Call SetNamespace;
+		['WFBE_WESTLEADERAMMO22',['30Rnd_556x45_G36','30Rnd_556x45_G36','30Rnd_556x45_G36','30Rnd_556x45_G36','30Rnd_556x45_G36','30Rnd_556x45_G36','MAAWS_HEAT','MAAWS_HEAT','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911'],true] Call SetNamespace;
 		['WFBE_WESTLEADERWEAPONS23',['MG36_camo','Colt1911','Binocular','NVGoggles','ItemRadio','ItemMap'],true] Call SetNamespace;
 		['WFBE_WESTLEADERAMMO23',['100Rnd_556x45_BetaCMag','100Rnd_556x45_BetaCMag','100Rnd_556x45_BetaCMag','100Rnd_556x45_BetaCMag','100Rnd_556x45_BetaCMag','HandGrenade_West','HandGrenade_West','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911'],true] Call SetNamespace;
 		//--- Upgrade 3.
 		['WFBE_WESTLEADERWEAPONS31',['SCAR_L_CQC_EGLM_Holo','MAAWS','Binocular','NVGoggles','ItemRadio','ItemMap'],true] Call SetNamespace;
-		['WFBE_WESTLEADERAMMO31',['30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','MAAWS_HEAT','MAAWS_HEAT','MAAWS_HEDP','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203'],true] Call SetNamespace;
+		['WFBE_WESTLEADERAMMO31',['30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','MAAWS_HEAT','MAAWS_HEAT','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203'],true] Call SetNamespace;
 		['WFBE_WESTLEADERWEAPONS32',['SCAR_H_STD_EGLM_Spect','Javelin','Colt1911','Binocular','NVGoggles','ItemRadio','ItemMap'],true] Call SetNamespace;
-		['WFBE_WESTLEADERAMMO32',['20rnd_762x51_SB_SCAR','20rnd_762x51_SB_SCAR','20rnd_762x51_SB_SCAR','20rnd_762x51_SB_SCAR','20rnd_762x51_SB_SCAR','20rnd_762x51_SB_SCAR','Javelin','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911'],true] Call SetNamespace;
+		['WFBE_WESTLEADERAMMO32',['20Rnd_762x51_SB_SCAR','20Rnd_762x51_SB_SCAR','20Rnd_762x51_SB_SCAR','20Rnd_762x51_SB_SCAR','20Rnd_762x51_SB_SCAR','20Rnd_762x51_SB_SCAR','Javelin','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911'],true] Call SetNamespace;
 		['WFBE_WESTLEADERWEAPONS33',['Mk_48_DES_EP1','Colt1911','Binocular','NVGoggles','ItemRadio','ItemMap'],true] Call SetNamespace;
 		['WFBE_WESTLEADERAMMO33',['100Rnd_762x51_M240','100Rnd_762x51_M240','100Rnd_762x51_M240','100Rnd_762x51_M240','100Rnd_762x51_M240','HandGrenade_West','HandGrenade_West','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911'],true] Call SetNamespace;
 	};
@@ -3103,14 +3336,14 @@ if (WF_A2_Arrowhead) then {
 			_t = ['primary'];
 			_l = [0];
 			_b = [true];
-			
-			_m = ["30Rnd_556x45_Stanag"];
-			_c = [5];
-			_r = [false];
-			_t = ['primary'];
-			_l = [0];
-			_b = [true];
 
+			_m = _m + ["30Rnd_556x45_Stanag"];
+			_c = _c + [5];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+			
 			_m = _m + ["30Rnd_545x39_AK"];
 			_c = _c + [4];
 			_r = _r + [false];
@@ -3204,6 +3437,13 @@ if (WF_A2_Arrowhead) then {
 
 			_m = _m + ["RPG18"];
 			_c = _c + [50];
+			_r = _r + [false];
+			_t = _t + ['secondary'];
+			_l = _l + [0];
+			_b = _b + [true];
+			
+			_m = _m + ["Dragon_EP1"];
+			_c = _c + [220];
 			_r = _r + [false];
 			_t = _t + ['secondary'];
 			_l = _l + [0];
@@ -3508,6 +3748,12 @@ if (WF_A2_Arrowhead) then {
 			_a = _a + [true];
 			_l = _l + [0];
 			_b = _b + [true];
+			
+			_w = _w + ['M47Launcher_EP1'];
+			_c = _c + [325];
+			_a = _a + [true];
+			_l = _l + [2];
+			_b = _b + [false];
 
 			_w = _w + ['MetisLauncher'];
 			_c = _c + [460];
@@ -3532,6 +3778,71 @@ if (WF_A2_Arrowhead) then {
 			_a = _a + [true];
 			_l = _l + [3];
 			_b = _b + [true];
+			
+			/* Not all units are able to carry a backpack */
+			_get = getNumber(configFile >> 'CfgVehicles' >> typeOf player >> 'canCarryBackPack');
+			
+			if (_get == 1) then {
+				_w = _w + ['TK_Assault_Pack_EP1'];
+				_c = _c + [80];
+				_a = _a + [-1];
+				_l = _l + [1];
+				_b = _b + [true];
+				
+				_w = _w + ['TK_RPG_Backpack_EP1'];
+				_c = _c + [70];
+				_a = _a + [-1];
+				_l = _l + [0];
+				_b = _b + [true];
+				
+				_w = _w + ['TK_ALICE_Pack_EP1'];
+				_c = _c + [90];
+				_a = _a + [-1];
+				_l = _l + [2];
+				_b = _b + [true];
+				
+				_w = _w + ['Tripod_Bag'];
+				_c = _c + [40];
+				_a = _a + [-1];
+				_l = _l + [0];
+				_b = _b + [false];
+
+				_w = _w + ['KORD_TK_Bag_EP1'];
+				_c = _c + [155];
+				_a = _a + [-1];
+				_l = _l + [0];
+				_b = _b + [false];
+				
+				_w = _w + ['KORD_high_TK_Bag_EP1'];
+				_c = _c + [190];
+				_a = _a + [-1];
+				_l = _l + [0];
+				_b = _b + [false];
+				
+				_w = _w + ['SPG9_TK_INS_Bag_EP1'];
+				_c = _c + [410];
+				_a = _a + [-1];
+				_l = _l + [1];
+				_b = _b + [false];		
+				
+				_w = _w + ['AGS_TK_Bag_EP1'];
+				_c = _c + [490];
+				_a = _a + [-1];
+				_l = _l + [1];
+				_b = _b + [false];
+
+				_w = _w + ['Metis_TK_Bag_EP1'];
+				_c = _c + [600];
+				_a = _a + [-1];
+				_l = _l + [2];
+				_b = _b + [false];
+
+				_w = _w + ['2b14_82mm_TK_Bag_EP1'];
+				_c = _c + [750];
+				_a = _a + [-1];
+				_l = _l + [1];
+				_b = _b + [false];
+			};
 
 			_p = [];
 			_d = [];
@@ -3539,18 +3850,24 @@ if (WF_A2_Arrowhead) then {
 			_u = 0;
 
 			{
-				_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
-				//--- Custom override, nested array.
-				if (typeName(_a select _u) == 'BOOL') then {
-					_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
-					_artm = _tm;
-					{
-						if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
-					} forEach _tm;
-					_s = _s + [_artm];
+				if (typeName(_a select _u) == 'SCALAR') then {
+					_p = _p + [getText(configFile >> 'CfgVehicles' >> _x >> 'picture')];
+					_d = _d + [getText(configFile >> 'CfgVehicles' >> _x >> 'displayName')];
+					_s = _s + [[]];
 				} else {
-					_s = _s + [_a select _u];
+					_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
+					_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
+					//--- Custom override, nested array.
+					if (typeName(_a select _u) == 'BOOL') then {
+						_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
+						_artm = _tm;
+						{
+							if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
+						} forEach _tm;
+						_s = _s + [_artm];
+					} else {
+						_s = _s + [_a select _u];
+					};
 				};
 				_u = _u + 1;
 			} forEach _w;
@@ -3771,6 +4088,36 @@ if (WF_A2_Arrowhead) then {
 			_r = _r + [true];
 			_l = _l + [0];
 			_b = _b + [true];
+
+			if (paramDLCBAF) then {
+				_w = _w + ['BAF_ied_v1'];
+				_c = _c + [25];
+				_t = _t + ['CfgMagazines'];
+				_r = _r + [false];
+				_l = _l + [0];
+				_b = _b + [true];
+				
+				_w = _w + ['BAF_ied_v2'];
+				_c = _c + [35];
+				_t = _t + ['CfgMagazines'];
+				_r = _r + [false];
+				_l = _l + [1];
+				_b = _b + [true];
+				
+				_w = _w + ['BAF_ied_v3'];
+				_c = _c + [45];
+				_t = _t + ['CfgMagazines'];
+				_r = _r + [false];
+				_l = _l + [2];
+				_b = _b + [true];
+				
+				_w = _w + ['BAF_ied_v4'];
+				_c = _c + [55];
+				_t = _t + ['CfgMagazines'];
+				_r = _r + [false];
+				_l = _l + [2];
+				_b = _b + [true];
+			};
 
 			_w = _w + ['MineE'];
 			_c = _c + [40];
@@ -4104,7 +4451,6 @@ if (WF_A2_CombinedOps) then {
 					_l define the upgrade level required to display the ammo.
 					_b define whether the ammunition shall displayed or not if advanced camp gear parameter is on.
 			*/
-
 			_m = ["30Rnd_556x45_Stanag"];
 			_c = [5];
 			_r = [false];
@@ -4117,8 +4463,22 @@ if (WF_A2_CombinedOps) then {
 			_r = _r + [false];
 			_t = _t + ['primary'];
 			_l = _l + [0];
-			_b = _b + [true];			
-						
+			_b = _b + [true];
+			
+			_m = _m + ["20Rnd_556x45_Stanag"];
+			_c = _c + [5];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+			
+			_m = _m + ["20Rnd_556x45_Stanag"];
+			_c = _c + [5];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+			
 			_m = _m + ["30Rnd_556x45_G36"];
 			_c = _c + [6];
 			_r = _r + [false];
@@ -4153,13 +4513,6 @@ if (WF_A2_CombinedOps) then {
 			_t = _t + ['primary'];
 			_l = _l + [0];
 			_b = _b + [true];
-
-			_m = _m + ["8Rnd_B_Beneli_74Slug"];
-			_c = _c + [6];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
 			
 			_m = _m + ["10Rnd_127x99_m107"];
 			_c = _c + [18];
@@ -4189,6 +4542,27 @@ if (WF_A2_CombinedOps) then {
 			_l = _l + [0];
 			_b = _b + [true];
 			
+			_m = _m + ["30Rnd_9x19_MP5"];
+			_c = _c + [3];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+			
+			_m = _m + ["30Rnd_9x19_MP5SD"];
+			_c = _c + [4];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+			
+			_m = _m + ["8Rnd_B_Beneli_74Slug"];
+			_c = _c + [6];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+			
 			_m = _m + ["20Rnd_762x51_B_SCAR"];
 			_c = _c + [6];
 			_r = _r + [false];
@@ -4203,7 +4577,7 @@ if (WF_A2_CombinedOps) then {
 			_l = _l + [0];
 			_b = _b + [true];			
 			
-			_m = _m + ["20rnd_762x51_SB_SCAR"];
+			_m = _m + ["20Rnd_762x51_SB_SCAR"];
 			_c = _c + [8];
 			_r = _r + [false];
 			_t = _t + ['primary'];
@@ -4274,49 +4648,35 @@ if (WF_A2_CombinedOps) then {
 			_b = _b + [true];
 
 			_m = _m + ["M136"];
-			_c = _c + [100];
+			_c = _c + [50];
+			_r = _r + [false];
+			_t = _t + ['secondary'];
+			_l = _l + [0];
+			_b = _b + [true];
+			
+			_m = _m + ["MAAWS_HEAT"];
+			_c = _c + [135];
+			_r = _r + [false];
+			_t = _t + ['secondary'];
+			_l = _l + [0];
+			_b = _b + [true];
+			
+			_m = _m + ["MAAWS_HEDP"];
+			_c = _c + [150];
 			_r = _r + [false];
 			_t = _t + ['secondary'];
 			_l = _l + [0];
 			_b = _b + [true];
 
-			_m = _m + ["SMAW_HEAA"];
-			_c = _c + [175];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [1];
-			_b = _b + [false];
-			
-			_m = _m + ["SMAW_HEDP"];
-			_c = _c + [200];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [3];
-			_b = _b + [false];
-			
-			_m = _m + ["MAAWS_HEAT"];
-			_c = _c + [250];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [2];
-			_b = _b + [true];
-			
-			_m = _m + ["MAAWS_HEDP"];
-			_c = _c + [300];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [3];
-			_b = _b + [true];
-
 			_m = _m + ["Javelin"];
-			_c = _c + [500];
+			_c = _c + [300];
 			_r = _r + [false];
 			_t = _t + ['secondary'];
 			_l = _l + [3];
 			_b = _b + [false];
 			
 			_m = _m + ["Stinger"];
-			_c = _c + [500];
+			_c = _c + [100];
 			_r = _r + [false];
 			_t = _t + ['secondary'];
 			_l = _l + [2];
@@ -4326,7 +4686,7 @@ if (WF_A2_CombinedOps) then {
 			_c = _c + [20];
 			_r = _r + [false];
 			_t = _t + ['secondary'];
-			_l = _l + [1];
+			_l = _l + [3];
 			_b = _b + [true];
 			
 			_m = _m + ["15Rnd_9x19_M9"];
@@ -4356,21 +4716,37 @@ if (WF_A2_CombinedOps) then {
 			_t = _t + ['sidearm'];
 			_l = _l + [0];
 			_b = _b + [true];
-			
-			_m = _m + ["30Rnd_9x19_UZI"];
-			_c = _c + [4];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
-			_m = _m + ["30Rnd_9x19_UZI_SD"];
-			_c = _c + [7];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
 
+			if (paramDLCBAF) then {
+				_m = _m + ["5Rnd_127x99_AS50"];
+				_c = _c + [12];
+				_r = _r + [false];
+				_t = _t + ['primary'];
+				_l = _l + [0];
+				_b = _b + [true];
+				
+				_m = _m + ["5Rnd_86x70_L115A1"];
+				_c = _c + [8];
+				_r = _r + [false];
+				_t = _t + ['primary'];
+				_l = _l + [0];
+				_b = _b + [true];
+				
+				_m = _m + ["200Rnd_556x45_L110A1"];
+				_c = _c + [18];
+				_r = _r + [false];
+				_t = _t + ['primary'];
+				_l = _l + [0];
+				_b = _b + [true];
+				
+				_m = _m + ["NLAW"];
+				_c = _c + [170];
+				_r = _r + [false];
+				_t = _t + ['secondary'];
+				_l = _l + [0];
+				_b = _b + [false];
+			};
+			
 			_p = [];
 			_d = [];
 			_s = [];
@@ -4409,403 +4785,493 @@ if (WF_A2_CombinedOps) then {
 				
 			*/
 
-			//--- SHOTGUNS
-
-			_w = ['M1014'];
-			_c = [100];
+			_w = ['M16A2'];
+			_c = [80];
 			_a = [true];
 			_l = [0];
 			_b = [true];
 
-			//--- SUBMACHINEGUNS
-		
-			_w = _w + ['MP5A5'];
-			_c = _c + [100];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
-			_w = _w + ['MP5SD'];
-			_c = _c + [110];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-			
-			//--- M16
-			
-			_w = _w + ['M16A2'];
-			_c = _c + [115];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['M16A2GL'];
-			_c = _c + [150];
+			_c = _c + [85];
+			_a = _a + [true];
+			_l = _l + [0];
+			_b = _b + [true];
+			
+			_w = _w + ['m16a4'];
+			_c = _c + [85];
+			_a = _a + [true];
+			_l = _l + [0];
+			_b = _b + [true];
+
+			_w = _w + ['m16a4_acg'];
+			_c = _c + [85];
 			_a = _a + [true];
 			_l = _l + [1];
 			_b = _b + [true];
 
 			_w = _w + ['M16A4_GL'];
-			_c = _c + [175];
+			_c = _c + [95];
+			_a = _a + [true];
+			_l = _l + [0];
+			_b = _b + [true];
+
+			_w = _w + ['M16A4_ACG_GL'];
+			_c = _c + [105];
 			_a = _a + [true];
 			_l = _l + [1];
 			_b = _b + [true];
 			
-			_w = _w + ['M16A4_ACG'];
-			_c = _c + [2];
+			_w = _w + ['M24'];
+			_c = _c + [175];
 			_a = _a + [true];
-			_l = _l + [180];
+			_l = _l + [0];
 			_b = _b + [true];
 			
-			_w = _w + ['M16A4_ACG_GL'];
+			_w = _w + ['M40A3'];
+			_c = _c + [195];
+			_a = _a + [true];
+			_l = _l + [2];
+			_b = _b + [false];
+
+			_w = _w + ['M24_des_EP1'];
+			_c = _c + [175];
+			_a = _a + [true];
+			_l = _l + [0];
+			_b = _b + [true];
+			
+			_w = _w + ['M240'];
+			_c = _c + [165];
+			_a = _a + [true];
+			_l = _l + [0];
+			_b = _b + [true];
+
+			_w = _w + ['m240_scoped_EP1'];
+			_c = _c + [185];
+			_a = _a + [true];
+			_l = _l + [0];
+			_b = _b + [true];
+			
+			_w = _w + ['M60A4_EP1'];
+			_c = _c + [180];
+			_a = _a + [true];
+			_l = _l + [1];
+			_b = _b + [true];
+
+			_w = _w + ['Mk_48'];
 			_c = _c + [225];
+			_a = _a + [true];
+			_l = _l + [3];
+			_b = _b + [false];
+			
+			_w = _w + ['Mk_48_DES_EP1'];
+			_c = _c + [225];
+			_a = _a + [true];
+			_l = _l + [3];
+			_b = _b + [false];
+
+			_w = _w + ['M249_EP1'];
+			_c = _c + [185];
+			_a = _a + [true];
+			_l = _l + [2];
+			_b = _b + [true];
+			
+			_w = _w + ['M249_TWS_EP1'];
+			_c = _c + [285];
+			_a = _a + [true];
+			_l = _l + [2];
+			_b = _b + [true];
+			
+			_w = _w + ['M249_m145_EP1'];
+			_c = _c + [205];
 			_a = _a + [true];
 			_l = _l + [3];
 			_b = _b + [true];
 
-			//--- M4
-			
 			_w = _w + ['M4A1'];
 			_c = _c + [120];
 			_a = _a + [true];
 			_l = _l + [0];
 			_b = _b + [true];
-						
+			
 			_w = _w + ['M4A1_Aim'];
+			_c = _c + [135];
+			_a = _a + [true];
+			_l = _l + [0];
+			_b = _b + [true];
+
+			_w = _w + ['M4A1_Aim_camo'];
 			_c = _c + [150];
 			_a = _a + [true];
+			_l = _l + [1];
+			_b = _b + [true];
+			
+			_w = _w + ['M4A1_RCO_GL'];
+			_c = _c + [175];
+			_a = _a + [true];
 			_l = _l + [2];
+			_b = _b + [true];
+
+			_w = _w + ['M4A1_AIM_SD_camo'];
+			_c = _c + [205];
+			_a = _a + [true];
+			_l = _l + [3];
+			_b = _b + [false];
+			
+			_w = _w + ['M4A1_HWS_GL_SD_Camo'];
+			_c = _c + [245];
+			_a = _a + [true];
+			_l = _l + [3];
+			_b = _b + [false];
+
+			_w = _w + ['M4A1_HWS_GL'];
+			_c = _c + [205];
+			_a = _a + [true];
+			_l = _l + [3];
+			_b = _b + [false];
+
+			_w = _w + ['M4A1_HWS_GL_camo'];
+			_c = _c + [225];
+			_a = _a + [true];
+			_l = _l + [3];
+			_b = _b + [false];
+			
+			_w = _w + ['M4SPR'];
+			_c = _c + [155];
+			_a = _a + [true];
+			_l = _l + [1];
 			_b = _b + [true];
 
 			_w = _w + ['M4A3_CCO_EP1'];
-			_c = _c + [165];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-					
-			_w = _w + ['M4A1_HWS_GL_camo'];
-			_c = _c + [205];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];
-
-			_w = _w + ['M4A1_HWS_GL_SD_Camo'];
-			_c = _c + [215];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];
-
-			_w = _w + ['M4A1_RCO_GL'];
-			_c = _c + [230];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];
-
-			_w = _w + ['M4A3_RCO_GL_EP1'];
-			_c = _c + [250];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];
-
-			//--- G36	
-			
-			_w = _w + ['G36C'];
-			_c = _c + [125];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_w = _w + ['G36C_camo'];
 			_c = _c + [130];
 			_a = _a + [true];
-			_l = _l + [0];
+			_l = _l + [1];
 			_b = _b + [true];
 			
-			_w = _w + ['G36K'];
-			_c = _c + [150];
+			_w = _w + ['M4A3_RCO_GL_EP1'];
+			_c = _c + [140];
+			_a = _a + [true];
+			_l = _l + [1];
+			_b = _b + [true];
+			
+			_w = _w + ['MP5SD'];
+			_c = _c + [115];
 			_a = _a + [true];
 			_l = _l + [1];
 			_b = _b + [true];
 
-			_w = _w + ['G36K_camo'];
-			_c = _c + [155];
+			_w = _w + ['MP5A5'];
+			_c = _c + [65];
 			_a = _a + [true];
-			_l = _l + [1];
+			_l = _l + [0];
+			_b = _b + [true];
+			
+			_w = _w + ['G36C'];
+			_c = _c + [225];
+			_a = _a + [true];
+			_l = _l + [0];
+			_b = _b + [true];
+			
+			_w = _w + ['G36C_camo'];
+			_c = _c + [225];
+			_a = _a + [true];
+			_l = _l + [0];
 			_b = _b + [true];
 			
 			_w = _w + ['G36_C_SD_eotech'];
-			_c = _c + [175];
+			_c = _c + [265];
 			_a = _a + [true];
 			_l = _l + [2];
-			_b = _b + [true];
+			_b = _b + [false];
 
 			_w = _w + ['G36_C_SD_camo'];
-			_c = _c + [185];
+			_c = _c + [265];
 			_a = _a + [true];
 			_l = _l + [2];
-			_b = _b + [true];
+			_b = _b + [false];
 			
 			_w = _w + ['G36a'];
-			_c = _c + [200];
+			_c = _c + [240];
 			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
+			_l = _l + [1];
+			_b = _b + [false];
 
 			_w = _w + ['G36A_camo'];
-			_c = _c + [205];
+			_c = _c + [240];
 			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
+			_l = _l + [1];
+			_b = _b + [false];
+			
+			_w = _w + ['G36K'];
+			_c = _c + [230];
+			_a = _a + [true];
+			_l = _l + [1];
+			_b = _b + [false];
+
+			_w = _w + ['G36K_camo'];
+			_c = _c + [230];
+			_a = _a + [true];
+			_l = _l + [1];
+			_b = _b + [false];
 			
 			_w = _w + ['MG36'];
-			_c = _c + [250];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
-			_w = _w + ['MG36_camo'];
-			_c = _c + [255];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-			
-			//--- XM8
-			
-			_w = _w + ['M8_compact'];
-			_c = _c + [135];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-			
-			_w = _w + ['M8_carbine'];
-			_c = _c + [155];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-			
-			_w = _w + ['M8_sharpshooter'];
-			_c = _c + [190];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-			
-			_w = _w + ['M8_carbineGL'];
-			_c = _c + [235];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];
-								
-			_w = _w + ['M8_SAW'];
-			_c = _c + [250];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];
-				
-			//--- SCAR
-			
-			_w = _w + ['SCAR_L_CQC'];
-			_c = _c + [150];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-			
-			_w = _w + ['SCAR_L_CQC_Holo'];
-			_c = _c + [175];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-						
-			_w = _w + ['SCAR_L_STD_HOLO'];
-			_c = _c + [185];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
-			_w = _w + ['SCAR_L_STD_Mk4CQT'];
-			_c = _c + [200];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
-			_w = _w + ['SCAR_L_CQC_CCO_SD'];
-			_c = _c + [225];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
-			_w = _w + ['SCAR_H_CQC_CCO'];
-			_c = _c + [250];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
-			_w = _w + ['SCAR_H_CQC_CCO_SD'];
 			_c = _c + [260];
 			_a = _a + [true];
 			_l = _l + [2];
-			_b = _b + [true];
+			_b = _b + [false];
+
+			_w = _w + ['MG36_camo'];
+			_c = _c + [260];
+			_a = _a + [true];
+			_l = _l + [2];
+			_b = _b + [false];
 			
-			_w = _w + ['SCAR_L_CQC_EGLM_Holo'];
-			_c = _c + [285];
+			_w = _w + ['DMR'];
+			_c = _c + [280];
+			_a = _a + [true];
+			_l = _l + [2];
+			_b = _b + [false];
+			
+			_w = _w + ['M32_EP1'];
+			_c = _c + [220];
+			_a = _a + [true];
+			_l = _l + [2];
+			_b = _b + [false];
+			
+			_w = _w + ['M79_EP1'];
+			_c = _c + [105];
+			_a = _a + [true];
+			_l = _l + [0];
+			_b = _b + [false];
+			
+			_w = _w + ['Mk13_EP1'];
+			_c = _c + [120];
+			_a = _a + [true];
+			_l = _l + [1];
+			_b = _b + [false];
+
+			_w = _w + ['M14_EP1'];
+			_c = _c + [280];
+			_a = _a + [true];
+			_l = _l + [2];
+			_b = _b + [false];
+
+			_w = _w + ['m107'];
+			_c = _c + [315];
 			_a = _a + [true];
 			_l = _l + [3];
+			_b = _b + [false];
+			
+			_w = _w + ['m107_TWS_EP1'];
+			_c = _c + [455];
+			_a = _a + [true];
+			_l = _l + [3];
+			_b = _b + [false];
+			
+			_w = _w + ['M110_TWS_EP1'];
+			_c = _c + [350];
+			_a = _a + [true];
+			_l = _l + [2];
+			_b = _b + [false];		
+			
+			_w = _w + ['M110_NVG_EP1'];
+			_c = _c + [295];
+			_a = _a + [true];
+			_l = _l + [2];
+			_b = _b + [false];
+			
+			_w = _w + ['SCAR_L_CQC'];
+			_c = _c + [210];
+			_a = _a + [true];
+			_l = _l + [0];
+			_b = _b + [true];
+
+			_w = _w + ['SCAR_L_CQC_Holo'];
+			_c = _c + [220];
+			_a = _a + [true];
+			_l = _l + [1];
+			_b = _b + [true];
+
+			_w = _w + ['SCAR_L_STD_Mk4CQT'];
+			_c = _c + [225];
+			_a = _a + [true];
+			_l = _l + [1];
 			_b = _b + [true];
 
 			_w = _w + ['SCAR_L_STD_EGLM_RCO'];
-			_c = _c + [300];
+			_c = _c + [230];
 			_a = _a + [true];
-			_l = _l + [3];
+			_l = _l + [1];
+			_b = _b + [true];
+
+			_w = _w + ['SCAR_L_CQC_EGLM_Holo'];
+			_c = _c + [245];
+			_a = _a + [true];
+			_l = _l + [1];
+			_b = _b + [true];
+
+			_w = _w + ['SCAR_L_STD_EGLM_TWS'];
+			_c = _c + [350];
+			_a = _a + [true];
+			_l = _l + [2];
+			_b = _b + [true];
+
+			_w = _w + ['SCAR_L_STD_HOLO'];
+			_c = _c + [250];
+			_a = _a + [true];
+			_l = _l + [1];
+			_b = _b + [true];
+
+			_w = _w + ['SCAR_H_CQC_CCO'];
+			_c = _c + [240];
+			_a = _a + [true];
+			_l = _l + [1];
+			_b = _b + [true];
+
+			_w = _w + ['SCAR_H_CQC_CCO_SD'];
+			_c = _c + [270];
+			_a = _a + [['20Rnd_762x51_SB_SCAR']];
+			_l = _l + [2];
 			_b = _b + [true];
 
 			_w = _w + ['SCAR_H_STD_EGLM_Spect'];
-			_c = _c + [325];
+			_c = _c + [280];
 			_a = _a + [true];
-			_l = _l + [3];
+			_l = _l + [2];
 			_b = _b + [true];
-											
+
 			_w = _w + ['SCAR_H_LNG_Sniper'];
-			_c = _c + [375];
+			_c = _c + [305];
 			_a = _a + [true];
-			_l = _l + [3];
+			_l = _l + [2];
 			_b = _b + [true];
 
 			_w = _w + ['SCAR_H_LNG_Sniper_SD'];
-			_c = _c + [390];
-			_a = _a + [true];
+			_c = _c + [345];
+			_a = _a + [['20Rnd_762x51_SB_SCAR']];
 			_l = _l + [3];
 			_b = _b + [true];
-			
-			_w = _w + ['SCAR_L_STD_EGLM_TWS'];
-			_c = _c + [450];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];
-			
+
 			_w = _w + ['SCAR_H_STD_TWS_SD'];
-			_c = _c + [550];
-			_a = _a + [true];
+			_c = _c + [395];
+			_a = _a + [['20Rnd_762x51_SB_SCAR']];
 			_l = _l + [3];
-			_b = _b + [true];	
-
-			//--- MACHINEGUNS
+			_b = _b + [true];
 			
-			_w = _w + ['M249'];
-			_c = _c + [250];
+			_w = _w + ['m8_carbine'];
+			_c = _c + [305];
 			_a = _a + [true];
-			_l = _l + [0];
+			_l = _l + [2];
 			_b = _b + [true];
 
-			_w = _w + ['M240'];
-			_c = _c + [280];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_w = _w + ['M60A4_EP1'];
-			_c = _c + [300];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_w = _w + ['M249_m145_EP1'];
+			_w = _w + ['m8_carbineGL'];
 			_c = _c + [325];
 			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-			
-			_w = _w + ['m240_scoped_EP1'];
-			_c = _c + [350];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-													
-			_w = _w + ['Mk_48'];
-			_c = _c + [375];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
-			_w = _w + ['Mk_48_DES_EP1'];
-			_c = _c + [380];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
-			_w = _w + ['M249_TWS_EP1'];
-			_c = _c + [500];
-			_a = _a + [true];
 			_l = _l + [3];
 			_b = _b + [true];
 
-			//--- SNIPER RIFLES
-			
-			_w = _w + ['M4SPR'];
-			_c = _c + [250];
+			_w = _w + ['m8_compact'];
+			_c = _c + [310];
 			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-					
-			_w = _w + ['M24'];
-			_c = _c + [275];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
+			_l = _l + [2];
+			_b = _b + [false];
 
-			_w = _w + ['M24_des_EP1'];
-			_c = _c + [280];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-					
-			_w = _w + ['M40A3'];
-			_c = _c + [325];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
-			_w = _w + ['M110_NVG_EP1'];
-			_c = _c + [350];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-			
-			_w = _w + ['M107'];
-			_c = _c + [400];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-						
-			_w = _w + ['M110_TWS_EP1'];
-			_c = _c + [475];
+			_w = _w + ['m8_sharpshooter'];
+			_c = _c + [315];
 			_a = _a + [true];
 			_l = _l + [3];
-			_b = _b + [true];
+			_b = _b + [false];
 
-			_w = _w + ['m107_TWS_EP1'];
-			_c = _c + [500];
+			_w = _w + ['m8_SAW'];
+			_c = _c + [355];
 			_a = _a + [true];
 			_l = _l + [3];
-			_b = _b + [true];
+			_b = _b + [false];
 			
-			//--- GRENADE LAUNCHERS
-			
-			_w = _w + ['M79_EP1'];
-			_c = _c + [175];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-			
-			_w = _w + ['Mk13_EP1'];
-			_c = _c + [300];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-					
-			_w = _w + ['M32_EP1'];
-			_c = _c + [500];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];
+			if (paramDLCBAF) then {
+				_w = _w + ['BAF_AS50_scoped'];
+				_c = _c + [380];
+				_a = _a + [true];
+				_l = _l + [1];
+				_b = _b + [true];
+				
+				_w = _w + ['BAF_AS50_TWS'];
+				_c = _c + [440];
+				_a = _a + [true];
+				_l = _l + [3];
+				_b = _b + [false];
+				
+				_w = _w + ['BAF_LRR_scoped'];
+				_c = _c + [320];
+				_a = _a + [true];
+				_l = _l + [2];
+				_b = _b + [true];
+				
+				_w = _w + ['BAF_LRR_scoped_W'];
+				_c = _c + [290];
+				_a = _a + [true];
+				_l = _l + [1];
+				_b = _b + [true];
+				
+				_w = _w + ['BAF_L85A2_RIS_Holo'];
+				_c = _c + [240];
+				_a = _a + [true];
+				_l = _l + [1];
+				_b = _b + [true];
+				
+				_w = _w + ['BAF_L85A2_UGL_Holo'];
+				_c = _c + [260];
+				_a = _a + [true];
+				_l = _l + [2];
+				_b = _b + [true];
+				
+				_w = _w + ['BAF_L85A2_RIS_SUSAT'];
+				_c = _c + [250];
+				_a = _a + [true];
+				_l = _l + [1];
+				_b = _b + [true];
+				
+				_w = _w + ['BAF_L85A2_UGL_SUSAT'];
+				_c = _c + [270];
+				_a = _a + [true];
+				_l = _l + [2];
+				_b = _b + [true];
+				
+				_w = _w + ['BAF_L85A2_RIS_ACOG'];
+				_c = _c + [260];
+				_a = _a + [true];
+				_l = _l + [1];
+				_b = _b + [true];
+				
+				_w = _w + ['BAF_L85A2_UGL_ACOG'];
+				_c = _c + [280];
+				_a = _a + [true];
+				_l = _l + [2];
+				_b = _b + [true];
+				
+				_w = _w + ['BAF_L85A2_RIS_CWS'];
+				_c = _c + [340];
+				_a = _a + [true];
+				_l = _l + [2];
+				_b = _b + [false];
+				
+				_w = _w + ['BAF_L86A2_ACOG'];
+				_c = _c + [305];
+				_a = _a + [true];
+				_l = _l + [2];
+				_b = _b + [true];
+				
+				_w = _w + ['BAF_L110A1_Aim'];
+				_c = _c + [310];
+				_a = _a + [true];
+				_l = _l + [3];
+				_b = _b + [false];
+				
+				_w = _w + ['BAF_L7A2_GPMG'];
+				_c = _c + [285];
+				_a = _a + [true];
+				_l = _l + [0];
+				_b = _b + [true];
+			};
 
 			_p = [];
 			_d = [];
@@ -4840,31 +5306,33 @@ if (WF_A2_CombinedOps) then {
 			//--- Secondary.
 
 			_w = ['M136'];
-			_c = [100];
+			_c = [90];
 			_a = [true];
 			_l = [0];
 			_b = [true];
 
-			_w = _w + ['SMAW'];
-			_c = _c + [300];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [false];
-
 			_w = _w + ['MAAWS'];
-			_c = _c + [400];
+			_c = _c + [350];
 			_a = _a + [true];
 			_l = _l + [2];
 			_b = _b + [false];
+
+			if (paramDLCBAF) then {
+				_w = _w + ['BAF_NLAW_Launcher'];
+				_c = _c + [370];
+				_a = _a + [true];
+				_l = _l + [2];
+				_b = _b + [false];
+			};
 			
 			_w = _w + ['Javelin'];
-			_c = _c + [750];
+			_c = _c + [650];
 			_a = _a + [true];
 			_l = _l + [3];
 			_b = _b + [false];
 
 			_w = _w + ['Stinger'];
-			_c = _c + [750];
+			_c = _c + [250];
 			_a = _a + [true];
 			_l = _l + [2];
 			_b = _b + [false];
@@ -4872,26 +5340,126 @@ if (WF_A2_CombinedOps) then {
 			_w = _w + ['Laserdesignator'];
 			_c = _c + [300];
 			_a = _a + [true];
-			_l = _l + [1];
+			_l = _l + [3];
 			_b = _b + [true];
+			
+			/* Not all units are able to carry a backpack */
+			_get = getNumber(configFile >> 'CfgVehicles' >> typeOf player >> 'canCarryBackPack');
+			
+			if (_get == 1) then {
+				_w = _w + ['US_Assault_Pack_EP1'];
+				_c = _c + [80];
+				_a = _a + [-1];
+				_l = _l + [1];
+				_b = _b + [true];
+				
+				_w = _w + ['US_Patrol_Pack_EP1'];
+				_c = _c + [70];
+				_a = _a + [-1];
+				_l = _l + [0];
+				_b = _b + [true];
+				
+				_w = _w + ['US_Backpack_EP1'];
+				_c = _c + [90];
+				_a = _a + [-1];
+				_l = _l + [2];
+				_b = _b + [true];
+				
+				if (paramDLCBAF) then {
+					_w = _w + ['BAF_AssaultPack_RifleAmmo'];
+					_c = _c + [95];
+					_a = _a + [-1];
+					_l = _l + [2];
+					_b = _b + [true];
+				};
+				
+				_w = _w + ['Tripod_Bag'];
+				_c = _c + [40];
+				_a = _a + [-1];
+				_l = _l + [0];
+				_b = _b + [false];
+				
+				if (paramDLCBAF) then {
+					_w = _w + ['BAF_L2A1_ACOG_minitripod_bag'];
+					_c = _c + [165];
+					_a = _a + [-1];
+					_l = _l + [1];
+					_b = _b + [false];
+					
+					_w = _w + ['BAF_L2A1_ACOG_tripod_bag'];
+					_c = _c + [175];
+					_a = _a + [-1];
+					_l = _l + [1];
+					_b = _b + [false];
+					
+					_w = _w + ['BAF_GPMG_Minitripod_D_bag'];
+					_c = _c + [225];
+					_a = _a + [-1];
+					_l = _l + [0];
+					_b = _b + [false];
+					
+					_w = _w + ['BAF_GMG_ACOG_minitripod_bag'];
+					_c = _c + [235];
+					_a = _a + [-1];
+					_l = _l + [1];
+					_b = _b + [false];
+				};
+
+				_w = _w + ['M2HD_mini_TriPod_US_Bag_EP1'];
+				_c = _c + [155];
+				_a = _a + [-1];
+				_l = _l + [0];
+				_b = _b + [false];
+				
+				_w = _w + ['M2StaticMG_US_Bag_EP1'];
+				_c = _c + [190];
+				_a = _a + [-1];
+				_l = _l + [0];
+				_b = _b + [false];
+				
+				_w = _w + ['MK19_TriPod_US_Bag_EP1'];
+				_c = _c + [450];
+				_a = _a + [-1];
+				_l = _l + [1];
+				_b = _b + [false];
+
+				_w = _w + ['TOW_TriPod_US_Bag_EP1'];
+				_c = _c + [600];
+				_a = _a + [-1];
+				_l = _l + [2];
+				_b = _b + [false];
+
+				_w = _w + ['M252_US_Bag_EP1'];
+				_c = _c + [750];
+				_a = _a + [-1];
+				_l = _l + [1];
+				_b = _b + [false];
+			};
+
 			_p = [];
 			_d = [];
 			_s = [];
 			_u = 0;
 
 			{
-				_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
-				//--- Custom override, nested array.
-				if (typeName(_a select _u) == 'BOOL') then {
-					_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
-					_artm = _tm;
-					{
-						if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
-					} forEach _tm;
-					_s = _s + [_artm];
+				if (typeName(_a select _u) == 'SCALAR') then {
+					_p = _p + [getText(configFile >> 'CfgVehicles' >> _x >> 'picture')];
+					_d = _d + [getText(configFile >> 'CfgVehicles' >> _x >> 'displayName')];
+					_s = _s + [[]];
 				} else {
-					_s = _s + [_a select _u];
+					_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
+					_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
+					//--- Custom override, nested array.
+					if (typeName(_a select _u) == 'BOOL') then {
+						_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
+						_artm = _tm;
+						{
+							if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
+						} forEach _tm;
+						_s = _s + [_artm];
+					} else {
+						_s = _s + [_a select _u];
+					};
 				};
 				_u = _u + 1;
 			} forEach _w;
@@ -4968,6 +5536,15 @@ if (WF_A2_CombinedOps) then {
 			_r = [false];
 			_l = [0];
 			_b =  [true];
+			
+			if (paramDLCBAF) then {
+				_w = _w + ['BAF_L109A1_HE'];
+				_c = _c + [12];
+				_t = _t + ['CfgMagazines'];
+				_r = _r + [false];
+				_l = _l + [0];
+				_b = _b + [true];
+			};
 
 			_w = _w + ['HandGrenade_Stone'];
 			_c = _c + [2];
@@ -5116,34 +5693,6 @@ if (WF_A2_CombinedOps) then {
 			_l = _l + [0];
 			_b = _b + [true];
 
-			_w = _w + ['BAF_ied_v1'];
-			_c = _c + [50];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_w = _w + ['BAF_ied_v2'];
-			_c = _c + [100];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [1];
-			_b = _b + [true];
-
-			_w = _w + ['BAF_ied_v3'];
-			_c = _c + [150];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [2];
-			_b = _b + [true];
-
-			_w = _w + ['BAF_ied_v4'];
-			_c = _c + [200];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [3];
-			_b = _b + [true];
-
 			_w = _w + ['Binocular'];
 			_c = _c + [10];
 			_t = _t + ['Special'];
@@ -5266,7 +5815,7 @@ if (WF_A2_CombinedOps) then {
 			_p = _p + [getText(configFile >> 'CfgWeapons' >> 'SCAR_H_STD_EGLM_Spect' >> 'picture')];
 			_t = _t + [['SCAR_H_STD_EGLM_Spect','MAAWS']];
 			_m = _m + [['20rnd_762x51_B_SCAR','20rnd_762x51_B_SCAR','20rnd_762x51_B_SCAR','20rnd_762x51_B_SCAR','20rnd_762x51_B_SCAR','20rnd_762x51_B_SCAR','MAAWS_HEAT',
-				'MAAWS_HEAT','MAAWS_HEDP','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203']];
+				'MAAWS_HEAT','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203']];
 			_s = _s + [['Binocular','NVGoggles']];
 			_i = _i + [_items];
 			_l = _l + [3];
@@ -5275,7 +5824,7 @@ if (WF_A2_CombinedOps) then {
 			_d = _d + [getText(configFile >> 'CfgWeapons' >> 'SCAR_L_STD_HOLO' >> 'displayName') + '/' + getText(configFile >> 'CfgWeapons' >> 'MAAWS' >> 'displayName') + '/' + getText(configFile >> 'CfgWeapons' >> 'M9' >> 'displayName')];
 			_p = _p + [getText(configFile >> 'CfgWeapons' >> 'SCAR_L_STD_HOLO' >> 'picture')];
 			_t = _t + [['SCAR_L_STD_HOLO','MAAWS','M9']];
-			_m = _m + [['30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','MAAWS_HEAT','MAAWS_HEAT','MAAWS_HEDP',
+			_m = _m + [['30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','MAAWS_HEAT','MAAWS_HEAT',
 				'15Rnd_9x19_M9','15Rnd_9x19_M9','15Rnd_9x19_M9','15Rnd_9x19_M9','15Rnd_9x19_M9','15Rnd_9x19_M9','15Rnd_9x19_M9','15Rnd_9x19_M9']];
 			_s = _s + [['Binocular','NVGoggles']];
 			_i = _i + [_items];
@@ -5315,7 +5864,7 @@ if (WF_A2_CombinedOps) then {
 			_d = _d + [getText(configFile >> 'CfgWeapons' >> 'SCAR_H_CQC_CCO_SD' >> 'displayName') + '/' + getText(configFile >> 'CfgWeapons' >> 'M9SD' >> 'displayName') + '/' + getText(configFile >> 'CfgMagazines' >> 'PipeBomb' >> 'displayName')];
 			_p = _p + [getText(configFile >> 'CfgWeapons' >> 'SCAR_H_CQC_CCO_SD' >> 'picture')];
 			_t = _t + [['SCAR_H_CQC_CCO_SD','M9SD']];
-			_m = _m + [['20rnd_762x51_SB_SCAR','20rnd_762x51_SB_SCAR','20rnd_762x51_SB_SCAR','20rnd_762x51_SB_SCAR','20rnd_762x51_SB_SCAR','20rnd_762x51_SB_SCAR','PipeBomb','PipeBomb','PipeBomb',
+			_m = _m + [['20Rnd_762x51_SB_SCAR','20Rnd_762x51_SB_SCAR','20Rnd_762x51_SB_SCAR','20Rnd_762x51_SB_SCAR','20Rnd_762x51_SB_SCAR','20Rnd_762x51_SB_SCAR','PipeBomb','PipeBomb','PipeBomb',
 				'15Rnd_9x19_M9SD','15Rnd_9x19_M9SD','15Rnd_9x19_M9SD','15Rnd_9x19_M9SD','15Rnd_9x19_M9SD','15Rnd_9x19_M9SD','15Rnd_9x19_M9SD','15Rnd_9x19_M9SD']];
 			_s = _s + [['Binocular','NVGoggles']];
 			_i = _i + [_items];
@@ -5442,16 +5991,16 @@ if (WF_A2_CombinedOps) then {
 		['WFBE_WESTLEADERAMMO13',['20Rnd_762x51_DMR','20Rnd_762x51_DMR','20Rnd_762x51_DMR','20Rnd_762x51_DMR','20Rnd_762x51_DMR','20Rnd_762x51_DMR','20Rnd_762x51_DMR','20Rnd_762x51_DMR','20Rnd_762x51_DMR','20Rnd_762x51_DMR','HandGrenade_West','HandGrenade_West','15Rnd_9x19_M9SD','15Rnd_9x19_M9SD','15Rnd_9x19_M9SD','15Rnd_9x19_M9SD'],true] Call SetNamespace;
 		//--- Upgrade 2.
 		['WFBE_WESTLEADERWEAPONS21',['SCAR_L_STD_HOLO','MAAWS','Colt1911','Binocular','NVGoggles','ItemRadio','ItemMap'],true] Call SetNamespace;
-		['WFBE_WESTLEADERAMMO21',['30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','MAAWS_HEAT','MAAWS_HEAT','MAAWS_HEDP','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911'],true] Call SetNamespace;
+		['WFBE_WESTLEADERAMMO21',['30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','MAAWS_HEAT','MAAWS_HEAT','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911'],true] Call SetNamespace;
 		['WFBE_WESTLEADERWEAPONS22',['G36C_camo','MAAWS','Colt1911','Binocular','NVGoggles','ItemRadio','ItemMap'],true] Call SetNamespace;
-		['WFBE_WESTLEADERAMMO22',['30Rnd_556x45_G36','30Rnd_556x45_G36','30Rnd_556x45_G36','30Rnd_556x45_G36','30Rnd_556x45_G36','30Rnd_556x45_G36','MAAWS_HEAT','MAAWS_HEAT','MAAWS_HEDP','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911'],true] Call SetNamespace;
+		['WFBE_WESTLEADERAMMO22',['30Rnd_556x45_G36','30Rnd_556x45_G36','30Rnd_556x45_G36','30Rnd_556x45_G36','30Rnd_556x45_G36','30Rnd_556x45_G36','MAAWS_HEAT','MAAWS_HEAT','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911'],true] Call SetNamespace;
 		['WFBE_WESTLEADERWEAPONS23',['MG36_camo','Colt1911','Binocular','NVGoggles','ItemRadio','ItemMap'],true] Call SetNamespace;
 		['WFBE_WESTLEADERAMMO23',['100Rnd_556x45_BetaCMag','100Rnd_556x45_BetaCMag','100Rnd_556x45_BetaCMag','100Rnd_556x45_BetaCMag','100Rnd_556x45_BetaCMag','HandGrenade_West','HandGrenade_West','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911'],true] Call SetNamespace;
 		//--- Upgrade 3.
 		['WFBE_WESTLEADERWEAPONS31',['SCAR_L_CQC_EGLM_Holo','MAAWS','Binocular','NVGoggles','ItemRadio','ItemMap'],true] Call SetNamespace;
-		['WFBE_WESTLEADERAMMO31',['30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','MAAWS_HEAT','MAAWS_HEAT','MAAWS_HEDP','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203'],true] Call SetNamespace;
+		['WFBE_WESTLEADERAMMO31',['30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','MAAWS_HEAT','MAAWS_HEAT','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203','1Rnd_HE_M203'],true] Call SetNamespace;
 		['WFBE_WESTLEADERWEAPONS32',['SCAR_H_STD_EGLM_Spect','Javelin','Colt1911','Binocular','NVGoggles','ItemRadio','ItemMap'],true] Call SetNamespace;
-		['WFBE_WESTLEADERAMMO32',['20rnd_762x51_SB_SCAR','20rnd_762x51_SB_SCAR','20rnd_762x51_SB_SCAR','20rnd_762x51_SB_SCAR','20rnd_762x51_SB_SCAR','20rnd_762x51_SB_SCAR','Javelin','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911'],true] Call SetNamespace;
+		['WFBE_WESTLEADERAMMO32',['20Rnd_762x51_SB_SCAR','20Rnd_762x51_SB_SCAR','20Rnd_762x51_SB_SCAR','20Rnd_762x51_SB_SCAR','20Rnd_762x51_SB_SCAR','20Rnd_762x51_SB_SCAR','Javelin','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911'],true] Call SetNamespace;
 		['WFBE_WESTLEADERWEAPONS33',['Mk_48_DES_EP1','Colt1911','Binocular','NVGoggles','ItemRadio','ItemMap'],true] Call SetNamespace;
 		['WFBE_WESTLEADERAMMO33',['100Rnd_762x51_M240','100Rnd_762x51_M240','100Rnd_762x51_M240','100Rnd_762x51_M240','100Rnd_762x51_M240','HandGrenade_West','HandGrenade_West','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911'],true] Call SetNamespace;
 	};
@@ -5462,9 +6011,7 @@ if (WF_A2_CombinedOps) then {
 	//*** EAST ***//
 	if (!isServer || local player) then {
 		if (side player == EAST) then {
-
 			//--- Magazines.
-
 			_m = ["30Rnd_762x39_AK47"];
 			_c = [5];
 			_r = [false];
@@ -5472,154 +6019,14 @@ if (WF_A2_CombinedOps) then {
 			_l = [0];
 			_b = [true];
 
-			_m = _m + ["30Rnd_556x45_StanagSD"];
-			_c = _c + [7];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["30Rnd_556x45_Stanag"];
 			_c = _c + [5];
 			_r = _r + [false];
 			_t = _t + ['primary'];
 			_l = _l + [0];
-			_b = _b + [true];			
-			
-			_m = _m + ["20Rnd_762x51_DMR"];
-			_c = _c + [9];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_m = _m + ["5Rnd_127x99_as50"];
-			_c = _c + [9];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [1];
 			_b = _b + [true];
 			
-			_m = _m + ["100Rnd_762x51_M240"];
-			_c = _c + [12];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
-			_m = _m + ["100Rnd_556x45_M249"];
-			_c = _c + [11];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];		
-			
-			_m = _m + ["200Rnd_556x45_M249"];
-			_c = _c + [22];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
-			_m = _m + ["6Rnd_HE_M203"];
-			_c = _c + [35];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_m = _m + ["6Rnd_FlareWhite_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_m = _m + ["6Rnd_FlareGreen_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_m = _m + ["6Rnd_FlareRed_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_m = _m + ["6Rnd_FlareYellow_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_m = _m + ["6Rnd_Smoke_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_m = _m + ["6Rnd_SmokeRed_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_m = _m + ["6Rnd_SmokeGreen_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_m = _m + ["6Rnd_SmokeYellow_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["30Rnd_545x39_AK"];
-			_c = _c + [4];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_m = _m + ["5Rnd_86x70_L115A1"];
-			_c = _c + [4];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_m = _m + ["200Rnd_556x45_L110A1"];
-			_c = _c + [4];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_m = _m + ["200Rnd_762x54_GPMG"];
-			_c = _c + [4];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
-			_m = _m + ["10Rnd_127x99_m107"];
-			_c = _c + [18];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_m = _m + ["5x_22_LR_17_HMR"];
 			_c = _c + [4];
 			_r = _r + [false];
 			_t = _t + ['primary'];
@@ -5632,79 +6039,16 @@ if (WF_A2_CombinedOps) then {
 			_t = _t + ['primary'];
 			_l = _l + [0];
 			_b = _b + [true];
-
-			_m = _m + ["30Rnd_9x19_MP5"];
-			_c = _c + [3];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
 			
-			_m = _m + ["30Rnd_9x19_MP5SD"];
-			_c = _c + [4];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_m = _m + ["17Rnd_9x19_glock17"];
-			_c = _c + [3];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
-			_m = _m + ["30Rnd_9x19_UZI"];
-			_c = _c + [4];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
-			_m = _m + ["30Rnd_9x19_UZI_SD"];
-			_c = _c + [7];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["64Rnd_9x19_Bizon"];
-			_c = _c + [7];
+			_c = _c + [6];
 			_r = _r + [false];
 			_t = _t + ['primary'];
 			_l = _l + [0];
 			_b = _b + [true];
 
 			_m = _m + ["64Rnd_9x19_SD_Bizon"];
-			_c = _c + [7];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_m = _m + ["20Rnd_9x39_SP5_VSS"];
-			_c = _c + [7];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_m = _m + ["10Rnd_9x39_SP5_VSS"];
-			_c = _c + [7];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_m = _m + ["8Rnd_B_Saiga12_74Slug"];
-			_c = _c + [7];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_m = _m + ["20Rnd_762x51_DMR"];
-			_c = _c + [7];
+			_c = _c + [8];
 			_r = _r + [false];
 			_t = _t + ['primary'];
 			_l = _l + [0];
@@ -5723,23 +6067,9 @@ if (WF_A2_CombinedOps) then {
 			_t = _t + ['primary'];
 			_l = _l + [0];
 			_b = _b + [true];
-
-			_m = _m + ["100Rnd_556x45_M249"];
-			_c = _c + [11];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];		
 			
-			_m = _m + ["200Rnd_556x45_M249"];
-			_c = _c + [22];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_m = _m + ["20rnd_762x51_SB_SCAR"];
-			_c = _c + [8];
+			_m = _m + ["5x_22_LR_17_HMR"];
+			_c = _c + [4];
 			_r = _r + [false];
 			_t = _t + ['primary'];
 			_l = _l + [0];
@@ -5752,8 +6082,22 @@ if (WF_A2_CombinedOps) then {
 			_l = _l + [0];
 			_b = _b + [true];
 
+			_m = _m + ["8Rnd_B_Saiga12_74Slug"];
+			_c = _c + [6];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+			
 			_m = _m + ["5Rnd_127x108_KSVK"];
 			_c = _c + [15];
+			_r = _r + [false];
+			_t = _t + ['primary'];
+			_l = _l + [0];
+			_b = _b + [true];
+			
+			_m = _m + ["20Rnd_9x39_SP5_VSS"];
+			_c = _c + [9];
 			_r = _r + [false];
 			_t = _t + ['primary'];
 			_l = _l + [0];
@@ -5780,29 +6124,29 @@ if (WF_A2_CombinedOps) then {
 			_l = _l + [0];
 			_b = _b + [true];
 
+			_m = _m + ["PG7V"];
+			_c = _c + [75];
+			_r = _r + [false];
+			_t = _t + ['secondary'];
+			_l = _l + [0];
+			_b = _b + [true];
+
+			_m = _m + ["PG7VL"];
+			_c = _c + [90];
+			_r = _r + [false];
+			_t = _t + ['secondary'];
+			_l = _l + [0];
+			_b = _b + [true];
+
 			_m = _m + ["OG7"];
-			_c = _c + [100];
+			_c = _c + [95];
 			_r = _r + [false];
 			_t = _t + ['secondary'];
 			_l = _l + [1];
 			_b = _b + [false];
 
-			_m = _m + ["PG7VL"];
-			_c = _c + [125];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_m = _m + ["PG7VR"];
-			_c = _c + [150];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [1];
-			_b = _b + [false];	
-
-			_m = _m + ["NLAW"];
-			_c = _c + [400];
+			_c = _c + [105];
 			_r = _r + [false];
 			_t = _t + ['secondary'];
 			_l = _l + [1];
@@ -5814,30 +6158,30 @@ if (WF_A2_CombinedOps) then {
 			_t = _t + ['secondary'];
 			_l = _l + [0];
 			_b = _b + [true];
+			
+			_m = _m + ["Dragon_EP1"];
+			_c = _c + [220];
+			_r = _r + [false];
+			_t = _t + ['secondary'];
+			_l = _l + [0];
+			_b = _b + [true];
 
 			_m = _m + ["AT13"];
-			_c = _c + [500];
+			_c = _c + [200];
 			_r = _r + [false];
 			_t = _t + ['secondary'];
 			_l = _l + [3];
 			_b = _b + [false];
 
-			_m = _m + ["Dragon_EP1"];
-			_c = _c + [300];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [2];
-			_b = _b + [true];
-
 			_m = _m + ["Igla"];
-			_c = _c + [400];
+			_c = _c + [110];
 			_r = _r + [false];
 			_t = _t + ['secondary'];
 			_l = _l + [2];
 			_b = _b + [false];
 
 			_m = _m + ["Strela"];
-			_c = _c + [300];
+			_c = _c + [100];
 			_r = _r + [false];
 			_t = _t + ['secondary'];
 			_l = _l + [2];
@@ -5847,7 +6191,7 @@ if (WF_A2_CombinedOps) then {
 			_c = _c + [20];
 			_r = _r + [false];
 			_t = _t + ['secondary'];
-			_l = _l + [1];
+			_l = _l + [3];
 			_b = _b + [true];
 
 			_m = _m + ["6Rnd_45ACP"];
@@ -5884,6 +6228,20 @@ if (WF_A2_CombinedOps) then {
 			_t = _t + ['sidearm'];
 			_l = _l + [0];
 			_b = _b + [true];
+			
+			_m = _m + ["30Rnd_9x19_UZI"];
+			_c = _c + [4];
+			_r = _r + [true];
+			_t = _t + ['sidearm'];
+			_l = _l + [0];
+			_b = _b + [true];
+			
+			_m = _m + ["30Rnd_9x19_UZI_SD"];
+			_c = _c + [7];
+			_r = _r + [true];
+			_t = _t + ['sidearm'];
+			_l = _l + [0];
+			_b = _b + [true];
 
 			_p = [];
 			_d = [];
@@ -5907,330 +6265,241 @@ if (WF_A2_CombinedOps) then {
 
 			_magazinesT = _m;
 			
-			//--- SHOTGUNS
-			
-			_w = ['Saiga12K'];
-			_c = [100];
+			//--- Primary.
+			_w = ['AK_47_M'];
+			_c = [50];
 			_a = [true];
 			_l = [0];
 			_b = [true];
-					
-			//--- SUBMACHINEGUNS
+
+			_w = _w + ['AK_47_S'];
+			_c = _c + [60];
+			_a = _a + [true];
+			_l = _l + [0];
+			_b = _b + [true];
 			
-			_w = _w + ['Bizon'];
-			_c = _c + [110];
+			_w = _w + ['M16A2'];
+			_c = _c + [80];
 			_a = _a + [true];
 			_l = _l + [0];
 			_b = _b + [true];
 
-			_w = _w + ['bizon_silenced'];
+			_w = _w + ['M16A2GL'];
+			_c = _c + [85];
+			_a = _a + [true];
+			_l = _l + [0];
+			_b = _b + [true];
+
+			_w = _w + ['AK_74'];
+			_c = _c + [85];
+			_a = _a + [true];
+			_l = _l + [0];
+			_b = _b + [true];
+
+			_w = _w + ['AK_74_GL'];
+			_c = _c + [105];
+			_a = _a + [true];
+			_l = _l + [0];
+			_b = _b + [true];
+			
+			_w = _w + ['AK_74_GL_kobra'];
+			_c = _c + [105];
+			_a = _a + [true];
+			_l = _l + [0];
+			_b = _b + [true];
+			
+			_w = _w + ['AK_107_kobra'];
 			_c = _c + [155];
 			_a = _a + [true];
 			_l = _l + [0];
 			_b = _b + [true];
-
-			//--- AK 74
-
-			_w = _w + ['AKS_74_U'];
-			_c = _c + [120];
+			
+			_w = _w + ['AK_107_GL_kobra'];
+			_c = _c + [180];
 			_a = _a + [true];
 			_l = _l + [0];
 			_b = _b + [true];
-			
-			_w = _w + ['AK_74'];
-			_c = _c + [130];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
-			_w = _w + ['AK_74_GL'];
+
+			_w = _w + ['AK_107_pso'];
 			_c = _c + [175];
 			_a = _a + [true];
 			_l = _l + [1];
-			_b = _b + [true];
-			
-			_w = _w + ['AKS_74_UN_kobra'];
+			_b = _b + [false];
+
+			_w = _w + ['AK_107_GL_pso'];
 			_c = _c + [200];
+			_a = _a + [true];
+			_l = _l + [1];
+			_b = _b + [false];
+			
+			_w = _w + ['AKS_74'];
+			_c = _c + [115];
+			_a = _a + [true];
+			_l = _l + [0];
+			_b = _b + [true];
+
+			_w = _w + ['AKS_74_GOSHAWK'];
+			_c = _c + [175];
 			_a = _a + [true];
 			_l = _l + [1];
 			_b = _b + [true];
 			
 			_w = _w + ['AKS_74_kobra'];
-			_c = _c + [220];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
-			_w = _w + ['AK_74_GL_kobra'];
-			_c = _c + [225];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-			
-			_w = _w + ['AKS_74_pso'];
-			_c = _c + [250];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-			
-			_w = _w + ['AKS_74_NSPU'];
-			_c = _c + [275];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-			
-			_w = _w + ['AKS_74_GOSHAWK'];
-			_c = _c + [350];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];
-
-			//--- AK 47
-			
-			_w = _w + ['AK_47_S'];
 			_c = _c + [140];
 			_a = _a + [true];
 			_l = _l + [0];
 			_b = _b + [true];
-
-			_w = _w + ['AKS_GOLD'];
-			_c = _c + [150];
+			
+			_w = _w + ['AKS_74_NSPU'];
+			_c = _c + [180];
 			_a = _a + [true];
-			_l = _l + [0];
+			_l = _l + [2];
 			_b = _b + [true];
 
-			_w = _w + ['AK_47_M'];
-			_c = _c + [175];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
-			//--- AK 107
-			
-			_w = _w + ['AK_107_kobra'];
-			_c = _c + [200];
+			_w = _w + ['AKS_74_pso'];
+			_c = _c + [160];
 			_a = _a + [true];
 			_l = _l + [1];
 			_b = _b + [true];
 
-			_w = _w + ['AK_107_pso'];
-			_c = _c + [250];
+			_w = _w + ['AKS_74_U'];
+			_c = _c + [185];
 			_a = _a + [true];
-			_l = _l + [2];
+			_l = _l + [0];
 			_b = _b + [true];
-		
-			_w = _w + ['AK_107_GL_kobra'];
-			_c = _c + [300];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
-			_w = _w + ['AK_107_GL_pso'];
-			_c = _c + [325];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];
-
-			//--- FOREIGN
 			
-			_w = _w + ['Sa58V_EP1'];
-			_c = _c + [160];
+			_w = _w + ['AKS_74_UN_kobra'];
+			_c = _c + [215];
+			_a = _a + [true];
+			_l = _l + [2];
+			_b = _b + [true];
+			
+			_w = _w + ['AKS_GOLD'];
+			_c = _c + [500];
+			_a = _a + [true];
+			_l = _l + [2];
+			_b = _b + [true];
+			
+			_w = _w + ['bizon'];
+			_c = _c + [240];
+			_a = _a + [true];
+			_l = _l + [1];
+			_b = _b + [true];
+
+			_w = _w + ['bizon_silenced'];
+			_c = _c + [275];
+			_a = _a + [true];
+			_l = _l + [2];
+			_b = _b + [false];
+
+			_w = _w + ['FN_FAL'];
+			_c = _c + [120];
+			_a = _a + [true];
+			_l = _l + [1];
+			_b = _b + [true];
+
+			_w = _w + ['FN_FAL_ANPVS4'];
+			_c = _c + [150];
+			_a = _a + [true];
+			_l = _l + [1];
+			_b = _b + [true];
+
+			_w = _w + ['LeeEnfield'];
+			_c = _c + [25];
+			_a = _a + [true];
+			_l = _l + [0];
+			_b = _b + [true];
+
+			_w = _w + ['PK'];
+			_c = _c + [280];
+			_a = _a + [true];
+			_l = _l + [0];
+			_b = _b + [true];
+			
+			_w = _w + ['Pecheneg'];
+			_c = _c + [340];
+			_a = _a + [true];
+			_l = _l + [2];
+			_b = _b + [false];
+
+			_w = _w + ['RPK_74'];
+			_c = _c + [185];
+			_a = _a + [true];
+			_l = _l + [1];
+			_b = _b + [true];
+			
+			_w = _w + ['huntingrifle'];
+			_c = _c + [145];
 			_a = _a + [true];
 			_l = _l + [0];
 			_b = _b + [true];
 			
 			_w = _w + ['Sa58P_EP1'];
-			_c = _c + [175];
+			_c = _c + [185];
 			_a = _a + [true];
 			_l = _l + [0];
 			_b = _b + [true];
 
-			_w = _w + ['Sa58V_CCO_EP1'];
-			_c = _c + [200];
+			_w = _w + ['Sa58V_EP1'];
+			_c = _c + [190];
 			_a = _a + [true];
-			_l = _l + [1];
+			_l = _l + [0];
 			_b = _b + [true];
-
+			
 			_w = _w + ['Sa58V_RCO_EP1'];
-			_c = _c + [225];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
-			_w = _w + ['FN_FAL'];
-			_c = _c + [150];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_w = _w + ['FN_FAL_ANPVS4'];
 			_c = _c + [200];
 			_a = _a + [true];
-			_l = _l + [2];
+			_l = _l + [1];
 			_b = _b + [true];
-
-			_w = _w + ['BAF_L85A2_RIS_Holo'];
-			_c = _c + [220];
+			
+			_w = _w + ['Sa58V_CCO_EP1'];
+			_c = _c + [205];
 			_a = _a + [true];
 			_l = _l + [1];
 			_b = _b + [true];
 
-			_w = _w + ['BAF_L85A2_RIS_SUSAT'];
+			_w = _w + ['SVD'];
+			_c = _c + [210];
+			_a = _a + [true];
+			_l = _l + [0];
+			_b = _b + [true];
+			
+			_w = _w + ['SVD_des_EP1'];
+			_c = _c + [210];
+			_a = _a + [true];
+			_l = _l + [0];
+			_b = _b + [true];
+			
+			_w = _w + ['SVD_NSPU_EP1'];
 			_c = _c + [230];
 			_a = _a + [true];
 			_l = _l + [2];
 			_b = _b + [true];
-
-			_w = _w + ['BAF_L85A2_RIS_ACOG'];
-			_c = _c + [240];
+			
+			_w = _w + ['SVD_CAMO'];
+			_c = _c + [245];
 			_a = _a + [true];
 			_l = _l + [2];
-			_b = _b + [true];
-
-			_w = _w + ['BAF_L86A2_ACOG'];
-			_c = _c + [250];
+			_b = _b + [false];
+			
+			_w = _w + ['Saiga12K'];
+			_c = _c + [130];
 			_a = _a + [true];
-			_l = _l + [2];
+			_l = _l + [0];
 			_b = _b + [true];
 
-			_w = _w + ['BAF_L85A2_UGL_Holo'];
-			_c = _c + [275];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
-			_w = _w + ['BAF_L85A2_UGL_SUSAT'];
-			_c = _c + [300];
+			_w = _w + ['ksvk'];
+			_c = _c + [340];
 			_a = _a + [true];
 			_l = _l + [3];
-			_b = _b + [true];
-
-			_w = _w + ['BAF_L85A2_UGL_ACOG'];
-			_c = _c + [310];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];
-
-			_w = _w + ['BAF_L85A2_RIS_CWS'];
-			_c = _c + [325];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];			
-
-			
-			//--- MACHINE GUNS
-			
-			_w = _w + ['RPK_74'];
-			_c = _c + [250];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
-			_w = _w + ['PK'];
-			_c = _c + [300];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_w = _w + ['BAF_L7A2_GPMG'];
-			_c = _c + [325];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-			
-			_w = _w + ['Pecheneg'];
-			_c = _c + [350];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];	
-
-			_w = _w + ['BAF_L110A1_Aim'];
-			_c = _c + [375];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
-			//--- SNIPER RIFLES
-						
-						
-			_w = _w + ['LeeEnfield'];
-			_c = _c + [100];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
-			_w = _w + ['Huntingrifle'];
-			_c = _c + [125];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
-			_w = _w + ['M14_EP1'];
-			_c = _c + [185];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
-			_w = _w + ['BAF_LRR_scoped_W'];
-			_c = _c + [220];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
-			_w = _w + ['BAF_LRR_scoped'];
-			_c = _c + [225];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-							
-			_w = _w + ['SVD'];
-			_c = _c + [250];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-		
-			_w = _w + ['SVD_des_EP1'];
-			_c = _c + [255];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-			
-			_w = _w + ['SVD_NSPU_EP1'];
-			_c = _c + [280];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
+			_b = _b + [false];
 			
 			_w = _w + ['VSS_vintorez'];
-			_c = _c + [275];
+			_c = _c + [310];
 			_a = _a + [true];
 			_l = _l + [2];
-			_b = _b + [true];
+			_b = _b + [false];
 
-			_w = _w + ['DMR'];
-			_c = _c + [300];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-			
-			_w = _w + ['BAF_AS50_scoped'];
-			_c = _c + [350];
-			_a = _a + [['5Rnd_127x99_as50']];
-			_l = _l + [2];
-			_b = _b + [true];
-
-			_w = _w + ['KSVK'];
-			_c = _c + [400];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];
-
-			_w = _w + ['BAF_AS50_TWS'];
-			_c = _c + [500];
-			_a = _a + [['5Rnd_127x99_as50']];
-			_l = _l + [3];
-			_b = _b + [true];		
-		
 			_p = [];
 			_d = [];
 			_s = [];
@@ -6263,44 +6532,38 @@ if (WF_A2_CombinedOps) then {
 
 			//--- Secondary.
 
-			_w = ['RPG18'];
-			_c = [100];
+			_w = ['RPG7V'];
+			_c = [150];
 			_a = [true];
 			_l = [0];
 			_b = [true];
 
-			_w = _w + ['RPG7V'];
-			_c = _c + [200];
+			_w = _w + ['RPG18'];
+			_c = _c + [120];
 			_a = _a + [true];
-			_l = _l + [1];
+			_l = _l + [0];
 			_b = _b + [true];
-
+			
 			_w = _w + ['M47Launcher_EP1'];
-			_c = _c + [300];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
-			_w = _w + ['BAF_NLAW_Launcher'];
-			_c = _c + [400];
+			_c = _c + [325];
 			_a = _a + [true];
 			_l = _l + [2];
 			_b = _b + [false];
 
 			_w = _w + ['MetisLauncher'];
-			_c = _c + [750];
+			_c = _c + [460];
 			_a = _a + [true];
 			_l = _l + [3];
 			_b = _b + [false];
 
-			_w = _w + ['Strela'];
-			_c = _c + [450];
+			_w = _w + ['Igla'];
+			_c = _c + [350];
 			_a = _a + [true];
 			_l = _l + [2];
 			_b = _b + [false];
 
-			_w = _w + ['Igla'];
-			_c = _c + [500];
+			_w = _w + ['Strela'];
+			_c = _c + [300];
 			_a = _a + [true];
 			_l = _l + [2];
 			_b = _b + [false];
@@ -6308,8 +6571,73 @@ if (WF_A2_CombinedOps) then {
 			_w = _w + ['Laserdesignator'];
 			_c = _c + [300];
 			_a = _a + [true];
-			_l = _l + [1];
+			_l = _l + [3];
 			_b = _b + [true];
+			
+			/* Not all units are able to carry a backpack */
+			_get = getNumber(configFile >> 'CfgVehicles' >> typeOf player >> 'canCarryBackPack');
+			
+			if (_get == 1) then {
+				_w = _w + ['TK_Assault_Pack_EP1'];
+				_c = _c + [80];
+				_a = _a + [-1];
+				_l = _l + [1];
+				_b = _b + [true];
+				
+				_w = _w + ['TK_RPG_Backpack_EP1'];
+				_c = _c + [70];
+				_a = _a + [-1];
+				_l = _l + [0];
+				_b = _b + [true];
+				
+				_w = _w + ['TK_ALICE_Pack_EP1'];
+				_c = _c + [90];
+				_a = _a + [-1];
+				_l = _l + [2];
+				_b = _b + [true];
+				
+				_w = _w + ['Tripod_Bag'];
+				_c = _c + [40];
+				_a = _a + [-1];
+				_l = _l + [0];
+				_b = _b + [false];
+
+				_w = _w + ['KORD_TK_Bag_EP1'];
+				_c = _c + [155];
+				_a = _a + [-1];
+				_l = _l + [0];
+				_b = _b + [false];
+				
+				_w = _w + ['KORD_high_TK_Bag_EP1'];
+				_c = _c + [190];
+				_a = _a + [-1];
+				_l = _l + [0];
+				_b = _b + [false];
+				
+				_w = _w + ['SPG9_TK_INS_Bag_EP1'];
+				_c = _c + [410];
+				_a = _a + [-1];
+				_l = _l + [1];
+				_b = _b + [false];		
+				
+				_w = _w + ['AGS_TK_Bag_EP1'];
+				_c = _c + [490];
+				_a = _a + [-1];
+				_l = _l + [1];
+				_b = _b + [false];
+
+				_w = _w + ['Metis_TK_Bag_EP1'];
+				_c = _c + [600];
+				_a = _a + [-1];
+				_l = _l + [2];
+				_b = _b + [false];
+
+				_w = _w + ['2b14_82mm_TK_Bag_EP1'];
+				_c = _c + [750];
+				_a = _a + [-1];
+				_l = _l + [1];
+				_b = _b + [false];
+			};
 
 			_p = [];
 			_d = [];
@@ -6317,18 +6645,24 @@ if (WF_A2_CombinedOps) then {
 			_u = 0;
 
 			{
-				_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
-				//--- Custom override, nested array.
-				if (typeName(_a select _u) == 'BOOL') then {
-					_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
-					_artm = _tm;
-					{
-						if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
-					} forEach _tm;
-					_s = _s + [_artm];
+				if (typeName(_a select _u) == 'SCALAR') then {
+					_p = _p + [getText(configFile >> 'CfgVehicles' >> _x >> 'picture')];
+					_d = _d + [getText(configFile >> 'CfgVehicles' >> _x >> 'displayName')];
+					_s = _s + [[]];
 				} else {
-					_s = _s + [_a select _u];
+					_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
+					_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
+					//--- Custom override, nested array.
+					if (typeName(_a select _u) == 'BOOL') then {
+						_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
+						_artm = _tm;
+						{
+							if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
+						} forEach _tm;
+						_s = _s + [_artm];
+					} else {
+						_s = _s + [_a select _u];
+					};
 				};
 				_u = _u + 1;
 			} forEach _w;
@@ -6562,34 +6896,6 @@ if (WF_A2_CombinedOps) then {
 			_t = _t + ['CfgMagazines'];
 			_r = _r + [false];
 			_l = _l + [0];
-			_b = _b + [true];
-
-			_w = _w + ['BAF_ied_v1'];
-			_c = _c + [50];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_w = _w + ['BAF_ied_v2'];
-			_c = _c + [100];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [2];
-			_b = _b + [true];
-
-			_w = _w + ['BAF_ied_v3'];
-			_c = _c + [150];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [2];
-			_b = _b + [true];
-
-			_w = _w + ['BAF_ied_v4'];
-			_c = _c + [200];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [3];
 			_b = _b + [true];
 
 			_w = _w + ['Binocular'];
@@ -6894,3 +7200,5 @@ if (WF_A2_CombinedOps) then {
 		['WFBE_EASTLEADERAMMO33',['20Rnd_9x39_SP5_VSS','20Rnd_9x39_SP5_VSS','20Rnd_9x39_SP5_VSS','20Rnd_9x39_SP5_VSS','20Rnd_9x39_SP5_VSS','20Rnd_9x39_SP5_VSS','20Rnd_9x39_SP5_VSS','20Rnd_9x39_SP5_VSS','20Rnd_9x39_SP5_VSS','20Rnd_9x39_SP5_VSS','HandGrenade_East','HandGrenade_East','8Rnd_9x18_Makarov','8Rnd_9x18_Makarov','8Rnd_9x18_Makarov','8Rnd_9x18_Makarov'],true] Call SetNamespace;
 	};
 };
+
+diag_log "[WFBE (INIT)] Config_Loadout: Initialization - [Done]";

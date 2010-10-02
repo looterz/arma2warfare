@@ -6,7 +6,7 @@ _side = _this Select 2;
 _radius = _this Select 3;
 
 _type = artilleryNames Find (typeOf _artillery);
-if (_type == -1) ExitWith {};
+if (_type == -1) ExitWith {diag_log Format ["[WFBE (INFORMATION)] Common_FireArtillery.sqf: No artillery types were found for '%1'.",_artillery]};
 
 _minRange = artilleryMinRanges Select _type;
 _maxRange = artilleryMaxRanges Select _type;
@@ -15,8 +15,8 @@ _ammo = artilleryAmmos Select _type;
 _velocity = artilleryVelocities Select _type;
 _dispersion = artilleryDispersions Select _type;
 
-if (IsNull Gunner _artillery) ExitWith {};
-if (IsPlayer Gunner _artillery) ExitWith {};
+if (IsNull Gunner _artillery) ExitWith {diag_log Format ["[WFBE (INFORMATION)] Common_FireArtillery.sqf: Artillery '%1' gunner is null.",_artillery]};
+if (IsPlayer Gunner _artillery) ExitWith {diag_log Format ["[WFBE (INFORMATION)] Common_FireArtillery.sqf: Artillery '%1' gunner is player.",_artillery]};
 
 _position = GetPos _artillery;
 _x = (_destination Select 0) - (_position Select 0);

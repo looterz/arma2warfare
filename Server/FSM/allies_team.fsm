@@ -1,8 +1,8 @@
-/*%FSM<COMPILE "F:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, allies_team">*/
+/*%FSM<COMPILE "D:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, allies_team">*/
 /*%FSM<HEAD>*/
 /*
-item0[] = {"Allies_Init",0,250,-44.418510,-87.799530,45.581596,-37.799454,0.000000,"Allies" \n "Init"};
-item1[] = {"loop",4,4314,-43.082561,-10.971841,46.917431,39.028156,0.000000,"loop"};
+item0[] = {"Allies_Init",0,4346,-44.418510,-87.799530,45.581596,-37.799454,0.000000,"Allies" \n "Init"};
+item1[] = {"loop",4,218,-43.082561,-10.971841,46.917431,39.028156,0.000000,"loop"};
 item2[] = {"Check",2,250,-190.853607,-12.100532,-100.853592,37.899467,0.000000,"Check"};
 item3[] = {"done",4,218,-314.399872,-10.889294,-224.399902,39.110706,0.000000,"done"};
 item4[] = {"end",1,250,-315.611145,69.052460,-225.611130,119.052437,0.000000,"end"};
@@ -12,7 +12,7 @@ link2[] = {2,1};
 link3[] = {2,3};
 link4[] = {3,4};
 globals[] = {0.000000,0,0,0,0,640,480,1,23,6316128,1,-440.874512,60.746586,402.023224,-114.561028,704,725,1};
-window[] = {0,-1,-1,-1,-1,911,28,1373,71,1,722};
+window[] = {0,-1,-1,-1,-1,990,150,1495,150,1,722};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -44,29 +44,35 @@ class FSM
        "" \n
        "{" \n
        "	_buyFrom = objNull;" \n
-       "	_kind = Call Compile Format [""%1AlliesBarracksUnits find _x"",str _side];" \n
-       "	_crews = [];" \n
-       "	if (_kind != -1) then {_buyFrom = _barrack} else {" \n
-       "		_kind = Call Compile Format [""%1AlliesLightUnits find _x"",str _side];" \n
-       "		if (_kind != -1) then {_buyFrom = _light;_crews = Call Compile Format[""%1AlliesLightCrews"",str _side]} else {" \n
-       "			_kind = Call Compile Format [""%1AlliesHeavyUnits find _x"",str _side];" \n
-       "			if (_kind != -1) then {_buyFrom = _heavy;_crews = Call Compile Format[""%1AlliesHeavyCrews"",str _side]} else {" \n
-       "				_kind = Call Compile Format [""%1AlliesAircraftUnits find _x"",str _side];" \n
-       "				if (_kind != -1) then {_buyFrom = _air;_crews =  Call Compile Format[""%1AlliesAircraftCrews"",str _side]};" \n
-       "			};" \n
-       "		};" \n
-       "	};" \n
-       "	if (_kind != -1) then {" \n
+       "	_kind = (Format[""WFBE_%1ALLIESBARRACKSUNITS"",str _side] Call GetNamespace) find _x;" \n
+       "	_kindDetail = _x Call GetNamespace;" \n
+       "	_crews = _kindDetail select QUERYUNITCREW;" \n
+       "	_unitType = _kindDetail select QUERYUNITFACTORY;" \n
+       "	switch (_unitType) do {" \n
+       "		case 0: {" \n
+       "			_buyFrom = _barrack;" \n
+	   "		};" \n
+	   "		case 1: {" \n
+       "			_buyFrom = _light;" \n
+	   "		};" \n
+	   "		case 2: {" \n
+       "			_buyFrom = _heavy;" \n
+	   "		};" \n
+	   "		case 3: {" \n
+       "			_buyFrom = _air;" \n
+	   "		};" \n
+	   "	};" \n
+       "	if !(isNull _buyFrom) then {" \n
        "			_ran = 2000 + random(10) + random (100) + random(1000);" \n
        "			_vehiSlots = [true,false,false];" \n
        "			_IDS = [_ran];		" \n
-       "			if (!(_x isKindOf ""Man"")) then {" \n
-       "				if (_crews select _kind < 3 && _crews select _kind != 1) then {" \n
+       "			if !(_x isKindOf ""Man"") then {" \n
+       "				if (_crews < 3 && _crews != 1) then {" \n
        "					_ran2 = 2000 + random(10) + random (100) + random(1000);" \n
        "					_vehiSlots = [true,true,false];" \n
        "					_IDS = _IDS + [_ran2];" \n
        "				};" \n
-       "				if (_crews select _kind > 2) then {" \n
+       "				if (_crews > 2) then {" \n
        "					_ran2 = 2000 + random(10) + random (100) + random(1000);" \n
        "					_ran3 = 2000 + random(10) + random (100) + random(1000);" \n
        "					_vehiSlots = [true,true,true];" \n

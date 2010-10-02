@@ -36,7 +36,7 @@ while {alive player && dialog} do {
 		_iddx = lnbCurSelRow _listBox;
 		if (_iddx != -1) then {
 			if (_funds > (_listPrice select _iddx)) then {
-				[vehicle player, _iddx] Call EASA_Equip;
+				[vehicle player, _iddx, true] Call EASA_Equip;
 				-(_listPrice select _iddx) Call ChangePlayerFunds;
 				hint parseText(Format[localize 'STR_WF_EASA_Purchase',(_listDesc select _iddx)]);
 				closeDialog 0;

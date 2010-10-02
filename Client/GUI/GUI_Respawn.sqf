@@ -45,7 +45,7 @@ if (count _checks > 0) then {_availableSpawn = _availableSpawn + _checks};
 if (!alive _hq && count _availableSpawn > 1) then {_availableSpawn = _availableSpawn - [_hq]};
 
 //--- Mobile respawn.
-if (mobileRespawn) then {
+if (paramMobileRespawn) then {
 	_mobileRespawns = Format ["WFBE_%1AMBULANCES",sideJoinedText] Call GetNamespace;
 	_upgrades = WF_Logic getVariable Format ["%1Upgrades",sideJoinedText];
 	_range = (Format["WFBE_RESPAWNMOBILERANGE%1",(_upgrades select 7)] Call GetNamespace);
@@ -56,7 +56,7 @@ if (mobileRespawn) then {
 };
 
 //--- MASH.
-if (respawnMASH) then {
+if (paramRespawnMASH) then {
 	_farps = Format ["WFBE_%1FARP",sideJoinedText] Call GetNamespace;
 	_upgrades = WF_Logic getVariable Format ["%1Upgrades",sideJoinedText];
 	_range = (Format["WFBE_RESPAWNMOBILERANGE%1",(_upgrades select 7)] Call GetNamespace);
@@ -67,13 +67,13 @@ if (respawnMASH) then {
 };
 
 //--- Camps.
-if (campRespawn) then {
+if (paramCampRespawn) then {
 	_town = [deathLocation,sideJoined] Call GetClosestLocation;
 	if (!isNull _town) then {
 		if (_town distance deathLocation  < ('WFBE_RESPAWNRANGE' Call GetNamespace)) then {
 			_camps = [_town,sideJoined] Call GetFriendlyCamps;
 			if (count _camps > 0) then {
-				if (campRespawnRule) then {
+				if (paramCampRespawnRule) then {
 					_closestCamps = [deathLocation,_camps] Call SortByDistance;
 					_closestCamp = _closestCamps select 0;
 					_objects = _closestCamp nearEntities[[eastSoldierBaseClass,westSoldierBaseClass,"Car","Motorcycle","Tank","Air"],('WFBE_RESPAWNMINRANGE' Call GetNamespace)];
@@ -103,7 +103,7 @@ _markerIndex = 0;
 _spawn = _availableSpawn select 0;
 activeAnimMarker = false;
 _ta = ["TempAnim",getPos _spawn,"selector_selectedMission",1.4,"ColorYellow"] Spawn MarkerAnim;
-respawnName = getText (configFile >> "CfgVehicles" >> typeOf _spawn >> "displayName");
+respawnName = [typeOf _spawn, 'displayName'] Call GetConfigInfo;
 
 respawnDone = false;
 [] Spawn {
@@ -130,7 +130,7 @@ while {!respawnDone} do {
 				terminate _ta;
 				deleteMarkerLocal "TempAnim";
 				_ta = ["TempAnim",getPos _spawn,"selector_selectedMission",1.4,"ColorYellow"] Spawn MarkerAnim;
-				respawnName = getText (configFile >> "CfgVehicles" >> typeOf _spawn >> "displayName");
+				respawnName = [typeOf _spawn, 'displayName'] Call GetConfigInfo;
 			};
 		};
 	};
@@ -141,10 +141,19 @@ if (isNull _spawn) then {
 	_spawn = _hq;
 };
 player setPos ([GetPos _spawn,10,20] Call GetRandomPosition);
-player addAction [localize 'STR_WF_BuildMenu','Client\Action\Action_BuildRepair.sqf', [], 99, false, true, '', 'townDefenceRange'];
 
-if (!isNil "respawnWeapons" && gearRespawn) then {
-	[player,respawnWeapons,respawnAmmo] Call EquipLoadout;
+if (!isNil "respawnWeapons" && paramGearRespawn) then {
+	_temp = +(respawnWeapons);
+	_listbp = 'WFBE_BACKPACKS' Call GetNamespace;
+	{
+		if (_x in _listbp) then {_temp = _temp - [_x]};
+	} forEach respawnWeapons;
+	_weaps = _temp;
+	
+	[player,_weaps,respawnAmmo] Call EquipLoadout;
+	if !(WF_A2_Vanilla) then {
+		[] Spawn RespawningBag;
+	};
 } else {
 	_defaultWeap = Format ["WFBE_%1DEFAULTWEAPONS",sideJoinedText] Call GetNamespace;
 	_defaultAmmo = Format ["WFBE_%1DEFAULTAMMO",sideJoinedText] Call GetNamespace;

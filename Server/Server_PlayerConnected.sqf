@@ -1,7 +1,17 @@
-//--- JIP Script, experimental. By Benny 23/09/09.
-Private ['_attempts','_funds','_index','_leader','_name','_side','_sideLeft','_slotIndex','_team','_uid'];
+/* 
+	Author: Benny
+	Name: Server_PlayerConnected.sqf
+	Parameters:
+	  0 - User ID
+	  1 - User Name
+	Description:
+	  This file is called upon a player connection, the player's information are stored or retrieved before being updated.
+*/
+Private ['_attempts','_funds','_get','_leader','_name','_side','_sideLeft','_slotIndex','_team','_uid'];
 _uid = _this select 0;
 _name = _this select 1;
+
+diag_log Format["[WFBE (INFORMATION)] Server_PlayerConnected: Player %1 (%2) has joined the game",_name,_uid];
 
 sleep (0.1+random(0.1));
 
@@ -15,7 +25,8 @@ while {_attempts < 12 && isNull _team} do {
 	_attempts = _attempts + 1;
 };
 
-if (isNull _team) exitWith {};
+//--- Not found, exit.
+if (isNull _team) exitWith {diag_log Format ["[WFBE (INFORMATION)] Server_PlayerConnected: Player %1 (%2) is not defined within the west and east teams.",_name,_uid]};
 _leader = leader _team;
 _side = objNull;
 
@@ -23,55 +34,74 @@ _side = objNull;
 if (_leader isKindOf westSoldierBaseClass) then {_side = west};
 if (_leader isKindOf eastSoldierBaseClass) then {_side = east};
 
+//--- Retrieve the player's team.
 _slotIndex = (Format["WFBE_%1TEAMS",str _side] Call GetNamespace) find _team;
-if (_slotIndex == -1) exitWith {};
+if (_slotIndex == -1) exitWith {diag_log Format ["[WFBE (INFORMATION)] Server_PlayerConnected: Player %1 (%2) team's wasn't found.",_name,_uid]};
 
+//--- MySQL Update.
 if (mysql && _name != "__SERVER__") then {
 	WF_Logic setVariable ["WF_MYSQL_SERVER",(WF_Logic getVariable "WF_MYSQL_SERVER") + [Format ["MYSQLDATA§WFBE_Insert_Players§%1§%2",_uid,_name]]];
 };
 
-if !(keepAI) then {
+//--- Do we keep the AI over JIP?.
+if !(paramKeepAI) then {
 	_units = units _team;
 	_units = _units - [_leader];
 	_units = _units + ([_team,false] Call GetTeamVehicles);
 	{deleteVehicle _x} forEach _units;
 };
 
+//--- 'Sanitize' the player.
 _team Call AIWPRemove;
 _leader setDammage 0;
 
 //--- ISIS.
-if (ISIS) then {_leader removeAllEventHandlers "handleDamage"};
+if (paramISIS) then {_leader removeAllEventHandlers "handleDamage"};
+
+//--- Grab the player info (if they exist).
+_get = Format["WFBE_JIP_USER%1",_uid] Call GetNamespace;
 
 //--- Player didn't d/c.
-_index = JIPArrayUID find _uid;
-if (_index == -1) exitWith {
-	JIPArrayUID = JIPArrayUID + [_uid];
-	JIPArrayIndex = JIPArrayIndex + [_slotIndex];
-	JIPArrayCash = JIPArrayCash + [0];
-	JIPArraySide = JIPArraySide + [_side];
-	JIPArrayCurSide = JIPArrayCurSide + [_side];
-	if (mysql) then {JIP_SQL_Time = JIP_SQL_Time + [round(time)]};
+if (isNil '_get') exitWith {
+	/* 
+		UID | Slot Index | Cash | Side | Current Side | (mysql) time
+		This new method allows the server to execute the code faster, it will also prevent any possible 'wrong indexing' with the array (JIP Scripts are ExecVM'ed
+		 by the engine), note that this method also sanitize the values, preventing them from being modified by anything else than the server.
+	*/
+	[Format["WFBE_JIP_USER%1",_uid],[_uid,_slotIndex,0,_side,_side,if (mysql) then {round(time)} else {0}],true] Call SetNamespace;
 
-	_team setVariable ["funds",Format ["WFBE_%1STARTINGMONEY",str _side] Call GetNamespace,true];
-};
-//--- Player d/c before, update arrays.
-if (_index != -1) then {
-	JIPArrayIndex set [_index,_slotIndex];
-	JIPArrayCurSide set [_index,_side];
-	if (mysql) then {JIP_SQL_Time set [_index,round(time)]};
+	_team setVariable ['funds',Format ["WFBE_%1STARTINGMONEY",str _side] Call GetNamespace,true];
 };
 
-//--- Player d/c before.
-_funds = JIPArrayCash select _index;
-_sideLeft = JIPArraySide select _index;
+//--- Player d/c before, update info.
+_get set [1,_slotIndex];
+_get set [4,_side];
+if (mysql) then {_get set [5,round(time)]};
 
-//--- Teamswap.
+//--- Player d/c before, grab the info.
+_funds = _get select 2;
+_sideLeft = _get select 3;
+
+//--- Update.
+[Format["WFBE_JIP_USER%1",_uid],_get,true] Call SetNamespace;
+
+//--- Did the player teamswap?.
 if (_sideLeft != _side) then {
 	_funds = Format ["WFBE_%1STARTINGMONEY",str _side] Call GetNamespace;
-	if !(showUID) then {_uid = "xxxxxxx"};
-	[CMDLOCALIZEMESSAGE,"Teamswap",[_name,_uid,_sideLeft,_side]] Spawn CommandToClients;
-	if (kickTeamswappers) then {serverCommand Format["#kick %1",_name]};
+	
+	//--- Do we hide the UID?.
+	if !(paramShowUID) then {_uid = "xxxxxxx"};
+	
+	//--- Warn the clients.
+	WFBE_LocalizeMessage = [nil,'CLTFNCLOCALIZEMESSAGE',['Teamswap',_name,_uid,_sideLeft,_side]];
+	publicVariable 'WFBE_LocalizeMessage';
+	
+	//--- Kick the player?.
+	if (paramKickTeamswappers) then {
+		serverCommand Format["#kick %1",_name];
+		
+		diag_log Format["[WFBE (INFORMATION)] Server_PlayerConnected: Player %1 (%2) was kicked for teamswapping",_name,_get select 0];
+	};
 };
 
 //--- Set the cash.

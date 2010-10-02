@@ -13,6 +13,8 @@ _defense = _type createVehicle _position;
 _defense setDir _direction;
 _defense setPos _position;
 
+diag_log Format["[WFBE (INFORMATION)] Construction_StationaryDefense: A %1 %2 was created",str _side,_type];
+
 //--- If it's a minefield, we exit the script while spawning it.
 if (_type == 'Sign_Danger') exitWith {
 	_mineType = if (_side == east) then {'MineMineE'} else {'MineMine'};
@@ -50,9 +52,10 @@ if (_type == 'Sign_Danger') exitWith {
 
 Call Compile Format ["_defense addEventHandler ['Killed',{[_this select 0,_this select 1,%1] Spawn UnitKilled}]",_side];
 
-if (_defense EmptyPositions "gunner" > 0 && autoDefense) then {
+if (_defense EmptyPositions "gunner" > 0 && paramAutoDefense) then {
 	_team = if (_side == WEST) then {WF_DefenseWestGrp} else {WF_DefenseEastGrp};
-	_vehicles = (WF_Logic getVariable "emptyVehicles") + [_defense];
+	emptyQueu = emptyQueu + [_defense];
+	_defense Spawn HandleEmptyVehicle;
 	if (_manned) then {
 		_alives = (units _team) Call GetLiveUnits;
 		if (count _alives < ('WFBE_MAXAIDEFENSE' Call GetNamespace)) then {
@@ -62,37 +65,18 @@ if (_defense EmptyPositions "gunner" > 0 && autoDefense) then {
 			_barrackNearby = _check select 1;
 
 			//--- Manning Defenses.
-			if (_barrackNearby) then {
-				sleep 7;
-				
-				if (!(alive _closest)||(isNull _closest )) exitWith {};
-				
-				_type = typeOf _closest;
-				_index = (Format["WFBE_%1STRUCTURENAMES",str _side] Call GetNamespace) find _type;
-				_distance = (Format["WFBE_%1STRUCTUREDISTANCES",str _side] Call GetNamespace) select _index;
-				_direction = (Format["WFBE_%1STRUCTUREDIRECTIONS",str _side] Call GetNamespace) select _index;
-				_position = [getPos _closest,_distance,getDir _closest + _direction] Call GetPositionFrom;
-				
-				_type = Format ["WFBE_%1SOLDIER",str _side] Call GetNamespace;
-				_soldier = [_type,_team,_position,_side] Call CreateMan;
-				[_soldier] allowGetIn true;
-				_soldier assignAsGunner _defense;
-				[_soldier] orderGetIn true;
-				
-				_built = WF_Logic getVariable Format ["%1UnitsCreated",str _side];
-				_built = _built + 1;
-				WF_Logic setVariable [Format["%1UnitsCreated",str _side],_built,true];
-				
-				[_defense,_soldier] Spawn HandleDefense;
+			if (_barrackNearby) then {			
+				[_defense,_soldier,_side,_team] Spawn HandleDefense;
 			};
 		};
 	};
 };
 
-if (artyUI) then {
+if (paramArtyUI) then {
 	_isVeh = getNumber(configFile >> "CfgVehicles" >> typeOf(_defense) >> "ARTY_IsArtyVehicle");
     if (_isVeh == 1) then {
 		_defense setVehicleInit "[this] ExecVM 'Common\Common_InitArtillery.sqf'";
 		processInitCommands;
+		diag_log Format["[WFBE (INFORMATION)] Construction_StationaryDefense: Artillery UI has been set over the %1 %2",str _side,_type];
 	};
 };

@@ -11,11 +11,17 @@ _kname = name _killer;
 
 _deployed = WF_Logic getVariable Format ["%1MHQDeployed",str _side];
 
+diag_log Format["[WFBE (INFORMATION)] Server_HQKilled: The %1 MHQ has been destroyed",str _side];
+
 //--- Building Teamkill.
 if ((side _killer == _side)&&(isPlayer(_killer))) then {
-	_uid = if !(showUID) then {_uid = 'xxxxxxx'} else {_kuid};
-	_tked = GetText (configFile >> 'CfgVehicles' >> _type >> 'displayName');
-	[_side,CMDLOCALIZEMESSAGE,'BuildingTeamkill',[name _killer,_uid,_tked]] Spawn CommandToSide;
+	_uid = if !(paramShowUID) then {_uid = 'xxxxxxx'} else {_kuid};
+	_tked = [_type, 'displayName'] Call GetConfigInfo;
+	WFBE_LocalizeMessage = [_side,'CLTFNCLOCALIZEMESSAGE',['BuildingTeamkill',name _killer,_uid,_tked]];
+	publicVariable 'WFBE_LocalizeMessage';
+	if !(isMultiplayer) then {[_side,'CLTFNCLOCALIZEMESSAGE',['BuildingTeamkill',name _killer,_uid,_tked]] Spawn HandlePVF};
+	
+	diag_log Format["[WFBE (INFORMATION)] Server_HQKilled: Player %1 (%2) has teamkilled the MHQ.",name _killer,_uid];
 };
 
 sleep random(2);

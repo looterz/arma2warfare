@@ -21,7 +21,11 @@ if (_special == "Destroyed" || _special == "IsUnderAttack" || _special == "Const
 			if (_specialb == ('WFBE_WESTMHQNAME' Call GetNamespace) || _specialb == ('WFBE_EASTMHQNAME' Call GetNamespace)) then {_localizedString = localize "STRHeadquarters";_value = "Headquarters";if (_special == "Constructed") then {_special = "Mobilized"}};
 			if (_specialb == WESTHQ || _specialb == EASTHQ) then {_localizedString = localize "STRHeadquarters";_value = "Headquarters";if (_special == "Constructed") then {_special = "Deployed"}};
 			if (_specialb == WESTLVF || _specialb == EASTLVF) then {_localizedString = localize "STRLightVehicleSupply";_value = "LightVehicleSupply"};
-			if (_specialb == WESTCC || _specialb == EASTCC) then {_localizedString = localize "STR_WF_CommandCenter";_value = "UAVTerminal"};
+			if (_specialb == WESTCC || _specialb == EASTCC) then {
+				_localizedString = localize "STR_WF_CommandCenter";
+				_value = "UAVTerminal";
+				if (WF_A2_Arrowhead || (WF_A2_CombinedOps && _side == west)) then {_value = "CommandPost"};
+			};
 			if (_specialb == WESTHEAVY || _specialb == EASTHEAVY) then {_localizedString = localize "STRHeavyVehicleSupply";_value = "HeavyVehicleSupply"};
 			if (_specialb == WESTAIR || _specialb == EASTAIR) then {_localizedString = localize "STRHelipad";_value = "Helipad"};
 			if (_specialb == WESTSP || _specialb == EASTSP) then {_localizedString = localize "STRServicePoint";_value = "ServicePoint"};
@@ -35,9 +39,9 @@ if (_special == "Lost" || _special == "Captured" || _special == "HostilesDetecte
 	_locRaw = str _specialb;
 	_rlName = _specialb getVariable "name";
 	_canSpeak = if (_side == east && WF_A2_CombinedOps && worldName in ('WFBE_WORLDWHITELISTVA' Call GetNamespace)) then {true} else {false};
-	if (!_canSpeak) then {_canSpeak = if (_side == west && WF_A2_CombinedOps && worldName in ('WFBE_WORLDWHITELISTOA' Call GetNamespace)) then {true} else {false}};
-	if (!_canSpeak) then {_canSpeak = if (WF_A2_Vanilla && worldName in ('WFBE_WORLDWHITELISTVA' Call GetNamespace)) then {true} else {false}};
-	if (!_canSpeak) then {_canSpeak = if (WF_A2_Arrowhead && worldName in ('WFBE_WORLDWHITELISTOA' Call GetNamespace)) then {true} else {false}};
+	if !(_canSpeak) then {_canSpeak = if (_side == west && WF_A2_CombinedOps && worldName in ('WFBE_WORLDWHITELISTOA' Call GetNamespace)) then {true} else {false}};
+	if !(_canSpeak) then {_canSpeak = if (WF_A2_Vanilla && worldName in ('WFBE_WORLDWHITELISTVA' Call GetNamespace)) then {true} else {false}};
+	if !(_canSpeak) then {_canSpeak = if (WF_A2_Arrowhead && worldName in ('WFBE_WORLDWHITELISTOA' Call GetNamespace)) then {true} else {false}};
 	
 	if !(_canSpeak) then {_locRaw = "Town"} else {
 		switch (_locRaw) do {
@@ -53,9 +57,9 @@ if (_special == "CapturedNear" || _special == "LostAt") then {
 	_locRaw = str _extra;
 	_rlName = _extra getVariable "name";
 	_canSpeak = if (_side == east && WF_A2_CombinedOps && worldName in ('WFBE_WORLDWHITELISTVA' Call GetNamespace)) then {true} else {false};
-	if (!_canSpeak) then {_canSpeak = if (_side == west && WF_A2_CombinedOps && worldName in ('WFBE_WORLDWHITELISTOA' Call GetNamespace)) then {true} else {false}};
-	if (!_canSpeak) then {_canSpeak = if (WF_A2_Vanilla && worldName in ('WFBE_WORLDWHITELISTVA' Call GetNamespace)) then {true} else {false}};
-	if (!_canSpeak) then {_canSpeak = if (WF_A2_Arrowhead && worldName in ('WFBE_WORLDWHITELISTOA' Call GetNamespace)) then {true} else {false}};
+	if !(_canSpeak) then {_canSpeak = if (_side == west && WF_A2_CombinedOps && worldName in ('WFBE_WORLDWHITELISTOA' Call GetNamespace)) then {true} else {false}};
+	if !(_canSpeak) then {_canSpeak = if (WF_A2_Vanilla && worldName in ('WFBE_WORLDWHITELISTVA' Call GetNamespace)) then {true} else {false}};
+	if !(_canSpeak) then {_canSpeak = if (WF_A2_Arrowhead && worldName in ('WFBE_WORLDWHITELISTOA' Call GetNamespace)) then {true} else {false}};
 	
 	if !(_canSpeak) then {_locRaw = "Town"} else {
 		switch (_locRaw) do {

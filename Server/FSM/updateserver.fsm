@@ -1,4 +1,4 @@
-/*%FSM<COMPILE "F:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, updateserver">*/
+/*%FSM<COMPILE "D:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, updateserver">*/
 /*%FSM<HEAD>*/
 /*
 item0[] = {"Init",0,250,68.844200,-235.317032,158.844086,-185.317093,0.000000,"Init"};
@@ -11,9 +11,11 @@ item6[] = {"Wait",2,250,67.782181,-122.639091,157.782181,-72.639091,0.000000,"Wa
 item7[] = {"Annihilation",2,250,-30.415300,33.022167,59.584702,83.022156,0.000000,"Annihilation"};
 item8[] = {"Assassination",2,250,70.389214,33.891174,160.389175,83.891144,0.000000,"Assassination"};
 item9[] = {"Loop",4,218,171.623901,-54.529591,261.623230,-4.529560,0.000000,"Loop"};
-item10[] = {"Supremacy",2,4346,172.062729,33.891171,262.062012,83.891174,0.000000,"Supremacy"};
+item10[] = {"Supremacy",2,250,172.062729,33.891171,262.062012,83.891174,0.000000,"Supremacy"};
 item11[] = {"_",2,250,-61.980644,102.236549,28.019346,152.236542,0.000000,""};
 item12[] = {"_",4,218,-61.980686,179.758133,28.019318,229.758133,0.000000,""};
+item13[] = {"Town",2,250,275.342438,33.587734,365.342438,83.587723,0.000000,"Town"};
+item14[] = {"Loop",4,4314,275.618805,-53.185108,365.618805,-3.185127,0.000000,"Loop"};
 link0[] = {0,5};
 link1[] = {1,8};
 link2[] = {3,7};
@@ -22,17 +24,21 @@ link4[] = {5,6};
 link5[] = {6,1};
 link6[] = {6,3};
 link7[] = {6,9};
-link8[] = {7,3};
-link9[] = {7,4};
-link10[] = {8,1};
-link11[] = {8,4};
-link12[] = {9,10};
-link13[] = {10,4};
-link14[] = {10,9};
-link15[] = {11,12};
-link16[] = {12,2};
-globals[] = {0.000000,0,0,0,0,640,480,1,22,6316128,1,-316.112946,314.171326,205.600769,-227.509033,748,519,1};
-window[] = {0,-1,-1,-1,-1,692,51,1311,58,1,766};
+link8[] = {6,14};
+link9[] = {7,3};
+link10[] = {7,4};
+link11[] = {8,1};
+link12[] = {8,4};
+link13[] = {9,10};
+link14[] = {10,4};
+link15[] = {10,9};
+link16[] = {11,12};
+link17[] = {12,2};
+link18[] = {13,4};
+link19[] = {13,14};
+link20[] = {14,13};
+globals[] = {0.000000,0,0,0,0,640,480,1,24,6316128,1,-124.082573,468.916992,194.838867,-216.614029,595,514,1};
+window[] = {0,-1,-1,-1,-1,834,200,1460,200,1,613};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -67,7 +73,8 @@ class FSM
     class End
     {
       name = "End";
-      init = /*%FSM<STATEINIT""">*/"failMission ""END1"";"/*%FSM</STATEINIT""">*/;
+      init = /*%FSM<STATEINIT""">*/"diag_log ""[WFBE (OUTRO)] updateserver: Mission end - [Done]"";" \n
+       "failMission ""END1"";"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -110,6 +117,16 @@ class FSM
         class Loop_2
         {
           priority = 0.000000;
+          to="Town";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > 20 && !gameOver && _vc == 3"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Loop_3">*/
+        class Loop_3
+        {
+          priority = 0.000000;
           to="Assassination";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > 20 && !gameOver && _vc == 1"/*%FSM</CONDITION""">*/;
@@ -135,7 +152,9 @@ class FSM
        "" \n
        "//--- East Win." \n
        "if ((count _westBuildings == 0)&&(!_westMHQAlive) && !gameOver) then {" \n
-       "	[CMDENDGAME,EASTID,_eastBuildings] Spawn CommandToClients;" \n
+       "	WFBE_EndGame = [nil,'CLTFNCENDGAME',[EASTID,_eastBuildings]];" \n
+       "	publicVariable 'WFBE_EndGame';" \n
+       "	if !(isMultiplayer) then {[nil,'CLTFNCENDGAME',[EASTID,_eastBuildings]] Spawn HandlePVF};" \n
        "	WF_Logic setVariable [""WF_Winner"",east];" \n
        "	gameOver = true;" \n
        "	_winTime = time;" \n
@@ -143,7 +162,9 @@ class FSM
        "" \n
        "//--- West Win." \n
        "if ((count _eastBuildings == 0)&&(!_eastMHQAlive) && !gameOver) then {" \n
-       "	[CMDENDGAME,WESTID,_westBuildings] Spawn CommandToClients;" \n
+       "	WFBE_EndGame = [nil,'CLTFNCENDGAME',[WESTID,_westBuildings]];" \n
+       "	publicVariable 'WFBE_EndGame';" \n
+       "	if !(isMultiplayer) then {[nil,'CLTFNCENDGAME',[WESTID,_westBuildings]] Spawn HandlePVF};" \n
        "	WF_Logic setVariable [""WF_Winner"",west];" \n
        "	gameOver = true;" \n
        "	_winTime = time;" \n
@@ -196,7 +217,9 @@ class FSM
        "" \n
        "//--- East Win." \n
        "if (!_westMHQAlive || (_eastTowns == _total) && !gameOver) then {" \n
-       "	[CMDENDGAME,EASTID,_eastBuildings] Spawn CommandToClients;" \n
+       "	WFBE_EndGame = [nil,'CLTFNCENDGAME',[EASTID,_eastBuildings]];" \n
+       "	publicVariable 'WFBE_EndGame';" \n
+       "	if !(isMultiplayer) then {[nil,'CLTFNCENDGAME',[EASTID,_eastBuildings]] Spawn HandlePVF};" \n
        "	WF_Logic setVariable [""WF_Winner"",east];" \n
        "	gameOver = true;" \n
        "	_winTime = time;" \n
@@ -204,7 +227,9 @@ class FSM
        "" \n
        "//--- West Win." \n
        "if (!_eastMHQAlive || (_westTowns == _total) && !gameOver) then {" \n
-       "	[CMDENDGAME,WESTID,_westBuildings] Spawn CommandToClients;" \n
+       "	WFBE_EndGame = [nil,'CLTFNCENDGAME',[WESTID,_westBuildings]];" \n
+       "	publicVariable 'WFBE_EndGame';" \n
+       "	if !(isMultiplayer) then {[nil,'CLTFNCENDGAME',[WESTID,_westBuildings]] Spawn HandlePVF};" \n
        "	WF_Logic setVariable [""WF_Winner"",west];" \n
        "	gameOver = true;" \n
        "	_winTime = time;" \n
@@ -266,7 +291,9 @@ class FSM
        "" \n
        "//--- East Win." \n
        "if (!_westMHQAlive && _westFactories == 0 || (_eastTowns == _total) && !gameOver) then {" \n
-       "	[CMDENDGAME,EASTID,_eastBuildings] Spawn CommandToClients;" \n
+       "	WFBE_EndGame = [nil,'CLTFNCENDGAME',[EASTID,_eastBuildings]];" \n
+       "	publicVariable 'WFBE_EndGame';" \n
+       "	if !(isMultiplayer) then {[nil,'CLTFNCENDGAME',[EASTID,_eastBuildings]] Spawn HandlePVF};" \n
        "	WF_Logic setVariable [""WF_Winner"",east];" \n
        "	gameOver = true;" \n
        "	_winTime = time;" \n
@@ -274,7 +301,9 @@ class FSM
        "" \n
        "//--- West Win." \n
        "if (!_eastMHQAlive && _eastFactories == 0 || (_westTowns == _total) && !gameOver) then {" \n
-       "	[CMDENDGAME,WESTID,_westBuildings] Spawn CommandToClients;" \n
+       "	WFBE_EndGame = [nil,'CLTFNCENDGAME',[WESTID,_westBuildings]];" \n
+       "	publicVariable 'WFBE_EndGame';" \n
+       "	if !(isMultiplayer) then {[nil,'CLTFNCENDGAME',[WESTID,_westBuildings]] Spawn HandlePVF};" \n
        "	WF_Logic setVariable [""WF_Winner"",west];" \n
        "	gameOver = true;" \n
        "	_winTime = time;" \n
@@ -322,6 +351,63 @@ class FSM
           to="End";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/"time - 	_winTime > 20"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Town">*/
+    class Town
+    {
+      name = "Town";
+      init = /*%FSM<STATEINIT""">*/"_westTowns = 0;" \n
+       "_eastTowns = 0;" \n
+       "{_sideID = _x getVariable ""sideID"";if (_sideID == WESTID) then {_westTowns = _westTowns + 1};if (_sideID == EASTID) then {_eastTowns = _eastTowns + 1}} ForEach towns;" \n
+       "" \n
+       "//--- East Win." \n
+       "if (_eastTowns == _total && !gameOver) then {" \n
+       "	_eastBuildings = WF_Logic getVariable ""EastBaseStructures"";" \n
+       "	WFBE_EndGame = [nil,'CLTFNCENDGAME',[EASTID,_eastBuildings]];" \n
+       "	publicVariable 'WFBE_EndGame';" \n
+       "	if !(isMultiplayer) then {[nil,'CLTFNCENDGAME',[EASTID,_eastBuildings]] Spawn HandlePVF};" \n
+       "	WF_Logic setVariable [""WF_Winner"",east];" \n
+       "	gameOver = true;" \n
+       "	_winTime = time;" \n
+       "};" \n
+       "" \n
+       "//--- West Win." \n
+       "if (_westTowns == _total && !gameOver) then {" \n
+       "	_westBuildings = WF_Logic getVariable ""WestBaseStructures"";" \n
+       "	WFBE_EndGame = [nil,'CLTFNCENDGAME',[WESTID,_westBuildings]];" \n
+       "	publicVariable 'WFBE_EndGame';" \n
+       "	if !(isMultiplayer) then {[nil,'CLTFNCENDGAME',[WESTID,_westBuildings]] Spawn HandlePVF};" \n
+       "	WF_Logic setVariable [""WF_Winner"",west];" \n
+       "	gameOver = true;" \n
+       "	_winTime = time;" \n
+       "};" \n
+       "" \n
+       "_lastUpdate = time;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Loop">*/
+        class Loop
+        {
+          priority = 0.000000;
+          to="Town";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > 20 && !gameOver && _vc == 3"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Gameover">*/
+        class Gameover
+        {
+          priority = 0.000000;
+          to="_";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"gameOver"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/

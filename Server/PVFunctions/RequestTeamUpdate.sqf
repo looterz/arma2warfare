@@ -1,24 +1,24 @@
-Private["_properties","_side","_sideTeam","_team"];
+Private["_args","_properties","_team"];
 
-_side = _this select 0;
-_properties = _this select 2;
-_team = _this select 3;
+_args = _this;
+_team = _args select 0;
 
 //--- One team.
 if (typeName _team == "GROUP") then {
-	_team setBehaviour (_properties select 0 );
-	_team setCombatMode (_properties select 1);
-	_team setFormation (_properties select 2 );
-	_team setSpeedMode (_properties select 3 );
+	_team setBehaviour (_args select 1);
+	_team setCombatMode (_args select 2);
+	_team setFormation (_args select 3);
+	_team setSpeedMode (_args select 4);
+	diag_log Format["[WFBE (INFORMATION)] RequestTeamUpdate: The %1 Team properties has been updated (Behavior: %2 | Combat Mode: %3 | Formation: %4 | Speed Mode: %5)",_team,(_args select 1),(_args select 2),(_args select 3),(_args select 4)];
 };
 
 //--- The whole team.
 if (typeName _team == "SIDE") then {
-	_sideTeam = (Format["WFBE_%1TEAMS",str _side] Call GetNamespace);
 	{
-		_x setBehaviour (_properties select 0 );
-		_x setCombatMode (_properties select 1);
-		_x setFormation (_properties select 2 );
-		_x setSpeedMode (_properties select 3 );		
-	} forEach _sideTeam;
+		_x setBehaviour (_args select 1);
+		_x setCombatMode (_args select 2);
+		_x setFormation (_args select 3);
+		_x setSpeedMode (_args select 4);
+	} forEach (Format["WFBE_%1TEAMS",str _team] Call GetNamespace);
+	diag_log Format["[WFBE (INFORMATION)] RequestTeamUpdate: The %1 Teams properties have been updated (Behavior: %2 | Combat Mode: %3 | Formation: %4 | Speed Mode: %5)",_team,(_args select 1),(_args select 2),(_args select 3),(_args select 4)];
 };

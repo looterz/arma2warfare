@@ -36,7 +36,7 @@ lbSetCurSel[13008,0];
 _units = ((Units Group player) Call GetLiveUnits);
 _units = _units - [player];
 {
-	_desc = GetText (configFile >> "CfgVehicles" >> (typeOf _x) >> "displayName");
+	_desc = [typeOf _x, 'displayName'] Call GetConfigInfo;
 	_text = toArray(str(_x));
 	_amount = count _text;
 	_val = _text select (_amount-2);
@@ -45,7 +45,7 @@ _units = _units - [player];
 	_finalNumber = toString(_ainumber);
 	_isInVehicle = "";
 	if (_x != vehicle _x) then {
-		_descVehi = GetText (configFile >> "CfgVehicles" >> (typeOf (vehicle _x)) >> "displayName");
+		_descVehi = [typeOf (vehicle _x), 'displayName'] Call GetConfigInfo;
 		_isInVehicle = " [" + _descVehi + "] ";
 	};
 	_txt = "["+_finalNumber+"] "+ _desc + _isInVehicle;
@@ -77,7 +77,10 @@ while {alive player && dialog} do {
 			[_transferAmount,sideJoined,_curSel + 1] Call ChangeClientFunds;
 			-_transferAmount Call ChangePlayerFunds;
 			_funds = Call GetPlayerFunds;
-			SliderSetRange[13007,0,_funds];
+			WFBE_LocalizeMessage = [[_curSel + 1,sideJoined],'CLTFNCLOCALIZEMESSAGE',['FundsTransfer',_transferAmount,name player]];
+			publicVariable 'WFBE_LocalizeMessage';
+			if !(isMultiplayer) then {[[_curSel + 1,sideJoined],'CLTFNCLOCALIZEMESSAGE',['FundsTransfer',_transferAmount,name player]] Spawn HandlePVF};
+			sliderSetRange[13007,0,_funds];
 		};
 	};
 	
@@ -107,7 +110,7 @@ while {alive player && dialog} do {
 			_units = _units - [player];
 			lbClear 13013;
 			{
-				_desc = GetText (configFile >> "CfgVehicles" >> (typeOf _x) >> "displayName");
+				_desc = [typeOf _x, 'displayName'] Call GetConfigInfo;
 				_text = toArray(str(_x));
 				_amount = count _text;
 				_val = _text select (_amount-2);
@@ -116,7 +119,7 @@ while {alive player && dialog} do {
 				_finalNumber = toString(_ainumber);
 				_isInVehicle = "";
 				if (_x != vehicle _x) then {
-					_descVehi = GetText (configFile >> "CfgVehicles" >> (typeOf (vehicle _x)) >> "displayName");
+					_descVehi = [typeOf (vehicle _x), 'displayName'] Call GetConfigInfo;
 					_isInVehicle = " [" + _descVehi + "] ";
 				};
 				_txt = "["+_finalNumber+"] "+ _desc + _isInVehicle;

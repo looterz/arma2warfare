@@ -1,8 +1,6 @@
-Private ['_alliesTeamCost','_alliesTeamTemplates','_alliesTeamTemplateRequires','_alliesTeamTypes','_bounties','_bountyNames'];
+Private ['_alliesTeamCost','_alliesTeamTemplates','_alliesTeamTemplateRequires','_alliesTeamTypes'];
 /* ALLIES TEAM TEMPLATES */
 /* CDF*/
-_bounties = 'WFBE_UNITBOUNTIES' Call GetNamespace;
-_bountyNames = 'WFBE_UNITBOUNTYNAMES' Call GetNamespace;
 _alliesTeamTemplates = [];
 _alliesTeamTemplateRequires = [];
 _alliesTeamTypes = []; //--- 0 Inf, 2 Light, 3 Armor, 4 Air
@@ -21,7 +19,7 @@ _u = _u + ["CDF_Soldier"];
 _u = _u + ["CDF_Soldier_Medic"];
 _f 		= [true,false,false,false];
 _p 		= 0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -39,7 +37,7 @@ _u = _u + ["CDF_Soldier_Marksman"];
 _u = _u + ["CDF_Soldier_Marksman"];
 _f 		= [true,false,false,false];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -57,7 +55,7 @@ _u = _u + ["CDF_Soldier_Marksman"];
 _u = _u + ["CDF_Soldier_Marksman"];
 _f 		= [true,false,false,false];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -76,7 +74,7 @@ _u = _u + ["CDF_Soldier_Sniper"];
 _u = _u + ["CDF_Soldier_Spotter"];
 _f 		= [true,false,false,false];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -96,7 +94,7 @@ _u = _u + ["CDF_Soldier"];
 _u = _u + ["CDF_Soldier_Medic"];
 _f 		= [true,true,false,false];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -109,7 +107,7 @@ _u = _u + ["UAZ_AGS30_CDF"];
 _u = _u + ["UAZ_MG_CDF"];
 _f 		= [false,true,false,false];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -121,7 +119,7 @@ _u		= ["Ural_ZU23_CDF"];
 _u = _u + ["Ural_ZU23_CDF"];
 _f 		= [false,true,false,false];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -133,7 +131,7 @@ _u		= ["BRDM2_CDF"];
 _u = _u + ["BRDM2_ATGM_CDF"];
 _f 		= [false,true,false,false];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -150,7 +148,7 @@ _u = _u + ["CDF_Soldier_RPG"];
 _u = _u + ["CDF_Soldier"];
 _f 		= [true,false,true,false];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -163,7 +161,7 @@ _u = _u + ["BMP2_CDF"];
 _u = _u + ["BMP2_CDF"];
 _f 		= [false,false,true,false];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -176,7 +174,7 @@ _u = _u + ["T72_CDF"];
 _u = _u + ["T72_CDF"];
 _f 		= [false,false,true,false];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -189,7 +187,7 @@ _u = _u + ["ZSU_CDF"];
 _u = _u + ["BMP2_CDF"];
 _f 		= [false,false,true,false];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -201,7 +199,7 @@ _u		= ["Mi24_D"];
 _u = _u + ["Mi24_D"];
 _f 		= [false,false,false,true];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -216,7 +214,7 @@ _u = _u + ["CDF_Soldier_Strela"];
 _u = _u + ["CDF_Soldier_Strela"];
 _f 		= [true,false,false,true];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -234,7 +232,7 @@ _u = _u + ["CDF_Soldier_Strela"];
 _u = _u + ["CDF_Soldier_Medic"];
 _f 		= [true,false,false,true];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -263,7 +261,7 @@ _u = _u + ["Ins_Soldier_1"];
 _u = _u + ["Ins_Soldier_Medic"];
 _f 		= [true,false,false,false];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -281,7 +279,7 @@ _u = _u + ["Ins_Soldier_AR"];
 _u = _u + ["Ins_Soldier_2"];
 _f 		= [true,false,false,false];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -300,7 +298,7 @@ _u = _u + ["Ins_Soldier_Sniper"];
 _u = _u + ["Ins_Soldier_Sab"];
 _f 		= [true,false,false,false];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -320,7 +318,7 @@ _u = _u + ["Ins_Soldier_1"];
 _u = _u + ["Ins_Soldier_Medic"];
 _f 		= [true,true,false,false];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -333,7 +331,7 @@ _u = _u + ["UAZ_SPG9_INS"];
 _u = _u + ["UAZ_MG_INS"];
 _f 		= [false,true,false,false];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -345,7 +343,7 @@ _u		= ["Ural_ZU23_INS"];
 _u = _u + ["Ural_ZU23_INS"];
 _f 		= [false,true,false,false];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -357,7 +355,7 @@ _u		= ["BRDM2_INS"];
 _u = _u + ["BRDM2_ATGM_INS"];
 _f 		= [false,true,false,false];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -374,7 +372,7 @@ _u = _u + ["Ins_Soldier_AT"];
 _u = _u + ["Ins_Soldier_1"];
 _f 		= [true,false,true,false];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -387,7 +385,7 @@ _u = _u + ["BMP2_INS"];
 _u = _u + ["BMP2_INS"];
 _f 		= [false,false,true,false];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -400,7 +398,7 @@ _u = _u + ["T72_INS"];
 _u = _u + ["T72_INS"];
 _f 		= [false,false,true,false];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -413,7 +411,7 @@ _u = _u + ["ZSU_INS"];
 _u = _u + ["BMP2_INS"];
 _f 		= [false,false,true,false];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -425,7 +423,7 @@ _u		= ["Su25_Ins"];
 _u = _u + ["Su25_Ins"];
 _f 		= [false,false,false,true];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];
@@ -443,7 +441,7 @@ _u = _u + ["Ins_Soldier_AA"];
 _u = _u + ["Ins_Soldier_Medic"];
 _f 		= [true,false,false,true];
 _p 		=0;
-{_index = _bountyNames find _x;if (_index != -1) then {_p = _p + (_bounties select _index)}} forEach _u; 
+{_get = _x Call GetNamespace;if (!isNil '_get') then {_p = _p + (_get select QUERYUNITPRICE)}} forEach _u; 
 
 _alliesTeamTemplates = _alliesTeamTemplates + [_u];
 _alliesTeamTemplateRequires = _alliesTeamTemplateRequires + [_f];

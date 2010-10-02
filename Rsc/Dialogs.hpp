@@ -1,5 +1,11 @@
 /* Dialogs */
 
+#ifndef VANILLA
+	#define gearmenu "_this ExecVM 'Client\GUI\GUI_GearBeta.sqf'"
+#else
+	#define gearmenu "_this ExecVM 'Client\GUI\GUI_GearV.sqf'"
+#endif
+
 //--- Vote Menu.
 class RscDisplayWFVoting {
 	movingEnable = 1;
@@ -327,7 +333,7 @@ class RscBuyUnits {
 			y = 0.167676;
 			w = 0.45;
 			h = 0.444;
-			columns[] = {0.01, 0.19};
+			columns[] = {0.01, 0.19, 0.75};
 			drawSideArrows = 0;
 			idcRight = -1;
 			idcLeft = -1;
@@ -512,6 +518,21 @@ class RscBuyUnits {
 			text = '';
 			x = 0.5;
 			y = 0.01;
+		};
+		class CA_Faction: RscText {
+			idc = 12025;
+			text = $STR_WF_Faction;
+			x = 0.105;
+			y = 0.054;
+			colorText[] = subcolor1;
+			SizeEx = 0.03;
+		};
+		class CA_Combo_Faction: RscCombo {
+			idc = 12026;
+			x = 0.234;
+			w = 0.2;
+			y = 0.054;
+			onLBSelChanged = "MenuAction = 303";
 		};
 	};
 };
@@ -989,7 +1010,7 @@ class RscRespawnMenu {
 class RscGear {
 	movingEnable = 1;
 	idd = 16000;
-	onLoad = "_this ExecVM 'Client\GUI\GUI_GearBeta.sqf'";
+	onLoad = gearmenu;
 	
 	class controlsBackground {
 		class Mainback : RscPicture {
@@ -1062,11 +1083,18 @@ class RscGear {
 			action = "WF_Logic setVariable ['WF_Gear_Action','clear']";
 		};
 		class ConReload : ConClear {
-			idc = 3800 + 1;
+			idc = 3801;
 			x = 0.93;
 			tooltip = $STR_WF_Tooltips_GearReload;
 			text = "Client\Images\i_reload.paa";
 			action = "WF_Logic setVariable ['WF_Gear_Action','reload']";
+		};
+		class ConBackpack : ConClear {
+			idc = 3802;
+			x = 0.874;
+			tooltip = $STR_WF_Tooltips_Backpack;
+			text = "Client\Images\i_backpack.paa";
+			action = "WF_Logic setVariable ['WF_Gear_Action','backpack']";
 		};
 		class MainList : RscListBoxA {
 			idc = 3700;
@@ -1602,7 +1630,6 @@ class RscArtilleryMenu {
 			text = $STR_WF_Nuke;
 			action = "MenuAction = 8";
 		};
-
 		class CA_ArtilleryTimeout: RscStructuredText {
 			idc = 17016;
 			size = 0.0262;
@@ -1611,17 +1638,22 @@ class RscArtilleryMenu {
 			h = 0.16;
 			w = 0.15;
 		};
-
-		class CA_BuySellSuppliesButton: RscIGUIShortcutButton {
+		class CA_ParaVehicle: RscIGUIShortcutButton {
 			idc = 17017;
 			x = 0.043;
-			y = 0.68;
-			w = 0.45;
-			text = $STR_WF_BuySellSupply;
+			y = 0.665;
+			w = 0.3;
+			text = $STR_WF_Paradrop_Vehicle;
 			action = "MenuAction = 9";
 		};
-
-
+		class CA_ParaAmmo: RscIGUIShortcutButton {
+			idc = 17018;
+			x = 0.043;
+			y = 0.705;
+			w = 0.3;
+			text = $STR_WF_Paradrop_Ammo;
+			action = "MenuAction = 10";
+		};
 		//--- Separators.
 		class LineTRH1 : RscText {
 			x = 0.04;
@@ -1832,6 +1864,18 @@ class RscUpgradeMenu {
 			w = 0.03;
 			h = 0.002;
 		};
+		class LineTRH26 : LineTRH1 {
+			x = 0.73;
+			y = 0.47;
+			w = 0.002;
+			h = 0.03;
+		};
+		class LineTRH27 : LineTRH1 {
+			x = 0.73;
+			y = 0.47;
+			w = 0.06;
+			h = 0.002;
+		};
 		//--- Normal GUI Ctrls.
 		class WF_Con1: RscClickableText {
 			idc = 18001;
@@ -1902,7 +1946,7 @@ class RscUpgradeMenu {
 			idc = 18006;
 			text = "Client\Images\wf_uav.paa";
 			x = 0.70;
-			y = 0.39;
+			y = 0.48;
 			w = 0.064;
 			h = 0.064;
 			action = "MenuAction = 1";
@@ -2039,6 +2083,19 @@ class RscUpgradeMenu {
 			
 			onMouseMoving = "mouseX = (_this Select 1);mouseY = (_this Select 2)"; 
 			onMouseEnter = "displayUpgrade = 'easa'";
+			onMouseExit = "displayUpgrade = ''";
+		};
+		class WF_Con17: RscClickableText {
+			idc = 18017;
+			text = "Client\Images\wf_pas.paa";
+			x = 0.70;
+			y = 0.39;
+			w = 0.064;
+			h = 0.064;
+			action = "MenuAction = 1";
+			
+			onMouseMoving = "mouseX = (_this Select 1);mouseY = (_this Select 2)"; 
+			onMouseEnter = "displayUpgrade = 'paradrop'";
 			onMouseExit = "displayUpgrade = ''";
 		};
 		class CA_Diff_B_Back : RscShortcutButton {
@@ -2508,109 +2565,3 @@ class RscDisplayEASA {
 		};
 	};
 };
-
-//--- Supply Exchange Dialog
-class RscSupplyExchange {
-	movingEnable = 1;
-	idd = 18000;
-	onLoad = "_this ExecVM ""Client\GUI\GUI_SupplyExchangeMenu.sqf""";
-	
-	class controlsBackground {
-		class Mainback : RscPicture {
-			x = 0.185;
-			y = 0.17;
-			w = 1.2549;
-			h = 0.836601;
-			moving = 1;
-			text = "\ca\ui\data\ui_difficulty_background_ca.paa";
-		};
-	};
-	
-	class CA_Label: RscText {
-		colorText[] = subcolor1;
-		SizeEx = 0.03;
-	};	
-	
-	class controls {
-
-		class CA_Header: RscText {
-			idc = 17001;
-			text = $STR_WF_BuySellSupply;
-			x = 0.2;
-			w = 0.4;
-			y = 0.205;
-		};	
-		
-		class CA_CloseButton : RscShortcutButton {
-			idc = 17999;
-			shortcuts[] = {0x00050000 + 1};
-			default = 0;
-			x = 0.706;
-			y = 0.7625;
-			text = $STR_DISP_CLOSE;
-			action = "closeDialog 0";
-		};		
-		
-		class CA_SellRate_Label: CA_Label {
-			idc = 17002;
-			text = $STR_WF_SellSupplyExchangeRate;
-			x = 0.21;
-			y = 0.66;
-			w = 0.40;
-		};	
-
-		class CA_BuyRate_Label: CA_Label {
-			idc = 17003;
-			text = $STR_WF_BuySupplyExchangeRate;
-			x = 0.21;
-			y = 0.70;
-			w = 0.40;
-		};
-		
-		class CA_BuySellSupplies_Label: CA_Label {
-			idc = 17004;
-			text = $STR_WF_BuySellSupplyStatus;
-			x = 0.21;
-			y = 0.27;
-			w = 0.40;
-		};		
-		
-
-		class CA_BuySellSupplyOperationInfo: CA_Label {
-			idc = 17008;
-			text = $STR_WF_BuySellSupplyOperation;
-			x = 0.21;
-			y = 0.35;
-			w = 0.80;
-		};
-	
-		
-		class CA_SupplyExchange_Slider : RscXSliderH {
-			idc = 17005;
-			x = 0.21;
-			y = 0.40;
-			w = 0.50;
-		};		
-		
-		class BuySupplies: RscIGUIShortcutButton
-		{
-			idc = 17006;
-			x = 0.21;
-			y = 0.44;
-			text = $STR_WF_BuySupplies;
-			action = "MenuAction = 1";
-		};
-
-		class SellSupplies: RscIGUIShortcutButton
-		{
-			idc = 17007;
-			x = 0.44;
-			y = 0.44;
-			text = $STR_WF_SellSupplies;
-			action = "MenuAction = 2";
-		};	
-
-		
-	}	
-}
-

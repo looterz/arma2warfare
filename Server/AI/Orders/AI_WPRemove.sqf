@@ -1,10 +1,6 @@
-Private ["_team","_totalWP","_waypoints"];
+Private ['_team','_x'];
 _team = _this;
 
-_waypoints = waypoints _team;
-_totalWP = (count _waypoints)-1;
-
-while {_totalWP >= 0} do {
-	deleteWaypoint [_team, _totalWP];
-	_totalWP = _totalWP - 1;
+for [{_x = (count (waypoints _team))-1},{_x > -1},{_x = _x - 1}] do {
+	deleteWaypoint [_team, _x];
 };

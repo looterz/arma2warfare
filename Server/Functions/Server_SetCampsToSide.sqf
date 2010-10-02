@@ -22,4 +22,7 @@ for [{_count = Count _camps - 1},{_count >= 0},{_count = _count - 1}] do {
 sleep 0.5;
 
 _notifyAllSides = (_previousSide == East || _previousSide == West);
-[CMDALLCAMPSCAPTURED,_town,_sideID,_notifyAllSides] Spawn CommandToClients;
+
+WFBE_AllCampsCaptured = [nil,'CLTFNCALLCAMPSCAPTURED',[_town,_sideID,_notifyAllSides]];
+publicVariable 'WFBE_AllCampsCaptured';
+if !(isMultiplayer) then {[nil,'CLTFNCALLCAMPSCAPTURED',[_town,_sideID,_notifyAllSides]] Spawn HandlePVF};

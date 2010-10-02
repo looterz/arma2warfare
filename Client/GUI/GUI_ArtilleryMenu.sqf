@@ -37,23 +37,22 @@ _pard = 'WFBE_PARADELAY' Call GetNamespace;
 lbSetCurSel[17008,0];
 
 _IDCS = [17005,17006,17007,17008];
-if (!arty) then {{ctrlEnable [_x,false]} forEach _IDCS};
-if (!fastTravel) then {ctrlEnable [17014,false]};
-if (!icbm) then {ctrlEnable [17015,false]};
+if !(paramArty) then {{ctrlEnable [_x,false]} forEach _IDCS};
+if !(paramFastTravel) then {ctrlEnable [17014,false]};
+if !(paramICBM) then {ctrlEnable [17015,false]};
 
 //--- OA Takistanies don't have any UAV.
 if (WF_A2_Arrowhead && sideJoined == east) then {
 	{ctrlEnable [_x,false]} forEach [17012,17013];
 };
 
-_closeDialog = false;
-while {alive player && dialog && !_closeDialog} do {
+while {alive player && dialog} do {
 	if (side player != sideJoined) exitWith {deleteMarkerLocal _marker;deleteMarkerLocal _area;{deleteMarkerLocal _x} forEach _markers;closeDialog 0};
 	if (!dialog) exitWith {deleteMarkerLocal _marker;deleteMarkerLocal _area;{deleteMarkerLocal _x} forEach _markers};
 	
 	_currentUpgrades = WF_Logic getVariable Format ["%1Upgrades",sideJoinedText];
 	
-	if (fastTravel) then {
+	if (paramFastTravel) then {
 		_currentLevel = _currentUpgrades select 12;
 		if (time - _lastUpdate > 15 && _currentLevel > 0) then {
 			{deleteMarkerLocal _x} forEach _markers;
@@ -125,7 +124,7 @@ while {alive player && dialog && !_closeDialog} do {
 	
 	_funds = Call GetPlayerFunds;
 	
-	if (icbm) then {
+	if (paramICBM) then {
 		_commander = false;
 		if (!isNull(commanderTeam)) then {
 			if (commanderTeam == group player) then {_commander = true};
@@ -143,6 +142,11 @@ while {alive player && dialog && !_closeDialog} do {
 	if !(isNull playerUAV) then {if (alive playerUAV) then {_enable = true}};
 	ctrlEnable [17012,_enable];
 	ctrlEnable [17013,_enable];
+	_currentLevel = _currentUpgrades select 16;
+	_enable = if (_funds >= 3500 && _currentLevel > 0 && time - lastSupplyCall > _pard) then {true} else {false};
+	ctrlEnable [17017,_enable];
+	_enable = if (_funds >= 9500 && _currentLevel > 0 && time - lastSupplyCall > _pard) then {true} else {false};
+	ctrlEnable [17018,_enable];
 	
 	if (mouseButtonUp == 0) then {
 		mouseButtonUp = -1;
@@ -159,8 +163,10 @@ while {alive player && dialog && !_closeDialog} do {
 			_callPos = _map posScreenToWorld[mouseX,mouseY];
 			if (!surfaceIsWater _callPos) then {
 				lastParaCall = time;
-				-11500 Call ChangePlayerFunds;
-				[CMDREQUESTSPECIAL,"Paratroops",_callPos] Spawn CommandToServer;
+				-(11500) Call ChangePlayerFunds;
+				WFBE_RequestSpecial = ['SRVFNCREQUESTSPECIAL',["Paratroops",sideJoined,_callPos,clientTeam]];
+				publicVariable 'WFBE_RequestSpecial';
+				if !(isMultiplayer) then {['SRVFNCREQUESTSPECIAL',["Paratroops",sideJoined,_callPos,clientTeam]] Spawn HandleSPVF};
 				hint (localize "STR_WF_Paratroop_Info");
 			};
 		};
@@ -243,9 +249,28 @@ while {alive player && dialog && !_closeDialog} do {
 			_nukeMarker setMarkerColorLocal "ColorRed";
 			[_obj,_nukeMarker] Spawn NukeIncomming;
 		};
-		
+		//--- Vehicle Paradrop.
+		if (MenuAction == 9) then {
+			MenuAction = -1;
+			lastSupplyCall = time;
+			-3500 Call ChangePlayerFunds;
+			_callPos = _map PosScreenToWorld[mouseX,mouseY];
+			WFBE_RequestSpecial = ['SRVFNCREQUESTSPECIAL',["ParaVehi",sideJoined,_callPos,clientTeam]];
+			publicVariable 'WFBE_RequestSpecial';
+			if !(isMultiplayer) then {['SRVFNCREQUESTSPECIAL',["ParaVehi",sideJoined,_callPos,clientTeam]] Spawn HandleSPVF};
+		};
+		//--- Ammo Paradrop.
+		if (MenuAction == 10) then {
+			MenuAction = -1;
+			lastSupplyCall = time;
+			-9500 Call ChangePlayerFunds;
+			_callPos = _map PosScreenToWorld[mouseX,mouseY];
+			WFBE_RequestSpecial = ['SRVFNCREQUESTSPECIAL',["ParaAmmo",sideJoined,_callPos,clientTeam]];
+			publicVariable 'WFBE_RequestSpecial';
+			if !(isMultiplayer) then {['SRVFNCREQUESTSPECIAL',["ParaAmmo",sideJoined,_callPos,clientTeam]] Spawn HandleSPVF};
+		};
 	};
-	if (arty) then {
+	if (paramArty) then {
 		//--- Artillery Status.
 		_fireTime = (Format["WFBE_FIREMISSIONTIMEOUT%1",(_currentUpgrades select 10)] Call GetNamespace);
 		_status = round(_fireTime - (time - fireMissionTime));
@@ -288,16 +313,6 @@ while {alive player && dialog && !_closeDialog} do {
 		playerUAV setDammage 1;
 		playerUAV = objNull;
 	};
-	
-	if (MenuAction == 9) then {
-
-		MenuAction = -1;
-		closeDialog 0;
-		_closeDialog = true;
-		CreateDialog "RscSupplyExchange";		
-	};
-		
-	
 	
 	_lastRange = artyRange;
 	sleep 0.1;

@@ -9,14 +9,24 @@ CMD0PARAMETERS = 0;
 CMD1PARAMETERS = CMDPARAMETERBIT0;
 CMD2PARAMETERS = CMDPARAMETERBIT1;
 CMD3PARAMETERS = CMDPARAMETERBIT0 + CMDPARAMETERBIT1;
+//--- DO NOT CHANGE!
+QUERYUNITLABEL = 0;
+QUERYUNITPICTURE = 1;
+QUERYUNITPRICE = 2;
+QUERYUNITTIME = 3;
+QUERYUNITCREW = 4;
+QUERYUNITUPGRADE = 5;
+QUERYUNITFACTORY = 6;
+QUERYUNITSKILL = 7;
+QUERYUNITFACTION = 8;
 
 /* IMPORTANT: New Getter/Setter, variable are stored into missionNamespace, the true/false variable define whether we shall override an existing variable or not */
 //--- How long a vehicle last empty before being sweeped.
 ['WFBE_ABANDONVEHICLETIMER',1200,false] Call SetNamespace;
 //--- AI Commander will move the base after this laps of time if all conditions are met.
 ['WFBE_AICOMMANDERMOVEINTERVAL',3600,true] Call SetNamespace;
-//--- Global AI Skill.
-['WFBE_AISKILL',1,true] Call SetNamespace;
+//--- Global AI Skill (only used over units not present in core).
+['WFBE_AISKILL',0.7,true] Call SetNamespace;
 //--- Announcers (Radio).
 if (WF_A2_Vanilla) then {
 	['WFBE_ANNOUNCERSWEST',['WFHQ_EN0','WFHQ_EN1','WFHQ_EN2'],true] Call SetNamespace;
@@ -39,44 +49,10 @@ if (WF_A2_CombinedOps) then {
 //--- Artillery Range.
 ['WFBE_ARTILLERYMAXRANGE',3,false] Call SetNamespace;
 //--- Balanced units.
-['WFBE_BALANCEDUNITS',['T72_TK_EP1','M6_EP1','T55_TK_EP1','ZSU_TK_EP1','An2_TK_EP1','L39_TK_EP1','UH1H_TK_EP1','Mi24_D_TK_EP1','Mi24_P','Mi24_V','Ka52','Ka52Black','MH6J_EP1','F35B'],true] Call SetNamespace;
+['WFBE_BALANCEDUNITS',['AH1Z','CH_47F_EP1','AV8B','AV8B2','Mi24_V','Mi24_D','Mi24_P','Mi17_rockets_RU','Su34','Su25_TK_EP1','Su25_Ins','Su39','Mi17_TK_EP1','Mi24_D_TK_EP1','Ka52','Ka52Black','F35B','M6_EP1','An2_TK_EP1','Mi17_medevac_RU'],true] Call SetNamespace;
 //--- Base Area Limits.
 ['WFBE_BASEAREARANGE',250,true] Call SetNamespace;
 ['WFBE_BASEAREAMAX',2,false] Call SetNamespace;
-//--- Base Patrols.
-if (WF_A2_Vanilla) then {
-	['WFBE_WESTBASEPATROLS_0',['USMC_Soldier_SL','USMC_Soldier','USMC_Soldier','USMC_Soldier_AR','USMC_Soldier_GL','USMC_Soldier_MG'],true] Call SetNamespace;
-	['WFBE_WESTBASEPATROLS_1',['USMC_Soldier_SL','USMC_Soldier','USMC_Soldier','USMC_Soldier_MG','USMC_Soldier_LAT','USMC_Soldier_Medic'],true] Call SetNamespace;
-	['WFBE_WESTBASEPATROLS_2',['USMC_Soldier_SL','USMC_Soldier','USMC_Soldier','USMC_Soldier_AT','USMC_Soldier_AA','USMC_SoldierS_Sniper'],true] Call SetNamespace;
-	['WFBE_WESTBASEPATROLS_3',['USMC_Soldier_SL','USMC_Soldier','USMC_Soldier_AR','USMC_Soldier_HAT','USMC_Soldier_LAT','USMC_Soldier_GL'],true] Call SetNamespace;
-	
-	['WFBE_EASTBASEPATROLS_0',['RU_Soldier_SL','RU_Soldier','RU_Soldier','RU_Soldier_AR','RU_Soldier_GL','RU_Soldier_MG'],true] Call SetNamespace;
-	['WFBE_EASTBASEPATROLS_1',['RU_Soldier_SL','RU_Soldier','RU_Soldier','RU_Soldier_MG','RU_Soldier_LAT','RU_Soldier_Medic'],true] Call SetNamespace;
-	['WFBE_EASTBASEPATROLS_2',['RU_Soldier_SL','RU_Soldier','RU_Soldier','RU_Soldier_AT','RU_Soldier_AA','RU_Soldier_Marksman'],true] Call SetNamespace;
-	['WFBE_EASTBASEPATROLS_3',['RU_Soldier_SL','RU_Soldier','RU_Soldier_AR','RU_Soldier_HAT','RU_Soldier_LAT','RU_Soldier_GL'],true] Call SetNamespace;
-};
-if (WF_A2_Arrowhead) then {
-	['WFBE_WESTBASEPATROLS_0',['US_Soldier_SL_EP1','US_Soldier_EP1','US_Soldier_EP1','US_Soldier_AR_EP1','US_Soldier_GL_EP1','US_Soldier_MG_EP1'],true] Call SetNamespace;
-	['WFBE_WESTBASEPATROLS_1',['US_Soldier_SL_EP1','US_Soldier_EP1','US_Soldier_EP1','US_Soldier_MG_EP1','US_Soldier_LAT_EP1','US_Soldier_Medic_EP1'],true] Call SetNamespace;
-	['WFBE_WESTBASEPATROLS_2',['US_Soldier_SL_EP1','US_Soldier_EP1','US_Soldier_EP1','US_Soldier_AT_EP1','US_Soldier_AA_EP1','US_Soldier_Sniper_EP1'],true] Call SetNamespace;
-	['WFBE_WESTBASEPATROLS_3',['US_Soldier_SL_EP1','US_Soldier_EP1','US_Soldier_AR_EP1','US_Soldier_HAT_EP1','US_Soldier_LAT_EP1','US_Soldier_GL_EP1'],true] Call SetNamespace;
-	
-	['WFBE_EASTBASEPATROLS_0',['TK_Soldier_SL_EP1','TK_Soldier_EP1','TK_Soldier_EP1','TK_Soldier_AR_EP1','TK_Soldier_GL_EP1','TK_Soldier_MG_EP1'],true] Call SetNamespace;
-	['WFBE_EASTBASEPATROLS_1',['TK_Soldier_SL_EP1','TK_Soldier_EP1','TK_Soldier_EP1','TK_Soldier_MG_EP1','TK_Soldier_LAT_EP1','TK_Soldier_Medic_EP1'],true] Call SetNamespace;
-	['WFBE_EASTBASEPATROLS_2',['TK_Soldier_SL_EP1','TK_Soldier_EP1','TK_Soldier_EP1','TK_Soldier_AT_EP1','TK_Soldier_AA_EP1','TK_Soldier_Spotter_EP1'],true] Call SetNamespace;
-	['WFBE_EASTBASEPATROLS_3',['TK_Soldier_SL_EP1','TK_Soldier_EP1','TK_Soldier_AR_EP1','TK_Soldier_HAT_EP1','TK_Soldier_LAT_EP1','TK_Soldier_GL_EP1'],true] Call SetNamespace;
-};
-if (WF_A2_CombinedOps) then {
-	['WFBE_WESTBASEPATROLS_0',['US_Soldier_SL_EP1','US_Soldier_EP1','US_Soldier_EP1','US_Soldier_AR_EP1','US_Soldier_GL_EP1','US_Soldier_MG_EP1'],true] Call SetNamespace;
-	['WFBE_WESTBASEPATROLS_1',['US_Soldier_SL_EP1','US_Soldier_EP1','US_Soldier_EP1','US_Soldier_MG_EP1','US_Soldier_LAT_EP1','US_Soldier_Medic_EP1'],true] Call SetNamespace;
-	['WFBE_WESTBASEPATROLS_2',['US_Soldier_SL_EP1','US_Soldier_EP1','US_Soldier_EP1','US_Soldier_AT_EP1','US_Soldier_AA_EP1','US_Soldier_Sniper_EP1'],true] Call SetNamespace;
-	['WFBE_WESTBASEPATROLS_3',['US_Soldier_SL_EP1','US_Soldier_EP1','US_Soldier_AR_EP1','US_Soldier_HAT_EP1','US_Soldier_LAT_EP1','US_Soldier_GL_EP1'],true] Call SetNamespace;
-	
-	['WFBE_EASTBASEPATROLS_0',['RU_Soldier_SL','RU_Soldier','RU_Soldier','RU_Soldier_AR','RU_Soldier_GL','RU_Soldier_MG'],true] Call SetNamespace;
-	['WFBE_EASTBASEPATROLS_1',['RU_Soldier_SL','RU_Soldier','RU_Soldier','RU_Soldier_MG','RU_Soldier_LAT','RU_Soldier_Medic'],true] Call SetNamespace;
-	['WFBE_EASTBASEPATROLS_2',['RU_Soldier_SL','RU_Soldier','RU_Soldier','RU_Soldier_AT','RU_Soldier_AA','RU_Soldier_Marksman'],true] Call SetNamespace;
-	['WFBE_EASTBASEPATROLS_3',['RU_Soldier_SL','RU_Soldier','RU_Soldier_AR','RU_Soldier_HAT','RU_Soldier_LAT','RU_Soldier_GL'],true] Call SetNamespace;
-};
 //--- Bounty Coefficient Modifier (Blood money).
 ['WFBE_BOUNTYMODIFIER',0.25,true] Call SetNamespace;
 //--- Building Limits.
@@ -123,11 +99,13 @@ if (WF_A2_CombinedOps) then {
 ['WFBE_HALOJUMPHEIGHT',200,true] Call SetNamespace;
 //--- HQ Deploy / Mobilize Price.
 ['WFBE_HQDEPLOYPRICE',100,false] Call SetNamespace;
+//--- Income Interval (Delay between each paycheck).
+['WFBE_INCOMEINTERVAL',60,false] Call SetNamespace;
 //--- Income System (1:Full, 2:Half (Half -> 120 SV Town = 60$ / 60SV))
 ['WFBE_INCOMESYSTEM',1,false] Call SetNamespace;
 //--- Time that a marker remain on a dead unit.
 ['WFBE_MARKERDEADDELAY',60,true] Call SetNamespace;
-//--- Maximum AI's that will be able to man defense in baracks area.
+//--- Maximum AIs that will be able to man defense within the barracks area.
 ['WFBE_MAXAIDEFENSE',30,true] Call SetNamespace;
 //---  Maximum spread area of artillery support.
 ['WFBE_MAXARTILLERYAREA',300,true] Call SetNamespace;
@@ -136,7 +114,7 @@ if (WF_A2_CombinedOps) then {
 //--- Maximum Client Group size.
 ['WFBE_MAXGROUPSIZE',14,false] Call SetNamespace;
 ['WFBE_MAXGROUPSIZEAI',10,false] Call SetNamespace;
-//--- Skill (Soldier), have more units than the others.
+//--- Skill (Soldiers), have more units than the others.
 ['WFBE_MAXGZBONUSSKILL',6,true] Call SetNamespace;
 //--- Maximum amount of supply truck per side (AI).
 ['WFBE_MAXAISUPPLYTRUCKS',5,true] Call SetNamespace;
@@ -185,6 +163,8 @@ if (WF_A2_CombinedOps) then {['WFBE_RESISTANCEFACTION',1,false] Call SetNamespac
 ['WFBE_RESPAWNMOBILERANGE2',500,true] Call SetNamespace;
 //--- Score Gained per town assist.
 ['WFBE_SCOREASSISTCAPTURETOWN',5,true] Call SetNamespace;
+//--- Advanced Aircraft restriction.
+['WFBE_RESTRICTIONADVAIR',0,false] Call SetNamespace;
 //--- Points Gained per camp captire.
 ['WFBE_SCORECAPTURECAMP',1,true] Call SetNamespace;
 //--- Score Gained per town capture.
@@ -232,6 +212,8 @@ if (WF_A2_CombinedOps) then {['WFBE_RESISTANCEFACTION',1,false] Call SetNamespac
 ['WFBE_TOWNCAPTURERANGE',40,true] Call SetNamespace;
 //--- Town Capture rate.
 ['WFBE_TOWNCAPTURERATE',1,true] Call SetNamespace;
+//--- Amount of Waypoints given to the AI Patrol in towns (Higher is wider).
+['WFBE_TOWNPATROLHOPS',7,true] Call SetNamespace;
 //--- Town Purchase range.
 ['WFBE_TOWNPURCHASERANGE',30,true] Call SetNamespace;
 //--- Town occupation Difficulty (1: Light, 2: Medium, 3: Hard, 4: Insane, 5: Auto).
@@ -248,27 +230,27 @@ if (WF_A2_CombinedOps) then {['WFBE_RESISTANCEFACTION',1,false] Call SetNamespac
 ['WFBE_TOWNUNITSPATROLDISTANCE',360,true] Call SetNamespace;
 //--- Unit will spawn within this range.
 ['WFBE_TOWNUNITSPAWNRANGE',75,true] Call SetNamespace;
-//--- Sweeping delay.
+//--- Interval between each uav spotting routine.
+['WFBE_UAVSPOTTINGDELAY',20,true] Call SetNamespace;
+//--- UAV will reveal each targets that it knows about this value (0-4)
+['WFBE_UAVSPOTTINGDETECTION',0.21,true] Call SetNamespace;
+//--- Max Range of the UAV spotting.
+['WFBE_UAVSPOTTINGRANGE',900,true] Call SetNamespace;
+//--- Units cleaning delay.
 ['WFBE_UNITREMOVEDLAY',300,false] Call SetNamespace;
-//--- Victory Condition (0: Annihilation, 1: Assassination, 2: Supremacy).
+//--- Victory Condition (0: Annihilation, 1: Assassination, 2: Supremacy, 3: Towns).
 ['WFBE_VICTORYCONDITION',2,false] Call SetNamespace;
 //--- Commander vote time.
-
-if (WF_DEBUG) then { 
-	['WFBE_VOTETIME',10,true] Call SetNamespace;
-} else 
-{ 	['WFBE_VOTETIME',60,true] Call SetNamespace; };
-
-
-//--- Weather Transition period, need to be < server weather sleep (Jip Sync on next forecast).
-['WFBE_WEATHERTRANSITION',400,true] Call SetNamespace;
+['WFBE_VOTETIME',60,true] Call SetNamespace;
+//--- Weather Transition period (longer is more realistic).
+['WFBE_WEATHERTRANSITION',600,true] Call SetNamespace;
 //--- Proper worlds (Radio town localization).
 ['WFBE_WORLDWHITELISTOA',["Zargabad","Takistan"],true] Call SetNamespace;
 ['WFBE_WORLDWHITELISTVA',["chernarus","utes"],true] Call SetNamespace;
 
 //--- Resistance Island Patrol System.
 ['WFBE_RESPATROLINTERVAL',1200,true] Call SetNamespace;
-['WFBE_RESPATROLMAX',6,false] Call SetNamespace;
+['WFBE_RESPATROL',0,false] Call SetNamespace;
 _resType = 'WFBE_RESISTANCEFACTION' Call GetNamespace;
 if (isNil '_resType') then {_resType = -1};
 if (WF_A2_Vanilla || _resType == 0) then {
@@ -296,7 +278,7 @@ if (WF_A2_Arrowhead || _resType == 1) then {
 
 //--- Resistance Strikers.
 ['WFBE_RESSTRIKERINTERVAL',1800,true] Call SetNamespace;
-['WFBE_RESSTRIKERMAX',3,false] Call SetNamespace;
+['WFBE_RESSTRIKER',0,false] Call SetNamespace;
 if (WF_A2_Vanilla || _resType == 0) then {
 	['WFBE_RESSTRIKERTYPE10',['GUE_Soldier_Sab','GUE_Soldier_Scout','GUE_Soldier_Sniper'],true] Call SetNamespace;
 	['WFBE_RESSTRIKERTYPE11',['GUE_Soldier_CO','GUE_Soldier_AR','GUE_Soldier_3','GUE_Soldier_AT','GUE_Soldier_2'],true] Call SetNamespace;
@@ -315,27 +297,63 @@ if (WF_A2_Arrowhead || _resType == 1) then {
 ['WFBE_UPGRADELABELS',
  [localize 'strwfbarracks',localize 'strwflightfactory',localize 'strwfheavyfactory',localize 'strwfaircraftfactory',localize 'STR_WF_Paratroop',
  localize 'str_dn_uav',localize 'STR_WF_Supply',localize 'STR_WF_RespawnRange',localize 'STR_WF_Airlift',localize 'STR_WF_Countermeasures',
- localize 'STR_WF_ArtilleryUpgrade',localize 'STR_WF_ICBM',localize 'STR_WF_FastTravel',localize 'STR_WF_Gear',localize 'STR_WF_Ammo','EASA'],
+ localize 'STR_WF_ArtilleryUpgrade',localize 'STR_WF_ICBM',localize 'STR_WF_FastTravel',localize 'STR_WF_Gear',localize 'STR_WF_Ammo','EASA',
+ localize 'STR_WF_Paradrop'],
  true
 ] Call SetNamespace;
 //--- Amount of upgrade levels.
-['WFBE_UPGRADELEVELS',[3,3,3,3,3,1,2,2,1,1,3,1,1,3,1,1],true] Call SetNamespace;
+['WFBE_UPGRADELEVELS',[3,3,3,3,3,1,2,2,1,1,3,1,1,3,1,1,1],true] Call SetNamespace;
 //--- [upgrade index, upgrade level].
-['WFBE_UPGRADEDEPENDENCIES',[[],[],[],[],[3,1],[3,2],[],[1,2],[],[3,1],[2,1],[3,3],[],[],[13,3],[3,3]],true] Call SetNamespace;
+['WFBE_UPGRADEDEPENDENCIES',[[],[],[],[],[3,1],[3,2],[],[1,2],[],[3,1],[2,1],[3,3],[],[0,1],[13,3],[3,3],[8,1]],true] Call SetNamespace;
 //--- Special condition.
-['WFBE_UPGRADECONDITION',[true,true,true,true,true,true,true,true,true,counterMeasures,arty,icbm,fastTravel,true,true,paramEASA],true] Call SetNamespace;
+['WFBE_UPGRADECONDITION',[true,true,true,true,true,true,true,true,true,paramCounterMeasures,paramArty,paramICBM,paramFastTravel,true,true,paramEASA,true],true] Call SetNamespace;
 //--- [Supply,Money].
-['WFBE_UPGRADEPRICESLEVEL1',[[300,750],[700,1850],[1900,4000],[3600,8800],[3200,7400],[2500,5600],[1800,6200],[500,1800],[950,2450],[3400,8200],[1200,2950],[50000,80000],[1350,3550],[250,500],[750,2250],[4400,12500]],true] Call SetNamespace;
-['WFBE_UPGRADEPRICESLEVEL2',[[400,1150],[800,2450],[2100,4750],[4600,9900],[3800,8700],[],[3600,12400],[700,2400],[],[],[1800,4400],[],[],[650,2550],[],[]],true] Call SetNamespace;
-['WFBE_UPGRADEPRICESLEVEL3',[[500,1620],[1000,3900],[2400,6050],[5500,10750],[4400,9800],[],[],[],[],[],[3000,7500],[],[],[1400,4250],[],[]],true] Call SetNamespace;
+['WFBE_UPGRADEPRICESLEVEL1',[[300,750],[700,1850],[1900,4000],[3600,8800],[3200,7400],[2500,5600],[1800,6200],[500,1800],[950,2450],[3400,8200],[1200,2950],[50000,80000],[1350,3550],[250,500],[750,2250],[4400,12500],[3250,8800]],true] Call SetNamespace;
+['WFBE_UPGRADEPRICESLEVEL2',[[400,1150],[800,2450],[2100,4750],[4600,9900],[3800,8700],[],[3600,12400],[700,2400],[],[],[1800,4400],[],[],[650,2550],[],[],[]],true] Call SetNamespace;
+['WFBE_UPGRADEPRICESLEVEL3',[[500,1620],[1000,3400],[2400,6050],[5500,10750],[4400,9800],[],[],[],[],[],[3000,7500],[],[],[1400,4250],[],[],[]],true] Call SetNamespace;
 //--- Time required per upgrade.
-['WFBE_UPGRADETIMESLEVEL1',[160,210,320,420,340,260,310,175,195,320,220,850,260,180,170,420],true] Call SetNamespace;
-['WFBE_UPGRADETIMESLEVEL2',[220,250,340,455,370,0,420,220,0,0,260,0,0,260,0,0],true] Call SetNamespace;
-['WFBE_UPGRADETIMESLEVEL3',[240,290,360,495,390,0,0,0,0,0,320,0,0,340,0,0],true] Call SetNamespace;
+//['WFBE_UPGRADETIMESLEVEL1',[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],true] Call SetNamespace;
+//['WFBE_UPGRADETIMESLEVEL2',[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],true] Call SetNamespace;
+//['WFBE_UPGRADETIMESLEVEL3',[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],true] Call SetNamespace;
+['WFBE_UPGRADETIMESLEVEL1',[160,210,320,420,340,260,310,175,195,320,220,850,260,180,170,420,380],true] Call SetNamespace;
+['WFBE_UPGRADETIMESLEVEL2',[220,250,340,455,370,0,420,220,0,0,260,0,0,260,0,0,0],true] Call SetNamespace;
+['WFBE_UPGRADETIMESLEVEL3',[240,290,360,495,390,0,0,0,0,0,320,0,0,340,0,0,0],true] Call SetNamespace;
 //--- AI COMMANDER priority, we use the upgrade index (0: Barracks, 4: Paratroops...).
-['WFBE_UPGRADEAIORDER',[0,13,1,6,2,12,3,7,10,3,8,4,5,9,11,14,15],true] Call SetNamespace;
+['WFBE_UPGRADEAIORDER',[0,13,1,6,2,12,3,7,10,3,8,4,5,9,11,14,15,16],true] Call SetNamespace;
 
 //--- SPECIAL.
+//--- Base Patrols.
+if (WF_A2_Vanilla) then {
+	['WFBE_WESTBASEPATROLS_0',['USMC_Soldier_SL','USMC_Soldier','USMC_Soldier','USMC_Soldier_AR','USMC_Soldier_GL','USMC_Soldier_MG'],true] Call SetNamespace;
+	['WFBE_WESTBASEPATROLS_1',['USMC_Soldier_SL','USMC_Soldier','USMC_Soldier','USMC_Soldier_MG','USMC_Soldier_LAT','USMC_Soldier_Medic'],true] Call SetNamespace;
+	['WFBE_WESTBASEPATROLS_2',['USMC_Soldier_SL','USMC_Soldier','USMC_Soldier','USMC_Soldier_AT','USMC_Soldier_AA','USMC_SoldierS_Sniper'],true] Call SetNamespace;
+	['WFBE_WESTBASEPATROLS_3',['USMC_Soldier_SL','USMC_Soldier','USMC_Soldier_AR','USMC_Soldier_HAT','USMC_Soldier_LAT','USMC_Soldier_GL'],true] Call SetNamespace;
+	['WFBE_EASTBASEPATROLS_0',['RU_Soldier_SL','RU_Soldier','RU_Soldier','RU_Soldier_AR','RU_Soldier_GL','RU_Soldier_MG'],true] Call SetNamespace;
+	['WFBE_EASTBASEPATROLS_1',['RU_Soldier_SL','RU_Soldier','RU_Soldier','RU_Soldier_MG','RU_Soldier_LAT','RU_Soldier_Medic'],true] Call SetNamespace;
+	['WFBE_EASTBASEPATROLS_2',['RU_Soldier_SL','RU_Soldier','RU_Soldier','RU_Soldier_AT','RU_Soldier_AA','RU_Soldier_Marksman'],true] Call SetNamespace;
+	['WFBE_EASTBASEPATROLS_3',['RU_Soldier_SL','RU_Soldier','RU_Soldier_AR','RU_Soldier_HAT','RU_Soldier_LAT','RU_Soldier_GL'],true] Call SetNamespace;
+};
+if (WF_A2_Arrowhead) then {
+	['WFBE_WESTBASEPATROLS_0',['US_Soldier_SL_EP1','US_Soldier_EP1','US_Soldier_EP1','US_Soldier_AR_EP1','US_Soldier_GL_EP1','US_Soldier_MG_EP1'],true] Call SetNamespace;
+	['WFBE_WESTBASEPATROLS_1',['US_Soldier_SL_EP1','US_Soldier_EP1','US_Soldier_EP1','US_Soldier_MG_EP1','US_Soldier_LAT_EP1','US_Soldier_Medic_EP1'],true] Call SetNamespace;
+	['WFBE_WESTBASEPATROLS_2',['US_Soldier_SL_EP1','US_Soldier_EP1','US_Soldier_EP1','US_Soldier_AT_EP1','US_Soldier_AA_EP1','US_Soldier_Sniper_EP1'],true] Call SetNamespace;
+	['WFBE_WESTBASEPATROLS_3',['US_Soldier_SL_EP1','US_Soldier_EP1','US_Soldier_AR_EP1','US_Soldier_HAT_EP1','US_Soldier_LAT_EP1','US_Soldier_GL_EP1'],true] Call SetNamespace;
+	['WFBE_EASTBASEPATROLS_0',['TK_Soldier_SL_EP1','TK_Soldier_EP1','TK_Soldier_EP1','TK_Soldier_AR_EP1','TK_Soldier_GL_EP1','TK_Soldier_MG_EP1'],true] Call SetNamespace;
+	['WFBE_EASTBASEPATROLS_1',['TK_Soldier_SL_EP1','TK_Soldier_EP1','TK_Soldier_EP1','TK_Soldier_MG_EP1','TK_Soldier_LAT_EP1','TK_Soldier_Medic_EP1'],true] Call SetNamespace;
+	['WFBE_EASTBASEPATROLS_2',['TK_Soldier_SL_EP1','TK_Soldier_EP1','TK_Soldier_EP1','TK_Soldier_AT_EP1','TK_Soldier_AA_EP1','TK_Soldier_Spotter_EP1'],true] Call SetNamespace;
+	['WFBE_EASTBASEPATROLS_3',['TK_Soldier_SL_EP1','TK_Soldier_EP1','TK_Soldier_AR_EP1','TK_Soldier_HAT_EP1','TK_Soldier_LAT_EP1','TK_Soldier_GL_EP1'],true] Call SetNamespace;
+};
+if (WF_A2_CombinedOps) then {
+	['WFBE_WESTBASEPATROLS_0',['US_Soldier_SL_EP1','US_Soldier_EP1','US_Soldier_EP1','US_Soldier_AR_EP1','US_Soldier_GL_EP1','US_Soldier_MG_EP1'],true] Call SetNamespace;
+	['WFBE_WESTBASEPATROLS_1',['US_Soldier_SL_EP1','US_Soldier_EP1','US_Soldier_EP1','US_Soldier_MG_EP1','US_Soldier_LAT_EP1','US_Soldier_Medic_EP1'],true] Call SetNamespace;
+	['WFBE_WESTBASEPATROLS_2',['US_Soldier_SL_EP1','US_Soldier_EP1','US_Soldier_EP1','US_Soldier_AT_EP1','US_Soldier_AA_EP1','US_Soldier_Sniper_EP1'],true] Call SetNamespace;
+	['WFBE_WESTBASEPATROLS_3',['US_Soldier_SL_EP1','US_Soldier_EP1','US_Soldier_AR_EP1','US_Soldier_HAT_EP1','US_Soldier_LAT_EP1','US_Soldier_GL_EP1'],true] Call SetNamespace;
+	['WFBE_EASTBASEPATROLS_0',['RU_Soldier_SL','RU_Soldier','RU_Soldier','RU_Soldier_AR','RU_Soldier_GL','RU_Soldier_MG'],true] Call SetNamespace;
+	['WFBE_EASTBASEPATROLS_1',['RU_Soldier_SL','RU_Soldier','RU_Soldier','RU_Soldier_MG','RU_Soldier_LAT','RU_Soldier_Medic'],true] Call SetNamespace;
+	['WFBE_EASTBASEPATROLS_2',['RU_Soldier_SL','RU_Soldier','RU_Soldier','RU_Soldier_AT','RU_Soldier_AA','RU_Soldier_Marksman'],true] Call SetNamespace;
+	['WFBE_EASTBASEPATROLS_3',['RU_Soldier_SL','RU_Soldier','RU_Soldier_AR','RU_Soldier_HAT','RU_Soldier_LAT','RU_Soldier_GL'],true] Call SetNamespace;
+};
+//--- Paratroopers.
 ['WFBE_PARADELAY',1200,true] Call SetNamespace;
 if (WF_A2_Vanilla) then {
 	['WFBE_WESTPARACARGO','C130J',true] Call SetNamespace;
@@ -367,3 +385,39 @@ if (WF_A2_CombinedOps) then {
 	['WFBE_WESTPARACHUTELEVEL2',['US_Soldier_SL_EP1','US_Soldier_AT_EP1','US_Soldier_AT_EP1','US_Soldier_AT_EP1','US_Soldier_AA_EP1','US_Soldier_MG_EP1','US_Soldier_Medic_EP1','US_Soldier_Spotter_EP1','US_Soldier_Sniper_EP1'],true] Call SetNamespace;
 	['WFBE_WESTPARACHUTELEVEL3',['US_Delta_Force_TL_EP1','US_Soldier_HAT_EP1','US_Soldier_HAT_EP1','US_Soldier_HAT_EP1','US_Soldier_HAT_EP1','US_Soldier_AA_EP1','US_Soldier_AA_EP1','US_Delta_Force_AR_EP1','US_Delta_Force_Assault_EP1','US_Soldier_Medic_EP1','US_Delta_Force_M14_EP1','US_Soldier_AT_EP1','US_Soldier_Marksman_EP1'],true] Call SetNamespace;
 };
+//--- Supply Paradropping
+if (WF_A2_Vanilla) then {
+	['WFBE_WESTPARAVEHI','MH60S',true] Call SetNamespace;
+	['WFBE_WESTPARACHUTE','ParachuteMediumWest',true] Call SetNamespace;
+	['WFBE_EASTPARAVEHI','Mi17_Ins',true] Call SetNamespace;
+	['WFBE_EASTPARACHUTE','ParachuteMediumEast',true] Call SetNamespace;
+	['WFBE_WESTPARAVEHICARGO','HMMWV',true] Call SetNamespace;
+	['WFBE_EASTPARAVEHICARGO','UAZ_RU',true] Call SetNamespace;
+	
+	['WFBE_WESTPARAAMMO',['USBasicAmmunitionBox','USBasicWeaponsBox','USLaunchersBox'],true] Call SetNamespace;
+	['WFBE_EASTPARAAMMO',['RUBasicAmmunitionBox','RUBasicWeaponsBox','RULaunchersBox'],true] Call SetNamespace;
+};
+if (WF_A2_Arrowhead) then {
+	['WFBE_WESTPARAVEHI','CH_47F_EP1',true] Call SetNamespace;
+	['WFBE_WESTPARACHUTE','ParachuteMediumWest_EP1',true] Call SetNamespace;
+	['WFBE_EASTPARAVEHI','Mi17_TK_EP1',true] Call SetNamespace;
+	['WFBE_EASTPARACHUTE','ParachuteMediumEast_EP1',true] Call SetNamespace;
+	['WFBE_WESTPARAVEHICARGO','HMMWV_DES_EP1',true] Call SetNamespace;
+	['WFBE_EASTPARAVEHICARGO','UAZ_Unarmed_TK_EP1',true] Call SetNamespace;
+	
+	['WFBE_WESTPARAAMMO',['USBasicAmmunitionBox_EP1','USBasicWeapons_EP1','USLaunchers_EP1'],true] Call SetNamespace;
+	['WFBE_EASTPARAAMMO',['TKBasicAmmunitionBox_EP1','TKBasicWeapons_EP1','TKLaunchers_EP1'],true] Call SetNamespace;
+};
+if (WF_A2_CombinedOps) then {
+	['WFBE_WESTPARAVEHI','CH_47F_EP1',true] Call SetNamespace;
+	['WFBE_WESTPARACHUTE','ParachuteMediumWest_EP1',true] Call SetNamespace;
+	['WFBE_EASTPARAVEHI','Mi17_Ins',true] Call SetNamespace;
+	['WFBE_EASTPARACHUTE','ParachuteMediumEast_EP1',true] Call SetNamespace;
+	['WFBE_WESTPARAVEHICARGO',if (WF_Camo) then {'HMMWV'} else {'HMMWV_DES_EP1'},true] Call SetNamespace;
+	['WFBE_EASTPARAVEHICARGO',if (WF_Camo) then {'UAZ_RU'} else {'UAZ_Unarmed_TK_EP1'},true] Call SetNamespace;
+	
+	['WFBE_WESTPARAAMMO',['USBasicAmmunitionBox_EP1','USBasicWeapons_EP1','USLaunchers_EP1'],true] Call SetNamespace;
+	['WFBE_EASTPARAAMMO',['RUBasicAmmunitionBox','RUBasicWeaponsBox','RULaunchersBox'],true] Call SetNamespace;
+};
+
+diag_log "[WFBE (INIT)] Init_CommonConstants: Constants Initialization - [Done]";

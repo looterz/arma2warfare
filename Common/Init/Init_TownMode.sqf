@@ -47,3 +47,5 @@ if (isNil "TownTemplate") then {TownTemplate = []};//--- The field is not define
 totalTowns = (WF_Logic getVariable "totalTowns") - (count TownTemplate);
 
 townModeSet = true;
+
+diag_log "[WFBE (INIT)] Init_TownMode: Towns mode initialization - [Done]";

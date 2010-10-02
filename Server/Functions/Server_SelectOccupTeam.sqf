@@ -20,7 +20,7 @@ if (_supplyValue >= _oc6) then {_type = ["SmallTeam","MediumTeam","LargeTeam","S
 
 _difficulty = 'WFBE_TOWNOCCUPATIONDIFFICULTY' Call GetNamespace;
 if (_difficulty == 5) then {
-	if (diag_fps >= 30) then {_difficulty = 4};
+	if (diag_fps >= 35) then {_difficulty = 4};
 	if (diag_fps >= 25 && diag_fps < 30) then {_difficulty = 3};
 	if (diag_fps >= 15 && diag_fps < 25) then {_difficulty = 2};
 	if (diag_fps < 15) then {_difficulty = 1};

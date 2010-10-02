@@ -4,7 +4,7 @@ _source = _this select 5;
 
 //--- Area limits.
 _tooFar = false;
-if (baseArea) then {
+if (paramBaseArea) then {
 	if (_source isKindOf "Man") then {
 		if (count(WF_Logic getVariable Format ['%1Area',SideJoinedText]) >= ('WFBE_BASEAREAMAX' Call GetNamespace)) then {
 			_nearLog = [_startPos,WF_Logic getVariable Format ['%1Area',SideJoinedText]] Call SortByDistance;
@@ -44,7 +44,7 @@ showcinemaborder false;
 
 1122 cutrsc ["constructioninterface","plain"];
 
-//--- Benny, prevent key override for other mods.
+//--- Prevent uikey override for other mods.
 WF_COIN_DEH1 = (uinamespace getvariable "COIN_displayMain") displayAddEventHandler ["KeyDown",		"if !(isnil 'BIS_CONTROL_CAM_Handler') then {BIS_temp = ['keydown',_this,commandingmenu] spawn BIS_CONTROL_CAM_Handler; BIS_temp = nil;}"];
 WF_COIN_DEH2 = (uinamespace getvariable "COIN_displayMain") displayAddEventHandler ["KeyUp",		"if !(isnil 'BIS_CONTROL_CAM_Handler') then {BIS_temp = ['keyup',_this] spawn BIS_CONTROL_CAM_Handler; BIS_temp = nil;}"];
 WF_COIN_DEH3 = (uinamespace getvariable "COIN_displayMain") displayAddEventHandler ["MouseButtonDown",	"if !(isnil 'BIS_CONTROL_CAM_Handler') then {BIS_temp = ['mousedown',_this,commandingmenu] spawn BIS_CONTROL_CAM_Handler; BIS_temp = nil; BIS_CONTROL_CAM_onMouseButtonDown = _this; if (_this select 1 == 1) then {BIS_CONTROL_CAM_RMB = true}; if (_this select 1 == 0) then {BIS_CONTROL_CAM_LMB = true};}"];
@@ -65,12 +65,18 @@ _logic setvariable ["BIS_COIN_tooltip",""];
 _logic setvariable ["BIS_COIN_menu","#USER:BIS_Coin_categories_0"];
 _logic setvariable ["BIS_COIN_restart",true];
 _logic setVariable ["WF_RequestUpdate",false];
-_nvgstate = if (daytime > 18.5 || daytime < 5.5) then {true} else {false};
+_get = _logic getVariable 'WF_NVGPersistent';
+_nvgstate = true;
+if (isNil '_get') then {
+	_nvgstate = if (daytime > 18.5 || daytime < 5.5) then {true} else {false};
+	_logic setVariable ['WF_NVGPersistent',_nvgstate];
+} else {
+	_nvgstate = _logic getVariable 'WF_NVGPersistent';
+};
 camusenvg _nvgstate;
 _logic setvariable ["BIS_COIN_nvg",_nvgstate];
 
 _bns = Format["WFBE_%1STRUCTURENAMES",sideJoinedText] Call GetNamespace;
-_dns = Format["WFBE_%1DEFENSENAMES",sideJoinedText] Call GetNamespace;
 _greenList = [WESTBAR,WESTLVF,WESTHEAVY,WESTAIR,EASTBAR,EASTLVF,EASTHEAVY,EASTAIR];
 //--- Building Limit Init.
 _buildingsNames = _bns;
@@ -180,6 +186,7 @@ BIS_CONTROL_CAM_Handler = {
 		if (_key in _keyNightVision) then {
 			_NVGstate = !(_logic getvariable "BIS_COIN_nvg");
 			_logic setvariable ["BIS_COIN_nvg",_NVGstate];
+			_logic setVariable ['WF_NVGPersistent',_NVGstate];
 			camusenvg _NVGstate;
 		};
 		
@@ -193,7 +200,7 @@ BIS_CONTROL_CAM_Handler = {
 		};
 		
 		//--- Manning Defense (Ctrl + M).
-		if (_key == 39 && _ctrl && autoDefense) then {
+		if (_key == 39 && _ctrl && paramAutoDefense) then {
 			if (manningDefense) then {manningDefense = false} else {manningDefense = true};
 			_status = if (manningDefense) then {"Enabled"} else {"Disabled"};
 			_logic setVariable ["WF_RequestUpdate",true];
@@ -209,9 +216,9 @@ BIS_CONTROL_CAM_Handler = {
 					if (count _near > 0) then {
 						_closest = _near select 0;
 						_closestType = typeOf (_closest);
-						_index = (Format["WFBE_%1DEFENSENAMES",sideJoinedText] Call GetNamespace) find _closestType;
-						if (_index != -1) then {
-							_price = (Format["WFBE_%1DEFENSECOSTS",sideJoinedText] Call GetNamespace) select _index;
+						_get = _closestType Call GetNamespace;
+						if !(isNil '_get') then {
+							_price = _get select QUERYUNITPRICE;
 							(_price/2) Call ChangePlayerFunds;
 							deleteVehicle _closest;
 						};
@@ -425,9 +432,6 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 			_itemclass_preview = gettext (configfile >> "CfgVehicles" >> _itemclass >> "ghostpreview");
 			if (_itemclass_preview == "") then {_itemclass_preview = _itemclass};
 
-			_structs = Format["WFBE_%1STRUCTURENAMES",sideJoinedText] Call GetNamespace;  
-			_isBuilding = _itemclass in _structs;
-			
 			//--- Preview building
 			_preview = camtarget BIS_CONTROL_CAM;
 			if (typeof _preview != _itemclass_preview) then {
@@ -443,7 +447,10 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 				_index = _bns find _itemclass;
 				if (_index == 0 && _hqDeployed) exitWith {
 
-					[CMDREQUESTSTRUCTURE,_itemclass,[0,0,0],0] Spawn CommandToServer;
+					WFBE_RequestStructure = ['SRVFNCREQUESTSTRUCTURE',[sideJoined,_itemclass,[0,0,0],0]];
+					publicVariable 'WFBE_RequestStructure';
+					if !(isMultiplayer) then {['SRVFNCREQUESTSTRUCTURE',[sideJoined,_itemclass,[0,0,0],0]] Spawn HandleSPVF};
+
 					['WFBE_AREAHQUNDEPLOYED' Call GetNamespace,false,MCoin] Call Compile PreprocessFile "Client\Init\Init_Coin.sqf";
 					
 					_structuresCosts = Format["WFBE_%1STRUCTURECOSTS",sideJoinedText] Call GetNamespace;
@@ -508,7 +515,6 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 				};
 				
 				_preview = _itemclass_preview createvehiclelocal (screentoworld [0.5,0.5]);
-				
 				BIS_CONTROL_CAM camsettarget _preview;
 				BIS_CONTROL_CAM camcommit 0;
 				_logic setvariable ["BIS_COIN_preview",_preview];
@@ -558,19 +564,17 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 					_fundsRemaining = _funds - _itemcost;
 					if (_fundsRemaining < 0) then {_color = _colorRed};
 
-					if (_isBuilding) then {
-						//--- No Place To Build
-						_isFlat = (position _preview) isflatempty [
-							(sizeof typeof _preview) / 128,	//--- Minimal distance from another object
-							0,				//--- If 0, just check position. If >0, select new one
-							0.7,				//--- Max gradient
-							(sizeof typeof _preview),	//--- Gradient area
-							0,				//--- 0 for restricted water, 2 for required water,
-							false,				//--- True if some water can be in 25m radius
-							_preview			//--- Ignored object
-						];
-						if (count _isFlat == 0) then {_color = _colorRed};
-					}
+					//--- No Place To Build
+					_isFlat = (position _preview) isflatempty [
+						(sizeof typeof _preview) / 4,	//--- Minimal distance from another object
+						0,				//--- If 0, just check position. If >0, select new one
+						0.7,				//--- Max gradient
+						(sizeof typeof _preview),	//--- Gradient area
+						0,				//--- 0 for restricted water, 2 for required water,
+						false,				//--- True if some water can be in 25m radius
+						_preview			//--- Ignored object
+					];
+					if (count _isFlat == 0) then {_color = _colorRed};
 				};
 				_preview setObjectTexture [0,_color];
 				_preview setVariable ["BIS_COIN_color",_color];
@@ -612,16 +616,14 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 					_par = _this select 4;
 
 					//--- On Purchase.
-					[_logic,objNull,_itemclass,_pos,_dir] call {
-						Private["_cash","_class","_costs","_defensesCosts","_index","_logic","_price","_script","_supply"];
+					[_logic,_itemclass] call {
+						Private["_cash","_class","_costs","_index","_logic","_price","_supply"];
 						_logic = _this select 0;
-						_class = _this select 2;
-						_script = "";
+						_class = _this select 1;
 						_structures = Format["WFBE_%1STRUCTURENAMES",sideJoinedText] Call GetNamespace;
 						_defenses = Format["WFBE_%1DEFENSENAMES",sideJoinedText] Call GetNamespace;
 						_costs = Format["WFBE_%1STRUCTURECOSTS",sideJoinedText] Call GetNamespace;
-						_defensesCosts = Format["WFBE_%1DEFENSECOSTS",sideJoinedText] Call GetNamespace;
-						
+
 						//--- Structures.
 						_index = _structures find _class;
 						if (_index != -1) then {
@@ -637,12 +639,17 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 									['WFBE_AREAHQDEPLOYED' Call GetNamespace,true,MCoin] Call Compile PreprocessFile "Client\Init\Init_Coin.sqf";
 								};
 								_logic setVariable ["BIS_COIN_restart",true];
-							} else {[CMDREQUESTCHANGESCORE,player,score player + ('WFBE_COMMANDERBUILDSCORE' Call GetNamespace)] Spawn CommandToServer};
+							} else {
+								WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_COMMANDERBUILDSCORE' Call GetNamespace)]];
+								publicVariable 'WFBE_RequestChangeScore';
+								if !(isMultiplayer) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_COMMANDERBUILDSCORE' Call GetNamespace)]] Spawn HandleSPVF};
+							};
 						};
+						
 						//--- Defense.
-						_index = _defenses Find _class;
-						if (_index != -1) then {
-							_price = _defensesCosts select _index;
+						_get = _class Call GetNamespace;
+						if !(isNil '_get') then {
+							_price = _get select QUERYUNITPRICE;
 							-_price Call ChangePlayerFunds;
 						};
 					};
@@ -659,10 +666,14 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 						_structures = Format["WFBE_%1STRUCTURENAMES",sideJoinedText] Call GetNamespace;
 						_defenses = Format["WFBE_%1DEFENSENAMES",sideJoinedText] Call GetNamespace;
 						if (_class in _structures) then {
-							[CMDREQUESTSTRUCTURE,_class,_pos,_dir] Spawn CommandToServer;
+							WFBE_RequestStructure = ['SRVFNCREQUESTSTRUCTURE',[sideJoined,_class,_pos,_dir]];
+							publicVariable 'WFBE_RequestStructure';
+							if !(isMultiplayer) then {['SRVFNCREQUESTSTRUCTURE',[sideJoined,_class,_pos,_dir]] Spawn HandleSPVF};
 						};
 						if (_class in _defenses) then {
-							[CMDREQUESTDEFENSE,_class,[_pos,_dir],manningDefense] Spawn CommandToServer;
+							WFBE_RequestDefense = ['SRVFNCREQUESTDEFENSE',[sideJoined,_class,_pos,_dir,manningDefense]];
+							publicVariable 'WFBE_RequestDefense';
+							if !(isMultiplayer) then {['SRVFNCREQUESTDEFENSE',[sideJoined,_class,_pos,_dir,manningDefense]] Spawn HandleSPVF};
 							lastBuilt = _par;
 						};
 					};

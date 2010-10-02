@@ -6,14 +6,14 @@ item1[] = {"AI",4,218,-82.819679,-169.595276,7.180347,-119.595261,0.000000,"AI"}
 item2[] = {"Player",4,218,52.395996,-257.485535,142.395935,-207.485519,1.000000,"Player"};
 item3[] = {"End",1,250,185.583282,-257.305725,275.583252,-207.305740,0.000000,"End"};
 item4[] = {"_",-1,250,78.086945,-213.540482,78.086945,-208.131866,0.000000,""};
-item5[] = {"Advanced_Init",2,4346,-82.571289,-84.150604,7.428719,-34.150555,0.000000,"Advanced Init"};
+item5[] = {"Advanced_Init",2,250,-82.571289,-84.150604,7.428719,-34.150555,0.000000,"Advanced Init"};
 item6[] = {"Loop",4,218,-83.198402,0.114880,6.801598,50.114880,0.000000,"Loop"};
 item7[] = {"",7,210,-119.328163,107.547058,-111.328148,115.547073,0.000000,""};
 item8[] = {"",7,210,-119.328140,-302.760681,-111.328148,-294.760681,0.000000,""};
 item9[] = {"",7,210,93.100769,-302.858063,101.100769,-294.858063,0.000000,""};
 item10[] = {"Check",2,250,-83.027481,86.339714,6.972525,136.339722,0.000000,"Check"};
 item11[] = {"Purchase",4,218,-83.669556,164.084885,6.330477,214.084930,0.000000,"Purchase"};
-item12[] = {"Purchase",2,250,54.406639,162.640991,144.406708,212.640884,0.000000,"Purchase"};
+item12[] = {"Purchase",2,4346,54.406639,162.640991,144.406708,212.640884,0.000000,"Purchase"};
 version=1;
 class LayoutItems
 {
@@ -41,7 +41,7 @@ link10[] = {10,7};
 link11[] = {10,11};
 link12[] = {11,12};
 link13[] = {12,6};
-globals[] = {0.000000,0,0,0,0,640,480,1,21,6316128,1,-466.801758,538.464844,238.547119,-453.695648,707,617,1};
+globals[] = {0.000000,0,0,0,0,640,480,1,21,6316128,1,-474.350830,546.013672,430.189911,-460.283752,707,617,1};
 window[] = {0,-1,-1,-1,-1,762,25,1438,25,1,725};
 *//*%FSM</HEAD>*/
 class FSM
@@ -133,25 +133,16 @@ class FSM
        "_ccInRange = false;" \n
        "_purchaseDone = false;" \n
        "_purchaseTime = 0;" \n
+       "_upgradeLevel = -1;" \n
+       "_buyFrom = objNull;" \n
        "_defenseTime = time;" \n
        "" \n
        "_buildings = WF_Logic getVariable Format [""%1BaseStructures"",_sideText];" \n
        "" \n
-       "_barracksCosts = Format[""WFBE_%1BARRACKSCOSTS"",_sideText] Call GetNamespace;" \n
        "_barracksUnits = Format[""WFBE_%1BARRACKSUNITS"",_sideText] Call GetNamespace;" \n
-       "_barracksUpgrades = Format[""WFBE_%1BARRACKSUPGRADES"",_sideText] Call GetNamespace;" \n
-       "_lightCosts = Format[""WFBE_%1LIGHTCOSTS"",_sideText] Call GetNamespace;" \n
        "_lightUnits = Format[""WFBE_%1LIGHTUNITS"",_sideText] Call GetNamespace;" \n
-       "_lightCrews = Format[""WFBE_%1LIGHTCREWS"",_sideText] Call GetNamespace;" \n
-       "_lightUpgrades = Format[""WFBE_%1LIGHTUPGRADES"",_sideText] Call GetNamespace;" \n
-       "_heavyCosts = Format[""WFBE_%1HEAVYCOSTS"",_sideText] Call GetNamespace;" \n
        "_heavyUnits = Format[""WFBE_%1HEAVYUNITS"",_sideText] Call GetNamespace;" \n
-       "_heavyCrews = Format[""WFBE_%1HEAVYCREWS"",_sideText] Call GetNamespace;" \n
-       "_heavyUpgrades = Format[""WFBE_%1HEAVYUPGRADES"",_sideText] Call GetNamespace;" \n
-       "_airCosts = Format[""WFBE_%1AIRCRAFTCOSTS"",_sideText] Call GetNamespace;" \n
        "_airUnits = Format[""WFBE_%1AIRCRAFTUNITS"",_sideText] Call GetNamespace;" \n
-       "_airCrews = Format[""WFBE_%1AIRCRAFTCREWS"",_sideText] Call GetNamespace;" \n
-       "_airUpgrades = Format[""WFBE_%1AIRCRAFTUPGRADES"",_sideText] Call GetNamespace;" \n
        "" \n
        "_teamType = [];" \n
        "_teamRequire = [];" \n
@@ -342,54 +333,63 @@ class FSM
        "	if (_canBuy) then {" \n
        "		_upgrades = WF_Logic getVariable _mainUpgrades;" \n
        "		{" \n
-       "			_price = 0;" \n
-       "			_buyFrom = _barrack;" \n
-       "			_kind = _barracksUnits find _x;" \n
-       "			_upgradeRequired = 0;" \n
-       "			_crews = [];" \n
-       "			_upgradeLevel = 0;" \n
-       "			if (_kind != -1) then {_price = _barracksCosts select _kind; _upgradeRequired = _barracksUpgrades select _kind} else {" \n
-       "				_kind = _lightUnits find _x;" \n
-       "				_upgradeLevel = 1;" \n
-       "				if (_kind != -1) then {_price = _lightCosts select _kind; _crews = _lightCrews; _buyFrom = _light; _upgradeRequired = _lightUpgrades select _kind} else {" \n
-       "					_kind = _heavyUnits find _x;" \n
-       "					_upgradeLevel = 2;" \n
-       "					if (_kind != -1) then {_price = _heavyCosts select _kind; _crews = _heavyCrews; _buyFrom = _heavy; _upgradeRequired = _heavyUpgrades select _kind} else {" \n
-       "						_kind = _airUnits find _x;" \n
-       "						_upgradeLevel = 3;" \n
-       "						if (_kind != -1) then {_price = _airCosts select _kind; _crews = _airCrews; _buyFrom = _air; _upgradeRequired = _airUpgrades select _kind};" \n
+       "			_buyFrom = objNull;" \n
+       "			_kindDetail = _x Call GetNamespace;" \n
+       "			if !(isNil '_kindDetail') then {" \n
+       "				_crews = _kindDetail select QUERYUNITCREW;" \n
+       "				_price = _kindDetail select QUERYUNITPRICE;" \n
+       "				_upgradeRequired = _kindDetail select QUERYUNITUPGRADE;" \n
+       "				_unitType = _kindDetail select QUERYUNITFACTORY;" \n
+       "				switch (_unitType) do {" \n
+       "					case 0: {" \n
+       "						_buyFrom = _barrack;" \n
+       "						_upgradeLevel = 0;" \n
+       "					};" \n
+       "					case 1: {" \n
+       "						_buyFrom = _light;" \n
+       "						_upgradeLevel = 1;" \n
+       "					};" \n
+       "					case 2: {" \n
+       "						_buyFrom = _heavy;" \n
+       "						_upgradeLevel = 2;" \n
+       "					};" \n
+       "					case 3: {" \n
+       "						_buyFrom = _air;" \n
+       "						_upgradeLevel = 2;" \n
        "					};" \n
        "				};" \n
-       "			};" \n
-       "			if (_kind != -1) then {" \n
-       "				_upgradeStatus = _upgrades select _upgradeLevel;" \n
-       "				_globalQueu = _team getVariable ""queue"";" \n
-       "				if (isNil ""_globalQueu"") then {_globalQueu = []};" \n
-       "				if ((count _globalQueu) + _size < _mbu && _funds > _price && _upgradeStatus >= _upgradeRequired) then {" \n
-       "					_ran = 2000 + random(10) + random (100) + random(1000);" \n
-       "					_globalQueu = _globalQueu + [_ran];" \n
-       "					_vehiSlots = [true,false,false];" \n
-       "					_IDS = [_ran];		" \n
-       "					if (!(_x isKindOf ""Man"")) then {" \n
-       "						if (_crews select _kind < 3 && _crews select _kind != 1) then {" \n
-       "							_ran2 = 2000 + random(10) + random (100) + random(1000);" \n
-       "							_globalQueu = _globalQueu + [_ran2];" \n
-       "							_vehiSlots = [true,true,false];" \n
-       "							_IDS = _IDS + [_ran2];" \n
+       "				if !(isNull _buyFrom) then {" \n
+       "					_upgradeStatus = _upgrades select _upgradeLevel;" \n
+       "					_globalQueu = _team getVariable ""queue"";" \n
+       "					if (isNil ""_globalQueu"") then {_globalQueu = []};" \n
+       "					if ((count _globalQueu) + _size < _mbu && _funds > _price && _upgradeStatus >= _upgradeRequired) then {" \n
+       "						_ran = 2000 + random(10) + random (100) + random(1000);" \n
+       "						_globalQueu = _globalQueu + [_ran];" \n
+       "						_vehiSlots = [true,false,false];" \n
+       "						_IDS = [_ran];		" \n
+       "						if (!(_x isKindOf ""Man"")) then {" \n
+       "							if (_crews < 3 && _crews != 1) then {" \n
+       "								_ran2 = 2000 + random(10) + random (100) + random(1000);" \n
+       "								_globalQueu = _globalQueu + [_ran2];" \n
+       "								_vehiSlots = [true,true,false];" \n
+       "								_IDS = _IDS + [_ran2];" \n
+       "							};" \n
+       "							if (_crews > 2) then {" \n
+       "								_ran2 = 2000 + random(10) + random (100) + random(1000);" \n
+       "								_ran3 = 2000 + random(10) + random (100) + random(1000);" \n
+       "								_globalQueu = _globalQueu + [_ran2,_ran3];" \n
+       "								_vehiSlots = [true,true,true];" \n
+       "								_IDS = _IDS + [_ran2] + [_ran3];" \n
+       "							};" \n
        "						};" \n
-       "						if (_crews select _kind > 2) then {" \n
-       "							_ran2 = 2000 + random(10) + random (100) + random(1000);" \n
-       "							_ran3 = 2000 + random(10) + random (100) + random(1000);" \n
-       "							_globalQueu = _globalQueu + [_ran2,_ran3];" \n
-       "							_vehiSlots = [true,true,true];" \n
-       "							_IDS = _IDS + [_ran2] + [_ran3];" \n
-       "						};" \n
+       "						_chk = _team getVariable ""queue"";" \n
+       "						if (!isNil ""_chk"") then {_team setVariable [""queue"",_globalQueu]};" \n
+       "						[_IDS,_buyFrom,_x,_side,_team,_vehiSlots] Spawn AIBuyUnit;" \n
+       "						[_team,-_price] Call ChangeTeamFunds;	" \n
        "					};" \n
-       "					_chk = _team getVariable ""queue"";" \n
-       "					if (!isNil ""_chk"") then {_team setVariable [""queue"",_globalQueu]};" \n
-       "					[_IDS,_buyFrom,_x,_side,_team,_vehiSlots] Spawn AIBuyUnit;" \n
-       "					[_team,-_price] Call ChangeTeamFunds;	" \n
        "				};" \n
+       "			} else {" \n
+       "				diag_log Format [""[WFBE (ERROR)] aiteam.fsm: Element %1 is not defined within the core system"",_x];" \n
        "			};" \n
        "		} forEach _teamType;" \n
        "	};" \n

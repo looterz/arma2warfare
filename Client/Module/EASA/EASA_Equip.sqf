@@ -14,7 +14,7 @@ if (_type != -1) then {
 		[_vehicle,('WFBE_EASA_Default' Call GetNamespace) select _type] Call EASA_RemoveLoadout;
 	} else {
 		//--- Override the index?.
-		_tindex = if (_override) then {_index} else {(_get select 0)};
+		_tindex = if (_override) then {_index} else {(_get select 1)};
 		
 		//--- Grab the old loadout.
 		_old = (('WFBE_EASA_Loadouts' Call GetNamespace) select (_get select 0)) select (_get select 1);

@@ -16,7 +16,9 @@ if (side _unit == west || side _unit == east) then {
 	_hasAction = _unit getVariable 'hasAction';
 	if (isNil '_hasAction') then {_hasAction = false};
 	if !(_hasAction) then {
-		[(side _unit),CMDISIS_ADDACTION,_unit] Spawn CommandToSide;
+		WFBE_ISIS_AddAction = [(side _unit),'CLTFNCISIS_ADDACTION',_unit];
+		publicVariable 'WFBE_ISIS_AddAction';
+		if (!isMultiplayer || local player) then {[(side _unit),'CLTFNCISIS_ADDACTION',_unit] Spawn HandlePVF};
 	};
 };
 

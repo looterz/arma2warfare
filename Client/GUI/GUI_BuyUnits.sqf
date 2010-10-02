@@ -3,13 +3,7 @@ disableSerialization;
 //--- Init.
 MenuAction = -1;
 
-_listCosts = [];
-_listCrews = [];
-_listDescriptions = [];
-_listImages = [];
-_listTimes = [];
 _listUnits = [];
-_listUpgrades = [];
 
 _closest = objNull;
 _commander = false;
@@ -30,9 +24,10 @@ _lastCheck = 0;
 _lastSel = -1;
 _lastType = 'nil';
 _listBox = 12001;
+_comboFaction = 12026;
 _map = _display displayCtrl 12015;
 _sorted = [];
-_type = '';
+_type = 'nil';
 _update = true;
 _updateDetails = true;
 _updateList = true;
@@ -54,6 +49,8 @@ for [{_i = 0},{(_i < 6) && !_break},{_i = _i + 1}] do {
 	};
 };
 
+if (_type == 'nil') exitWith {closeDialog 0};
+
 //--- Destroy local variables.
 _break = nil;
 _status = nil;
@@ -69,22 +66,33 @@ _IDCS = _IDCS - [_currentIDC];
 
 //--- Fill the list function.
 _fillList = {
-	Private ['_currentUpgrades','_filler','_i','_listBox','_listCosts','_listNames','_listUpgrades','_u','_value'];
-	_listCosts = _this select 0;
-	_listNames = _this select 1;
-	_listUpgrades = _this select 2;
-	_filler = _this select 3;
-	_listBox = _this select 4;
-	_value = _this select 5;
+	Private ['_addin','_c','_currentUpgrades','_filler','_filter','_i','_listBox','_listNames','_u','_value'];
+	_listNames = _this select 0;
+	_filler = _this select 1;
+	_listBox = _this select 2;
+	_value = _this select 3;
 	_u = 0;
 	_i = 0;
 	
 	_currentUpgrades = WF_Logic getVariable Format ['%1Upgrades',sideJoinedText];
+	_filter = Format["WFBE_%1%2CURRENTFACTIONSELECTED",sideJoinedText,_filler] Call GetNamespace;
+	if (isNil '_filter') then {_filter = "nil"} else {
+		if (_filter == 0) then {
+			_filter = 'nil';
+		} else {
+			_filter = ((Format["WFBE_%1%2FACTIONS",sideJoinedText,_filler] Call GetNamespace) select _filter);
+		};
+	};
 	
 	lnbClear _listBox;
 	{
-		if ((_listUpgrades select _u) <= (_currentUpgrades select _value)) then {
-			lnbAddRow [_listBox,['$'+str (_listCosts Select _u),_x]];
+		_addin = true;
+		_c = _x Call GetNamespace;
+		if (_filter != "nil") then {
+			if ((_c select QUERYUNITFACTION) != _filter) then {_addin = false};
+		};
+		if ((_c select QUERYUNITUPGRADE) <= (_currentUpgrades select _value) && _addin) then {
+			lnbAddRow [_listBox,['$'+str (_c select QUERYUNITPRICE),(_c select QUERYUNITLABEL)]];
 			lnbSetData [_listBox,[_i,0],_filler];
 			lnbSetValue [_listBox,[_i,0],_u];
 			_i = _i + 1;
@@ -93,6 +101,24 @@ _fillList = {
 	} forEach _listNames;
 	
 	if (_i > 0) then {lnbSetCurSelRow [_listBox,0]} else {lnbSetCurSelRow [_listBox,-1]};
+};
+
+_changeFactionCombo = {
+	Private['_get','_lb','_type'];
+	_lb = _this select 0;
+	_type = _this select 1;
+	
+	lbClear _lb;
+	{
+		lbAdd [_lb,_x];
+	} forEach (Format["WFBE_%1%2FACTIONS",sideJoinedText,_type] Call GetNamespace);
+	
+	_get = Format["WFBE_%1%2CURRENTFACTIONSELECTED",sideJoinedText,_type] Call GetNamespace;
+	if (isNil '_get') then {
+		lbSetCurSel [_lb,0];
+	} else {
+		lbSetCurSel [_lb,_get];
+	};
 };
 
 //--- Loop.
@@ -106,12 +132,9 @@ while {alive player && dialog} do {
 		MenuAction = -1;
 		_currentRow = lnbCurSelRow _listBox;
 		_currentValue = lnbValue[_listBox,[_currentRow,0]];
-		_currentCost = _listCosts select _currentValue;
 		_unit = _listUnits select _currentValue;
-		_reupdate = false;
-		if (_type == 'Depot') then {
-			if (_unit isKindOf 'Man') then {_isInfantry = true;_reupdate = true};
-		};
+		_currentUnit = _unit Call GetNamespace;
+		_currentCost = _currentUnit select QUERYUNITPRICE;
 		if !(_isInfantry) then {
 			_extra = 0;
 			if (_driver) then {_extra = _extra + 1};
@@ -122,8 +145,8 @@ while {alive player && dialog} do {
 		if ((_currentRow) != -1) then {
 			_funds = Call GetPlayerFunds;
 			_skip = false;
-			if (_funds < _currentCost) then {_skip = true;hint parseText(Format[localize 'STR_WF_Funds_Missing',_currentCost - _funds,_listDescriptions select _currentValue])};
-			if (!_skip) then {
+			if (_funds < _currentCost) then {_skip = true;hint parseText(Format[localize 'STR_WF_Funds_Missing',_currentCost - _funds,_currentUnit select QUERYUNITLABEL])};
+			if !(_skip) then {
 				_size = Count ((Units (group player)) Call GetLiveUnits);
 				if (_isInfantry) then {if ((unitQueu + _size + 1) > _mbu) then {_skip = true;hint parseText(Format [localize 'STR_WF_MaxGroup',_mbu])}};
 				if (!_isInfantry && !_skip) then {
@@ -134,17 +157,16 @@ while {alive player && dialog} do {
 					if ((unitQueu + _size + _cpt) > _mbu && _cpt != 0) then {_skip = true;hint parseText(Format [localize 'STR_WF_MaxGroup',_mbu])};
 				};
 			};
-			if (!_skip) then {
+			if !(_skip) then {
 				_queu = _closest getVariable 'queu';
-				_txt = parseText(Format [localize 'STR_WF_BuyEffective',_listDescriptions select _currentValue]);
-				if (!isNil '_queu') then {if (count _queu > 0) then {_txt = parseText(Format [localize 'STR_WF_Queu',_listDescriptions select _currentValue])}};
+				_txt = parseText(Format [localize 'STR_WF_BuyEffective',_currentUnit select QUERYUNITLABEL]);
+				if (!isNil '_queu') then {if (count _queu > 0) then {_txt = parseText(Format [localize 'STR_WF_Queu',_currentUnit select QUERYUNITLABEL])}};
 				hint _txt;
-				_params = if (_isInfantry) then {[_type, _closest,_unit,[]]} else {[_type, _closest,_unit,[_driver,_gunner,_commander,_isLocked]]};
+				_params = if (_isInfantry) then {[_closest,_unit,[]]} else {[_closest,_unit,[_driver,_gunner,_commander,_isLocked]]};
 				_params Spawn BuildUnit;
 				-(_currentCost) Call ChangePlayerFunds;
 			};
 		};
-		if (_reupdate) then {_reupdate = false; _isInfantry = false};
 	};
 	
 	//--- Tabs selection.
@@ -161,10 +183,13 @@ while {alive player && dialog} do {
 	if (MenuAction == 203) then {MenuAction = -1;_commander = if (_commander) then {false} else {true};_updateDetails = true};
 	
 	//--- Factory DropDown list value has changed.
-	if (MenuAction == 301) then {MenuAction = -1;_factSel = lbCurSel 12018;_closest = _sorted select _factSel;_updateMap = true;_update=true;};
+	if (MenuAction == 301) then {MenuAction = -1;_factSel = lbCurSel 12018;_closest = _sorted select _factSel;_updateMap = true};
 	
 	//--- Selection change, we update the details.
 	if (MenuAction == 302) then {MenuAction = -1;_updateDetails = true};
+	
+	//--- Faction Filter changed.
+	if (MenuAction == 303) then {MenuAction = -1;_update = true;[Format["WFBE_%1%2CURRENTFACTIONSELECTED",sideJoinedText,_type],(lbCurSel _comboFaction),true] Call SetNamespace};
 	
 	//--- Lock icon.
 	if (MenuAction == 401) then {MenuAction = -1;_isLocked = if (_isLocked) then {false} else {true};_updateDetails = true};
@@ -175,33 +200,9 @@ while {alive player && dialog} do {
 	//--- Update tabs.
 	if (_update) then {
 		_listUnits = Format ['WFBE_%1%2UNITS',sideJoinedText,_type] Call GetNamespace;
-		_listDescriptions = Format ['WFBE_%1%2Descriptions',sideJoinedText,_type] Call GetNamespace;
-		_listImages =  Format ['WFBE_%1%2IMAGES',sideJoinedText,_type] Call GetNamespace;
-		_listCosts = Format ['WFBE_%1%2COSTS',sideJoinedText,_type] Call GetNamespace;
-		_listTimes = Format ['WFBE_%1%2TIMES',sideJoinedText,_type] Call GetNamespace;
-		_listUpgrades = Format ['WFBE_%1%2UPGRADES',sideJoinedText,_type] Call GetNamespace;
-		_listCrews = [];
-		
-		if (((typeOf _closest) in WFDEPOT) && (_type != "Depot")) then {
-		
-			_listCostsCopy = + _listCosts;
-			_listCosts = _listCostsCopy;
-		
-			for [{_i=0}, {_i<count _listCosts}, {_i = _i+1}] do {
-				_newCost = (ceil ((_listCosts select _i) * 2 / 10))*10;				
-				_listCosts set [_i, _newCost ];
-			}
-		};
-		
-		
-		//--- We load the crews if the type is not Barracks.
-		_isInfantry = true;
-		if (_type != 'Barracks') then {
-			_listCrews = Format ['WFBE_%1%2CREWS',sideJoinedText,_type] Call GetNamespace;
-			_isInfantry = false;
-		};
-		
-		[_listCosts,_listDescriptions,_listUpgrades,_type,_listBox,_val] Call _fillList;
+
+		[_comboFaction,_type] Call _changeFactionCombo;
+		[_listUnits,_type,_listBox,_val] Call _fillList;
 		
 		//--- Update tabs icons.
 		_IDCS = [12005,12006,12007,12008,12020,12021];
@@ -211,11 +212,8 @@ while {alive player && dialog} do {
 		{_con = _display DisplayCtrl _x;_con ctrlSetTextColor [0.4, 0.4, 0.4, 1]} forEach _IDCS;
 		
 		_update = false;
-		
-		if (!_updateMap) then {		
-			_updateList = true;
-			_updateDetails = true;
-		};
+		_updateList = true;
+		_updateDetails = true;
 	};
 	
 	//--- Update factories.
@@ -236,19 +234,9 @@ while {alive player && dialog} do {
 			default {
 				_buildings = WF_Logic getVariable Format ['%1BaseStructures',sideJoinedText];
 				_factories = [sideJoined,Format ['WFBE_%1%2TYPE',sideJoinedText,_type] Call GetNamespace,_buildings] Call GetFactories;
-				
-				_countAlive = count _factories;
-				if (_countAlive > 0 && depotInRange && _type != 'Aircraft') then {
-					
-					_nearDepot = nearestObjects [player, WFDEPOT,('WFBE_TOWNPURCHASERANGE' Call GetNamespace)];
-					if (count _nearDepot > 0) then {
-						
-						_factories = _factories + _nearDepot;
-					};
-				};
-				
 				_sorted = [player,_factories] Call SortByDistance;
 				_closest = _sorted select 0;
+				_countAlive = count _factories;
 			};
 		};
 
@@ -277,12 +265,15 @@ while {alive player && dialog} do {
 		//--- Our list is not empty.
 		if (_currentRow != -1) then {
 			_currentValue = lnbValue[_listBox,[_currentRow,0]];
-			ctrlSetText [12009,_listImages select _currentValue];
-			_currentCost = _listCosts select _currentValue;
+			_currentUnit = (_listUnits select _currentValue) Call GetNamespace;
+			ctrlSetText [12009,_currentUnit select QUERYUNITPICTURE];
+			_currentCost = _currentUnit select QUERYUNITPRICE;
+			
+			_isInfantry = if ((_listUnits select _currentValue) isKindOf 'Man') then {true} else {false};
 			
 			//--- Update driver-gunner-commander icons.
 			if (!_isInfantry && _type != 'Depot') then {
-				_slots = _listCrews select _currentValue;
+				_slots = _currentUnit select QUERYUNITCREW;
 				_c = 0;
 				_extra = 0;
 				
@@ -339,7 +330,7 @@ while {alive player && dialog} do {
 			};
 			
 			//--- Lock Icon.
-			if (!_isInfantry) then {
+			if !(_isInfantry) then {
 				ctrlShow[_IDCLock,true];
 				_color = if (_isLocked) then {_enabledColor} else {_disabledColor};
 				_con = _display displayCtrl _IDCLock;

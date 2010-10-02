@@ -5,7 +5,7 @@ _alives = (units group player) Call GetLiveUnits;
 {if (vehicle _x == _x) then {_vehi = _vehi + [_x]}} forEach _alives;
 _lastUse = 0;
 ctrlEnable [20007,false];
-_typeRepair = Format['WFBE_%1REPAIRTRUCK',sideJoinedText] Call GetNamespace;
+_typeRepair = Format['WFBE_%1REPAIRTRUCKS',sideJoinedText] Call GetNamespace;
 _ss = 'WFBE_SUPPLYSYSTEM' Call GetNamespace;
 _sheal = 'WFBE_SUPPORTHEALTIME' Call GetNamespace;
 _srearm = 'WFBE_SUPPORTREARMTIME' Call GetNamespace;
@@ -71,7 +71,7 @@ _effective = [];
 	};
 	if (_add) then {
 		_effective = _effective + [_x];
-		_desc = GetText (configFile >> "CfgVehicles" >> (typeOf _x) >> "displayName");
+		_desc = [typeOf _x, 'displayName'] Call GetConfigInfo;
 		_text = toArray(str(_x));
 		_amount = count _text;
 		_val = _text select (_amount-2);
@@ -80,7 +80,7 @@ _effective = [];
 		_finalNumber = if (isPlayer _x) then {"1"} else {toString(_ainumber)};
 		_isInVehicle = "";
 		if (_x != vehicle _x) then {
-			_descVehi = GetText (configFile >> "CfgVehicles" >> (typeOf (vehicle _x)) >> "displayName");
+			_descVehi = [typeOf (vehicle _x), 'displayName'] Call GetConfigInfo;
 			_isInVehicle = " [" + _descVehi + "] ";
 		};
 		_txt = "["+_finalNumber+"] "+ _desc + _isInVehicle;
@@ -93,9 +93,9 @@ if (count _checks > 0) then {
 	_repair = _checks select 0;
 	_vehi = (getPos _repair) nearEntities[["Car","Motorcycle","Tank","Air","Ship","StaticWeapon"],100];
 	{
-		if (!(_x in _effective)) then {
+		if !(_x in _effective) then {
 			_effective = _effective + [_x];
-			_descVehi = GetText (configFile >> "CfgVehicles" >> (typeOf (vehicle _x)) >> "displayName");
+			_descVehi = [typeOf (vehicle _x), 'displayName'] Call GetConfigInfo;
 			lbAdd[20002,_descVehi];
 		};
 	} forEach _vehi;
@@ -151,9 +151,9 @@ while {true} do {
 			if (_veh != _lastVeh || getDammage _veh != _lastDmg) then {
 				_type = typeOf _veh;
 				_lastDmg = getDammage _veh;
-				_find = ('WFBE_UNITBOUNTYNAMES' Call GetNamespace) find _type;
-				if (_find != -1) then {
-					_repairPrice = round((getDammage _veh)*((('WFBE_UNITBOUNTIES' Call GetNamespace) select _find)/('WFBE_SUPPORTREPAIRPRICE' Call GetNamespace)));
+				_get = _type Call GetNamespace;
+				if !(isNil '_get') then {
+					_repairPrice = round((getDammage _veh)*((_get select QUERYUNITPRICE)/('WFBE_SUPPORTREPAIRPRICE' Call GetNamespace)));
 				} else {
 					_repairPrice = 500;
 				};
@@ -162,9 +162,9 @@ while {true} do {
 			//--- Rearm.
 			if (_veh != _lastVeh) then {
 				_type = typeOf _veh;
-				_find = ('WFBE_UNITBOUNTYNAMES' Call GetNamespace) find _type;
-				if (_find != -1) then {
-					_rearmPrice = round((('WFBE_UNITBOUNTIES' Call GetNamespace) select _find)/('WFBE_SUPPORTREARMPRICE' Call GetNamespace));
+				_get = _type Call GetNamespace;
+				if !(isNil '_get') then {
+					_rearmPrice = round((_get select QUERYUNITPRICE)/('WFBE_SUPPORTREARMPRICE' Call GetNamespace));
 				} else {
 					_rearmPrice = 500;
 				};
@@ -174,10 +174,10 @@ while {true} do {
 			if (_veh != _lastVeh || fuel _veh != _lastFue) then {
 				_type = typeOf _veh;
 				_lastFue = fuel _veh;
-				_find = ('WFBE_UNITBOUNTYNAMES' Call GetNamespace) find _type;
-				if (_find != -1) then {
+				_get = _type Call GetNamespace;
+				if !(isNil '_get') then {
 					_fuel = ((fuel _veh) -1) * -1;
-					_refuelPrice = round(_fuel*((('WFBE_UNITBOUNTIES' Call GetNamespace) select _find)/('WFBE_SUPPORTREFUELPRICE' Call GetNamespace)));
+					_refuelPrice = round(_fuel*((_get select QUERYUNITPRICE)/('WFBE_SUPPORTREFUELPRICE' Call GetNamespace)));
 				} else {
 					_refuelPrice = 200;
 				};
@@ -230,7 +230,9 @@ while {true} do {
 	//--- Respawn Supply Trucks.
 	if (MenuAction == 4) then {
 		MenuAction = -1;
-		[CMDREQUESTSPECIAL,"RespawnST"] Spawn CommandToServer;
+		WFBE_RequestSpecial = ['SRVFNCREQUESTSPECIAL',["RespawnST",sideJoined]];
+		publicVariable 'WFBE_RequestSpecial';
+		if !(isMultiplayer) then {['SRVFNCREQUESTSPECIAL',["RespawnST",sideJoined]] Spawn HandleSPVF};
 		_lastUse = time;
 	};
 	

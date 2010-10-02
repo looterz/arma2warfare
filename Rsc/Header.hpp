@@ -2,7 +2,7 @@
 
 //--- Respawn options.
 respawn = 3;
-respawnDelay = 2;
+respawnDelay = WF_RESPAWNDELAY;
 respawnDialog = false;
 
 //--- Require briefing.html to show up.
@@ -18,5 +18,5 @@ onLoadMissionTime = false;
 class Header {
 	gameType = CTI;
 	minPlayers = 1;
-	maxPlayers = 32;
+	maxPlayers = WF_MAXPLAYERS;
 };

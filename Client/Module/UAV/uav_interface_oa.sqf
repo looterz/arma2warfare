@@ -6,7 +6,7 @@ startLoadingScreen ["UAV","RscDisplayLoadMission"];
 _uav = playerUAV;
 
 //--- UAV destroyed
-if (isnull _uav) exitwith {endLoadingScreen;hintc format [localize "strwfbasestructuredestroyed",localize "str_uav_action"]};
+if (isnull _uav) exitwith {endLoadingScreen;hint format [localize "strwfbasestructuredestroyed",localize "str_uav_action"]};
 
 //--- Switch view
 gunner _uav removeweapon "nvgoggles";
@@ -131,18 +131,17 @@ endLoadingScreen;
 
 
 //--- TERMINATE
-waituntil {!isnil "bis_uav_terminate" || !alive _uav};
+waituntil {!isnil "bis_uav_terminate" || !alive _uav || !alive player};
 if (!alive _uav) then {
 	hint format [localize "strwfbasestructuredestroyed",localize "str_uav_action"];
 };
-terminate _isTerminalAway;
 _uav lock _locked;
 titletext ["","black in"];
 bis_uav_terminate = nil;
 BIS_UAV_TIME = nil;
 BIS_UAV_PLANE = nil;
-player switchcamera "internal";
 objnull remoteControl gunner _uav;
+player switchcamera "internal";
 enableteamswitch _defaultTeamswitch;
 
 _uav removeaction _action_leave;
@@ -152,7 +151,6 @@ BIS_UAV_visible = nil;
 (group _uav) setvariable ["MARTA_waypoint",[false,[-1,-1,-1,-1]]];
 
 ppEffectDestroy _ppColor;
-
 
 //1124 cuttext ["","plain"];
 (finddisplay 46) displayremoveeventhandler ["keydown",_displayEH_keydown];

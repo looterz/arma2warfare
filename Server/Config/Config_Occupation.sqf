@@ -601,20 +601,20 @@ if (WF_A2_CombinedOps) then {
 
 	_n = _n + ["SmallVehTeam1"];
 	_u		= ["US_Soldier_TL_EP1"];
-	_u = _u + ["HMMWV_Avenger_DES_EP1"];
-	_u = _u + ["HMMWV_M1151_M2_DES_EP1"];
+	_u = _u + [if (WF_Camo) then {"HMMWV_Avenger"} else {"HMMWV_Avenger_DES_EP1"}];
+	_u = _u + [if (WF_Camo) then {"HMMWV_M2"} else {"HMMWV_M1151_M2_DES_EP1"}];
 	[Format["WFBE_WEST%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
 
 	_n = _n + ["SmallVehTeam2"];
 	_u		= ["US_Soldier_SL_EP1"];
-	_u = _u + ["HMMWV_TOW_DES_EP1"];
-	_u = _u + ["M1126_ICV_mk19_EP1"];
+	_u = _u + [if (WF_Camo) then {"LAV25"} else {"M1126_ICV_mk19_EP1"}];
+	_u = _u + [if (WF_Camo) then {"HMMWV_TOW"} else {"HMMWV_TOW_DES_EP1"}];
 	[Format["WFBE_WEST%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
 
 	_n = _n + ["SmallVehTeam3"];
 	_u		= ["US_Soldier_TL_EP1"];
-	_u = _u + ["HMMWV_Avenger_DES_EP1"];
-	_u = _u + ["HMMWV_M998_crows_MK19_DES_EP1"];
+	_u = _u + [if (WF_Camo) then {"HMMWV_Avenger"} else {"HMMWV_Avenger_DES_EP1"}];
+	_u = _u + [if (WF_Camo) then {"HMMWV_MK19"} else {"HMMWV_M998_crows_MK19_DES_EP1"}];
 	[Format["WFBE_WEST%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
 
 	_n = _n + ["MediumTeam1"];
@@ -645,23 +645,23 @@ if (WF_A2_CombinedOps) then {
 
 	_n = _n + ["MediumVehTeam1"];
 	_u		= ["US_Soldier_TL_EP1"];
-	_u = _u + ["HMMWV_Avenger_DES_EP1"];
+	_u = _u + [if (WF_Camo) then {"HMMWV_Avenger"} else {"HMMWV_Avenger_DES_EP1"}];
 	_u = _u + ["M2A3_EP1"];
-	_u = _u + ["M1126_ICV_M2_EP1"];
+	_u = _u + [if (WF_Camo) then {"AAV"} else {"M1126_ICV_M2_EP1"}];
 	[Format["WFBE_WEST%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
 
 	_n = _n + ["MediumVehTeam2"];
 	_u		= ["US_Soldier_TL_EP1"];
-	_u = _u + ["M1A1_US_DES_EP1"];
-	_u = _u + ["M1A1_US_DES_EP1"];
-	_u = _u + ["HMMWV_Ambulance_DES_EP1"];
+	_u = _u + [if (WF_Camo) then {"M1A1"} else {"M1A1_US_DES_EP1"}];
+	_u = _u + [if (WF_Camo) then {"M1A1"} else {"M1A1_US_DES_EP1"}];
+	_u = _u + [if (WF_Camo) then {"HMMWV_Ambulance"} else {"HMMWV_Ambulance_DES_EP1"}];
 	[Format["WFBE_WEST%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
 
 	_n = _n + ["MediumVehTeam3"];
 	_u		= ["US_Soldier_TL_EP1"];
-	_u = _u + ["M1126_ICV_M2_EP1"];
-	_u = _u + ["HMMWV_M998_crows_M2_DES_EP1"];
-	_u = _u + ["M1A1_US_DES_EP1"];
+	_u = _u + [if (WF_Camo) then {"AAV"} else {"M1126_ICV_M2_EP1"}];
+	_u = _u + [if (WF_Camo) then {"HMMWV_Armored"} else {"HMMWV_M998_crows_M2_DES_EP1"}];
+	_u = _u + [if (WF_Camo) then {"M1A1"} else {"M1A1_US_DES_EP1"}];
 	[Format["WFBE_WEST%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
 
 	_n = _n + ["LargeTeam1"];
@@ -699,25 +699,25 @@ if (WF_A2_CombinedOps) then {
 
 	_n = _n + ["LargeVehTeam1"];
 	_u		= ["US_Soldier_TL_EP1"];
-	_u = _u + ["M1A2_US_TUSK_MG_EP1"];
-	_u = _u + ["M1A2_US_TUSK_MG_EP1"];
-	_u = _u + ["M1A2_US_TUSK_MG_EP1"];
-	_u = _u + ["M1A2_US_TUSK_MG_EP1"];
+	_u = _u + [if (WF_Camo) then {"M1A2_TUSK_MG"} else {"M1A2_US_TUSK_MG_EP1"}];
+	_u = _u + [if (WF_Camo) then {"M1A2_TUSK_MG"} else {"M1A2_US_TUSK_MG_EP1"}];
+	_u = _u + [if (WF_Camo) then {"M1A2_TUSK_MG"} else {"M1A2_US_TUSK_MG_EP1"}];
+	_u = _u + [if (WF_Camo) then {"M1A2_TUSK_MG"} else {"M1A2_US_TUSK_MG_EP1"}];
 	[Format["WFBE_WEST%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
 
 	_n = _n + ["LargeVehTeam2"];
 	_u		= ["US_Soldier_TL_EP1"];
-	_u = _u + ["M1A2_US_TUSK_MG_EP1"];
-	_u = _u + ["M1A2_US_TUSK_MG_EP1"];
-	_u = _u + ["MLRS_DES_EP1"];
-	_u = _u + ["M1A2_US_TUSK_MG_EP1"];
+	_u = _u + [if (WF_Camo) then {"M1A2_TUSK_MG"} else {"M1A2_US_TUSK_MG_EP1"}];
+	_u = _u + [if (WF_Camo) then {"M1A2_TUSK_MG"} else {"M1A2_US_TUSK_MG_EP1"}];
+	_u = _u + [if (WF_Camo) then {"MLRS"} else {"MLRS_DES_EP1"}];
+	_u = _u + [if (WF_Camo) then {"M1A2_TUSK_MG"} else {"M1A2_US_TUSK_MG_EP1"}];
 	[Format["WFBE_WEST%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
 
 	_n = _n + ["LargeVehTeam3"];
 	_u		= ["US_Soldier_TL_EP1"];
-	_u = _u + ["M1A2_US_TUSK_MG_EP1"];
-	_u = _u + ["M1A2_US_TUSK_MG_EP1"];
-	_u = _u + ["M1A2_US_TUSK_MG_EP1"];
+	_u = _u + [if (WF_Camo) then {"M1A2_TUSK_MG"} else {"M1A2_US_TUSK_MG_EP1"}];
+	_u = _u + [if (WF_Camo) then {"M1A2_TUSK_MG"} else {"M1A2_US_TUSK_MG_EP1"}];
+	_u = _u + [if (WF_Camo) then {"M1A2_TUSK_MG"} else {"M1A2_US_TUSK_MG_EP1"}];
 	_u = _u + ["M6_EP1"];
 	[Format["WFBE_WEST%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
 
@@ -863,3 +863,5 @@ if (WF_A2_CombinedOps) then {
 	_u = _u + ["T72_RU"];
 	[Format["WFBE_EAST%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
 };
+
+diag_log "[WFBE (INIT)] Config_Occupation: Intialization - [Done]";

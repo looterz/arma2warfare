@@ -1,4 +1,4 @@
-Private ["_building","_built","_crew","_direction","_distance","_faction","_factoryType","_id","_index","_isVehicle","_longest","_position","_queu","_queu2","_ret","_side","_sideText","_soldier","_team","_type","_unitIndex","_unitType","_vehicle","_vehicles","_waitTime"];
+Private ["_building","_built","_crew","_direction","_distance","_factoryType","_id","_index","_isVehicle","_longest","_position","_queu","_queu2","_ret","_side","_sideText","_soldier","_team","_type","_unitType","_vehicle","_waitTime"];
 _id = _this select 0;
 _building = _this select 1;
 _unitType = _this select 2;
@@ -9,25 +9,25 @@ if (count _this > 4) then {_isVehicle = _this select 5};
 
 _sideText = str _side;
 
+diag_log Format["[WFBE (INFORMATION)] Server_AlliesBuyUnit: AI Team %1 has purchased a '%2'",_team,_unitType];
+
 _queu = _building getVariable "queu";
 if (isNil "_queu") then {_queu = []};
 _queu = _queu + [_id select 0];
 _building setVariable ["queu",_queu];
 
 _type = typeOf _building;
-_faction = if (_side == west) then {"USMC"} else {"RU"};
-if (_type == "CDF_WarfareBBarracks" || _type == "Ins_WarfareBBarracks") then {_type = Format["%1_WarfareBBarracks",_faction]};
-if (_type == "CDF_WarfareBLightFactory" || _type == "Ins_WarfareBLightFactory") then {_type = Format["%1_WarfareBLightFactory",_faction]};
-if (_type == "CDF_WarfareBHeavyFactory" || _type == "Ins_WarfareBHeavyFactory") then {_type = Format["%1_WarfareBHeavyFactory",_faction]};
-if (_type == "CDF_WarfareBAircraftFactory" || _type == "Ins_WarfareBAircraftFactory") then {_type = Format["%1_WarfareBAircraftFactory",_faction]};
+if (_type == "CDF_WarfareBBarracks" || _type == "Ins_WarfareBBarracks") then {_type = Call Compile Format ["%1BAR",str _side]};
+if (_type == "CDF_WarfareBLightFactory" || _type == "Ins_WarfareBLightFactory") then {_type = Call Compile Format ["%1LVF",str _side]};
+if (_type == "CDF_WarfareBHeavyFactory" || _type == "Ins_WarfareBHeavyFactory") then {_type = Call Compile Format ["%1HEAVY",str _side]};
+if (_type == "CDF_WarfareBAircraftFactory" || _type == "Ins_WarfareBAircraftFactory") then {_type = Call Compile Format ["%1AIR",str _side]};
 
 _index = (Format ["WFBE_%1STRUCTURENAMES",_sideText] Call GetNamespace) find _type;
 _distance = (Format ["WFBE_%1STRUCTUREDISTANCES",_sideText] Call GetNamespace) select _index;
 _direction = (Format ["WFBE_%1STRUCTUREDIRECTIONS",_sideText] Call GetNamespace) select _index;
 _factoryType = (Format ["WFBE_%1STRUCTURES",_sideText] Call GetNamespace) select _index;
 
-_unitIndex = Call Compile Format ["%1Allies%2Units find _unitType",_sideText,_factoryType];
-_waitTime = Call Compile Format ["%1Allies%2Times select _unitIndex",_sideText,_factoryType];
+_waitTime = (_unitType Call GetNamespace) select QUERYUNITTIME;
 _position = [getPos _building,_distance,getDir _building + _direction] Call GetPositionFrom;
 _longest = Format ["WFBE_LONGEST%1BUILDTIME",_factoryType] Call GetNamespace;
 
@@ -47,6 +47,7 @@ while {_id select 0 != _queu select 0} do {
 		_queu = _building getVariable "queu";
 		_queu = _queu - [_queu select 0];
 		_building setVariable ["queu",_queu];
+		diag_log Format ["[WFBE (INFORMATION)] Server_BuyUnit.sqf: Canceled unit '%1', the factory is destroyed.",_unitType];
 	};
 	
 	if (_queu select 0 == _queu2 select 0) then {
@@ -70,7 +71,7 @@ _queu = _building getVariable "queu";
 _queu = _queu - [_unique];
 _building setVariable ["queu",_queu];
 
-if ((!alive _building)||(isNull _building)) exitWith {};
+if ((!alive _building)||(isNull _building)) exitWith {diag_log Format ["[WFBE (INFORMATION)] Server_AlliesBuyUnit.sqf: Canceled unit '%1', the factory is destroyed.",_unitType];};
 
 if (_unitType isKindOf "Man") then {
 	_soldier = [_unitType,_team,_position,_side] Call CreateMan;
@@ -91,8 +92,13 @@ if (_unitType isKindOf "Man") then {
 	_vehicle setVelocity [0,0,-1];
 	//--- AI Can fly...? (*roll eyes at the harriers*).
 	if (_vehicle isKindOf "Plane") then {_vehicle setPos [_position select 0,_position select 1,1500]};
-	_vehicles = (WF_Logic getVariable "emptyVehicles") + [_vehicle];
-	WF_Logic setVariable ["emptyVehicles",_vehicles,true];
+	
+	/* Clear the vehicle */
+	clearWeaponCargo _vehicle;
+	clearMagazineCargo _vehicle;
+	
+	emptyQueu = emptyQueu + [_vehicle];
+	_vehicle Spawn HandleEmptyVehicle;
 	_soldier = [_crew,_team,_position,_side] Call CreateMan;
 	[_soldier] allowGetIn true;
 	[_soldier] orderGetIn true;

@@ -25,6 +25,7 @@ class FSM
       name = "Init";
       init = /*%FSM<STATEINIT""">*/"_lastUpdate = time;" \n
        "_is = 'WFBE_INCOMESYSTEM' Call GetNamespace;" \n
+       "_ii = 'WFBE_INCOMEINTERVAL' Call GetNamespace;" \n
        "" \n
        "_wTeams = ('WFBE_WESTTEAMS' Call GetNamespace);" \n
        "_eTeams = ('WFBE_EASTTEAMS' Call GetNamespace)"/*%FSM</STATEINIT""">*/;
@@ -37,7 +38,7 @@ class FSM
           priority = 0.000000;
           to="Update_Resources";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > 60 && !gameOver"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > _ii && !gameOver"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -66,7 +67,7 @@ class FSM
        "_id = 1;" \n
        "{if !(isNil '_x') then {[_westIncome,West,_id] Call ChangeClientFunds};_id = _id + 1} ForEach _wTeams;" \n
        "" \n
-       "if (allies) then {" \n
+       "if (paramAllies) then {" \n
        "	westAlliesFunds = westAlliesFunds + _westIncome;" \n
        "	eastAlliesFunds = eastAlliesFunds + _eastIncome;" \n
        "};" \n
@@ -91,7 +92,7 @@ class FSM
           priority = 0.000000;
           to="Update_Resources";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > 60 && !gameOver"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > _ii && !gameOver"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/

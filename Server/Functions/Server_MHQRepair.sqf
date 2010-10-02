@@ -7,9 +7,11 @@ _position = getPos _hq;
 _direction = getDir _hq;
 
 _commanderTeam = (_side) Call GetCommanderTeam;
-if (!isNull _commanderTeam) then {
+if !(isNull _commanderTeam) then {
 	_commanderID = (Leader _commanderTeam) Call GetClientID;
-	[_side,_commanderID,CMDSETHQSTATUS,false] Spawn CommandToClient;
+	WFBE_SetHQStatus = [[_commanderID,_side],'CLTFNCSETHQSTATUS',false];
+	publicVariable 'WFBE_SetHQStatus';
+	if !(isMultiplayer) then {[[_commanderID,_side],'CLTFNCSETHQSTATUS',false] Spawn HandlePVF};
 };
 
 sleep 15;
@@ -31,3 +33,5 @@ processInitCommands;
 deleteVehicle _hq;
 
 WF_Logic setVariable [Format ["%1MHQRepair",_sideText],false,true];
+
+diag_log Format["[WFBE (INFORMATION)] Server_MHQRepair: The %1 MHQ was repaired.",_sideText];

@@ -275,8 +275,8 @@ titletext ["","black in"];
 bis_uav_terminate = nil;
 BIS_UAV_TIME = nil;
 BIS_UAV_PLANE = nil;
-player switchcamera "internal";
 objnull remoteControl gunner _uav;
+player switchcamera "internal";
 enableteamswitch _defaultTeamswitch;
 
 setGroupIconsVisible BIS_UAV_visible;

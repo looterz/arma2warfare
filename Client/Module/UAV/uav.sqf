@@ -38,7 +38,9 @@ if (isNull _closest) exitWith {};
 _uav = createVehicle [Format ["WFBE_%1UAV",sideJoinedText] Call GetNamespace,getPos _closest, [], 0, "FLY"];
 playerUAV = _uav;
 Call Compile Format ["_uav addEventHandler ['Killed',{[_this select 0,_this select 1,%1] Spawn UnitKilled}]",sideJoined];
-_uav SetVehicleInit Format["[this,%1] ExecVM ""Common\Common_InitUnit.sqf"";",sideJoined];
+_uav SetVehicleInit Format["[this,%1] ExecVM 'Common\Common_InitUnit.sqf';",sideJoined];
+processInitCommands;
+
 _group = createGroup sideJoined;
 _driver = [Format ["WFBE_%1SOLDIER",sideJoinedText] Call GetNamespace,_group,getPos _uav,sideJoined] Call CreateMan;
 _driver MoveInDriver _uav;
@@ -57,7 +59,9 @@ WF_Logic setVariable [Format["%1VehiclesCreated",sideJoinedText],_built,true];
 
 -12500 Call ChangePlayerFunds;
 
-[CMDREQUESTSPECIAL,"uav",_uav] Spawn CommandToServer;
+WFBE_RequestSpecial = ['SRVFNCREQUESTSPECIAL',["uav",sideJoined,_uav,clientTeam]];
+publicVariable 'WFBE_RequestSpecial';
+if !(isMultiplayer) then {['SRVFNCREQUESTSPECIAL',["uav",sideJoined,_uav,clientTeam]] Spawn HandleSPVF};
 
 sleep 0.02;
 
@@ -71,7 +75,14 @@ _cw = true;
 _dir = 0;
 if (!isNil "_lastWP") then {deletewaypoint _lastWP};
 
-[_logic] ExecVM "Client\Module\UAV\uav_interface.sqf";
+//--- No need to preprocess those.
+if (WF_A2_Vanilla) then {
+	[_logic] ExecVM "Client\Module\UAV\uav_interface.sqf";
+} else {
+	[_logic] ExecVM "Client\Module\UAV\uav_interface_oa.sqf";
+};
+[_uav] ExecVM 'Client\Module\UAV\uav_spotter.sqf';
+
 _spawn = [] spawn {}; //--- Empty spawn
 while {alive _uav} do {
 	waituntil {waypointdescription [group _uav,currentwaypoint group _uav] != ' ' || !alive _uav};

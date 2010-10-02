@@ -5,9 +5,9 @@ item0[] = {"AI_BASE_Init",0,250,-15.348785,-34.504990,74.651321,15.495049,0.0000
 item1[] = {"AI_BASE_End",1,250,121.421707,50.708939,211.421722,100.708939,0.000000,"AI BASE" \n "End"};
 item2[] = {"AI_Base_Running",4,218,122.273567,-35.331635,212.273392,14.668474,0.000000,"AI Base" \n "Running"};
 item3[] = {"AI_Base_Not_Runn",4,218,-15.582159,46.154228,74.417801,96.154228,0.000000,"AI Base" \n "Not Running"};
-item4[] = {"Advanced__Init",2,4346,-16.452499,124.902863,73.547501,174.902863,0.000000,"Advanced " \n "Init"};
+item4[] = {"Advanced__Init",2,250,-16.452499,124.902863,73.547501,174.902863,0.000000,"Advanced " \n "Init"};
 item5[] = {"Loop",8,218,-16.586647,206.297379,73.413300,256.297363,0.000000,"Loop"};
-item6[] = {"Global_Checks",2,250,-16.758400,279.866577,73.241608,329.866577,0.000000,"Global Checks"};
+item6[] = {"Global_Checks",2,4346,-16.758400,279.866577,73.241608,329.866577,0.000000,"Global Checks"};
 item7[] = {"Player_Commander",4,218,121.742462,280.140930,211.742416,330.140930,10.000000,"Player" \n "Commander?"};
 item8[] = {"Teams_Type",4,218,-164.034988,280.176239,-74.035011,330.176270,1.000000,"Teams Type"};
 item9[] = {"Update_Teams",2,250,-163.247650,207.771179,-73.247955,257.771149,0.000000,"Update Teams"};
@@ -31,7 +31,7 @@ link13[] = {10,11};
 link14[] = {11,12};
 link15[] = {12,5};
 globals[] = {0.000000,0,0,0,0,640,480,1,19,6316128,1,-340.606110,214.050446,413.526428,-75.043388,705,621,1};
-window[] = {0,-1,-1,-1,-1,766,25,1370,25,1,723};
+window[] = {0,-1,-1,-1,-1,859,256,1601,118,1,723};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -45,7 +45,7 @@ class FSM
       init = /*%FSM<STATEINIT""">*/"_side = _this select 0;" \n
        "_sideText = Str _side;" \n
        "" \n
-       "_aibase = Call Compile Format [""%1AIBase"",_sideText];"/*%FSM</STATEINIT""">*/;
+       "_aibase = Format [""WFBE_%1_AIBase"",_sideText] Call GetNamespace;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -76,7 +76,7 @@ class FSM
     class AI_BASE_End
     {
       name = "AI_BASE_End";
-      init = /*%FSM<STATEINIT""">*/"Call Compile Format [""%1AIBase = false"",_sideText];" \n
+      init = /*%FSM<STATEINIT""">*/"[Format[""WFBE_%1_AIBase"",_sideText],false,true] Call SetNamespace;" \n
        "" \n
        "if (!isNull _driver && alive _driver) then {" \n
        "	_group = group _driver;" \n
@@ -101,7 +101,7 @@ class FSM
     class Advanced__Init
     {
       name = "Advanced__Init";
-      init = /*%FSM<STATEINIT""">*/"Call Compile Format [""%1AIBase = true"",_sideText];" \n
+      init = /*%FSM<STATEINIT""">*/"[Format[""WFBE_%1_AIBase"",_sideText],true,true] Call SetNamespace;" \n
        "" \n
        "_hq = WF_Logic getVariable Format [""%1MHQ"",_sideText];" \n
        "_isDeployed = WF_Logic getVariable Format [""%1MHQDeployed"",_sideText];" \n
@@ -193,8 +193,10 @@ class FSM
        "	_upgrades Set [_index2,_index + 1];" \n
        "	WF_Logic setVariable [Format [""%1Upgrades"",_sideText],_upgrades,true];" \n
        "	" \n
-       "	[_side,CMDLOCALIZEMESSAGE,""UpgradeComplete"",[_index2,(_index + 1)]] Spawn CommandToSide;" \n
-       "	Call Compile Format[""%1Upgrading = false"",_sideText];" \n
+       "	WFBE_LocalizeMessage = [_side,'CLTFNCLOCALIZEMESSAGE',['UpgradeComplete',_index2,(_index + 1)]];" \n
+       "	publicVariable 'WFBE_LocalizeMessage';" \n
+       "	if !(isMultiplayer) then {[_side,'CLTFNCLOCALIZEMESSAGE',['UpgradeComplete',_index2,(_index + 1)]] Spawn HandlePVF};" \n
+       "	[Format[""WFBE_%1_Upgrading"",_sideText],false,true] Call SetNamespace;" \n
        "" \n
        "	[""NewIntelAvailable"","""",_side,""""] Spawn SideMessage" \n
        "};" \n
@@ -244,8 +246,8 @@ class FSM
        "				" \n
        "				//--- Limit control." \n
        "				_current = {(typeOf _x) == _structureType} count _buildings;" \n
-       "				if (_current > _limit) then {_pursue = false};" \n
-       "				" \n
+       "				if (_current >= _limit) then {_pursue = false};" \n
+       "		" \n
        "				//--- AI Can build." \n
        "				if (_pursue) then {" \n
        "					_x = getPos _hq select 0;" \n
@@ -474,15 +476,18 @@ class FSM
        "_templates = Format [""WFBE_%1AITEAMTEMPLATES"",_sideText] Call GetNamespace;" \n
        "_teamTypes = Format [""WFBE_%1AITEAMTYPES"",_sideText] Call GetNamespace;" \n
        "_currentConfig = [];" \n
+       "_totalFunds = 0;" \n
        "" \n
        "{" \n
        "	if !(isNil '_x') then {" \n
        "		_teamIndex = (_x) Call GetTeamType;" \n
+       "		_totalFunds = _totalFunds + ((_x) Call GetTeamFunds);" \n
        "		if (_teamIndex == -1) then {_teamIndex = 0};" \n
        "		_currentConfig = _currentConfig + [_teamTypes select _teamIndex];" \n
        "	};" \n
        "} forEach _teams;" \n
        "" \n
+       "_avgIncome = _totalFunds / maxPlayers;" \n
        "_infantryTypes = {_x == 0} count _currentConfig;" \n
        "_lightTypes = {_x == 1} count _currentConfig;" \n
        "_heavyTypes = {_x == 2} count _currentConfig;" \n
@@ -494,12 +499,12 @@ class FSM
        "_lightPercent = 0;" \n
        "_heavyPercent = 0;" \n
        "_airPercent = 0;" \n
-       "if (_income < (_totalSupply - (_totalSupply/1.2))) then {_infPercent = 100; _lightPercent = 30};" \n
-       "if (_income >= (_totalSupply - (_totalSupply/1.2)) && _income < (_totalSupply - (_totalSupply/1.6))) then {_infPercent = 60; _lightPercent = 30; _heavyPercent = 10};" \n
-       "if (_income >= (_totalSupply - (_totalSupply/1.6)) && _income < (_totalSupply - (_totalSupply/2))) then {_infPercent = 50; _lightPercent = 30; _heavyPercent = 20};" \n
-       "if (_income >= (_totalSupply - (_totalSupply/2)) && _income < (_totalSupply - (_totalSupply/3))) then {_infPercent = 40; _lightPercent = 30; _heavyPercent = 30};" \n
-       "if (_income >= (_totalSupply - (_totalSupply/3)) && _income < (_totalSupply - (_totalSupply/4))) then {_infPercent = 30; _lightPercent = 20; _heavyPercent = 40; _airPercent = 10};" \n
-       "if (_income >= (_totalSupply - (_totalSupply/4))) then {_infPercent = 20; _lightPercent = 20; _heavyPercent = 50; _airPercent = 10};" \n
+       "if (_income < (_totalSupply - (_totalSupply/1.2)) || _avgIncome < 2000) then {_infPercent = 70; _lightPercent = 30};" \n
+       "if ((_income >= (_totalSupply - (_totalSupply/1.2)) && _income < (_totalSupply - (_totalSupply/1.6))) || _avgIncome > 2000) then {_infPercent = 60; _lightPercent = 30; _heavyPercent = 10};" \n
+       "if ((_income >= (_totalSupply - (_totalSupply/1.6)) && _income < (_totalSupply - (_totalSupply/2))) || _avgIncome > 4000) then {_infPercent = 50; _lightPercent = 30; _heavyPercent = 20};" \n
+       "if ((_income >= (_totalSupply - (_totalSupply/2)) && _income < (_totalSupply - (_totalSupply/3))) || _avgIncome > 12000) then {_infPercent = 40; _lightPercent = 30; _heavyPercent = 30};" \n
+       "if ((_income >= (_totalSupply - (_totalSupply/3)) && _income < (_totalSupply - (_totalSupply/4))) || _avgIncome > 18000) then {_infPercent = 30; _lightPercent = 20; _heavyPercent = 40; _airPercent = 10};" \n
+       "if (_income >= (_totalSupply - (_totalSupply/4)) || _avgIncome > 24000) then {_infPercent = 20; _lightPercent = 20; _heavyPercent = 50; _airPercent = 10};" \n
        "" \n
        "_infAssign = round(maxPlayers * (_infPercent / 100));" \n
        "_lightAssign = round(maxPlayers * (_lightPercent / 100));" \n
@@ -574,7 +579,7 @@ class FSM
        "_isDeployed = WF_Logic getVariable _sideMHQDeployed;" \n
        "_buildings = WF_Logic getVariable _sideBuilding;" \n
        "_checks = [_side,Format [""WFBE_%1COMMANDCENTERTYPE"",_sideText] Call GetNamespace,_buildings] Call GetFactories;" \n
-       "if (_isDeployed && (count _checks > 0) && !(Call Compile Format[""%1Upgrading"",_sideText])) then {" \n
+       "if (_isDeployed && (count _checks > 0) && !(Format[""WFBE_%1_Upgrading"",_sideText] Call GetNamespace)) then {" \n
        "	_upgrades = WF_Logic getVariable _sideUpgrades;" \n
        "	_supply = WF_Logic getVariable _sideSupply;" \n
        "	_break = false;" \n
@@ -605,7 +610,7 @@ class FSM
        "	};" \n
        "	" \n
        "	if (_upgrade != -1) then {" \n
-       "		Call Compile Format[""%1Upgrading = true"",_sideText];" \n
+       "		[Format[""WFBE_%1_Upgrading"",_sideText],true,true] Call SetNamespace;" \n
        "		_supply = _supply - _supplyLevel;" \n
        "		WF_Logic setVariable [_sideSupply,_supply,true];" \n
        "		_time = (Format [""WFBE_UPGRADETIMESLEVEL%1"",_upgrade+1] Call GetNamespace) select _index;" \n

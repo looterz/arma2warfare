@@ -2,122 +2,104 @@ Private ["_unit"];
 _unit = _this select 0;
 
 switch (typeOf _unit) do {
-
-	case "T55_TK_EP1": {
-
-		_unit addMagazine "8Rnd_AT5_BMP2";
-		_unit addWeapon "AT5LauncherSingle";
-
+	//WEST
+	case "AH1Z": {
+		_unit removeMagazinesTurret ["120Rnd_CMFlareMagazine",[-1]];
+		_unit addMagazineTurret ["60Rnd_CMFlare_Chaff_Magazine",[-1]];
 	};
-
-	case "T72_TK_EP1": {
-
-		_unit addMagazine "5Rnd_AT11_T90";
-		_unit addWeapon "AT11LauncherSingle";
-
+	case "CH_47F_EP1": {
+		_unit removeMagazinesTurret ["120Rnd_CMFlareMagazine",[-1]];
+		_unit addMagazineTurret ["60Rnd_CMFlare_Chaff_Magazine",[-1]];
 	};
-
-	case "ZSU_TK_EP1": {
-
-		_unit addMagazine "2Rnd_Igla";
-		_unit addMagazine "2Rnd_Igla";
-		_unit addMagazine "2Rnd_Igla";
-		_unit addMagazine "2Rnd_Igla";
-		_unit addWeapon "Igla_twice";
-
+	case "AV8B": {
+		_unit removeMagazinesTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];
+		_unit addMagazineTurret ["120Rnd_CMFlareMagazine",[-1]];
 	};
-
-	case "M6_EP1": {
-
-		_unit removeWeapon "StingerLaucher_4x";
-		_unit addMagazine "8Rnd_9M311";
-		_unit addWeapon "9M311Laucher";
+	case "AV8B2": {
+		_unit removeMagazinesTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];
+		_unit addMagazineTurret ["120Rnd_CMFlareMagazine",[-1]];
 	};
-
-	case "An2_TK_EP1": {
-
-		_unit addMagazine "4Rnd_FAB_250";
-		_unit addMagazine "4Rnd_FAB_250";
-		_unit addMagazine "4Rnd_FAB_250";
-		_unit addWeapon "AirBombLauncher";
-		_unit addMagazine "120Rnd_CMFlareMagazine";
-		_unit addWeapon "CMFlareLauncher";
-
-	};
-
-	case "L39_TK_EP1": {
-
-		_unit addMagazine "2Rnd_R73";
-		_unit addWeapon "R73Launcher_2";
-		_unit addMagazine "120Rnd_CMFlareMagazine";
-		_unit addWeapon "CMFlareLauncher";
-
-	};
-
-	case "UH1H_TK_EP1": {
-
-		_unit addMagazine "120Rnd_CMFlareMagazine";
-		_unit addWeapon "CMFlareLauncher";
-
-	};
-
-	case "Mi24_D_TK_EP1": {
-
-		_unit removeWeapon "AT2Launcher";
-		_unit addMagazine "2Rnd_R73";
-		_unit addWeapon "R73Launcher_2";
-
-	};
-
-	case "Mi24_V": {
-
-		_unit removeWeapon "AT6Launcher";
-		_unit addMagazine "4Rnd_AT9_Mi24P";
-		_unit addMagazine "4Rnd_AT9_Mi24P";
-		_unit addMagazine "4Rnd_AT9_Mi24P";
-		_unit addWeapon "AT9Launcher";
-
-	};
-
-	case "Mi24_P": {
-
-
-	};
-
-	case "Ka52": {
-
-		_unit removeWeapon "VikhrLauncher";
-		_unit addMagazine "8Rnd_Hellfire";
-		_unit addWeapon "HellfireLauncher";
-	
-	};
-
-	case "Ka52Black": {
-
-		_unit removeWeapon "VikhrLauncher";
-		_unit addMagazine "8Rnd_Hellfire";
-		_unit addWeapon "HellfireLauncher";
-		_unit addMagazine "2Rnd_R73";
-		_unit addWeapon "R73Launcher_2";
-
-	};
-
-	case "MH6J_EP1": {
-
-		_unit addMagazine "Laserbatteries";
-		_unit addWeapon "Laserdesignator_mounted";
-
-	};
-
 	case "F35B": {
-
-		_unit addMagazine "2Rnd_Sidewinder_F35";
-		_unit addMagazine "2Rnd_Maverick_A10";
-		_unit addMagazine "2Rnd_Maverick_A10";
-		_unit addMagazine "2Rnd_Maverick_A10";
+		_unit removeWeapon "BombLauncherF35";
 		_unit addMagazine "2Rnd_Maverick_A10";
 		_unit addWeapon "MaverickLauncher";
-
 	};
-		
+	case "M6_EP1": {
+		_unit removeWeapon "StingerLaucher_4x";
+		_unit addMagazine "4Rnd_Sidewinder_AV8B";
+		_unit addMagazine "4Rnd_Sidewinder_AV8B";
+		_unit addWeapon "SidewinderLaucher";
+	};
+	//EAST
+	case "Ka52": {
+		//_unit removeWeapon "AT9Launcher";
+		_unit removeWeapon "VikhrLauncher";
+		_unit addMagazine "4Rnd_AT9_Mi24P";
+		_unit addMagazine "4Rnd_AT9_Mi24P";
+		_unit addweapon "AT9Launcher";
+		_unit removeMagazinesTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];
+		_unit addMagazineTurret ["60Rnd_CMFlare_Chaff_Magazine",[-1]];
+	};	
+	case "Ka52Black": {
+		//_unit removeWeapon "AT9Launcher";	 
+		_unit removeWeapon "VikhrLauncher";
+		_unit addMagazine "2Rnd_R73";
+		_unit addweapon "R73Launcher_2";	
+		_unit addMagazine "4Rnd_AT9_Mi24P";
+		_unit addMagazine "4Rnd_AT9_Mi24P";
+		_unit addweapon "AT9Launcher";
+		_unit removeMagazinesTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];
+		_unit addMagazineTurret ["60Rnd_CMFlare_Chaff_Magazine",[-1]];
+	};	
+	case "Mi24_V": {
+		_unit removeMagazinesTurret ["120Rnd_CMFlareMagazine",[-1]];
+		_unit addMagazineTurret ["60Rnd_CMFlareMagazine",[-1]];
+	};
+	case "Mi24_D": {
+		_unit removeMagazinesTurret ["120Rnd_CMFlareMagazine",[-1]];
+		_unit addMagazineTurret ["60Rnd_CMFlareMagazine",[-1]];
+	};
+	case "Mi24_D_TK_EP1": {
+		_unit removeMagazinesTurret ["120Rnd_CMFlareMagazine",[-1]];
+		_unit addMagazineTurret ["60Rnd_CMFlareMagazine",[-1]];
+	};
+	case "Mi24_P": {
+		_unit removeMagazinesTurret ["120Rnd_CMFlareMagazine",[-1]];
+		_unit addMagazineTurret ["60Rnd_CMFlareMagazine",[-1]];
+	};
+	case "Su34": {
+		_unit removeMagazinesTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];
+		_unit addMagazineTurret ["120Rnd_CMFlareMagazine",[-1]];
+	};
+	case "Mi17_rockets_RU": {
+		_unit removeMagazinesTurret ["120Rnd_CMFlareMagazine",[-1]];
+		_unit addMagazineTurret ["60Rnd_CMFlareMagazine",[-1]];
+	};
+	case "Mi17_TK_EP1": {
+		_unit removeMagazinesTurret ["120Rnd_CMFlareMagazine",[-1]];
+		_unit addMagazineTurret ["60Rnd_CMFlareMagazine",[-1]];
+	};
+	case "Mi17_medevac_RU": {
+		_unit removeMagazinesTurret ["120Rnd_CMFlareMagazine",[-1]];
+		_unit addMagazineTurret ["60Rnd_CMFlareMagazine",[-1]];
+	};
+	case "Su25_TK_EP1": {
+		_unit removeMagazinesTurret ["120Rnd_CMFlareMagazine",[-1]];
+		_unit addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];
+	};
+	case "Su39": {
+		_unit removeMagazinesTurret ["120Rnd_CMFlareMagazine",[-1]];
+		_unit addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];
+	};
+	case "Su25_Ins": {
+		_unit removeMagazinesTurret ["120Rnd_CMFlareMagazine",[-1]];
+		_unit addMagazineTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];
+	};
+	case "An2_TK_EP1": {
+		_unit addMagazine "4Rnd_FAB_250";
+		_unit addWeapon "AirBombLauncher";
+		_unit addMagazine "60Rnd_CMFlareMagazine";
+		_unit addWeapon "CMFlareLauncher";
+	};
+
 };

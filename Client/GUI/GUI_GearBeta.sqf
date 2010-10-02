@@ -48,6 +48,66 @@ _templateSpecs = +(WF_Logic getVariable 'templateSpecs');
 _templateUpgrades = +(WF_Logic getVariable 'templateUpgrades');
 _templateAllowed = +(WF_Logic getVariable 'templateAllowed');
 
+_currentUnit = player;
+
+_returnProperBag = {
+	Private ['_bag'];
+	_bag = _this select 0;
+	
+	if (_bag in ['US_Assault_Pack_Ammo_EP1','US_Assault_Pack_AmmoSAW_EP1','US_Assault_Pack_AT_EP1','US_Assault_Pack_Explosives_EP1']) then {_bag = 'US_Assault_Pack_EP1'};
+	if (_bag in ['US_Patrol_Pack_Ammo_EP1','US_Patrol_Pack_Specops_EP1']) then {_bag = 'US_Patrol_Pack_EP1'};
+	if (_bag in ['US_Backpack_AmmoMG_EP1','US_Backpack_AT_EP1','US_Backpack_Specops_EP1']) then {_bag = 'US_Backpack_EP1'};
+	if (_bag in ['TK_ALICE_Pack_Explosives_EP1','TK_ALICE_Pack_AmmoMG_EP1','TKA_ALICE_Pack_Ammo_EP1','TKG_ALICE_Pack_AmmoAK47_EP1','TKG_ALICE_Pack_AmmoAK74_EP1']) then {_bag = 'TK_ALICE_Pack_EP1'};
+	if (_bag in ['TK_Assault_Pack_RPK_EP1','TKA_Assault_Pack_Ammo_EP1']) then {_bag = 'TK_Assault_Pack_EP1'};
+	if (paramDLCBAF) then {if (_bag in ['BAF_AssaultPack_ARAmmo','BAF_AssaultPack_MGAmmo','BAF_AssaultPack_ATAmmo','BAF_AssaultPack_HATAmmo','BAF_AssaultPack_Special','BAF_AssaultPack_FAC','BAF_AssaultPack_HAAAmmo','BAF_AssaultPack_LRRAmmo']) then {_bag = 'BAF_AssaultPack_RifleAmmo'}};
+	
+	_bag
+};
+
+/* Backpack management - Init */
+_backpackloadout = [];
+_backpack = [];
+_backpackCosts = [];
+_backpackPictures = [];
+_backpackNames = [];
+_backpackUpgrades = [];
+_backpackAllowed = [];
+_currentBackpackLoadout = [];
+_currentBackpackLoadoutAmount = [];
+_currentBackpackLoadoutCost = [];
+_currentBackpackLoadoutPictures = [];
+_currentBackpackLoadoutNames = [];
+_currentBackpackLoadoutUpgrades = [];
+_currentBackpackLoadoutAllowed = [];
+_unitBP = "";
+_bpcost = 0;
+_listbp = 'WFBE_BACKPACKS' Call GetNamespace;
+if !(WF_A2_Vanilla) then {
+	_u = 0;
+	_backpack = _magazine;
+	_backpackCosts = _magazineCosts;
+	_backpackPictures = _magazinePictures;
+	_backpackNames = _magazineNames;
+	_backpackUpgrades = _magazineUpgrades;
+	_backpackAllowed = _magazineAllowed;
+	{
+		if ((_miscTypes select _u) == 'CfgMagazines') then {
+			_backpack = _backpack + [_x];
+			_backpackCosts = _backpackCosts + [_miscCosts select _u];
+			_backpackPictures = _backpackPictures + [_miscPictures select _u];
+			_backpackNames = _backpackNames + [_miscNames select _u];
+			_backpackUpgrades = _backpackUpgrades + [_miscUpgrades select _u];
+			_backpackAllowed = _backpackAllowed + [_miscAllowed select _u];
+		};
+		_u = _u + 1;
+	} forEach _misc;
+	
+	if !(isNull (unitBackpack _currentUnit)) then {
+		_unitBP = typeOf (unitBackpack _currentUnit);
+		_unitBP = [_unitBP] Call _returnProperBag;
+	};
+};
+
 _all = _primary + _secondary + _sidearm + _misc;
 _allCosts = _primaryCosts + _secondaryCosts + _sidearmCosts + _miscCosts;
 _allPictures = _primaryPictures + _secondaryPictures + _sidearmPictures + _miscPictures;
@@ -71,6 +131,8 @@ buyLoadout = false;
 _displayInv = false;
 _updateUnit = true;
 _updateFiller = false;
+_manageBackpack = false;
+_updateBackpack = false;
 
 disableSerialization;
 _lb = 3700;
@@ -152,7 +214,7 @@ _fillList = {
 	{
 		if ((_listUpgrades select _u) <= (_currentUpgrades select 13)) then {
 			_add = true;
-			if (gearRestriction && !gearInRange) then {
+			if (paramGearRestriction && !gearInRange) then {
 				if !(_listAllowed select _u) then {_add = false};
 			};
 			if (_add) then {
@@ -281,12 +343,11 @@ _buildings = WF_Logic getVariable Format ["%1BaseStructures",sideJoinedText];
 		_val2 = _text select (_amount-1);
 		_ainumber = if (_val == 58) then {[_val2]} else {[_val, _val2]};
 		_txt = if (_x == leader (group _x)) then {1} else {toString(_ainumber)};
-		_type = getText (configFile >> "CfgVehicles" >> typeOf _x >> "displayName");
+		_type = [typeOf _x, 'displayName'] Call GetConfigInfo;
 		lbAdd [3854,Format["[%1] %2 (%3)",_txt,name _x,_type]];
 	};
 } forEach units(group player);
 if (count _unitList > 0) then {lbSetCurSel[3854,0]};
-_currentUnit = player;
 
 while {alive player && dialog} do {
 	if (Side player != sideJoined) exitWith {closeDialog 0};
@@ -303,6 +364,7 @@ while {alive player && dialog} do {
 	//--- Filter Changed.
 	if (_filler != _lastFiller || _updateFiller) then {
 		_updateFiller = false;
+		_manageBackpack = false;
 		_list = Call Compile Format ['_%1',_filler];
 		_listCosts = Call Compile Format ['_%1Costs',_filler];
 		_listNames = Call Compile Format ['_%1Names',_filler];
@@ -321,35 +383,37 @@ while {alive player && dialog} do {
 	
 	//--- List Selection Changed.
 	if (_changed) then {
-		WF_Logic setVariable ['lbChange',false];
-		_currentRow = lnbCurSelRow _lb;
-		_currentData = lnbData[_lb,[_currentRow,0]];
-		_currentValue = lnbValue[_lb,[_currentRow,0]];
-		_currentItem = _list select _currentValue;
-		lnbClear _lbm;
-		if (!isNil '_listMagazines') then {
-			if (_currentValue < count _listMagazines) then {
-				_magListCosts = [];
-				_magListNames = [];
-				_magListPictures = [];
-				_magListUpgrades = [];
-				_magListAllowed = [];
-				_currentMags = _listMagazines select _currentValue;
-				if (count _currentMags > 0) then {
-					{
-						_index = _magazine find _x;
-						if (_index != -1) then {
-							_magListCosts = _magListCosts + [_magazineCosts select _index];
-							_magListNames = _magListNames + [_magazineNames select _index];
-							_magListPictures = _magListPictures + [_magazinePictures select _index];
-							_magListUpgrades = _magListUpgrades + [_magazineUpgrades select _index];
-							_magListAllowed = _magListAllowed + [_magazineAllowed select _index];
-						};
-					} forEach _currentMags;
-					[_magListCosts,_magListNames,_magListPictures,_magListUpgrades,_magazineAllowed,'magazine',_lbm] Call _fillList;
+		if !(_manageBackpack) then {
+			_currentRow = lnbCurSelRow _lb;
+			_currentData = lnbData[_lb,[_currentRow,0]];
+			_currentValue = lnbValue[_lb,[_currentRow,0]];
+			_currentItem = _list select _currentValue;
+			lnbClear _lbm;
+			if (!isNil '_listMagazines') then {
+				if (_currentValue < count _listMagazines) then {
+					_magListCosts = [];
+					_magListNames = [];
+					_magListPictures = [];
+					_magListUpgrades = [];
+					_magListAllowed = [];
+					_currentMags = _listMagazines select _currentValue;
+					if (count _currentMags > 0) then {
+						{
+							_index = _magazine find _x;
+							if (_index != -1) then {
+								_magListCosts = _magListCosts + [_magazineCosts select _index];
+								_magListNames = _magListNames + [_magazineNames select _index];
+								_magListPictures = _magListPictures + [_magazinePictures select _index];
+								_magListUpgrades = _magListUpgrades + [_magazineUpgrades select _index];
+								_magListAllowed = _magListAllowed + [_magazineAllowed select _index];
+							};
+						} forEach _currentMags;
+						[_magListCosts,_magListNames,_magListPictures,_magListUpgrades,_magazineAllowed,'magazine',_lbm] Call _fillList;
+					};
 				};
 			};
 		};
+		WF_Logic setVariable ['lbChange',false];
 	};
 	
 	//--- Player have clicked on one of the listbox.
@@ -357,7 +421,8 @@ while {alive player && dialog} do {
 		switch (_mainAction) do {
 			case 'addWeapon': {
 				_skip = true;
-				if (_filler == 'primary' || _filler == 'secondary' || _filler == 'sidearm' || _filler == 'all') then {
+				_tfil = if (_manageBackpack) then {'backpack'} else {_filler};
+				if (_tfil == 'primary' || _tfil == 'secondary' || _tfil == 'sidearm' || _tfil == 'all') then {
 					if (_currentItem in _misc) then {_skip = false;_currentValue = _currentValue - _totalWeapons};
 					if (_skip) then {
 						_slist = Call Compile Format ['_%1',_currentData];
@@ -366,12 +431,19 @@ while {alive player && dialog} do {
 						_index = _slist find _currentItem;
 						if (_index != -1) then {
 							_slistMagazines = Call Compile Format ['_%1Magazines',_currentData];
-							if (_filler == 'all') then {
+							if (_tfil == 'all') then {
 								if (_currentItem in _primary) then {_currentData = 'primary'} else {
 									if (_currentItem in _secondary) then {_currentData = 'secondary'} else {
 										if (_currentItem in _sidearm) then {_currentData = 'sidearm'};
 									};
 								};
+							};
+							if (_currentData == 'secondary') then {
+								if (_currentItem in _listbp) then {
+									_unitBP = _currentItem;
+								};
+								_backpackloadout = [[],[]];
+								_bpcost = 0;
 							};
 							Call Compile Format ['_old = _current%1;_currentWeapons = _currentWeapons - [_current%1];_current%1Cost = _slistCosts select _index;_current%1 = _slist select _index;ctrlSetText[_%IDC,_slistPictures select _index];ctrlSetText[_%1IDC,_slistPictures select _index]',_currentData];
 							//--- New Magazines.
@@ -383,12 +455,32 @@ while {alive player && dialog} do {
 								_currentMagazines = [_currentMags select 0,_oldMags,_currentMagazines] Call ReplaceInventoryAmmo;
 							};
 						};
-						
 						_currentWeapons = _currentWeapons + [_currentItem];
 						_displayInv = true;
 					};
 				};
-				if (_filler == 'misc' || !_skip) then {
+				if (_tfil == 'backpack') then {
+					_currentBPRow = lnbCurSelRow _lb;
+					_currentBPValue = lnbValue[_lb,[_currentBPRow,0]];
+					_currentBPItem = _backpack select _currentBPValue;
+					
+					_hasSpace = [_unitBP,_backpackloadout,_currentBPItem] Call BackpackHasSpace;
+					
+					if (_hasSpace) then {
+						_id = (_backpackloadout select 0) find _currentBPItem;
+						if (_id == -1) then {
+							_arrayType = (_backpackloadout select 0) + [_currentBPItem];
+							_arrayAmount = (_backpackloadout select 1) + [1];
+							_backpackloadout set[0, _arrayType];
+							_backpackloadout set[1, _arrayAmount];
+						} else {
+							_arrayAmount = (_backpackloadout select 1) set [_id,((_backpackloadout select 1) select _id)+1];
+						};
+					};
+					
+					_updateBackpack = true;
+				};
+				if (_tfil == 'misc' || !_skip) then {
 					_type = _miscTypes select _currentValue;
 					if (_type == 'CfgMagazines') then {
 						_currentMagazines = [_currentMagazines,_currentItem] Call _addMagazine;
@@ -413,7 +505,7 @@ while {alive player && dialog} do {
 						};
 					};
 				};
-				if (_filler == 'template') then {
+				if (_tfil == 'template') then {
 					_tempWeapons = _template select _currentValue;
 					_tempItems = _templateItems select _currentValue;
 					_tempMags = _templateMags select _currentValue;
@@ -425,7 +517,34 @@ while {alive player && dialog} do {
 					_currentSecondaryCost = 0;
 					_currentSidearmCost = 0;
 					_currentWeapons = [];
-					_currentItems = _tempItems;
+					_currentItems = [];
+					_backpackloadout = [[],[]];
+					{
+						if (typeName _x == 'STRING') then {_currentItems = _currentItems + [_x]};
+						if (typeName _x == 'ARRAY') then {_backpackloadout = _x};
+					} forEach _tempItems;
+					_bpcost = 0;
+					
+					if (count (_backpackloadout select 0) > 0) then {
+						_get = getNumber(configFile >> 'CfgVehicles' >> typeOf _currentUnit >> 'canCarryBackPack');
+						if (_get == 1) then {
+							_u = 0;
+							_currentUpgrades = WF_Logic getVariable Format ["%1Upgrades",sideJoinedText];
+							{
+								_id = _backpack find _x;
+								if (_id != -1) then {
+									if ((_currentUpgrades select 13) >= (_backpackUpgrades select _id)) then {
+										_bpcost = _bpcost + ((_backpackCosts select _id)*((_backpackloadout select 1) select _u));
+									};
+								};
+								_u = _u + 1;
+							} forEach (_backpackloadout select 0);
+						} else {
+							_currentSecondary = '';
+						};
+					};
+					_currentBackpackLoadout = (_backpackloadout select 0);
+					_currentBackpackLoadoutAmount = (_backpackloadout select 1);
 					{
 						_index = _primary find _x;
 						if (_index != -1) then {_currentWeapons = _currentWeapons + [_x];_currentPrimary = _x;_currentPrimaryCost = _primaryCosts select _index;ctrlSetText[_primaryIDC,_primaryPictures select _index]} else {
@@ -439,6 +558,7 @@ while {alive player && dialog} do {
 					if (_currentPrimary == '') then  {ctrlSetText [_primaryIDC,'\ca\ui\data\ui_gear_gun_gs.paa']};
 					if (_currentSecondary == '') then  {ctrlSetText [_secondaryIDC,'\ca\ui\data\ui_gear_sec_gs.paa']};
 					if (_currentSidearm == '') then  {ctrlSetText [_sidearmIDC,'\ca\ui\data\ui_gear_hgun_gs.paa']};
+					if (_currentSecondary in _listbp && _get == 1) then {_unitBP = _currentSecondary} else {_unitBP = ""};
 					_currentMagazines = _tempMags;
 					_currentSpecials = _tempSpecs;
 					_currentSpecialCost = 0;
@@ -455,10 +575,30 @@ while {alive player && dialog} do {
 			};
 
 			case 'addMagazine': {
-				_currentMagValue = lnbValue[_lbm,[lnbCurSelRow _lbm,0]];
-				_currentMag = _currentMags select _currentMagValue;
-				_currentMagazines = [_currentMagazines,_currentMag] Call _addMagazine;
-				_displayInv = true;
+				if !(_manageBackpack) then {
+					_currentMagValue = lnbValue[_lbm,[lnbCurSelRow _lbm,0]];
+					_currentMag = _currentMags select _currentMagValue;
+					_currentMagazines = [_currentMagazines,_currentMag] Call _addMagazine;
+					_displayInv = true;
+				} else {
+					_currentBPItemValue = lnbValue[_lbm,[lnbCurSelRow _lbm,0]];
+					//--- todo find
+					_arrayType = _backpackloadout select 0;
+					_arrayAmount = _backpackloadout select 1;
+					_item = _arrayType select _currentBPItemValue;
+					_itemAmount = _arrayAmount select _currentBPItemValue;
+					if ((_itemAmount -1) <= 0) then {
+						_arrayType set [_currentBPItemValue, 'nil'];
+						_arrayAmount set [_currentBPItemValue, 'nil'];
+						_arrayType = _arrayType - ['nil'];
+						_arrayAmount = _arrayAmount - ['nil'];
+					} else {
+						_arrayAmount set [_currentBPItemValue, (_arrayAmount select _currentBPItemValue)-1];
+					};
+					_backpackloadout set [0, _arrayType];
+					_backpackloadout set [1, _arrayAmount];
+					_updateBackpack = true;
+				};
 			};
 		};
 		WF_Logic setVariable ['lbMainAction',''];
@@ -466,7 +606,7 @@ while {alive player && dialog} do {
 	
 	//--- Remove a weapon by clicking on it.
 	if (primClicked) then {primClicked = false;if (_currentPrimary != '') then  {ctrlSetText [_primaryIDC,'\ca\ui\data\ui_gear_gun_gs.paa'];_index = _primary find _currentPrimary;_currentPrimaryCost = 0;_currentWeapons = _currentWeapons - [_currentPrimary];_currentPrimary = '';_displayInv = true}};
-	if (secoClicked) then {secoClicked = false;if (_currentSecondary != '') then  {ctrlSetText [_secondaryIDC,'\ca\ui\data\ui_gear_sec_gs.paa'];_index = _secondary find _currentSecondary;_currentSecondaryCost = 0;_currentWeapons = _currentWeapons - [_currentSecondary];_currentSecondary = '';_displayInv = true}};
+	if (secoClicked) then {secoClicked = false;if (_currentSecondary != '') then  {ctrlSetText [_secondaryIDC,'\ca\ui\data\ui_gear_sec_gs.paa'];_index = _secondary find _currentSecondary;_currentSecondaryCost = 0;_currentWeapons = _currentWeapons - [_currentSecondary];_currentSecondary = '';_displayInv = true;_backpackloadout = [[],[]];_bpcost = 0;_unitBP = ""}};
 	if (sideClicked) then {sideClicked = false;if (_currentSidearm != '') then  {ctrlSetText [_sidearmIDC,'\ca\ui\data\ui_gear_hgun_gs.paa'];_index = _sidearm find _currentSidearm;_currentSidearmCost = 0;_currentWeapons = _currentWeapons - [_currentSidearm];_currentSidearm = '';_displayInv = true}};
 
 	if (_unitSwap) then {
@@ -477,6 +617,39 @@ while {alive player && dialog} do {
 	
 	if (_updateUnit) then {
 		_currentWeapons = weapons _currentUnit;
+		_currentCost = 0;
+		_unitBP = "";
+		if !(isNull(unitBackpack _currentUnit)) then {
+			_unitBP = typeOf(unitBackpack _currentUnit);
+			_unitBP = [_unitBP] Call _returnProperBag;
+			_currentWeapons = _currentWeapons + [_unitBP];
+			
+			//--- Retrieve the backpack content cost.
+			_backpackloadout = getMagazineCargo (unitBackPack _currentUnit);
+			_currentCost = _currentCost - _bpcost;
+			_bpcost = 0;
+			if (count (_backpackloadout select 0) > 0) then {
+				_u = 0;
+				_currentUpgrades = WF_Logic getVariable Format ["%1Upgrades",sideJoinedText];
+				{
+					_id = _backpack find _x;
+					if (_id != -1) then {
+						if ((_currentUpgrades select 13) >= (_backpackUpgrades select _id)) then {
+							_bpcost = _bpcost + ((_backpackCosts select _id)*((_backpackloadout select 1) select _u));
+						};
+					};
+					_u = _u + 1;
+				} forEach (_backpackloadout select 0);
+			};
+			_currentCost = _currentCost + _bpcost;
+		};
+		
+		_get = getNumber(configFile >> 'CfgVehicles' >> typeOf _currentUnit >> 'canCarryBackPack');
+		_show = if (_get == 1) then {true} else {false};
+		ctrlShow [3802,_show];
+		
+		if (_manageBackpack) then {_updateFiller = true};
+		
 		_currentSpecials = [];
 		_currentItems = [];
 		_currentMagazines = magazines _currentUnit;
@@ -489,7 +662,7 @@ while {alive player && dialog} do {
 		_sideGear = _currentWeapons;
 		{if (!(_x in _all)) then {_sideGear = _sideGear - [_x]}} forEach _currentWeapons;
 		_currentWeapons = _sideGear;
-
+		
 		_sideGear = _currentMagazines;
 		{if (!(_x in _misc) && !(_x in _magazine)) then {_sideGear = _sideGear - [_x]}} forEach _currentMagazines;
 		_currentMagazines = _sideGear;
@@ -537,7 +710,7 @@ while {alive player && dialog} do {
 		_inventorySlots = _data select 0;
 		_sidearmInventorySlots = _data select 1;
 		_miscItemSlots = _data select 2;
-		_currentCost = (_data select 3) + _currentPrimaryCost + _currentSecondaryCost + _currentSidearmCost + _currentSpecialCost;
+		_currentCost = _currentCost + (_data select 3) + _currentPrimaryCost + _currentSecondaryCost + _currentSidearmCost + _currentSpecialCost;
 		_cost = 0;
 		_updateUnit = false;
 	};
@@ -644,10 +817,12 @@ while {alive player && dialog} do {
 				_currentPrimary = '';
 				_currentSecondary = '';
 				_currentSidearm = '';
+				_unitBP = "";
 				_currentPrimaryCost = 0;
 				_currentSecondaryCost = 0;
 				_currentSidearmCost = 0;
 				_currentSpecialCost = 0;
+				_bpcost = 0;
 				_currentWeapons = [];
 				_currentItems = [];
 				_currentSpecials = [];
@@ -657,6 +832,14 @@ while {alive player && dialog} do {
 				ctrlSetText [_sidearmIDC,'\ca\ui\data\ui_gear_hgun_gs.paa'];
 				for [{_x = 0},{_x < 2},{_x = _x + 1}] do {ctrlSetText[_specialIDC + _x,'\Ca\UI\Data\ui_gear_eq_gs.paa']};
 				_displayInv = true;
+			};
+			case 'backpack': {
+				if (_unitBP != "") then {
+					lnbClear _lb;
+					[_backpackCosts,_backpackNames,_backpackPictures,_backpackUpgrades,_backpackAllowed,'backpack',_lb] Call _fillList;
+					_manageBackpack = true;
+					_updateBackpack = true;
+				};
 			};
 		};
 		WF_Logic setVariable ['WF_Gear_Action',''];
@@ -674,7 +857,46 @@ while {alive player && dialog} do {
 		if (_currentPrimary != '') then  {_upgradeCost = _upgradeCost + _currentPrimaryCost};
 		if (_currentSecondary != '') then  {_upgradeCost = _upgradeCost + _currentSecondaryCost};
 		if (_currentSidearm != '') then  {_upgradeCost = _upgradeCost + _currentSidearmCost};
-		_cost = _upgradeCost - _currentCost;
+		if !(_currentSecondary in _listbp) then {_unitBP = ""};
+		_cost = (_upgradeCost+_bpcost) - _currentCost;
+	};
+	
+	//--- Update the backpack
+	if (_updateBackpack) then {
+		_updateBackpack = false;
+		
+		_currentBackpackLoadout = [];
+		_currentBackpackLoadoutAmount = [];
+		_currentBackpackLoadoutCost = [];
+		_currentBackpackLoadoutPictures = [];
+		_currentBackpackLoadoutNames = [];
+		_currentBackpackLoadoutUpgrades = [];
+		_currentBackpackLoadoutAllowed = [];
+		_u = 0;
+		_cost = _cost - _bpcost;
+		_bpcost = 0;
+		if (count (_backpackloadout select 0) > 0) then {
+			_currentUpgrades = WF_Logic getVariable Format ["%1Upgrades",sideJoinedText];
+			{
+				_id = _backpack find _x;
+				if (_id != -1) then {
+					if ((_currentUpgrades select 13) >= (_backpackUpgrades select _id)) then {
+						_currentBackpackLoadout = _currentBackpackLoadout + [_backpack select _id];
+						_currentBackpackLoadoutAmount = _currentBackpackLoadoutAmount + [(_backpackloadout select 1) select _u];
+						_currentBackpackLoadoutCost = _currentBackpackLoadoutCost + [_backpackCosts select _id];
+						_bpcost = _bpcost + ((_backpackCosts select _id)*((_backpackloadout select 1) select _u));
+						_currentBackpackLoadoutPictures = _currentBackpackLoadoutPictures + [_backpackPictures select _id];
+						_currentBackpackLoadoutNames = _currentBackpackLoadoutNames + [str((_backpackloadout select 1) select _u)+"x "+(_backpackNames select _id)];
+						_currentBackpackLoadoutUpgrades = _currentBackpackLoadoutUpgrades + [_backpackUpgrades select _id];
+						_currentBackpackLoadoutAllowed = _currentBackpackLoadoutAllowed + [_backpackAllowed select _id];
+					};
+				};
+				_u = _u + 1;
+			} forEach (_backpackloadout select 0);
+		};
+		_cost = _cost + _bpcost;
+		lnbClear _lbm;
+		[_currentBackpackLoadoutCost,_currentBackpackLoadoutNames,_currentBackpackLoadoutPictures,_currentBackpackLoadoutUpgrades,_currentBackpackLoadoutAllowed,'backpack',_lbm] Call _fillList;
 	};
 	
 	//--- Buy a loadout.
@@ -687,13 +909,47 @@ while {alive player && dialog} do {
 			if (_currentUnit == player) then {
 				respawnWeapons = _currentWeapons + _currentSpecials + _currentItems;
 				respawnAmmo = _currentMagazines;
+				if (_unitBP != '') then {
+					respawnBag = _unitBP;
+					respawnBagContent = [_currentBackpackLoadout,_currentBackpackLoadoutAmount];
+				} else {
+					respawnBag = nil;
+					respawnBagContent = [[],[]];
+				};
 			};
-			[_currentUnit,(_currentWeapons + _currentSpecials + _currentItems),_currentMagazines] Call EquipLoadout;
+			
+			/* Equip the core before the backpack */
+			_weaps = _currentWeapons;
+			if !(WF_A2_Vanilla) then {
+				_temp = _weaps;
+				{
+					if (_x in _listbp) then {_temp = _temp - [_x]};
+				} forEach _weaps;
+				_weaps = _temp;
+			};
+			[_currentUnit,(_weaps + _currentSpecials + _currentItems),_currentMagazines] Call EquipLoadout;
+			
+			/* Equip backpack if needed */
+			if !(WF_A2_Vanilla) then {				
+				if (_unitBP != "" || !isNull (unitBackpack _currentUnit)) then {
+					_add = true;
+					if ((_unitBP == "" && !isNull (unitBackpack _currentUnit)) || (_unitBP != "" && !isNull (unitBackpack _currentUnit))) then {removeBackpack _currentUnit;};
+					if !(isNull (unitBackpack _currentUnit)) then {
+						if (typeOf (unitBackpack _currentUnit) == _unitBP) then {_add = false};
+					};
+						
+					if (_add && _unitBP != "") then {
+						_currentUnit addBackpack _unitBP;
+					};
+					
+					[unitBackpack _currentUnit,[_currentBackpackLoadout,_currentBackpackLoadoutAmount]] Call EquipBackpack;
+				};
+			};
 			_data = [_currentMagazines,_currentItems] Call DisplayInventory;
 			_inventorySlots = _data select 0;
 			_sidearmInventorySlots = _data select 1;
 			_miscItemSlots = _data select 2;
-			_currentCost = (_data select 3) + _currentPrimaryCost + _currentSecondaryCost + _currentSidearmCost + _currentSpecialCost;
+			_currentCost = (_data select 3) + _currentPrimaryCost + _currentSecondaryCost + _currentSidearmCost + _currentSpecialCost + _bpcost;
 			_cost = 0;
 		} else {
 			hint parseText(Format [localize "STR_WF_Funds_Missing_Gear",_cost - _funds]);
@@ -777,6 +1033,11 @@ while {alive player && dialog} do {
 				if (_cAllow) then {if !(_sidearmAllowed select _ind) then {_cAllow = false}};
 				if ((_sidearmUpgrades select _ind) > _upgr) then {_upgr = _sidearmUpgrades select _ind};
 			};
+			//--- Handle Backpack Content.
+			_addin = [];
+			if (_unitBP != '') then {
+				_addin = [_currentBackpackLoadout,_currentBackpackLoadoutAmount];
+			};
 			_template = _template + [_temp];
 			WF_Logic setVariable["templateClasses",_template];
 			_templateCosts = _templateCosts + [(_cost + _currentCost)];
@@ -787,7 +1048,7 @@ while {alive player && dialog} do {
 			WF_Logic setVariable["templateNames",_templateNames];
 			_templateMags = _templateMags + [_currentMagazines];
 			WF_Logic setVariable["templateMags",_templateMags];
-			_templateItems = _templateItems + [_currentItems];
+			_templateItems = _templateItems + [_currentItems+[_addin]];
 			WF_Logic setVariable["templateItems",_templateItems];
 			_templateSpecs = _templateSpecs + [_currentSpecials];
 			WF_Logic setVariable["templateSpecs",_templateSpecs];

@@ -11,6 +11,7 @@ if (isNull _town) exitWith {
 };
 if ((str _town) in TownTemplate) exitWith {
 	if (isServer) then {
+		diag_log Format ["[WFBE (INIT)] Init_Camp.sqf: Removing camp %1 (%2) since the town is removed in the towns templates.",_camp,str _town];
 		_defenses = _camp nearEntities[["GUE_WarfareBMGNest_PK","WarfareBMGNest_PK_TK_GUE_EP1"],200];
 		{deleteVehicle _x} forEach _defenses;
 		deleteVehicle _camp;
@@ -29,6 +30,8 @@ createMarkerLocal [_marker,getPos _camp];
 _marker setMarkerTypeLocal "Strongpoint";
 _marker setMarkerColorLocal "ColorBlue";
 _marker setMarkerSizeLocal [0.5,0.5];
+
+diag_log Format["[WFBE (INIT)] Init_Camp: Camp '%1' of town '%2' initialization - [Done]",str _camp,str _town];
 
 waitUntil {commonInitComplete};
 

@@ -24,6 +24,8 @@ if (local player) then {
 	_marker setMarkerColorLocal "ColorBlue";
 };
 
+diag_log Format["[WFBE (INIT)] Init_Location: Town '%1' (%2) initialization - [Done]",str _location,_locationName];
+
 waitUntil {commonInitComplete};
 
 if (isServer) then {
@@ -44,13 +46,13 @@ if (isServer) then {
 		sleep (random 1);
 		waitUntil {serverInitComplete && townInit};
 		[_location,_range] ExecFSM "Server\FSM\updatetown.fsm";
-		if (res && ('WFBE_TOWNSTARTINGMODE' Call GetNamespace) != 1) then {
+		if (paramRes && ('WFBE_TOWNSTARTINGMODE' Call GetNamespace) != 1) then {
 			[_location,_resistanceTeamTypes,_probability,_range] ExecFSM "Server\FSM\updatetowndefenses.fsm";
 		} else {
 			_defenses = _location NearEntities['WFBE_RESISTANCEDEFENSENAMES' Call GetNamespace,_range];
 			{deleteVehicle _x} forEach _defenses;
 		};
-		if (occup) then {[_location,_probability,_range] ExecFSM "Server\FSM\updatetownoccupation.fsm"};
+		if (paramOccup) then {[_location,_probability,_range] ExecFSM "Server\FSM\updatetownoccupation.fsm"};
 	};
 };
 

@@ -503,7 +503,7 @@ if (WF_A2_Vanilla) then {
 	_aiTeamTemplateRequires = _aiTeamTemplateRequires + [_f];
 	_aiTeamTypes = _aiTeamTypes + [3];
 
-	if (!kamov) then {
+	if !(paramRestrictionKamov) then {
 		_d = _d	+ ["Air - Ka-52 Squadron"];
 		_u		= ["Ka52Black"];
 		_u = _u + ["Ka52"];
@@ -737,6 +737,15 @@ if (WF_A2_Arrowhead) then {
 	_aiTeamTemplates = _aiTeamTemplates + [_u];
 	_aiTeamTemplateRequires = _aiTeamTemplateRequires + [_f];
 	_aiTeamTypes = _aiTeamTypes + [2];
+
+	_d = _d	+ ["Air - AH-6J Squadron"];
+	_u		= ["AH6J_EP1"];
+	_u = _u + ["AH6J_EP1"];
+	_f 		= [false,false,false,true];
+
+	_aiTeamTemplates = _aiTeamTemplates + [_u];
+	_aiTeamTemplateRequires = _aiTeamTemplateRequires + [_f];
+	_aiTeamTypes = _aiTeamTypes + [3];
 
 	_d = _d	+ ["Air - AH-64D Squadron"];
 	_u		= ["AH64D_EP1"];
@@ -974,6 +983,15 @@ if (WF_A2_Arrowhead) then {
 	_aiTeamTemplateRequires = _aiTeamTemplateRequires + [_f];
 	_aiTeamTypes = _aiTeamTypes + [3];
 
+	_d = _d	+ ["Air - L39 Squadron"];
+	_u		= ["L39_TK_EP1"];
+	_u = _u + ["L39_TK_EP1"];
+	_f 		= [false,false,false,true];
+
+	_aiTeamTemplates = _aiTeamTemplates + [_u];
+	_aiTeamTemplateRequires = _aiTeamTemplateRequires + [_f];
+	_aiTeamTypes = _aiTeamTypes + [3];
+	
 	_d = _d	+ ["Air - Sukhoi 25 Squadron"];
 	_u		= ["Su25_TK_EP1"];
 	_u = _u + ["Su25_TK_EP1"];
@@ -1112,8 +1130,8 @@ if (WF_A2_CombinedOps) then {
 
 	_d = _d	+ ["Motorized - Anti Air Section"];
 	_u		= ["US_Soldier_TL_EP1"];
-	_u = _u + ["HMMWV_Avenger_DES_EP1"];
-	_u = _u + ["HMMWV_Avenger_DES_EP1"];
+	_u = _u + [if (WF_Camo) then {"HMMWV_Avenger"} else {"HMMWV_Avenger_DES_EP1"}];
+	_u = _u + [if (WF_Camo) then {"HMMWV_Avenger"} else {"HMMWV_Avenger_DES_EP1"}];
 	_u = _u + ["US_Soldier_AA_EP1"];
 	_u = _u + ["US_Soldier_AA_EP1"];
 	_f 		= [true,true,false,false];
@@ -1124,8 +1142,8 @@ if (WF_A2_CombinedOps) then {
 
 	_d = _d	+ ["Motorized Infantry - Motorized Section"];
 	_u		= ["US_Soldier_TL_EP1"];
-	_u = _u + ["HMMWV_M998_crows_M2_DES_EP1"];
-	_u = _u + ["HMMWV_M998_crows_MK19_DES_EP1"];
+	_u = _u + [if (WF_Camo) then {"HMMWV_M2"} else {"HMMWV_M998_crows_M2_DES_EP1"}];
+	_u = _u + [if (WF_Camo) then {"HMMWV_MK19"} else {"HMMWV_M998_crows_MK19_DES_EP1"}];
 	_u = _u + ["US_Soldier_AR_EP1"];
 	_u = _u + ["US_Soldier_AR_EP1"];
 	_u = _u + ["US_Soldier_AT_EP1"];
@@ -1139,8 +1157,8 @@ if (WF_A2_CombinedOps) then {
 
 	_d = _d	+ ["Motorized Infantry - Motorized Section (AT)"];
 	_u		= ["US_Soldier_TL_EP1"];
-	_u = _u + ["HMMWV_TOW_DES_EP1"];
-	_u = _u + ["HMMWV_TOW_DES_EP1"];
+	_u = _u + [if (WF_Camo) then {"HMMWV_TOW"} else {"HMMWV_TOW_DES_EP1"}];
+	_u = _u + [if (WF_Camo) then {"HMMWV_TOW"} else {"HMMWV_TOW_DES_EP1"}];
 	_u = _u + ["US_Soldier_AR_EP1"];
 	_f 		= [true,true,false,false];
 
@@ -1163,8 +1181,8 @@ if (WF_A2_CombinedOps) then {
 	_aiTeamTypes = _aiTeamTypes + [2];
 
 	_d = _d	+ ["Armor - Tank Platoon (Light)"];
-	_u		= ["M1A1_US_DES_EP1"];
-	_u = _u + ["M1A1_US_DES_EP1"];
+	_u		= [if (WF_Camo) then {"M1A1"} else {"M1A1_US_DES_EP1"}];
+	_u = _u + [if (WF_Camo) then {"M1A1"} else {"M1A1_US_DES_EP1"}];
 	_f 		= [false,false,true,false];
 
 	_aiTeamTemplates = _aiTeamTemplates + [_u];
@@ -1172,8 +1190,8 @@ if (WF_A2_CombinedOps) then {
 	_aiTeamTypes = _aiTeamTypes + [2];
 
 	_d = _d	+ ["Armor - Tank Platoon (Heavy)"];
-	_u		= ["M1A2_US_TUSK_MG_EP1"];
-	_u = _u + ["M1A2_US_TUSK_MG_EP1"];
+	_u		= [if (WF_Camo) then {"M1A2_TUSK_MG"} else {"M1A2_US_TUSK_MG_EP1"}];
+	_u = _u + [if (WF_Camo) then {"M1A2_TUSK_MG"} else {"M1A2_US_TUSK_MG_EP1"}];
 	_f 		= [false,false,true,false];
 
 	_aiTeamTemplates = _aiTeamTemplates + [_u];
@@ -1456,7 +1474,7 @@ if (WF_A2_CombinedOps) then {
 	_aiTeamTemplateRequires = _aiTeamTemplateRequires + [_f];
 	_aiTeamTypes = _aiTeamTypes + [3];
 
-	if (!kamov) then {
+	if !(paramRestrictionKamov) then {
 		_d = _d	+ ["Air - Ka-52 Squadron"];
 		_u		= ["Ka52Black"];
 		_u = _u + ["Ka52"];
@@ -1499,3 +1517,5 @@ if (WF_A2_CombinedOps) then {
 	['WFBE_EASTAITEAMTYPES',_aiTeamTypes,true] Call SetNamespace;
 	['WFBE_EASTAITEAMTEMPLATEDESCRIPTIONS',_d,true] Call SetNamespace;
 };
+
+diag_log "[WFBE (INIT)] Config_Squads: Initialization - [Done]";

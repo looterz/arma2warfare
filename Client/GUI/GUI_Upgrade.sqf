@@ -32,7 +32,7 @@ _upgrcond = 'WFBE_UPGRADECONDITION' Call GetNamespace;
 
 while {alive player && dialog} do {
 	if (Side player != sideJoined) exitWith {closeDialog 0};
-	if (!dialog) exitWith {};
+	if !(dialog) exitWith {};
 	
 	_upgrades = WF_Logic getVariable Format ["%1Upgrades",sideJoinedText];
 	
@@ -76,6 +76,7 @@ while {alive player && dialog} do {
 			case "gear": {_val = 13};
 			case "ammo": {_val = 14};
 			case "easa": {_val = 15};
+			case "paradrop": {_val = 16};
 		};
 
 		ctrlSetFocus (_controls select _val);

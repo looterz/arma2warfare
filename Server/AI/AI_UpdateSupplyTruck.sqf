@@ -10,12 +10,15 @@ waitUntil {townInit};
 
 while {!gameOver} do {
 	sleep 60;
-	_AITrucks = Call Compile Format["%1AISupplyTrucks",_sideText];
+	_AITrucks = Format ["WFBE_%1_AISupplyTrucks",_sideText] Call GetNamespace;
 	_full = false;
 	if (count _AITrucks >= _maist) then {_full = true};
 	if (!_full) then {
 		_isDeployed = WF_Logic getVariable Format ["%1MHQDeployed",_sideText];
 		_hq = WF_Logic getVariable Format ["%1MHQ",_sideText];
-		if ((_isDeployed)&&(getDammage _hq < 1)&&(!isNull _hq)) then {[_side] ExecFSM "Server\FSM\supplytruck.fsm"};
+		if ((_isDeployed)&&(alive _hq)&&(!isNull _hq)) then {
+			diag_log Format["[WFBE (INFORMATION)] AI_UpdateSupplyTruck: A %1 Supply truck has been created",_side];
+			[_side] ExecFSM "Server\FSM\supplytruck.fsm";
+		};
 	};
 };

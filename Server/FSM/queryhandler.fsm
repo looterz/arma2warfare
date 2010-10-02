@@ -118,11 +118,11 @@ class FSM
        "		if (isPlayer(leader _x)) then {" \n
        "			sleep 0.3;" \n
        "			" \n
-       "			_ind = JIPArrayUID find getPlayerUID (leader _x);" \n
-       "			if (_ind != -1) then {" \n
+       "			_get = Format[""WFBE_JIP_USER%1"",getPlayerUID (leader _x)] Call GetNamespace;" \n
+       "			if !(isNil '_get') then {" \n
        "				_field = if (side (leader _x) == (WF_Logic getVariable ""WF_Winner"")) then {""win""} else {""loss""};" \n
        "				_strTr = if (side(leader _x) == west) then {'west'} else {'east'};" \n
-       "				copyToClipboard Format [""MYSQLDATA§WFBE_EndGame§%1§%2§%3§%4§%5§%6"",getPlayerUID (leader _x), name (leader _x), time - (JIP_SQL_Time select _ind), _strTr, worldName, _field];" \n
+       "				copyToClipboard Format [""MYSQLDATA§WFBE_EndGame§%1§%2§%3§%4§%5§%6"",getPlayerUID (leader _x), name (leader _x), time - (_get select 5), _strTr, worldName, _field];" \n
        "			};" \n
        "		};" \n
        "	} forEach (('WFBE_EASTTEAMS' Call GetNamespace)+('WFBE_WESTTEAMS' Call GetNamespace));" \n

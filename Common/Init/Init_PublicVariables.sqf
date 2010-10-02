@@ -1,3 +1,5 @@
+Private ['_count','_l'];
+
 _l		= ["RequestVehicleLock"];
 _l = _l + ["RequestCommanderVote"];
 _l = _l + ["RequestStructure"];
@@ -7,7 +9,7 @@ _l = _l + ["RequestMHQRepair"];
 _l = _l + ["RequestSpecial"];
 _l = _l + ["RequestTeamUpdate"];
 
-serverCommandPV = _l;
+_serverCommandPV = _l;
 
 _l =      ["AllCampsCaptured"];
 _l = _l + ["AwardBounty"];
@@ -23,21 +25,21 @@ _l = _l + ["SetTask"];
 _l = _l + ["SetVehicleLock"];
 _l = _l + ["TownCaptured"];
 _l = _l + ["TownCapturedPublic"];
+_l = _l + ["UAV_Reveal"];
 _l = _l + ["VoteForCommander"];
 
-clientCommandPV = _l;
+_clientCommandPV = _l;
 
-clientCommandsSent = 0;
-publicVariablesSent = 0;
+for [{_count = Count _clientCommandPV - 1},{_count >= 0},{_count = _count - 1}] do {Call Compile Format["CLTFNC%1 = Compile PreprocessFile 'Client\PVFunctions\%1.sqf'",_clientCommandPV Select _count,_count]};
+for [{_count = Count _serverCommandPV - 1},{_count >= 0},{_count = _count - 1}] do {Call Compile Format["SRVFNC%1 = Compile PreprocessFile 'Server\PVFunctions\%1.sqf'",_serverCommandPV Select _count,_count]};
 
-for [{_count = Count serverCommandPV - 1},{_count >= 0},{_count = _count - 1}] do {Call Compile Format["%1 = 0",serverCommandPV Select _count];};
-for [{_count = Count clientCommandPV - 1},{_count >= 0},{_count = _count - 1}] do {Call Compile Format["%1 = 0",clientCommandPV Select _count];};
+//--- Handle the client side publicVariable.
+if (local player) then {
+	{Format['WFBE_%1',_x] addPublicVariableEventHandler {(_this select 1) Spawn HandlePVF}} forEach _clientCommandPV;
+};
+//--- Handle the server side publicVariable.
+if (isServer) then {
+	{Format['WFBE_%1',_x] addPublicVariableEventHandler {(_this select 1) Spawn HandleSPVF}} forEach _serverCommandPV;
+};
 
-for [{_count = Count clientCommandPV - 1},{_count >= 0},{_count = _count - 1}] do {Call Compile Format["CMD%1 = %2",clientCommandPV Select _count,_count];};
-for [{_count = Count serverCommandPV - 1},{_count >= 0},{_count = _count - 1}] do {Call Compile Format["CMD%1 = %2",serverCommandPV Select _count,_count];};
-
-for [{_count = Count clientCommandPV - 1},{_count >= 0},{_count = _count - 1}] do {Call Compile Format["CLTFNC%1 = Compile PreprocessFile ""Client\PVFunctions\%1.sqf""",clientCommandPV Select _count,_count];};
-for [{_count = Count serverCommandPV - 1},{_count >= 0},{_count = _count - 1}] do {Call Compile Format["SRVFNC%1 = Compile PreprocessFile ""Server\PVFunctions\%1.sqf""",serverCommandPV Select _count,_count];};
-
-clientCommandPVTimeLeft = [];
-for [{_count = Count clientCommandPV - 1},{_count >= 0},{_count = _count - 1}] do {clientCommandPVTimeLeft = clientCommandPVTimeLeft + [0];};
+diag_log Format["[WFBE (INIT)] Init_PublicVariables: Public Variable Initialization (SRV: %1 CLT: %2) - [Done]",count _serverCommandPV, count _clientCommandPV];

@@ -1,9 +1,11 @@
-Private["_bounty","_name","_type"];
+Private["_bounty","_get","_name","_type"];
 
-_type = _this select 0;
+_type = _this;
 
-_name = ('WFBE_UNITBOUNTYDESCRIPTIONS' Call GetNamespace) select _type;
-_bounty = (('WFBE_UNITBOUNTIES' Call GetNamespace) select _type) * ('WFBE_BOUNTYMODIFIER' Call GetNamespace);
+_get = _type Call GetNamespace;
+
+_name = _get select QUERYUNITLABEL;
+_bounty = (_get select QUERYUNITPRICE) * ('WFBE_BOUNTYMODIFIER' Call GetNamespace);
 _bounty = _bounty - (_bounty % 1);
 
 Format[Localize "STR_WF_Award_Bounty",_bounty,_name] Call GroupChatMessage;

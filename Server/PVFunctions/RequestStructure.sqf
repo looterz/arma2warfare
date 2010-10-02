@@ -1,8 +1,8 @@
 Private ["_side","_structure"];
 _side = _this select 0;
-_structureType = _this select 2;
-_pos = _this select 3;
-_dir = _this select 4;
+_structureType = _this select 1;
+_pos = _this select 2;
+_dir = _this select 3;
 
 _index = (Format ["WFBE_%1STRUCTURENAMES",str _side] Call GetNamespace) find _structureType;
 if (_index != -1) then {

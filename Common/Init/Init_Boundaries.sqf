@@ -11,6 +11,7 @@ switch (worldName) do {
 	case 'SaraLite': {_boundariesXY = 10240};
 	case 'Sara': {_boundariesXY = 20480};
 	case 'Zargabad': {_boundariesXY = 8192};
+	case 'takistan': {_boundariesXY = 12800};
 	case 'Takistan': {_boundariesXY = 12800};
 };
 
@@ -20,6 +21,8 @@ if (_boundariesXY == -1) then {
 		BoundariesIsOnMap = nil;
 		BoundariesHandleOnMap = nil;
 	};
+	diag_log Format["[WFBE (INIT)] Init_Boundaries: There is no proper boundaries set for the island '%1'",worldName];
 } else {
 	['WFBE_BOUNDARIESXY',_boundariesXY,true] Call SetNamespace;
+	diag_log Format["[WFBE (INIT)] Init_Boundaries: Boundaries found for the island '%1' %2",worldName,_boundariesXY];
 };

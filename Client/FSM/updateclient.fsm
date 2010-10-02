@@ -144,11 +144,11 @@ class FSM
        "			['WFBE_AREAHQUNDEPLOYED' Call GetNamespace,false,MCoin] Call Compile PreprocessFile ""Client\Init\Init_Coin.sqf"";" \n
        "		};" \n
        "		HQAction = player addAction [localize ""STR_WF_BuildMenu"",""Client\Action\Action_Build.sqf"", [_MHQ], 100, false, true, """", ""hqInRange""];	" \n
-       "		if (highcommand) then {player setVariable [""BIS_HC_scope"",HC];{if !(isNil '_x') then {player HCSetGroup [_x]; [_x,false] Call SetTeamAutonomous}} forEach clientTeams};" \n
+       "		if (paramHighCommand) then {player setVariable [""BIS_HC_scope"",HC];{if !(isNil '_x') then {player HCSetGroup [_x]; [_x,false] Call SetTeamAutonomous}} forEach clientTeams};" \n
        "		[Localize ""STR_WF_PlayerCommander""] Call TitleTextMessage;" \n
        "	} else {" \n
        "		if (!isNil ""HQAction"") then {player removeAction HQAction};" \n
-       "		if (count (hcAllGroups player) > 0 && highcommand) then {HCRemoveAllGroups player};" \n
+       "		if (count (hcAllGroups player) > 0 && paramHighCommand) then {HCRemoveAllGroups player};" \n
        "	};" \n
        "};"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;

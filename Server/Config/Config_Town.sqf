@@ -6,6 +6,7 @@ if (isNull _location) exitWith {};
 
 waitUntil {townModeSet};
 if ((str _location) in TownTemplate) exitWith {
+	diag_log Format ["[WFBE (INIT)] Config_Town.sqf: Removing town %1 (%2) since the town is removed in the towns templates.",_location,_locationName];
 	if (isServer) then {deleteVehicle _location};
 };
 

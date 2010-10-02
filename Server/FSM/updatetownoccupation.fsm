@@ -1,4 +1,4 @@
-/*%FSM<COMPILE "D:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, updatetownoccupation">*/
+/*%FSM<COMPILE "F:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, updatetownoccupation">*/
 /*%FSM<HEAD>*/
 /*
 item0[] = {"Init",0,250,-62.289883,-330.373718,27.710114,-280.374084,0.000000,"Init"};
@@ -61,8 +61,8 @@ link29[] = {23,25};
 link30[] = {24,26};
 link31[] = {25,22};
 link32[] = {26,3};
-globals[] = {0.000000,0,0,0,0,640,480,1,81,6316128,1,-310.611420,734.482544,261.767883,-627.178406,763,649,1};
-window[] = {0,-1,-1,-1,-1,794,25,1477,25,1,781};
+globals[] = {0.000000,0,0,0,0,640,480,1,81,6316128,1,-310.611420,734.482544,261.767883,-627.178406,763,654,1};
+window[] = {0,-1,-1,-1,-1,798,22,1474,29,1,781};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -317,13 +317,14 @@ class FSM
        "	};" \n
        "	" \n
        "	if (count _vehicles > 0) then {" \n
-       "		_managed = (WF_Logic getVariable ""emptyVehicles"") + _vehicles;" \n
-       "		WF_Logic setVariable [""emptyVehicles"",_managed,true];" \n
+       "		{" \n
+       "			emptyQueu = emptyQueu + [_x];" \n
+       "			_x Spawn HandleEmptyVehicle;" \n
+       "		} forEach _vehicles;" \n
        "	};" \n
-       "	[_team,getPos _location,_tupd,""CPatrol""] Spawn AITownResitance;" \n
+       "	[_team,_location,_tupd] Spawn AITownPatrol;" \n
        "	WF_Logic setVariable [Format[""%1UnitsCreated"",str _side],_built,true];" \n
        "	if (_updateVehi) then {WF_Logic setVariable [Format[""%1VehiclesCreated"",str _side],_vehiBuilt,true]};" \n
-       "	//_team Spawn SynchronizationInjury;" \n
        "	_teamCount = _teamCount + 1;" \n
        "};" \n
        "[_location,_teams,_sideID] ExecFSM ""Server\FSM\townpatrol.fsm"";"/*%FSM</STATEINIT""">*/;
@@ -357,7 +358,7 @@ class FSM
           priority = 0.000000;
           to="Reinforce";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"occReinf && (_location getVariable ""reinforcements_alive_occ"") < _maxReinforcementTeams && time - _lastReinf > 300"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"paramOccReinf && (_location getVariable ""reinforcements_alive_occ"") < _maxReinforcementTeams && time - _lastReinf > 300"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -367,7 +368,7 @@ class FSM
           priority = 0.000000;
           to="_";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"!occReinf || (_location getVariable ""reinforcements_alive_occ"") >= _maxReinforcementTeams || time - _lastReinf <= 300"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!paramOccReinf || (_location getVariable ""reinforcements_alive_occ"") >= _maxReinforcementTeams || time - _lastReinf <= 300"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -400,7 +401,7 @@ class FSM
        "[_leader,_position,50] Call PlaceSafe;" \n
        "_position = getPos _leader;" \n
        "_teams = _teams + [_team];" \n
-       "[_team,getPos _location,_tupd+250,""CPatrol""] Spawn AITownResitance;" \n
+       "[_team,_location,_tupd+250] Spawn AITownPatrol;" \n
        "_count = 1;" \n
        "_total = count _unitTypes;" \n
        "_built = WF_Logic getVariable Format [""%1UnitsCreated"",str _side];" \n
@@ -431,12 +432,13 @@ class FSM
        "};" \n
        "" \n
        "if (count _vehicles > 0) then {" \n
-       "	_managed = (WF_Logic getVariable ""emptyVehicles"") + _vehicles;" \n
-       "	WF_Logic setVariable [""emptyVehicles"",_managed,true];" \n
+       "	{" \n
+       "		emptyQueu = emptyQueu + [_x];" \n
+       "		_x Spawn HandleEmptyVehicle;" \n
+       "	} forEach _vehicles;" \n
        "};" \n
        "WF_Logic setVariable [Format[""%1UnitsCreated"",str _side],_built,true];" \n
        "if (_updateVehi) then {WF_Logic setVariable [Format[""%1VehiclesCreated"",str _side],_vehiBuilt,true]};" \n
-       "//_team Spawn SynchronizationInjury;" \n
        "" \n
        "_existing = _location getVariable ""reinforcements_occ"";" \n
        "_location setVariable [""reinforcements_occ"",_existing + [_team]];" \n

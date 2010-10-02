@@ -67,8 +67,8 @@ switch ('WFBE_TOWNSTARTINGMODE' Call GetNamespace) do {
 };
 
 //--- Resistance Patrols.
-if (('WFBE_TOWNSTARTINGMODE' Call GetNamespace) != 1 && resPatrol) then {
-	_require = if (('WFBE_RESPATROLMAX' Call GetNamespace) > count towns) then {count towns} else {'WFBE_RESPATROLMAX' Call GetNamespace};
+if (('WFBE_TOWNSTARTINGMODE' Call GetNamespace) != 1 && ('WFBE_RESPATROL' Call GetNamespace > 0)) then {
+	_require = if (('WFBE_RESPATROL' Call GetNamespace) > count towns) then {count towns} else {'WFBE_RESPATROL' Call GetNamespace};
 	_initied = 0;
 	_towns = towns;
 	
@@ -88,8 +88,8 @@ if (('WFBE_TOWNSTARTINGMODE' Call GetNamespace) != 1 && resPatrol) then {
 };
 
 //--- Resistance Strikers.
-if (('WFBE_TOWNSTARTINGMODE' Call GetNamespace) != 1 && resStriker) then {
-	_require = if (('WFBE_RESSTRIKERMAX' Call GetNamespace) > count towns) then {count towns} else {'WFBE_RESSTRIKERMAX' Call GetNamespace};
+if (('WFBE_TOWNSTARTINGMODE' Call GetNamespace) != 1 && ('WFBE_RESSTRIKER' Call GetNamespace) > 0) then {
+	_require = if (('WFBE_RESSTRIKER' Call GetNamespace) > count towns) then {count towns} else {'WFBE_RESSTRIKER' Call GetNamespace};
 	_initied = 0;
 	_towns = towns;
 
@@ -107,3 +107,5 @@ if (('WFBE_TOWNSTARTINGMODE' Call GetNamespace) != 1 && resStriker) then {
 		};
 	};
 };
+
+diag_log "[WFBE (INIT)] Init_Towns (S): Towns starting mode initialization - [Done]";

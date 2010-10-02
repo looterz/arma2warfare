@@ -1,4 +1,4 @@
-Private ["_bounty","_group","_index","_isMan","_killed","_killer","_killerID","_killername","_killerTeam","_killertype","_killeruid","_lost","_objects","_objectType","_side","_sideVictim","_uid"];
+Private ["_bounty","_get","_group","_isMan","_killed","_killer","_killerID","_killername","_killerTeam","_killertype","_killeruid","_lost","_objects","_objectType","_side","_sideVictim","_uid"];
 _killed = _this select 0;
 _killer = _this select 1;
 _sideVictim = _this select 2;
@@ -44,8 +44,13 @@ if (_sideVictim == sideEnemy) then {
 };
 
 //--- Benny's Garbage Collector.
-_objects = (WF_Logic getVariable "trash") + [_killed];
-WF_Logic setVariable ["trash",_objects,true];
+if (!(isServer) || local player) then {
+	_objects = (WF_Logic getVariable "trash") + [_killed];
+	WF_Logic setVariable ["trash",_objects,true];
+} else {
+	trashQueu = trashQueu + [_killed];
+	_killed Spawn TrashObject;
+};
 
 sleep random(2)+random(4);
 
@@ -61,12 +66,16 @@ if (!_isMan && (_sideVictim == west || _sideVictim == east)) then {
 };
 
 _killerID = Leader _killerTeam Call GetClientID;
-_index = ('WFBE_UNITBOUNTYNAMES' Call GetNamespace) find _objectType;
+_get = _objectType Call GetNamespace;
 
 //--- Normal kill.
-if (!isNull _killerTeam && _index != -1 && (_sideKiller != sideEnemy) && (_sideKiller != _sideVictim) && (_sideKiller != Civilian)) then {
+if (!isNull _killerTeam && !isNil '_get' && (_sideKiller != sideEnemy) && (_sideKiller != _sideVictim) && (_sideKiller != Civilian)) then {
 	if (_killerID > 0 && isPlayer(leader _killerTeam)) then {
-		[_sideKiller,_killerID,CMDAWARDBOUNTY,_index] Spawn CommandToClient;
+		if (paramBounty) then {
+			WFBE_AwardBounty = [[_killerID,_sideKiller],'CLTFNCAWARDBOUNTY',_objectType];
+			publicVariable 'WFBE_AwardBounty';
+			if !(isMultiplayer) then {[[_killerID,_sideKiller],'CLTFNCAWARDBOUNTY',_objectType] Spawn HandlePVF};
+		};
 		if (mysql) then {
 			_sta = switch (true) do {
 				case (_objectType isKindOf "Infantry"): {1};
@@ -112,9 +121,9 @@ if (!isNull _killerTeam && _index != -1 && (_sideKiller != sideEnemy) && (_sideK
 		};
 	};
 	
-	if (AI && _killerID > 0 && !(isPlayer(leader _killerTeam))) then {
+	if (paramAI && _killerID > 0 && !(isPlayer(leader _killerTeam))) then {
 		if (isServer) then {
-			_bounty = (('WFBE_UNITBOUNTIES' Call GetNamespace) select _index) * ('WFBE_BOUNTYMODIFIER' Call GetNamespace);
+			_bounty = (_get select QUERYUNITPRICE) * ('WFBE_BOUNTYMODIFIER' Call GetNamespace);
 			_bounty = _bounty - (_bounty % 1);
 			[_bounty,_sideKiller,_killerID] Call ChangeClientFunds;
 		};
@@ -122,9 +131,11 @@ if (!isNull _killerTeam && _index != -1 && (_sideKiller != sideEnemy) && (_sideK
 };
 
 //--- Teamkill.
-if (!isNull _killerTeam && _index != -1 && (_sideKiller != sideEnemy) && (_sideKiller == _sideVictim) && (_sideKiller != Civilian) && _isMan) then {
+if (!isNull _killerTeam && !isNil '_get' && (_sideKiller != sideEnemy) && (_sideKiller == _sideVictim) && (_sideKiller != Civilian) && _isMan) then {
 	if (_killerID > 0 && isPlayer(leader _killerTeam)) then {
-		[_sideKiller,_killerID,CMDLOCALIZEMESSAGE,"Teamkill"] Spawn CommandToClient;
+		WFBE_LocalizeMessage = [[_killerID,_sideKiller],'CLTFNCLOCALIZEMESSAGE',['Teamkill']];
+		publicVariable 'WFBE_LocalizeMessage';
+		if !(isMultiplayer) then {[[_killerID,_sideKiller],'CLTFNCLOCALIZEMESSAGE',['Teamkill']] Spawn HandlePVF};
 		if (mysql) then {
 			if (isServer) then {
 				WF_Logic setVariable ["WF_MYSQL_SERVER",(WF_Logic getVariable "WF_MYSQL_SERVER") + [Format ["MYSQLDATA§WFBE_Update§%1§%2§teamkill§%3",_killeruid,_killername,worldName]]];

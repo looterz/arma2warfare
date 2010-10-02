@@ -52,7 +52,7 @@ class FSM
        "_driver = [_crew,_team,(getpos _vehicle),_side] Call CreateMan;" \n
        "[_driver] AllowGetIn true;" \n
        "_driver MoveInDriver _vehicle;" \n
-       "Call Compile Format[""%1AISupplyTrucks = %1AISupplyTrucks + [_vehicle]"",_sideText];" \n
+       "[Format[""WFBE_%1_AISupplyTrucks"",_sideText],(Format[""WFBE_%1_AISupplyTrucks"",_sideText] Call GetNamespace) + [_vehicle],true] Call SetNamespace;" \n
        "[_vehicle,GetPos _hq,30,50,true,false,true] Call PlaceNear;" \n
        "" \n
        "_built = WF_Logic getVariable Format [""%1VehiclesCreated"",_sideText];" \n
@@ -95,7 +95,7 @@ class FSM
       name = "Truck_End";
       init = /*%FSM<STATEINIT""">*/"if (alive _driver) then {_driver setDammage 1};" \n
        "if (alive _vehicle) then {_vehicle setDammage 1};" \n
-       "Call Compile Format[""%1AISupplyTrucks = %1AISupplyTrucks - [_vehicle]"",_sideText];"/*%FSM</STATEINIT""">*/;
+       "[Format[""WFBE_%1_AISupplyTrucks"",_sideText],(Format[""WFBE_%1_AISupplyTrucks"",_sideText] Call GetNamespace) - [_vehicle],true] Call SetNamespace;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {

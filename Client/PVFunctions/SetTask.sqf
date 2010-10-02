@@ -1,10 +1,9 @@
-Private ["_array","_task","_taskPos","_taskTime","_taskTimeLabel"];
+Private ["_task","_taskPos","_taskTime","_taskTimeLabel"];
 
-_array = _this select 0;
-_task = _array select 0;
-_taskTime = _array select 1;
-_taskTimeLabel = _array select 2;
-_taskPos = _array select 3;
+_task = _this select 0;
+_taskTime = _this select 1;
+_taskTimeLabel = _this select 2;
+_taskPos = _this select 3;
 
 if (!isNull(comTask)) then {player removeSimpleTask comTask};
 comTask = player createSimpleTask ["CommanderOrder"];

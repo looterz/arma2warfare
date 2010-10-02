@@ -12,7 +12,12 @@ class Mission
 		"CAWheeled2_BTR90",
 		"caweapons_warfare_weapons",
 		"ca_highcommand",
-		"CAWheeled2_LAV25"
+		"warfare2vehicles",
+		"cacharacters_baf",
+		"cawheeled_w_baf",
+		"catracked_w_baf",
+		"caair_baf",
+		"caweapons_baf"
 	};
 	addOnsAuto[]=
 	{
@@ -20,7 +25,7 @@ class Mission
 		"cacharacters2",
 		"ca_modules_functions",
 		"ca_highcommand",
-		"CAWheeled2_LAV25",
+		"CAWheeled_E_stryker",
 		"CAWheeled2_BTR90",
 		"warfarebuildings",
 		"caweapons_warfare_weapons",
@@ -29,8 +34,8 @@ class Mission
 	randomSeed=10034581;
 	class Intel
 	{
-		briefingName="Warfare BE V2.063@CO@Bomba - Chernarus";
-		briefingDescription="By Benny - www.hs-clan.com";
+		briefingName="[40]Warfare BE V2_064 Lite CO - Chernarus";
+		briefingDescription="Read briefing(diary) for more information";
 		resistanceWest=0;
 		startWeather=0;
 		forecastWeather=0;
@@ -42,7 +47,7 @@ class Mission
 	};
 	class Groups
 	{
-		items=68;
+		items=76;
 		class Item0
 		{
 			side="WEST";
@@ -1329,6 +1334,166 @@ class Mission
 					skill=0.60000002;
 					text="HC";
 					init="this SetVariable [""addAllGroups"",false];";
+				};
+			};
+		};
+		class Item68
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2297.3445,515.42267,15294.743};
+					id=328;
+					side="WEST";
+					vehicle="USMC_Soldier";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.60000002;
+					text="WestSlot18";
+				};
+			};
+		};
+		class Item69
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2298.7808,515.52844,15294.682};
+					id=329;
+					side="WEST";
+					vehicle="US_Delta_Force_EP1";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.60000002;
+					text="WestSlot19";
+				};
+			};
+		};
+		class Item70
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2300.5842,515.66864,15294.652};
+					id=330;
+					side="WEST";
+					vehicle="USMC_Soldier";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.60000002;
+					text="WestSlot20";
+				};
+			};
+		};
+		class Item71
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2295.7556,515.29559,15294.743};
+					id=327;
+					side="WEST";
+					vehicle="USMC_Soldier";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.60000002;
+					text="WestSlot17";
+				};
+			};
+		};
+		class Item72
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={57.628147,5.9715376,1587.8842};
+					id=332;
+					side="EAST";
+					vehicle="RUS_Soldier_GL";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.60000002;
+					text="EastSlot18";
+				};
+			};
+		};
+		class Item73
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={54.788177,5.937458,1588.0516};
+					id=331;
+					side="EAST";
+					vehicle="RUS_Soldier_GL";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.60000002;
+					text="EastSlot17";
+				};
+			};
+		};
+		class Item74
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={63.085361,6,1587.9956};
+					id=334;
+					side="EAST";
+					vehicle="RUS_Soldier_GL";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.60000002;
+					text="EastSlot20";
+				};
+			};
+		};
+		class Item75
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={60.412437,6,1587.9985};
+					id=333;
+					side="EAST";
+					vehicle="RUS_Soldier_GL";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.60000002;
+					text="EastSlot19";
 				};
 			};
 		};

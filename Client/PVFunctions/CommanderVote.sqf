@@ -1,6 +1,6 @@
 Private["_commanderTeam","_text"];
 
-_commanderTeam = _this Select 0;
+_commanderTeam = _this;
 
 _text = Localize "STR_WF_AI_Commander";
 if (!IsNull _commanderTeam) then {

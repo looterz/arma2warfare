@@ -9,7 +9,6 @@ _direction = _this select 3;
 _index = _this select 4;
 
 _time = ((Format ["WFBE_%1STRUCTURETIMES",str _side] Call GetNamespace) select _index) / 2;
-if (WF_DEBUG) then { _time = _time / 10; };
 	
 _siteName = Format["WFBE_%1CONSTRUCTIONSITE",str _side] Call GetNamespace;
 
@@ -44,15 +43,18 @@ if (!IsNull _site) then {
 	_structures = _structures + [_site];
 	WF_Logic setVariable [Format ["%1BaseStructures",str _side],_structures,true];
 
-	_site SetVehicleInit Format["[this,false,%1] ExecVM (""Client\Init\Init_BaseStructure.sqf"")",_side];
+	_site SetVehicleInit Format["[this,false,%1] ExecVM 'Client\Init\Init_BaseStructure.sqf'",_side];
 	ProcessInitCommands;
 	
 	_site addEventHandler ["hit",{_this Spawn BuildingDamaged}];
-	if (handleFF) then {Call Compile Format ["_site addEventHandler ['handleDamage',{[_this select 0,_this select 2,_this select 3, %1] Call BuildingHandleDamages}]",_side]};
-	Call Compile Format ["_site AddEventHandler [""killed"",{[_this select 0,_this select 1,%1,""%2""] Spawn BuildingKilled}];",_side,_type];
+	if (paramHandleFF) then {Call Compile Format ["_site addEventHandler ['handleDamage',{[_this select 0,_this select 2,_this select 3, %1] Call BuildingHandleDamages}]",_side]};
+	Call Compile Format ["_site AddEventHandler ['killed',{[_this select 0,_this select 1,%1,'%2'] Spawn BuildingKilled}];",_side,_type];
+	
+	diag_log Format["[WFBE (INFORMATION)] Construction_SmallSite: A %1 %2 was constructed",str _side,_type];
 };
 
 //--- Base Patrols.
 if ((_type == WESTBAR || _type == EASTBAR) && paramBasePatrols) then {
 	[_site, _side] ExecFSM 'Server\FSM\basepatrol.fsm';
+	diag_log Format["[WFBE (INFORMATION)] Construction_SmallSite: A %1 Base Patrol Module has been launched",str _side];
 }

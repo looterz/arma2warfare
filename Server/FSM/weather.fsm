@@ -26,6 +26,8 @@ class FSM
     {
       name = "Init";
       init = /*%FSM<STATEINIT""">*/"WF_Logic setVariable [""overCast"",random(1),true];" \n
+	   "_wt = 'WFBE_WEATHERTRANSITION' Call GetNamespace;" \n
+	   "_delay = ((_wt * 2) + 100);" \n
        "_lastUpdate = time;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
@@ -59,7 +61,7 @@ class FSM
     {
       name = "Update_Weather";
       init = /*%FSM<STATEINIT""">*/"_overCast = random(1);" \n
-       "if (isDedicated) then {('WFBE_WEATHERTRANSITION' Call GetNamespace) setOvercast _overCast};" \n
+       "if (isDedicated) then {_wt setOvercast _overCast};" \n
        "WF_Logic setVariable [""overCast"",_overCast,true];" \n
        "_lastUpdate = time;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
@@ -81,7 +83,7 @@ class FSM
           priority = 0.000000;
           to="Update_Weather";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"!gameOver && time - _lastUpdate > 900"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!gameOver && time - _lastUpdate > _delay"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/

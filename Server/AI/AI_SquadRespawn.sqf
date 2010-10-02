@@ -36,13 +36,13 @@ while {!gameOver} do {
 
 	_availableSpawn = [];
 	//--- Towns.
-	if (campRespawn && _respawn != "forceRespawn") then {
+	if (paramCampRespawn && _respawn != "forceRespawn") then {
 		_town = [_deathLoc,_side] Call GetClosestLocation;
 		if (!isNull _town) then {
 			if (_town distance _deathLoc  < _rr) then {
 				_camps = [_town,_side] Call GetFriendlyCamps;
 				if (count _camps > 0) then {
-					if (campRespawnRule) then {
+					if (paramCampRespawnRule) then {
 						_closestCamps = [_deathLoc,_camps] Call SortByDistance;
 						_closestCamp = _closestCamps select 0;
 						_objects = _closestCamp nearEntities[[eastSoldierBaseClass,westSoldierBaseClass,"Car","Motorcycle","Tank","Air"],_rmr];
@@ -60,7 +60,7 @@ while {!gameOver} do {
 	_upgrades = WF_Logic getVariable Format ["%1Upgrades",_sideText];
 	
 	//--- Mobile Respawn.
-	if (mobileRespawn && _respawn != "forceRespawn") then {
+	if (paramMobileRespawn && _respawn != "forceRespawn") then {
 		_mobileRespawns = Format ["WFBE_%1AMBULANCES",_sideText] Call GetNamespace;
 		_range = (Format["WFBE_RESPAWNMOBILERANGE%1",(_upgrades select 7)] Call GetNamespace);
 		_checks = _deathLoc nearEntities[_mobileRespawns,_range];

@@ -5,13 +5,13 @@ class Params {
 		title = "$STR_WF_Gameplay_GroupSizeAI";
 		values[] = {2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,35,40,45,50,60,70,80,90,100};
 		texts[] = {"2","4","6","8","10","12","14","16","18","20","22","24","26","28","30","35","40","45","50","60","70","80","90","100"};
-		default = 10;
+		default = 4;
 	};
 	class aiGroupSizePlayer {
 		title = "$STR_WF_Gameplay_GroupSizePlayer";
-		values[] = {2,4,6,8,10,12,14,16,18,20,22,24};
-		texts[] = {"2","4","6","8","10","12","14","16","18","20","22","24"};
-		default = 12;
+		values[] = {2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,35,40,45,50,60,70,80,90,100};
+		texts[] = {"2","4","6","8","10","12","14","16","18","20","22","24","26","28","30","35","40","45","50","60","70","80","90","100"};
+		default = 16;
 	};
 	class aiKeepUnits {
 		title = "$STR_WF_Gameplay_KeepAI";
@@ -23,7 +23,7 @@ class Params {
 		title = "$STR_WF_Gameplay_AI";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 1;
+		default = 0;
 	};
 	class artilleryCalls {
 		title = "$STR_WF_Gameplay_Arty";
@@ -31,11 +31,19 @@ class Params {
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 1;
 	};
+	#ifndef VANILLA
+		class artilleryComputer {
+			title = "$STR_WF_Gameplay_ArtilleryComputer";
+			values[] = {0,1};
+			texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+			default = 0;
+		};	
+	#endif
 	class artilleryUI {
 		title = "$STR_WF_Gameplay_ArtilleryUI";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 1;
+		default = 0;
 	};
 	class artilleryRange {
 		title = "$STR_WF_Gameplay_Artillery";
@@ -49,8 +57,7 @@ class Params {
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 0;
 	};
-	
-	//--- OA has no suitable units.
+	//--- OA has no suitable allies for both side (yet).
 	#ifndef ARROWHEAD
 		class baseAllies {
 			title = "$STR_WF_Gameplay_Allies";
@@ -87,25 +94,25 @@ class Params {
 		title = "$STR_WF_Gameplay_AutoDefense_Range";
 		values[] = {50,100,150,200,250,300,350,400,450,500,600,700,800,900,1000};
 		texts[] = {"50m","100m","150m","200m","250m","300m","350m","400m","450m","500m","600m","700m","800m","900m","1000m"};
-		default = 500;
+		default = 250;
 	};
 	class baseBuildingsLimit {
 		title = "$STR_WF_Gameplay_BuildingsLimit";
 		values[] = {1,2,3,4,5,6,7,8,9,10};
 		texts[] = {"1","2","3","4","5","6","7","8","9","10"};
-		default = 3;
+		default = 2;
 	};
 	class baseHQDeploycost {
 		title = "$STR_WF_Gameplay_HQDeployCost";
-		values[] = {100,200,300,400,500,600,700,800,900,1000,1500,2000,2500,3000,3500,4000,5000};
-		texts[] = {"S 100.","S 200.","S 300.","S 400.","S 500.","S 600.","S 700.","S 800.","S 900.","S 1000.","S 1500.","S 2000.","S 2500.","S 3000.","S 3500.","S 4000.","S 5000."};
+		values[] = {100,200,300,400,500,600,700,800,900,1000,1500,2000,2500,3000,3500,4000,5000,6000,7000,8000,9000,10000};
+		texts[] = {"S 100.","S 200.","S 300.","S 400.","S 500.","S 600.","S 700.","S 800.","S 900.","S 1000.","S 1500.","S 2000.","S 2500.","S 3000.","S 3500.","S 4000.","S 5000.","S 6000.","S 7000.","S 8000.","S 9000.","S 10000"};
 		default = 100;
 	};
 	class basePatrols {
 		title = "$STR_WF_Gameplay_BasePatrols";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 1;
+		default = 0;
 	};
 	class baseSpawnSystemRestrict {
 		title = "$STR_WF_Gameplay_SpawnSystemRestrict";
@@ -117,13 +124,19 @@ class Params {
 		title = "$STR_WF_Gameplay_StartingDistance";
 		values[] = {1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000,7500,8000,8500,9000};
 		texts[] = {"1000m","1500m","2000m","2500m","3000m","3500m","4000m","4500m","5000m","5500m","6000m","6500m","7000m","7500m","8000m","8500m","9000m"};
-		default = 8000;
+		default = 9000;
 	};
 	class baseStartingLocations {
 		title = "$STR_WF_Gameplay_StartingLocations";
 		values[] = {0,1,2};
 		texts[] = {"$STR_WF_Gameplay_StartingLocations_WestNorth","$STR_WF_Gameplay_StartingLocations_WestSouth","$STR_WF_Gameplay_StartingLocations_Random"};
 		default = 2;
+	};
+	class economyIncomeInterval {
+		title = "$STR_WF_Gameplay_IncomeInterval";
+		values[] = {60,120,180,240,300,360,420,480,540,600};
+		texts[] = {"1 Minute","2 Minutes","3 Minutes","4 Minutes","5 Minutes","6 Minutes","7 Minutes","8 Minutes","9 Minutes","10 Minutes"};
+		default = 60;
 	};
 	class economyIncomeSystem {
 		title = "$STR_WF_Gameplay_IncomeSystem";
@@ -172,7 +185,7 @@ class Params {
 		values[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};
 		texts[] = {"00:00","01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00",
 		"12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00"};
-		default = 12;
+		default = 6;
 	};
 	class environmentWeather {
 		title = "$STR_WF_Gameplay_Weather";
@@ -180,6 +193,14 @@ class Params {
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 0;
 	};
+	#ifndef VANILLA
+		class extensionBAF {
+			title = "$STR_WF_Gameplay_BAF";
+			values[] = {0,1};
+			texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+			default = 1;
+		};
+	#endif
 	class gameplayAlice {
 		title = "$STR_WF_Gameplay_Alice";
 		values[] = {0,1};
@@ -196,7 +217,7 @@ class Params {
 		title = "$STR_WF_Gameplay_BodiesTimeout";
 		values[] = {60,120,180,240,300,600,1200,1800,2400,3000,3600};
 		texts[] = {"1 Minute","2 Minutes","3 Minutes","4 Minutes","5 Minutes","10 Minutes","20 Minutes","30 Minutes","40 Minutes","50 Minutes","1 Hour"};
-		default = 60;
+		default = 300;
 	};
 	class gameplayVehiclesTimeout {
 		title = "$STR_WF_Gameplay_VehicleDelay";
@@ -208,13 +229,13 @@ class Params {
 		title = "$STR_WF_Gameplay_FastTravel";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 1;
+		default = 0;
 	};
 	class gameplayFriendlyFire {
 		title = "$STR_WF_Gameplay_FriendlyFire";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 0;
+		default = 1;
 	};
 	class gameplayGrass {
 		title = "$STR_WF_Gameplay_Grass";
@@ -258,8 +279,26 @@ class Params {
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 1;
 	};
+	class gameplayThirdView {
+		title = "$STR_WF_Gameplay_ThirdView";
+		values[] = {0,1,2};
+		texts[] = {"$STR_WF_Enabled","$STR_WF_OnlyInVehicles","$STR_WF_Disabled"};
+		default = 0;
+	};
+	class gameplayGroupView {
+		title = "$STR_WF_Gameplay_GroupView";
+		values[] = {0,1,2};
+		texts[] = {"$STR_WF_Enabled","$STR_WF_OnlyInVehicles","$STR_WF_Disabled"};
+		default = 2;
+	};
 	class gameplayUnitsBalancing {
 		title = "$STR_WF_Balance";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 1;
+	};
+	class gameplayUnitsBounty {
+		title = "$STR_WF_Gameplay_UnitsBounty";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 1;
@@ -278,8 +317,8 @@ class Params {
 	};
 	class gameplayVictoryConditions {
 		title = "$STR_WF_Gameplay_VictoryCondition";
-		values[] = {0,1,2};
-		texts[] = {"$STR_WF_Victory_Annihilation","$STR_WF_Victory_Assassination","$STR_WF_Victory_Supremacy"};
+		values[] = {0,1,2,3};
+		texts[] = {"$STR_WF_Victory_Annihilation","$STR_WF_Victory_Assassination","$STR_WF_Victory_Supremacy","$STR_WF_Victory_Towns"};
 		default = 2;
 	};
 	class gameplayViewDistance {
@@ -324,7 +363,7 @@ class Params {
 		title = "$STR_WF_Gameplay_Clouds";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 1;
+		default = 0;
 	};
 	class respawnCamps {
 		title = "$STR_WF_Gameplay_Camp";
@@ -343,7 +382,7 @@ class Params {
 		values[] = {10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90};
 		texts[] = {"10 Seconds","15 Seconds","20 Seconds","25 Seconds","30 Seconds","35 Seconds","40 Seconds","45 Seconds","50 Seconds",
 		"55 Seconds","60 Seconds","65 Seconds","70 Seconds","75 Seconds","80 Seconds","85 Seconds","90 Seconds"};
-		default = 25;
+		default = 30;
 	};
 	class respawnGear {
 		title = "$STR_WF_Gameplay_GearOnRespawn";
@@ -371,8 +410,8 @@ class Params {
 	};
 	class restrictionAdvancedAir {
 		title = "$STR_WF_Gameplay_AdvancedAir";
-		values[] = {0,1};
-		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		values[] = {0,1,2};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Restriction_Air_H","$STR_WF_Restriction_Air_HTransport"};
 		default = 0;
 	};
 	class restrictionGear {
@@ -395,17 +434,11 @@ class Params {
 		texts[] = {"Extra Small","Small","Medium","Large","Full"};
 		default = 3;
 	};
-	class townsStriker {
-		title = "$STR_WF_Gameplay_ResistanceStriker";
-		values[] = {0,1};
-		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 0;
-	};
 	class townsStrikerMax {
 		title = "$STR_WF_Gameplay_MaxResStriker";
-		values[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,22,24,26,28,30,32,34,36,38,40};
-		texts[] = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","22","24","26","28","30","32","34","36","38","40"};
-		default = 4;
+		values[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,22,24,26,28,30,32,34,36,38,40};
+		texts[] = {"$STR_WF_Disabled","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","22","24","26","28","30","32","34","36","38","40"};
+		default = 0;
 	};
 	class townsOccupation {
 		title = "$STR_WF_Gameplay_Occupation";
@@ -423,19 +456,13 @@ class Params {
 		title = "$STR_WF_Gameplay_Reinforcement_Occupation";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 1;
-	};
-	class townsPatrol {
-		title = "$STR_WF_Gameplay_ResistancePatrol";
-		values[] = {0,1};
-		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 0;
 	};
 	class townsMaxPatrol {
 		title = "$STR_WF_Gameplay_MaxResPatrols";
-		values[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,22,24,26,28,30,32,34,36,38,40};
-		texts[] = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","22","24","26","28","30","32","34","36","38","40"};
-		default = 12;
+		values[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,22,24,26,28,30,32,34,36,38,40};
+		texts[] = {"$STR_WF_Disabled","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","22","24","26","28","30","32","34","36","38","40"};
+		default = 0;
 	};
 	class townsProtectionRange {
 		title = "$STR_WF_Gameplay_TownProtectionRange";
@@ -443,7 +470,7 @@ class Params {
 		texts[] = {"0m","50m","100m","150m","200m","250m","300m","350m","400m","450m","500m"};
 		default = 400;
 	};
-	class townsPurchaseMilita {
+	class townsPurchaseInfantry {
 		title = "$STR_WF_Gameplay_TownsPurchaseMilita";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
@@ -465,7 +492,7 @@ class Params {
 		title = "$STR_WF_Gameplay_Reinforcement_Resistance";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 1;
+		default = 0;
 	};
 	#ifdef COMBINEDOPS
 		class townsResistanceType {
@@ -482,3 +509,4 @@ class Params {
 		default = 0;
 	};
 };
+

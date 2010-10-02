@@ -10,7 +10,7 @@ if ((typeOf _lifter) in Zeta_Special) then {
 } else {
 	if ((speed _lifter > 20)||((getpos _lifter select 2)<2)) exitWith {};
 };
-//--- nearEntities doesn't retrieve dead units.
+//--- nearEntities handle living units.
 _vehicles = _lifter nearEntities [Zeta_Types, 10];
 if (count _vehicles < 1) exitWith {};
 
@@ -20,6 +20,8 @@ _type = typeOf _lifter;
 _position = Zeta_DefaultPos;
 _index = Zeta_Special find _type;
 if (_index != -1) then {_position = Zeta_SpecialPosition select _index};
+
+if (count crew(_vehicle) > 0) exitWith {hint (localize 'STR_WF_Hook_Manned')};
 
 _vehicle attachTo [_lifter,_position];
 _lifter setVariable ["Attached",true,false];

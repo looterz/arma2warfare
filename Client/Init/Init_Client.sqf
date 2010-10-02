@@ -1,4 +1,4 @@
-if (arty) then {
+if (paramArty) then {
 	ARTY_Prep = Compile preprocessFile "Client\Module\Arty\ARTY_mobileMissionPrep.sqf";
 	ARTY_Finish = Compile preprocessFile "Client\Module\Arty\ARTY_mobileMissionFinish.sqf";
 	RequestFireMission = Compile preprocessFile "Client\Functions\Client_RequestFireMission.sqf"
@@ -10,10 +10,8 @@ if (paramBoundaries) then {
 BuildUnit = Compile preprocessFile "Client\Functions\Client_BuildUnit.sqf";
 ChangePlayerFunds = Compile preprocessFile "Client\Functions\Client_ChangePlayerFunds.sqf";
 CommandChatMessage = Compile preprocessFile "Client\Functions\Client_CommandChatMessage.sqf";
-CommandToServer = Compile preprocessFile "Client\Client_CommandToServer.sqf";
 CommanderUpgrade = Compile preprocessFile "Client\Functions\Client_CommanderUpgrade.sqf";
-CommandsFromServer = Compile preprocessFile "Client\Client_CommandsFromServer.sqf";
-if (counterMeasures) then {
+if (paramCounterMeasures) then {
 	CM_Countermeasures = Compile preprocessFile "Client\Module\CM\CM_Countermeasures.sqf";
 	CM_Flares = Compile preprocessFile "Client\Module\CM\CM_Flares.sqf";
 	CM_Spoofing = Compile preprocessFile "Client\Module\CM\CM_Spoofing.sqf";
@@ -25,14 +23,20 @@ GetIncome = Compile preprocessFile "Client\Functions\Client_GetIncome.sqf";
 GetPlayerFunds = Compile preprocessFile "Client\Functions\Client_GetPlayerFunds.sqf";
 GetStructureMarkerLabel = Compile preprocessFile "Client\Functions\Client_GetStructureMarkerLabel.sqf";
 GroupChatMessage = Compile preprocessFile "Client\Functions\Client_GroupChatMessage.sqf";
+HandlePVF = Compile preprocessFile "Client\Functions\Client_HandlePVF.sqf";
 InitTownsAndCamps = Compile preprocessFile "Client\Functions\Client_InitTownsAndCamps.sqf";
-if (ISIS) then {ISIS_Effects = Compile preProcessFile "Client\Module\ISIS\ISIS_Clientfx.sqf"};
+if (paramISIS) then {ISIS_Effects = Compile preProcessFile "Client\Module\ISIS\ISIS_Clientfx.sqf"};
 MarkerAnim = Compile preprocessFile "Client\Functions\Client_MarkerAnim.sqf";
 PlayerKilled = Compile preprocessFile "Client\Client_Killed.sqf";
 ReplaceInventoryAmmo = Compile preprocessFile "Client\Functions\Client_ReplaceInventoryAmmo.sqf";
+if !(WF_A2_Vanilla) then {
+	RespawningBag = Compile preprocessFile "Client\Functions\Client_RespawnBag.sqf";
+} else {
+	RespawningBag = {};
+};
 TaskSystem = Compile preprocessFile "Client\Functions\Client_TaskSystem.sqf";
 TitleTextMessage = Compile preprocessFile "Client\Functions\Client_TitleTextMessage.sqf";
-if (icbm) then {
+if (paramICBM) then {
 	Nuke = Compile preprocessFile "Client\Module\Nuke\nuke.sqf";
 	NukeIncomming = Compile preprocessFile "Client\Module\Nuke\nukeincoming.sqf";
 };
@@ -43,11 +47,10 @@ BIS_FNC_GUIget = {UInamespace getVariable (_this select 0)};
 //--- Waiting for the common part to be executed.
 waitUntil {commonInitComplete};
 
-if (fastTime) then {[] ExecFSM "Client\FSM\fasttimecli.fsm"};
-if (weather) then {[] ExecFSM "Client\FSM\overcast.fsm"};
-if (volumClouds) then {[] Exec "CA\Modules\clouds\data\scripts\bis_cloudsystem.sqs"};
+if (paramFastTime) then {[] ExecFSM "Client\FSM\fasttimecli.fsm"};
+if (paramWeather) then {[] ExecFSM "Client\FSM\overcast.fsm"};
+if (paramVolumClouds) then {[] Exec "CA\Modules\clouds\data\scripts\bis_cloudsystem.sqs"};
 
-[] Spawn CommandsFromServer;
 _idbl = [player] Call Compile preprocessFile "Client\Init\Init_Blacklist.sqf";
 if (_idbl) exitWith {[] Spawn {_txt = "INFORMATION:\n\n You are currently blacklisted.";_txt Call DebugHint;sleep 5; disableUserInput true; sleep 60; failMission "END1"}};
 
@@ -86,11 +89,12 @@ lastRearm = -200;
 lastHeal = -200;
 lastRefuel = -200;
 lastParaCall = -1200;
+lastSupplyCall = -1200;
 
 if (isNil "Airfields") then {Airfields = []};
 
 //--- Exec SQF|FSM Misc stuff.
-if (trackPlayer) then {[] ExecFSM "Client\FSM\updateteamsmarkers.fsm"};
+if (paramTrackPlayer) then {[] ExecFSM "Client\FSM\updateteamsmarkers.fsm"};
 [] ExecFSM "Client\FSM\updateactions.fsm";
 //--- Don't pause the client initialization process.
 [] Spawn {
@@ -149,7 +153,7 @@ sideHQ = _HQRadio;
 
 //--- Define vehicles types that will have an 'Cargo Eject' function.
 cargoHolder = ["MH60S","UH1Y","MV22","C130J","Mi17_Ins","Mi17_medevac_RU","Mi17_rockets_RU","Mi24_V","Mi24_P","MH6J_EP1",
-"UH60M_EP1","UH60M_MEV_EP1","CH_47F_EP1","C130J_US_EP1","Mi17_TK_EP1","UH1H_TK_EP1","An2_TK_EP1","Mi24_D_TK_EP1"];
+"UH60M_EP1","UH60M_MEV_EP1","CH_47F_EP1","C130J_US_EP1","Mi17_TK_EP1","UH1H_TK_EP1","An2_TK_EP1","Mi24_D_TK_EP1","BAF_Merlin_HC3_D","CH_47F_BAF"];
 //--- Zeta Cargo Lifter.
 [] Call Compile preprocessFile "Client\Module\ZetaCargo\Zeta_Init.sqf";
 //--- Groups ID.
@@ -170,8 +174,8 @@ Skills_Spot = ['USMC_SoldierS_Sniper','RU_Soldier_Sniper','US_Soldier_Sniper_EP1
 Skills_MASH = ['FR_Commander','RUS_Commander','US_Soldier_SL_EP1','TK_Soldier_SL_EP1'];
 [] Call Compile preprocessFile "Client\Module\Skill\Skill_Init.sqf";
 
-//--- Spacebar scanning (HC Protection | ACE Safety | Proper Definition).
-if !(spacebar) then {(findDisplay 46) displayAddEventHandler ["KeyDown", "if ((_this select 1) in (actionKeys 'ForceCommandingMode') && !(_this select 2) && !(_this select 3) && !hcShownBar) then {true} else {false}"]};
+//--- Command Menu scanning.
+if !(paramSpacebar) then {(findDisplay 46) displayAddEventHandler ["KeyDown", "if ((_this select 1) in (actionKeys 'ForceCommandingMode') && !(_this select 2) && !(_this select 3) && !hcShownBar) then {true} else {false}"]};
 
 //--- Soldier Skill.
 if (playerType in Skills_Soldiers) then {['WFBE_MAXGROUPSIZE',('WFBE_MAXGROUPSIZE' Call GetNameSpace) + ('WFBE_MAXGZBONUSSKILL' Call GetNamespace),true] Call SetNamespace};
@@ -188,14 +192,12 @@ if (WF_Debug) then {
 	player addEventHandler ["HandleDamage", {false;if (player != (_this select 3)) then {(_this select 3) setDammage 1}}]; //--- God-Slayer mode.
 };
 
-player addAction [localize 'STR_WF_BuildMenu','Client\Action\Action_BuildRepair.sqf', [], 99, false, true, '', 'townDefenceRange'];
-
 Call Compile Format ["player addEventHandler ['Killed',{[_this select 0,_this select 1] Spawn PlayerKilled;[_this select 0,_this select 1,%1,false] Spawn UnitKilled}]",sideJoined];
 
-if (ISIS) then {player addEventHandler['handleDamage',{_this Call ISIS_Wound}]};
+if (paramISIS) then {player addEventHandler['handleDamage',{_this Call ISIS_Wound}]};
 
 //--- Artillery UI.
-if (artyUI) then {[] ExecVM "ca\modules\ARTY\data\scripts\init.sqf"};
+if (paramArtyUI) then {[] ExecVM "ca\modules\ARTY\data\scripts\init.sqf"};
 
 //--- EASA.
 if (paramEASA) then {[] Call Compile preProcessFile "Client\Module\EASA\EASA_Init.sqf"};

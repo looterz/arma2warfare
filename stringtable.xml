@@ -117,7 +117,7 @@
 	  <Key ID="STR_WF_ArtilleryNest">
         <English>Earthen artillery nest</English>
         <French>Nid artil. terre</French>
-        <German>Artilleriestellung</German>
+        <German>Erd-Artilleriestellung</German>
         <Russian>Окоп артиллерии</Russian>
         <Italian>Nido mitragliatrici di terra</Italian>
       </Key>
@@ -157,11 +157,11 @@
         <Italian>Disponibile</Italian>
       </Key>
       <Key ID="STR_WF_Balance">
-        <English>Gameplay: Weapon Balancing</English>
-        <French>Jouabilité: Equilibrage armes</French>
-        <German>Gameplay: Weapon Balancing</German>
-        <Russian>Gameplay: Weapon Balancing</Russian>
-        <Italian>Gameplay: Weapon Balancing</Italian>
+        <English>Gameplay: Units Balancing</English>
+        <French>Jouabilité: Equilibrage Unitées</French>
+        <German>Gameplay: Units Balancing</German>
+        <Russian>Gameplay: Units Balancing</Russian>
+        <Italian>Gameplay: Units Balancing</Italian>
       </Key>
       <Key ID="STR_WF_BaseArea">
         <English>Base: Areas Limit</English>
@@ -381,17 +381,17 @@
         <Italian>Smobilita</Italian>
       </Key>
       <Key ID="STR_WF_EASA">
-		<English>EASA</English>
+		<English>Exchangeable Armament System</English>
 		<French>Système d'Echange d'Armement</French>
-		<German>EASA</German>
-		<Italian>EASA</Italian>
+		<German>Austauschbare Flugzeugbewaffnung</German>
+		<Italian>Exchangeable Armament System</Italian>
 		<Russian>Сменные Системы Вооружения</Russian>
       </Key>
       <Key ID="STR_WF_EASA_Purchase">
-		<English>&lt;t color='#F8D664'&gt;Exchangeable Air-Loadout:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - EASA loadout Purchased: &lt;t color='#85B5FA'&gt;%1&lt;/t&gt;.</English>
+		<English>&lt;t color='#F8D664'&gt;Exchangeable Armament System:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - EASA Setup Purchased: &lt;t color='#85B5FA'&gt;%1&lt;/t&gt;.</English>
 		<French>&lt;t color='#F8D664'&gt;Système d'Echange d'Armement:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Configuration EASA achetée: &lt;t color='#85B5FA'&gt;%1&lt;/t&gt;.</French>
-		<German>&lt;t color='#F8D664'&gt;EASA:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - EASA-Konfiguration gekauft: &lt;t color='#85B5FA'&gt;%1&lt;/t&gt;.</German>
-		<Italian>&lt;t color='#F8D664'&gt;EASA:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - EASA loadout Purchased: &lt;t color='#85B5FA'&gt;%1&lt;/t&gt;.</Italian>
+		<German>&lt;t color='#F8D664'&gt;Exchangeable Armament System:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - EASA Setup Purchased: &lt;t color='#85B5FA'&gt;%1&lt;/t&gt;.</German>
+		<Italian>&lt;t color='#F8D664'&gt;Exchangeable Armament System:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - EASA Setup Purchased: &lt;t color='#85B5FA'&gt;%1&lt;/t&gt;.</Italian>
 		<Russian>&lt;t color='#F8D664'&gt;Exchangeable Armament System:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - EASA Setup Purchased: &lt;t color='#85B5FA'&gt;%1&lt;/t&gt;.</Russian>
       </Key>
 	  <Key ID="STR_WF_Enabled">
@@ -401,12 +401,19 @@
         <Russian>Включить</Russian>
         <Italian>Abilitato</Italian>
       </Key>
-      <Key ID="STR_WF_Factory">
+      <Key ID="STR_WF_Faction">
+        <English>Faction:</English>
+        <French>Faction:</French>
+        <German>Faction:</German>
+        <Russian>Faction:</Russian>
+        <Italian>Faction:</Italian>
+      </Key>
+	  <Key ID="STR_WF_Factory">
         <English>Factory:</English>
         <French>Usine:</French>
         <German>Fabrik:</German>
         <Russian>Завод:</Russian>
-        <Italian>Fabrica</Italian>
+        <Italian>Fabrica:</Italian>
       </Key>
       <Key ID="STR_WF_FastTravel">
         <English>Fast Travel</English>
@@ -457,7 +464,14 @@
         <Russian>&lt;t color='#F8D664'&gt;Информация:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt;Не хватает $&lt;t color='#85B5FA'&gt;%1&lt;/t&gt;, для покупки снаряжения</Russian>
         <Italian>&lt;t color='#F8D664'&gt;Informazioni Fabrica:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Ti Mancano $&lt;t color='#85B5FA'&gt;%1&lt;/t&gt;. per comprare questo equipaggiamento.</Italian>
       </Key>
-      <Key ID="STR_WF_Gameplay_AdvancedAir">
+      <Key ID="STR_WF_FundsTransfer">
+        <English>You have received $%1. from %2</English>
+        <French>Vous avez reçu $%1. de la part de %2</French>
+        <German>You have received $%1. from %2</German>
+        <Russian>You have received $%1. from %2</Russian>
+        <Italian>You have received $%1. from %2</Italian>
+      </Key>
+	  <Key ID="STR_WF_Gameplay_AdvancedAir">
         <English>Restriction: Advanced Aircraft</English>
         <French>Réstriction: Aéronefs Avancées</French>
         <German>Einschränkung: Flugzeuge</German>
@@ -506,6 +520,13 @@
         <Russian>Артиллерия: Дальность</Russian>
         <Italian>Artiglieria: Portata</Italian>
       </Key>
+      <Key ID="STR_WF_Gameplay_ArtilleryComputer">
+        <English>Artillery: Computer</English>
+        <French>Artillerie: Ordinateur</French>
+        <German>Artillery: Computer</German>
+        <Russian>Artillery: Computer</Russian>
+        <Italian>Artillery: Computer</Italian>
+      </Key>
       <Key ID="STR_WF_Gameplay_ArtilleryUI">
         <English>Artillery: Interface</English>
         <French>Artillerie: Interface</French>
@@ -534,7 +555,14 @@
         <Russian>Артиллерия: Вызов арт.удара</Russian>
         <Italian>Artiglieria</Italian>
       </Key>
-      <Key ID="STR_WF_Gameplay_BasePatrols">
+      <Key ID="STR_WF_Gameplay_BAF">
+        <English>Extension: BAF</English>
+        <French>Extension: BAF</French>
+        <German>Extension: BAF</German>
+        <Russian>Extension: BAF</Russian>
+        <Italian>Extension: BAF</Italian>
+      </Key>
+	  <Key ID="STR_WF_Gameplay_BasePatrols">
         <English>Base: Patrols</English>
         <French>Base: Patrouilles</French>
         <German>Basis: Patrouillen</German>
@@ -598,11 +626,11 @@
         <Italian>Città: Difficoltà Resistenza</Italian>
       </Key>
       <Key ID="STR_WF_Gameplay_EASA">
-		<English>Module: EASA (Air armament)</English>
+		<English>Module: EASA</English>
 		<French>Module: EASA</French>
-		<German>Modul: EASA (Flugzeugbewaffnung)</German>
-		<Italian>Module: EASA (Air armament)</Italian>
-		<Russian>Модуль: EASA</Russian>
+		<German>Modul: EASA</German>
+		<Italian>Модуль: EASA</Italian>
+		<Russian>Modulo: EASA</Russian>
       </Key>
       <Key ID="STR_WF_Gameplay_FastTime">
         <English>Environment: Fast Time</English>
@@ -661,16 +689,16 @@
         <Italian>Gameplay: Grass Distance</Italian>
       </Key>
       <Key ID="STR_WF_Gameplay_GroupSizeAI">
-        <English>AI: Group Size (AI)</English>
-        <French>IA: Taille du Groupe (IA)</French>
-        <German>KI: Gruppenstärke (KI)</German>
+        <English>AI: Group Size (AI Teams)</English>
+        <French>IA: Taille du Groupe (Equipes IA)</French>
+        <German>KI: Gruppenstärke (KI Teams)</German>
         <Russian>ИИ: Размер отряда</Russian>
-        <Italian>IA: Dimensione Gruppo (IA)</Italian>
+        <Italian>IA: Dimensione Gruppo (Squadre IA)</Italian>
       </Key>
       <Key ID="STR_WF_Gameplay_GroupSizePlayer">
         <English>AI: Group Size (Player)</English>
         <French>IA: Taille du Groupe (Joueur)</French>
-        <German>KI: Gruppenstärke (Spieler)</German>
+        <German>KI: Gruppenstärke (Spieler Teams)</German>
         <Russian>ИИ: Размер отряда (Игрок)</Russian>
         <Italian>IA: Dimensione Gruppo (Giocatore)</Italian>
       </Key>
@@ -695,13 +723,6 @@
         <Russian>База: Развертывание HQ</Russian>
         <Italian>Base: Costo dispiegamento HQ</Italian>
       </Key>
-      <Key ID="STR_WF_Gameplay_IncomeSystem">
-        <English>Economy: Income System</English>
-        <French>Economie: Système de Rémunération</French>
-        <German>Wirtschaft: Einkommenssystem</German>
-        <Russian>Экономика: Приход денег</Russian>
-        <Italian>Economia: Sistema Entrate</Italian>
-      </Key>
       <Key ID="STR_WF_Gameplay_KickTeamswapper">
         <English>Gameplay: Kick Teamswappers</English>
         <French>Jouabilité: Ejéction Teamswappers</French>
@@ -715,6 +736,20 @@
         <German>Modul: Nuklearwaffen</German>
         <Russian>Модуль: МБР</Russian>
         <Italian>Modulo: Missile Nucleare</Italian>
+      </Key>
+      <Key ID="STR_WF_Gameplay_IncomeInterval">
+        <English>Economy: Income Interval</English>
+        <French>Economie: Intervalle de Rémunération</French>
+        <German>Economy: Income Interval</German>
+        <Russian>Economy: Income Interval</Russian>
+        <Italian>Economy: Income Interval</Italian>
+      </Key>
+	  <Key ID="STR_WF_Gameplay_IncomeSystem">
+        <English>Economy: Income System</English>
+        <French>Economie: Système de Rémunération</French>
+        <German>Wirtschaft: Einkommenssystem</German>
+        <Russian>Экономика: Приход денег</Russian>
+        <Italian>Economia: Sistema Entrate</Italian>
       </Key>
       <Key ID="STR_WF_Gameplay_IncomeSystem_Full">
         <English>Full</English>
@@ -747,7 +782,7 @@
       <Key ID="STR_WF_Gameplay_KeepAI">
         <English>AI: Keep units on JIP</English>
         <French>IA: Maintien des unités durant JIP</French>
-        <German>KI: Einheiten bei JIP behalten</German>
+        <German>KI: Einheiten bei JIP erhalten</German>
         <Russian>ИИ: Сохранять состав отряда</Russian>
         <Italian>IA: Mantieni unità durante JIP</Italian>
       </Key>
@@ -803,7 +838,7 @@
 	  <Key ID="STR_WF_Gameplay_Reinforcement_Type">
         <English>Towns: Resistance Faction</English>
         <French>Villes: Faction Résistante</French>
-        <German>Städte: Widerstandsfraktion</German>
+        <German>Städte: Wiederstandsfraktion</German>
         <Russian>Towns: Resistance Faction</Russian>
         <Italian>Towns: Resistance Faction</Italian>
       </Key>
@@ -942,11 +977,11 @@
         <Italian>Città: Numero</Italian>
       </Key>
       <Key ID="STR_WF_Gameplay_TownsPurchaseMilita">
-        <English>Towns: Purchase Militia</English>
-        <French>Villes: Achat Milice</French>
-        <German>Städte: Miliz erwerben</German>
-        <Russian>Город: Покупка бойцов</Russian>
-        <Italian>Città: Acquista Milizia</Italian>
+        <English>Towns: Purchase Infantry</English>
+        <French>Villes: Achat d'Infantrie</French>
+        <German>Towns: Purchase Infantry</German>
+        <Russian>Towns: Purchase Infantry</Russian>
+        <Italian>Towns: Purchase Infantry</Italian>
       </Key>
       <Key ID="STR_WF_Gameplay_TrackAI">
         <English>Gameplay: Track AI on Map</English>
@@ -983,7 +1018,14 @@
         <Russian>Возрожд: Радиус в городе</Russian>
         <Italian>Respawn: Raggio delle Città</Italian>
       </Key>
-      <Key ID="STR_WF_Gameplay_VehicleDelay">
+      <Key ID="STR_WF_Gameplay_UnitsBounty">
+        <English>Gameplay: Units Bounty</English>
+        <French>Jouabilité: Récompenses d'Unités (bounty)</French>
+        <German>Gameplay: Units Bounty</German>
+        <Russian>Gameplay: Units Bounty</Russian>
+        <Italian>Gameplay: Units Bounty</Italian>
+      </Key>
+	  <Key ID="STR_WF_Gameplay_VehicleDelay">
         <English>Gameplay: Empty Vehicles Lifespan</English>
         <French>Jouabilité: Durée de Vie des Véhicules Vide</French>
         <German>Gameplay: Lebensdauer Fahrzeuge</German>
@@ -1052,6 +1094,13 @@
         <German>Headbug beheben</German>
         <Russian>Исправить баг головы</Russian>
         <Italian>Fix Headbug</Italian>
+      </Key>
+      <Key ID="STR_WF_Hook_Manned">
+        <English>Vehicle Information:\n\n - Manned Vehicles cannot be hooked. Make sure that the vehicle is empty.</English>
+        <French>Information Véhicule:\n\n - Les véhicules avec équipage ne peuvent être accrochées. Assurez-vous que le véhicule est vide.</French>
+        <German>Vehicle Information:\n\n - Manned Vehicles cannot be hooked. Make sure that the vehicle is empty.</German>
+        <Russian>Vehicle Information:\n\n - Manned Vehicles cannot be hooked. Make sure that the vehicle is empty.</Russian>
+        <Italian>Vehicle Information:\n\n - Manned Vehicles cannot be hooked. Make sure that the vehicle is empty.</Italian>
       </Key>
       <Key ID="STR_WF_ICBM">
         <English>ICBM</English>
@@ -1207,6 +1256,27 @@
         <Russian>&lt;t color='#EB0606'&gt;Warning!&lt;/t&gt; &lt;br/&gt;&lt;br/&gt; You are leaving the battlefield!&lt;br/&gt;&lt;br/&gt; &lt;t color='#EB0606'&gt;%1&lt;/t&gt; Seconds left.</Russian>
         <Italian>&lt;t color='#EB0606'&gt;Warning!&lt;/t&gt; &lt;br/&gt;&lt;br/&gt; You are leaving the battlefield!&lt;br/&gt;&lt;br/&gt; &lt;t color='#EB0606'&gt;%1&lt;/t&gt; Seconds left.</Italian>
       </Key>
+      <Key ID="STR_WF_Paradrop">
+        <English>Paradrop</English>
+        <French>Parachutage</French>
+        <German>Paradrop</German>
+        <Russian>Paradrop</Russian>
+        <Italian>Paradrop</Italian>
+      </Key>
+      <Key ID="STR_WF_Paradrop_Ammo">
+        <English>Ammo Paradrop ($9500)</English>
+        <French>Para. Munition ($9500)</French>
+        <German>Ammo Paradrop ($9500)</German>
+        <Russian>Ammo Paradrop ($9500)</Russian>
+        <Italian>Ammo Paradrop ($9500)</Italian>
+      </Key>
+	  <Key ID="STR_WF_Paradrop_Vehicle">
+        <English>Vehicle Paradrop ($3500)</English>
+        <French>Para. Véhicule ($3500)</French>
+        <German>Vehicle Paradrop ($3500)</German>
+        <Russian>Vehicle Paradrop ($3500)</Russian>
+        <Italian>Vehicle Paradrop ($3500)</Italian>
+      </Key>
       <Key ID="STR_WF_Parameters">
         <English>Parameters</English>
         <French>Paramètres</French>
@@ -1287,7 +1357,7 @@
       <Key ID="STR_WF_Push">
         <English>Push (Vehicle)</English>
         <French>Pousser (Véhicule)</French>
-        <German>Schieben (Fahrzeug)</German>
+        <German>Anschieben (Fahrzeug)</German>
         <Russian>Толкнуть (Транспорт)</Russian>
         <Italian>Spingi (Veicolo)</Italian>
       </Key>
@@ -1417,6 +1487,20 @@
         <Russian>Сохранить</Russian>
         <Italian>Salva</Italian>
       </Key>
+	  <Key ID="STR_WF_Restriction_Air_H">
+        <English>Helicopters</English>
+        <French>Hélicoptères</French>
+        <German>Helicopters</German>
+        <Russian>Helicopters</Russian>
+        <Italian>Helicopters</Italian>
+      </Key>
+	  <Key ID="STR_WF_Restriction_Air_HTransport">
+        <English>Transport Helicopters</English>
+        <French>Hélicoptères de Transport</French>
+        <German>Transport Helicopters</German>
+        <Russian>Transport Helicopters</Russian>
+        <Italian>Transport Helicopters</Italian>
+      </Key>
       <Key ID="STR_WF_Seconds">
         <English>Seconds</English>
         <French>Secondes</French>
@@ -1431,84 +1515,6 @@
         <Russian>Продать фабрику</Russian>
         <Italian>Vendi Strutture</Italian>
       </Key>
-	
-      <Key ID="STR_WF_BuySellSupply">
-        <English>Buy/Sell Supplies</English>
-        <French>Buy/Sell Supplies</French>
-        <German>Buy/Sell Supplies</German>
-        <Russian>Продажа/покупка снабжения</Russian>
-        <Italian>Buy/Sell Supplies</Italian>
-      </Key>
-
-      <Key ID="STR_WF_BuySellSupplyInform">
-        <English>Operation is possible only in the central bunker occupied town</English>
-        <French>Operation is possible only in the central bunker occupied town</French>
-        <German>Operation is possible only in the central bunker occupied town</German>
-        <Russian>Операция возможна только в центральном бункере захваченного города</Russian>
-        <Italian>Operation is possible only in the central bunker occupied town</Italian>
-      </Key>
-	  
-	  STR_WF_BuySellSupplyInform
-	
-      <Key ID="STR_WF_BuySellSupplyStatus">
-        <English>Account: %1$ Supply: %2 SV</English>
-        <French>Account: %1$ Supply: %2 SV</French>
-        <German>Account: %1$ Supply: %2 SV</German>
-        <Russian>Наличные: %1$ Снабжение: %2 SV</Russian>
-        <Italian>Account: %1$ Supply: %2 SV</Italian>
-      </Key>	  
-	  
-      <Key ID="STR_WF_SellSupplyExchangeRate">
-        <English>Sell Rate: %1$/SV</English>
-        <French>Sell Rate: %1$/SV</French>
-        <German>Sell Rate: %1$/SV</German>
-        <Russian>Курс продажи: %1$/SV</Russian>
-        <Italian>Sell Rate: %1$/SV</Italian>
-      </Key>		  
-
-      <Key ID="STR_WF_BuySupplyExchangeRate">
-        <English>Buy Rate: %1$/SV</English>
-        <French>Buy Rate: %1$/SV</French>
-        <German>Buy Rate: %1$/SV</German>
-        <Russian>Курс покупки: %1$/SV</Russian>
-        <Italian>Buy Rate: %1$/SV</Italian>
-      </Key>		  
-
-      <Key ID="STR_WF_BuySupplyOperation">
-        <English>Buy %1 SV for %2$</English>
-        <French>Buy %1 SV for %2$</French>
-        <German>Buy %1 SV for %2$</German>
-        <Russian>Купить %1 SV за %2$</Russian>
-        <Italian>Buy %1 SV for %2$</Italian>
-      </Key>
-
-      <Key ID="STR_WF_SellSupplyOperation">
-        <English>Sell %1 SV for %2$</English>
-        <French>Sell %1 SV for %2$</French>
-        <German>Sell %1 SV for %2$</German>
-        <Russian>Продать %1 SV за %2$</Russian>
-        <Italian>Sell %1 SV for %2$</Italian>
-      </Key>
-
-
-	  
-      <Key ID="STR_WF_BuySupplies">
-        <English>Buy</English>
-        <French>Buy</French>
-        <German>Buy</German>
-        <Russian>Купить</Russian>
-        <Italian>Buy</Italian>
-      </Key>
-
-      <Key ID="STR_WF_SellSupplies">
-        <English>Sell</English>
-        <French>Sell</French>
-        <German>Sell Supplies</German>
-        <Russian>Продать</Russian>
-        <Italian>Sell</Italian>
-      </Key>	  
-	  
-	  
       <Key ID="STR_WF_SetBuyType">
         <English>Set Buy Types:</English>
         <French>Définir Type d'Achats:</French>
@@ -1729,7 +1735,7 @@
       <Key ID="STR_WF_TeamsDetails">
         <English>Teams Management</English>
         <French>Management des Equipes</French>
-        <German>Team-Management</German>
+        <German>Teams Management</German>
         <Russian>Teams Management</Russian>
         <Italian>Teams Management</Italian>
       </Key>
@@ -1775,19 +1781,26 @@
         <Russian>Осталось времени</Russian>
         <Italian>Tempo Restante</Italian>
       </Key>
+	  <Key ID="STR_WF_Tooltips_Backpack">
+        <English>Gear: Backpack Management (Require a backpack).</English>
+        <French>Equipement: Management de Sac à dos (Requiert un sac).</French>
+        <German>Gear: Backpack Management (Require a backpack).</German>
+        <Russian>Gear: Backpack Management (Require a backpack).</Russian>
+        <Italian>Gear: Backpack Management (Require a backpack).</Italian>
+      </Key>
 	  <Key ID="STR_WF_Tooltips_GearClear">
-        <English>Gear: Clear the current loadout</English>
-        <French>Equipement: Effacer l'équipement présent</French>
-        <German>Aktuelle Konfiguration löschen</German>
-        <Russian>Gear: Clear the current loadout</Russian>
-        <Italian>Gear: Clear the current loadout</Italian>
+        <English>Gear: Clear the current loadout.</English>
+        <French>Equipement: Effacer l'équipement présent.</French>
+        <German>Gear: Clear the current loadout.</German>
+        <Russian>Gear: Clear the current loadout.</Russian>
+        <Italian>Gear: Clear the current loadout.</Italian>
       </Key>
 	  <Key ID="STR_WF_Tooltips_GearReload">
         <English>Gear: Reload the previous loadout.</English>
         <French>Equipement: Charger l'équipement précédent.</French>
-        <German>Vorherige Konfiguration laden</German>
-        <Russian>Gear: Reload the previous loadout</Russian>
-        <Italian>Gear: Reload the previous loadout</Italian>
+        <German>Gear: Reload the previous loadout.</German>
+        <Russian>Gear: Reload the previous loadout.</Russian>
+        <Italian>Gear: Reload the previous loadout.</Italian>
       </Key>
       <Key ID="STR_WF_Town_Captured">
         <English>%1 was captured by %2.</English>
@@ -1992,6 +2005,13 @@
         <Russian>Превосходство</Russian>
         <Italian>Supremacy</Italian>
       </Key>
+	  <Key ID="STR_WF_Victory_Towns">
+        <English>Towns</English>
+        <French>Villes</French>
+        <German>Towns</German>
+        <Russian>Towns</Russian>
+        <Italian>Towns</Italian>
+      </Key>
       <Key ID="STR_WF_ViewDistance">
         <English>View Distance: %1</English>
         <French>Distance d'affichage: %1</French>
@@ -2026,6 +2046,18 @@
         <German>%1 ist der Kommandeur.</German>
         <Russian>%1 командует.</Russian>
         <Italian>%1 è il Comandante!</Italian>
+      </Key>
+	  <Key ID="STR_WF_OnlyInVehicles">
+        <English>Only in vehicles</English>
+        <Russian>Только в технике</Russian>
+      </Key>
+	  <Key ID="STR_WF_Gameplay_GroupView">
+        <English>Gameplay: Group View</English>
+        <Russian>Геймплей: Тактический вид</Russian>
+      </Key>
+	  <Key ID="STR_WF_Gameplay_ThirdView">
+        <English>Gameplay: 3th Person view</English>
+        <Russian>Геймплей: Вид от 3-го лица</Russian>
       </Key>
     </Container>
   </Package>

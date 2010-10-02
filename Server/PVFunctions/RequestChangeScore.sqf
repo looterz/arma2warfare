@@ -1,12 +1,12 @@
-Private["_client","_newScore","_playerChanged","_side"];
+Private["_oldScore","_newScore","_playerChanged"];
 
-_side = _this select 0;
-_client = _this select 1;
-_playerChanged = _this select 2;
-_newScore = _this select 3;
+_playerChanged = _this select 0;
+_newScore = _this select 1;
 
 _oldScore = score _playerChanged;
 _playerChanged addScore -_oldScore;
 _playerChanged addScore _newScore;
 
-[CMDCHANGESCORE,_playerChanged,_newScore] Spawn CommandToClients;
+WFBE_ChangeScore = [nil,'CLTFNCCHANGESCORE',[_playerChanged,_newScore]];
+publicVariable 'WFBE_ChangeScore';
+if !(isMultiplayer) then {[nil,'CLTFNCCHANGESCORE',[_playerChanged,_newScore]] Spawn HandlePVF};

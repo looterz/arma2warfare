@@ -12,7 +12,7 @@ link2[] = {1,4};
 link3[] = {3,1};
 link4[] = {4,2};
 globals[] = {0.000000,0,0,0,0,640,480,1,26,6316128,1,-317.581665,500.648590,347.741577,-554.233704,596,657,1};
-window[] = {0,-1,-1,-1,-1,802,25,1285,25,1,614};
+window[] = {0,-1,-1,-1,-1,877,100,1360,100,1,614};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -37,7 +37,6 @@ class FSM
        "_spr = 'WFBE_SERVICEPOINTRANGE' Call GetNamespace;" \n
        "_tpr = 'WFBE_TOWNBUILDPROTECTIONRANGE' Call GetNamespace;" \n
        "_tcr = 'WFBE_TOWNCAPTURERANGE' Call GetNamespace;" \n
-	   "_tdr = 'WFBE_DEFENSEMANRANGE' Call GetNamespace;" \n
        "" \n
        "hqInRange = false;" \n
        "barracksInRange = false;" \n
@@ -48,14 +47,13 @@ class FSM
        "serviceInRange = false;" \n
        "commandInRange = false;" \n
        "depotInRange = false;" \n
-	   "townDefenceRange = false;" \n
        "antiAirRadarInRange = false;" \n
        "hangarInRange = false;" \n
        "_fastTravel = false;" \n
        "" \n
        "_commandCenter = objNull;" \n
        "" \n
-       "_typeRepair = Format['WFBE_%1REPAIRTRUCK',sideJoinedText] Call GetNamespace;" \n
+       "_typeRepair = Format['WFBE_%1REPAIRTRUCKS',sideJoinedText] Call GetNamespace;" \n
        "" \n
        "_sideBuildings = Format [""%1BaseStructures"",sideJoinedText];" \n
        "_sideDeployed = Format [""%1MHQDeployed"",sideJoinedText];" \n
@@ -115,7 +113,7 @@ class FSM
        "_nearTown = [player,towns] Call SortByDistance;" \n
        "_closest = _nearTown select 0;" \n
        "" \n
-       "if (!isNull(commanderTeam) && highcommand) then {" \n
+       "if (!isNull(commanderTeam) && paramHighCommand) then {" \n
        "	if (commanderTeam == group player) then {" \n
        "		{if !(isNil '_x') then {if !(_x in (hcAllGroups player)) then {player HCSetGroup [_x]}}} forEach clientTeams;" \n
        "	};" \n
@@ -147,16 +145,16 @@ class FSM
        "barracksInRange = (['BARRACKSTYPE',_buildings,_purchaseRange,sideJoined,player] Call BuildingInRange) select 1;" \n
        "gearInRange = (['BARRACKSTYPE',_buildings,_pgr,sideJoined,player] Call BuildingInRange) select 1;" \n
        "if !(gearInRange) then {" \n
-	   "	_nObjects = nearestObjects [player, WFCAMP, 5];" \n
-	   "	_nObject = if (count _nObjects > 0) then {_nObjects select 0} else {objNull};" \n
+       "	_nObjects = nearestObjects [player, WFCAMP, 5];" \n
+       "	_nObject = if (count _nObjects > 0) then {_nObjects select 0} else {objNull};" \n
        "	if !(isNull _nObject) then {" \n
        "		_sideID = _nObject getVariable ""sideID"";" \n
-	   "		if !(isNil '_sideID') then {" \n
-	   "			if (!gearInRange && sideID == _sideID) then {" \n
-	   "				gearInRange = true;" \n
-	   "			} else {" \n
-	   "				gearInRange = false;" \n
-	   "			};" \n
+       "		if !(isNil '_sideID') then {" \n
+       "			if (!gearInRange && sideID == _sideID) then {" \n
+       "				gearInRange = true;" \n
+       "			} else {" \n
+       "				gearInRange = false;" \n
+       "			};" \n
        "		};" \n
        "	};" \n
        "};" \n
@@ -171,39 +169,27 @@ class FSM
        "	if (count _checks > 0) then {serviceInRange = true};" \n
        "};" \n
        "" \n
-       "if (AARadar) then {" \n
+       "if (paramAARadar) then {" \n
        "	_checks = [sideJoined, Format [""WFBE_%1AARADARTYPE"",sideJoinedText] Call GetNamespace,_buildings] Call GetFactories;" \n
        "	if (count _checks > 0) then {antiAirRadarInRange = true} else {antiAirRadarInRange = false};" \n
        "};" \n
        "" \n
        "//--- Town Depot." \n
-	   "_nObjects = nearestObjects [player, WFDEPOT,('WFBE_TOWNPURCHASERANGE' Call GetNamespace)];" \n
-	   "_nObject = if (count _nObjects > 0) then {_nObjects select 0} else {objNull};" \n
+       "_nObjects = nearestObjects [player, WFDEPOT,('WFBE_TOWNPURCHASERANGE' Call GetNamespace)];" \n
+       "_nObject = if (count _nObjects > 0) then {_nObjects select 0} else {objNull};" \n
        "if (!isNull _nObject) then {" \n
        "	_sideID = _nObject getVariable ""sideID"";" \n
        "	if !(isNil ""_sideID"") then {" \n
        "		if (_sideID == sideID) then {if (player distance _nObject < _tcr) then {serviceInRange = true;depotInRange = true} else {depotInRange = false}};" \n
        "	};" \n
-       "} else {depotInRange = false; };" \n
-       "" \n
-       "//--- Town Depot Build Static Defences" \n
-	   "_nObjects = nearestObjects [player, WFDEPOT,('WFBE_DEFENSEMANRANGE' Call GetNamespace)];" \n
-	   "_nObject = if (count _nObjects > 0) then {_nObjects select 0} else {objNull};" \n
-	   "_townDefenceRange = false;"\n
-       "if (!isNull _nObject) then {" \n
-       "	_sideID = _nObject getVariable ""sideID"";" \n
-       "	if !(isNil ""_sideID"") then {" \n
-	   "		if (_sideID == sideID) then {if (player distance _nObject < _tdr) then {_townDefenceRange = true; }};" \n
-       "	};" \n
-       "};" \n
-	   "townDefenceRange = _townDefenceRange;" \n
+       "} else {depotInRange = false};" \n
        "" \n
        "_checks = ['COMMANDCENTERTYPE',_buildings,_ccr,sideJoined,player] Call BuildingInRange;" \n
        "_commandCenter = _checks select 0;" \n
        "commandInRange = _checks select 1;" \n
        "" \n
        "//--- Airport." \n
-       "if (hangars) then {" \n
+       "if (paramHangars) then {" \n
        "	_sorted = [player,Airfields] Call SortByDistance;" \n
        "	if (count _sorted > 0) then {" \n
        "		if ((_sorted select 0) distance player < _pura && alive(_sorted select 0)) then {hangarInRange = true} else {hangarInRange = false};" \n
@@ -211,7 +197,7 @@ class FSM
        "};" \n
        "" \n
        "//--- Fast Travel." \n
-       "if (fastTravel && commandInRange) then {" \n
+       "if (paramFastTravel && commandInRange) then {" \n
        "	_fastTravel = false;" \n
        "	_isDeployed = WF_Logic getVariable _sideDeployed;" \n
        "	if (player distance _base < _ftr && alive _base && _isDeployed) then {_fastTravel = true} else {" \n

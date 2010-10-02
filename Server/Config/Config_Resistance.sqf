@@ -134,8 +134,6 @@ if (WF_A2_Vanilla || _resType == 0) then {
 	_u = _u + ["T72_GUE"];
 	_u = _u + ["T72_GUE"];
 	[Format["WFBE_RES%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
-
-	resistanceTeamTypes = _n;
 };
 
 if (WF_A2_Arrowhead || _resType == 1) then {
@@ -155,7 +153,7 @@ if (WF_A2_Arrowhead || _resType == 1) then {
 	_u = _u + ["TK_GUE_Soldier_AT_EP1"];
 	_u = _u + ["TK_GUE_Soldier_AR_EP1"];
 	_u = _u + ["TK_GUE_Soldier_MG_EP1"];
-	_u = _u + ["TK_GUE_Soldier_AT_EP1"];
+	_u = _u + ["TK_GUE_Soldier_HAT_EP1"];
 	_u = _u + ["TK_GUE_Soldier_5_EP1"];
 	_u = _u + ["TK_GUE_Bonesetter_EP1"];
 	[Format["WFBE_RES%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
@@ -179,7 +177,7 @@ if (WF_A2_Arrowhead || _resType == 1) then {
 	_u		= ["TK_GUE_Soldier_EP1"];
 	_u = _u + ["TK_GUE_Soldier_AR_EP1"];
 	_u = _u + ["TK_GUE_Soldier_4_EP1"];
-	_u = _u + ["TK_GUE_Soldier_5_EP1"];
+	_u = _u + ["TK_GUE_Soldier_HAT_EP1"];
 	[Format["WFBE_RES%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
 
 	_n = _n + ["ATTeam"];
@@ -217,6 +215,7 @@ if (WF_A2_Arrowhead || _resType == 1) then {
 	_u = _u + ["TK_GUE_Soldier_MG_EP1"];
 	_u = _u + ["TK_GUE_Soldier_5_EP1"];
 	_u = _u + ["TK_GUE_Soldier_Sniper_EP1"];
+	_u = _u + ["TK_GUE_Soldier_HAT_EP1"];
 	_u = _u + ["TK_GUE_Soldier_AR_EP1"];
 	_u = _u + ["TK_GUE_Bonesetter_EP1"];
 	[Format["WFBE_RES%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
@@ -229,7 +228,7 @@ if (WF_A2_Arrowhead || _resType == 1) then {
 	_u = _u + ["TK_GUE_Soldier_EP1"];
 	_u = _u + ["TK_GUE_Soldier_AR_EP1"];
 	_u = _u + ["TK_GUE_Soldier_MG_EP1"];
-	_u = _u + ["TK_GUE_Soldier_AT_EP1"];
+	_u = _u + ["TK_GUE_Soldier_HAT_EP1"];
 	_u = _u + ["TK_GUE_Bonesetter_EP1"];
 	[Format["WFBE_RES%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
 
@@ -255,7 +254,7 @@ if (WF_A2_Arrowhead || _resType == 1) then {
 	_u = _u + ["BTR40_MG_TK_GUE_EP1"];
 	_u = _u + ["TK_GUE_Soldier_MG_EP1"];
 	_u = _u + ["TK_GUE_Soldier_4_EP1"];
-	_u = _u + ["TK_GUE_Soldier_5_EP1"];
+	_u = _u + ["TK_GUE_Soldier_HAT_EP1"];
 	_u = _u + ["TK_GUE_Soldier_AR_EP1"];
 	_u = _u + ["TK_GUE_Soldier_Sniper_EP1"];
 	_u = _u + ["TK_GUE_Soldier_AT_EP1"];
@@ -272,6 +271,6 @@ if (WF_A2_Arrowhead || _resType == 1) then {
 	_u = _u + ["T55_TK_GUE_EP1"];
 	_u = _u + ["T55_TK_GUE_EP1"];
 	[Format["WFBE_RES%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
-
-	resistanceTeamTypes = _n;
 };
+
+diag_log "[WFBE (INIT)] Config_Resistance: Intialization - [Done]";

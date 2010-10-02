@@ -76,7 +76,7 @@ lbAdd[14025,"Default"];
 	if (typeName _x == "OBJECT") then {
 		_nearest = [_x,towns] Call SortByDistance;
 		_nearTown = (_nearest select 0) getVariable 'name';
-		_type = getText (configFile >> "CfgVehicles" >> typeOf _x >> "displayName");
+		_type = [typeOf _x, 'displayName'] Call GetConfigInfo;
 		_lbl = _type + ' ' + _nearTown + ' ' + str (round(player distance _x)) + 'M';
 		_structuresLbl = _structuresLbl + [_lbl];
 		lbAdd[14025,_lbl];
@@ -115,8 +115,8 @@ _fillList = {
 			};
 		};
 		
-		lnbAddRow [_listBox,[str(round(((getDammage _unit)*-100)+100)) + "%",_extra+"("+getText (configFile >> "CfgVehicles" >> typeOf _unit >> "displayName")+") "+name _x]];
-		_pic = if (_isVehicle) then {getText (configFile >> "CfgVehicles" >> typeOf _unit >> "picture")} else {getText (configFile >> "CfgVehicles" >> typeOf _unit >> "portrait")};
+		lnbAddRow [_listBox,[str(round(((getDammage _unit)*-100)+100)) + "%",_extra+"("+([typeOf _unit, 'displayName'] Call GetConfigInfo)+") "+name _x]];
+		_pic = if (_isVehicle) then {[typeOf _unit, 'picture'] Call GetConfigInfo} else {[typeOf _unit, 'portrait'] Call GetConfigInfo};
 		lnbSetPicture [_listBox,[_i,1],_pic];
 
 		if (count _color > 0) then {
@@ -139,8 +139,8 @@ while {alive player && dialog} do {
 	if (MenuAction == 603) then {if (_mode != 2) then {_updateTab = true};_mode = 2};//--- Task.
 	
 	_curSel = lbCurSel 14012;
-	_isAll = if (_curSel ==0) then {true} else {false};
-	_team = if (!_isAll) then {clientTeams select (_curSel - 1)} else {clientTeams select (_curSel + 1)};
+	_isAll = if (_curSel == 0) then {true} else {false};
+	_team = if !(_isAll) then {clientTeams select (_curSel - 1)} else {clientTeams select (_curSel + 1)};
 	
 	if (_updateTab) then {
 		switch (_mode) do {
@@ -175,9 +175,9 @@ while {alive player && dialog} do {
 				ctrlSetText[14030,localize "STR_WF_TeamsDetails"];
 				_detailGroup = if (!_isAll) then {(units(clientTeams select (_curSel - 1))) Call GetLiveUnits} else {[]};
 				[_detailGroup,14041] Call _fillList;
-				_enable = if !(isPlayer leader (clientTeams select (_curSel - 1))) then {true} else {false};
+				_enable = if !(isPlayer leader _team) then {true} else {false};
 				ctrlEnable [14043,_enable];
-				_enable = if !(isPlayer (vehicle leader (clientTeams select (_curSel - 1))) && vehicle leader (clientTeams select (_curSel - 1)) != leader (clientTeams select (_curSel - 1))) then {true} else {false};
+				_enable = if !(isPlayer (vehicle leader _team) && vehicle leader _team != leader _team) then {true} else {false};
 				ctrlEnable [14042,_enable];
 			};
 		};
@@ -234,9 +234,9 @@ while {alive player && dialog} do {
 			_updateRespawn = true;
 		};
 		if (_mode == 2) then {
-			_detailGroup = if (!_isAll) then {(units(clientTeams select (_curSel - 1))) Call GetLiveUnits} else {[]};
+			_detailGroup = if !(_isAll) then {(units(clientTeams select (_curSel - 1))) Call GetLiveUnits} else {[]};
 			[_detailGroup,14041] Call _fillList;
-			_enable = if !(isPlayer leader (clientTeams select (_curSel - 1))) then {true} else {false};
+			_enable = if !(isPlayer leader _team) then {true} else {false};
 			ctrlEnable [14043,_enable];
 		};
 	};
@@ -330,11 +330,17 @@ while {alive player && dialog} do {
 				player kbTell [sideHQ, (sideHQ getVariable "_topic_identity"), "OrderSent",["1","",(_radioLabel select _curSel),[(_radio select _curSel)]],["2","","one",["one2"]],["3","","moving to position",["HC_MovingToPosition"]],["4","","over.",["Over1"]],true];
 				if (alive (leader _team)) then {
 					_id = (leader _team) Call GetClientID;
-					[sideJoined,_id,CMDSETTASK,[_taskType,_taskTime,_taskTimeLabel,_position]] Spawn CommandToClient;
+					if (_id != clientID) then {
+						WFBE_SetTask = [[_id,sideJoined],'CLTFNCSETTASK',[_taskType,_taskTime,_taskTimeLabel,_position]];
+						publicVariable 'WFBE_SetTask';
+						if !(isMultiplayer) then {[[_id,sideJoined],'CLTFNCSETTASK',[_taskType,_taskTime,_taskTimeLabel,_position]] Spawn HandlePVF};
+					};
 				};
 			} else {
 				player kbTell [sideHQ, (sideHQ getVariable "_topic_identity"), "OrderSentAll",["1","",(_radioLabel select 0),[(_radio select 0)]],["2","","moving to position",["HC_MovingToPosition"]],["3","","over.",["Over1"]],true];
-				[sideJoined,CMDSETTASK,[_taskType,_taskTime,_taskTimeLabel,_position]] Spawn CommandToSide;
+				WFBE_SetTask = [sideJoined,'CLTFNCSETTASK',[_taskType,_taskTime,_taskTimeLabel,_position]];
+				publicVariable 'WFBE_SetTask';
+				if !(isMultiplayer) then {[sideJoined,'CLTFNCSETTASK',[_taskType,_taskTime,_taskTimeLabel,_position]] Spawn HandlePVF};
 			};
 		};
 	};
@@ -346,7 +352,7 @@ while {alive player && dialog} do {
 			Private ["_team"];
 			_team = _this select 0;
 			_units = Units _team;
-			if (mobileRespawn || campRespawn) then {//--- Make sure that the unit won't spawn back at a camp/ambu.
+			if (paramMobileRespawn || paramCampRespawn) then {//--- Make sure that the unit won't spawn back at a camp/ambu.
 				[_team,"forceRespawn"] Call SetTeamRespawn;
 				sleep 2;
 			};
@@ -397,12 +403,12 @@ while {alive player && dialog} do {
 		_formation = _formations select (lbCurSel(14019));
 		_speed = _speeds select (lbCurSel(14020));
 		
-		//--- Send it to the server since client cannot set those online.
-		if (!_isAll) then {
-			[CMDREQUESTTEAMUPDATE,[_behavior,_combat,_formation,_speed],_team] Spawn CommandToServer;
-		} else {
-			[CMDREQUESTTEAMUPDATE,[_behavior,_combat,_formation,_speed],sideJoined] Spawn CommandToServer;
-		};
+		//--- Locality, process on server.
+		_to = if !(_isAll) then {_team} else {sideJoined};
+		
+		WFBE_RequestTeamUpdate = ['SRVFNCREQUESTTEAMUPDATE',[_to,_behavior,_combat,_formation,_speed]];
+		publicVariable 'WFBE_RequestTeamUpdate';
+		if !(isMultiplayer) then {['SRVFNCREQUESTTEAMUPDATE',[_to,_behavior,_combat,_formation,_speed]] Spawn HandleSPVF};
 	};	
 	
 	//--- Set respawn.
