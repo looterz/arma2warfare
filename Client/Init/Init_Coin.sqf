@@ -1,4 +1,4 @@
-Private ["_area","_coin","_d","_extra","_isHQdeployed"];
+Private ["_area","_coin","_extra","_isHQdeployed"];
 _area = _this select 0;
 _isHQdeployed = _this select 1;
 _coin = _this select 2;
@@ -11,11 +11,15 @@ if (_extra == "") then {_coin setVariable ["BIS_COIN_funds",[WF_Logic getVariabl
 
 _defenses = [];
 _defenseCosts = [];
+_defenseImages = [];
+_defenseHeights = [];
 _defenseDescriptions = [];
 _defenseCategories = [];
 
 _structures = [(Format["WFBE_%1STRUCTURENAMES",sideJoinedText] Call GetNamespace) select 0];
 _structureCosts = [(Format["WFBE_%1STRUCTURECOSTS",sideJoinedText] Call GetNamespace) select 0];
+_structureImages = [(Format["WFBE_%1STRUCTUREIMAGES",sideJoinedText] Call GetNamespace) select 0];
+_structureHeights = [(Format["WFBE_%1STRUCTUREHEIGHTS",sideJoinedText] Call GetNamespace) select 0];
 _structureDescriptions = [(Format["WFBE_%1STRUCTUREDESCRIPTIONS",sideJoinedText] Call GetNamespace) select 0];
 
 _i = 0;
@@ -30,24 +34,25 @@ if (_extra == "REPAIR") then {_updateDefenses = true; _emptyStructures = true;_c
 if (_updateStructures) then {
 	_structures = Format["WFBE_%1STRUCTURENAMES",sideJoinedText] Call GetNamespace;
 	_structureCosts = Format["WFBE_%1STRUCTURECOSTS",sideJoinedText] Call GetNamespace;
+	_structureImages = Format["WFBE_%1STRUCTUREIMAGES",sideJoinedText] Call GetNamespace;
+	_structureHeights = Format["WFBE_%1STRUCTUREHEIGHTS",sideJoinedText] Call GetNamespace;
 	_structureDescriptions = Format["WFBE_%1STRUCTUREDESCRIPTIONS",sideJoinedText] Call GetNamespace;
 };
 
 if (_updateDefenses) then {
 	_defenses = Format["WFBE_%1DEFENSENAMES",sideJoinedText] Call GetNamespace;
-	{
-		_d = _x Call GetNamespace;
-		if !(isNil '_d') then {
-			_defenseCosts = _defenseCosts + [(_d select QUERYUNITPRICE)];
-			_defenseDescriptions = _defenseDescriptions + [(_d select QUERYUNITLABEL)];
-			_defenseCategories = _defenseCategories + [(_d select QUERYUNITFACTORY)];
-		};
-	} forEach _defenses;
+	_defenseCosts = Format["WFBE_%1DEFENSECOSTS",sideJoinedText] Call GetNamespace;
+	_defenseImages = Format["WFBE_%1DEFENSEIMAGES",sideJoinedText] Call GetNamespace;
+	_defenseHeights = Format["WFBE_%1DEFENSEHEIGHTS",sideJoinedText] Call GetNamespace;
+	_defenseDescriptions = Format["WFBE_%1DEFENSEDESCRIPTIONS",sideJoinedText] Call GetNamespace;
+	_defenseCategories = Format["WFBE_%1DEFENSECATEGORIES",sideJoinedText] Call GetNamespace;
 };
 
 if (_emptyStructures) then {
 	_structures = [];
 	_structureCosts = [];
+	_structureImages = [];
+	_structureHeights = [];
 	_structureDescriptions = [];
 };
 
