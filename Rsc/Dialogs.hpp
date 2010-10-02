@@ -1654,6 +1654,17 @@ class RscArtilleryMenu {
 			text = $STR_WF_Paradrop_Ammo;
 			action = "MenuAction = 10";
 		};
+
+		class CA_BuySellSuppliesButton: RscIGUIShortcutButton {
+			idc = 17017;
+			x = 0.36;
+			y = 0.665;
+			w = 0.40;
+			text = $STR_WF_BuySellSupply;
+			action = "MenuAction = 100";
+		};
+
+
 		//--- Separators.
 		class LineTRH1 : RscText {
 			x = 0.04;
@@ -2565,3 +2576,109 @@ class RscDisplayEASA {
 		};
 	};
 };
+
+//--- Supply Exchange Dialog
+class RscSupplyExchange {
+	movingEnable = 1;
+	idd = 18000;
+	onLoad = "_this ExecVM ""Client\GUI\GUI_SupplyExchangeMenu.sqf""";
+	
+	class controlsBackground {
+		class Mainback : RscPicture {
+			x = 0.185;
+			y = 0.17;
+			w = 1.2549;
+			h = 0.836601;
+			moving = 1;
+			text = "\ca\ui\data\ui_difficulty_background_ca.paa";
+		};
+	};
+	
+	class CA_Label: RscText {
+		colorText[] = subcolor1;
+		SizeEx = 0.03;
+	};	
+	
+	class controls {
+
+		class CA_Header: RscText {
+			idc = 17001;
+			text = $STR_WF_BuySellSupply;
+			x = 0.2;
+			w = 0.4;
+			y = 0.205;
+		};	
+		
+		class CA_CloseButton : RscShortcutButton {
+			idc = 17999;
+			shortcuts[] = {0x00050000 + 1};
+			default = 0;
+			x = 0.706;
+			y = 0.7625;
+			text = $STR_DISP_CLOSE;
+			action = "closeDialog 0";
+		};		
+		
+		class CA_SellRate_Label: CA_Label {
+			idc = 17002;
+			text = $STR_WF_SellSupplyExchangeRate;
+			x = 0.21;
+			y = 0.66;
+			w = 0.40;
+		};	
+
+		class CA_BuyRate_Label: CA_Label {
+			idc = 17003;
+			text = $STR_WF_BuySupplyExchangeRate;
+			x = 0.21;
+			y = 0.70;
+			w = 0.40;
+		};
+		
+		class CA_BuySellSupplies_Label: CA_Label {
+			idc = 17004;
+			text = $STR_WF_BuySellSupplyStatus;
+			x = 0.21;
+			y = 0.27;
+			w = 0.40;
+		};		
+		
+
+		class CA_BuySellSupplyOperationInfo: CA_Label {
+			idc = 17008;
+			text = $STR_WF_BuySellSupplyOperation;
+			x = 0.21;
+			y = 0.35;
+			w = 0.80;
+		};
+	
+		
+		class CA_SupplyExchange_Slider : RscXSliderH {
+			idc = 17005;
+			x = 0.21;
+			y = 0.40;
+			w = 0.50;
+		};		
+		
+		class BuySupplies: RscIGUIShortcutButton
+		{
+			idc = 17006;
+			x = 0.21;
+			y = 0.44;
+			text = $STR_WF_BuySupplies;
+			action = "MenuAction = 1";
+		};
+
+		class SellSupplies: RscIGUIShortcutButton
+		{
+			idc = 17007;
+			x = 0.44;
+			y = 0.44;
+			text = $STR_WF_SellSupplies;
+			action = "MenuAction = 2";
+		};	
+
+		
+	}	
+}
+

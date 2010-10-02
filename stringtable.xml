@@ -2059,6 +2059,80 @@
         <English>Gameplay: 3th Person view</English>
         <Russian>Геймплей: Вид от 3-го лица</Russian>
       </Key>
+	  
+	  <Key ID="STR_WF_BuySellSupply">
+        <English>Buy/Sell Supplies</English>
+        <French>Buy/Sell Supplies</French>
+        <German>Buy/Sell Supplies</German>
+        <Russian>Продажа/покупка снабжения</Russian>
+        <Italian>Buy/Sell Supplies</Italian>
+      </Key>
+
+      <Key ID="STR_WF_BuySellSupplyInform">
+        <English>Operation is possible only in the central bunker occupied town</English>
+        <French>Operation is possible only in the central bunker occupied town</French>
+        <German>Operation is possible only in the central bunker occupied town</German>
+        <Russian>Операция возможна только в центральном бункере захваченного города</Russian>
+        <Italian>Operation is possible only in the central bunker occupied town</Italian>
+      </Key>
+	  
+	  STR_WF_BuySellSupplyInform
+	
+      <Key ID="STR_WF_BuySellSupplyStatus">
+        <English>Account: %1$ Supply: %2 SV</English>
+        <French>Account: %1$ Supply: %2 SV</French>
+        <German>Account: %1$ Supply: %2 SV</German>
+        <Russian>Наличные: %1$ Снабжение: %2 SV</Russian>
+        <Italian>Account: %1$ Supply: %2 SV</Italian>
+      </Key>	  
+	  
+      <Key ID="STR_WF_SellSupplyExchangeRate">
+        <English>Sell Rate: %1$/SV</English>
+        <French>Sell Rate: %1$/SV</French>
+        <German>Sell Rate: %1$/SV</German>
+        <Russian>Курс продажи: %1$/SV</Russian>
+        <Italian>Sell Rate: %1$/SV</Italian>
+      </Key>		  
+
+      <Key ID="STR_WF_BuySupplyExchangeRate">
+        <English>Buy Rate: %1$/SV</English>
+        <French>Buy Rate: %1$/SV</French>
+        <German>Buy Rate: %1$/SV</German>
+        <Russian>Курс покупки: %1$/SV</Russian>
+        <Italian>Buy Rate: %1$/SV</Italian>
+      </Key>		  
+
+      <Key ID="STR_WF_BuySupplyOperation">
+        <English>Buy %1 SV for %2$</English>
+        <French>Buy %1 SV for %2$</French>
+        <German>Buy %1 SV for %2$</German>
+        <Russian>Купить %1 SV за %2$</Russian>
+        <Italian>Buy %1 SV for %2$</Italian>
+      </Key>
+
+      <Key ID="STR_WF_SellSupplyOperation">
+        <English>Sell %1 SV for %2$</English>
+        <French>Sell %1 SV for %2$</French>
+        <German>Sell %1 SV for %2$</German>
+        <Russian>Продать %1 SV за %2$</Russian>
+        <Italian>Sell %1 SV for %2$</Italian>
+      </Key>
+
+      <Key ID="STR_WF_BuySupplies">
+        <English>Buy</English>
+        <French>Buy</French>
+        <German>Buy</German>
+        <Russian>Купить</Russian>
+        <Italian>Buy</Italian>
+      </Key>
+
+      <Key ID="STR_WF_SellSupplies">
+        <English>Sell</English>
+        <French>Sell</French>
+        <German>Sell Supplies</German>
+        <Russian>Продать</Russian>
+        <Italian>Sell</Italian>
+      </Key>
     </Container>
   </Package>
 </Project>

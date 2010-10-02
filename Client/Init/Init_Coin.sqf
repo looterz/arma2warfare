@@ -64,6 +64,7 @@ for [{_i=_i}, {_i<count _structures}, {_i = _i+1}] do {
 
 _i = 0;
 _fix = 1;
+
 if (_extra == "REPAIR") then {_coinItemArray = [];_indexCategory=0;_fix = 0};
 {
 	_curId = _indexCategory;
@@ -72,7 +73,18 @@ if (_extra == "REPAIR") then {_coinItemArray = [];_indexCategory=0;_fix = 0};
 		case "Strategic": {_curId = _indexCategory + 2};
 		case "Ammo": {_curId = _indexCategory + 3};
 	};
-  _coinItemArray = _coinItemArray + [[_x,_curId,[_fix, _defenseCosts select _i], _defenseDescriptions select _i]];   
+	
+   _price = _defenseCosts select _i;
+	if (!(isNil "townDefenceRange")) then {
+		if (townDefenceRange) then {
+			_price = (ceil(_price * 0.25 /10))*10;							
+			if (_price < 10) then {
+				_price = 10;
+			};
+		};	
+	};	   
+   
+  _coinItemArray = _coinItemArray + [[_x,_curId,[_fix, _price], _defenseDescriptions select _i]];   
   _i=_i+1;  
 } forEach _defenses;
 

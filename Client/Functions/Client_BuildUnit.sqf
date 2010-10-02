@@ -1,7 +1,9 @@
-Private ["_building","_built","_cpt","_commander","_crew","_currentUnit","_description","_direction","_distance","_driver","_factoryType","_group","_gunner","_index","_isMan","_locked","_longest","_position","_queu","_queu2","_ret","_soldier","_waitTime","_type","_unique","_unit","_vehi","_vehicle","_vehicles"];
-_building = _this select 0;
-_unit = _this select 1;
-_vehi = _this select 2;
+Private ["_factoryType", "_building","_built","_cpt","_commander","_crew","_currentUnit","_description","_direction","_distance","_driver","_factoryType","_group","_gunner","_index","_isMan","_locked","_longest","_position","_queu","_queu2","_ret","_soldier","_waitTime","_type","_unique","_unit","_vehi","_vehicle","_vehicles"];
+
+_factoryType = _this select 0;
+_building = _this select 1;
+_unit = _this select 2;
+_vehi = _this select 3;
 
 _cpt = 0;
 _isMan = false;
@@ -23,15 +25,14 @@ _direction = 0;
 _longest = 0;
 _position = 0;
 _waitTime = 0;
-_factoryType = "";
 _description = "";
 
 _type = typeOf _building;
+
 _index = (Format ["WFBE_%1STRUCTURENAMES",sideJoinedText] Call GetNamespace) find _type;
 if (_index != -1) then {
 	_distance = (Format ["WFBE_%1STRUCTUREDISTANCES",sideJoinedText] Call GetNamespace) select _index;
 	_direction = (Format ["WFBE_%1STRUCTUREDIRECTIONS",sideJoinedText] Call GetNamespace) select _index;
-	_factoryType = (Format ["WFBE_%1STRUCTURES",sideJoinedText] Call GetNamespace) select _index;
 	_currentUnit = _unit Call GetNamespace;
 	_waitTime = _currentUnit select QUERYUNITTIME;
 	_description = _currentUnit select QUERYUNITLABEL;
@@ -40,13 +41,11 @@ if (_index != -1) then {
 } else {
 	if (_type in WFDEPOT) then {
 		_distance = depotDistance;
-		_direction = depotDirection;
-		_factoryType = "Depot";
+		_direction = depotDirection;;
 	};
 	if (_type in WFHANGAR) then {
 		_distance = airportDistance;
 		_direction = airportDirection;
-		_factoryType = "Airport";
 	};
 	_currentUnit = _unit Call GetNamespace;
 	_waitTime = _currentUnit select QUERYUNITTIME;

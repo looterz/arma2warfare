@@ -219,6 +219,14 @@ BIS_CONTROL_CAM_Handler = {
 						_get = _closestType Call GetNamespace;
 						if !(isNil '_get') then {
 							_price = _get select QUERYUNITPRICE;
+							if (!(isNil "townDefenceRange")) then {
+								if (townDefenceRange) then {
+									_price = (ceil(_price * 0.25 /10))*10;							
+									if (_price < 10) then {
+										_price = 10;
+									};		
+								};	
+							};	   
 							(_price/2) Call ChangePlayerFunds;
 							deleteVehicle _closest;
 						};
@@ -324,7 +332,7 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 
 	_mode = "mousemoving";
 	_camera = BIS_CONTROL_CAM;
-  
+	
   	if (isnil "_logic") exitwith {};
 	
 	//--- Player dies on construction mode or the source die.
@@ -384,7 +392,7 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 	};
 	_limitHOld = _limitH;
 	_limitVOld = _limitV;
-
+	
 	_keysCancel		= actionKeys "MenuBack";
 	_keysBanned		= [1];
 
@@ -432,6 +440,9 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 			_itemclass_preview = gettext (configfile >> "CfgVehicles" >> _itemclass >> "ghostpreview");
 			if (_itemclass_preview == "") then {_itemclass_preview = _itemclass};
 
+			_structs = Format["WFBE_%1STRUCTURENAMES",sideJoinedText] Call GetNamespace;  
+			_isBuilding = _itemclass in _structs;
+			
 			//--- Preview building
 			_preview = camtarget BIS_CONTROL_CAM;
 			if (typeof _preview != _itemclass_preview) then {
@@ -563,18 +574,38 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 					call compile format ["_funds = %1",_itemFunds];
 					_fundsRemaining = _funds - _itemcost;
 					if (_fundsRemaining < 0) then {_color = _colorRed};
+					
+					_list = position _preview nearObjects 50;
+					
+					{	
+						if (_color != _colorRed && _x != _preview) then {
+							_positionBuilding = position _x;
+							_sizeBuilding = (sizeof typeof _x)/2.9;
+							_meters = _preview distance _positionBuilding;
+							
+							if (_meters < _sizeBuilding) then 
+							{
+								_color = _colorRed;
+								//hint Format['%1 dist %2 = %3 (%4)', typeof _x, typeof _preview, _meters, _sizeBuilding] ;
+							};						
+						};
+					} forEach _list;
+					
+					if (_color != _colorRed) then { hint ''; };
 
-					//--- No Place To Build
-					_isFlat = (position _preview) isflatempty [
-						(sizeof typeof _preview) / 4,	//--- Minimal distance from another object
-						0,				//--- If 0, just check position. If >0, select new one
-						0.7,				//--- Max gradient
-						(sizeof typeof _preview),	//--- Gradient area
-						0,				//--- 0 for restricted water, 2 for required water,
-						false,				//--- True if some water can be in 25m radius
-						_preview			//--- Ignored object
+					if (_isBuilding) then {
+ 						//--- No Place To Build
+						_isFlat = (position _preview) isflatempty [
+								(sizeof typeof _preview) / 128,	//--- Minimal distance from another object
+							0,				//--- If 0, just check position. If >0, select new one
+							0.7,				//--- Max gradient
+							(sizeof typeof _preview),	//--- Gradient area
+							0,				//--- 0 for restricted water, 2 for required water,
+							false,				//--- True if some water can be in 25m radius
+							_preview			//--- Ignored object
 					];
-					if (count _isFlat == 0) then {_color = _colorRed};
+					//if (count _isFlat == 0) then {_color = _colorRed};
+					};
 				};
 				_preview setObjectTexture [0,_color];
 				_preview setVariable ["BIS_COIN_color",_color];
@@ -649,7 +680,15 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 						//--- Defense.
 						_get = _class Call GetNamespace;
 						if !(isNil '_get') then {
-							_price = _get select QUERYUNITPRICE;
+							_price = _get select QUERYUNITPRICE;	
+							if (!(isNil "townDefenceRange")) then {
+								if (townDefenceRange) then {
+									_price = (ceil(_price * 0.25 /10))*10;							
+									if (_price < 10) then {
+										_price = 10;
+									};		
+								};	
+							};
 							-_price Call ChangePlayerFunds;
 						};
 					};

@@ -3,7 +3,7 @@
 //--- Client Init.
 if !(isServer) then {waitUntil {!isNull(player)}};
 
-setViewDistance 1000;
+setViewDistance 4000;
 
 commonInitComplete = false;
 serverInitComplete = false;
@@ -79,7 +79,7 @@ paramRespawnMASH = true;
 paramResReinf = false;
 paramOccReinf = false;
 paramPurchaseInfDepot = true;
-paramHandleFF = false;
+paramHandleFF = true;	// --- handle factory fire
 paramBoundaries = true;
 paramBasePatrols = false;
 paramAlice = false;
@@ -89,6 +89,12 @@ paramArtyComputer = true;
 paramBounty = true;
 param3thView = 0;
 paramGroupView = 0;
+baseFrendlyFire = true;
+
+missionNamespace setVariable ['WFBE_EASTSTARTINGMONEY',200000];
+missionNamespace setVariable ['WFBE_WESTSTARTINGMONEY',200000];
+EastSupplies = 100000;
+WestSupplies = 100000;
 
 //--- Special, require a clipboard handler on windows.
 mysql = false;
@@ -144,7 +150,7 @@ if (!isNil "paramsArray") then {
 	missionNamespace setVariable ['WFBE_UNITREMOVEDLAY',(paramsArray select _u)];_u = _u + 1;
 	missionNamespace setVariable ['WFBE_ABANDONVEHICLETIMER', paramsArray select _u];_u = _u + 1;
 	if ((paramsArray select _u) == 0) then {paramFastTravel = false} else {paramFastTravel = true};_u = _u + 1; //--- Fast Travel.
-	if ((paramsArray select _u) == 0) then {paramHandleFF = false} else {paramHandleFF = true};_u = _u + 1; //--- Base Friendly Fire.
+	if ((paramsArray select _u) == 0) then {baseFrendlyFire = false} else {baseFrendlyFire = true};_u = _u + 1; //--- Base Friendly Fire.
 	missionNamespace setVariable ['WFBE_MAXCLUTTERDISTANCE',(paramsArray select _u)];_u = _u + 1;
 	if ((paramsArray select _u) == 0) then {paramKickTeamswappers = false} else {paramKickTeamswappers = true};_u = _u + 1; //--- Kick teamswappers.
 	if ((paramsArray select _u) == 0) then {paramBoundaries = false} else {paramBoundaries = true};_u = _u + 1; //--- Prevent players from going outside of the map, they're killed after x seconds.

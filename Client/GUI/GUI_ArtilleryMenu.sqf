@@ -46,7 +46,8 @@ if (WF_A2_Arrowhead && sideJoined == east) then {
 	{ctrlEnable [_x,false]} forEach [17012,17013];
 };
 
-while {alive player && dialog} do {
+_closeDialog = false;
+while {alive player && dialog && !_closeDialog} do {
 	if (side player != sideJoined) exitWith {deleteMarkerLocal _marker;deleteMarkerLocal _area;{deleteMarkerLocal _x} forEach _markers;closeDialog 0};
 	if (!dialog) exitWith {deleteMarkerLocal _marker;deleteMarkerLocal _area;{deleteMarkerLocal _x} forEach _markers};
 	
@@ -313,6 +314,16 @@ while {alive player && dialog} do {
 		playerUAV setDammage 1;
 		playerUAV = objNull;
 	};
+	
+	if (MenuAction == 100) then {
+
+		MenuAction = -1;
+		closeDialog 0;
+		_closeDialog = true;
+		CreateDialog "RscSupplyExchange";		
+	};
+		
+	
 	
 	_lastRange = artyRange;
 	sleep 0.1;

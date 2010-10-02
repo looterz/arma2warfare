@@ -13,6 +13,19 @@ if (side _origin == sideEnemy) then {
 	_side = side _origin;
 };
 
-if (_sideBuilding == _side) then {_dammages = false};
+if (baseFrendlyFire && (_sideBuilding == _side)) then { _dammages = 0 }; 
+
+if (_dammages > 0) then {
+
+		_totalDamage = _building getVariable '_totalDamage';
+		if (isNil "_totalDamage") then {_totalDamage = 0};
+
+		_totalDamage = _totalDamage + _dammages;
+		_building setVariable ['_totalDamage', _totalDamage, false]; 
+		
+		if (_totalDamage - _dammages <= 5) then { 
+			_dammages = 0;
+		};		
+};
 
 _dammages
