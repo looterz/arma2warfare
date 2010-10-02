@@ -17,7 +17,8 @@ class Mission
 		"cawheeled_w_baf",
 		"catracked_w_baf",
 		"caair_baf",
-		"caweapons_baf"
+		"caweapons_baf",
+		"CAWheeled2_LAV25"
 	};
 	addOnsAuto[]=
 	{
@@ -25,7 +26,7 @@ class Mission
 		"cacharacters2",
 		"ca_modules_functions",
 		"ca_highcommand",
-		"CAWheeled_E_stryker",
+		"CAWheeled2_LAV25",
 		"CAWheeled2_BTR90",
 		"warfarebuildings",
 		"caweapons_warfare_weapons",
