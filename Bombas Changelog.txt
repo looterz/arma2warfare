@@ -15,6 +15,14 @@ BombaS,
 - Increase factories strength to x5 (Saboteurs cant now destroy all base with use 5 SMAW shells, 5 SMAW for one builing is required)
 - Buy tanks, light, and solidirs in central depot of any captured cities
 
+<br/>- More carefull placement items from constuction menu. Now impossible build something inside another building. But can build near with minimal distance.
+<br/>- Added ability to sell and buy supplies in central depot of any captured cities. Exchange rate demand from how much supplies get city.
+<br/>- The possibility to build a static defences in the town for any player. Static defences cost was decreased to 4 times
+<br/>- Increase factories strength to x5 (Saboteurs cant now destroy all base with use 5 SMAW shells, 5 SMAW for one building is required)
+<br/>- Factory after 10 minutes from last attack begins autorepairing. Autorepair completed after 30 minutes from last attack with factory health 100%
+<br/>- When side have factories, any player can buy heavy vehicles, light vehicles or solidiers in central depot of any captured city. Price increased to x3.
+<br/>
+
 Regards,
 BombaS
 
