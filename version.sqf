@@ -4,7 +4,7 @@
 */
 
 /* DEBUG */
-#define WF_DEBUG 1
+//#define WF_DEBUG 1
 
 /* Gameplay: Change the overall camo */
 #define WF_CAMO 1
@@ -16,7 +16,7 @@
 
 /* Description.ext Specific */
 #define WF_MAXPLAYERS 40
-#define WF_MISSIONNAME "Warfare Benny Edition V2.064 Lite CO - Chernarus"
+#define WF_MISSIONNAME "Warfare Benny Edition V2.064 Lite CO Bomba Edition - Chernarus"
 #define WF_RESPAWNDELAY 2
 
 /* MySQL Support */
