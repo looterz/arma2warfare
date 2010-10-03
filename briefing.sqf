@@ -12,7 +12,7 @@ player createDiaryRecord["Diary", ["Bomba What News", "
 <br/>Lvl 3: protection up to x5 (can be destroyed from ~5-6 SMAW shells)
 <br/>- After 10 minutes from last attack factory start autorepair. Autorepair required from 0 to 20 minutes, which demand how much factory was damaged. Repaired factory has 100% health.
 <br/>- Head Hunters:
-<br/>  When the player kills the enemy player, it receives an extra award, which equals 10% of victim cash, thus the victim loses award value. The maximum award value is $5000. Thus if the victim has cash less than $1000 in this case the award isn't paid.
+<br/>  When player kills enemy player, player receives an extra award, which equals 10% of victim cash, thus the victim loses award value. The maximum award value is $5000. But, in case when victim has cash less than $1000 the award isn't paid.
 <br/>  When the player kills frendly player (team kill), player loses 30% his cash, paying refund to a victim. The minimum value of refund is $500.
 "]];
 player createDiaryRecord["Diary", ["Upgrades", "<br/>To be able to purchase higher levels of equipment or units, the factories need to be upgraded by the commander. The commander will need both cash and supply points to do this. He may ask for contributions from other team players to help out. Each factory has 3 levels."]];
