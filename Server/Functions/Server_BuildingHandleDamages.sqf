@@ -38,7 +38,7 @@ if (_dammages > 0) then {
 		};
 		
 		if (_dT > 15 && _dammages > 0.05) then {
-			["IsUnderAttack",TypeOf _building,_side] Spawn SideMessage;
+			["IsUnderAttack",TypeOf _building, _sideBuilding] Spawn SideMessage;
 		};
 
 		_totalDamage = _totalDamage + _dammages;
