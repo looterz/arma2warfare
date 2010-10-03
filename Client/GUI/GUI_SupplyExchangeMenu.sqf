@@ -80,7 +80,7 @@ while {alive player && dialog} do {
 	if (MenuAction == 1) then { // - Buy Action
 		MenuAction = -1;
 		_currentSupply = _currentSupply + _exchangeSupplyAmount;
-		WF_Logic setVariable [Format ["%1Supplies",sideJoinedText], _currentSupply];
+		WF_Logic setVariable [Format ["%1Supplies",sideJoinedText], _currentSupply, true];
 		
 		-_buyMoney Call ChangePlayerFunds;
 	};
@@ -88,7 +88,7 @@ while {alive player && dialog} do {
 	if (MenuAction == 2) then { // - Sell Action
 		MenuAction = -1;
 		_currentSupply = _currentSupply - _exchangeSupplyAmount;
-		WF_Logic setVariable [Format ["%1Supplies",sideJoinedText], _currentSupply];
+		WF_Logic setVariable [Format ["%1Supplies",sideJoinedText], _currentSupply, true];
 		
 		_sellMoney Call ChangePlayerFunds;	
 	};
