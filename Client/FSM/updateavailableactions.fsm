@@ -141,7 +141,7 @@ class FSM
        "};" \n
        "" \n
        "//--- HQ." \n
-       "if !(isNull _base) then {hqInRange = if ((player distance _base < _mhqbr)&&(alive _base)&&(player distance _closest > _tpr)) then {true} else {false}};" \n
+       "if !(isNull _base) then {hqInRange = if ((player distance _base < _mhqbr)&&(alive _base)) then {true} else {false}};" \n
        "" \n
        "" \n
        "barracksInRange = (['BARRACKSTYPE',_buildings,_purchaseRange,sideJoined,player] Call BuildingInRange) select 1;" \n

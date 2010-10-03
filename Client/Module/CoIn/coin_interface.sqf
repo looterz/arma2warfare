@@ -583,29 +583,9 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 							_sizeBuilding = (sizeof typeof _x)/2.9;
 							_meters = _preview distance _positionBuilding;
 							
-							if (_meters < _sizeBuilding) then 
-							{
-								_color = _colorRed;
-								//hint Format['%1 dist %2 = %3 (%4)', typeof _x, typeof _preview, _meters, _sizeBuilding] ;
-							};						
+							if (_meters < _sizeBuilding) then { _color = _colorRed;	};						
 						};
 					} forEach _list;
-					
-					if (_color != _colorRed) then { hint ''; };
-
-					if (_isBuilding) then {
- 						//--- No Place To Build
-						_isFlat = (position _preview) isflatempty [
-								(sizeof typeof _preview) / 128,	//--- Minimal distance from another object
-							0,				//--- If 0, just check position. If >0, select new one
-							0.7,				//--- Max gradient
-							(sizeof typeof _preview),	//--- Gradient area
-							0,				//--- 0 for restricted water, 2 for required water,
-							false,				//--- True if some water can be in 25m radius
-							_preview			//--- Ignored object
-					];
-					//if (count _isFlat == 0) then {_color = _colorRed};
-					};
 				};
 				_preview setObjectTexture [0,_color];
 				_preview setVariable ["BIS_COIN_color",_color];

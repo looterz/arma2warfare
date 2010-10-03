@@ -149,6 +149,10 @@ while {alive player && dialog && !_closeDialog} do {
 	_enable = if (_funds >= 9500 && _currentLevel > 0 && time - lastSupplyCall > _pard) then {true} else {false};
 	ctrlEnable [17018,_enable];
 	
+	_isCommander = false;
+	if (!isNull(commanderTeam)) then {if (commanderTeam == group player) then {_isCommander = true}};
+	ctrlEnable [17100, _isCommander];
+	
 	if (mouseButtonUp == 0) then {
 		mouseButtonUp = -1;
 		//--- Set Artillery Marker on map.
@@ -275,7 +279,42 @@ while {alive player && dialog && !_closeDialog} do {
 		//--- Artillery Status.
 		_fireTime = (Format["WFBE_FIREMISSIONTIMEOUT%1",(_currentUpgrades select 10)] Call GetNamespace);
 		_status = round(_fireTime - (time - fireMissionTime));
-		_txt = if (time - fireMissionTime > _fireTime) then {Format['%1: <br /> %2',localize 'STR_WF_Status',localize 'STR_WF_Available']} else {Format ['%1: <br /> %2 %3',localize 'STR_WF_Status',_status,localize 'STR_WF_Seconds']};
+		
+		_txt = '';
+		if (time - fireMissionTime > _fireTime) then {
+
+			_txt = localize 'STR_WF_Available';
+		
+			_artilleryMarker = GetMarkerPos "artilleryMarker";
+			_units = [Group player,GetPos player,false,lbCurSel(17008)] Call GetTeamArtillery;
+			_countInRange = 0;
+
+			if (count _units == 0) then {
+				_txt = localize 'STR_WF_ArtyNoGuns';
+			} else {
+				{
+					_artillery = _x;
+					_type = artilleryNames Find (typeOf _artillery);
+					_minRange = artilleryMinRanges Select _type;
+					_maxRange = artilleryMaxRanges Select _type;
+					
+					_dist = _artilleryMarker distance _artillery;
+					if ( _minRange <= _dist && _dist <= _maxRange) then { _countInRange = _countInRange + 1; };
+				} forEach _units;
+				
+				if (_countInRange == 0) then { 
+					_txt = localize 'STR_WF_ArtyOutOfRange'; 
+				} else {
+					if (_countInRange <= count _units) then { _txt = Format[localize 'STR_WF_ArtyReadyToFire', _countInRange, count _units] };		
+				};
+			};
+		} else {
+		
+			_txt1 = Format ['%1 %2', _status, localize 'STR_WF_Seconds'];
+		};
+		
+		_txt = Format['%1: %2', localize 'STR_WF_Status', _txt]; 
+		
 		(_display displayCtrl 17016) ctrlSetStructuredText (parseText _txt);
 		_enable = if (_status > 0) then {false} else {true};
 		ctrlEnable [17007,_enable];

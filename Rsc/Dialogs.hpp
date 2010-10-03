@@ -1656,7 +1656,7 @@ class RscArtilleryMenu {
 		};
 
 		class CA_BuySellSuppliesButton: RscIGUIShortcutButton {
-			idc = 17017;
+			idc = 17100;
 			x = 0.36;
 			y = 0.665;
 			w = 0.40;

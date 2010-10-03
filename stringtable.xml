@@ -2133,6 +2133,29 @@
         <Russian>Продать</Russian>
         <Italian>Sell</Italian>
       </Key>
+	  
+      <Key ID="STR_WF_ArtyNoGuns">
+        <English>No Guns</English>
+        <French>No Guns</French>
+        <German>No Guns</German>
+        <Russian>Нет орудий</Russian>
+        <Italian>No Guns</Italian>
+	  </Key>	  
+      <Key ID="STR_WF_ArtyOutOfRange">
+        <English>Target out of range</English>
+        <French>Target out of range</French>
+        <German>Target out of range</German>
+        <Russian>Цель вне зоны поражения</Russian>
+        <Italian>Target out of range</Italian>
+	  </Key>	  
+      <Key ID="STR_WF_ArtyReadyToFire">
+        <English>%1 of %2 can hit target</English>
+        <French>%1 of %2 can hit target</French>
+        <German>%1 of %2 can hit target</German>
+        <Russian>%1 из %2 могут поразить цель</Russian>
+        <Italian>%1 of %2 can hit target</Italian>
+	  </Key>	  	  
+	  
     </Container>
   </Package>
 </Project>

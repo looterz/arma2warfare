@@ -41,13 +41,12 @@ ctrlSetText [17003, Format [localize "STR_WF_BuySupplyExchangeRate",_exchangeRat
 SliderSetRange[17005,0, 150];
 SliderSetPosition[17005, 75];
 
-
-_isCommander = false;
-if (!isNull(commanderTeam)) then {if (commanderTeam == group player) then {_isCommander = true}};
-
 while {alive player && dialog} do {
 
-	if (Side player != sideJoined) exitWith {closeDialog 0};
+	_isCommander = false;
+	if (!isNull(commanderTeam)) then {if (commanderTeam == group player) then {_isCommander = true}};
+
+	if (Side player != sideJoined && !_isCommander) exitWith {closeDialog 0};
 	if (!dialog) exitWith {};
 
 	_currentSupply = WF_Logic getVariable Format ["%1Supplies",sideJoinedText];
@@ -59,8 +58,8 @@ while {alive player && dialog} do {
 	_buyMoney = _exchangeSupplyAmount * _exchangeRateBuy;
 	_sellMoney = _exchangeSupplyAmount * _exchangeRateSell;
 	
-	_canBuy = (_townDepotNear == 1 && _buyMoney <= _currentFunds); 
-	_canSell = (_townDepotNear == 1 && _isCommander && _exchangeSupplyAmount  <= _currentSupply);
+	_canBuy = (_isCommander && _townDepotNear == 1 && _buyMoney <= _currentFunds); 
+	_canSell = (_isCommander && _townDepotNear == 1 && _isCommander && _exchangeSupplyAmount  <= _currentSupply);
 
 	ctrlEnable [17006, _canBuy];
 	ctrlEnable [17007, _canSell];
