@@ -16,7 +16,7 @@
 
 /* Description.ext Specific */
 #define WF_MAXPLAYERS 40
-#define WF_MISSIONNAME "Warfare Benny Edition V2.064 Lite CO Bomba Edition - Chernarus"
+#define WF_MISSIONNAME "Warfare BE V2.064 Lite CO Bomba Edition - Chernarus"
 #define WF_RESPAWNDELAY 2
 
 /* MySQL Support */

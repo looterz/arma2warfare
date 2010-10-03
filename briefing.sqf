@@ -1,11 +1,12 @@
 //--- Author [ICE]
 player createDiaryRecord["Diary", ["Bomba What News", "
 <br/>- More carefull placement items from constuction menu. Now impossible build something inside another building. But can build near with minimal distance.
+<br/>- Players can buy heavy vehicles, light vehicles and solidiers in central depot of any captured town (while factories are alive). Price increased to x3.
+<br/>- Players can build static defences around town, without repair truck. Static defences cost was decreased to 4 times.
 <br/>- Commander can ability to sell and buy supplies in central depot of any captured town. Exchange rate demand from how much supplies get a town.
 <br/>- Commander can build base in a town.
+<br/>  Factory builded in town give discounted prices 10-30% (depended current SV and max SV)
 <br/>- Artillery: Player notified when target out of range or how much arty guns can hit target.
-<br/>- Players can build static defences around town, without repair truck. Static defences cost was decreased to 4 times.
-<br/>- Players can buy heavy vehicles, light vehicles and solidiers in central depot of any captured town (while factories are alive). Price increased to x3.
 <br/>- Upgradable extra factory protection, which demand from barracks upgrade level:
 <br/>Lvl 0 and 1:  default factory protection (can be destroyed from ~1-2 SMAW shells)
 <br/>Lvl 2: protection up to x3 (can be destroyed from ~3-4 SMAW shells)

@@ -94,7 +94,9 @@ _fillList = {
 		};
 		if ((_c select QUERYUNITUPGRADE) <= (_currentUpgrades select _value) && _addin) then {
 		
-			_cost = (_c select QUERYUNITPRICE)*_costCoefficient;		
+			_cost = (ceil((_c select QUERYUNITPRICE)*_costCoefficient / 5))*5;		
+			if (_cost < 5) then { _cost = 5; };
+			
 			lnbAddRow [_listBox,['$'+str (_cost),(_c select QUERYUNITLABEL)]];
 			lnbSetData [_listBox,[_i,0],_filler];
 			lnbSetValue [_listBox,[_i,0],_u];
@@ -146,7 +148,9 @@ while {alive player && dialog} do {
 			_currentCost = _currentCost + (('WFBE_CREWCOST' Call GetNamespace) * _extra);
 		};
 		
-		_currentCost = _currentCost * _costCoefficient;
+		_currentCost = (ceil(_currentCost * _costCoefficient / 5))*5;		
+		if (_currentCost < 5) then { _currentCost = 5; };		
+		
 		
 		if ((_currentRow) != -1) then {
 			_funds = Call GetPlayerFunds;
@@ -209,9 +213,32 @@ while {alive player && dialog} do {
 		if (((typeOf _closest) in WFDEPOT) && (_type != "Depot")) then { 
 			_costCoefficient = 3; 
 		}
-		else {
+		else 
+		{
 			_costCoefficient = 1;
+			if (_type != "Depot") then {
+
+				// -- if factory build in the town - we get differencial discount from 10% to 30% depent how much city get supplies;
+				_depotNearFactory = nearestObjects [_closest, WFDEPOT,0.8*('WFBE_DEFENSEMANRANGE' Call GetNamespace)];
+				_nearTown = if (count _depotNearFactory > 0) then {_depotNearFactory select 0} else {objNull};
+				if (!isNull _nearTown) then {
+				
+					_sideID = _nearTown getVariable "sideID";
+					if !(isNil "_sideID") then {
+					
+						_supplyValue = _nearTown getVariable "supplyValue";
+						_maxSV = _nearTown getVariable "maxSupplyValue";
+					
+						if (_sideID == sideID) then {
+							_discount = 0.1 + 0.2*(_maxSV / 120) * (_supplyValue / _maxSV);
+							_costCoefficient = 1 - _discount;		
+						}
+					};
+				};
+			};
 		};
+		
+		//hint Format["Buy coeff:%1", _costCoefficient];
 		
 		_listUnits = Format ['WFBE_%1%2UNITS',sideJoinedText,_type] Call GetNamespace;
 
@@ -253,17 +280,25 @@ while {alive player && dialog} do {
 				_buildings = WF_Logic getVariable Format ['%1BaseStructures',sideJoinedText];
 				_factories = [sideJoined,Format ['WFBE_%1%2TYPE',sideJoinedText,_type] Call GetNamespace,_buildings] Call GetFactories;
 				_countAlive = count _factories;
-				
+			
+				_sorted = [player,_factories] Call SortByDistance;
+				_closest = _sorted select 0;
+			
 				if (_countAlive > 0 && depotInRange && _type != 'Aircraft') then {
 					
 					_nearDepot = nearestObjects [player, WFDEPOT,('WFBE_TOWNPURCHASERANGE' Call GetNamespace)];
 					if (count _nearDepot > 0) then {
 						
-						_factories = _factories + _nearDepot;
+						_nearDepot = _nearDepot select 0;
+						if (_closest distance _nearDepot >  0.8*('WFBE_DEFENSEMANRANGE' Call GetNamespace)) then {
+						// -- if  town has factory not add buy from central depot
+						
+							_factories = _factories + _nearDepot;
+							_sorted = [player,_factories] Call SortByDistance;
+							_closest = _sorted select 0;						
+						};
 					};
 				};
-				_sorted = [player,_factories] Call SortByDistance;
-				_closest = _sorted select 0;
 			};
 		};
 
@@ -375,7 +410,9 @@ while {alive player && dialog} do {
 				(_display displayCtrl 12022) ctrlSetStructuredText (parseText '');
 			};
 			
-			_currentCost  = _currentCost * _costCoefficient;
+			_currentCost = (ceil(_currentCost * _costCoefficient / 5))*5;		
+			if (_currentCost < 5) then { _currentCost = 5; };				
+			
 			ctrlSetText [12010,Format [localize 'STR_WF_Price',_currentCost]];
 			_updateDetails = false;
 		} else {
