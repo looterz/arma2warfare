@@ -508,5 +508,11 @@ class Params {
 		texts[] = {"None","Divided","Nearby"};
 		default = 0;
 	};
+	class headHunters {
+		title = "$STR_WF_Gameplay_HeadHunters";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 1;
+	};	
 };
 

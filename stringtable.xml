@@ -2156,6 +2156,46 @@
         <Italian>%1 of %2 can hit target</Italian>
 	  </Key>	  	  
 	  
+      <Key ID="STR_WF_Gameplay_HeadHunters">
+        <English>Gameplay: Head Hunters</English>
+        <French>Gameplay: Head Hunters</French>
+        <German>Gameplay: Head Hunters</German>
+        <Russian>Прочее: Охотники за головами</Russian>
+        <Italian>Gameplay: Head Hunters</Italian>
+      </Key>	  
+	  
+      <Key ID="STR_WF_HeadHunterReceiveBounty">
+        <English>You have received bounty $%1 for kill %2</English>
+        <French>You have received bounty $%1 for kill %2</French>
+        <German>You have received bounty $%1 for kill %2</German>
+        <Russian>+$%1 за нейтрализацию %2</Russian>
+        <Italian>You have received bounty $%1 for kill %2</Italian>
+      </Key>	
+
+      <Key ID="STR_WF_HeadHunterSendBounty">
+        <English>You lost $%1 because was killed by %2</English>
+        <French>You lost $%1 because was killed by %2</French>
+        <German>You lost $%1 because was killed by %2</German>
+        <Russian>-$%1 за гибель от %2</Russian>
+        <Italian>You lost $%1 because was killed by %2</Italian>
+      </Key>	  
+	  
+      <Key ID="STR_WF_HeadHunterReceiveRefund">
+        <English>You receive $%1, as refund from %2</English>
+        <French>You receive $%1, as refund from %2</French>
+        <German>You receive $%1, as refund from %2</German>
+        <Russian>+$%1 компенсация от %2</Russian>
+        <Italian>You receive $%1, as refund from %2</Italian>
+      </Key>	  
+	  
+      <Key ID="STR_WF_HeadHunterSendRefund">
+        <English>You lost $%1, as refund for TK %2</English>
+        <French>You lost $%1, as refund for TK %2</French>
+        <German>You lost $%1, as refund for TK %2</German>
+        <Russian>-$%1 компенсация за убийство %2</Russian>
+        <Italian>You lost $%1, as refund for TK %2</Italian>
+      </Key>	  
+	  
     </Container>
   </Package>
 </Project>

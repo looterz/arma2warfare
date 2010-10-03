@@ -90,6 +90,7 @@ paramBounty = true;
 param3thView = 0;
 paramGroupView = 0;
 baseFrendlyFire = true;
+paramEnabledHeadHunters = true;
 
 missionNamespace setVariable ['WFBE_EASTSTARTINGMONEY',200000];
 missionNamespace setVariable ['WFBE_WESTSTARTINGMONEY',200000];
@@ -195,6 +196,8 @@ if (!isNil "paramsArray") then {
 	if ((paramsArray select _u) == 0) then {paramResReinf = false} else {paramResReinf = true};_u = _u + 1; //--- Town Resistance Reinforcement.
 	if (WF_A2_CombinedOps) then {missionNamespace setVariable ['WFBE_RESISTANCEFACTION',(paramsArray select _u)];_u = _u + 1};
 	missionNamespace setVariable ['WFBE_TOWNSTARTINGMODE',(paramsArray select _u)];_u = _u + 1;
+	
+	if ((paramsArray select _u) == 0) then {paramEnabledHeadHunters = false} else {paramEnabledHeadHunters = true};_u = _u + 1; //--- Head Hunters - money loss for die from enemy player / money give for kill enemy player
 };
 
 /*

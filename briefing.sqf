@@ -3,14 +3,17 @@ player createDiaryRecord["Diary", ["Bomba What News", "
 <br/>- More carefull placement items from constuction menu. Now impossible build something inside another building. But can build near with minimal distance.
 <br/>- Commander can ability to sell and buy supplies in central depot of any captured town. Exchange rate demand from how much supplies get a town.
 <br/>- Commander can build base in a town.
-<br/>- Artillery: Player notified when target out of range or how much arty guns can hit target;
-<br/>- Players can build static defences around town, without repair truck. Static defences cost was decreased to 4 times
+<br/>- Artillery: Player notified when target out of range or how much arty guns can hit target.
+<br/>- Players can build static defences around town, without repair truck. Static defences cost was decreased to 4 times.
 <br/>- Players can buy heavy vehicles, light vehicles and solidiers in central depot of any captured town (while factories are alive). Price increased to x3.
-<br/>- Upgradable extra factory protection. Demand from barracks upgrade level:
+<br/>- Upgradable extra factory protection, which demand from barracks upgrade level:
 <br/>Lvl 0 and 1:  default factory protection (can be destroyed from ~1-2 SMAW shells)
 <br/>Lvl 2: protection up to x3 (can be destroyed from ~3-4 SMAW shells)
 <br/>Lvl 3: protection up to x5 (can be destroyed from ~5-6 SMAW shells)
 <br/>- After 10 minutes from last attack factory start autorepair. Autorepair required from 0 to 20 minutes, which demand how much factory was damaged. Repaired factory has 100% health.
+<br/>- Head Hunters:
+<br/>  When the player kills the enemy player, it receives an extra award, which equals 10% of victim cash, thus the victim loses award value. The maximum award value is $5000. Thus if the victim has cash less than $1000 in this case the award isn't paid.
+<br/>  When the player kills frendly player (team kill), player loses 30% his cash, paying refund to a victim. The minimum value of refund is $500.
 "]];
 player createDiaryRecord["Diary", ["Upgrades", "<br/>To be able to purchase higher levels of equipment or units, the factories need to be upgraded by the commander. The commander will need both cash and supply points to do this. He may ask for contributions from other team players to help out. Each factory has 3 levels."]];
 player createDiaryRecord["Diary", ["Supplies", "<br/>Each captured town has an Actual and Potential Value. On the map you will see this represented as 2 numbers seperated by a / for example; Zelenogorsk, once captured will start as 30/120. This means that the current supplies to each player from this town is $30 per minute. Each time a supply truck arrives at the town depot its value will increase by 10. Remember though, the supply truck must be either fully loaded from the HQ or a Supply point or, have come from a town with a higher actual value. you will also receive 4 x the actual value as cash if you or one of your squad drives the truck. Supply runs should be the responsibility of all. The best way to win Warfare is to work together capping and then supping up the town before moving to another."]];

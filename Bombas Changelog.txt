@@ -17,9 +17,9 @@ BombaS,
 - Players can build static defences around town, without repair truck. Static defences cost was decreased to 4 times
 - Players can buy heavy vehicles, light vehicles and solidiers in central depot of any captured city (while factories are alive). Price increased to x3.
 - Upgradable extra factory protection. Demand from barracks upgrade level:
-Lvl 0 and 1:  default factory protection (can be destroyed from ~1-2 SMAW shells)
-Lvl 2: protection up to x3 (can be destroyed from ~3-4 SMAW shells)
-Lvl 3: protection up to x5 (can be destroyed from ~5-6 SMAW shells)
+	Lvl 0 and 1:  default factory protection (can be destroyed from ~1-2 SMAW shells)
+	Lvl 2: protection up to x3 (can be destroyed from ~3-4 SMAW shells)
+	Lvl 3: protection up to x5 (can be destroyed from ~5-6 SMAW shells)
 - After 10 minutes from last attack factory start autorepair. Autorepair required from 0 to 20 minutes, which demand how much factory was damaged. Repaired factory has 100% health.
 
 Regards,

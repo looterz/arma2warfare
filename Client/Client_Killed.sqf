@@ -18,7 +18,7 @@ if (mysql) then {
 	if (vehicle _killer == _killer) then {
 		_isInertObject = if (count(crew _killer) == 0) then {true} else {false};
 	};
-	
+
 	if (_this select 0 == _killer || _isTKFriendly || _isInertObject) then {
 		WF_Logic setVariable ["WF_MYSQL_CLIENT",(WF_Logic getVariable "WF_MYSQL_CLIENT") + [Format ["MYSQLDATA§WFBE_Update§%1§%2§suicide§%3",getPlayerUID(player),name player,worldName]],true];
 	};
