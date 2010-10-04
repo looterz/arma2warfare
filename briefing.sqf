@@ -1,7 +1,7 @@
 //--- Author [ICE]
 player createDiaryRecord["Diary", ["Bomba What News", "
 <br/>- More carefull placement items from constuction menu. Now impossible build something inside another building. But can build near with minimal distance.
-<br/>- Players can buy heavy vehicles, light vehicles and solidiers in central depot of any captured town (while factories are alive). Price increased to x3.
+<br/>- Players can buy heavy vehicles, light vehicles and solidiers in central depot of any captured town (while factories are alive). A item price will increased depend how far nearest base factory. (+25% for each 1000m)
 <br/>- Players can build static defences around town, without repair truck. Static defences cost was decreased to 4 times.
 <br/>- Commander can ability to sell and buy supplies in central depot of any captured town. Exchange rate demand from how much supplies get a town.
 <br/>- Commander can build base in a town.

@@ -210,17 +210,24 @@ while {alive player && dialog} do {
 	//--- Update tabs.
 	if (_update) then {
 
-		if (((typeOf _closest) in WFDEPOT) && (_type != "Depot")) then { 
-			_costCoefficient = 3; 
-		}
-		else 
-		{
-			_costCoefficient = 1;
-			if (_type != "Depot") then {
+		_costCoefficient = 1;
+		if (_type != "Depot" && _closest != objNull) then {
 
-				// -- if factory build in the town - we get differencial discount from 10% to 30% depent how much city get supplies;
-				_depotNearFactory = nearestObjects [_closest, WFDEPOT,0.8*('WFBE_DEFENSEMANRANGE' Call GetNamespace)];
-				_nearTown = if (count _depotNearFactory > 0) then {_depotNearFactory select 0} else {objNull};
+			_discount = 0;
+			_nearFactory = _closest;
+			if ((typeOf _closest) in WFDEPOT) then 
+			{ 
+				_buildings1 = WF_Logic getVariable Format ['%1BaseStructures',sideJoinedText];
+				_factories1 = [sideJoined,Format ['WFBE_%1%2TYPE',sideJoinedText,_type] Call GetNamespace,_buildings1] Call GetFactories;
+				_sorted1 = [_closest, _factories1] Call SortByDistance;
+				_nearFactory = if (count _sorted1 > 0) then { _sorted1 select 0; } else { objNull; };
+				
+			}; //-- buy in central depot
+		
+			if (_nearFactory != objNull) then {
+
+			_depotNearFactory = nearestObjects [_nearFactory, WFDEPOT,0.8*('WFBE_DEFENSEMANRANGE' Call GetNamespace)];
+				_nearTown = if (count _depotNearFactory > 0) then {_depotNearFactory select 0} else {objNull; };
 				if (!isNull _nearTown) then {
 				
 					_sideID = _nearTown getVariable "sideID";
@@ -231,9 +238,23 @@ while {alive player && dialog} do {
 					
 						if (_sideID == sideID) then {
 							_discount = 0.1 + 0.2*(_maxSV / 120) * (_supplyValue / _maxSV);
-							_costCoefficient = 1 - _discount;		
-						}
+						};
 					};
+				};
+
+				_costCoefficient = _costCoefficient - _discount;		
+				if ((typeOf _closest) in WFDEPOT) then {
+					_dist = _closest distance _nearFactory;
+					_costCoefficient = _costCoefficient + (_dist / 4000); // -- increase price for delivery to 25% for each 1000m
+					
+					_supplyValue = _closest getVariable "supplyValue";
+					_maxSV = _closest getVariable "maxSupplyValue";
+					
+					_k = (0.3 -  (0.6*_supplyValue / 120) ); 
+					if (_k > 0.3)  then { _k = 0.3;  };
+					if (_k < -0.3) then { _k = -0.3; };
+					
+					_costCoefficient = _costCoefficient + _k;
 				};
 			};
 		};
@@ -286,14 +307,13 @@ while {alive player && dialog} do {
 			
 				if (_countAlive > 0 && depotInRange && _type != 'Aircraft') then {
 					
-					_nearDepot = nearestObjects [player, WFDEPOT,('WFBE_TOWNPURCHASERANGE' Call GetNamespace)];
-					if (count _nearDepot > 0) then {
+					_nearDepotList = nearestObjects [player, WFDEPOT,('WFBE_TOWNPURCHASERANGE' Call GetNamespace)];
+					if (count _nearDepotList > 0) then {
 						
-						_nearDepot = _nearDepot select 0;
+						_nearDepot = _nearDepotList select 0;
 						if (_closest distance _nearDepot >  0.8*('WFBE_DEFENSEMANRANGE' Call GetNamespace)) then {
 						// -- if  town has factory not add buy from central depot
-						
-							_factories = _factories + _nearDepot;
+							_factories = _factories + [_nearDepot];
 							_sorted = [player,_factories] Call SortByDistance;
 							_closest = _sorted select 0;						
 						};
