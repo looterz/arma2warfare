@@ -580,7 +580,8 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 					{	
 						if (_color != _colorRed && _x != _preview) then {
 							_positionBuilding = position _x;
-							_sizeBuilding = (sizeof typeof _x)/2.9;
+							
+							_sizeBuilding = (sizeof typeof _x)/2.35;
 							_meters = _preview distance _positionBuilding;
 							
 							if (_meters < _sizeBuilding) then { _color = _colorRed;	};						
