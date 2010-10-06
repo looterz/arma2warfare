@@ -141,7 +141,10 @@ if (isNull _spawn) then {
 	_spawn = _hq;
 };
 player setPos ([GetPos _spawn,10,20] Call GetRandomPosition);
-player addAction [localize 'STR_WF_BuildMenu','Client\Action\Action_BuildRepair.sqf', [], 99, false, true, '', 'townDefenceRange'];
+
+if (paramBuildDefencesInTown) then {
+	player addAction [localize 'STR_WF_BuildMenu','Client\Action\Action_BuildRepair.sqf', [], 99, false, true, '', 'townDefenceRange'];
+};
 
 if (!isNil "respawnWeapons" && paramGearRespawn) then {
 	_temp = +(respawnWeapons);

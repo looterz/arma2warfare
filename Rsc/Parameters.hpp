@@ -514,5 +514,24 @@ class Params {
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 1;
 	};	
+	class BuildDefencesInTown {
+		title = "$STR_WF_Town_SimpleDefencesConstruct";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 1;
+	};	
+	class SupplyExchangeInTown {
+		title = "$STR_WF_Town_SupplyExchange";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 1;
+	};	
+	class BuyVehiclesInTown {
+		title = "$STR_WF_Town_BuyVehiclesInTown";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 1;
+	};	
+	
 };
 

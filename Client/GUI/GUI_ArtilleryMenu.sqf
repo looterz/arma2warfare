@@ -150,7 +150,7 @@ while {alive player && dialog && !_closeDialog} do {
 	ctrlEnable [17018,_enable];
 	
 	_isCommander = false;
-	if (!isNull(commanderTeam)) then {if (commanderTeam == group player) then {_isCommander = true}};
+	if (paramSupplyExchange && !isNull(commanderTeam)) then {if (commanderTeam == group player) then {_isCommander = true}};
 	ctrlEnable [17100, _isCommander];
 	
 	if (mouseButtonUp == 0) then {

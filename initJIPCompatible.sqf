@@ -90,7 +90,11 @@ paramBounty = true;
 param3thView = 0;
 paramGroupView = 0;
 baseFrendlyFire = true;
+
 paramEnabledHeadHunters = true;
+paramBuildDefencesInTown = true;
+paramSupplyExchange = true;
+paramBuyVehiclesInTown = true;
 
 missionNamespace setVariable ['WFBE_EASTSTARTINGMONEY',200000];
 missionNamespace setVariable ['WFBE_WESTSTARTINGMONEY',200000];
@@ -198,6 +202,9 @@ if (!isNil "paramsArray") then {
 	missionNamespace setVariable ['WFBE_TOWNSTARTINGMODE',(paramsArray select _u)];_u = _u + 1;
 	
 	if ((paramsArray select _u) == 0) then {paramEnabledHeadHunters = false} else {paramEnabledHeadHunters = true};_u = _u + 1; //--- Head Hunters - money loss for die from enemy player / money give for kill enemy player
+	if ((paramsArray select _u) == 0) then {paramBuildDefencesInTown = false} else {paramBuildDefencesInTown = true};_u = _u + 1; //--- Build Defences in Town for everybody
+	if ((paramsArray select _u) == 0) then {paramSupplyExchange = false} else {paramSupplyExchange = true};_u = _u + 1; //--- Supply Exchange in town depot
+	if ((paramsArray select _u) == 0) then {paramBuyVehiclesInTown = false} else {paramBuyVehiclesInTown = true};_u = _u + 1; //--- Supply Exchange in town depot
 };
 
 /*

@@ -77,7 +77,6 @@ if (_extra == "REPAIR") then {_coinItemArray = [];_indexCategory=0;_fix = 0};
    _price = _defenseCosts select _i;
 	if (!(isNil "townDefenceRange")) then {
 		if (townDefenceRange) then {
-			_price = (ceil(_price * 0.25 /10))*10;							
 			if (_price < 10) then {
 				_price = 10;
 			};

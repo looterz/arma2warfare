@@ -305,7 +305,7 @@ while {alive player && dialog} do {
 				_sorted = [player,_factories] Call SortByDistance;
 				_closest = _sorted select 0;
 			
-				if (_countAlive > 0 && depotInRange && _type != 'Aircraft') then {
+				if (paramBuyVehiclesInTown && _countAlive > 0 && depotInRange && _type != 'Aircraft') then {
 					
 					_nearDepotList = nearestObjects [player, WFDEPOT,('WFBE_TOWNPURCHASERANGE' Call GetNamespace)];
 					if (count _nearDepotList > 0) then {

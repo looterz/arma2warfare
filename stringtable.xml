@@ -2162,6 +2162,30 @@
         <German>Gameplay: Head Hunters</German>
         <Russian>Прочее: Охотники за головами</Russian>
         <Italian>Gameplay: Head Hunters</Italian>
+      </Key>
+
+      <Key ID="STR_WF_Town_SimpleDefencesConstruct">
+        <English>Towns: Simple Defences construct</English>
+        <French>Towns: Simple Defences construct</French>
+        <German>Towns: Simple Defences construct in towns</German>
+        <Russian>Город: Простая постройка обороны</Russian>
+        <Italian>Towns: Simple Defences construct</Italian>
+      </Key>
+
+      <Key ID="STR_WF_Town_SupplyExchange">
+        <English>Towns: Supply Exchange</English>
+        <French>Towns: Supply Exchange</French>
+        <German>Towns: Supply Exchange</German>
+        <Russian>Город: Покупка/продажа снабжения</Russian>
+        <Italian>Towns: Supply Exchange</Italian>
+      </Key>	 
+
+      <Key ID="STR_WF_Town_BuyVehiclesInTown">
+        <English>Towns: Buy Vehicles</English>
+        <French>Towns: Buy Vehicles</French>
+        <German>Towns: Buy Vehicles</German>
+        <Russian>Город: Покупка техники</Russian>
+        <Italian>Towns: Buy Vehicles</Italian>
       </Key>	  
 	  
       <Key ID="STR_WF_HeadHunterReceiveBounty">
