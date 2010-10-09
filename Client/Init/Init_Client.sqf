@@ -179,7 +179,7 @@ Skills_MASH = ['FR_Commander','RUS_Commander','US_Soldier_SL_EP1','TK_Soldier_SL
 [] Call Compile preprocessFile "Client\Module\Skill\Skill_Init.sqf";
 
 //--- Handle Client keys: Disbale command Menu scanning, Factories Lock, etc.
-(findDisplay 46) displayAddEventHandler ["KeyDown", "_this call HandleMainDisplayKeys"]};
+(findDisplay 46) displayAddEventHandler ["KeyDown", "_this call HandleMainDisplayKeys"];
 
 //--- Soldier Skill.
 if (playerType in Skills_Soldiers) then {['WFBE_MAXGROUPSIZE',('WFBE_MAXGROUPSIZE' Call GetNameSpace) + ('WFBE_MAXGZBONUSSKILL' Call GetNamespace),true] Call SetNamespace};
