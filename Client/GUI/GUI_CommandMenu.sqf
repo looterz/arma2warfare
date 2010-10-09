@@ -3,11 +3,14 @@ _exited = false;
 
 while {alive player && dialog} do {
 	//--- Command AI.
+	
+	_commandInRange = if (!WF_DEBUG) then { commandInRange; } else { true; };
+	
 	_enable = false;
 	if (!isNull(commanderTeam)) then {if (commanderTeam == group player) then {_enable = true}};
 	ctrlEnable [13001,_enable]; //--- Team Orders
-	ctrlEnable [13002,commandInRange]; //--- Special Menu
-	ctrlEnable [13003,commandInRange]; //--- Upgrade Menu
+	ctrlEnable [13002,_commandInRange]; //--- Special Menu
+	ctrlEnable [13003,_commandInRange]; //--- Upgrade Menu
 	
 	sleep 0.1;
 	

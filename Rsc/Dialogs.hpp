@@ -878,9 +878,9 @@ class RscOrderMenu {
 			idcLeft = -1;
 			rowHeight = 0.05;
 			sizeEx = 0.023;
-			
 			onLBSelChanged = "MenuAction = 401";
 		};	
+		
 		class CA_FUnflip : RscIGUIShortcutButton {
 			idc = 14042;
 			x = 0.043;
@@ -1664,7 +1664,16 @@ class RscArtilleryMenu {
 			action = "MenuAction = 100";
 		};
 
-
+		//class CA_RoleControlButton: RscIGUIShortcutButton {
+		//	idc = 17100;
+		//	x = 0.36;
+		//	y = 0.705;
+		//	w = 0.40;
+		//	text = "Role Control";
+		//	action = "MenuAction = 101";
+		//};
+		
+		
 		//--- Separators.
 		class LineTRH1 : RscText {
 			x = 0.04;
@@ -2681,4 +2690,101 @@ class RscSupplyExchange {
 		
 	}	
 }
+
+//--- Supply Exchange Dialog
+class RscPlayerRoleControl {
+	movingEnable = 1;
+	idd = 18000;
+	onLoad = "_this ExecVM ""Client\GUI\GUI_PlayerRoleControl.sqf""";
+	
+	class controlsBackground {
+		class Mainback : RscPicture {
+			x = 0.185;
+			y = 0.17;
+			w = 1.2549;
+			h = 0.836601;
+			moving = 1;
+			text = "\ca\ui\data\ui_difficulty_background_ca.paa";
+		};
+	};
+	
+	class CA_Label: RscText {
+		colorText[] = subcolor1;
+		SizeEx = 0.03;
+	};	
+	
+	class controls {
+
+		class CA_Header: RscText {
+			idc = 17001;
+			text = "Player Feature Control";
+			x = 0.2;
+			w = 0.4;
+			y = 0.205;
+		};	
+		
+		class CA_CloseButton : RscShortcutButton {
+			idc = 17999;
+			shortcuts[] = {0x00050000 + 1};
+			default = 0;
+			x = 0.706;
+			y = 0.7625;
+			text = $STR_DISP_CLOSE;
+			action = "closeDialog 0";
+		};	
+
+		class CA_ApplyButton : RscShortcutButton {
+			idc = 17998;
+			shortcuts[] = {0x00050000 + 1};
+			default = 0;
+			x = 0.525;
+			y = 0.7625;
+			text = "Apply";
+			action = "MenuAction = 5";
+		};		
+
+		class CA_TeamList : RscListBox {
+			idc = 17003;
+			x = 0.21;
+			y = 0.27;
+			w = 0.25;
+			h = 0.475;
+			rowHeight = 0.0219091;
+			sizeEx = 0.03;
+			onLBSelChanged = "MenuAction = 1";
+		};		
+		
+		class CA_PlayerFeatures  {
+		  idc = 17004;
+		  type = 7; // defined contant (7)
+		  style = 0; // defined constat (0)
+		  
+		  x = 0.5;
+		  y = 0.27;
+		  w = 0.25;
+		  h = 0.475;
+		  
+		  colorText[] = {1, 0, 0, 1};
+		  color[] = {0, 1, 0, 1};  //seems nothing to change, but define to avaoid errors
+		  colorTextSelect[] = {0, 0.8, 0, 1};
+		  colorSelect[] = {0, 0, 0, 1};
+		  colorTextDisable[] = {0.4, 0.4, 0.4, 1};
+		  colorDisable[] = {0.4, 0.4, 0.4, 1};
+		  coloSelectedBg[] = {0,1,0,1};
+		  
+		  font = "Zeppelin32";
+		  sizeEx = 0.03;
+		  
+		  rows = 12;
+		  columns = 1;
+		  strings[] = {	};
+		  
+		  //Simple UI event handler to show response on clicks
+		  onCheckBoxesSelChanged = "hint format[""Checkbox change:\n%1\nEntry#: %2\nNewState: %3"",(_this select 0),(_this select 1),(_this select 2)];"
+		};
+		
+	}	
+}
+
+
 

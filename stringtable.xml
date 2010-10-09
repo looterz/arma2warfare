@@ -2187,6 +2187,22 @@
         <Russian>Город: Покупка техники</Russian>
         <Italian>Towns: Buy Vehicles</Italian>
       </Key>	  
+
+      <Key ID="STR_WF_Restriction_AircraftInAirportOnly">
+        <English>Restriction: Buy aircrafts only in Airport</English>
+        <French>Restriction: Buy aircrafts only in Airport</French>
+        <German>Restriction: Buy aircrafts only in Airport</German>
+        <Russian>Огранич.: Cамолеты только в аэропорту</Russian>
+        <Italian>Restriction: Buy aircrafts only in Airport</Italian>
+      </Key>	  	  
+
+      <Key ID="STR_WF_Restriction_TankTargetLock">
+        <English>Restriction: Tanks Target Lock</English>
+        <French>Restriction: Tanks target Lock</French>
+        <German>Restriction: Tanks target Lock</German>
+        <Russian>Запрет: Захват цели танком</Russian>
+        <Italian>Restriction: Tanks target Lock</Italian>
+      </Key>
 	  
       <Key ID="STR_WF_HeadHunterReceiveBounty">
         <English>You have received bounty $%1 for kill %2</English>

@@ -144,22 +144,43 @@ if (paramEnabledHeadHunters) then {
 			_victimFunds = ([side _victim, _victimId] Call GetClientTeam) Call GetTeamFunds;
 			if (_victimFunds >= 1000) then {
 			
-				_bounty = (ceil(0.5 + (_victimFunds * 0.1/100)))*100;	// 10% from victim cash but no more then 5k
+				_scoreSide = scoreSide (side _victim);
+				_scoreVictim = score _victim;
+				
+				_bonusPerc = 0.1;
+				if (_scoreSide > 0) then {
+				
+					_scoreVictim = if (_scoreVictim > 0) then { _scoreVictim; } else { 0; };
+					_bonusPerc = 0.05 + (0.1 * _scoreVictim / (_scoreSide / (WF_MAXPLAYERS/2)));				
+				};
+				
+				_commanderKilled = false;
+				_commanderTeam = (side _victim) Call GetCommanderTeam;
+				if !(isNull _commanderTeam) then {
+					_commanderId = (Leader _commanderTeam) Call GetClientID;
+					
+					if (_victimId == _commanderId) then {					
+						_bonusPerc = 0.75;
+						_commanderKilled = true;
+					};					
+				};
+
+				_bounty = (ceil(0.5 + (_victimFunds * _bonusPerc /100)))*100;
 				
 				if (_bounty < 100)  then { _bounty = 100; };
-				if (_bounty > 5000) then { _bounty = 5000; };
+				if (_bounty > 5000 && !_commanderKilled) then { _bounty = 5000; };
 				if (_bounty > _victimFunds) then { _bounty = _victimFunds; };
 				
 				[_bounty,_sideKiller,_killerId] Call ChangeClientFunds;
 				[-_bounty,_sideVictim,_victimId] Call ChangeClientFunds;
 
-				WFBE_LocalizeMessage = [[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveBounty',_bounty, name _killer]];
+				WFBE_LocalizeMessage = [[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveBounty',_bounty, name _victim]];
 				publicVariable 'WFBE_LocalizeMessage';
-				if !(isMultiplayer) then {[[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveBounty',_bounty, name _killer]] Spawn HandlePVF};
+				if !(isMultiplayer) then {[[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveBounty',_bounty, name _victim]] Spawn HandlePVF};
 
-				WFBE_LocalizeMessage = [[_victimId, _sideVictim],'CLTFNCLOCALIZEMESSAGE',['HeadHunterSendBounty',_bounty, name _victim]];
+				WFBE_LocalizeMessage = [[_victimId, _sideVictim],'CLTFNCLOCALIZEMESSAGE',['HeadHunterSendBounty',_bounty, name _killer]];
 				publicVariable 'WFBE_LocalizeMessage';
-				if !(isMultiplayer) then {[[_victimId, _sideVictim],'CLTFNCLOCALIZEMESSAGE',['HeadHunterSendBounty',_bounty, name _victim]] Spawn HandlePVF};
+				if !(isMultiplayer) then {[[_victimId, _sideVictim],'CLTFNCLOCALIZEMESSAGE',['HeadHunterSendBounty',_bounty, name _killer]] Spawn HandlePVF};
 			};				
 		 } else { // -- teamkill bounty for victim;
 		 
@@ -167,20 +188,25 @@ if (paramEnabledHeadHunters) then {
 			if (_killerFunds > 0) then {
 
 				_payedBountyForTK = true;
-				_bounty = (ceil(0.5 + (_killerFunds * 0.3/500)))*500;	// 30% from killer cash
+				_bounty = (ceil(0.5 + (_killerFunds * 0.1/500)))*500;	// 10% from killer cash
 				if (_bounty < 500)  then { _bounty = 500; };
 				if (_bounty > _killerFunds) then { _bounty = _killerFunds; };
 								
 				[-_bounty,_sideKiller,_killerId] Call ChangeClientFunds;
 				[_bounty,_sideVictim,_victimId] Call ChangeClientFunds;
 			
+				WFBE_LocalizeMessage = [[_victimId, _sideVictim],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveRefund',_bounty, name _killer]];
+				publicVariable 'WFBE_LocalizeMessage';
+				if !(isMultiplayer) then {[[_victimId, _sideVictim],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveRefund',_bounty, name _killer]] Spawn HandlePVF};			
+
 				WFBE_LocalizeMessage = [[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterSendRefund',_bounty, name _victim]];
 				publicVariable 'WFBE_LocalizeMessage';
 				if !(isMultiplayer) then {[[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterSendRefund',_bounty, name _victim]] Spawn HandlePVF};
 
-				WFBE_LocalizeMessage = [[_victimId, _sideVictim],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveRefund',_bounty, name _killer]];
+				WFBE_LocalizeMessage = [[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterSendRefund',_bounty, name _victim]];
 				publicVariable 'WFBE_LocalizeMessage';
-				if !(isMultiplayer) then {[[_victimId, _sideVictim],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveRefund',_bounty, name _killer]] Spawn HandlePVF};			
+				if !(isMultiplayer) then {[[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterSendRefund',_bounty, name _victim]] Spawn HandlePVF};
+
 			};
 		 };		
 	};

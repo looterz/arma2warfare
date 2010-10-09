@@ -533,5 +533,19 @@ class Params {
 		default = 1;
 	};	
 	
+	class BuyAircraftInAirportOnly {
+		title = "$STR_WF_Restriction_AircraftInAirportOnly";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 1;
+	};	
+	
+	class TankTargetLock {
+		title = "$STR_WF_Restriction_TankTargetLock";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 1;
+	};	
+	
 };
 

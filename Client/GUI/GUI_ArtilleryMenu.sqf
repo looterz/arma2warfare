@@ -361,6 +361,14 @@ while {alive player && dialog && !_closeDialog} do {
 		_closeDialog = true;
 		CreateDialog "RscSupplyExchange";		
 	};
+	
+	if (MenuAction == 101) then {
+
+		MenuAction = -1;
+		closeDialog 0;
+		_closeDialog = true;
+		CreateDialog "RscPlayerRoleControl";		
+	};	
 		
 	
 	

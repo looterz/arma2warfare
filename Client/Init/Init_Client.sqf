@@ -29,6 +29,10 @@ if (paramISIS) then {ISIS_Effects = Compile preProcessFile "Client\Module\ISIS\I
 MarkerAnim = Compile preprocessFile "Client\Functions\Client_MarkerAnim.sqf";
 PlayerKilled = Compile preprocessFile "Client\Client_Killed.sqf";
 ReplaceInventoryAmmo = Compile preprocessFile "Client\Functions\Client_ReplaceInventoryAmmo.sqf";
+
+HandleMainDisplayKeys = Compile preprocessFile "Client\Functions\Client_HandleMainDisplayKeys.sqf";
+
+
 if !(WF_A2_Vanilla) then {
 	RespawningBag = Compile preprocessFile "Client\Functions\Client_RespawnBag.sqf";
 } else {
@@ -174,8 +178,8 @@ Skills_Spot = ['USMC_SoldierS_Sniper','RU_Soldier_Sniper','US_Soldier_Sniper_EP1
 Skills_MASH = ['FR_Commander','RUS_Commander','US_Soldier_SL_EP1','TK_Soldier_SL_EP1'];
 [] Call Compile preprocessFile "Client\Module\Skill\Skill_Init.sqf";
 
-//--- Command Menu scanning.
-if !(paramSpacebar) then {(findDisplay 46) displayAddEventHandler ["KeyDown", "if ((_this select 1) in (actionKeys 'ForceCommandingMode') && !(_this select 2) && !(_this select 3) && !hcShownBar) then {true} else {false}"]};
+//--- Handle Client keys: Disbale command Menu scanning, Factories Lock, etc.
+(findDisplay 46) displayAddEventHandler ["KeyDown", "_this call HandleMainDisplayKeys"]};
 
 //--- Soldier Skill.
 if (playerType in Skills_Soldiers) then {['WFBE_MAXGROUPSIZE',('WFBE_MAXGROUPSIZE' Call GetNameSpace) + ('WFBE_MAXGZBONUSSKILL' Call GetNamespace),true] Call SetNamespace};

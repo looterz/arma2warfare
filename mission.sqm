@@ -35,7 +35,7 @@ class Mission
 	randomSeed=10034581;
 	class Intel
 	{
-		briefingName="[40]Warfare BE V2_064 Lite CO Bomba Edition - Chernarus";
+		briefingName="[40]Warfare BE V2.064 Lite CO Balanced Bomba Edition - Chernarus";
 		briefingDescription="Read briefing(diary) for more information";
 		resistanceWest=0;
 		startWeather=0;

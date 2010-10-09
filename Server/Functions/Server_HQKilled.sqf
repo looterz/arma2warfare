@@ -13,6 +13,22 @@ _deployed = WF_Logic getVariable Format ["%1MHQDeployed",str _side];
 
 diag_log Format["[WFBE (INFORMATION)] Server_HQKilled: The %1 MHQ has been destroyed",str _side];
 
+
+if ((side _killer != _side)&&(isPlayer(_killer)))  then {
+
+	_bounty = 25000;	
+	_killerId = _killer Call GetClientID;
+	_sideKiller = side _killer;
+	[_bounty, _sideKiller,_killerId] Call ChangeClientFunds;
+	
+	_killedName = [_type, 'displayName'] Call GetConfigInfo;
+
+	WFBE_LocalizeMessage = [[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveBounty',_bounty, _killedName]];
+	publicVariable 'WFBE_LocalizeMessage';
+	if !(isMultiplayer) then {[[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveBounty',_bounty, _killedName]] Spawn HandlePVF};
+};
+
+
 //--- Building Teamkill.
 if ((side _killer == _side)&&(isPlayer(_killer))) then {
 	_uid = if !(paramShowUID) then {_uid = 'xxxxxxx'} else {_kuid};

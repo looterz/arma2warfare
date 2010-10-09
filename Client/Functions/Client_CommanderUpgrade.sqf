@@ -12,6 +12,8 @@ publicVariable 'WFBE_RequestChangeScore';
 if !(isMultiplayer) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_COMMANDERUPGRADESCORE' Call GetNamespace)]] Spawn HandleSPVF};
 
 _i = _time;
+if (WF_DEBUG) then { _i = 1; };
+
 while {_i > 0} do {
 	_i = _i - 1;
 	upgradingTime = _i;

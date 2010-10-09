@@ -3,6 +3,11 @@ Private['_c','_r','_u'];
 _r = 'WFBE_RESTRICTIONADVAIR' Call GetNamespace;
 _u = [];
 
+if (paramBuyAircraftInAirportOnly) then  {
+	_r = 1;
+};
+
+
 //WEST
 if (WF_A2_Vanilla) then {
 	_u = 		['MH60S'];

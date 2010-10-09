@@ -31,7 +31,7 @@ switch (_localize) do {
 	case "HeadHunterSendRefund": {
 		_txt = Format [Localize "STR_WF_HeadHunterSendRefund",_this select 1,_this select 2];
 		_commandChat = false;
-	};	
+	};
 };
 
 if (_commandChat) then {
