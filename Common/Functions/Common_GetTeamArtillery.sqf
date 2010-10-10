@@ -6,12 +6,13 @@ _ignoreAmmo = _this select 2;
 _index = _this select 3;
 
 _units = units _team;
+_artyType = artilleryNames select _index;
+
 _artillery = [];
-
 {
-	_vehicle = if ((typeOf (vehicle _x)) == (artilleryNames select _index)) then {vehicle _x} else {objNull};
+	_vehicle = if (typeOf (vehicle _x) == _artyType) then {vehicle _x} else {objNull};
 	_type = artilleryNames find typeOf _vehicle;
-
+	
 	if (_type != -1 && !IsNull gunner _vehicle && !(_vehicle In _artillery)) then {
 		if (!isPlayer gunner _vehicle) then	{
 			_weapon = artilleryWeapons select _type;
