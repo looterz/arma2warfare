@@ -10,8 +10,11 @@ if (_type == -1) ExitWith {diag_log Format ["[WFBE (INFORMATION)] Common_FireArt
 
 _minRange = artilleryMinRanges Select _type;
 _maxRange = artilleryMaxRanges Select _type;
-_weapon = artilleryWeapons Select _type;
-_ammo = artilleryAmmos Select _type;
+
+_weapon = currentWeapon _artillery;
+_magazine = currentMagazine _artillery;
+_ammo = getText (configFile >> "CfgMagazines" >> _magazine >> "ammo");
+
 _velocity = artilleryVelocities Select _type;
 _dispersion = artilleryDispersions Select _type;
 
@@ -26,31 +29,33 @@ _direction =  -(((_y atan2 _x) + 270) % 360);
 if (_direction < 0) then {_direction = _direction + 360};
 
 _distance = sqrt ((_x ^ 2) + (_y ^ 2)) - _minRange;
-_angle = _distance / (_maxRange - _minRange) * 100 + 15;
 
-if (_angle > 90) then {_angle = 90};
 if (_distance < 0 || _distance + _minRange > _maxRange) ExitWith {};
 
-_watchPosition = [(_position Select 0) + (sin _direction) * 50,(_position Select 1) + (cos _direction) * 50,_angle];
+_watchPosition = [(_position Select 0) + (sin _direction) * 50,(_position Select 1) + (cos _direction) * 50, 75];
 Gunner _artillery DoWatch _watchPosition;
-
 sleep 2;
+
 _amount = _artillery Ammo _weapon;
-_artillery Fire _weapon;
 
-WaitUntil {_artillery Ammo _weapon < _amount};
+if (_amount > 0) then {
 
-_shell = nearestObject [_artillery,_ammo];
+	_artillery Fire _weapon;
+	WaitUntil {_artillery Ammo _weapon < _amount};
 
-_shell SetPos [0,0,2000 + Random 20];
-_shell SetVelocity [0,0,0];
+	_shell = nearestObject [_artillery, _ammo];
 
-_arcDistance = sqrt((_distance ^ 2) * 2);
+	_shell SetPos [0,0,2000 + Random 20];
+	_shell SetVelocity [0,0,0];
 
-Gunner _artillery DoWatch _watchPosition;
+	_arcDistance = sqrt((_distance ^ 2) * 2);
 
-_distance = Random (_distance / _maxRange * 100) + Random _radius;
-_direction = Random 360;
-_shell SetPos [(_destination Select 0)+((sin _direction)*_distance),(_destination Select 1)+((cos _direction)*_distance),0];
-_destination = [(_destination Select 0)+((sin _direction)*_distance),(_destination Select 1)+((cos _direction)*_distance),0];
-_shell SetVelocity [0,0,-_velocity];
+	Gunner _artillery DoWatch _watchPosition;
+
+	_distance = Random (_distance / _maxRange * 100) + Random _radius;
+	_direction = Random 360;
+
+	_destination = [(_destination Select 0)+((sin _direction)*_distance),(_destination Select 1)+((cos _direction)*_distance), 2000 + Random 20];
+	_shell SetPos _destination;
+	_shell SetVelocity [0,0,-_velocity];
+}

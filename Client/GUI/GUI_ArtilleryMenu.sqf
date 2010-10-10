@@ -310,7 +310,7 @@ while {alive player && dialog && !_closeDialog} do {
 			};
 		} else {
 		
-			_txt1 = Format ['%1 %2', _status, localize 'STR_WF_Seconds'];
+			_txt = Format ['%1 %2', _status, localize 'STR_WF_Seconds'];
 		};
 		
 		_txt = Format['%1: %2', localize 'STR_WF_Status', _txt]; 
