@@ -9,6 +9,8 @@ while {alive player && dialog} do {
 	ctrlEnable [11001,_enable];
 	ctrlEnable [11002,gearInRange];
 	
+	ctrlEnable [11100, ((WF_Logic getVariable "marketInitialized") == 1)];
+	
 	_timer = _timer + 0.1;
 	
 	sleep 0.1;
@@ -69,4 +71,13 @@ while {alive player && dialog} do {
 		CreateDialog "WF_CommandMenu";
 		_exited = true;
 	};
+	
+	
+	if (MenuAction == 100) then {
+
+		MenuAction = -1;
+		closeDialog 0;
+		CreateDialog "RscTownMarketControl";		
+		_exited = true;
+	};		
 };
