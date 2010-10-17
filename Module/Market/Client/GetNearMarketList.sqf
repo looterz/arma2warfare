@@ -5,7 +5,7 @@ waitUntil {_base = WF_Logic getVariable Format ["%1MHQ",sideJoinedText];!isNil "
 _sorted = [];
 _range = ('WFBE_TOWNPURCHASERANGE' Call GetNamespace);
 
-_markets = nearestObjects [player, WFDEPOT, _range];
+_markets = [] + towns;
 _buildings = WF_Logic getVariable Format ['%1BaseStructures',sideJoinedText];
 _hq = WF_Logic getVariable Format ["%1MHQ",sideJoinedText];
 
