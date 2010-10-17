@@ -1,4 +1,4 @@
-Private ['_building','_dammages','_origin','_side','_side'];
+Private ['_building','_dammages','_origin','_side','_side', _stones];
 
 _building = _this select 0;
 _dammages = _this select 1;
@@ -17,37 +17,40 @@ if (baseFrendlyFire && (_sideBuilding == _side)) then { _dammages = 0 };
 
 if (_dammages > 0) then {
 
-		_upgrades = WF_Logic getVariable Format ["%1Upgrades",sideJoinedText];
-		_barrackUpgradeLevel = _upgrades select 0;
+	_lastDamageTime = _building getVariable '_lastDamageTime';
+	if (isNil "_totalDamage") then {_totalDamage = 0};
+	if (isNil "_lastDamageTime") then {_lastDamageTime = 0};
 		
-		_strengthLevel = 1;
-		if (_barrackUpgradeLevel == 2) then { _strengthLevel = 3; };
-		if (_barrackUpgradeLevel == 3) then { _strengthLevel = 5; };
+	_dT = time - _lastDamageTime;	
+	if (_dT > 10 && _dammages > 0.05) then {
+		["IsUnderAttack",TypeOf _building, _sideBuilding] Spawn SideMessage;
+	};
+	_building setVariable ['_lastDamageTime', time, false];
 
-		_totalDamage = _building getVariable '_totalDamage';
-		_lastDamageTime = _building getVariable '_lastDamageTime';
-		
-		if (isNil "_totalDamage") then {_totalDamage = 0};
-		if (isNil "_lastDamageTime") then {_lastDamageTime = 0};
-		
-		_dT = time - _lastDamageTime;
-		if (_dT >= 10*60) then {						// after 10 mins from last attack factory factory begin autorepair
-			_repairLevel = (_dT - 10*60) / (30*60);		// 30 mins for total repair factory;
-			_totalDamage = _totalDamage - (_repairLevel * _strengthLevel);
-			if (_totalDamage < 0) then { _totalDamage = 0; };
-		};
-		
-		if (_dT > 15 && _dammages > 0.05) then {
-			["IsUnderAttack",TypeOf _building, _sideBuilding] Spawn SideMessage;
-		};
+	_stones = [_building, marketProductIdStones] call marketGetProductValue;
+	
+	if (_stones > 0) then {
+	
+		_dammages  = _dammages * 100;
+		_currentStones = _stones;
 
-		_totalDamage = _totalDamage + _dammages;
-		_building setVariable ['_totalDamage', _totalDamage, false]; 
-		_building setVariable ['_lastDamageTime', time, false];
-		
-		if (_totalDamage - _dammages <= _strengthLevel) then { 
+		if (_stones >= _dammages) then {
+			_stones  = _stones - _dammages;
 			_dammages = 0;
-		};	
+		};
+	
+		if ( _stones < _dammages) then {
+			_dammages = _dammages - _stones;
+			_stones = 0;		
+		};
+		
+		_stones = floor(_stones);
+		if (_stones < _currentStones) then {
+			_delta = _currentStones - _stones;
+			[_building, marketProductIdStones, _delta] call marketUpdateStockProductValue;
+		};		
+		_dammages = _dammages / 100;
+	};
 };
 
-_dammages
+_dammages;

@@ -2235,6 +2235,14 @@
         <Russian>-$%1 компенсация за убийство %2</Russian>
         <Italian>You lost $%1, as refund for TK %2</Italian>
       </Key>	  
+
+      <Key ID="STR_WF_MarketMenu">
+        <English>Trade</English>
+        <French>Trade</French>
+        <German>Trade</German>
+        <Russian>Торговля</Russian>
+        <Italian>Trade</Italian>
+      </Key>	
 	  
     </Container>
   </Package>

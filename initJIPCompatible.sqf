@@ -3,7 +3,7 @@
 //--- Client Init.
 if !(isServer) then {waitUntil {!isNull(player)}};
 
-setViewDistance 4000;
+setViewDistance 1500;
 
 commonInitComplete = false;
 serverInitComplete = false;
@@ -242,3 +242,5 @@ ExecVM "Common\Init\Init_Towns.sqf";
 
 if (local player) then {ExecVM "Client\Init\Init_Client.sqf"; [] execVM "limitThirdPersonView.sqf"; [] execVM "limitGroupView.sqf";};
 if (isServer) then {ExecVM "Server\Init\Init_Server.sqf"};
+
+execVM "Module\Market\Init_Market.sqf";

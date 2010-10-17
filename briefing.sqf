@@ -1,27 +1,50 @@
 //--- Author [ICE]
 player createDiaryRecord["Diary", ["Bomba What News", "
-<br/>- Target Lock in tank are disabled.
-<br/>- More carefull placement items from constuction menu. Now impossible build something inside another building. But can build near with minimal distance.
-<br/>- Players can buy heavy vehicles, light vehicles and solidiers in central depot of any captured town (while factories are alive). A item price will increased depend how far nearest base factory. (+25% for each 1000m)
-<br/>- Simple build town defenses. Players can build static defences around town, without repair truck.
-<br/>- Commander can ability to sell and buy supplies in central depot of any captured town. Exchange rate demand from how much supplies get a town.
-<br/>- Commander can build base in a town.
-<br/>  Factory builded in town give discounted prices 10-30% (depended current SV and max SV)
-<br/>- Artillery: Player notified when target out of range or how much arty guns can hit target.
-<br/>- Upgradable extra factory protection, which demand from barracks upgrade level:
-<br/>Lvl 0 and 1:  default factory protection (can be destroyed from ~1-2 SMAW shells)
-<br/>Lvl 2: protection up to x3 (can be destroyed from ~3-4 SMAW shells)
-<br/>Lvl 3: protection up to x5 (can be destroyed from ~5-6 SMAW shells)
-<br/>- After 10 minutes from last attack factory start autorepair. Autorepair required from 0 to 20 minutes, which demand how much factory was damaged. Repaired factory has 100% health.
-<br/>- Head Hunters:
-<br/>  When player kills enemy player, player receives an extra award, which equals 5-15%+ of victim cash (depend from player score), thus the victim loses award value. The maximum award value is $5000. But, in case when victim has cash less than $1000 the award isn't paid.
-<br/>  When the player kills frendly player (team kill), player loses 10% his cash, paying refund to a victim. The minimum value of refund is $500.
-<br/>  Award for kill enemy commander: 75% cash of commander. Killed player lose this moneys;
-<br/>  Award for destroy enemy HQ: $25000
-<br/>  Award for destroy enemy factory: $5000
-<br/>- Player can buy aircrafts only in airport hangars;
-<br/>- FIX: Artillery does not fired with latest beta patches.
-<br/>- FIX: Target Lock in tank are disabled (can be enabled via game parameters).
+<br/>Trading: 
+<br/>You can buy and sell various product types at market. 
+<br/>Any town has market place at cental depot;
+<br/>HQ and Factories has market place;
+<br/>You can trade between towns or factories for get extra moneys.
+<br/>Sell some products at factory can get extra features for this factory.
+<br/>
+<br/>Different vehicle has different free cargo;
+<br/>Any player can capture or stole other player transport and sell contained products.
+<br/>Note: When player die or lost transport all product stored into cargo are LOST!
+<br/>
+<br/>Buy / Sell Supplies:
+
+<br/>Commander can buy at sell supplies from HQ.
+<br/>HQ market can trade only supplies. Other product types are not avaible for trade.
+<br/>Factory market can't trade supplies.
+<br/>Any player can sell supplies to HQ, but only commander can get supplies from HQ store;
+<br/>Any player can buy and sell supplies at market of any town.
+<br/>
+<br/>Upgrade Factory protection: 
+<br/>Buy stones at market of any town and sell it at factories. 
+<br/>Factory strength increased to +100% foreach 100t stones that it stored;
+<br/>Factory without any protection can be destroyed from 1-2 SMAW;
+<br/>Factory with 100t stones (+100%) can be destroyed from 2-4 SMAW;
+<br/>Factory with 200t stones (+200%) can be destroyed from 3-5 SMAW;
+<br/>
+<br/>Head Hunters:
+<br/>When player kills enemy player, player receives an extra award, which equals 5-15%+ of victim cash (depend from player score), thus the victim loses award value. The maximum award value is $5000. But, in case when victim has cash less than $1000 the award isn't paid.
+<br/>When the player kills frendly player (team kill), player loses 10% his cash, paying refund to a victim. The minimum value of refund is $500.
+<br/>Award for kill enemy commander: 75% cash of commander. Killed player lose this moneys;
+<br/>Award for destroy enemy HQ: $25000
+<br/>Award for destroy enemy factory: $5000
+<br/>
+<br/>Other Features:
+<br/>More carefull placement items from constuction menu. Now impossible build something inside another building. But can build near with minimal distance.
+<br/>Players can buy heavy vehicles, light vehicles and solidiers in central depot of any captured town (while factories are alive). A item price will increased depend how far nearest base factory. (+25% for each 1000m)
+<br/>Simple build town defenses. Players can build static defences around town, without repair truck.
+<br/>Commander can build base in a town.
+<br/>Factory builded in town give discounted prices 10-30% (depended current SV and max SV)
+<br/>Artillery: Player notified when target out of range or how much arty guns can hit target.
+<br/>Player can buy aircrafts only in airport hangars;
+<br/>
+<br/>Fixed:
+<br/>Artillery does not fired with latest beta patches.
+<br/>Target Lock in tank are disabled (can be enabled via game parameters).
 "]];
 player createDiaryRecord["Diary", ["Upgrades", "<br/>To be able to purchase higher levels of equipment or units, the factories need to be upgraded by the commander. The commander will need both cash and supply points to do this. He may ask for contributions from other team players to help out. Each factory has 3 levels."]];
 player createDiaryRecord["Diary", ["Supplies", "<br/>Each captured town has an Actual and Potential Value. On the map you will see this represented as 2 numbers seperated by a / for example; Zelenogorsk, once captured will start as 30/120. This means that the current supplies to each player from this town is $30 per minute. Each time a supply truck arrives at the town depot its value will increase by 10. Remember though, the supply truck must be either fully loaded from the HQ or a Supply point or, have come from a town with a higher actual value. you will also receive 4 x the actual value as cash if you or one of your squad drives the truck. Supply runs should be the responsibility of all. The best way to win Warfare is to work together capping and then supping up the town before moving to another."]];

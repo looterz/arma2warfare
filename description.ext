@@ -42,3 +42,6 @@
 #ifndef VANILLA
 	#include "Rsc\Identities.hpp"
 #endif
+
+// -- Market module
+#include "Module\Market\Rsc\Market.hpp"
