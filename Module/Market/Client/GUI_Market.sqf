@@ -159,7 +159,7 @@ _procUpdateMarketsList = {
 		lbClear _uiNearMarketDropDown;
 		{
 			_txt = '';
-			if (typeof _x == "WarfareBDepot") then {
+			if (_x in towns) then {
 				_txt = _x getVariable 'name';
 			} else {
 				_txt = [typeof _x, 'displayName'] Call GetConfigInfo;
