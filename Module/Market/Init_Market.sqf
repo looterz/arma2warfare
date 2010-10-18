@@ -11,6 +11,7 @@ marketUpdateProductValue = Compile preprocessFile "Module\Market\Function\Update
 marketInitMarketStorage = Compile preprocessFile "Module\Market\Function\Init_MarketStorage.sqf"; 
 marketUpdateProducedProduct = Compile preprocessFile "Module\Market\Function\UpdateProducedProduct.sqf";
 marketUpdateMarketPrices = Compile preprocessFile "Module\Market\Function\UpdateMarketPrices.sqf";
+marketNormalizePrices = Compile preprocessFile "Module\Market\Function\NormalizePrices.sqf";
 
 marketProductIdSupply = 1;
 marketProductIdStones = 9;
