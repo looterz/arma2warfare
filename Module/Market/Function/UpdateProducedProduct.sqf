@@ -4,8 +4,6 @@ Private ['_unitType','_su'];
 	_products = [_market] call marketGetMarketProducts;
 	_productivity = _market getVariable "marketProductivity";
 	
-	_buildings = WF_Logic getVariable Format ['%1BaseStructures',sideJoinedText];
-	
 	_lastProduceProduct = _market getVariable "marketLastProduceProduct";
 	if (isNil '_lastProduceProduct') then { _lastProduceProduct = time; };
 	
