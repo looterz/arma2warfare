@@ -12,6 +12,18 @@ _userKeyMessage = "";
 _actionKeysImages = "";
 _pressedButtonArray = [_pressedButton];//standard button
 
+_selectedFactoryLockWeapon = {
+private['_weapon'];
+
+   _weapon = currentWeapon (vehicle player);
+   
+   if (_weapon isKindOf "2A42") exitWith { true; };
+   if (_weapon isKindOf "M256") exitWith { true; };
+   if (_weapon isKindOf "D81") exitWith { true; };
+   
+   false;
+};
+
 switch (true) do
 {
 	// disable command mode scanning
@@ -22,7 +34,7 @@ switch (true) do
 	// disable radar lock
 	case (paramStrictTankTargetLock && ({_x in _pressedButtonArray} count (actionKeys "LockTargets")) > 0):
 	{
-		if (player != (vehicle player) && (typeof vehicle player isKindOf "Tank")) then
+		if (player != (vehicle player) && (call _selectedFactoryLockWeapon)) then
 		{
 			_keyHandled = true;
 		};
@@ -31,7 +43,7 @@ switch (true) do
 	// disable infantry direct lock
 	case (paramStrictTankTargetLock && ({_x in _pressedButtonArray} count (actionKeys "LockTarget")) > 0):
 	{
-		if (player != (vehicle player) && (typeof vehicle player isKindOf "Tank")) then
+		if (player != (vehicle player) && (call _selectedFactoryLockWeapon)) then
 		{
 			_keyHandled = true;
 		};
@@ -39,7 +51,7 @@ switch (true) do
 	// disable vehicle direct lock
 	case (paramStrictTankTargetLock && ({_x in _pressedButtonArray} count (actionKeys "VehLockTargets")) > 0):
 	{
-		if (player != (vehicle player) && (typeof vehicle player isKindOf "Tank")) then
+		if (player != (vehicle player) && (call _selectedFactoryLockWeapon)) then
 		{
 			_keyHandled = true;
 		};
