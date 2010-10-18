@@ -227,8 +227,8 @@ private['_cargo', '_stockValue', '_price', '_sell', '_buy', '_txtSell', '_txtBuy
 		_txtSell = '--';
 		_txtBuy  = '--';
 		
-		if (_sell != -1 && _stockValue > 0) then { _txtSell = format["$%1", _sell] };
-		if (_buy  != -1) then { _txtBuy  = format["$%1", _buy]  };		
+		if (_sell != -1) then { _txtSell = format["$%1", _sell] };
+		if (_buy  != -1 && _stockValue > 0) then { _txtBuy  = format["$%1", _buy]  };		
 		                               
 		lnbAddRow  [_uiProductList, [_productName, _productUnit, _txtSell, _txtBuy, format["%1%2", _cargo, _productUnit] , format["%1%2", _stockValue, _productUnit]   ] ];
 		

@@ -16,6 +16,9 @@ marketNormalizePrices = Compile preprocessFile "Module\Market\Function\Normalize
 marketProductIdSupply = 1;
 marketProductIdStones = 9;
 
+Logger = { if (WF_DEBUG) then { diag_log _this; }; };
+
+
 // name, unit, basePrice, maxVolumeProduced, maxProduceSpeed/min
 marketProductCollection = 
 [ 	["Food", 			"t",  10,	1000,	 10.0],	// 0

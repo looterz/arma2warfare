@@ -1,4 +1,4 @@
-﻿Private ['_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', '_u', '_buyCoef', '_baseCost', '_productVolume', '_sellK','_buyCost','_sellCost', '_currentSupply', '_isCommander', '_isFactory', '_buildings', '_isTown', '_products', '_townProducts' ];
+﻿Private ['_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', '_u', '_buyCoef', '_baseCost', '_productVolume', '_sellK','_buyCost','_sellCost', '_currentSupply', '_isCommander', '_isFactory', '_buildings', '_isTown', '_products', '_townProducts', '_sorted' ];
 
 _market = _this select 0;
 
@@ -17,6 +17,12 @@ _products = [_market] call marketGetMarketProducts;
 _marketStock = _products select 0;
 _marketPrices = _products select 1;
 	
+_markets = [] + towns;
+_markets = _markets + (WF_Logic getVariable 'WESTBaseStructures');
+_markets = _markets + (WF_Logic getVariable 'EASTBaseStructures');
+	
+_sorted = [_market, _markets] Call SortByDistance;
+	
 _updated = false;
 {
 	if (_x != _market) then  {
@@ -31,22 +37,27 @@ _updated = false;
 		_u = 0;
 		while { (_u < (count marketProductCollection)) } do {
 		
+			_productInfo = marketProductCollection select _u;
+		
 			_marketPrice = _marketPrices select _u;
-			_townBuyCost = ((_townPrices select _u) select 1)*_distTax;
 			_townSellCost = ((_townPrices select _u) select 0)*_distTax;
+			_townBuyCost = ((_townPrices select _u) select 1)*_distTax;
+
 			_marketSellCost = _marketPrice select 0;
+			_marketBuyCost = _marketPrice select 1;
 			
-			_townBuyCost  = _townByCost call _fnRoundPriceValue;
+			_townBuyCost  = _townBuyCost call _fnRoundPriceValue;
 			_townSellCost = _townSellCost call _fnRoundPriceValue;
 			
-			if (_marketSellCost < _townBuyCost) then {	// мы продаем на текущем заводе по цене меньше чем мы покупаем в ближ городе
-				_marketPrice set [0, _townBuyCost  ];
-				_marketPrice set [1, _townSellCost ];
+			if (_townBuyCost > 0 && _townBuyCost < _marketSellCost ) then {	// мы продаем на текущем заводе по цене меньше чем мы покупаем в ближ городе
+				_marketPrice set [0, _townBuyCost ];
 				_updated = true;
 			};
+			
+			_u = _u + 1;
 		};
 	};
-} forEach towns;
+} forEach _sorted;
 	
 if (_updated) then {
 	_market setVariable ["marketProductPrice", _marketPrices, true];

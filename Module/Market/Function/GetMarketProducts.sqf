@@ -1,4 +1,4 @@
-Private ['_market', '_marketStock', '_marketBuyCost', '_marketSellCost', '_marketInited', '_u', '_buyCoef', '_baseCost', '_productVolume', '_sellK','_buyCost','_sellCost', '_currentSupply', '_isCommander' ];
+Private ['_market', '_marketStock', '_marketBuyCost', '_marketSellCost', '_marketInited', '_u', '_buyCoef', '_baseCost', '_productVolume', '_sellK','_buyCost','_sellCost', '_currentSupply', '_isCommander', '_marketPrices' ];
 
 _market = _this select 0;
 _marketBuyCost =  [];
