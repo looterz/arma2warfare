@@ -100,33 +100,31 @@ _procReadStockData = {
 			_marketPrices set [_u, [-1, -1] ];
 			_u = _u + 1;
 		};
+	};
 	
-		if (paramSupplyExchange) then {
+	if (paramSupplyExchange) then {
+	
+		if (!_isTown) then {
 			_currentSupply = WF_Logic getVariable Format ["%1Supplies",sideJoinedText];
 			_currentSupply = floor (_currentSupply / 1000);	
 			
 			_marketStock set [marketProductIdSupply, _currentSupply];	// -- set current supply level;
-
-			_isCommander = false;
-			if (!isNull(commanderTeam)) then {if (commanderTeam == group player) then {_isCommander = true}};
-			
-			if (_isCommander) then {
-				_newPrice = [0, 0];
-				_marketPrices set [marketProductIdSupply, _newPrice ]; // -- commander can get supplies at hq
-			} else {
-				_newPrice = [0, -1];
-				_marketPrices set [marketProductIdSupply, _newPrice ]; // -- any player call sell supplies to hq
-			}
-		} else {
-			_marketStock set [marketProductIdSupply, 0];
-			_newPrice = [-1, -1];
-			_marketPrices set [marketProductIdSupply, _newPrice ];
 		};
-	};
-	
-	if (!_isTown && !_isMHQ) then {
+
+		_isCommander = false;
+		if (!isNull(commanderTeam)) then {if (commanderTeam == group player) then {_isCommander = true}};
+		
+		if (_isTown || (_isCommander && _isMHQ)) then {
+			_newPrice = [0, 0];
+			_marketPrices set [marketProductIdSupply, _newPrice ]; // -- commander can get supplies at hq
+		} else {
+			_newPrice = [0, -1];
+			_marketPrices set [marketProductIdSupply, _newPrice ]; // -- any player call sell supplies to any factory
+		}
+	} else {
+		_marketStock set [marketProductIdSupply, 0];
 		_newPrice = [-1, -1];
-		_marketPrices set [marketProductIdSupply, _newPrice ]; // -- nobody can trade supplies in factory market	
+		_marketPrices set [marketProductIdSupply, _newPrice ];
 	};
 };
 _procUpdateStockProduct = {

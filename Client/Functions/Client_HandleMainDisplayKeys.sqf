@@ -15,7 +15,7 @@ _pressedButtonArray = [_pressedButton];//standard button
 
 
 _IsSelectedFactoryLockWeapon = {
-private['_weapon','_types'];
+private['_weapon','_types','_status'];
 
 	_tankGuns = [ 	(configFile >> "CfgWeapons" >> "M256"), 
 					(configFile >> "CfgWeapons" >> "2A42"), 
@@ -23,12 +23,15 @@ private['_weapon','_types'];
 				];
 
 	_weapon = configFile >> "CfgWeapons" >> (currentWeapon (vehicle player));
-			
-	while { isClass _weapon } do {
-		if (_weapon in _tankGuns) exitWith { true; };
+	_status = false;
+	while { !_status && (isClass _weapon)  } do {
+		if (_weapon in _tankGuns) then 
+		{ 
+			_status = true; 
+		};
 		_weapon = inheritsFrom _weapon;
 	};   
-    false;
+    _status;
 };
 
 switch (true) do

@@ -16,7 +16,7 @@ player createDiaryRecord["Diary", ["Bomba What News", "
 <br/>Commander can buy at sell supplies from HQ.
 <br/>HQ market can trade only supplies. Other product types are not avaible for trade.
 <br/>Factory market can't trade supplies.
-<br/>Any player can sell supplies to HQ, but only commander can get supplies from HQ store;
+<br/>Any player can put supplies at any factory, but only commander can get supplies from HQ store;
 <br/>Any player can buy and sell supplies at market of any town.
 <br/>
 <br/>Upgrade Factory protection: 
