@@ -31,6 +31,7 @@ PlayerKilled = Compile preprocessFile "Client\Client_Killed.sqf";
 ReplaceInventoryAmmo = Compile preprocessFile "Client\Functions\Client_ReplaceInventoryAmmo.sqf";
 
 HandleMainDisplayKeys = Compile preprocessFile "Client\Functions\Client_HandleMainDisplayKeys.sqf";
+RemoveFlares = Compile preprocessFile "Client\Functions\Client_RemoveFlares.sqf";
 
 
 if !(WF_A2_Vanilla) then {

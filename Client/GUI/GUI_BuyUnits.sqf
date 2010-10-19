@@ -211,7 +211,7 @@ while {alive player && dialog} do {
 	if (_update) then {
 
 		_costCoefficient = 1;
-		if (_type != "Depot" && _closest != objNull) then {
+		if (_type != "Depot" && _type != "Airport" _closest != objNull) then {
 
 			_discount = 0;
 			_nearFactory = _closest;
@@ -229,9 +229,19 @@ while {alive player && dialog} do {
 				
 			}; //-- buy in central depot
 		
-			if (_nearFactory != objNull) then {
+			if (_isNearFactory) then {
+				diag_log format["_nearFactory=%1", _nearFactory];
+			);
+		
+			if (_isNearFactory) then {
 
-				_depotNearFactory = nearestObjects [_nearFactory, WFDEPOT,0.8*('WFBE_DEFENSEMANRANGE' Call GetNamespace)];
+				
+			
+				_range = 'WFBE_DEFENSEMANRANGE' Call GetNamespace;
+				if (isNil '_range') then { _range = 300; };
+				_range = _range * 0.8;
+				
+				_depotNearFactory = nearestObjects [_nearFactory, WFDEPOT, _range];
 				_nearTown = if (count _depotNearFactory > 0) then {_depotNearFactory select 0} else {objNull; };
 				if (!isNull _nearTown) then {
 				

@@ -192,7 +192,9 @@ while {true} do {
 			MenuAction = -1;
 			lastRearm = time;
 			-_rearmPrice Call ChangePlayerFunds;
-			_veh Spawn RearmVehicle;
+			_veh Call RearmVehicle;
+			_veh Call RemoveFlares;
+			
 			hint (localize "STR_WF_Rearming");
 		};	
 		//--- Repair.

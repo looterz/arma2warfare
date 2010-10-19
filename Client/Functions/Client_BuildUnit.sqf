@@ -161,6 +161,8 @@ if (_isMan) then {
 		if (paramAARadar) then {_init = _init + Format["nullReturn = [this,%1] ExecVM 'Common\Common_AARadarMarkerUpdate.sqf';",sideJoined]};
 		if (_unit isKindOf "Plane") then {_vehicle addAction [localize "STR_WF_TaxiReverse","Client\Action\Action_TaxiReverse.sqf", [], 92, false, true, "", "driver _target == _this && alive _target && speed _target < 4 && getPos _target select 2 < 4"]};
 		if (_init != "") then {_vehicle setVehicleInit _init; processInitCommands};
+		
+		_vehicle Call RemoveFlares;
 	};
 	if (_unit in ('WFBE_BALANCEDUNITS' Call GetNamespace) && paramBalancing) then {[_vehicle] Spawn BalanceInit};
 	//--- Vehicles Init End.

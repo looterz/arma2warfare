@@ -5,11 +5,6 @@ _vehicle = _this;
 /* Clear the vehicle */
 _vehicle setVehicleAmmo 0;
 
-if (_vehicle isKindOf "Air") then {
-	_magazines = [configFile >> 'CfgVehicles' >> typeOf _vehicle] call GetVehicleMags;
-	{ _vehicle removeMagazinesTurret [_x, [-1]]; } forEach _magazines;
-}
-
 /* Reload all turrets */
 _turrets = [];
 _config = configFile >> 'CfgVehicles' >> typeOf _vehicle >> 'Turrets';
@@ -18,11 +13,7 @@ _turrets = [_config] call GetTurretsMags;
 /* Reload the driver (Special) */
 
 _magazines = [configFile >> 'CfgVehicles' >> typeOf _vehicle] call GetVehicleMags;
-
-if ((_vehicle isKindOf 'Air' && paramCounterMeasures) || !(_vehicle isKindOf 'Air')) then {
-	{_vehicle addMagazineTurret[_x,[-1]]} forEach _magazines;
-};
-
+{_vehicle addMagazineTurret[_x,[-1]]} forEach _magazines;
 
 reload _vehicle;
 
