@@ -22,9 +22,9 @@ private['_weapon','_types'];
 					(configFile >> "CfgWeapons" >> "D81")
 				];
 
-	_weapon = configFile >> "CfgWeapons" >> currentWeapon (vehicle player);
+	_weapon = configFile >> "CfgWeapons" >> (currentWeapon (vehicle player));
 			
-	while { _weapon } do {
+	while { isClass _weapon } do {
 		if (_weapon in _tankGuns) exitWith { true; };
 		_weapon = inheritsFrom _weapon;
 	};   

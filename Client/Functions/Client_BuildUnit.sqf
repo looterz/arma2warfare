@@ -90,6 +90,7 @@ while {_unique != _queu select 0 && alive _building && !isNull _building} do {
 
 if (_show) then {_txt = parseText(Format [localize "STR_WF_BuyEffective",_description]);hint _txt};
 
+if (WF_DEBUG) then { _waitTime = 5; };
 sleep _waitTime;
 
 _queu = _building getVariable "queu";

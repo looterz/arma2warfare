@@ -215,18 +215,23 @@ while {alive player && dialog} do {
 
 			_discount = 0;
 			_nearFactory = _closest;
+			_isNearFactory = true;
 			if ((typeOf _closest) in WFDEPOT) then 
 			{ 
 				_buildings1 = WF_Logic getVariable Format ['%1BaseStructures',sideJoinedText];
 				_factories1 = [sideJoined,Format ['WFBE_%1%2TYPE',sideJoinedText,_type] Call GetNamespace,_buildings1] Call GetFactories;
 				_sorted1 = [_closest, _factories1] Call SortByDistance;
-				_nearFactory = if (count _sorted1 > 0) then { _sorted1 select 0; } else { objNull; };
+				if (count _sorted1 > 0) then { 
+					_nearFactory = _sorted1 select 0; 
+				} else { 
+					_isNearFactory = false; 
+				};
 				
 			}; //-- buy in central depot
 		
 			if (_nearFactory != objNull) then {
 
-			_depotNearFactory = nearestObjects [_nearFactory, WFDEPOT,0.8*('WFBE_DEFENSEMANRANGE' Call GetNamespace)];
+				_depotNearFactory = nearestObjects [_nearFactory, WFDEPOT,0.8*('WFBE_DEFENSEMANRANGE' Call GetNamespace)];
 				_nearTown = if (count _depotNearFactory > 0) then {_depotNearFactory select 0} else {objNull; };
 				if (!isNull _nearTown) then {
 				
