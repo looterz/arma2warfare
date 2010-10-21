@@ -206,37 +206,25 @@ while {alive player && dialog} do {
 	
 	//--- Player funds.
 	ctrlSetText [12019,Format [localize 'STR_WF_Cash',Call GetPlayerFunds]];
-	
+
 	//--- Update tabs.
 	if (_update) then {
-
+	
 		_costCoefficient = 1;
-		if (_type != "Depot" && _type != "Airport" _closest != objNull) then {
+		if (_type != "Depot" && _type != "Airport" && !(isNull _closest)) then {
 
 			_discount = 0;
 			_nearFactory = _closest;
-			_isNearFactory = true;
 			if ((typeOf _closest) in WFDEPOT) then 
 			{ 
 				_buildings1 = WF_Logic getVariable Format ['%1BaseStructures',sideJoinedText];
 				_factories1 = [sideJoined,Format ['WFBE_%1%2TYPE',sideJoinedText,_type] Call GetNamespace,_buildings1] Call GetFactories;
 				_sorted1 = [_closest, _factories1] Call SortByDistance;
-				if (count _sorted1 > 0) then { 
-					_nearFactory = _sorted1 select 0; 
-				} else { 
-					_isNearFactory = false; 
-				};
-				
+				_nearFactory = if (count _sorted1 > 0) then { _sorted1 select 0; } else { objNull; };
 			}; //-- buy in central depot
 		
-			if (_isNearFactory) then {
-				diag_log format["_nearFactory=%1", _nearFactory];
-			);
-		
-			if (_isNearFactory) then {
+			if (!(isNull _nearFactory)) then {
 
-				
-			
 				_range = 'WFBE_DEFENSEMANRANGE' Call GetNamespace;
 				if (isNil '_range') then { _range = 300; };
 				_range = _range * 0.8;
@@ -273,8 +261,6 @@ while {alive player && dialog} do {
 				};
 			};
 		};
-		
-		//hint Format["Buy coeff:%1", _costCoefficient];
 		
 		_listUnits = Format ['WFBE_%1%2UNITS',sideJoinedText,_type] Call GetNamespace;
 
@@ -319,6 +305,12 @@ while {alive player && dialog} do {
 			
 				_sorted = [player,_factories] Call SortByDistance;
 				_closest = _sorted select 0;
+				
+				format["Buy factories in town:%1", _type] call Logger;
+				format["paramBuyVehiclesInTown:%1", paramBuyVehiclesInTown] call Logger;
+				format["_countAlive:%1", _countAlive] call Logger;
+				format["depotInRange:%1", depotInRange] call Logger;
+				format["_type:%1", _type] call Logger;
 			
 				if (paramBuyVehiclesInTown && _countAlive > 0 && depotInRange && _type != 'Aircraft') then {
 					
