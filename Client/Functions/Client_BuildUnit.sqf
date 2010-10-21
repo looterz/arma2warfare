@@ -175,10 +175,7 @@ if (_isMan) then {
 	if (!_driver && !_gunner && !_commander) exitWith {};
 	_crew = Format ["WFBE_%1SOLDIER",sideJoinedText] Call GetNamespace;
 	if (_unit isKindOf "Tank") then {_crew = Format ["WFBE_%1CREW",sideJoinedText] Call GetNamespace};
-	if (_unit isKindOf "Air") then {
-		_unit Spawn RearmVehicle;
-		_crew = Format ["WFBE_%1PILOT",sideJoinedText] Call GetNamespace
-	};
+	if (_unit isKindOf "Air") then {_crew = Format ["WFBE_%1PILOT",sideJoinedText] Call GetNamespace};
 	if (_driver) then {
 		_soldier = [_crew,_group,_position,sideJoined] Call CreateMan;
 		[_soldier] allowGetIn true;
