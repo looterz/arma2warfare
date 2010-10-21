@@ -101,5 +101,6 @@ switch (typeOf _unit) do {
 		_unit addMagazine "60Rnd_CMFlareMagazine";
 		_unit addWeapon "CMFlareLauncher";
 	};
-
 };
+
+_vehicle Call RemoveFlares; // -- allow flares only after upgrade
