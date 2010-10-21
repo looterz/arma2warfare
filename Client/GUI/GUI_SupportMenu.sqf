@@ -68,6 +68,14 @@ _effective = [];
 			_checks = (getPos _x) nearEntities[_typeRepair,'WFBE_REPAIRTRUCKRANGE' Call GetNamespace];
 			if (count _checks > 0) then {_add = true};
 		};
+		
+		if (!_add && _x isKindOf 'Air') then {
+			_pura = ('WFBE_SUPPORTRANGE' Call GetNamespace);
+			_sorted = [_x, Airfields] Call SortByDistance;
+			if (count _sorted > 0) then {
+				if ((_sorted select 0) distance player < _pura && alive(_sorted select 0)) then { _add = true; };
+			};
+		};		
 	};
 	if (_add) then {
 		_effective = _effective + [_x];
