@@ -103,4 +103,4 @@ switch (typeOf _unit) do {
 	};
 };
 
-_vehicle Call RemoveFlares; // -- allow flares only after upgrade
+_unit Call RemoveFlares; // -- allow flares only after upgrade
