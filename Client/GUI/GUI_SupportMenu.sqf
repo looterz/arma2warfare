@@ -73,7 +73,7 @@ _effective = [];
 			_pura = ('WFBE_SUPPORTRANGE' Call GetNamespace);
 			_sorted = [_x, Airfields] Call SortByDistance;
 			if (count _sorted > 0) then {
-				if ((_sorted select 0) distance player < _pura && alive(_sorted select 0)) then { _add = true; };
+				if ((_sorted select 0) distance _x < _pura && alive(_sorted select 0)) then { _add = true; };
 			};
 		};		
 	};
