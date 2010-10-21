@@ -25,6 +25,7 @@ _upgrades = WF_Logic getVariable Format ["%1Upgrades",sideJoinedText];
 if ((_vehicle isKindOf 'Air') && (_upgrades select 9 == 0)) then {
 
 	_magazines = [configFile >> 'CfgVehicles' >> typeOf _vehicle] call GetVehicleMags;
+	_magazines = _magazines + (_vehicle magazinesTurret [-1]);
 	{ 
 		_mag = _x;
 		if ( (_x call _IsSelectedMagazineFlare) ) then {
