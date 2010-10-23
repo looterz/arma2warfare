@@ -90,8 +90,11 @@ _procReadStockData = {
 	_marketStock = _products select 0;
 	_marketPrices = _products select 1;
 
-	_isTown = _market in towns;
-	_isMHQ = (WF_Logic getVariable Format ["%1MHQ",sideJoinedText] == _market);
+	_isTown = if (_market in towns) then { true } else { false };
+	_isMHQ = if (WF_Logic getVariable Format ["%1MHQ",sideJoinedText] == _market) then { true } else { false };
+	_isFactory = if (_market in (WF_Logic getVariable Format ['%1BaseStructures',sideJoinedText])) then { true} else { false };
+
+	
 	if (_isMHQ) then {
 	
 		_u = 0;
@@ -104,7 +107,7 @@ _procReadStockData = {
 	
 	if (paramSupplyExchange) then {
 	
-		if (!_isTown) then {
+		if (_isMHQ || _isFactory) then {
 			_currentSupply = WF_Logic getVariable Format ["%1Supplies",sideJoinedText];
 			_currentSupply = floor (_currentSupply / 1000);	
 			
