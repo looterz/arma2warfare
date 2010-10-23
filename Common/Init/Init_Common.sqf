@@ -5,6 +5,9 @@ if !(WF_A2_Vanilla) then {
 	BackpackHasSpace = Compile preprocessFile "Common\Functions\Common_BackpackHasSpace.sqf";
 	EquipBackpack = Compile PreprocessFile "Common\Functions\Common_EquipBackpack.sqf";
 };
+
+
+GetUnitEquipmentPrice = Compile preprocessFile "Common\Functions\Common_GetUnitEquipmentPrice.sqf";
 BuildingInRange = Compile preprocessFile "Common\Functions\Common_BuildingInRange.sqf";
 ChangeTeamFunds = Compile PreprocessFile "Common\Functions\Common_ChangeTeamFunds.sqf";
 ChangeClientFunds = Compile PreprocessFile "Common\Functions\Common_ChangeClientFunds.sqf";

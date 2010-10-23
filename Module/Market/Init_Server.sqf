@@ -1,5 +1,8 @@
 Private ['_unitType','_su'];
 
+_isInited = WF_Logic getVariable "marketInitialized";
+if (_isInited == 1) exitWith {};
+
 "Market initialization... wait town inited"  call Logger;
 waitUntil {townInit};
 
@@ -43,6 +46,7 @@ while { true } do {
 	
 		_buildings = [] + (WF_Logic getVariable 'WESTBaseStructures');
 		_buildings = _buildings + (WF_Logic getVariable 'EASTBaseStructures');
+		if (paramHangars) then { _buildings = _buildings + Airfields; };
 		
 		{
 			_market = _x;

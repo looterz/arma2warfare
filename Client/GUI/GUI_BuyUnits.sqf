@@ -6,6 +6,7 @@ MenuAction = -1;
 _listUnits = [];
 
 _closest = objNull;
+_closestFactory = objNull;
 _commander = false;
 _countAlive = 0;
 _currentCost = 0;
@@ -35,6 +36,7 @@ _updateMap = true;
 _val = 0;
 _costCoefficient = 1;
 _mbu = 'WFBE_MAXGROUPSIZE' Call GetNamespace;
+_currentUnit = objNull;
 
 //--- Get the closest Factory Type in range.
 _break = false;
@@ -85,7 +87,8 @@ _fillList = {
 		};
 	};
 	
-	lnbClear _listBox;
+	_products = [_closestFactory] call marketGetMarketProducts;
+	_tmplistUnits = [];
 	{
 		_addin = true;
 		_c = _x Call GetNamespace;
@@ -94,16 +97,27 @@ _fillList = {
 		};
 		if ((_c select QUERYUNITUPGRADE) <= (_currentUpgrades select _value) && _addin) then {
 		
-			_cost = (ceil((_c select QUERYUNITPRICE)*_costCoefficient / 5))*5;		
+			_basePrice = if (_x isKindOf "Man") then { _x call GetUnitEquipmentPrice; } else { _c select QUERYUNITPRICE; };
+			_basePrice = [_products, _x, _basePrice] call marketGetUnitPriceEx;
+			_cost = (ceil(_basePrice*_costCoefficient / 5))*5;		
 			if (_cost < 5) then { _cost = 5; };
 			
-			lnbAddRow [_listBox,['$'+str (_cost),(_c select QUERYUNITLABEL)]];
-			lnbSetData [_listBox,[_i,0],_filler];
-			lnbSetValue [_listBox,[_i,0],_u];
+			_tmplistUnits = _tmplistUnits + [ [ ('$'+str (_cost)), (_c select QUERYUNITLABEL), _filler, _u] ];
 			_i = _i + 1;
 		};
 		_u = _u + 1;
-	} forEach _listNames;
+	} forEach _listNames;	
+	
+	_u = 0;
+	lnbClear _listBox;
+	{
+		lnbAddRow [_listBox, [(_x select 0), (_x select 1)] ];
+		lnbSetData [_listBox,[_u,0], (_x select 2)];
+		lnbSetValue [_listBox,[_u,0], (_x select 3)];
+		_u = _u + 1;
+	} forEach _tmplistUnits;
+	
+	_tmplistUnits = nil;
 	
 	if (_i > 0) then {lnbSetCurSelRow [_listBox,0]} else {lnbSetCurSelRow [_listBox,-1]};
 };
@@ -138,19 +152,7 @@ while {alive player && dialog} do {
 		_currentRow = lnbCurSelRow _listBox;
 		_currentValue = lnbValue[_listBox,[_currentRow,0]];
 		_unit = _listUnits select _currentValue;
-		_currentUnit = _unit Call GetNamespace;
-		_currentCost = _currentUnit select QUERYUNITPRICE;
-		if !(_isInfantry) then {
-			_extra = 0;
-			if (_driver) then {_extra = _extra + 1};
-			if (_gunner) then {_extra = _extra + 1};
-			if (_commander) then {_extra = _extra + 1};
-			_currentCost = _currentCost + (('WFBE_CREWCOST' Call GetNamespace) * _extra);
-		};
-		
-		_currentCost = (ceil(_currentCost * _costCoefficient / 5))*5;		
-		if (_currentCost < 5) then { _currentCost = 5; };		
-		
+		_currentUnit = _unit Call GetNamespace;	
 		
 		if ((_currentRow) != -1) then {
 			_funds = Call GetPlayerFunds;
@@ -175,6 +177,7 @@ while {alive player && dialog} do {
 				_params = if (_isInfantry) then {[_type, _closest,_unit,[]]} else {[_type, _closest,_unit,[_driver,_gunner,_commander,_isLocked]]};
 				_params Spawn BuildUnit;
 				-(_currentCost) Call ChangePlayerFunds;
+				[_closestFactory, _unit] Call marketUseResourcesToBuyUnit;
 			};
 		};
 	};
@@ -211,25 +214,27 @@ while {alive player && dialog} do {
 	if (_update) then {
 	
 		_costCoefficient = 1;
+		_closestFactory = _closest;
+		
 		if (_type != "Depot" && _type != "Airport" && !(isNull _closest)) then {
 
 			_discount = 0;
-			_nearFactory = _closest;
+			_closestFactory = _closest;
 			if ((typeOf _closest) in WFDEPOT) then 
 			{ 
 				_buildings1 = WF_Logic getVariable Format ['%1BaseStructures',sideJoinedText];
 				_factories1 = [sideJoined,Format ['WFBE_%1%2TYPE',sideJoinedText,_type] Call GetNamespace,_buildings1] Call GetFactories;
 				_sorted1 = [_closest, _factories1] Call SortByDistance;
-				_nearFactory = if (count _sorted1 > 0) then { _sorted1 select 0; } else { objNull; };
+				_closestFactory = if (count _sorted1 > 0) then { _sorted1 select 0; } else { objNull; };
 			}; //-- buy in central depot
 		
-			if (!(isNull _nearFactory)) then {
+			if (!(isNull _closestFactory)) then {
 
 				_range = 'WFBE_DEFENSEMANRANGE' Call GetNamespace;
 				if (isNil '_range') then { _range = 300; };
 				_range = _range * 0.8;
 				
-				_depotNearFactory = nearestObjects [_nearFactory, WFDEPOT, _range];
+				_depotNearFactory = nearestObjects [_closestFactory, WFDEPOT, _range];
 				_nearTown = if (count _depotNearFactory > 0) then {_depotNearFactory select 0} else {objNull; };
 				if (!isNull _nearTown) then {
 				
@@ -247,7 +252,7 @@ while {alive player && dialog} do {
 
 				_costCoefficient = _costCoefficient - _discount;		
 				if ((typeOf _closest) in WFDEPOT) then {
-					_dist = _closest distance _nearFactory;
+					_dist = _closest distance _closestFactory;
 					_costCoefficient = _costCoefficient + (_dist / 4000); // -- increase price for delivery to 25% for each 1000m
 					
 					_supplyValue = _closest getVariable "supplyValue";
@@ -357,6 +362,10 @@ while {alive player && dialog} do {
 			_currentUnit = (_listUnits select _currentValue) Call GetNamespace;
 			ctrlSetText [12009,_currentUnit select QUERYUNITPICTURE];
 			_currentCost = _currentUnit select QUERYUNITPRICE;
+
+			_unit = _listUnits select _currentValue;
+			if (_unit isKindOf "Man") then { _currentCost = _unit call GetUnitEquipmentPrice; };
+			_currentCost = [_closestFactory, _unit, _currentCost] call marketGetUnitPrice;
 			
 			_isInfantry = if ((_listUnits select _currentValue) isKindOf 'Man') then {true} else {false};
 			
@@ -430,12 +439,15 @@ while {alive player && dialog} do {
 
 			//--- Long description.
 			_utype = _listUnits select _currentValue;
+			_txt = '';
 			if (isClass (configFile >> 'CfgVehicles' >> _utype >> 'Library')) then {
 				_txt = getText (configFile >> 'CfgVehicles' >> _utype >> 'Library' >> 'libTextDesc');
-				(_display displayCtrl 12022) ctrlSetStructuredText (parseText _txt);
-			} else {
-				(_display displayCtrl 12022) ctrlSetStructuredText (parseText '');
 			};
+			
+			_txtRequire = [_closestFactory, _utype] call marketGetUnitRequirementText;
+			_txt = _txtRequire + _txt;
+			
+			(_display displayCtrl 12022) ctrlSetStructuredText (parseText _txt);
 			
 			_currentCost = (ceil(_currentCost * _costCoefficient / 5))*5;		
 			if (_currentCost < 5) then { _currentCost = 5; };				

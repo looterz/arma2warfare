@@ -1,4 +1,4 @@
-Private ['_building','_dammages','_origin','_side','_side', _stones];
+Private ['_building','_dammages','_origin','_side','_side', '_stones'];
 
 _building = _this select 0;
 _dammages = _this select 1;

@@ -12,12 +12,30 @@ marketInitMarketStorage = Compile preprocessFile "Module\Market\Function\Init_Ma
 marketUpdateProducedProduct = Compile preprocessFile "Module\Market\Function\UpdateProducedProduct.sqf";
 marketUpdateMarketPrices = Compile preprocessFile "Module\Market\Function\UpdateMarketPrices.sqf";
 marketNormalizePrices = Compile preprocessFile "Module\Market\Function\NormalizePrices.sqf";
+marketGetUnitPrice = Compile preprocessFile "Module\Market\Function\GetUnitPrice.sqf";
+marketGetUnitPriceEx = Compile preprocessFile "Module\Market\Function\GetUnitPriceEx.sqf";
+marketUseResourcesToBuyUnit = Compile preprocessFile "Module\Market\Function\UseResourcesToBuyUnit.sqf";
+marketGetUnitRequiredProducts = Compile preprocessFile "Module\Market\Function\GetUnitRequiredProducts.sqf";
+marketGetUnitRequirementText = Compile preprocessFile "Module\Market\Function\GetUnitRequirementText.sqf";
 
 marketProductIdSupply = 0;
 marketProductIdStones = 2;
 
+marketProductIdFood = 1;
+marketProductIdTextiles = 3;
+marketProductIdOil = 6;
+marketProductIdGunpowder = 7;
+marketProductIdComputers = 8;
+marketProductIdAlloys    = 9;
+marketProductIdMachinery = 10;
+
 Logger = { if (WF_DEBUG) then { diag_log _this; }; };
 
+MARKET_PRODUCTCOLLECTION_NAME = 0;
+MARKET_PRODUCTCOLLECTION_UNIT = 1;
+MARKET_PRODUCTCOLLECTION_BASEPRICE = 2;
+MARKET_PRODUCTCOLLECTION_MAXVOLUMEPRODUCT = 3;
+MARKET_PRODUCTCOLLECTION_MAXPRODUCESPEED = 4;
 
 // name, unit, basePrice, maxVolumeProduced, maxProduceSpeed/min
 marketProductCollection = 
@@ -26,20 +44,20 @@ marketProductCollection =
  	["Food", 			"t",    10,	1000,	 10.0],	// 1
 	["Stones", 			"t",    30,	1000,	 10.0], // 2
 	["Textiles", 		"t",    50,	 500,	  6.5], // 3
-	["Liquor/Wines", 	"t",   150,	 300,	  6.5], // 3
-	["Luxuries", 		"t",   200,	 300,	  6.5], // 4
-	["Oil", 			"t",   300,	 200,	  5.0], // 11
-	["Gunpowder",		"t",   600,	 200,	  3.0], // 10
-	["Computers", 		"t",   900,	 200,	  3.0], // 6
-	["Alloys", 			"t",  1200,	 200,	  3.0], // 8
-	["Machinery", 		"t",  1500,	 200,	  3.0], // 7
-	["Narcotics", 		"t",  3000,	  50,	  0.5], // 5
+	["Liquor/Wines", 	"t",   150,	 300,	  6.5], // 4
+	["Luxuries", 		"t",   200,	 300,	  6.5], // 5
+	["Oil", 			"t",   300,	 200,	  5.0], // 6
+	["Gunpowder",		"t",   600,	 200,	  3.0], // 7
+	["Computers", 		"t",   900,	 200,	  3.0], // 8
+	["Alloys", 			"t",  1200,	 200,	  3.0], // 9
+	["Machinery", 		"t",  1500,	 200,	  3.0], // 10
+	["Narcotics", 		"t",  3000,	  50,	  0.5], // 11
 	["Platinum", 		"kg", 600,	 100,	  3.0], // 12
 	["Gold", 			"kg",  900,	 250,	  3.0], // 13
 	["Gem-stones", 		"g",  2400,	  50,	  0.5]  // 14
 ];
 
-marketVehicleTypes = 
+marketTransportVehicleTypes = 
 [	["C130J", 		100, 	"t"],
 	["An2_TK_EP1", 	100, 	"t"],	
 	
@@ -71,6 +89,19 @@ marketVehicleTypes =
 	["Plane", 		   0, 	"t"],
 	["Helicopter",    10, 	"t"]	
 ];
+
+marketBuildUnitProductRequire = [
+
+	["CAManBase",   [marketProductIdFood,   0.100], [marketProductIdTextiles, 0.100],  [marketProductIdGunpowder, 0.010] ],
+	["Bicycle", 	[marketProductIdAlloys, 0.010] ],
+	["Motorcycle", 	[marketProductIdAlloys, 0.050], [marketProductIdOil, 0.020] ],
+	["Car", 		[marketProductIdAlloys, 0.200], [marketProductIdOil, 0.050] ],
+	["Truck", 		[marketProductIdAlloys, 0.500], [marketProductIdOil, 0.100] ],
+	["Helicopter",  [marketProductIdAlloys, 1.000], [marketProductIdOil, 0.500], [marketProductIdGunpowder, 1.000], [marketProductIdComputers, 0.500] ],	
+	["Plane", 		[marketProductIdAlloys, 1.000], [marketProductIdOil, 1.000], [marketProductIdGunpowder, 1.000], [marketProductIdComputers, 1.000] ],
+	["Tank", 		[marketProductIdAlloys, 1.500], [marketProductIdOil, 1.500], [marketProductIdGunpowder, 1.000], [marketProductIdComputers, 0.250] ]
+];
+
 
 if (local player) then {
 	player addEventHandler ['Killed', { [] call marketClearPlayerCargo; } ];

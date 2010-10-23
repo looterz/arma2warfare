@@ -10,6 +10,9 @@ _buildings = WF_Logic getVariable Format ['%1BaseStructures',sideJoinedText];
 _hq = WF_Logic getVariable Format ["%1MHQ",sideJoinedText];
 
 _markets = _markets + _buildings + [_hq];
+
+ if (paramHangars) then { _markets = _markets + Airfields; };     
+
 _marketList = [];
 {
 	if (player distance _x <= (2*_range) && alive _x) then { _marketList = _marketList + [_x]; };

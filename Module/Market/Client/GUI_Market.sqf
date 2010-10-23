@@ -65,9 +65,9 @@ private['_crew','_u', '_count', '_crewman', '_hq', '_found', '_vehType', '_type'
 
 	_u = 0;
 	_found = false;
-	while { _u < count marketVehicleTypes && !_found } do {
+	while { _u < count marketTransportVehicleTypes && !_found } do {
 
-		_vehType = marketVehicleTypes select _u;
+		_vehType = marketTransportVehicleTypes select _u;
 		
 		_type = _vehType select 0;
 		if (_cargo isKindOf _type) then {
