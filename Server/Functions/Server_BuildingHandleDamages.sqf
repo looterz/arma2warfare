@@ -47,7 +47,7 @@ if (_dammages > 0) then {
 		_stones = floor(_stones);
 		if (_stones < _currentStones) then {
 			_delta = _currentStones - _stones;
-			[_building, marketProductIdStones, _delta] call marketUpdateStockProductValue;
+			[_building, marketProductIdStones, -_delta] call marketUpdateProductValue;
 		};		
 		_dammages = _dammages / 100;
 	};

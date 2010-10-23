@@ -89,8 +89,8 @@ paramArtyComputer = true;
 paramBounty = true;
 param3thView = 0;
 paramGroupView = 0;
-baseFrendlyFire = true;
 
+baseFrendlyFire = false;
 paramEnabledHeadHunters = true;
 paramBuildDefencesInTown = true;
 paramSupplyExchange = true;

@@ -20,7 +20,7 @@ _u = 0;
 while { (_u < (count marketProductCollection)) } do {
 
 	_product = marketProductCollection select _u;
-	_maxProduced = _product select 3;
+	_maxProduced = (_product select 3)*0.25;
 	_maxProduceSpeed = _product select 4;
 
 	_value = if (_isTown) then { floor(random _maxProduced); } else { 0; };

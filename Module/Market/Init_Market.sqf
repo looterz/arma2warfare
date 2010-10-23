@@ -13,29 +13,30 @@ marketUpdateProducedProduct = Compile preprocessFile "Module\Market\Function\Upd
 marketUpdateMarketPrices = Compile preprocessFile "Module\Market\Function\UpdateMarketPrices.sqf";
 marketNormalizePrices = Compile preprocessFile "Module\Market\Function\NormalizePrices.sqf";
 
-marketProductIdSupply = 1;
-marketProductIdStones = 9;
+marketProductIdSupply = 0;
+marketProductIdStones = 2;
 
 Logger = { if (WF_DEBUG) then { diag_log _this; }; };
 
 
 // name, unit, basePrice, maxVolumeProduced, maxProduceSpeed/min
 marketProductCollection = 
-[ 	["Food", 			"t",  10,	1000,	 10.0],	// 0
-	["Supplies", 		"t",  5000,	  15,	  1.0], // 1
-	["Textiles", 		"t",  30,	 500,	  6.5], // 2
-	["Liquor/Wines", 	"t",  50,	 100,	  6.5], // 3
-	["Luxuries", 		"t",  100,	 100,	  6.5], // 4
-	["Narcotics", 		"t",  1200,	  50,	  0.5], // 5
-	["Computers", 		"t",  900,	 200,	  3.0], // 6
-	["Machinery", 		"t",  600,	 200,	  3.0], // 7
-	["Alloys", 			"t",  300,	 200,	  3.0], // 8
-	["Stones", 			"t",  50,	1000,	 10.0], // 9
-	["Firearms",		"t",  800,	 500,	  3.0], // 10
-	["Oil", 			"t",  200,	 100,	  5.0], // 11
+[
+	["Supplies", 		"t",  5000,	  15,	  1.0], // 0
+ 	["Food", 			"t",    10,	1000,	 10.0],	// 1
+	["Stones", 			"t",    30,	1000,	 10.0], // 2
+	["Textiles", 		"t",    50,	 500,	  6.5], // 3
+	["Liquor/Wines", 	"t",   150,	 300,	  6.5], // 3
+	["Luxuries", 		"t",   200,	 300,	  6.5], // 4
+	["Oil", 			"t",   300,	 200,	  5.0], // 11
+	["Gunpowder",		"t",   600,	 200,	  3.0], // 10
+	["Computers", 		"t",   900,	 200,	  3.0], // 6
+	["Alloys", 			"t",  1200,	 200,	  3.0], // 8
+	["Machinery", 		"t",  1500,	 200,	  3.0], // 7
+	["Narcotics", 		"t",  3000,	  50,	  0.5], // 5
 	["Platinum", 		"kg", 600,	 100,	  3.0], // 12
-	["Gold", 			"kg", 900,	 250,	  3.0], // 13
-	["Gem-stones", 		"g",  1200,	  50,	  2.0]  // 14
+	["Gold", 			"kg",  900,	 250,	  3.0], // 13
+	["Gem-stones", 		"g",  2400,	  50,	  0.5]  // 14
 ];
 
 marketVehicleTypes = 

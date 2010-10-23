@@ -32,3 +32,4 @@ if (!_modified && _incValue > 0) then {
 };
 
 _container setVariable ["marketProductStorage", _storage, true];
+_container setVariable ["marketTimeStamp", format["%1", time], true];
