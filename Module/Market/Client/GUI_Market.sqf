@@ -163,6 +163,8 @@ _procUpdateMarketsList = {
 				_txt = [typeof _x, 'displayName'] Call GetConfigInfo;
 			};
 			
+			_txt = format["%1 Market", _txt];
+			
 			lbAdd[_uiNearMarketDropDown,_txt];
 			
 		} forEach _nearMarkets;
