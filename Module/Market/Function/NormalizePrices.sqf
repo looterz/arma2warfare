@@ -1,4 +1,4 @@
-﻿Private ['_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', '_u', '_buyCoef', '_baseCost', '_productVolume', '_sellK','_buyCost','_sellCost', '_currentSupply', '_isCommander', '_isFactory', '_buildings', '_isTown', '_products', '_townProducts', '_sorted' ];
+﻿Private ['_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', '_u', '_buyCoef', '_baseCost', '_productVolume', '_sellK','_buyCost','_sellCost', '_currentSupply', '_isCommander', '_isFactory', '_buildings', '_isTown', '_products', '_townProducts', '_sorted','_tax' ];
 
 _market = _this select 0;
 
@@ -27,9 +27,9 @@ _updated = false;
 {
 	if (_x != _market) then  {
 		_dist = _market distance _x;
-		if (_dist < 500) then { _dist = 500; };
+		if (_dist < 500) then { _dist = 0; };
 
-		_distTax = 1 + (0.01*(_dist-500)/500);		
+		_tax = (0.05*_dist/500);		
 
 		_townProducts = [_x] call marketGetMarketProducts;
 		_townPrices = _townProducts select 1;
@@ -40,9 +40,21 @@ _updated = false;
 			_productInfo = marketProductCollection select _u;
 		
 			_marketPrice = _marketPrices select _u;
-			_townSellCost = ((_townPrices select _u) select 0)*_distTax;
-			_townBuyCost = ((_townPrices select _u) select 1)*_distTax;
-
+			
+			_townSellCost = (_townPrices select _u) select 0;
+			_townBuyCost = (_townPrices select _u) select 1;
+			
+			_dSell = _townSellCost*_tax;
+			_dBuy = _townBuyCost*_tax;
+			
+			if (_dist > 500) then {
+				_dSell = _dSell + 5;
+				_dBuy = _dBuy + 5;
+			};
+			
+			_townSellCost = _townSellCost + _dSell;
+			_townBuyCost = _townBuyCost + _dBuy;
+			
 			_marketSellCost = _marketPrice select 0;
 			_marketBuyCost = _marketPrice select 1;
 			

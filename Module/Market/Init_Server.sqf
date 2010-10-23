@@ -1,19 +1,19 @@
 Private ['_unitType','_su'];
 
-diag_log "Market initialization... wait town inited";
+"Market initialization... wait town inited"  call Logger;
 waitUntil {townInit};
 
-diag_log "Market initialization begin";
+"Market initialization begin" call Logger;
 
 {
-	diag_log format["Market town initialization: %1", _x];
+	format["Market town initialization: %1", _x]  call Logger;
 	[_x] call marketInitMarketStorage;
 	_x setVariable ["marketInited", 1, true];
 
 } forEach towns;
 
 WF_Logic setVariable ["marketInitialized", 1, true];
-diag_log "Market initialization completed";
+"Market initialization completed" call Logger;
 
 _periodTownUpdate = if (WF_DEBUG) then { 5; } else { 300; };
 _periodFactoryUpdate = if (WF_DEBUG) then { 5; } else { 60; };
@@ -24,12 +24,12 @@ while { true } do {
 
 	if (WF_DEBUG) then { sleep 5; } else { sleep 60; };
 
-	diag_log format["Market time=%1", time];
-	diag_log format["Market nextTownUpdate=%1", _nextTownUpdate];
-	diag_log format["Market _nextFactoryUpdate=%1", _nextFactoryUpdate];
+	format["Market time=%1", time]  call Logger;
+	format["Market nextTownUpdate=%1", _nextTownUpdate] call Logger;
+	format["Market _nextFactoryUpdate=%1", _nextFactoryUpdate]  call Logger;
 	
 	if (_nextTownUpdate < time) then {
-		diag_log format["Market updating town markets"];
+		"Market updating town markets" call Logger;
 
 		{ [_x] call marketUpdateProducedProduct; } forEach towns;
 		{ [_x] call marketNormalizePrices; } forEach towns;
@@ -39,7 +39,7 @@ while { true } do {
 	
 	if (_nextFactoryUpdate < time) then  {
 	
-		diag_log format["Market updating factory markets"];
+		"Market updating factory markets" call Logger;
 	
 		_buildings = [] + (WF_Logic getVariable 'WESTBaseStructures');
 		_buildings = _buildings + (WF_Logic getVariable 'EASTBaseStructures');
