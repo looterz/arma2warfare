@@ -419,7 +419,7 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 			_colorRed = "#(argb,8,8,3)color(1,0,0,0.3,ca)";
 			_colorGray = "#(argb,8,8,3)color(1,1,1,0.1,ca)";
 			_colorGray = "#(argb,8,8,3)color(0,0,0,0.25,ca)";
-			_color = _colorGreen;
+			_color = _colorGray;
 
 			//--- Class, Category, Cost, (preview class), (display name)
 			_itemclass = _params select 0;
@@ -562,11 +562,10 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 				};
 
 			} else {
+				_color == _colorGreen;
 				//--- Check zone
-				if (
-					([position _preview,_startPos] call BIS_fnc_distance2D) > _limitH
-				) then {
-					_color = _colorGray
+				if (([position _preview,_startPos] call BIS_fnc_distance2D) > _limitH) then {
+					_color = _colorGray;
 				} else {
 
 					//--- No money
