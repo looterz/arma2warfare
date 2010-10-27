@@ -1,7 +1,9 @@
 Private ['_unitType','_su'];
 
 _isInited = WF_Logic getVariable "marketInitialized";
-if (_isInited == 1) exitWith {};
+if (isNil "_isInited") then { _isInited = 0; };
+
+if  (_isInited == 1) exitWith {};
 
 "Market initialization... wait town inited"  call Logger;
 waitUntil {townInit};
