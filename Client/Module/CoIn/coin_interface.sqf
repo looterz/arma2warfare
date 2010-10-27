@@ -456,7 +456,15 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 				};
 				_hqDeployed = WF_Logic getVariable Format ["%1MHQDeployed",sideJoinedText];
 				_index = _bns find _itemclass;
-				if (_index == 0 && _hqDeployed) exitWith {
+				
+				// check can we unfold mhq
+				_canBuild = false;
+				if (_index == 0) then {
+					_mhq = WF_Logic getVariable Format ["%1MHQ",sideJoinedText];
+					_canBuild = if (alive _mhq) then { true; } else { false; };
+				};
+				
+				if (_index == 0 && _hqDeployed && _canBuild) exitWith {
 
 					WFBE_RequestStructure = ['SRVFNCREQUESTSTRUCTURE',[sideJoined,_itemclass,[0,0,0],0]];
 					publicVariable 'WFBE_RequestStructure';
@@ -509,6 +517,7 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 					missionnamespace setvariable ["BIS_COIN_border",nil];
 					
 					[] Spawn {
+					
 						_hqDeployed = WF_Logic getVariable Format ["%1MHQDeployed",sideJoinedText];
 						_start = time;
 						waitUntil {_hqDeployed = WF_Logic getVariable Format ["%1MHQDeployed",sideJoinedText];!_hqDeployed || time - _start > 15};
@@ -602,8 +611,15 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 				((uiNamespace getvariable "BIS_CONTROL_CAM_DISPLAY") displayctrl 112201) ctrlcommit 0;
 			};
 
+			_canBuild = if (_color == _colorGreen) then { true } else { false };
+			
+			if (_isBuilding && _canBuild) then {
+				_mhq = WF_Logic getVariable Format ["%1MHQ",sideJoinedText];
+				_canBuild = if (alive _mhq) then { true; } else { false; };
+			};
+			
 			//--- Place
-			if (!isnull _preview && ((BIS_CONTROL_CAM_LMB && 65536 in (actionKeys "DefaultAction")) || {_x in (actionKeys "DefaultAction")} count BIS_CONTROL_CAM_keys > 0) && _color == _colorGreen) then {
+			if (_canBuild && !isnull _preview && ((BIS_CONTROL_CAM_LMB && 65536 in (actionKeys "DefaultAction")) || {_x in (actionKeys "DefaultAction")} count BIS_CONTROL_CAM_keys > 0)) then {
 				_pos = position _preview;
 				_dir = direction _preview;
 				deletevehicle _preview;
