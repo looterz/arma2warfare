@@ -42,6 +42,7 @@ player createDiaryRecord["Diary", ["Bomba What News", "
 <br/>Factory builded in town give discounted prices 10-30% (depended current SV and max SV)
 <br/>Artillery: Player notified when target out of range or how much arty guns can hit target.
 <br/>Player can buy aircrafts only in airport hangars;
+<br/>Player can refuel, rearm and repair aircrafts (only aircrafts) in airport hangars;
 <br/>AI unit cost include cost of gear;
 <br/>
 <br/>Fixed:
