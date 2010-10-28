@@ -90,17 +90,21 @@ marketTransportVehicleTypes =
 	["Helicopter",    10, 	"t"]	
 ];
 
-marketBuildUnitProductRequire = [
+if (paramVehicleComponents) then {
+	marketBuildUnitProductRequire = [
 
-	["CAManBase",   [marketProductIdFood,   0.100], [marketProductIdTextiles, 0.100],  [marketProductIdGunpowder, 0.010] ],
-	["Bicycle", 	[marketProductIdAlloys, 0.010] ],
-	["Motorcycle", 	[marketProductIdAlloys, 0.050], [marketProductIdOil, 0.020] ],
-	["Car", 		[marketProductIdAlloys, 0.200], [marketProductIdOil, 0.050] ],
-	["Truck", 		[marketProductIdAlloys, 0.500], [marketProductIdOil, 0.100] ],
-	["Helicopter",  [marketProductIdAlloys, 1.000], [marketProductIdOil, 0.500], [marketProductIdGunpowder, 1.000], [marketProductIdComputers, 0.500] ],	
-	["Plane", 		[marketProductIdAlloys, 1.000], [marketProductIdOil, 1.000], [marketProductIdGunpowder, 1.000], [marketProductIdComputers, 1.000] ],
-	["Tank", 		[marketProductIdAlloys, 1.500], [marketProductIdOil, 1.500], [marketProductIdGunpowder, 1.000], [marketProductIdComputers, 0.250] ]
-];
+		["CAManBase",   [marketProductIdFood,   0.100], [marketProductIdTextiles, 0.100],  [marketProductIdGunpowder, 0.010] ],
+		["Bicycle", 	[marketProductIdAlloys, 0.010] ],
+		["Motorcycle", 	[marketProductIdAlloys, 0.050], [marketProductIdOil, 0.020] ],
+		["Car", 		[marketProductIdAlloys, 0.200], [marketProductIdOil, 0.050] ],
+		["Truck", 		[marketProductIdAlloys, 0.500], [marketProductIdOil, 0.100] ],
+		["Helicopter",  [marketProductIdAlloys, 1.000], [marketProductIdOil, 0.500], [marketProductIdGunpowder, 1.000], [marketProductIdComputers, 0.500] ],	
+		["Plane", 		[marketProductIdAlloys, 1.000], [marketProductIdOil, 1.000], [marketProductIdGunpowder, 1.000], [marketProductIdComputers, 1.000] ],
+		["Tank", 		[marketProductIdAlloys, 1.500], [marketProductIdOil, 1.500], [marketProductIdGunpowder, 1.000], [marketProductIdComputers, 0.250] ]
+	];
+} else {
+	marketBuildUnitProductRequire = [];
+};
 
 
 if (local player) then {

@@ -93,7 +93,6 @@ _procReadStockData = {
 	_isTown = if (_market in towns) then { true } else { false };
 	_isMHQ = if (WF_Logic getVariable Format ["%1MHQ",sideJoinedText] == _market) then { true } else { false };
 	_isFactory = if (_market in (WF_Logic getVariable Format ['%1BaseStructures',sideJoinedText])) then { true} else { false };
-
 	
 	if (_isMHQ) then {
 	

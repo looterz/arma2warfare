@@ -2160,7 +2160,7 @@
         <English>Gameplay: Head Hunters</English>
         <French>Gameplay: Head Hunters</French>
         <German>Gameplay: Head Hunters</German>
-        <Russian>Прочее: Охотники за головами</Russian>
+        <Russian>Режим игры: Охотники за головами</Russian>
         <Italian>Gameplay: Head Hunters</Italian>
       </Key>
 
@@ -2243,6 +2243,31 @@
         <Russian>Торговля</Russian>
         <Italian>Trade</Italian>
       </Key>	
+
+      <Key ID="STR_WF_Gameplay_VehiclesComponenents">
+        <English>Gameplay: Vehicle Componenents</English>
+        <French>Gameplay: Vehicle Componenents</French>
+        <German>Gameplay: Vehicle Componenents</German>
+        <Russian>Режим игры: Компоненты техники</Russian>
+        <Italian>Gameplay: Vehicle Componenents</Italian>
+      </Key>	
+	  
+      <Key ID="STR_WF_Gameplay_UnitCostWithGear">
+        <English>Gameplay: Unit Cost With Gear</English>
+        <French>Gameplay: Unit Cost With Gear</French>
+        <German>Gameplay: Unit Cost With Gear</German>
+        <Russian>Режим игры: Цена солдат с оружием</Russian>
+        <Italian>Gameplay: Unit Cost With Gear</Italian>
+      </Key>
+
+      <Key ID="STR_WF_Gameplay_Trade">
+        <English>Gameplay: Trade</English>
+        <French>Gameplay: Trade</French>
+        <German>Gameplay: Trade</German>
+        <Russian>Режим игры: Торговля</Russian>
+        <Italian>Gameplay: Trade</Italian>
+      </Key>	  
+	  
 	  
     </Container>
   </Package>

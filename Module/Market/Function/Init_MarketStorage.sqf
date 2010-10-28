@@ -25,6 +25,9 @@ while { (_u < (count marketProductCollection)) } do {
 
 	_value = if (_isTown) then { floor(random _maxProduced); } else { 0; };
 	_prodvalue = if (_isTown) then { random _maxProduceSpeed; } else { 0; };
+	
+	if (!paramTrade && _u != marketProductIdSupply) then { _value = 0; _prodvalue = 0; };
+	if (!paramSupplyExchange && _u == marketProductIdSupply) then { _value = 0; _prodvalue = 0; };
 
 	_stock = _stock + [ _value ];
 	

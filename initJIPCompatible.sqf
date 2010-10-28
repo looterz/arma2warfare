@@ -97,6 +97,9 @@ paramSupplyExchange = true;
 paramBuyVehiclesInTown = true;
 paramBuyAircraftInAirportOnly = true;
 paramStrictTankTargetLock = true;
+paramVehicleComponents = true;
+paramUnitCostWithGear = true;
+paramTrade = true;
 
 missionNamespace setVariable ['WFBE_EASTSTARTINGMONEY',200000];
 missionNamespace setVariable ['WFBE_WESTSTARTINGMONEY',200000];
@@ -209,6 +212,12 @@ if (!isNil "paramsArray") then {
 	if ((paramsArray select _u) == 0) then {paramBuyVehiclesInTown = false} else {paramBuyVehiclesInTown = true};_u = _u + 1; //--- Supply Exchange in town depot
 	if ((paramsArray select _u) == 0) then {paramBuyAircraftInAirportOnly = false} else {paramBuyAircraftInAirportOnly = true};_u = _u + 1; //--- Buy aircrafts only in airport
 	if ((paramsArray select _u) == 0) then {paramStrictTankTargetLock = false} else {paramStrictTankTargetLock = true};_u = _u + 1; //--- Strict tank target lock
+	if ((paramsArray select _u) == 0) then {paramVehicleComponents = false} else {paramVehicleComponents = true};_u = _u + 1; //--- Vehicle component requirements
+	if ((paramsArray select _u) == 0) then {paramUnitCostWithGear = false} else {paramUnitCostWithGear = true};_u = _u + 1; //---  Unit Cost with Gear
+	if ((paramsArray select _u) == 0) then {paramTrade = false} else {paramTrade = true};_u = _u + 1; //---  Unit Cost with Gear
+	
+	
+	
 };
 
 /*

@@ -545,7 +545,27 @@ class Params {
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 1;
+	};
+
+	class VehiclesForResources {
+		title = "$STR_WF_Gameplay_VehiclesComponenents";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 1;
 	};	
 	
+	class UnitCostWithGear {
+		title = "$STR_WF_Gameplay_UnitCostWithGear";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 1;
+	};		
+	
+	class BuyProductsInTown {
+		title = "$STR_WF_Gameplay_Trade";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 1;
+	};		
 };
 
