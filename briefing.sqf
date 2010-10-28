@@ -1,5 +1,7 @@
 //--- Author [ICE]
 player createDiaryRecord["Diary", ["Bomba What News", "
+<br/>Most features are configurabe with game parameters;
+<br/> 
 <br/>Trading: 
 <br/>You can buy and sell various product types at market. 
 <br/>Any town has market place at cental depot;
@@ -12,7 +14,6 @@ player createDiaryRecord["Diary", ["Bomba What News", "
 <br/>Note: When player die or lost transport all product stored into cargo are LOST!
 <br/>
 <br/>Buy / Sell Supplies:
-
 <br/>Commander can buy at sell supplies from HQ.
 <br/>HQ market can trade only supplies. Other product types are not avaible for trade.
 <br/>Factory market can't trade supplies.
@@ -41,13 +42,16 @@ player createDiaryRecord["Diary", ["Bomba What News", "
 <br/>Factory builded in town give discounted prices 10-30% (depended current SV and max SV)
 <br/>Artillery: Player notified when target out of range or how much arty guns can hit target.
 <br/>Player can buy aircrafts only in airport hangars;
+<br/>AI unit cost include cost of gear;
 <br/>
 <br/>Fixed:
 <br/>Artillery does not fired with latest beta patches.
-<br/>Target Lock in tank are disabled (can be enabled via game parameters).
+<br/>Target Lock in tank are disabled.
 <br/>Flares allowed only after upgrade.
 <br/>Disable ability restore mhq or build something in case when open construction menu is open and MHQ have been destoryed;
 <br/>Disable ability build outside build zone; 
+<br/>Fixed bug that get possible build defences and builing inside building even then build point marked as red;
+<br/>Fix bug get possible restore HQ (open constructing menu) then it was down
 "]];
 player createDiaryRecord["Diary", ["Upgrades", "<br/>To be able to purchase higher levels of equipment or units, the factories need to be upgraded by the commander. The commander will need both cash and supply points to do this. He may ask for contributions from other team players to help out. Each factory has 3 levels."]];
 player createDiaryRecord["Diary", ["Supplies", "<br/>Each captured town has an Actual and Potential Value. On the map you will see this represented as 2 numbers seperated by a / for example; Zelenogorsk, once captured will start as 30/120. This means that the current supplies to each player from this town is $30 per minute. Each time a supply truck arrives at the town depot its value will increase by 10. Remember though, the supply truck must be either fully loaded from the HQ or a Supply point or, have come from a town with a higher actual value. you will also receive 4 x the actual value as cash if you or one of your squad drives the truck. Supply runs should be the responsibility of all. The best way to win Warfare is to work together capping and then supping up the town before moving to another."]];
