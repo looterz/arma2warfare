@@ -14,9 +14,8 @@ player createDiaryRecord["Diary", ["Bomba What News", "
 <br/>Note: When player die or lost transport all product stored into cargo are LOST!
 <br/>
 <br/>Buy / Sell Supplies:
-<br/>Commander can buy at sell supplies from HQ.
+<br/>Commander can buy and sell supplies from HQ.
 <br/>HQ market can trade only supplies. Other product types are not avaible for trade.
-<br/>Factory market can't trade supplies.
 <br/>Any player can put supplies at any factory, but only commander can get supplies from HQ store;
 <br/>Any player can buy and sell supplies at market of any town.
 <br/>
