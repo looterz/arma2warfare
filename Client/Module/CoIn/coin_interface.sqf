@@ -444,7 +444,7 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 			if (_itemclass_preview == "") then {_itemclass_preview = _itemclass};
 
 			_structs = Format["WFBE_%1STRUCTURENAMES",sideJoinedText] Call GetNamespace;  
-			_isBuilding = _itemclass in _structs;
+			_isBuilding = if (_itemclass in _structs) then { true; } else { false; };
 			
 			//--- Preview building
 			_preview = camtarget BIS_CONTROL_CAM;
@@ -463,9 +463,9 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 				
 				// check can we unfold mhq
 				_canBuild = false;
-				if (_index == 0) then {
+				if (_index == 0 && _hqDeployed) then {
 					_mhq = (sideJoinedText) Call GetSideHQ;
-					_canBuild = if (alive _mhq) then { true; } else { false; };
+					_canBuild = if (alive _mhq) then { true } else { false };
 				};
 				
 				if (_index == 0 && _hqDeployed && _canBuild) exitWith {
@@ -539,6 +539,9 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 				};
 				
 				_preview = _itemclass_preview createVehicleLocal (screenToWorld [0.5,0.5]);
+				_preview setObjectTexture [0,_colorGray];
+				_preview setVariable ["BIS_COIN_color",_colorGray];
+				
 				_gdir = _logic getVariable 'BIS_COIN_lastdir';
 				if !(isNil '_gdir') then {_preview setDir _gdir};
 				BIS_CONTROL_CAM camSetTarget _preview;
@@ -562,11 +565,10 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 					_logic setVariable ['WFBE_Helper',_helper];
 				};
 
-				_preview setObjectTexture [0,_colorGray];
-				_preview setVariable ["BIS_COIN_color",_colorGray];
+
 
 				//--- Exception - preview not created
-				if (isnull _preview) then {
+				if (isNull _preview) then {
 					deleteVehicle _preview;
 					_logic setVariable ["BIS_COIN_preview",nil];
 					_logic setVariable ["BIS_COIN_params",[]];
@@ -578,30 +580,30 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 				};
 
 			} else {
-				_color = _colorGreen;
 				//--- Check zone
-				if (([position _preview,_startPos] call BIS_fnc_distance2D) > _limitH) then {
-					_color = _colorGray;
-				} else {
+				if (([position _preview,_startPos] call BIS_fnc_distance2D) <= _limitH) then {
 
 					//--- No money
 					_funds = 0;
 					call compile format ["_funds = %1;",_itemFunds];
 					_fundsRemaining = _funds - _itemcost;
-					if (_fundsRemaining < 0) then {_color = _colorRed};
+					if (_fundsRemaining < 0) then {
+						_color = _colorRed;
+					} else {
 					
-					_list = position _preview nearObjects 50;
-					
-					{	
-						if (_color != _colorRed && _x != _preview) then {
-							_positionBuilding = position _x;
-							
-							_sizeBuilding = (sizeof typeof _x)/2.35;
-							_meters = _preview distance _positionBuilding;
-							
-							if (_meters < _sizeBuilding) then { _color = _colorRed;	};						
-						};
-					} forEach _list;
+						_color = _colorGreen;
+						_list = position _preview nearObjects 50;						
+						{	
+							if (_color != _colorRed && _x != _preview) then {
+								_positionBuilding = position _x;
+								
+								_sizeBuilding = (sizeof typeof _x)/2.35;
+								_meters = _preview distance _positionBuilding;
+								
+								if (_meters < _sizeBuilding) then { _color = _colorRed;	};						
+							};
+						} forEach _list;
+					};
 				};
 				_preview setObjectTexture [0,_color];
 				_preview setVariable ["BIS_COIN_color",_color];
@@ -618,11 +620,11 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 				((uiNamespace getVariable "BIS_CONTROL_CAM_DISPLAY") displayCtrl 112201) ctrlCommit 0;
 			};
 
-			_canBuild = if (_new && _color == _colorGreen) then { true } else { false };
+			_canBuild = if (_color == _colorGreen) then { true } else { false };
 			
 			if (_isBuilding && _canBuild) then {
 				_mhq = (sideJoinedText) Call GetSideHQ;
-				_canBuild = if (alive _mhq) then { true; } else { false; };
+				_canBuild = if (alive _mhq) then { true } else { false };
 			};
 			
 			//--- Place
