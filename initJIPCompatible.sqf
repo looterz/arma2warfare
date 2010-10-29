@@ -52,9 +52,9 @@ paramBalancing = false;
 paramFastTime = false;
 paramAI = true;
 paramAIcom = true;
-paramSpacebar = true;
-paramTabLock = true;
-paramTacView = true;
+paramSpacebar = false;
+paramTabLock = false;
+paramTacView = false;
 paramRestrictionKamov = false;
 paramShowUID = true;
 paramArty = true;
@@ -94,8 +94,7 @@ paramArtyComputer = true;
 paramBounty = true;
 paramResVehLock = false;
 
-param3thView = 0;
-paramGroupView = 0;
+param3thView = false;
 
 baseFrendlyFire = false;
 paramEnabledHeadHunters = true;
@@ -219,13 +218,11 @@ if (!isNil "paramsArray") then {
 	if ((paramsArray select _u) == 0) then {paramSupplyExchange = false} else {paramSupplyExchange = true};_u = _u + 1; //--- Supply Exchange in town depot
 	if ((paramsArray select _u) == 0) then {paramBuyVehiclesInTown = false} else {paramBuyVehiclesInTown = true};_u = _u + 1; //--- Supply Exchange in town depot
 	if ((paramsArray select _u) == 0) then {paramBuyAircraftInAirportOnly = false} else {paramBuyAircraftInAirportOnly = true};_u = _u + 1; //--- Buy aircrafts only in airport
-	if ((paramsArray select _u) == 0) then {paramStrictTankTargetLock = false} else {paramStrictTankTargetLock = true};_u = _u + 1; //--- Strict tank target lock
 	if ((paramsArray select _u) == 0) then {paramVehicleComponents = false} else {paramVehicleComponents = true};_u = _u + 1; //--- Vehicle component requirements
 	if ((paramsArray select _u) == 0) then {paramUnitCostWithGear = false} else {paramUnitCostWithGear = true};_u = _u + 1; //---  Unit Cost with Gear
 	if ((paramsArray select _u) == 0) then {paramTrade = false} else {paramTrade = true};_u = _u + 1; //---  Unit Cost with Gear
-	
-	
-	
+
+	if ((paramsArray select _u) == 0) then {param3thView = false} else {param3thView = true}; _u = _u + 1;
 };
 
 //--- Debug.
@@ -254,7 +251,7 @@ maxPlayers = count (missionNamespace getVariable 'WFBE_EASTTEAMS');
 ExecVM "Common\Init\Init_Common.sqf";
 ExecVM "Common\Init\Init_Towns.sqf";
 
-if (local player) then {ExecVM "Client\Init\Init_Client.sqf"; [] execVM "limitThirdPersonView.sqf"; [] execVM "limitGroupView.sqf";};
+if (local player) then {ExecVM "Client\Init\Init_Client.sqf"; [] execVM "limitThirdPersonView.sqf"; };
 if (isServer) then {ExecVM "Server\Init\Init_Server.sqf"};
 
 execVM "Module\Market\Init_Market.sqf";

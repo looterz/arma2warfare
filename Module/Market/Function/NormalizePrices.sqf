@@ -18,8 +18,8 @@ _marketStock = _products select 0;
 _marketPrices = _products select 1;
 	
 _markets = [] + towns;
-_markets = _markets + (WF_Logic getVariable 'WESTBaseStructures');
-_markets = _markets + (WF_Logic getVariable 'EASTBaseStructures');
+_markets = _markets + (("WEST") Call GetSideStructures);
+_markets = _markets + (("EAST") Call GetSideStructures);
 	
 _sorted = [_market, _markets] Call SortByDistance;
 	

@@ -57,7 +57,7 @@ private['_crew','_u', '_count', '_crewman', '_hq', '_found', '_vehType', '_type'
 		if (_count > 0) then { _cargo = player; };	
 	};
 
-	_hq = WF_Logic getVariable Format ["%1MHQ",sideJoinedText];
+	_hq = (sideJoinedText) Call GetSideHQ;
 	if (_cargo == _hq) then { _cargo = player; };
 
 	_cargoMaxWeight = 0;
@@ -91,8 +91,8 @@ _procReadStockData = {
 	_marketPrices = _products select 1;
 
 	_isTown = if (_market in towns) then { true } else { false };
-	_isMHQ = if (WF_Logic getVariable Format ["%1MHQ",sideJoinedText] == _market) then { true } else { false };
-	_isFactory = if (_market in (WF_Logic getVariable Format ['%1BaseStructures',sideJoinedText])) then { true} else { false };
+	_isMHQ = if (((sideJoinedText) Call GetSideHQ) == _market) then { true } else { false };
+	_isFactory = if (_market in ((sideJoinedText) Call GetSideStructures)) then { true} else { false };
 	
 	if (_isMHQ) then {
 	
@@ -130,7 +130,7 @@ _procReadStockData = {
 	};
 };
 _procUpdateStockProduct = {
-	_hq = WF_Logic getVariable Format ["%1MHQ",sideJoinedText];
+	_hq = (sideJoinedText) Call GetSideHQ;
 
 	_market = _this select 0;
 	_productId  = _this select 1;

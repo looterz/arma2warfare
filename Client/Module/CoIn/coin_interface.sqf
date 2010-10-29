@@ -621,7 +621,7 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 			_canBuild = if (_new && _color == _colorGreen) then { true } else { false };
 			
 			if (_isBuilding && _canBuild) then {
-				_mhq = WF_Logic getVariable Format ["%1MHQ",sideJoinedText];
+				_mhq = (sideJoinedText) Call GetSideHQ;
 				_canBuild = if (alive _mhq) then { true; } else { false; };
 			};
 			

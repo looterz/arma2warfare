@@ -46,8 +46,9 @@ while { true } do {
 	
 		"Market updating factory markets" call Logger;
 	
-		_buildings = [] + (WF_Logic getVariable 'WESTBaseStructures');
-		_buildings = _buildings + (WF_Logic getVariable 'EASTBaseStructures');
+		_buildings = [] + (("WEST") Call GetSideStructures);
+		_buildings = _buildings + (("EAST") Call GetSideStructures);		
+		
 		if (paramHangars) then { _buildings = _buildings + Airfields; };
 		
 		{

@@ -1,13 +1,13 @@
 Private ['_sorted','_range', '_markets', '_buildings', '_hq', '_marketList'];
 
-waitUntil {_base = WF_Logic getVariable Format ["%1MHQ",sideJoinedText];!isNil "_base"};
+waitUntil {_base = ((sideJoinedText) Call GetSideHQ);!isNil "_base"};
 
 _sorted = [];
 _range = ('WFBE_TOWNPURCHASERANGE' Call GetNamespace);
 
 _markets = [] + towns;
-_buildings = WF_Logic getVariable Format ['%1BaseStructures',sideJoinedText];
-_hq = WF_Logic getVariable Format ["%1MHQ",sideJoinedText];
+_buildings = (sideJoinedText) Call GetSideStructures;
+_hq = (sideJoinedText) Call GetSideHQ;
 
 _markets = _markets + _buildings + [_hq];
 

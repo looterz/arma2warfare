@@ -273,18 +273,7 @@ class Params {
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 1;
 	};
-	class gameplayThirdView {
-		title = "$STR_WF_Gameplay_ThirdView";
-		values[] = {0,1,2};
-		texts[] = {"$STR_WF_Enabled","$STR_WF_OnlyInVehicles","$STR_WF_Disabled"};
-		default = 0;
-	};
-	class gameplayGroupView {
-		title = "$STR_WF_Gameplay_GroupView";
-		values[] = {0,1,2};
-		texts[] = {"$STR_WF_Enabled","$STR_WF_OnlyInVehicles","$STR_WF_Disabled"};
-		default = 2;
-	};
+
 	class gameplayUnitsBalancing {
 		title = "$STR_WF_Balance";
 		values[] = {0,1};
@@ -325,19 +314,19 @@ class Params {
 		title = "$STR_WF_Gameplay_TabLock";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 1;
+		default = 0;
 	};
 	class keyboardSpacebarScanning {
 		title = "$STR_WF_Gameplay_Spacebar";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 1;
+		default = 0;
 	};
 	class keyboardTacticalView {
 		title = "$STR_WF_Gameplay_TacticalView";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 1;
+		default = 0;
 	};
 	#ifdef VANILLA
 		class moduleCM {
@@ -557,13 +546,6 @@ class Params {
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 1;
 	};	
-	
-	class TankTargetLock {
-		title = "$STR_WF_Restriction_TankTargetLock";
-		values[] = {0,1};
-		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 1;
-	};
 
 	class VehiclesForResources {
 		title = "$STR_WF_Gameplay_VehiclesComponenents";
@@ -584,6 +566,13 @@ class Params {
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 1;
-	};		
+	};
+
+	class gameplayThirdView {
+		title = "$STR_WF_Gameplay_ThirdView";
+		values[] = {0,1,2};
+		texts[] = {"$STR_WF_Enabled","$STR_WF_OnlyInVehicles","$STR_WF_Disabled"};
+		default = 0;
+	};	
 };
 

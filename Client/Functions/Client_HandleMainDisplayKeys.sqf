@@ -37,12 +37,12 @@ private['_weapon','_types','_status'];
 switch (true) do
 {
 	// disable command mode scanning
-	case (paramSpacebar && ({_x in _pressedButtonArray} count (actionKeys "ForceCommandingMode")) > 0):
+	case (!paramSpacebar && ({_x in _pressedButtonArray} count (actionKeys "ForceCommandingMode")) > 0):
 	{
 		_keyHandled = true;
 	};
 	// disable radar lock
-	case (paramStrictTankTargetLock && ({_x in _pressedButtonArray} count (actionKeys "LockTargets")) > 0):
+	case (!paramTabLock && ({_x in _pressedButtonArray} count (actionKeys "LockTargets")) > 0):
 	{
 		if (player != (vehicle player) && (call _IsSelectedFactoryLockWeapon)) then
 		{
@@ -51,7 +51,7 @@ switch (true) do
 	};
 	
 	// disable infantry direct lock
-	case (paramStrictTankTargetLock && ({_x in _pressedButtonArray} count (actionKeys "LockTarget")) > 0):
+	case (!paramTabLock && ({_x in _pressedButtonArray} count (actionKeys "LockTarget")) > 0):
 	{
 		if (player != (vehicle player) && (call _IsSelectedFactoryLockWeapon)) then
 		{
@@ -59,7 +59,7 @@ switch (true) do
 		};
 	};
 	// disable vehicle direct lock
-	case (paramStrictTankTargetLock && ({_x in _pressedButtonArray} count (actionKeys "VehLockTargets")) > 0):
+	case (!paramTabLock && ({_x in _pressedButtonArray} count (actionKeys "VehLockTargets")) > 0):
 	{
 		if (player != (vehicle player) && (call _IsSelectedFactoryLockWeapon)) then
 		{
@@ -68,7 +68,7 @@ switch (true) do
 	};
 
 	// disable tactical view
-	case (paramTacView && ({_x in _pressedButtonArray} count (actionKeys "TacticalView")) > 0):
+	case (!paramTacView && ({_x in _pressedButtonArray} count (actionKeys "TacticalView")) > 0):
 	{
 		_keyHandled = true;
 	};	

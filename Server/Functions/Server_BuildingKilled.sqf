@@ -18,7 +18,7 @@ if ((side _killer != _side)&&(isPlayer(_killer)))  then {
 	
 	WFBE_LocalizeMessage = [[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveBounty',_bounty, _killedName]];
 	publicVariable 'WFBE_LocalizeMessage';
-	if !(isMultiplayer || (isServer && local player) then {[[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveBounty',_bounty, _killedName]] Spawn HandlePVF};
+	if !(isMultiplayer || (isServer && local player)) then {[[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveBounty',_bounty, _killedName]] Spawn HandlePVF};
 };
 
 //--- Building Teamkill.
