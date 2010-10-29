@@ -4,7 +4,7 @@ _products = _this select 0;
 _unit = _this select 1;
 _unitPrice = _this select 2;
 
-if (!marketBuildUnitProductRequire) exitWith { _unitPrice; };
+if (!paramVehicleComponents) exitWith { _unitPrice; };
 
 _unitData = _unit call marketGetUnitRequiredProducts;
 	

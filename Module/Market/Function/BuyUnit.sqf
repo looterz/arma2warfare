@@ -4,7 +4,7 @@ _factory = _this select 0;
 _unit = _this select 1;
 _unitPrice = _this select 2;
 
-if (!paramUnitCostWithGear) exitWith { _unitPrice; };
+if (!paramVehicleComponents) exitWith { _unitPrice; };
 
 
 _u = 0;
