@@ -33,7 +33,7 @@ if (WF_A2_Vanilla) then {
 	_n			= [WESTHQ];
 	_d			= [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c			= [('WFBE_HQDEPLOYPRICE' Call GetNamespace)];
-	_t			= [30];
+	_t			= [if (WF_Debug) then {1} else {30}];
 	_i			= ["\CA\Warfare2\Images\con_hq.paa"];
 	_s			= ["HQSite"];
 	_dis		= [15];
@@ -44,7 +44,7 @@ if (WF_A2_Vanilla) then {
 	_n = _n		+ [WESTBAR];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [200];
-	_t = _t		+ [70];
+	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_barracks.paa"];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [18];
@@ -55,7 +55,7 @@ if (WF_A2_Vanilla) then {
 	_n = _n		+ [WESTLVF];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [600];
-	_t = _t		+ [90];
+	_t = _t		+ [if (WF_Debug) then {1} else {90}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_light.paa"];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [20];
@@ -66,7 +66,7 @@ if (WF_A2_Vanilla) then {
 	_n = _n		+ [WESTCC];
 	_d = _d		+ [localize "STR_WF_CommandCenter_USMC"];
 	_c = _c		+ [1200];
-	_t = _t		+ [110];
+	_t = _t		+ [if (WF_Debug) then {1} else {110}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_hq.paa"];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [20];
@@ -77,7 +77,7 @@ if (WF_A2_Vanilla) then {
 	_n = _n		+ [WESTHEAVY];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [2800];
-	_t = _t		+ [130];
+	_t = _t		+ [if (WF_Debug) then {1} else {130}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_heavy.paa"];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [20];
@@ -88,7 +88,7 @@ if (WF_A2_Vanilla) then {
 	_n = _n		+ [WESTAIR];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [4400];
-	_t = _t		+ [150];
+	_t = _t		+ [if (WF_Debug) then {1} else {150}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_aircraft.paa"];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [31];
@@ -99,7 +99,7 @@ if (WF_A2_Vanilla) then {
 	_n = _n		+ [WESTSP];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [700];
-	_t = _t		+ [70];
+	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_light.paa"];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [21];
@@ -111,7 +111,7 @@ if (WF_A2_Vanilla) then {
 		_n = _n		+ [WESTAAR];
 		_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 		_c = _c		+ [3200];
-		_t = _t		+ [280];
+		_t = _t		+ [if (WF_Debug) then {1} else {280}];
 		_i = _i		+ ["\CA\Warfare2\Images\con_light.paa"];
 		_s = _s		+ ["MediumSite"];
 		_dis = _dis	+ [21];
@@ -168,6 +168,7 @@ if (WF_A2_Vanilla) then {
 	_n = _n		+ ["Land_CamoNetB_NATO"];
 	_n = _n		+ ["Sign_Danger"];
 	_n = _n		+ ["HeliH"];
+	_n = _n		+ ["Land_Campfire"];
 	_n = _n		+ ["USOrdnanceBox"];
 	_n = _n		+ ["USVehicleBox"];
 	_n = _n		+ ["USBasicAmmunitionBox"];
@@ -194,7 +195,7 @@ if (WF_A2_Vanilla) then {
 	_n			= [EASTHQ];
 	_d			= [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c			= [('WFBE_HQDEPLOYPRICE' Call GetNamespace)];
-	_t			= [30];
+	_t			= [if (WF_Debug) then {1} else {30}];
 	_i			= ["\CA\Warfare2\Images\con_hq.paa"];
 	_s			= ["HQSite"];
 	_dis		= [15];
@@ -205,7 +206,7 @@ if (WF_A2_Vanilla) then {
 	_n = _n		+ [EASTBAR];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [200];
-	_t = _t		+ [70];
+	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_barracks.paa"];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [18];
@@ -216,7 +217,7 @@ if (WF_A2_Vanilla) then {
 	_n = _n		+ [EASTLVF];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [600];
-	_t = _t		+ [90];
+	_t = _t		+ [if (WF_Debug) then {1} else {90}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_light.paa"];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [20];
@@ -227,7 +228,7 @@ if (WF_A2_Vanilla) then {
 	_n = _n		+ [EASTCC];
 	_d = _d		+ [localize "STR_WF_CommandCenter_RU"];
 	_c = _c		+ [1200];
-	_t = _t		+ [110];
+	_t = _t		+ [if (WF_Debug) then {1} else {110}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_hq.paa"];
 	_s = _s		+ ["SmallSite"];
 
@@ -239,7 +240,7 @@ if (WF_A2_Vanilla) then {
 	_n = _n		+ [EASTHEAVY];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [2800];
-	_t = _t		+ [130];
+	_t = _t		+ [if (WF_Debug) then {1} else {130}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_heavy.paa"];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [20];
@@ -250,7 +251,7 @@ if (WF_A2_Vanilla) then {
 	_n = _n		+ [EASTAIR];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [4400];
-	_t = _t		+ [150];
+	_t = _t		+ [if (WF_Debug) then {1} else {150}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_aircraft.paa"];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [21];
@@ -261,7 +262,7 @@ if (WF_A2_Vanilla) then {
 	_n = _n		+ [EASTSP];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [700];
-	_t = _t		+ [70];
+	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_light.paa"];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [21];
@@ -273,7 +274,7 @@ if (WF_A2_Vanilla) then {
 		_n = _n		+ [EASTAAR];
 		_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 		_c = _c		+ [3200];
-		_t = _t		+ [280];
+		_t = _t		+ [if (WF_Debug) then {1} else {280}];
 		_i = _i		+ ["\CA\Warfare2\Images\con_light.paa"];
 		_s = _s		+ ["MediumSite"];
 		_dis = _dis	+ [21];
@@ -332,6 +333,7 @@ if (WF_A2_Vanilla) then {
 	_n = _n		+ ["Land_CamoNetB_EAST"];
 	_n = _n		+ ["Sign_Danger"];
 	_n = _n		+ ["HeliH"];
+	_n = _n		+ ["Land_Campfire"];
 	_n = _n		+ ["RUOrdnanceBox"];
 	_n = _n		+ ["RUVehicleBox"];
 	_n = _n		+ ["RUBasicAmmunitionBox"];
@@ -373,7 +375,7 @@ if (WF_A2_Arrowhead) then {
 	_n			= [WESTHQ];
 	_d			= [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c			= [('WFBE_HQDEPLOYPRICE' Call GetNamespace)];
-	_t			= [30];
+	_t			= [if (WF_Debug) then {1} else {30}];
 	_i			= ["\CA\Warfare2\Images\con_hq.paa"];
 	_s			= ["HQSite"];
 	_dis		= [15];
@@ -384,7 +386,7 @@ if (WF_A2_Arrowhead) then {
 	_n = _n		+ [WESTBAR];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [200];
-	_t = _t		+ [70];
+	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_barracks.paa"];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [18];
@@ -395,7 +397,7 @@ if (WF_A2_Arrowhead) then {
 	_n = _n		+ [WESTLVF];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [600];
-	_t = _t		+ [90];
+	_t = _t		+ [if (WF_Debug) then {1} else {90}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_light.paa"];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [20];
@@ -406,7 +408,7 @@ if (WF_A2_Arrowhead) then {
 	_n = _n		+ [WESTCC];
 	_d = _d		+ [localize "STR_WF_CommandCenter_USMC"];
 	_c = _c		+ [1200];
-	_t = _t		+ [110];
+	_t = _t		+ [if (WF_Debug) then {1} else {110}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_hq.paa"];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [20];
@@ -417,7 +419,7 @@ if (WF_A2_Arrowhead) then {
 	_n = _n		+ [WESTHEAVY];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [2800];
-	_t = _t		+ [130];
+	_t = _t		+ [if (WF_Debug) then {1} else {130}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_heavy.paa"];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [20];
@@ -428,7 +430,7 @@ if (WF_A2_Arrowhead) then {
 	_n = _n		+ [WESTAIR];
 	_d = _d		+ [localize "STR_WF_AircraftFactory"];
 	_c = _c		+ [4400];
-	_t = _t		+ [150];
+	_t = _t		+ [if (WF_Debug) then {1} else {150}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_aircraft.paa"];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [31];
@@ -439,7 +441,7 @@ if (WF_A2_Arrowhead) then {
 	_n = _n		+ [WESTSP];
 	_d = _d		+ [localize "STR_WF_ServicePoint"];
 	_c = _c		+ [700];
-	_t = _t		+ [70];
+	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_light.paa"];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [21];
@@ -451,7 +453,7 @@ if (WF_A2_Arrowhead) then {
 		_n = _n		+ [WESTAAR];
 		_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 		_c = _c		+ [3200];
-		_t = _t		+ [280];
+		_t = _t		+ [if (WF_Debug) then {1} else {280}];
 		_i = _i		+ ["\CA\Warfare2\Images\con_light.paa"];
 		_s = _s		+ ["MediumSite"];
 		_dis = _dis	+ [21];
@@ -512,6 +514,7 @@ if (WF_A2_Arrowhead) then {
 	_n = _n		+ ["Land_CamoNetB_NATO_EP1"];
 	_n = _n		+ ["Sign_Danger"];
 	_n = _n		+ ["HeliH"];
+	_n = _n		+ ["Land_Campfire"];
 	_n = _n		+ ["USOrdnanceBox_EP1"];
 	_n = _n		+ ["USVehicleBox_EP1"];
 	_n = _n		+ ["USBasicAmmunitionBox_EP1"];
@@ -538,7 +541,7 @@ if (WF_A2_Arrowhead) then {
 	_n			= [EASTHQ];
 	_d			= [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c			= [('WFBE_HQDEPLOYPRICE' Call GetNamespace)];
-	_t			= [30];
+	_t			= [if (WF_Debug) then {1} else {30}];
 	_i			= ["\CA\Warfare2\Images\con_hq.paa"];
 	_s			= ["HQSite"];
 	_dis		= [15];
@@ -549,7 +552,7 @@ if (WF_A2_Arrowhead) then {
 	_n = _n		+ [EASTBAR];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [200];
-	_t = _t		+ [70];
+	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_barracks.paa"];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [18];
@@ -560,7 +563,7 @@ if (WF_A2_Arrowhead) then {
 	_n = _n		+ [EASTLVF];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [600];
-	_t = _t		+ [90];
+	_t = _t		+ [if (WF_Debug) then {1} else {90}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_light.paa"];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [20];
@@ -571,7 +574,7 @@ if (WF_A2_Arrowhead) then {
 	_n = _n		+ [EASTCC];
 	_d = _d		+ [localize "STR_WF_CommandCenter_RU"];
 	_c = _c		+ [1200];
-	_t = _t		+ [110];
+	_t = _t		+ [if (WF_Debug) then {1} else {110}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_hq.paa"];
 	_s = _s		+ ["SmallSite"];
 
@@ -583,7 +586,7 @@ if (WF_A2_Arrowhead) then {
 	_n = _n		+ [EASTHEAVY];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [2800];
-	_t = _t		+ [130];
+	_t = _t		+ [if (WF_Debug) then {1} else {130}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_heavy.paa"];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [20];
@@ -594,7 +597,7 @@ if (WF_A2_Arrowhead) then {
 	_n = _n		+ [EASTAIR];
 	_d = _d		+ [localize "STR_WF_AircraftFactory"];
 	_c = _c		+ [4400];
-	_t = _t		+ [150];
+	_t = _t		+ [if (WF_Debug) then {1} else {150}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_aircraft.paa"];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [21];
@@ -605,7 +608,7 @@ if (WF_A2_Arrowhead) then {
 	_n = _n		+ [EASTSP];
 	_d = _d		+ [localize "STR_WF_ServicePoint"];
 	_c = _c		+ [700];
-	_t = _t		+ [70];
+	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_light.paa"];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [21];
@@ -617,7 +620,7 @@ if (WF_A2_Arrowhead) then {
 		_n = _n		+ [EASTAAR];
 		_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 		_c = _c		+ [3200];
-		_t = _t		+ [280];
+		_t = _t		+ [if (WF_Debug) then {1} else {280}];
 		_i = _i		+ ["\CA\Warfare2\Images\con_light.paa"];
 		_s = _s		+ ["MediumSite"];
 		_dis = _dis	+ [21];
@@ -674,6 +677,7 @@ if (WF_A2_Arrowhead) then {
 	_n = _n		+ ["Land_CamoNetB_EAST_EP1"];
 	_n = _n		+ ["Sign_Danger"];
 	_n = _n		+ ["HeliH"];
+	_n = _n		+ ["Land_Campfire"];
 	_n = _n		+ ["TKOrdnanceBox_EP1"];
 	_n = _n		+ ["TKVehicleBox_EP1"];
 	_n = _n		+ ["TKBasicAmmunitionBox_EP1"];
@@ -715,7 +719,7 @@ if (WF_A2_CombinedOps) then {
 	_n			= [WESTHQ];
 	_d			= [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c			= [('WFBE_HQDEPLOYPRICE' Call GetNamespace)];
-	_t			= [30];
+	_t			= [if (WF_Debug) then {1} else {30}];
 	_i			= ["\CA\Warfare2\Images\con_hq.paa"];
 	_s			= ["HQSite"];
 	_dis		= [15];
@@ -726,7 +730,7 @@ if (WF_A2_CombinedOps) then {
 	_n = _n		+ [WESTBAR];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [200];
-	_t = _t		+ [70];
+	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_barracks.paa"];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [18];
@@ -737,7 +741,7 @@ if (WF_A2_CombinedOps) then {
 	_n = _n		+ [WESTLVF];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [600];
-	_t = _t		+ [90];
+	_t = _t		+ [if (WF_Debug) then {1} else {90}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_light.paa"];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [20];
@@ -748,7 +752,7 @@ if (WF_A2_CombinedOps) then {
 	_n = _n		+ [WESTCC];
 	_d = _d		+ [localize "STR_WF_CommandCenter_USMC"];
 	_c = _c		+ [1200];
-	_t = _t		+ [110];
+	_t = _t		+ [if (WF_Debug) then {1} else {110}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_hq.paa"];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [20];
@@ -759,7 +763,7 @@ if (WF_A2_CombinedOps) then {
 	_n = _n		+ [WESTHEAVY];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [2800];
-	_t = _t		+ [130];
+	_t = _t		+ [if (WF_Debug) then {1} else {130}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_heavy.paa"];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [20];
@@ -770,7 +774,7 @@ if (WF_A2_CombinedOps) then {
 	_n = _n		+ [WESTAIR];
 	_d = _d		+ [localize "STR_WF_AircraftFactory"];
 	_c = _c		+ [4400];
-	_t = _t		+ [150];
+	_t = _t		+ [if (WF_Debug) then {1} else {150}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_aircraft.paa"];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [31];
@@ -781,7 +785,7 @@ if (WF_A2_CombinedOps) then {
 	_n = _n		+ [WESTSP];
 	_d = _d		+ [localize "STR_WF_ServicePoint"];
 	_c = _c		+ [700];
-	_t = _t		+ [70];
+	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_light.paa"];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [21];
@@ -793,7 +797,7 @@ if (WF_A2_CombinedOps) then {
 		_n = _n		+ [WESTAAR];
 		_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 		_c = _c		+ [3200];
-		_t = _t		+ [280];
+		_t = _t		+ [if (WF_Debug) then {1} else {280}];
 		_i = _i		+ ["\CA\Warfare2\Images\con_light.paa"];
 		_s = _s		+ ["MediumSite"];
 		_dis = _dis	+ [21];
@@ -854,6 +858,7 @@ if (WF_A2_CombinedOps) then {
 	_n = _n		+ [if (WF_Camo) then {"Land_CamoNetB_NATO"} else {"Land_CamoNetB_NATO_EP1"}];
 	_n = _n		+ ["Sign_Danger"];
 	_n = _n		+ ["HeliH"];
+	_n = _n		+ ["Land_Campfire"];
 	_n = _n		+ ["USOrdnanceBox_EP1"];
 	_n = _n		+ ["USVehicleBox_EP1"];
 	_n = _n		+ ["USBasicAmmunitionBox_EP1"];
@@ -880,7 +885,7 @@ if (WF_A2_CombinedOps) then {
 	_n			= [EASTHQ];
 	_d			= [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c			= [('WFBE_HQDEPLOYPRICE' Call GetNamespace)];
-	_t			= [30];
+	_t			= [if (WF_Debug) then {1} else {30}];
 	_i			= ["\CA\Warfare2\Images\con_hq.paa"];
 	_s			= ["HQSite"];
 	_dis		= [15];
@@ -891,7 +896,7 @@ if (WF_A2_CombinedOps) then {
 	_n = _n		+ [EASTBAR];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [200];
-	_t = _t		+ [70];
+	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_barracks.paa"];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [18];
@@ -902,7 +907,7 @@ if (WF_A2_CombinedOps) then {
 	_n = _n		+ [EASTLVF];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [600];
-	_t = _t		+ [90];
+	_t = _t		+ [if (WF_Debug) then {1} else {90}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_light.paa"];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [20];
@@ -913,7 +918,7 @@ if (WF_A2_CombinedOps) then {
 	_n = _n		+ [EASTCC];
 	_d = _d		+ [localize "STR_WF_CommandCenter_RU"];
 	_c = _c		+ [1200];
-	_t = _t		+ [110];
+	_t = _t		+ [if (WF_Debug) then {1} else {110}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_hq.paa"];
 	_s = _s		+ ["SmallSite"];
 
@@ -925,7 +930,7 @@ if (WF_A2_CombinedOps) then {
 	_n = _n		+ [EASTHEAVY];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 	_c = _c		+ [2800];
-	_t = _t		+ [130];
+	_t = _t		+ [if (WF_Debug) then {1} else {130}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_heavy.paa"];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [20];
@@ -934,9 +939,9 @@ if (WF_A2_CombinedOps) then {
 
 	_v = _v		+ ["Aircraft"];
 	_n = _n		+ [EASTAIR];
-	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
+	_d = _d		+ [localize "STR_WF_AircraftFactory"];
 	_c = _c		+ [4400];
-	_t = _t		+ [150];
+	_t = _t		+ [if (WF_Debug) then {1} else {150}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_aircraft.paa"];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [21];
@@ -945,9 +950,9 @@ if (WF_A2_CombinedOps) then {
 
 	_v = _v		+ ["ServicePoint"];
 	_n = _n		+ [EASTSP];
-	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
+	_d = _d		+ [localize "STR_WF_ServicePoint"];
 	_c = _c		+ [700];
-	_t = _t		+ [70];
+	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_i = _i		+ ["\CA\Warfare2\Images\con_light.paa"];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [21];
@@ -959,7 +964,7 @@ if (WF_A2_CombinedOps) then {
 		_n = _n		+ [EASTAAR];
 		_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
 		_c = _c		+ [3200];
-		_t = _t		+ [280];
+		_t = _t		+ [if (WF_Debug) then {1} else {280}];
 		_i = _i		+ ["\CA\Warfare2\Images\con_light.paa"];
 		_s = _s		+ ["MediumSite"];
 		_dis = _dis	+ [21];
@@ -1016,6 +1021,7 @@ if (WF_A2_CombinedOps) then {
 	_n = _n		+ [if (WF_Camo) then {"Land_CamoNetB_EAST"} else {"Land_CamoNetB_EAST_EP1"}];
 	_n = _n		+ ["Sign_Danger"];
 	_n = _n		+ ["HeliH"];
+	_n = _n		+ ["Land_Campfire"];
 	_n = _n		+ ["RUOrdnanceBox"];
 	_n = _n		+ ["RUVehicleBox"];
 	_n = _n		+ ["RUBasicAmmunitionBox"];

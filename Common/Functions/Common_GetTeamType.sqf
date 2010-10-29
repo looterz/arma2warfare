@@ -1,8 +1,5 @@
-Private['_type','_team'];
+Private['_index'];
 
-_team = _this;
+_index = _this Call GetClientIDFromTeam;
 
-_type = _team getVariable 'types';
-if (isNil '_type') then {_type = 0};
-
-_type
+Call Compile Format ["%1Types%2",str (side _this),_index]

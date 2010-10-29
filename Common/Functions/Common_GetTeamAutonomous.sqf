@@ -1,8 +1,5 @@
-Private['_autonomous','_team'];
+Private['_index'];
 
-_team = _this;
+_index = _this Call GetClientIDFromTeam;
 
-_autonomous = _team getVariable 'autonomous';
-if (isNil '_autonomous') then {_autonomous = false};
-
-_autonomous
+Call Compile Format ["%1Autonomous%2",str (side _this),_index]

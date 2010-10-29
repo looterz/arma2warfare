@@ -1,22 +1,22 @@
-Private["_ammo","_angle","_arcDistance","_artillery","_destination","_direction","_distance","_minRange","_maxRange","_position","_radius","_shell","_side","_type","_velocity","_weapon","_x","_y"];
+Private["_magazine", "_ammo","_angle","_arcDistance","_artillery","_destination","_direction","_distance","_minRange","_maxRange","_position","_radius","_shell","_side","_type","_velocity","_weapon","_x","_y"];
 
 _artillery = _this Select 0;
 _destination = _this Select 1;
 _side = _this Select 2;
 _radius = _this Select 3;
+_index = _this select 4;
 
-_type = artilleryNames Find (typeOf _artillery);
-if (_type == -1) ExitWith {diag_log Format ["[WFBE (INFORMATION)] Common_FireArtillery.sqf: No artillery types were found for '%1'.",_artillery]};
+if (_index == -1) ExitWith {diag_log Format ["[WFBE (INFORMATION)] Common_FireArtillery.sqf: No artillery types were found for '%1'.",_artillery]};
 
-_minRange = artilleryMinRanges Select _type;
-_maxRange = artilleryMaxRanges Select _type;
+_minRange = artilleryMinRanges Select _index;
+_maxRange = artilleryMaxRanges Select _index;
+_weapon = artilleryWeapons Select _index;
+_ammo = artilleryAmmos Select _index;
+_velocity = artilleryVelocities Select _index;
+_dispersion = artilleryDispersions Select _index;
 
-_weapon = currentWeapon _artillery;
 _magazine = currentMagazine _artillery;
 _ammo = getText (configFile >> "CfgMagazines" >> _magazine >> "ammo");
-
-_velocity = artilleryVelocities Select _type;
-_dispersion = artilleryDispersions Select _type;
 
 if (IsNull Gunner _artillery) ExitWith {diag_log Format ["[WFBE (INFORMATION)] Common_FireArtillery.sqf: Artillery '%1' gunner is null.",_artillery]};
 if (IsPlayer Gunner _artillery) ExitWith {diag_log Format ["[WFBE (INFORMATION)] Common_FireArtillery.sqf: Artillery '%1' gunner is player.",_artillery]};
@@ -41,6 +41,7 @@ _amount = _artillery Ammo _weapon;
 if (_amount > 0) then {
 
 	_artillery Fire _weapon;
+
 	WaitUntil {_artillery Ammo _weapon < _amount};
 
 	_shell = nearestObject [_artillery, _ammo];

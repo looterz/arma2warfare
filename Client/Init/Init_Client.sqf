@@ -23,11 +23,12 @@ GetIncome = Compile preprocessFile "Client\Functions\Client_GetIncome.sqf";
 GetPlayerFunds = Compile preprocessFile "Client\Functions\Client_GetPlayerFunds.sqf";
 GetStructureMarkerLabel = Compile preprocessFile "Client\Functions\Client_GetStructureMarkerLabel.sqf";
 GroupChatMessage = Compile preprocessFile "Client\Functions\Client_GroupChatMessage.sqf";
+HandleHQAction = Compile preprocessFile "Client\Functions\Client_HandleHQAction.sqf";
 HandlePVF = Compile preprocessFile "Client\Functions\Client_HandlePVF.sqf";
-InitTownsAndCamps = Compile preprocessFile "Client\Functions\Client_InitTownsAndCamps.sqf";
 if (paramISIS) then {ISIS_Effects = Compile preProcessFile "Client\Module\ISIS\ISIS_Clientfx.sqf"};
 MarkerAnim = Compile preprocessFile "Client\Functions\Client_MarkerAnim.sqf";
 PlayerKilled = Compile preprocessFile "Client\Client_Killed.sqf";
+ReplaceArray = Compile preprocessFile "Client\Functions\Client_ReplaceArray.sqf";
 ReplaceInventoryAmmo = Compile preprocessFile "Client\Functions\Client_ReplaceInventoryAmmo.sqf";
 
 HandleMainDisplayKeys = Compile preprocessFile "Client\Functions\Client_HandleMainDisplayKeys.sqf";
@@ -41,6 +42,10 @@ if !(WF_A2_Vanilla) then {
 };
 TaskSystem = Compile preprocessFile "Client\Functions\Client_TaskSystem.sqf";
 TitleTextMessage = Compile preprocessFile "Client\Functions\Client_TitleTextMessage.sqf";
+UIAddItem = Compile preprocessFile "Client\Functions\Client_UIAddItem.sqf";
+UIAddMagazine = Compile preprocessFile "Client\Functions\Client_UIAddMagazine.sqf";
+UIGearFillList = Compile preprocessFile "Client\Functions\Client_UIGearFillList.sqf";
+UIGearFillTemplateList = Compile preprocessFile "Client\Functions\Client_UIGearFillTemplateList.sqf";
 if (paramICBM) then {
 	Nuke = Compile preprocessFile "Client\Module\Nuke\nuke.sqf";
 	NukeIncomming = Compile preprocessFile "Client\Module\Nuke\nukeincoming.sqf";
@@ -53,7 +58,20 @@ BIS_FNC_GUIget = {UInamespace getVariable (_this select 0)};
 waitUntil {commonInitComplete};
 
 if (paramFastTime) then {[] ExecFSM "Client\FSM\fasttimecli.fsm"};
-if (paramWeather) then {[] ExecFSM "Client\FSM\overcast.fsm"};
+
+//--- Handle the weather.
+_weat = 'WFBE_WEATHER' Call GetNamespace;
+if (_weat == 3) then {
+	[] ExecFSM "Client\FSM\overcast.fsm";
+} else {
+	_oc = 0.05;
+	switch (_weat) do {
+		case 0: {_oc = 0};
+		case 1: {_oc = 0.5};
+		case 2: {_oc = 1};
+	};
+	60 setOvercast _oc;
+};
 if (paramVolumClouds) then {[] Exec "CA\Modules\clouds\data\scripts\bis_cloudsystem.sqs"};
 
 _idbl = [player] Call Compile preprocessFile "Client\Init\Init_Blacklist.sqf";
@@ -95,6 +113,20 @@ lastHeal = -200;
 lastRefuel = -200;
 lastParaCall = -1200;
 lastSupplyCall = -1200;
+canBuildWHQ = true;
+
+hqInRange = false;
+barracksInRange = false;
+gearInRange = false;
+lightInRange = false;
+heavyInRange = false;
+aircraftInRange = false;
+serviceInRange = false;
+commandInRange = false;
+depotInRange = false;
+antiAirRadarInRange = false;
+hangarInRange = false;
+townDefenceRange = false;
 
 if (isNil "Airfields") then {Airfields = []};
 
@@ -106,11 +138,12 @@ if (paramTrackPlayer) then {[] ExecFSM "Client\FSM\updateteamsmarkers.fsm"};
 	waitUntil {townInit};
 	[] ExecFSM "Client\FSM\updatecapture.fsm";
 	[] ExecFSM "Client\FSM\updatetownmarkers.fsm";
-	waitUntil {_buildings = WF_Logic getVariable Format ["%1BaseStructures",sideJoinedText];!isNil "_buildings"};
+	waitUntil {!isNil Format["%1BaseStructures",sideJoinedText]};
 	[] ExecFSM "Client\FSM\updateavailableactions.fsm";
 };
 [] Spawn {
-	waitUntil{_commanderTeam = (sideJoined) Call GetCommanderTeam;!isNil "_commanderTeam"};
+	_lo = false;
+	while {!_lo} do {sleep 0.1;_commanderTeam = (sideJoined) Call GetCommanderTeam;if (!isNil '_commanderTeam') then {_lo = true}};
 	[] ExecFSM "Client\FSM\updateclient.fsm";
 };
 [] Call Compile preprocessFile "briefing.sqf";
@@ -118,16 +151,19 @@ if (paramTrackPlayer) then {[] ExecFSM "Client\FSM\updateteamsmarkers.fsm"};
 //--- Init Pos.
 _base = objNull;
 if (time < 30) then {
-	waitUntil {_base = WF_Logic getVariable Format ["%1StartingLocation",sideJoinedText];!isNil "_base"};
+	waitUntil {!isNil Format ["%1StartingLocation",sideJoinedText]};
+	_base = Call Compile Format ["%1StartingLocation",sideJoinedText];
 } else {
-	waitUntil {_base = WF_Logic getVariable Format ["%1MHQ",sideJoinedText];!isNil "_base"};
+	waitUntil {!isNil Format ["%1MHQ",sideJoinedText]};
+	_base = (sideJoinedText) Call GetSideHQ;
 	if !(alive _base) then {
-		_buildings = [];
-		waitUntil {_buildings = WF_Logic getVariable Format ["%1BaseStructures",sideJoinedText];!isNil "_buildings"};
+		waitUntil {!isNil Format["%1BaseStructures",sideJoinedText]};
+		_buildings = (sideJoinedText) Call GetSideStructures;
 		if (count _buildings > 0) then {
 			_base = _buildings select 0;
 		} else {
-			waitUntil {_base = WF_Logic getVariable Format ["%1StartingLocation",sideJoinedText];!isNil "_base"};
+			waitUntil {!isNil Format ["%1StartingLocation",sideJoinedText]};
+			_base = Call Compile Format ["%1StartingLocation",sideJoinedText];
 		};
 	};
 };
@@ -135,8 +171,8 @@ if (time < 30) then {
 player setPos ([getPos _base,20,30] Call GetRandomPosition);
 
 //--- Building Init.
-_isDeployed = false;
-waitUntil {_isDeployed = WF_Logic getVariable Format ["%1MHQDeployed",sideJoinedText];!isNil "_isDeployed"};
+waitUntil {!isNil Format ["%1MHQDeployed",sideJoinedText]};
+_isDeployed = (sideJoinedText) Call GetSideHQDeployed;
 if (_isDeployed) then {
 	['WFBE_AREAHQDEPLOYED' Call GetNamespace,true,MCoin] Call Compile preprocessFile "Client\Init\Init_Coin.sqf";
 } else {
@@ -147,13 +183,15 @@ if (_isDeployed) then {
 Options = player addAction ["<t color='#F8D664'>" + (localize "STR_WF_Options") + "</t>","Client\Action\Action_Menu.sqf", "", 1, false, true, "", ""];
 
 //--- Voice system.
-_HQRadio = objNull;
-waitUntil {_HQRadio = WF_Logic getVariable Format ["BIS_WF_HQ%1",sideJoinedText];!isNil "_HQRadio"};
-_HQRadio setIdentity (_HQRadio getVariable "_topic_identity");
+waitUntil {!isNil Format ["BIS_WF_HQ%1",sideJoinedText]};
+_HQRadio = Call Compile Format ["BIS_WF_HQ%1",sideJoinedText];
+waitUntil {!isNil Format ["BIS_WF_HQ%1_TI",sideJoinedText]};
+_topicIdentity = Call Compile Format ["BIS_WF_HQ%1_TI",sideJoinedText];
+_HQRadio setIdentity _topicIdentity;
 _HQRadio setRank "COLONEL";
 _HQRadio setGroupId ["HQ"]; 
-_HQRadio kbAddTopic [(_HQRadio getVariable "_topic_identity"),"Client\kb\hq.bikb","Client\kb\hq.fsm",{call compile preprocessFileLineNumbers "Client\kb\hq.sqf"}];
-player kbAddTopic [(_HQRadio getVariable "_topic_identity"),"Client\kb\hq.bikb","Client\kb\hq.fsm",{call compile preprocessFileLineNumbers "Client\kb\hq.sqf"}];
+_HQRadio kbAddTopic [_topicIdentity,"Client\kb\hq.bikb","Client\kb\hq.fsm",{call compile preprocessFileLineNumbers "Client\kb\hq.sqf"}];
+player kbAddTopic [_topicIdentity,"Client\kb\hq.bikb","Client\kb\hq.fsm",{call compile preprocessFileLineNumbers "Client\kb\hq.sqf"}];
 sideHQ = _HQRadio;
 
 //--- Define vehicles types that will have an 'Cargo Eject' function.
@@ -169,7 +207,7 @@ sleep 1;
 //--- Override player's Gear.
 [player,Format ["WFBE_%1DEFAULTWEAPONS",sideJoinedText] Call GetNamespace,Format ["WFBE_%1DEFAULTAMMO",sideJoinedText] Call GetNamespace] Call EquipLoadout;
 //--- Default gear menu filler.
-WF_Logic setVariable ['filler','template'];
+WF_Logic setVariable ['filler','primary'];
 
 //--- Skill Module.
 Skills_Soldiers = ['FR_R','RUS_Soldier1','US_Delta_Force_EP1','TK_Special_Forces_EP1'];
@@ -187,7 +225,8 @@ if (playerType in Skills_Soldiers) then {['WFBE_MAXGROUPSIZE',('WFBE_MAXGROUPSIZ
 
 //--- Init vote.
 _voteTime = 0;
-waitUntil {_voteTime = WF_Logic getVariable Format ["%1CommanderVoteTime",sideJoinedText];!isNil "_voteTime"};
+_lo = false;
+while {!_lo} do {sleep 0.1;_voteTime = WF_Logic getVariable Format ["%1CommanderVoteTime",sideJoinedText];if !(isNil '_voteTime') then {_lo = true}};
 if (_voteTime > 0) then {createDialog "RscDisplayWFVoting"};
 
 //--- Debug
@@ -215,7 +254,10 @@ if (paramEASA) then {[] Call Compile preProcessFile "Client\Module\EASA\EASA_Ini
 waitUntil {townInit};
 
 sleep 3;
-[] Call InitTownsAndCamps;
+[] Spawn {
+	sleep 2;
+	[] ExecVM "Client\Functions\Client_InitTownsAndCamps.sqf";
+};
 
 //--- Repair Truck builds.
 ['WFBE_AREAREPAIRTRUCK' Call GetNamespace,false,RCoin,"REPAIR"] Call Compile preprocessFile "Client\Init\Init_Coin.sqf";
@@ -225,3 +267,6 @@ _built = _built + 1;
 WF_Logic setVariable [Format["%1UnitsCreated",sideJoinedText],_built,true];
 
 ["TownAddComplete"] Spawn TaskSystem;
+
+/* Client Init Done - Remove the blackout */
+12452 cutText [(localize 'STR_WF_Loading')+"...","BLACK IN",5];

@@ -30,7 +30,7 @@ if (mysql && !gameOver) then {
 };
 
 //--- Is unit driving the HQ?
-_hq = WF_Logic getVariable Format ["%1MHQ",_sideText];
+_hq = (_sideText) Call GetSideHQ;
 if (vehicle(leader _team) == _hq) then {unassignVehicle (leader _team);[leader _team] allowGetIn false;(leader _team) action ["EJECT", _hq]};
 
 //--- Keep AI over JIP?
@@ -46,7 +46,7 @@ _funds = _team Call GetTeamFunds;
 _get set [2,_funds];
 
 //--- SetPos the AI.
-_buildings = WF_Logic getVariable Format ["%1BaseStructures",_sideText];
+_buildings = (_sideText) Call GetSideStructures;
 _respawnLoc = _hq;
 if (count _buildings > 0) then {
 	_closestRespawn = [leader _team,_buildings] Call SortByDistance;

@@ -25,7 +25,7 @@ if (BIS_uav_lastID == 0) then {
 	};
 };
 
-_buildings = WF_Logic getVariable Format ["%1BaseStructures",sideJoinedText];
+_buildings = (sideJoinedText) Call GetSideStructures;
 _checks = [sideJoined,Format ["WFBE_%1COMMANDCENTERTYPE",sideJoinedText] Call GetNamespace,_buildings] Call GetFactories;
 _closest = objNull;
 if (count _checks > 0) then {
@@ -61,7 +61,7 @@ WF_Logic setVariable [Format["%1VehiclesCreated",sideJoinedText],_built,true];
 
 WFBE_RequestSpecial = ['SRVFNCREQUESTSPECIAL',["uav",sideJoined,_uav,clientTeam]];
 publicVariable 'WFBE_RequestSpecial';
-if !(isMultiplayer) then {['SRVFNCREQUESTSPECIAL',["uav",sideJoined,_uav,clientTeam]] Spawn HandleSPVF};
+if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTSPECIAL',["uav",sideJoined,_uav,clientTeam]] Spawn HandleSPVF};
 
 sleep 0.02;
 

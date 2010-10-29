@@ -62,8 +62,8 @@ class FSM
        "_areaWest = WF_Logic getVariable 'WestArea';" \n
        "_areaEast = WF_Logic getVariable 'EastArea';" \n
        "" \n
-       "_buildingsWest = (WF_Logic getVariable 'WestBaseStructures') + [WF_Logic getVariable 'WestMHQ'];" \n
-       "_buildingsEast = (WF_Logic getVariable 'EastBaseStructures')  + [WF_Logic getVariable 'EastMHQ'];" \n
+       "_buildingsWest = WestBaseStructures + [WestMHQ];" \n
+       "_buildingsEast = EastBaseStructures + [EastMHQ];" \n
        "" \n
        "_newWest = _areaWest;" \n
        "_newEast = _areaEast;" \n

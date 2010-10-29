@@ -46,7 +46,7 @@ class FSM
        "" \n
        "_type = Format ['WFBE_%1SUPPLYTRUCK',_sideText] Call GetNamespace;" \n
        "_crew = Format [""WFBE_%1SOLDIER"",_sideText] Call GetNamespace;" \n
-       "_hq = WF_Logic getVariable Format [""%1MHQ"",_sideText];" \n
+       "_hq = (_sideText) Call GetSideHQ;" \n
        "_vehicle = [_type,(GetPos _hq),_side,true] Call CreateVehi;" \n
        "_team = CreateGroup _side;" \n
        "_driver = [_crew,_team,(getpos _vehicle),_side] Call CreateMan;" \n
@@ -113,7 +113,7 @@ class FSM
        "	if (_locationSide == _side) then {_destinations = _destinations + [_x]};" \n
        "} forEach towns;" \n
        "" \n
-       "_hq = WF_Logic getVariable Format [""%1MHQ"",_sideText];" \n
+       "_hq = (_sideText) Call GetSideHQ;" \n
        "if (_vehicle Distance _hq < 70 || _vehicle Distance _sp < 70) then {_SV = 1000;_lastDelivery = time};" \n
        "" \n
        "_timer = _timer + 15;" \n
@@ -194,12 +194,12 @@ class FSM
        "if (!isNull _possibleLoc) then {" \n
        "	_closest = _possibleLoc;" \n
        "	if (_possibleLoc == _hq) then {" \n
-       "		_buildings = WF_Logic getVariable Format [""%1BaseStructures"",Str _side];" \n
+       "		_buildings = (str _side) Call GetSideStructures;" \n
        "		_checks = [_side,_spt,_buildings] Call GetFactories;" \n
        "		if (count _checks > 0) then {" \n
        "			_sorted = [_vehicle,_checks] Call SortByDistance;" \n
        "			_nearest = _sorted select 0;" \n
-       "			_deployed = WF_Logic getVariable Format [""%1MHQDeployed"",Str _side];" \n
+       "			_deployed = (str _side) Call GetSideHQDeployed;" \n
        "			if (_nearest distance _vehicle < _vehicle distance _hq || !_deployed || getDammage _hq >= 1) then {_closest = _nearest;_sp = _nearest};" \n
        "		};" \n
        "	};" \n
@@ -232,7 +232,7 @@ class FSM
        "	_currentSV = _closest getVariable ""supplyValue"";" \n
        "	_maxSV = _closest getVariable ""maxSupplyValue"";" \n
        "	_sideDeliver = (_closest getVariable ""sideID"") Call GetSideFromID;" \n
-       "	_upgrades = WF_Logic getVariable Format [""%1Upgrades"",_sideText];" \n
+       "	_upgrades = (_sideText) Call GetSideUpgrades;" \n
        "	_increaseOf = (Format[""WFBE_MAXSUPPLYTRUCKSSV%1"",_upgrades select 6] Call GetNamespace);" \n
        "	_requireChange = false;" \n
        "	if (_SV > _currentSV && _sideDeliver == _side) then {_currentSV = _currentSV + _increaseOf;_requireChange = true};" \n

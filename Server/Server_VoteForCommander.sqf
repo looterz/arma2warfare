@@ -1,4 +1,4 @@
-Private ['_aibase','_commanderTeam','_comVoteTime','_lastCom','_side','_sideText'];
+Private ['_aibase','_commanderTeam','_comVoteTime','_side','_sideText'];
 _side = _this select 0;
 _sideText = _side;
 
@@ -24,24 +24,8 @@ sleep _delay;
 
 WFBE_CommanderVote = [_side,'CLTFNCCOMMANDERVOTE',_commanderTeam];
 publicVariable 'WFBE_CommanderVote';
-if !(isMultiplayer) then {[_side,'CLTFNCCOMMANDERVOTE',_commanderTeam] Spawn HandlePVF};
+if (!isMultiplayer || (isServer && local player)) then {[_side,'CLTFNCCOMMANDERVOTE',_commanderTeam] Spawn HandlePVF};
 
-//--- Flow Optimization, avoid spaming this on JIP.
-_lastCom = Format["WFBE_%1_LastCommander",_sideText] Call GetNamespace;
-if (!isNull(_commanderTeam)) then {
-	_skip = true;
-	_display = false;
-	if (isNull _lastCom) then {_skip = false;_display = true};
-	if (_skip) then{if (_lastCom != _commanderTeam) then {_skip = false;_display = true}};
-	
-	if (_display && paramAI) then {	
-		for [{_count = 0},{_count < maxPlayers},{_count = _count + 1}] do {
-			sleep 0.05;
-			Call Compile Format["publicVariable '%1AITeam%2Coord'",_sideText,_count + 1];
-			Call Compile Format["publicVariable '%1AITeam%2Order'",_sideText,_count + 1];
-		};
-	};
-};
 [Format["WFBE_%1_LastCommander",_sideText],_commanderTeam,true] Call SetNamespace;
 
 _aibase = Format["WFBE_%1_AIBase",_sideText] Call GetNamespace;

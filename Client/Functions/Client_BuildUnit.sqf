@@ -1,9 +1,7 @@
-Private ["_factoryType", "_building","_built","_cpt","_commander","_crew","_currentUnit","_description","_direction","_distance","_driver","_factoryType","_group","_gunner","_index","_isMan","_locked","_longest","_position","_queu","_queu2","_ret","_soldier","_waitTime","_type","_unique","_unit","_vehi","_vehicle","_vehicles"];
-
-_factoryType = _this select 0;
-_building = _this select 1;
-_unit = _this select 2;
-_vehi = _this select 3;
+Private ["_building","_built","_cpt","_commander","_crew","_currentUnit","_description","_direction","_distance","_driver","_factoryType","_group","_gunner","_index","_isMan","_locked","_longest","_position","_queu","_queu2","_ret","_soldier","_waitTime","_type","_unique","_unit","_vehi","_vehicle","_vehicles"];
+_building = _this select 0;
+_unit = _this select 1;
+_vehi = _this select 2;
 
 _cpt = 0;
 _isMan = false;
@@ -25,14 +23,15 @@ _direction = 0;
 _longest = 0;
 _position = 0;
 _waitTime = 0;
+_factoryType = "";
 _description = "";
 
 _type = typeOf _building;
-
 _index = (Format ["WFBE_%1STRUCTURENAMES",sideJoinedText] Call GetNamespace) find _type;
 if (_index != -1) then {
 	_distance = (Format ["WFBE_%1STRUCTUREDISTANCES",sideJoinedText] Call GetNamespace) select _index;
 	_direction = (Format ["WFBE_%1STRUCTUREDIRECTIONS",sideJoinedText] Call GetNamespace) select _index;
+	_factoryType = (Format ["WFBE_%1STRUCTURES",sideJoinedText] Call GetNamespace) select _index;
 	_currentUnit = _unit Call GetNamespace;
 	_waitTime = _currentUnit select QUERYUNITTIME;
 	_description = _currentUnit select QUERYUNITLABEL;
@@ -41,11 +40,13 @@ if (_index != -1) then {
 } else {
 	if (_type in WFDEPOT) then {
 		_distance = depotDistance;
-		_direction = depotDirection;;
+		_direction = depotDirection;
+		_factoryType = "Depot";
 	};
 	if (_type in WFHANGAR) then {
 		_distance = airportDistance;
 		_direction = airportDirection;
+		_factoryType = "Airport";
 	};
 	_currentUnit = _unit Call GetNamespace;
 	_waitTime = _currentUnit select QUERYUNITTIME;
@@ -133,7 +134,7 @@ if (_isMan) then {
 	
 	//--- Vehicles Init Start.
 	if (_unit in Zeta_Lifter) then {
-		_upgrades = WF_Logic getVariable Format ["%1Upgrades",sideJoinedText];
+		_upgrades = (sideJoinedText) Call GetSideUpgrades;
 		if (_upgrades select 8 > 0) then {_vehicle addAction [localize "STR_WF_Lift","Client\Module\ZetaCargo\Zeta_Hook.sqf"]};
 	};
 	_vehicle addAction [localize "STR_WF_Unlock","Client\Action\Action_ToggleLock.sqf", [], 95, false, true, '', 'alive _target && locked _target'];
@@ -155,7 +156,7 @@ if (_isMan) then {
 	if (_unit isKindOf "Air") then {
 		_init = "";
 		if (paramCounterMeasures) then {
-			_upgrades = WF_Logic getVariable Format ["%1Upgrades",sideJoinedText];
+			_upgrades = (sideJoinedText) Call GetSideUpgrades;
 			if (_upgrades select 9 > 0) then {_init = "nullReturn = [this] ExecVM 'Client\Module\CM\CM_Init.sqf';this addEventHandler ['incomingMissile',{_this Spawn CM_Countermeasures}];"};
 		};
 		if (paramAARadar) then {_init = _init + Format["nullReturn = [this,%1] ExecVM 'Common\Common_AARadarMarkerUpdate.sqf';",sideJoined]};

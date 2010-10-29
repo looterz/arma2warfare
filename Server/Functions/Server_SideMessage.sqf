@@ -5,9 +5,8 @@ _side = _this select 2;
 _extra = "";
 if (count _this > 3) then {_extra = _this select 3};
 
-_speaker = BIS_WF_HQEAST; _receiver = BIS_WF_HQEAST2; 
-if (_side == west) then {_speaker = BIS_WF_HQWEST;_receiver = BIS_WF_HQWEST2};
-_topicSide = _speaker getVariable "_topic_identity";
+_speaker = BIS_WF_HQEAST; _receiver = BIS_WF_HQEAST2; _topicSide = BIS_WF_HQEAST_TI;
+if (_side == west) then {_speaker = BIS_WF_HQWEST;_receiver = BIS_WF_HQWEST2; _topicSide = BIS_WF_HQWEST_TI};
 
 if (_special == "Destroyed" || _special == "IsUnderAttack" || _special == "Constructed") then {
 	_localizedString = localize "strwfbarracks";

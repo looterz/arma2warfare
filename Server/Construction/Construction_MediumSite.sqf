@@ -47,9 +47,7 @@ _site setPos _position;
 ["Constructed",_type,_side] Spawn SideMessage;
 
 if (!IsNull _site) then {
-	_structures = WF_Logic getVariable Format ["%1BaseStructures",str _side];
-	_structures = _structures + [_site];
-	WF_Logic setVariable [Format ["%1BaseStructures",str _side],_structures,true];
+	Call Compile Format ["%1BaseStructures = %1BaseStructures + [_site]; publicVariable '%1BaseStructures';",str _side];
 
 	_site setVehicleInit Format["[this,false,%1] ExecVM 'Client\Init\Init_BaseStructure.sqf'",_side];
 	processInitCommands;

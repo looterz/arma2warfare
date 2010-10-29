@@ -3,8 +3,22 @@ _unit = _this select 0;
 
 switch (typeOf _unit) do {
 	//WEST
+	case "HMMWV_Avenger": {
+		_unit removeWeapon "SidewinderLaucher_AH1Z";
+		_unit removeWeapon "StingerLaucher";
+		_unit addMagazine "2Rnd_Sidewinder_AH1Z";
+		_unit addMagazine "2Rnd_Sidewinder_AH1Z";
+		_unit addMagazine "2Rnd_Sidewinder_AH1Z";
+		_unit addMagazine "2Rnd_Sidewinder_AH1Z";
+		_unit addMagazine "2Rnd_Sidewinder_AH1Z";
+		_unit addMagazine "2Rnd_Sidewinder_AH1Z";
+		_unit addMagazine "2Rnd_Sidewinder_AH1Z";
+		_unit addMagazine "2Rnd_Sidewinder_AH1Z";
+		_unit addWeapon "SidewinderLaucher_AH1Z";
+	};
 	case "AH1Z": {
-		_unit removeMagazinesTurret ["120Rnd_CMFlareMagazine",[-1]];
+		_unit removeMagazine "2Rnd_Sidewinder_AH1Z";
+		_unit removeWeapon "SidewinderLaucher_AH1Z";		_unit removeMagazinesTurret ["120Rnd_CMFlareMagazine",[-1]];
 		_unit addMagazineTurret ["60Rnd_CMFlare_Chaff_Magazine",[-1]];
 	};
 	case "CH_47F_EP1": {

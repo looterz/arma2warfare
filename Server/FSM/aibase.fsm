@@ -7,12 +7,12 @@ item2[] = {"AI_Base_Running",4,218,122.273567,-35.331635,212.273392,14.668474,0.
 item3[] = {"AI_Base_Not_Runn",4,218,-15.582159,46.154228,74.417801,96.154228,0.000000,"AI Base" \n "Not Running"};
 item4[] = {"Advanced__Init",2,250,-16.452499,124.902863,73.547501,174.902863,0.000000,"Advanced " \n "Init"};
 item5[] = {"Loop",8,218,-16.586647,206.297379,73.413300,256.297363,0.000000,"Loop"};
-item6[] = {"Global_Checks",2,4346,-16.758400,279.866577,73.241608,329.866577,0.000000,"Global Checks"};
+item6[] = {"Global_Checks",2,250,-16.758400,279.866577,73.241608,329.866577,0.000000,"Global Checks"};
 item7[] = {"Player_Commander",4,218,121.742462,280.140930,211.742416,330.140930,10.000000,"Player" \n "Commander?"};
 item8[] = {"Teams_Type",4,218,-164.034988,280.176239,-74.035011,330.176270,1.000000,"Teams Type"};
 item9[] = {"Update_Teams",2,250,-163.247650,207.771179,-73.247955,257.771149,0.000000,"Update Teams"};
 item10[] = {"Upgrades",4,218,-267.920502,327.396942,-177.920532,377.396942,0.000000,"Upgrades"};
-item11[] = {"Do_Upgrades",2,250,-267.724365,207.955505,-177.724365,257.955505,0.000000,"Do Upgrades"};
+item11[] = {"Do_Upgrades",2,4346,-267.724365,207.955505,-177.724365,257.955505,0.000000,"Do Upgrades"};
 item12[] = {"",7,210,-169.994583,128.282928,-161.994583,136.282974,0.000000,""};
 link0[] = {0,2};
 link1[] = {0,3};
@@ -31,7 +31,7 @@ link13[] = {10,11};
 link14[] = {11,12};
 link15[] = {12,5};
 globals[] = {0.000000,0,0,0,0,640,480,1,19,6316128,1,-340.606110,214.050446,413.526428,-75.043388,705,621,1};
-window[] = {0,-1,-1,-1,-1,859,256,1601,118,1,723};
+window[] = {0,-1,-1,-1,-1,766,25,1370,25,1,723};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -103,8 +103,8 @@ class FSM
       name = "Advanced__Init";
       init = /*%FSM<STATEINIT""">*/"[Format[""WFBE_%1_AIBase"",_sideText],true,true] Call SetNamespace;" \n
        "" \n
-       "_hq = WF_Logic getVariable Format [""%1MHQ"",_sideText];" \n
-       "_isDeployed = WF_Logic getVariable Format [""%1MHQDeployed"",_sideText];" \n
+       "_hq = (_sideText) Call GetSideHQ;" \n
+       "_isDeployed = (_sideText) Call GetSideHQDeployed;" \n
        "" \n
        "_types = Format[""WFBE_%1STRUCTURES"",_sideText] Call GetNamespace;" \n
        "_names = Format[""WFBE_%1STRUCTURENAMES"",_sideText] Call GetNamespace;" \n
@@ -133,12 +133,8 @@ class FSM
        "_lastUpgradeCheck = -120;" \n
        "_type = 0;" \n
        "_teams = (Format[""WFBE_%1TEAMS"",_sideText] Call GetNamespace);" \n
-       "_sideBuilding = Format [""%1BaseStructures"",_sideText];" \n
-       "_sideMHQ = Format [""%1MHQ"",_sideText];" \n
-       "_sideMHQDeployed = Format [""%1MHQDeployed"",_sideText];" \n
        "_sideMHQRepair = Format [""%1MHQRepair"",_sideText];" \n
        "_sideSupply = Format [""%1Supplies"",_sideText];" \n
-       "_sideUpgrades = Format [""%1Upgrades"",_sideText];" \n
        "_repairPrice = 'WFBE_MHQREPAIRPRICE' Call GetNamespace;" \n
        "_vc = 'WFBE_VICTORYCONDITION' Call GetNamespace;" \n
        "_ul = 'WFBE_UPGRADELABELS' Call GetNamespace;" \n
@@ -150,7 +146,7 @@ class FSM
        "_totalSupply = 0;" \n
        "{_totalSupply = _totalSupply + (_x getVariable 'maxSupplyValue')} forEach towns;" \n
        "" \n
-       "_buildings = WF_Logic getVariable Format [""%1BaseStructures"",_sideText];" \n
+       "_buildings = (_sideText) Call GetSideStructures;" \n
        "" \n
        "{" \n
        "	if (_x distance _hq < 500) then {" \n
@@ -189,13 +185,13 @@ class FSM
        "	" \n
        "	sleep _time;" \n
        "	" \n
-       "	_upgrades = WF_Logic getVariable Format [""%1Upgrades"",_sideText];" \n
+       "	_upgrades = (_sideText) Call GetSideUpgrades;" \n
        "	_upgrades Set [_index2,_index + 1];" \n
-       "	WF_Logic setVariable [Format [""%1Upgrades"",_sideText],_upgrades,true];" \n
+       "	Call Compile Format [""%1Upgrades = _upgrades; publicVariable '%1Upgrades';"",_sideText];" \n
        "	" \n
        "	WFBE_LocalizeMessage = [_side,'CLTFNCLOCALIZEMESSAGE',['UpgradeComplete',_index2,(_index + 1)]];" \n
        "	publicVariable 'WFBE_LocalizeMessage';" \n
-       "	if !(isMultiplayer) then {[_side,'CLTFNCLOCALIZEMESSAGE',['UpgradeComplete',_index2,(_index + 1)]] Spawn HandlePVF};" \n
+       "	if (!isMultiplayer || (isServer && local player)) then {[_side,'CLTFNCLOCALIZEMESSAGE',['UpgradeComplete',_index2,(_index + 1)]] Spawn HandlePVF};" \n
        "	[Format[""WFBE_%1_Upgrading"",_sideText],false,true] Call SetNamespace;" \n
        "" \n
        "	[""NewIntelAvailable"","""",_side,""""] Spawn SideMessage" \n
@@ -226,7 +222,7 @@ class FSM
        "_commander = (_side) Call GetCommanderTeam;" \n
        "" \n
        "_lastCheck = time;" \n
-       "_hq = WF_Logic getVariable _sideMHQ;" \n
+       "_hq = (_sideText) Call GetSideHQ;" \n
        "_HQIsAlive = true;" \n
        "" \n
        "if !(alive _hq) then {_HQIsAlive = false};" \n
@@ -241,7 +237,7 @@ class FSM
        "			if ((_supply > (_costs select  _index)) && _HQIsAlive) then {" \n
        "				_limit = (Format['WFBE_BUILDINGMAX%1',_currentBuilding]) Call GetNamespace;" \n
        "				_structureType = _names select _index;" \n
-       "				_buildings = WF_Logic getVariable _sideBuilding;" \n
+       "				_buildings = (_sideText) Call GetSideStructures;" \n
        "				_pursue = true;" \n
        "				" \n
        "				//--- Limit control." \n
@@ -284,7 +280,7 @@ class FSM
        "	" \n
        "	//--- HQ Moving part (it has to be alive)." \n
        "	if (_HQMoving && _HQIsAlive || _deployed) then {" \n
-       "		_isDeployed = WF_Logic getVariable _sideMHQDeployed;" \n
+       "		_isDeployed = (_sideText) Call GetSideHQDeployed;" \n
        "		if (_isDeployed) then {" \n
        "			_pos = getPos _hq;" \n
        "			_dir = getDir _hq;" \n
@@ -302,7 +298,7 @@ class FSM
        "			_deployed = false;" \n
        "			if (typeOf _hq != (Format [""WFBE_%1MHQNAME"",_sideText] Call GetNamespace)) then {_deployed = true};" \n
        "			if (!_deployed) then {" \n
-       "				_hq = WF_Logic getVariable _sideMHQ;" \n
+       "				_hq = (_sideText) Call GetSideHQ;" \n
        "				_destination = objNull;" \n
        "				_destinations = startingLocations - _buildingLocations;" \n
        "				_sorted = [_hq,_destinations] Call SortByDistance;" \n
@@ -330,7 +326,7 @@ class FSM
        "				deleteVehicle _HQDriver;" \n
        "				deleteGroup _group;" \n
        "			};" \n
-       "			_isDeployed = WF_Logic getVariable _sideMHQDeployed;" \n
+       "			_isDeployed = (_sideText) Call GetSideHQDeployed;" \n
        "			if (!_isDeployed) then {" \n
        "				_pos = getPos _hq;" \n
        "				_dir = getDir _hq;" \n
@@ -341,7 +337,7 @@ class FSM
        "					_supply = _supply - (_costs select _hqt);" \n
        "					WF_Logic setVariable [_sideSupply,_supply,true];" \n
        "				};" \n
-       "				_buildings = WF_Logic getVariable _sideBuilding;" \n
+       "				_buildings = (_sideText) Call GetSideStructures;" \n
        "				_structureState = [false,false,false,false,false,false];" \n
        "				{" \n
        "					_type = typeOf _x;" \n
@@ -359,7 +355,7 @@ class FSM
        "	//--- HQ Repair Part." \n
        "	if (!_HQIsAlive && _vc != 1) then {" \n
        "		//--- Closest Light." \n
-       "		_buildings = WF_Logic getVariable _sideBuilding;" \n
+       "		_buildings = (_sideText) Call GetSideStructures;" \n
        "		_checks = [_side,Format [""WFBE_%1LIGHTTYPE"",_sideText] Call GetNamespace,_buildings] Call GetFactories;" \n
        "		_light = objNull;" \n
        "		if (count _checks > 0) then {" \n
@@ -576,11 +572,11 @@ class FSM
       init = /*%FSM<STATEINIT""">*/"_lastUpgradeCheck = time;" \n
        "" \n
        "//--- Command center is needed for upgrades. AI won't upgrade if he's moving around. Don't bother with money atm, only supply." \n
-       "_isDeployed = WF_Logic getVariable _sideMHQDeployed;" \n
-       "_buildings = WF_Logic getVariable _sideBuilding;" \n
+       "_isDeployed = (_sideText) Call GetSideHQDeployed;" \n
+       "_buildings = (_sideText) Call GetSideStructures;" \n
        "_checks = [_side,Format [""WFBE_%1COMMANDCENTERTYPE"",_sideText] Call GetNamespace,_buildings] Call GetFactories;" \n
        "if (_isDeployed && (count _checks > 0) && !(Format[""WFBE_%1_Upgrading"",_sideText] Call GetNamespace)) then {" \n
-       "	_upgrades = WF_Logic getVariable _sideUpgrades;" \n
+       "	_upgrades = (_sideText) Call GetSideUpgrades;" \n
        "	_supply = WF_Logic getVariable _sideSupply;" \n
        "	_break = false;" \n
        "" \n

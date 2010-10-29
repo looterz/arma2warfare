@@ -4,6 +4,7 @@
 */
 
 /* Backpacks */
+//--- ADD OPFOR STATICS!
 ['WFBE_BACKPACKS',
  ['US_UAV_Pack_EP1','US_Assault_Pack_EP1','US_Assault_Pack_Ammo_EP1','US_Assault_Pack_AmmoSAW_EP1','US_Assault_Pack_AT_EP1','US_Assault_Pack_Explosives_EP1','US_Patrol_Pack_EP1',
  'US_Patrol_Pack_Ammo_EP1','US_Patrol_Pack_Specops_EP1','US_Backpack_EP1','US_Backpack_AmmoMG_EP1','US_Backpack_AT_EP1','US_Backpack_Specops_EP1','DE_Backpack_Specops_EP1',
@@ -12,7 +13,7 @@
  'TK_Assault_Pack_EP1','TK_Assault_Pack_RPK_EP1','TKA_Assault_Pack_Ammo_EP1','Tripod_Bag','M2HD_mini_TriPod_US_Bag_EP1','M2StaticMG_US_Bag_EP1','MK19_TriPod_US_Bag_EP1',
  'TOW_TriPod_US_Bag_EP1','M252_US_Bag_EP1','BAF_AssaultPack_ARAmmo','BAF_AssaultPack_MGAmmo','BAF_AssaultPack_ATAmmo','BAF_AssaultPack_HATAmmo','BAF_AssaultPack_Special',
  'BAF_AssaultPack_FAC','BAF_AssaultPack_HAAAmmo','BAF_AssaultPack_LRRAmmo','BAF_AssaultPack_RifleAmmo','BAF_L2A1_ACOG_minitripod_bag','BAF_L2A1_ACOG_tripod_bag',
- 'BAF_GPMG_Minitripod_D_bag','BAF_GMG_ACOG_minitripod_bag'
+ 'BAF_GPMG_Minitripod_D_bag','BAF_GMG_ACOG_minitripod_bag','KORD_TK_Bag_EP1','KORD_high_TK_Bag_EP1','SPG9_TK_INS_Bag_EP1','AGS_TK_Bag_EP1','Metis_TK_Bag_EP1','2b14_82mm_TK_Bag_EP1'
  ]
 ,true] Call SetNamespace;
 
@@ -24,783 +25,118 @@ if (WF_A2_Vanilla) then {
 		['WFBE_BINOCULARS',['Binocular'],true] Call SetNamespace;
 		
 		if (side player == WEST) then {
-			//--- Magazines.
-			/*
-				Note: 
-					_r define whether the magazine belong to the main ammo pool or to the handgun ammo pool.
-					_l define the upgrade level required to display the ammo.
-					_b define whether the ammunition shall displayed or not if advanced camp gear parameter is on.
-			*/
-			
+			/* Magazines. */
 			_m = ["30Rnd_556x45_Stanag"];
-			_c = [5];
-			_r = [false];
-			_t = ['primary'];
-			_l = [0];
-			_b = [true];
-			
 			_m = _m + ["30Rnd_556x45_StanagSD"];
-			_c = _c + [7];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["20Rnd_556x45_Stanag"];
-			_c = _c + [5];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["30Rnd_556x45_G36"];
-			_c = _c + [6];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["30Rnd_556x45_G36SD"];
-			_c = _c + [8];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["100Rnd_556x45_BetaCMag"];
-			_c = _c + [15];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["5Rnd_762x51_M24"];
-			_c = _c + [6];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["20Rnd_762x51_DMR"];
-			_c = _c + [9];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["10Rnd_127x99_m107"];
-			_c = _c + [18];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["100Rnd_762x51_M240"];
-			_c = _c + [12];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["200Rnd_556x45_M249"];
-			_c = _c + [22];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["30Rnd_9x19_MP5"];
-			_c = _c + [3];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["30Rnd_9x19_MP5SD"];
-			_c = _c + [4];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["8Rnd_B_Beneli_74Slug"];
-			_c = _c + [6];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["M136"];
-			_c = _c + [50];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["SMAW_HEAA"];
-			_c = _c + [175];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [2];
-			_b = _b + [false];
-			
 			_m = _m + ["SMAW_HEDP"];
-			_c = _c + [150];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [2];
-			_b = _b + [false];
-			
 			_m = _m + ["Javelin"];
-			_c = _c + [300];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [3];
-			_b = _b + [false];
-			
 			_m = _m + ["Stinger"];
-			_c = _c + [100];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [2];
-			_b = _b + [false];
-			
 			_m = _m + ["Laserbatteries"];
-			_c = _c + [20];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [3];
-			_b = _b + [true];
-			
 			_m = _m + ["15Rnd_9x19_M9"];
-			_c = _c + [2];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["15Rnd_9x19_M9SD"];
-			_c = _c + [3];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["7Rnd_45ACP_1911"];
-			_c = _c + [2];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_p = [];
-			_d = [];
-			_s = [];
-
-			{
-				_p = _p + [getText(configFile >> 'CfgMagazines' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgMagazines' >> _x >> 'displayName')];
-				_s = _s + [ceil(getNumber(configFile >> 'CfgMagazines' >> _x >> 'type') / 256)];
-			} forEach _m;
 
 			WF_Logic setVariable ['magazineClasses',_m];
-			WF_Logic setVariable ['magazineCosts',_c];
-			WF_Logic setVariable ['magazinePictures',_p];
-			WF_Logic setVariable ['magazineNames',_d];
-			WF_Logic setVariable ['magazineSpaces',_s];
-			WF_Logic setVariable ['magazineMain',_r];
-			WF_Logic setVariable ['magazineTypes',_t];
-			WF_Logic setVariable ['magazineUpgrades',_l];
-			WF_Logic setVariable ['magazineAllowed',_b];
-			
-			_magazinesT = _m;
 
-			//--- Primary.
-			/*
-				Note: _a define whether the default ammunitions are dumped from CfgMagazines or added manualy:
-					Manual override require a nested array.
-
-				Exemple:
-					_w = _w + ['M16A2GL'];
-					_c = _c + [85];
-					_a = _a + [true];	
-				OR
-					_w = _w + ['M16A2GL'];
-					_c = _c + [85];
-					_a = _a + [['30Rnd_556x45_Stanag','30Rnd_556x45_StanagSD',...]];
-				
-			*/
-
+			/* Primary. */
 			_w = ['M16A2'];
-			_c = [80];
-			_a = [true];
-			_l = [0];
-			_b = [true];
-
 			_w = _w + ['M16A2GL'];
-			_c = _c + [85];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['m16a4'];
-			_c = _c + [85];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['m16a4_acg'];
-			_c = _c + [85];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['M16A4_GL'];
-			_c = _c + [95];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['M16A4_ACG_GL'];
-			_c = _c + [105];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['M24'];
-			_c = _c + [175];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['M40A3'];
-			_c = _c + [195];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['M240'];
-			_c = _c + [165];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['Mk_48'];
-			_c = _c + [225];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-
 			_w = _w + ['M249'];
-			_c = _c + [185];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
 			_w = _w + ['M4A1'];
-			_c = _c + [120];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['M4A1_Aim'];
-			_c = _c + [135];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['M4A1_Aim_camo'];
-			_c = _c + [150];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['M4SPR'];
-			_c = _c + [155];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['M4A1_RCO_GL'];
-			_c = _c + [175];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
 			_w = _w + ['M4A1_AIM_SD_camo'];
-			_c = _c + [205];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-			
 			_w = _w + ['M4A1_HWS_GL_SD_Camo'];
-			_c = _c + [245];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-
 			_w = _w + ['M4A1_HWS_GL'];
-			_c = _c + [205];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-
 			_w = _w + ['M4A1_HWS_GL_camo'];
-			_c = _c + [225];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-
 			_w = _w + ['MP5SD'];
-			_c = _c + [115];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['MP5A5'];
-			_c = _c + [65];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['G36C'];
-			_c = _c + [225];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['G36_C_SD_eotech'];
-			_c = _c + [265];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['G36a'];
-			_c = _c + [240];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [false];
-
 			_w = _w + ['G36K'];
-			_c = _c + [230];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [false];
-
 			_w = _w + ['MG36'];
-			_c = _c + [260];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['DMR'];
-			_c = _c + [280];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['M1014'];
-			_c = _c + [75];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['m107'];
-			_c = _c + [315];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-
 			_w = _w + ['m8_carbine'];
-			_c = _c + [305];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
 			_w = _w + ['m8_carbineGL'];
-			_c = _c + [325];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];
-
 			_w = _w + ['m8_compact'];
-			_c = _c + [310];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['m8_sharpshooter'];
-			_c = _c + [315];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-
 			_w = _w + ['m8_SAW'];
-			_c = _c + [355];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
-				//--- Custom override, nested array.
-				if (typeName(_a select _u) == 'BOOL') then {
-					_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
-					_artm = _tm;
-					{
-						if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
-					} forEach _tm;
-					_s = _s + [_artm];
-				} else {
-					_s = _s + [_a select _u];
-				};
-				_u = _u + 1;
-			} forEach _w;
 
 			WF_Logic setVariable ['primaryClasses',_w];
-			WF_Logic setVariable ['primaryCosts',_c];
-			WF_Logic setVariable ['primaryPictures',_p];
-			WF_Logic setVariable ['primaryNames',_d];
-			WF_Logic setVariable ['primaryMagazines',_s];
-			WF_Logic setVariable ['primaryUpgrades',_l];
-			WF_Logic setVariable ['primaryAllowed',_b];
 
-			//--- Secondary.
-
+			/* Secondary. */
 			_w = ['M136'];
-			_c = [90];
-			_a = [true];
-			_l = [0];
-			_b = [true];
-
 			_w = _w + ['SMAW'];
-			_c = _c + [350];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['Javelin'];
-			_c = _c + [650];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-
 			_w = _w + ['Stinger'];
-			_c = _c + [250];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['Laserdesignator'];
-			_c = _c + [300];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];
-
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
-				//--- Custom override, nested array.
-				if (typeName(_a select _u) == 'BOOL') then {
-					_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
-					_artm = _tm;
-					{
-						if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
-					} forEach _tm;
-					_s = _s + [_artm];
-				} else {
-					_s = _s + [_a select _u];
-				};
-				_u = _u + 1;
-			} forEach _w;
 
 			WF_Logic setVariable ['secondaryClasses',_w];
-			WF_Logic setVariable ['secondaryCosts',_c];
-			WF_Logic setVariable ['secondaryPictures',_p];
-			WF_Logic setVariable ['secondaryNames',_d];
-			WF_Logic setVariable ['secondaryMagazines',_s];
-			WF_Logic setVariable ['secondaryUpgrades',_l];
-			WF_Logic setVariable ['secondaryAllowed',_b];
 
-			//--- Sidearms.
-
+			/* Sidearms. */
 			_w = ['Colt1911'];
-			_c = [15];
-			_a = [true];
-			_l = [0];
-			_b = [true];
-
 			_w = _w + ['M9'];
-			_c = _c + [20];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['M9SD'];
-			_c = _c + [25];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
-				//--- Custom override, nested array.
-				if (typeName(_a select _u) == 'BOOL') then {
-					_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
-					_artm = _tm;
-					{
-						if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
-					} forEach _tm;
-					_s = _s + [_artm];
-				} else {
-					_s = _s + [_a select _u];
-				};
-				_u = _u + 1;
-			} forEach _w;
 
 			WF_Logic setVariable ['sidearmClasses',_w];
-			WF_Logic setVariable ['sidearmCosts',_c];
-			WF_Logic setVariable ['sidearmPictures',_p];
-			WF_Logic setVariable ['sidearmNames',_d];
-			WF_Logic setVariable ['sidearmMagazines',_s];
-			WF_Logic setVariable ['sidearmUpgrades',_l];
-			WF_Logic setVariable ['sidearmAllowed',_b];
 
-			//--- Misc.
-
+			/* Misc. */
 			_w = ['HandGrenade_West'];
-			_c = [10];
-			_t = ['CfgMagazines'];
-			_r = [false];
-			_l = [0];
-			_b =  [true];
-
 			_w = _w + ['HandGrenade_Stone'];
-			_c = _c + [2];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShell'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellRed'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellGreen'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellBlue'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellYellow'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellOrange'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellPurple'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareWhite_M203'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareYellow_M203'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareGreen_M203'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareRed_M203'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_HE_M203'];
-			_c = _c + [15];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_Smoke_M203'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_SmokeRed_M203'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_SmokeGreen_M203'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_SmokeYellow_M203'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['Mine'];
-			_c = _c + [40];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['PipeBomb'];
-			_c = _c + [50];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['Binocular'];
-			_c = _c + [10];
-			_t = _t + ['Special'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['NVGoggles'];
-			_c = _c + [20];
-			_t = _t + ['Special'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemCompass'];
-			_c = _c + [4];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemGPS'];
-			_c = _c + [25];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemMap'];
-			_c = _c + [6];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemRadio'];
-			_c = _c + [15];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemWatch'];
-			_c = _c + [5];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				_curType = _t select _u;
-				if (_curType == 'Special' || _curType == 'Item') then {_curType = 'CfgWeapons'};
-				_p = _p + [getText(configFile >> _curType >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> _curType >> _x >> 'displayName')];
-				if (_curType == 'CfgMagazines') then {
-					_s = _s + [ceil(getNumber(configFile >> 'CfgMagazines' >> _x >> 'type') / 256)];
-				} else {
-					_s = _s + [1];
-				};
-				_u = _u + 1;
-			} forEach _w;
 
 			WF_Logic setVariable ['miscClasses',_w];
-			WF_Logic setVariable ['miscCosts',_c];
-			WF_Logic setVariable ['miscPictures',_p];
-			WF_Logic setVariable ['miscSpaces',_s];
-			WF_Logic setVariable ['miscNames',_d];
-			WF_Logic setVariable ['miscTypes',_t];
-			WF_Logic setVariable ['miscMain',_r];
-			WF_Logic setVariable ['miscUpgrades',_l];
-			WF_Logic setVariable ['miscAllowed',_b];
 
 			//--- Templates.
 			_items = ['ItemCompass','ItemGPS','ItemMap','ItemRadio','ItemWatch'];
@@ -952,33 +288,19 @@ if (WF_A2_Vanilla) then {
 			_c = [];
 			_totalTemplates = count _d;
 
-			_primary = WF_Logic getVariable 'primaryClasses';
-			_primaryCosts = WF_Logic getVariable 'primaryCosts';
-			_secondary = WF_Logic getVariable 'secondaryClasses';
-			_secondaryCosts = WF_Logic getVariable 'secondaryCosts';
-			_sidearm = WF_Logic getVariable 'sidearmClasses';
-			_sidearmCosts = WF_Logic getVariable 'sidearmCosts';
-			_misc = WF_Logic getVariable 'miscClasses';
-			_miscCosts = WF_Logic getVariable 'miscCosts';
-			_magazine = WF_Logic getVariable 'magazineClasses';
-			_magazineCosts = WF_Logic getVariable 'magazineCosts';
-
 			for [{_count = 0},{_count < _totalTemplates},{_count = _count + 1}] do {
 				_cost = 0;
 				{
-					_index = _primary find _x;
-					if (_index != -1) then {_cost = _cost + (_primaryCosts select _index)};
-					_index = _secondary find _x;
-					if (_index != -1) then {_cost = _cost + (_secondaryCosts select _index)};
-					_index = _sidearm find _x;
-					if (_index != -1) then {_cost = _cost + (_sidearmCosts select _index)};
+					_get = (_x+"_W") Call GetNamespace;
+					if (isNil '_get') then {
+						_get = _x Call GetNamespace;
+					};
+					if !(isNil '_get') then {_cost = _cost + (_get select QUERYGEARCOST)};
 				} forEach (_t select _count);
 				
 				{
-					_index = _magazine find _x;
-					if (_index != -1) then {_cost = _cost + (_magazineCosts select _index)};
-					_index = _misc find _x;
-					if (_index != -1) then {_cost = _cost + (_miscCosts select _index)};
+					_get = _x Call GetNamespace;
+					if !(isNil '_get') then {_cost = _cost + (_get select QUERYGEARCOST)};
 				} forEach ((_m select _count) + (_s select _count) + (_i select _count));
 				
 				_c = _c + [_cost];
@@ -1036,695 +358,109 @@ if (WF_A2_Vanilla) then {
 	//*** EAST ***//
 	if (!isServer || local player) then {
 		if (side player == EAST) then {
-			//--- Magazines.
+			/* Magazines. */
 			_m = ["30Rnd_762x39_AK47"];
-			_c = [5];
-			_r = [false];
-			_t = ['primary'];
-			_l = [0];
-			_b = [true];
-
 			_m = _m + ["30Rnd_545x39_AK"];
-			_c = _c + [4];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["30Rnd_545x39_AKSD"];
-			_c = _c + [7];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["64Rnd_9x19_Bizon"];
-			_c = _c + [6];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["64Rnd_9x19_SD_Bizon"];
-			_c = _c + [8];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["100Rnd_762x54_PK"];
-			_c = _c + [12];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["75Rnd_545x39_RPK"];
-			_c = _c + [9];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["5x_22_LR_17_HMR"];
-			_c = _c + [4];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["10Rnd_762x54_SVD"];
-			_c = _c + [7];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["8Rnd_B_Saiga12_74Slug"];
-			_c = _c + [6];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["5Rnd_127x108_KSVK"];
-			_c = _c + [15];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
+			_m = _m + ["10Rnd_9x39_SP5_VSS"];
 			_m = _m + ["20Rnd_9x39_SP5_VSS"];
-			_c = _c + [9];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["PG7V"];
-			_c = _c + [75];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["PG7VL"];
-			_c = _c + [90];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["OG7"];
-			_c = _c + [95];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [1];
-			_b = _b + [false];
-
 			_m = _m + ["PG7VR"];
-			_c = _c + [105];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [1];
-			_b = _b + [false];
-
 			_m = _m + ["RPG18"];
-			_c = _c + [50];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["AT13"];
-			_c = _c + [200];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [3];
-			_b = _b + [false];
-
 			_m = _m + ["Igla"];
-			_c = _c + [110];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_m = _m + ["Strela"];
-			_c = _c + [100];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_m = _m + ["Laserbatteries"];
-			_c = _c + [20];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [3];
-			_b = _b + [true];
-
 			_m = _m + ["8Rnd_9x18_Makarov"];
-			_c = _c + [2];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["8Rnd_9x18_MakarovSD"];
-			_c = _c + [3];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_p = [];
-			_d = [];
-			_s = [];
-
-			{
-				_p = _p + [getText(configFile >> 'CfgMagazines' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgMagazines' >> _x >> 'displayName')];
-				_s = _s + [ceil(getNumber(configFile >> 'CfgMagazines' >> _x >> 'type') / 256)];
-			} forEach _m;
 
 			WF_Logic setVariable ['magazineClasses',_m];
-			WF_Logic setVariable ['magazineCosts',_c];
-			WF_Logic setVariable ['magazinePictures',_p];
-			WF_Logic setVariable ['magazineNames',_d];
-			WF_Logic setVariable ['magazineSpaces',_s];
-			WF_Logic setVariable ['magazineMain',_r];
-			WF_Logic setVariable ['magazineTypes',_t];
-			WF_Logic setVariable ['magazineUpgrades',_l];
-			WF_Logic setVariable ['magazineAllowed',_b];
 
-			_magazinesT = _m;
-			
-			//--- Primary.
+			/* Primary. */
 			_w = ['AK_47_M'];
-			_c = [50];
-			_a = [true];
-			_l = [0];
-			_b = [true];
-
 			_w = _w + ['AK_47_S'];
-			_c = _c + [60];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['AK_74'];
-			_c = _c + [85];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['AK_74_GL'];
-			_c = _c + [105];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['AK_107_kobra'];
-			_c = _c + [155];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['AK_107_GL_kobra'];
-			_c = _c + [180];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['AK_107_pso'];
-			_c = _c + [175];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [false];
-
 			_w = _w + ['AK_107_GL_pso'];
-			_c = _c + [200];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [false];
-
 			_w = _w + ['AKS_74_kobra'];
-			_c = _c + [140];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['AKS_74_pso'];
-			_c = _c + [160];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['AKS_74_U'];
-			_c = _c + [185];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['AKS_74_UN_kobra'];
-			_c = _c + [215];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
 			_w = _w + ['AKS_GOLD'];
-			_c = _c + [500];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
 			_w = _w + ['bizon'];
-			_c = _c + [240];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
 			_w = _w + ['bizon_silenced'];
-			_c = _c + [275];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['PK'];
-			_c = _c + [280];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['Pecheneg'];
-			_c = _c + [340];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['RPK_74'];
-			_c = _c + [185];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['huntingrifle'];
-			_c = _c + [145];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SVD'];
-			_c = _c + [210];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['SVD_CAMO'];
-			_c = _c + [245];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['Saiga12K'];
-			_c = _c + [130];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ksvk'];
-			_c = _c + [340];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-
 			_w = _w + ['VSS_vintorez'];
-			_c = _c + [310];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
-				//--- Custom override, nested array.
-				if (typeName(_a select _u) == 'BOOL') then {
-					_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
-					_artm = _tm;
-					{
-						if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
-					} forEach _tm;
-					_s = _s + [_artm];
-				} else {
-					_s = _s + [_a select _u];
-				};
-				_u = _u + 1;
-			} forEach _w;
 
 			WF_Logic setVariable ['primaryClasses',_w];
-			WF_Logic setVariable ['primaryCosts',_c];
-			WF_Logic setVariable ['primaryPictures',_p];
-			WF_Logic setVariable ['primaryNames',_d];
-			WF_Logic setVariable ['primaryMagazines',_s];
-			WF_Logic setVariable ['primaryUpgrades',_l];
-			WF_Logic setVariable ['primaryAllowed',_b];
 
-			//--- Secondary.
-
+			/* Secondary. */
 			_w = ['RPG7V'];
-			_c = [150];
-			_a = [true];
-			_l = [0];
-			_b = [true];
-
 			_w = _w + ['RPG18'];
-			_c = _c + [120];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['MetisLauncher'];
-			_c = _c + [460];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-
 			_w = _w + ['Igla'];
-			_c = _c + [350];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['Strela'];
-			_c = _c + [300];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['Laserdesignator'];
-			_c = _c + [300];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];
-
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
-				//--- Custom override, nested array.
-				if (typeName(_a select _u) == 'BOOL') then {
-					_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
-					_artm = _tm;
-					{
-						if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
-					} forEach _tm;
-					_s = _s + [_artm];
-				} else {
-					_s = _s + [_a select _u];
-				};
-				_u = _u + 1;
-			} forEach _w;
 
 			WF_Logic setVariable ['secondaryClasses',_w];
-			WF_Logic setVariable ['secondaryCosts',_c];
-			WF_Logic setVariable ['secondaryPictures',_p];
-			WF_Logic setVariable ['secondaryNames',_d];
-			WF_Logic setVariable ['secondaryMagazines',_s];
-			WF_Logic setVariable ['secondaryUpgrades',_l];
-			WF_Logic setVariable ['secondaryAllowed',_b];
 
-			//--- Sidearms.
+			/* Sidearms. */
 
 			_w = ['Makarov'];
-			_c = [8];
-			_a = [true];
-			_l = [0];
-			_b = [true];
-
 			_w = _w + ['MakarovSD'];
-			_c = _c + [15];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
-				//--- Custom override, nested array.
-				if (typeName(_a select _u) == 'BOOL') then {
-					_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
-					_artm = _tm;
-					{
-						if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
-					} forEach _tm;
-					_s = _s + [_artm];
-				} else {
-					_s = _s + [_a select _u];
-				};
-				_u = _u + 1;
-			} forEach _w;
 
 			WF_Logic setVariable ['sidearmClasses',_w];
-			WF_Logic setVariable ['sidearmCosts',_c];
-			WF_Logic setVariable ['sidearmPictures',_p];
-			WF_Logic setVariable ['sidearmNames',_d];
-			WF_Logic setVariable ['sidearmMagazines',_s];
-			WF_Logic setVariable ['sidearmUpgrades',_l];
-			WF_Logic setVariable ['sidearmAllowed',_b];
 
-			//--- Misc.
-			
+			/* Misc. */
 			_w = ['HandGrenade_East'];
-			_c = [10];
-			_t = ['CfgMagazines'];
-			_r = [false];
-			_l = [0];
-			_b = [true];
-
 			_w = _w + ['HandGrenade_Stone'];
-			_c = _c + [2];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShell'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellRed'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellGreen'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellBlue'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellYellow'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellOrange'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellPurple'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareWhite_GP25'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareYellow_GP25'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareGreen_GP25'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareRed_GP25'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_HE_GP25'];
-			_c = _c + [15];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_SMOKE_GP25'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_SMOKERED_GP25'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_SMOKEGREEN_GP25'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_SMOKEYELLOW_GP25'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['MineE'];
-			_c = _c + [40];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['PipeBomb'];
-			_c = _c + [50];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['Binocular'];
-			_c = _c + [10];
-			_t = _t + ['Special'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['NVGoggles'];
-			_c = _c + [20];
-			_t = _t + ['Special'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemCompass'];
-			_c = _c + [4];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemGPS'];
-			_c = _c + [25];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemMap'];
-			_c = _c + [6];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemRadio'];
-			_c = _c + [15];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemWatch'];
-			_c = _c + [5];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				_curType = _t select _u;
-				if (_curType == 'Special' || _curType == 'Item') then {_curType = 'CfgWeapons'};
-				_p = _p + [getText(configFile >> _curType >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> _curType >> _x >> 'displayName')];
-				if (_curType == 'CfgMagazines') then {
-					_s = _s + [ceil(getNumber(configFile >> 'CfgMagazines' >> _x >> 'type') / 256)];
-				} else {
-					_s = _s + [1];
-				};
-				_u = _u + 1;
-			} forEach _w;
 
 			WF_Logic setVariable ['miscClasses',_w];
-			WF_Logic setVariable ['miscCosts',_c];
-			WF_Logic setVariable ['miscPictures',_p];
-			WF_Logic setVariable ['miscSpaces',_s];
-			WF_Logic setVariable ['miscNames',_d];
-			WF_Logic setVariable ['miscTypes',_t];
-			WF_Logic setVariable ['miscMain',_r];
-			WF_Logic setVariable ['miscUpgrades',_l];
-			WF_Logic setVariable ['miscAllowed',_b];
 
 			//--- Templates.
 			_items = ['ItemCompass','ItemGPS','ItemMap','ItemRadio','ItemWatch'];
@@ -1876,33 +612,19 @@ if (WF_A2_Vanilla) then {
 			_c = [];
 			_totalTemplates = count _d;
 
-			_primary = WF_Logic getVariable 'primaryClasses';
-			_primaryCosts = WF_Logic getVariable 'primaryCosts';
-			_secondary = WF_Logic getVariable 'secondaryClasses';
-			_secondaryCosts = WF_Logic getVariable 'secondaryCosts';
-			_sidearm = WF_Logic getVariable 'sidearmClasses';
-			_sidearmCosts = WF_Logic getVariable 'sidearmCosts';
-			_misc = WF_Logic getVariable 'miscClasses';
-			_miscCosts = WF_Logic getVariable 'miscCosts';
-			_magazine = WF_Logic getVariable 'magazineClasses';
-			_magazineCosts = WF_Logic getVariable 'magazineCosts';
-
 			for [{_count = 0},{_count < _totalTemplates},{_count = _count + 1}] do {
 				_cost = 0;
 				{
-					_index = _primary find _x;
-					if (_index != -1) then {_cost = _cost + (_primaryCosts select _index)};
-					_index = _secondary find _x;
-					if (_index != -1) then {_cost = _cost + (_secondaryCosts select _index)};
-					_index = _sidearm find _x;
-					if (_index != -1) then {_cost = _cost + (_sidearmCosts select _index)};
+					_get = (_x+"_W") Call GetNamespace;
+					if (isNil '_get') then {
+						_get = _x Call GetNamespace;
+					};
+					if !(isNil '_get') then {_cost = _cost + (_get select QUERYGEARCOST)};
 				} forEach (_t select _count);
 				
 				{
-					_index = _magazine find _x;
-					if (_index != -1) then {_cost = _cost + (_magazineCosts select _index)};
-					_index = _misc find _x;
-					if (_index != -1) then {_cost = _cost + (_miscCosts select _index)};
+					_get = _x Call GetNamespace;
+					if !(isNil '_get') then {_cost = _cost + (_get select QUERYGEARCOST)};
 				} forEach ((_m select _count) + (_s select _count) + (_i select _count));
 				
 				_c = _c + [_cost];
@@ -1963,1137 +685,199 @@ if (WF_A2_Arrowhead) then {
 		['WFBE_BINOCULARS',['Binocular','Binocular_Vector'],true] Call SetNamespace;
 	
 		if (side player == WEST) then {
-			//--- Magazines.
-			/*
-				Note: 
-					_r define whether the magazine belong to the main ammo pool or to the handgun ammo pool.
-					_l define the upgrade level required to display the ammo.
-					_b define whether the ammunition shall displayed or not if advanced camp gear parameter is on.
-			*/
+			/* Magazines. */
 			_m = ["30Rnd_556x45_Stanag"];
-			_c = [5];
-			_r = [false];
-			_t = ['primary'];
-			_l = [0];
-			_b = [true];
-			
 			_m = _m + ["30Rnd_556x45_StanagSD"];
-			_c = _c + [7];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["20Rnd_556x45_Stanag"];
-			_c = _c + [5];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["30Rnd_556x45_G36"];
-			_c = _c + [6];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["30Rnd_556x45_G36SD"];
-			_c = _c + [8];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["100Rnd_556x45_BetaCMag"];
-			_c = _c + [15];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["5Rnd_762x51_M24"];
-			_c = _c + [6];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["20Rnd_762x51_DMR"];
-			_c = _c + [9];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["10Rnd_127x99_m107"];
-			_c = _c + [18];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["100Rnd_762x51_M240"];
-			_c = _c + [12];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["100Rnd_556x45_M249"];
-			_c = _c + [11];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];		
-			
 			_m = _m + ["200Rnd_556x45_M249"];
-			_c = _c + [22];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["20Rnd_762x51_B_SCAR"];
-			_c = _c + [6];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
-			_m = _m + ["20rnd_762x51_B_SCAR"];
-			_c = _c + [6];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];			
-			
 			_m = _m + ["20Rnd_762x51_SB_SCAR"];
-			_c = _c + [8];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["6Rnd_HE_M203"];
-			_c = _c + [35];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["6Rnd_FlareWhite_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["6Rnd_FlareGreen_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["6Rnd_FlareRed_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["6Rnd_FlareYellow_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["6Rnd_Smoke_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["6Rnd_SmokeRed_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["6Rnd_SmokeGreen_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["6Rnd_SmokeYellow_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["M136"];
-			_c = _c + [50];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["MAAWS_HEAT"];
-			_c = _c + [135];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["MAAWS_HEDP"];
-			_c = _c + [150];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["Javelin"];
-			_c = _c + [300];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [3];
-			_b = _b + [false];
-			
 			_m = _m + ["Stinger"];
-			_c = _c + [100];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [2];
-			_b = _b + [false];
-			
 			_m = _m + ["Laserbatteries"];
-			_c = _c + [20];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [3];
-			_b = _b + [true];
-			
 			_m = _m + ["15Rnd_9x19_M9"];
-			_c = _c + [2];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["15Rnd_9x19_M9SD"];
-			_c = _c + [3];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["7Rnd_45ACP_1911"];
-			_c = _c + [2];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["17Rnd_9x19_glock17"];
-			_c = _c + [3];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
+
 			if (paramDLCBAF) then {
 				_m = _m + ["5Rnd_127x99_AS50"];
-				_c = _c + [12];
-				_r = _r + [false];
-				_t = _t + ['primary'];
-				_l = _l + [0];
-				_b = _b + [true];
-				
 				_m = _m + ["5Rnd_86x70_L115A1"];
-				_c = _c + [8];
-				_r = _r + [false];
-				_t = _t + ['primary'];
-				_l = _l + [0];
-				_b = _b + [true];
-				
 				_m = _m + ["200Rnd_556x45_L110A1"];
-				_c = _c + [18];
-				_r = _r + [false];
-				_t = _t + ['primary'];
-				_l = _l + [0];
-				_b = _b + [true];
-				
 				_m = _m + ["NLAW"];
-				_c = _c + [170];
-				_r = _r + [false];
-				_t = _t + ['secondary'];
-				_l = _l + [0];
-				_b = _b + [false];
 			};
 
-			_p = [];
-			_d = [];
-			_s = [];
-
-			{
-				_p = _p + [getText(configFile >> 'CfgMagazines' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgMagazines' >> _x >> 'displayName')];
-				_s = _s + [ceil(getNumber(configFile >> 'CfgMagazines' >> _x >> 'type') / 256)];
-			} forEach _m;
-
 			WF_Logic setVariable ['magazineClasses',_m];
-			WF_Logic setVariable ['magazineCosts',_c];
-			WF_Logic setVariable ['magazinePictures',_p];
-			WF_Logic setVariable ['magazineNames',_d];
-			WF_Logic setVariable ['magazineSpaces',_s];
-			WF_Logic setVariable ['magazineMain',_r];
-			WF_Logic setVariable ['magazineTypes',_t];
-			WF_Logic setVariable ['magazineUpgrades',_l];
-			WF_Logic setVariable ['magazineAllowed',_b];
-			
-			_magazinesT = _m;
 
-			//--- Primary.
-			/*
-				Note: _a define whether the default ammunitions are dumped from CfgMagazines or added manualy:
-					Manual override require a nested array.
-
-				Exemple:
-					_w = _w + ['M16A2GL'];
-					_c = _c + [85];
-					_a = _a + [true];	
-				OR
-					_w = _w + ['M16A2GL'];
-					_c = _c + [85];
-					_a = _a + [['30Rnd_556x45_Stanag','30Rnd_556x45_StanagSD',...]];
-				
-			*/
-
+			/* Primary. */
 			_w = ['M16A2'];
-			_c = [80];
-			_a = [true];
-			_l = [0];
-			_b = [true];
-
 			_w = _w + ['M16A2GL'];
-			_c = _c + [85];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['M24_des_EP1'];
-			_c = _c + [175];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['m240_scoped_EP1'];
-			_c = _c + [185];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['M60A4_EP1'];
-			_c = _c + [180];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['Mk_48_DES_EP1'];
-			_c = _c + [225];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-
 			_w = _w + ['M249_EP1'];
-			_c = _c + [185];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-			
 			_w = _w + ['M249_TWS_EP1'];
-			_c = _c + [285];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-			
 			_w = _w + ['M249_m145_EP1'];
-			_c = _c + [205];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];
-
 			_w = _w + ['M4A1'];
-			_c = _c + [120];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['M4A3_CCO_EP1'];
-			_c = _c + [130];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-			
 			_w = _w + ['M4A3_RCO_GL_EP1'];
-			_c = _c + [140];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-			
 			_w = _w + ['G36C_camo'];
-			_c = _c + [225];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['G36_C_SD_camo'];
-			_c = _c + [265];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['G36A_camo'];
-			_c = _c + [240];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [false];
-
 			_w = _w + ['G36K_camo'];
-			_c = _c + [230];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [false];
-
 			_w = _w + ['MG36_camo'];
-			_c = _c + [260];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-			
 			_w = _w + ['M32_EP1'];
-			_c = _c + [220];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-			
 			_w = _w + ['M79_EP1'];
-			_c = _c + [105];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [false];
-			
 			_w = _w + ['Mk13_EP1'];
-			_c = _c + [120];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [false];
-
 			_w = _w + ['M14_EP1'];
-			_c = _c + [280];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['m107'];
-			_c = _c + [315];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-			
 			_w = _w + ['m107_TWS_EP1'];
-			_c = _c + [455];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-			
 			_w = _w + ['M110_TWS_EP1'];
-			_c = _c + [350];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];		
-			
 			_w = _w + ['M110_NVG_EP1'];
-			_c = _c + [295];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-			
 			_w = _w + ['SCAR_L_CQC'];
-			_c = _c + [210];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SCAR_L_CQC_Holo'];
-			_c = _c + [220];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['SCAR_L_STD_Mk4CQT'];
-			_c = _c + [225];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['SCAR_L_STD_EGLM_RCO'];
-			_c = _c + [230];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['SCAR_L_CQC_EGLM_Holo'];
-			_c = _c + [245];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['SCAR_L_STD_EGLM_TWS'];
-			_c = _c + [350];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
 			_w = _w + ['SCAR_L_STD_HOLO'];
-			_c = _c + [250];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['SCAR_H_CQC_CCO'];
-			_c = _c + [240];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
-			//--- BIS CFG Bug, Config = 20rnd_762x51_SB_SCAR & In Gear = 20Rnd_762x51_SB_SCAR (r R).
 			_w = _w + ['SCAR_H_CQC_CCO_SD'];
-			_c = _c + [270];
-			_a = _a + [['20Rnd_762x51_SB_SCAR']];
-			_l = _l + [2];
-			_b = _b + [true];
-
 			_w = _w + ['SCAR_H_STD_EGLM_Spect'];
-			_c = _c + [280];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
 			_w = _w + ['SCAR_H_LNG_Sniper'];
-			_c = _c + [305];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
 			_w = _w + ['SCAR_H_LNG_Sniper_SD'];
-			_c = _c + [345];
-			_a = _a + [['20Rnd_762x51_SB_SCAR']];
-			_l = _l + [3];
-			_b = _b + [true];
-
 			_w = _w + ['SCAR_H_STD_TWS_SD'];
-			_c = _c + [395];
-			_a = _a + [['20Rnd_762x51_SB_SCAR']];
-			_l = _l + [3];
-			_b = _b + [true];
 			
 			if (paramDLCBAF) then {
 				_w = _w + ['BAF_AS50_scoped'];
-				_c = _c + [380];
-				_a = _a + [true];
-				_l = _l + [1];
-				_b = _b + [true];
-				
 				_w = _w + ['BAF_AS50_TWS'];
-				_c = _c + [440];
-				_a = _a + [true];
-				_l = _l + [3];
-				_b = _b + [false];
-				
 				_w = _w + ['BAF_LRR_scoped'];
-				_c = _c + [320];
-				_a = _a + [true];
-				_l = _l + [2];
-				_b = _b + [true];
-				
 				_w = _w + ['BAF_LRR_scoped_W'];
-				_c = _c + [290];
-				_a = _a + [true];
-				_l = _l + [1];
-				_b = _b + [true];
-				
 				_w = _w + ['BAF_L85A2_RIS_Holo'];
-				_c = _c + [240];
-				_a = _a + [true];
-				_l = _l + [1];
-				_b = _b + [true];
-				
 				_w = _w + ['BAF_L85A2_UGL_Holo'];
-				_c = _c + [260];
-				_a = _a + [true];
-				_l = _l + [2];
-				_b = _b + [true];
-				
 				_w = _w + ['BAF_L85A2_RIS_SUSAT'];
-				_c = _c + [250];
-				_a = _a + [true];
-				_l = _l + [1];
-				_b = _b + [true];
-				
 				_w = _w + ['BAF_L85A2_UGL_SUSAT'];
-				_c = _c + [270];
-				_a = _a + [true];
-				_l = _l + [2];
-				_b = _b + [true];
-				
 				_w = _w + ['BAF_L85A2_RIS_ACOG'];
-				_c = _c + [260];
-				_a = _a + [true];
-				_l = _l + [1];
-				_b = _b + [true];
-				
 				_w = _w + ['BAF_L85A2_UGL_ACOG'];
-				_c = _c + [280];
-				_a = _a + [true];
-				_l = _l + [2];
-				_b = _b + [true];
-				
 				_w = _w + ['BAF_L85A2_RIS_CWS'];
-				_c = _c + [340];
-				_a = _a + [true];
-				_l = _l + [2];
-				_b = _b + [false];
-				
 				_w = _w + ['BAF_L86A2_ACOG'];
-				_c = _c + [305];
-				_a = _a + [true];
-				_l = _l + [2];
-				_b = _b + [true];
-				
 				_w = _w + ['BAF_L110A1_Aim'];
-				_c = _c + [310];
-				_a = _a + [true];
-				_l = _l + [3];
-				_b = _b + [false];
-				
 				_w = _w + ['BAF_L7A2_GPMG'];
-				_c = _c + [285];
-				_a = _a + [true];
-				_l = _l + [0];
-				_b = _b + [true];
 			};
 
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
-				//--- Custom override, nested array.
-				if (typeName(_a select _u) == 'BOOL') then {
-					_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
-					_artm = _tm;
-					{
-						if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
-					} forEach _tm;
-					_s = _s + [_artm];
-				} else {
-					_s = _s + [_a select _u];
-				};
-				_u = _u + 1;
-			} forEach _w;
-
 			WF_Logic setVariable ['primaryClasses',_w];
-			WF_Logic setVariable ['primaryCosts',_c];
-			WF_Logic setVariable ['primaryPictures',_p];
-			WF_Logic setVariable ['primaryNames',_d];
-			WF_Logic setVariable ['primaryMagazines',_s];
-			WF_Logic setVariable ['primaryUpgrades',_l];
-			WF_Logic setVariable ['primaryAllowed',_b];
 
-			//--- Secondary.
+			/* Secondary. */
 
 			_w = ['M136'];
-			_c = [90];
-			_a = [true];
-			_l = [0];
-			_b = [true];
-
 			_w = _w + ['MAAWS'];
-			_c = _c + [350];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
 			
 			if (paramDLCBAF) then {
 				_w = _w + ['BAF_NLAW_Launcher'];
-				_c = _c + [370];
-				_a = _a + [true];
-				_l = _l + [2];
-				_b = _b + [false];
 			};
 
 			_w = _w + ['Javelin'];
-			_c = _c + [650];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-
 			_w = _w + ['Stinger'];
-			_c = _c + [250];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['Laserdesignator'];
-			_c = _c + [300];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];
 			
 			/* Not all units are able to carry a backpack */
 			_get = getNumber(configFile >> 'CfgVehicles' >> typeOf player >> 'canCarryBackPack');
 			
 			if (_get == 1) then {
 				_w = _w + ['US_Assault_Pack_EP1'];
-				_c = _c + [80];
-				_a = _a + [-1];
-				_l = _l + [1];
-				_b = _b + [true];
-				
 				_w = _w + ['US_Patrol_Pack_EP1'];
-				_c = _c + [70];
-				_a = _a + [-1];
-				_l = _l + [0];
-				_b = _b + [true];
-				
 				_w = _w + ['US_Backpack_EP1'];
-				_c = _c + [90];
-				_a = _a + [-1];
-				_l = _l + [2];
-				_b = _b + [true];
 				
 				if (paramDLCBAF) then {
 					_w = _w + ['BAF_AssaultPack_RifleAmmo'];
-					_c = _c + [95];
-					_a = _a + [-1];
-					_l = _l + [2];
-					_b = _b + [true];
 				};
 				
 				_w = _w + ['Tripod_Bag'];
-				_c = _c + [40];
-				_a = _a + [-1];
-				_l = _l + [0];
-				_b = _b + [false];
 				
 				if (paramDLCBAF) then {
 					_w = _w + ['BAF_L2A1_ACOG_minitripod_bag'];
-					_c = _c + [165];
-					_a = _a + [-1];
-					_l = _l + [1];
-					_b = _b + [false];
-					
 					_w = _w + ['BAF_L2A1_ACOG_tripod_bag'];
-					_c = _c + [175];
-					_a = _a + [-1];
-					_l = _l + [1];
-					_b = _b + [false];
-					
 					_w = _w + ['BAF_GPMG_Minitripod_D_bag'];
-					_c = _c + [225];
-					_a = _a + [-1];
-					_l = _l + [0];
-					_b = _b + [false];
-					
 					_w = _w + ['BAF_GMG_ACOG_minitripod_bag'];
-					_c = _c + [235];
-					_a = _a + [-1];
-					_l = _l + [1];
-					_b = _b + [false];
 				};
 
 				_w = _w + ['M2HD_mini_TriPod_US_Bag_EP1'];
-				_c = _c + [155];
-				_a = _a + [-1];
-				_l = _l + [0];
-				_b = _b + [false];
-				
 				_w = _w + ['M2StaticMG_US_Bag_EP1'];
-				_c = _c + [190];
-				_a = _a + [-1];
-				_l = _l + [0];
-				_b = _b + [false];
-				
 				_w = _w + ['MK19_TriPod_US_Bag_EP1'];
-				_c = _c + [450];
-				_a = _a + [-1];
-				_l = _l + [1];
-				_b = _b + [false];
-
 				_w = _w + ['TOW_TriPod_US_Bag_EP1'];
-				_c = _c + [600];
-				_a = _a + [-1];
-				_l = _l + [2];
-				_b = _b + [false];
-
 				_w = _w + ['M252_US_Bag_EP1'];
-				_c = _c + [750];
-				_a = _a + [-1];
-				_l = _l + [1];
-				_b = _b + [false];
 			};
 
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				if (typeName(_a select _u) == 'SCALAR') then {
-					_p = _p + [getText(configFile >> 'CfgVehicles' >> _x >> 'picture')];
-					_d = _d + [getText(configFile >> 'CfgVehicles' >> _x >> 'displayName')];
-					_s = _s + [[]];
-				} else {
-					_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
-					_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
-					//--- Custom override, nested array.
-					if (typeName(_a select _u) == 'BOOL') then {
-						_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
-						_artm = _tm;
-						{
-							if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
-						} forEach _tm;
-						_s = _s + [_artm];
-					} else {
-						_s = _s + [_a select _u];
-					};
-				};
-				_u = _u + 1;
-			} forEach _w;
-
 			WF_Logic setVariable ['secondaryClasses',_w];
-			WF_Logic setVariable ['secondaryCosts',_c];
-			WF_Logic setVariable ['secondaryPictures',_p];
-			WF_Logic setVariable ['secondaryNames',_d];
-			WF_Logic setVariable ['secondaryMagazines',_s];
-			WF_Logic setVariable ['secondaryUpgrades',_l];
-			WF_Logic setVariable ['secondaryAllowed',_b];
-
-			//--- Sidearms.
-
-			_w = ['Colt1911'];
-			_c = [15];
-			_a = [true];
-			_l = [0];
-			_b = [true];
-
-			_w = _w + ['M9'];
-			_c = _c + [20];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_w = _w + ['M9SD'];
-			_c = _c + [25];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
 			
+			/* Sidearm. */
+			_w = ['Colt1911'];
+			_w = _w + ['M9'];
+			_w = _w + ['M9SD'];
 			_w = _w + ['glock17_EP1'];
-			_c = _c + [35];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
-				//--- Custom override, nested array.
-				if (typeName(_a select _u) == 'BOOL') then {
-					_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
-					_artm = _tm;
-					{
-						if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
-					} forEach _tm;
-					_s = _s + [_artm];
-				} else {
-					_s = _s + [_a select _u];
-				};
-				_u = _u + 1;
-			} forEach _w;
 
 			WF_Logic setVariable ['sidearmClasses',_w];
-			WF_Logic setVariable ['sidearmCosts',_c];
-			WF_Logic setVariable ['sidearmPictures',_p];
-			WF_Logic setVariable ['sidearmNames',_d];
-			WF_Logic setVariable ['sidearmMagazines',_s];
-			WF_Logic setVariable ['sidearmUpgrades',_l];
-			WF_Logic setVariable ['sidearmAllowed',_b];
 
-			//--- Misc.
+			/* Misc. */
 
 			_w = ['HandGrenade_West'];
-			_c = [10];
-			_t = ['CfgMagazines'];
-			_r = [false];
-			_l = [0];
-			_b =  [true];
-
+			
 			if (paramDLCBAF) then {
 				_w = _w + ['BAF_L109A1_HE'];
-				_c = _c + [12];
-				_t = _t + ['CfgMagazines'];
-				_r = _r + [false];
-				_l = _l + [0];
-				_b = _b + [true];
 			};
 
 			_w = _w + ['HandGrenade_Stone'];
-			_c = _c + [2];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['IR_Strobe_Target'];
-			_c = _c + [25];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['IR_Strobe_Marker'];
-			_c = _c + [35];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShell'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellRed'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellGreen'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellBlue'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellYellow'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellOrange'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellPurple'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareWhite_M203'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareYellow_M203'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareGreen_M203'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareRed_M203'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_HE_M203'];
-			_c = _c + [15];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_Smoke_M203'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_SmokeRed_M203'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_SmokeGreen_M203'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_SmokeYellow_M203'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['Mine'];
-			_c = _c + [40];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['PipeBomb'];
-			_c = _c + [50];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['Binocular'];
-			_c = _c + [10];
-			_t = _t + ['Special'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['NVGoggles'];
-			_c = _c + [20];
-			_t = _t + ['Special'];
-			_r = _r + [false];
-			_l = _l + [1];
-			_b = _b + [true];
-			
 			_w = _w + ['Binocular_Vector'];
-			_c = _c + [50];
-			_t = _t + ['Special'];
-			_r = _r + [false];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['ItemCompass'];
-			_c = _c + [4];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemGPS'];
-			_c = _c + [25];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemMap'];
-			_c = _c + [6];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemRadio'];
-			_c = _c + [15];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemWatch'];
-			_c = _c + [5];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				_curType = _t select _u;
-				if (_curType == 'Special' || _curType == 'Item') then {_curType = 'CfgWeapons'};
-				_p = _p + [getText(configFile >> _curType >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> _curType >> _x >> 'displayName')];
-				if (_curType == 'CfgMagazines') then {
-					_s = _s + [ceil(getNumber(configFile >> 'CfgMagazines' >> _x >> 'type') / 256)];
-				} else {
-					_s = _s + [1];
-				};
-				_u = _u + 1;
-			} forEach _w;
 
 			WF_Logic setVariable ['miscClasses',_w];
-			WF_Logic setVariable ['miscCosts',_c];
-			WF_Logic setVariable ['miscPictures',_p];
-			WF_Logic setVariable ['miscSpaces',_s];
-			WF_Logic setVariable ['miscNames',_d];
-			WF_Logic setVariable ['miscTypes',_t];
-			WF_Logic setVariable ['miscMain',_r];
-			WF_Logic setVariable ['miscUpgrades',_l];
-			WF_Logic setVariable ['miscAllowed',_b];
 
 			//--- Templates.
 			_items = ['ItemCompass','ItemGPS','ItemMap','ItemRadio','ItemWatch'];
@@ -3245,33 +1029,19 @@ if (WF_A2_Arrowhead) then {
 			_c = [];
 			_totalTemplates = count _d;
 
-			_primary = WF_Logic getVariable 'primaryClasses';
-			_primaryCosts = WF_Logic getVariable 'primaryCosts';
-			_secondary = WF_Logic getVariable 'secondaryClasses';
-			_secondaryCosts = WF_Logic getVariable 'secondaryCosts';
-			_sidearm = WF_Logic getVariable 'sidearmClasses';
-			_sidearmCosts = WF_Logic getVariable 'sidearmCosts';
-			_misc = WF_Logic getVariable 'miscClasses';
-			_miscCosts = WF_Logic getVariable 'miscCosts';
-			_magazine = WF_Logic getVariable 'magazineClasses';
-			_magazineCosts = WF_Logic getVariable 'magazineCosts';
-
 			for [{_count = 0},{_count < _totalTemplates},{_count = _count + 1}] do {
 				_cost = 0;
 				{
-					_index = _primary find _x;
-					if (_index != -1) then {_cost = _cost + (_primaryCosts select _index)};
-					_index = _secondary find _x;
-					if (_index != -1) then {_cost = _cost + (_secondaryCosts select _index)};
-					_index = _sidearm find _x;
-					if (_index != -1) then {_cost = _cost + (_sidearmCosts select _index)};
+					_get = (_x+"_W") Call GetNamespace;
+					if (isNil '_get') then {
+						_get = _x Call GetNamespace;
+					};
+					if !(isNil '_get') then {_cost = _cost + (_get select QUERYGEARCOST)};
 				} forEach (_t select _count);
 				
 				{
-					_index = _magazine find _x;
-					if (_index != -1) then {_cost = _cost + (_magazineCosts select _index)};
-					_index = _misc find _x;
-					if (_index != -1) then {_cost = _cost + (_miscCosts select _index)};
+					_get = _x Call GetNamespace;
+					if !(isNil '_get') then {_cost = _cost + (_get select QUERYGEARCOST)};
 				} forEach ((_m select _count) + (_s select _count) + (_i select _count));
 				
 				_c = _c + [_cost];
@@ -3329,893 +1099,146 @@ if (WF_A2_Arrowhead) then {
 	//*** EAST ***//
 	if (!isServer || local player) then {
 		if (side player == EAST) then {
-			//--- Magazines.
+			/* Magazines. */
 			_m = ["30Rnd_762x39_AK47"];
-			_c = [5];
-			_r = [false];
-			_t = ['primary'];
-			_l = [0];
-			_b = [true];
-
 			_m = _m + ["30Rnd_556x45_Stanag"];
-			_c = _c + [5];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["30Rnd_545x39_AK"];
-			_c = _c + [4];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["30Rnd_545x39_AKSD"];
-			_c = _c + [7];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["100Rnd_762x54_PK"];
-			_c = _c + [12];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["75Rnd_545x39_RPK"];
-			_c = _c + [9];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["10Rnd_762x54_SVD"];
-			_c = _c + [7];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["5Rnd_127x108_KSVK"];
-			_c = _c + [15];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["10x_303"];
-			_c = _c + [2];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["30Rnd_762x39_SA58"];
-			_c = _c + [6];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["20Rnd_762x51_FNFAL"];
-			_c = _c + [4];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["PG7V"];
-			_c = _c + [75];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["PG7VL"];
-			_c = _c + [90];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["OG7"];
-			_c = _c + [95];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [1];
-			_b = _b + [false];
-
 			_m = _m + ["PG7VR"];
-			_c = _c + [105];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [1];
-			_b = _b + [false];
-
 			_m = _m + ["RPG18"];
-			_c = _c + [50];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["Dragon_EP1"];
-			_c = _c + [220];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["AT13"];
-			_c = _c + [200];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [3];
-			_b = _b + [false];
-
 			_m = _m + ["Igla"];
-			_c = _c + [110];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_m = _m + ["Strela"];
-			_c = _c + [100];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_m = _m + ["Laserbatteries"];
-			_c = _c + [20];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [3];
-			_b = _b + [true];
-
 			_m = _m + ["6Rnd_45ACP"];
-			_c = _c + [2];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["8Rnd_9x18_Makarov"];
-			_c = _c + [2];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["8Rnd_9x18_MakarovSD"];
-			_c = _c + [3];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["10Rnd_B_765x17_Ball"];
-			_c = _c + [3];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["20Rnd_B_765x17_Ball"];
-			_c = _c + [4];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["30Rnd_9x19_UZI"];
-			_c = _c + [4];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["30Rnd_9x19_UZI_SD"];
-			_c = _c + [7];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_p = [];
-			_d = [];
-			_s = [];
-
-			{
-				_p = _p + [getText(configFile >> 'CfgMagazines' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgMagazines' >> _x >> 'displayName')];
-				_s = _s + [ceil(getNumber(configFile >> 'CfgMagazines' >> _x >> 'type') / 256)];
-			} forEach _m;
 
 			WF_Logic setVariable ['magazineClasses',_m];
-			WF_Logic setVariable ['magazineCosts',_c];
-			WF_Logic setVariable ['magazinePictures',_p];
-			WF_Logic setVariable ['magazineNames',_d];
-			WF_Logic setVariable ['magazineSpaces',_s];
-			WF_Logic setVariable ['magazineMain',_r];
-			WF_Logic setVariable ['magazineTypes',_t];
-			WF_Logic setVariable ['magazineUpgrades',_l];
-			WF_Logic setVariable ['magazineAllowed',_b];
 
-			_magazinesT = _m;
-			
-			//--- Primary.
+			/* Primary. */
 			_w = ['AK_47_M'];
-			_c = [50];
-			_a = [true];
-			_l = [0];
-			_b = [true];
-
 			_w = _w + ['AK_47_S'];
-			_c = _c + [60];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['M16A2'];
-			_c = _c + [80];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['M16A2GL'];
-			_c = _c + [85];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['AK_74'];
-			_c = _c + [85];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['AK_74_GL'];
-			_c = _c + [105];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['AK_74_GL_kobra'];
-			_c = _c + [105];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['AKS_74'];
-			_c = _c + [115];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['AKS_74_GOSHAWK'];
-			_c = _c + [175];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-			
 			_w = _w + ['AKS_74_kobra'];
-			_c = _c + [140];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['AKS_74_NSPU'];
-			_c = _c + [180];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
 			_w = _w + ['AKS_74_pso'];
-			_c = _c + [160];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['AKS_74_U'];
-			_c = _c + [185];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FN_FAL'];
-			_c = _c + [120];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['FN_FAL_ANPVS4'];
-			_c = _c + [150];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['LeeEnfield'];
-			_c = _c + [25];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['PK'];
-			_c = _c + [280];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['RPK_74'];
-			_c = _c + [185];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-			
 			_w = _w + ['Sa58P_EP1'];
-			_c = _c + [185];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['Sa58V_EP1'];
-			_c = _c + [190];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['Sa58V_RCO_EP1'];
-			_c = _c + [200];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-			
 			_w = _w + ['Sa58V_CCO_EP1'];
-			_c = _c + [205];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['SVD'];
-			_c = _c + [210];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['SVD_des_EP1'];
-			_c = _c + [210];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['SVD_NSPU_EP1'];
-			_c = _c + [230];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
-			_w = _w + ['ksvk'];
-			_c = _c + [340];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
-				//--- Custom override, nested array.
-				if (typeName(_a select _u) == 'BOOL') then {
-					_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
-					_artm = _tm;
-					{
-						if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
-					} forEach _tm;
-					_s = _s + [_artm];
-				} else {
-					_s = _s + [_a select _u];
-				};
-				_u = _u + 1;
-			} forEach _w;
+			_w = _w + ['ksvk'];;
 
 			WF_Logic setVariable ['primaryClasses',_w];
-			WF_Logic setVariable ['primaryCosts',_c];
-			WF_Logic setVariable ['primaryPictures',_p];
-			WF_Logic setVariable ['primaryNames',_d];
-			WF_Logic setVariable ['primaryMagazines',_s];
-			WF_Logic setVariable ['primaryUpgrades',_l];
-			WF_Logic setVariable ['primaryAllowed',_b];
 
-			//--- Secondary.
-
+			/* Secondary. */
 			_w = ['RPG7V'];
-			_c = [150];
-			_a = [true];
-			_l = [0];
-			_b = [true];
-
 			_w = _w + ['RPG18'];
-			_c = _c + [120];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['M47Launcher_EP1'];
-			_c = _c + [325];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['MetisLauncher'];
-			_c = _c + [460];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-
 			_w = _w + ['Igla'];
-			_c = _c + [350];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['Strela'];
-			_c = _c + [300];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['Laserdesignator'];
-			_c = _c + [300];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];
 			
 			/* Not all units are able to carry a backpack */
 			_get = getNumber(configFile >> 'CfgVehicles' >> typeOf player >> 'canCarryBackPack');
 			
 			if (_get == 1) then {
 				_w = _w + ['TK_Assault_Pack_EP1'];
-				_c = _c + [80];
-				_a = _a + [-1];
-				_l = _l + [1];
-				_b = _b + [true];
-				
 				_w = _w + ['TK_RPG_Backpack_EP1'];
-				_c = _c + [70];
-				_a = _a + [-1];
-				_l = _l + [0];
-				_b = _b + [true];
-				
 				_w = _w + ['TK_ALICE_Pack_EP1'];
-				_c = _c + [90];
-				_a = _a + [-1];
-				_l = _l + [2];
-				_b = _b + [true];
-				
 				_w = _w + ['Tripod_Bag'];
-				_c = _c + [40];
-				_a = _a + [-1];
-				_l = _l + [0];
-				_b = _b + [false];
-
 				_w = _w + ['KORD_TK_Bag_EP1'];
-				_c = _c + [155];
-				_a = _a + [-1];
-				_l = _l + [0];
-				_b = _b + [false];
-				
 				_w = _w + ['KORD_high_TK_Bag_EP1'];
-				_c = _c + [190];
-				_a = _a + [-1];
-				_l = _l + [0];
-				_b = _b + [false];
-				
 				_w = _w + ['SPG9_TK_INS_Bag_EP1'];
-				_c = _c + [410];
-				_a = _a + [-1];
-				_l = _l + [1];
-				_b = _b + [false];		
-				
 				_w = _w + ['AGS_TK_Bag_EP1'];
-				_c = _c + [490];
-				_a = _a + [-1];
-				_l = _l + [1];
-				_b = _b + [false];
-
 				_w = _w + ['Metis_TK_Bag_EP1'];
-				_c = _c + [600];
-				_a = _a + [-1];
-				_l = _l + [2];
-				_b = _b + [false];
-
 				_w = _w + ['2b14_82mm_TK_Bag_EP1'];
-				_c = _c + [750];
-				_a = _a + [-1];
-				_l = _l + [1];
-				_b = _b + [false];
 			};
 
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				if (typeName(_a select _u) == 'SCALAR') then {
-					_p = _p + [getText(configFile >> 'CfgVehicles' >> _x >> 'picture')];
-					_d = _d + [getText(configFile >> 'CfgVehicles' >> _x >> 'displayName')];
-					_s = _s + [[]];
-				} else {
-					_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
-					_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
-					//--- Custom override, nested array.
-					if (typeName(_a select _u) == 'BOOL') then {
-						_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
-						_artm = _tm;
-						{
-							if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
-						} forEach _tm;
-						_s = _s + [_artm];
-					} else {
-						_s = _s + [_a select _u];
-					};
-				};
-				_u = _u + 1;
-			} forEach _w;
-
 			WF_Logic setVariable ['secondaryClasses',_w];
-			WF_Logic setVariable ['secondaryCosts',_c];
-			WF_Logic setVariable ['secondaryPictures',_p];
-			WF_Logic setVariable ['secondaryNames',_d];
-			WF_Logic setVariable ['secondaryMagazines',_s];
-			WF_Logic setVariable ['secondaryUpgrades',_l];
-			WF_Logic setVariable ['secondaryAllowed',_b];
 
-			//--- Sidearms.
-
+			/* Sidearm. */
 			_w = ['Makarov'];
-			_c = [8];
-			_a = [true];
-			_l = [0];
-			_b = [true];
-
 			_w = _w + ['revolver_EP1'];
-			_c = _c + [10];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['revolver_gold_EP1'];
-			_c = _c + [100];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-			
 			_w = _w + ['MakarovSD'];
-			_c = _c + [15];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['Sa61_EP1'];
-			_c = _c + [25];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['UZI_EP1'];
-			_c = _c + [55];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['UZI_SD_EP1'];
-			_c = _c + [65];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
-				//--- Custom override, nested array.
-				if (typeName(_a select _u) == 'BOOL') then {
-					_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
-					_artm = _tm;
-					{
-						if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
-					} forEach _tm;
-					_s = _s + [_artm];
-				} else {
-					_s = _s + [_a select _u];
-				};
-				_u = _u + 1;
-			} forEach _w;
 
 			WF_Logic setVariable ['sidearmClasses',_w];
-			WF_Logic setVariable ['sidearmCosts',_c];
-			WF_Logic setVariable ['sidearmPictures',_p];
-			WF_Logic setVariable ['sidearmNames',_d];
-			WF_Logic setVariable ['sidearmMagazines',_s];
-			WF_Logic setVariable ['sidearmUpgrades',_l];
-			WF_Logic setVariable ['sidearmAllowed',_b];
 
-			//--- Misc.
-			
+			/* Misc. */
 			_w = ['HandGrenade_East'];
-			_c = [10];
-			_t = ['CfgMagazines'];
-			_r = [false];
-			_l = [0];
-			_b = [true];
-
 			_w = _w + ['HandGrenade_Stone'];
-			_c = _c + [2];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShell'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellRed'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellGreen'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellBlue'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellYellow'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellOrange'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellPurple'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareWhite_GP25'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareYellow_GP25'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareGreen_GP25'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareRed_GP25'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_HE_M203'];
-			_c = _c + [15];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_HE_GP25'];
-			_c = _c + [15];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_SMOKE_GP25'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_SMOKERED_GP25'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_SMOKEGREEN_GP25'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_SMOKEYELLOW_GP25'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
 
 			if (paramDLCBAF) then {
 				_w = _w + ['BAF_ied_v1'];
-				_c = _c + [25];
-				_t = _t + ['CfgMagazines'];
-				_r = _r + [false];
-				_l = _l + [0];
-				_b = _b + [true];
-				
 				_w = _w + ['BAF_ied_v2'];
-				_c = _c + [35];
-				_t = _t + ['CfgMagazines'];
-				_r = _r + [false];
-				_l = _l + [1];
-				_b = _b + [true];
-				
 				_w = _w + ['BAF_ied_v3'];
-				_c = _c + [45];
-				_t = _t + ['CfgMagazines'];
-				_r = _r + [false];
-				_l = _l + [2];
-				_b = _b + [true];
-				
 				_w = _w + ['BAF_ied_v4'];
-				_c = _c + [55];
-				_t = _t + ['CfgMagazines'];
-				_r = _r + [false];
-				_l = _l + [2];
-				_b = _b + [true];
 			};
 
 			_w = _w + ['MineE'];
-			_c = _c + [40];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['PipeBomb'];
-			_c = _c + [50];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['Binocular'];
-			_c = _c + [10];
-			_t = _t + ['Special'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['NVGoggles'];
-			_c = _c + [20];
-			_t = _t + ['Special'];
-			_r = _r + [false];
-			_l = _l + [1];
-			_b = _b + [true];
-			
 			_w = _w + ['Binocular_Vector'];
-			_c = _c + [50];
-			_t = _t + ['Special'];
-			_r = _r + [false];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['ItemCompass'];
-			_c = _c + [4];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemGPS'];
-			_c = _c + [25];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemMap'];
-			_c = _c + [6];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemRadio'];
-			_c = _c + [15];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemWatch'];
-			_c = _c + [5];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				_curType = _t select _u;
-				if (_curType == 'Special' || _curType == 'Item') then {_curType = 'CfgWeapons'};
-				_p = _p + [getText(configFile >> _curType >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> _curType >> _x >> 'displayName')];
-				if (_curType == 'CfgMagazines') then {
-					_s = _s + [ceil(getNumber(configFile >> 'CfgMagazines' >> _x >> 'type') / 256)];
-				} else {
-					_s = _s + [1];
-				};
-				_u = _u + 1;
-			} forEach _w;
 
 			WF_Logic setVariable ['miscClasses',_w];
-			WF_Logic setVariable ['miscCosts',_c];
-			WF_Logic setVariable ['miscPictures',_p];
-			WF_Logic setVariable ['miscSpaces',_s];
-			WF_Logic setVariable ['miscNames',_d];
-			WF_Logic setVariable ['miscTypes',_t];
-			WF_Logic setVariable ['miscMain',_r];
-			WF_Logic setVariable ['miscUpgrades',_l];
-			WF_Logic setVariable ['miscAllowed',_b];
 
 			//--- Templates.
 			_items = ['ItemCompass','ItemGPS','ItemMap','ItemRadio','ItemWatch'];
@@ -4306,7 +1329,7 @@ if (WF_A2_Arrowhead) then {
 			_t = _t + [['AKS_74_GOSHAWK','MakarovSD']];
 			_m = _m + [['30Rnd_545x39_AK','30Rnd_545x39_AK','30Rnd_545x39_AK','30Rnd_545x39_AK','30Rnd_545x39_AK','30Rnd_545x39_AK','PipeBomb','PipeBomb','PipeBomb',
 				'8Rnd_9x18_MakarovSD','8Rnd_9x18_MakarovSD','8Rnd_9x18_MakarovSD','8Rnd_9x18_MakarovSD','8Rnd_9x18_MakarovSD','8Rnd_9x18_MakarovSD','8Rnd_9x18_MakarovSD','8Rnd_9x18_MakarovSD']];
-			_s = _s + [['Binocular','NVGoggles']];
+			_s = _s + [['Binocular_Vector','NVGoggles']];
 			_i = _i + [_items];
 			_l = _l + [2];
 			_b = _b + [true];
@@ -4338,7 +1361,7 @@ if (WF_A2_Arrowhead) then {
 			_m = _m + [['30Rnd_545x39_AK','30Rnd_545x39_AK','30Rnd_545x39_AK','30Rnd_545x39_AK','30Rnd_545x39_AK','30Rnd_545x39_AK','30Rnd_545x39_AK','30Rnd_545x39_AK',
 				'30Rnd_545x39_AK','30Rnd_545x39_AK','HandGrenade_East','Laserbatteries','8Rnd_9x18_MakarovSD','8Rnd_9x18_MakarovSD','8Rnd_9x18_MakarovSD','8Rnd_9x18_MakarovSD','8Rnd_9x18_MakarovSD',
 				'8Rnd_9x18_MakarovSD','8Rnd_9x18_MakarovSD','8Rnd_9x18_MakarovSD']];
-			_s = _s + [['Binocular','NVGoggles']];
+			_s = _s + [['Binocular_Vector','NVGoggles']];
 			_i = _i + [_items];
 			_l = _l + [2];
 			_b = _b + [false];
@@ -4357,33 +1380,19 @@ if (WF_A2_Arrowhead) then {
 			_c = [];
 			_totalTemplates = count _d;
 
-			_primary = WF_Logic getVariable 'primaryClasses';
-			_primaryCosts = WF_Logic getVariable 'primaryCosts';
-			_secondary = WF_Logic getVariable 'secondaryClasses';
-			_secondaryCosts = WF_Logic getVariable 'secondaryCosts';
-			_sidearm = WF_Logic getVariable 'sidearmClasses';
-			_sidearmCosts = WF_Logic getVariable 'sidearmCosts';
-			_misc = WF_Logic getVariable 'miscClasses';
-			_miscCosts = WF_Logic getVariable 'miscCosts';
-			_magazine = WF_Logic getVariable 'magazineClasses';
-			_magazineCosts = WF_Logic getVariable 'magazineCosts';
-
 			for [{_count = 0},{_count < _totalTemplates},{_count = _count + 1}] do {
 				_cost = 0;
 				{
-					_index = _primary find _x;
-					if (_index != -1) then {_cost = _cost + (_primaryCosts select _index)};
-					_index = _secondary find _x;
-					if (_index != -1) then {_cost = _cost + (_secondaryCosts select _index)};
-					_index = _sidearm find _x;
-					if (_index != -1) then {_cost = _cost + (_sidearmCosts select _index)};
+					_get = (_x+"_W") Call GetNamespace;
+					if (isNil '_get') then {
+						_get = _x Call GetNamespace;
+					};
+					if !(isNil '_get') then {_cost = _cost + (_get select QUERYGEARCOST)};
 				} forEach (_t select _count);
 				
 				{
-					_index = _magazine find _x;
-					if (_index != -1) then {_cost = _cost + (_magazineCosts select _index)};
-					_index = _misc find _x;
-					if (_index != -1) then {_cost = _cost + (_miscCosts select _index)};
+					_get = _x Call GetNamespace;
+					if !(isNil '_get') then {_cost = _cost + (_get select QUERYGEARCOST)};
 				} forEach ((_m select _count) + (_s select _count) + (_i select _count));
 				
 				_c = _c + [_cost];
@@ -4444,1338 +1453,229 @@ if (WF_A2_CombinedOps) then {
 		['WFBE_BINOCULARS',['Binocular','Binocular_Vector'],true] Call SetNamespace;
 	
 		if (side player == WEST) then {
-			//--- Magazines.
-			/*
-				Note: 
-					_r define whether the magazine belong to the main ammo pool or to the handgun ammo pool.
-					_l define the upgrade level required to display the ammo.
-					_b define whether the ammunition shall displayed or not if advanced camp gear parameter is on.
-			*/
+			/* Magazines. */
 			_m = ["30Rnd_556x45_Stanag"];
-			_c = [5];
-			_r = [false];
-			_t = ['primary'];
-			_l = [0];
-			_b = [true];
-			
 			_m = _m + ["30Rnd_556x45_StanagSD"];
-			_c = _c + [7];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["20Rnd_556x45_Stanag"];
-			_c = _c + [5];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
-			_m = _m + ["20Rnd_556x45_Stanag"];
-			_c = _c + [5];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["30Rnd_556x45_G36"];
-			_c = _c + [6];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["30Rnd_556x45_G36SD"];
-			_c = _c + [8];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["100Rnd_556x45_BetaCMag"];
-			_c = _c + [15];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["5Rnd_762x51_M24"];
-			_c = _c + [6];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["20Rnd_762x51_DMR"];
-			_c = _c + [9];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["10Rnd_127x99_m107"];
-			_c = _c + [18];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["100Rnd_762x51_M240"];
-			_c = _c + [12];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["100Rnd_556x45_M249"];
-			_c = _c + [11];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];		
-			
 			_m = _m + ["200Rnd_556x45_M249"];
-			_c = _c + [22];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["30Rnd_9x19_MP5"];
-			_c = _c + [3];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["30Rnd_9x19_MP5SD"];
-			_c = _c + [4];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["8Rnd_B_Beneli_74Slug"];
-			_c = _c + [6];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["20Rnd_762x51_B_SCAR"];
-			_c = _c + [6];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
-			_m = _m + ["20rnd_762x51_B_SCAR"];
-			_c = _c + [6];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];			
-			
 			_m = _m + ["20Rnd_762x51_SB_SCAR"];
-			_c = _c + [8];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["6Rnd_HE_M203"];
-			_c = _c + [35];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["6Rnd_FlareWhite_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["6Rnd_FlareGreen_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["6Rnd_FlareRed_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["6Rnd_FlareYellow_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["6Rnd_Smoke_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["6Rnd_SmokeRed_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["6Rnd_SmokeGreen_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["6Rnd_SmokeYellow_M203"];
-			_c = _c + [25];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["M136"];
-			_c = _c + [50];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["MAAWS_HEAT"];
-			_c = _c + [135];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["MAAWS_HEDP"];
-			_c = _c + [150];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["Javelin"];
-			_c = _c + [300];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [3];
-			_b = _b + [false];
-			
 			_m = _m + ["Stinger"];
-			_c = _c + [100];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [2];
-			_b = _b + [false];
-			
 			_m = _m + ["Laserbatteries"];
-			_c = _c + [20];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [3];
-			_b = _b + [true];
-			
 			_m = _m + ["15Rnd_9x19_M9"];
-			_c = _c + [2];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["15Rnd_9x19_M9SD"];
-			_c = _c + [3];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["7Rnd_45ACP_1911"];
-			_c = _c + [2];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["17Rnd_9x19_glock17"];
-			_c = _c + [3];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
 
 			if (paramDLCBAF) then {
 				_m = _m + ["5Rnd_127x99_AS50"];
-				_c = _c + [12];
-				_r = _r + [false];
-				_t = _t + ['primary'];
-				_l = _l + [0];
-				_b = _b + [true];
-				
 				_m = _m + ["5Rnd_86x70_L115A1"];
-				_c = _c + [8];
-				_r = _r + [false];
-				_t = _t + ['primary'];
-				_l = _l + [0];
-				_b = _b + [true];
-				
 				_m = _m + ["200Rnd_556x45_L110A1"];
-				_c = _c + [18];
-				_r = _r + [false];
-				_t = _t + ['primary'];
-				_l = _l + [0];
-				_b = _b + [true];
-				
 				_m = _m + ["NLAW"];
-				_c = _c + [170];
-				_r = _r + [false];
-				_t = _t + ['secondary'];
-				_l = _l + [0];
-				_b = _b + [false];
 			};
-			
-			_p = [];
-			_d = [];
-			_s = [];
-
-			{
-				_p = _p + [getText(configFile >> 'CfgMagazines' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgMagazines' >> _x >> 'displayName')];
-				_s = _s + [ceil(getNumber(configFile >> 'CfgMagazines' >> _x >> 'type') / 256)];
-			} forEach _m;
 
 			WF_Logic setVariable ['magazineClasses',_m];
-			WF_Logic setVariable ['magazineCosts',_c];
-			WF_Logic setVariable ['magazinePictures',_p];
-			WF_Logic setVariable ['magazineNames',_d];
-			WF_Logic setVariable ['magazineSpaces',_s];
-			WF_Logic setVariable ['magazineMain',_r];
-			WF_Logic setVariable ['magazineTypes',_t];
-			WF_Logic setVariable ['magazineUpgrades',_l];
-			WF_Logic setVariable ['magazineAllowed',_b];
-			
-			_magazinesT = _m;
 
-			//--- Primary.
-			/*
-				Note: _a define whether the default ammunitions are dumped from CfgMagazines or added manualy:
-					Manual override require a nested array.
-
-				Exemple:
-					_w = _w + ['M16A2GL'];
-					_c = _c + [85];
-					_a = _a + [true];	
-				OR
-					_w = _w + ['M16A2GL'];
-					_c = _c + [85];
-					_a = _a + [['30Rnd_556x45_Stanag','30Rnd_556x45_StanagSD',...]];
-				
-			*/
-
+			/* Primary. */
 			_w = ['M16A2'];
-			_c = [80];
-			_a = [true];
-			_l = [0];
-			_b = [true];
-
 			_w = _w + ['M16A2GL'];
-			_c = _c + [85];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['m16a4'];
-			_c = _c + [85];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['m16a4_acg'];
-			_c = _c + [85];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['M16A4_GL'];
-			_c = _c + [95];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['M16A4_ACG_GL'];
-			_c = _c + [105];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-			
 			_w = _w + ['M24'];
-			_c = _c + [175];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['M40A3'];
-			_c = _c + [195];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['M24_des_EP1'];
-			_c = _c + [175];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['M240'];
-			_c = _c + [165];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['m240_scoped_EP1'];
-			_c = _c + [185];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['M60A4_EP1'];
-			_c = _c + [180];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['Mk_48'];
-			_c = _c + [225];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-			
 			_w = _w + ['Mk_48_DES_EP1'];
-			_c = _c + [225];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-
 			_w = _w + ['M249_EP1'];
-			_c = _c + [185];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-			
 			_w = _w + ['M249_TWS_EP1'];
-			_c = _c + [285];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-			
 			_w = _w + ['M249_m145_EP1'];
-			_c = _c + [205];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];
-
 			_w = _w + ['M4A1'];
-			_c = _c + [120];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['M4A1_Aim'];
-			_c = _c + [135];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['M4A1_Aim_camo'];
-			_c = _c + [150];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-			
 			_w = _w + ['M4A1_RCO_GL'];
-			_c = _c + [175];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
 			_w = _w + ['M4A1_AIM_SD_camo'];
-			_c = _c + [205];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-			
 			_w = _w + ['M4A1_HWS_GL_SD_Camo'];
-			_c = _c + [245];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-
 			_w = _w + ['M4A1_HWS_GL'];
-			_c = _c + [205];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-
 			_w = _w + ['M4A1_HWS_GL_camo'];
-			_c = _c + [225];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-			
 			_w = _w + ['M4SPR'];
-			_c = _c + [155];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['M4A3_CCO_EP1'];
-			_c = _c + [130];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-			
 			_w = _w + ['M4A3_RCO_GL_EP1'];
-			_c = _c + [140];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-			
 			_w = _w + ['MP5SD'];
-			_c = _c + [115];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['MP5A5'];
-			_c = _c + [65];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['G36C'];
-			_c = _c + [225];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['G36C_camo'];
-			_c = _c + [225];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['G36_C_SD_eotech'];
-			_c = _c + [265];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['G36_C_SD_camo'];
-			_c = _c + [265];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-			
 			_w = _w + ['G36a'];
-			_c = _c + [240];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [false];
-
 			_w = _w + ['G36A_camo'];
-			_c = _c + [240];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [false];
-			
 			_w = _w + ['G36K'];
-			_c = _c + [230];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [false];
-
 			_w = _w + ['G36K_camo'];
-			_c = _c + [230];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [false];
-			
 			_w = _w + ['MG36'];
-			_c = _c + [260];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['MG36_camo'];
-			_c = _c + [260];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-			
 			_w = _w + ['DMR'];
-			_c = _c + [280];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-			
 			_w = _w + ['M32_EP1'];
-			_c = _c + [220];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-			
 			_w = _w + ['M79_EP1'];
-			_c = _c + [105];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [false];
-			
 			_w = _w + ['Mk13_EP1'];
-			_c = _c + [120];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [false];
-
 			_w = _w + ['M14_EP1'];
-			_c = _c + [280];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['m107'];
-			_c = _c + [315];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-			
 			_w = _w + ['m107_TWS_EP1'];
-			_c = _c + [455];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-			
 			_w = _w + ['M110_TWS_EP1'];
-			_c = _c + [350];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];		
-			
 			_w = _w + ['M110_NVG_EP1'];
-			_c = _c + [295];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-			
 			_w = _w + ['SCAR_L_CQC'];
-			_c = _c + [210];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SCAR_L_CQC_Holo'];
-			_c = _c + [220];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['SCAR_L_STD_Mk4CQT'];
-			_c = _c + [225];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['SCAR_L_STD_EGLM_RCO'];
-			_c = _c + [230];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['SCAR_L_CQC_EGLM_Holo'];
-			_c = _c + [245];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['SCAR_L_STD_EGLM_TWS'];
-			_c = _c + [350];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
 			_w = _w + ['SCAR_L_STD_HOLO'];
-			_c = _c + [250];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['SCAR_H_CQC_CCO'];
-			_c = _c + [240];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['SCAR_H_CQC_CCO_SD'];
-			_c = _c + [270];
-			_a = _a + [['20Rnd_762x51_SB_SCAR']];
-			_l = _l + [2];
-			_b = _b + [true];
-
 			_w = _w + ['SCAR_H_STD_EGLM_Spect'];
-			_c = _c + [280];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
 			_w = _w + ['SCAR_H_LNG_Sniper'];
-			_c = _c + [305];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
 			_w = _w + ['SCAR_H_LNG_Sniper_SD'];
-			_c = _c + [345];
-			_a = _a + [['20Rnd_762x51_SB_SCAR']];
-			_l = _l + [3];
-			_b = _b + [true];
-
 			_w = _w + ['SCAR_H_STD_TWS_SD'];
-			_c = _c + [395];
-			_a = _a + [['20Rnd_762x51_SB_SCAR']];
-			_l = _l + [3];
-			_b = _b + [true];
-			
 			_w = _w + ['m8_carbine'];
-			_c = _c + [305];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
 			_w = _w + ['m8_carbineGL'];
-			_c = _c + [325];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];
-
 			_w = _w + ['m8_compact'];
-			_c = _c + [310];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['m8_sharpshooter'];
-			_c = _c + [315];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-
 			_w = _w + ['m8_SAW'];
-			_c = _c + [355];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
 			
 			if (paramDLCBAF) then {
 				_w = _w + ['BAF_AS50_scoped'];
-				_c = _c + [380];
-				_a = _a + [true];
-				_l = _l + [1];
-				_b = _b + [true];
-				
 				_w = _w + ['BAF_AS50_TWS'];
-				_c = _c + [440];
-				_a = _a + [true];
-				_l = _l + [3];
-				_b = _b + [false];
-				
 				_w = _w + ['BAF_LRR_scoped'];
-				_c = _c + [320];
-				_a = _a + [true];
-				_l = _l + [2];
-				_b = _b + [true];
-				
 				_w = _w + ['BAF_LRR_scoped_W'];
-				_c = _c + [290];
-				_a = _a + [true];
-				_l = _l + [1];
-				_b = _b + [true];
-				
 				_w = _w + ['BAF_L85A2_RIS_Holo'];
-				_c = _c + [240];
-				_a = _a + [true];
-				_l = _l + [1];
-				_b = _b + [true];
-				
 				_w = _w + ['BAF_L85A2_UGL_Holo'];
-				_c = _c + [260];
-				_a = _a + [true];
-				_l = _l + [2];
-				_b = _b + [true];
-				
 				_w = _w + ['BAF_L85A2_RIS_SUSAT'];
-				_c = _c + [250];
-				_a = _a + [true];
-				_l = _l + [1];
-				_b = _b + [true];
-				
 				_w = _w + ['BAF_L85A2_UGL_SUSAT'];
-				_c = _c + [270];
-				_a = _a + [true];
-				_l = _l + [2];
-				_b = _b + [true];
-				
 				_w = _w + ['BAF_L85A2_RIS_ACOG'];
-				_c = _c + [260];
-				_a = _a + [true];
-				_l = _l + [1];
-				_b = _b + [true];
-				
 				_w = _w + ['BAF_L85A2_UGL_ACOG'];
-				_c = _c + [280];
-				_a = _a + [true];
-				_l = _l + [2];
-				_b = _b + [true];
-				
 				_w = _w + ['BAF_L85A2_RIS_CWS'];
-				_c = _c + [340];
-				_a = _a + [true];
-				_l = _l + [2];
-				_b = _b + [false];
-				
 				_w = _w + ['BAF_L86A2_ACOG'];
-				_c = _c + [305];
-				_a = _a + [true];
-				_l = _l + [2];
-				_b = _b + [true];
-				
 				_w = _w + ['BAF_L110A1_Aim'];
-				_c = _c + [310];
-				_a = _a + [true];
-				_l = _l + [3];
-				_b = _b + [false];
-				
 				_w = _w + ['BAF_L7A2_GPMG'];
-				_c = _c + [285];
-				_a = _a + [true];
-				_l = _l + [0];
-				_b = _b + [true];
 			};
 
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
-				//--- Custom override, nested array.
-				if (typeName(_a select _u) == 'BOOL') then {
-					_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
-					_artm = _tm;
-					{
-						if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
-					} forEach _tm;
-					_s = _s + [_artm];
-				} else {
-					_s = _s + [_a select _u];
-				};
-				_u = _u + 1;
-			} forEach _w;
-
 			WF_Logic setVariable ['primaryClasses',_w];
-			WF_Logic setVariable ['primaryCosts',_c];
-			WF_Logic setVariable ['primaryPictures',_p];
-			WF_Logic setVariable ['primaryNames',_d];
-			WF_Logic setVariable ['primaryMagazines',_s];
-			WF_Logic setVariable ['primaryUpgrades',_l];
-			WF_Logic setVariable ['primaryAllowed',_b];
 
-			//--- Secondary.
+			/* Secondary. */
 
 			_w = ['M136'];
-			_c = [90];
-			_a = [true];
-			_l = [0];
-			_b = [true];
-
 			_w = _w + ['MAAWS'];
-			_c = _c + [350];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			if (paramDLCBAF) then {
 				_w = _w + ['BAF_NLAW_Launcher'];
-				_c = _c + [370];
-				_a = _a + [true];
-				_l = _l + [2];
-				_b = _b + [false];
 			};
 			
 			_w = _w + ['Javelin'];
-			_c = _c + [650];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-
 			_w = _w + ['Stinger'];
-			_c = _c + [250];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['Laserdesignator'];
-			_c = _c + [300];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];
-			
+
 			/* Not all units are able to carry a backpack */
 			_get = getNumber(configFile >> 'CfgVehicles' >> typeOf player >> 'canCarryBackPack');
 			
 			if (_get == 1) then {
 				_w = _w + ['US_Assault_Pack_EP1'];
-				_c = _c + [80];
-				_a = _a + [-1];
-				_l = _l + [1];
-				_b = _b + [true];
-				
 				_w = _w + ['US_Patrol_Pack_EP1'];
-				_c = _c + [70];
-				_a = _a + [-1];
-				_l = _l + [0];
-				_b = _b + [true];
-				
 				_w = _w + ['US_Backpack_EP1'];
-				_c = _c + [90];
-				_a = _a + [-1];
-				_l = _l + [2];
-				_b = _b + [true];
-				
+
 				if (paramDLCBAF) then {
 					_w = _w + ['BAF_AssaultPack_RifleAmmo'];
-					_c = _c + [95];
-					_a = _a + [-1];
-					_l = _l + [2];
-					_b = _b + [true];
 				};
 				
 				_w = _w + ['Tripod_Bag'];
-				_c = _c + [40];
-				_a = _a + [-1];
-				_l = _l + [0];
-				_b = _b + [false];
-				
+
 				if (paramDLCBAF) then {
 					_w = _w + ['BAF_L2A1_ACOG_minitripod_bag'];
-					_c = _c + [165];
-					_a = _a + [-1];
-					_l = _l + [1];
-					_b = _b + [false];
-					
 					_w = _w + ['BAF_L2A1_ACOG_tripod_bag'];
-					_c = _c + [175];
-					_a = _a + [-1];
-					_l = _l + [1];
-					_b = _b + [false];
-					
 					_w = _w + ['BAF_GPMG_Minitripod_D_bag'];
-					_c = _c + [225];
-					_a = _a + [-1];
-					_l = _l + [0];
-					_b = _b + [false];
-					
 					_w = _w + ['BAF_GMG_ACOG_minitripod_bag'];
-					_c = _c + [235];
-					_a = _a + [-1];
-					_l = _l + [1];
-					_b = _b + [false];
 				};
 
 				_w = _w + ['M2HD_mini_TriPod_US_Bag_EP1'];
-				_c = _c + [155];
-				_a = _a + [-1];
-				_l = _l + [0];
-				_b = _b + [false];
-				
 				_w = _w + ['M2StaticMG_US_Bag_EP1'];
-				_c = _c + [190];
-				_a = _a + [-1];
-				_l = _l + [0];
-				_b = _b + [false];
-				
 				_w = _w + ['MK19_TriPod_US_Bag_EP1'];
-				_c = _c + [450];
-				_a = _a + [-1];
-				_l = _l + [1];
-				_b = _b + [false];
-
 				_w = _w + ['TOW_TriPod_US_Bag_EP1'];
-				_c = _c + [600];
-				_a = _a + [-1];
-				_l = _l + [2];
-				_b = _b + [false];
-
 				_w = _w + ['M252_US_Bag_EP1'];
-				_c = _c + [750];
-				_a = _a + [-1];
-				_l = _l + [1];
-				_b = _b + [false];
 			};
 
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				if (typeName(_a select _u) == 'SCALAR') then {
-					_p = _p + [getText(configFile >> 'CfgVehicles' >> _x >> 'picture')];
-					_d = _d + [getText(configFile >> 'CfgVehicles' >> _x >> 'displayName')];
-					_s = _s + [[]];
-				} else {
-					_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
-					_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
-					//--- Custom override, nested array.
-					if (typeName(_a select _u) == 'BOOL') then {
-						_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
-						_artm = _tm;
-						{
-							if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
-						} forEach _tm;
-						_s = _s + [_artm];
-					} else {
-						_s = _s + [_a select _u];
-					};
-				};
-				_u = _u + 1;
-			} forEach _w;
-
 			WF_Logic setVariable ['secondaryClasses',_w];
-			WF_Logic setVariable ['secondaryCosts',_c];
-			WF_Logic setVariable ['secondaryPictures',_p];
-			WF_Logic setVariable ['secondaryNames',_d];
-			WF_Logic setVariable ['secondaryMagazines',_s];
-			WF_Logic setVariable ['secondaryUpgrades',_l];
-			WF_Logic setVariable ['secondaryAllowed',_b];
 
-			//--- Sidearms.
-
+			/* Sidearms. */
 			_w = ['Colt1911'];
-			_c = [15];
-			_a = [true];
-			_l = [0];
-			_b = [true];
-
 			_w = _w + ['M9'];
-			_c = _c + [20];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['M9SD'];
-			_c = _c + [25];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['glock17_EP1'];
-			_c = _c + [35];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
-				//--- Custom override, nested array.
-				if (typeName(_a select _u) == 'BOOL') then {
-					_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
-					_artm = _tm;
-					{
-						if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
-					} forEach _tm;
-					_s = _s + [_artm];
-				} else {
-					_s = _s + [_a select _u];
-				};
-				_u = _u + 1;
-			} forEach _w;
 
 			WF_Logic setVariable ['sidearmClasses',_w];
-			WF_Logic setVariable ['sidearmCosts',_c];
-			WF_Logic setVariable ['sidearmPictures',_p];
-			WF_Logic setVariable ['sidearmNames',_d];
-			WF_Logic setVariable ['sidearmMagazines',_s];
-			WF_Logic setVariable ['sidearmUpgrades',_l];
-			WF_Logic setVariable ['sidearmAllowed',_b];
 
-			//--- Misc.
-
+			/* Misc. */
 			_w = ['HandGrenade_West'];
-			_c = [10];
-			_t = ['CfgMagazines'];
-			_r = [false];
-			_l = [0];
-			_b =  [true];
-			
+
 			if (paramDLCBAF) then {
 				_w = _w + ['BAF_L109A1_HE'];
-				_c = _c + [12];
-				_t = _t + ['CfgMagazines'];
-				_r = _r + [false];
-				_l = _l + [0];
-				_b = _b + [true];
 			};
 
 			_w = _w + ['HandGrenade_Stone'];
-			_c = _c + [2];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['IR_Strobe_Target'];
-			_c = _c + [25];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['IR_Strobe_Marker'];
-			_c = _c + [35];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShell'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellRed'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellGreen'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellBlue'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellYellow'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellOrange'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellPurple'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareWhite_M203'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareYellow_M203'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareGreen_M203'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareRed_M203'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_HE_M203'];
-			_c = _c + [15];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_Smoke_M203'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_SmokeRed_M203'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_SmokeGreen_M203'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_SmokeYellow_M203'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['Mine'];
-			_c = _c + [40];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['PipeBomb'];
-			_c = _c + [50];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['Binocular'];
-			_c = _c + [10];
-			_t = _t + ['Special'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['NVGoggles'];
-			_c = _c + [20];
-			_t = _t + ['Special'];
-			_r = _r + [false];
-			_l = _l + [1];
-			_b = _b + [true];
-			
 			_w = _w + ['Binocular_Vector'];
-			_c = _c + [50];
-			_t = _t + ['Special'];
-			_r = _r + [false];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['ItemCompass'];
-			_c = _c + [4];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemGPS'];
-			_c = _c + [25];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemMap'];
-			_c = _c + [6];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemRadio'];
-			_c = _c + [15];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemWatch'];
-			_c = _c + [5];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				_curType = _t select _u;
-				if (_curType == 'Special' || _curType == 'Item') then {_curType = 'CfgWeapons'};
-				_p = _p + [getText(configFile >> _curType >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> _curType >> _x >> 'displayName')];
-				if (_curType == 'CfgMagazines') then {
-					_s = _s + [ceil(getNumber(configFile >> 'CfgMagazines' >> _x >> 'type') / 256)];
-				} else {
-					_s = _s + [1];
-				};
-				_u = _u + 1;
-			} forEach _w;
 
 			WF_Logic setVariable ['miscClasses',_w];
-			WF_Logic setVariable ['miscCosts',_c];
-			WF_Logic setVariable ['miscPictures',_p];
-			WF_Logic setVariable ['miscSpaces',_s];
-			WF_Logic setVariable ['miscNames',_d];
-			WF_Logic setVariable ['miscTypes',_t];
-			WF_Logic setVariable ['miscMain',_r];
-			WF_Logic setVariable ['miscUpgrades',_l];
-			WF_Logic setVariable ['miscAllowed',_b];
 
 			//--- Templates.
 			_items = ['ItemCompass','ItemGPS','ItemMap','ItemRadio','ItemWatch'];
@@ -5927,33 +1827,19 @@ if (WF_A2_CombinedOps) then {
 			_c = [];
 			_totalTemplates = count _d;
 
-			_primary = WF_Logic getVariable 'primaryClasses';
-			_primaryCosts = WF_Logic getVariable 'primaryCosts';
-			_secondary = WF_Logic getVariable 'secondaryClasses';
-			_secondaryCosts = WF_Logic getVariable 'secondaryCosts';
-			_sidearm = WF_Logic getVariable 'sidearmClasses';
-			_sidearmCosts = WF_Logic getVariable 'sidearmCosts';
-			_misc = WF_Logic getVariable 'miscClasses';
-			_miscCosts = WF_Logic getVariable 'miscCosts';
-			_magazine = WF_Logic getVariable 'magazineClasses';
-			_magazineCosts = WF_Logic getVariable 'magazineCosts';
-
 			for [{_count = 0},{_count < _totalTemplates},{_count = _count + 1}] do {
 				_cost = 0;
 				{
-					_index = _primary find _x;
-					if (_index != -1) then {_cost = _cost + (_primaryCosts select _index)};
-					_index = _secondary find _x;
-					if (_index != -1) then {_cost = _cost + (_secondaryCosts select _index)};
-					_index = _sidearm find _x;
-					if (_index != -1) then {_cost = _cost + (_sidearmCosts select _index)};
+					_get = (_x+"_W") Call GetNamespace;
+					if (isNil '_get') then {
+						_get = _x Call GetNamespace;
+					};
+					if !(isNil '_get') then {_cost = _cost + (_get select QUERYGEARCOST)};
 				} forEach (_t select _count);
 				
 				{
-					_index = _magazine find _x;
-					if (_index != -1) then {_cost = _cost + (_magazineCosts select _index)};
-					_index = _misc find _x;
-					if (_index != -1) then {_cost = _cost + (_miscCosts select _index)};
+					_get = _x Call GetNamespace;
+					if !(isNil '_get') then {_cost = _cost + (_get select QUERYGEARCOST)};
 				} forEach ((_m select _count) + (_s select _count) + (_i select _count));
 				
 				_c = _c + [_cost];
@@ -6011,976 +1897,158 @@ if (WF_A2_CombinedOps) then {
 	//*** EAST ***//
 	if (!isServer || local player) then {
 		if (side player == EAST) then {
-			//--- Magazines.
+			/* Magazines. */
 			_m = ["30Rnd_762x39_AK47"];
-			_c = [5];
-			_r = [false];
-			_t = ['primary'];
-			_l = [0];
-			_b = [true];
-
 			_m = _m + ["30Rnd_556x45_Stanag"];
-			_c = _c + [5];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["30Rnd_545x39_AK"];
-			_c = _c + [4];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["30Rnd_545x39_AKSD"];
-			_c = _c + [7];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["64Rnd_9x19_Bizon"];
-			_c = _c + [6];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["64Rnd_9x19_SD_Bizon"];
-			_c = _c + [8];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["100Rnd_762x54_PK"];
-			_c = _c + [12];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["75Rnd_545x39_RPK"];
-			_c = _c + [9];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["5x_22_LR_17_HMR"];
-			_c = _c + [4];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["10Rnd_762x54_SVD"];
-			_c = _c + [7];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["8Rnd_B_Saiga12_74Slug"];
-			_c = _c + [6];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["5Rnd_127x108_KSVK"];
-			_c = _c + [15];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
+			_m = _m + ["10Rnd_9x39_SP5_VSS"];
 			_m = _m + ["20Rnd_9x39_SP5_VSS"];
-			_c = _c + [9];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["10x_303"];
-			_c = _c + [2];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["30Rnd_762x39_SA58"];
-			_c = _c + [6];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["20Rnd_762x51_FNFAL"];
-			_c = _c + [4];
-			_r = _r + [false];
-			_t = _t + ['primary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["PG7V"];
-			_c = _c + [75];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["PG7VL"];
-			_c = _c + [90];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["OG7"];
-			_c = _c + [95];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [1];
-			_b = _b + [false];
-
 			_m = _m + ["PG7VR"];
-			_c = _c + [105];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [1];
-			_b = _b + [false];
-
 			_m = _m + ["RPG18"];
-			_c = _c + [50];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["Dragon_EP1"];
-			_c = _c + [220];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["AT13"];
-			_c = _c + [200];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [3];
-			_b = _b + [false];
-
 			_m = _m + ["Igla"];
-			_c = _c + [110];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_m = _m + ["Strela"];
-			_c = _c + [100];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_m = _m + ["Laserbatteries"];
-			_c = _c + [20];
-			_r = _r + [false];
-			_t = _t + ['secondary'];
-			_l = _l + [3];
-			_b = _b + [true];
-
 			_m = _m + ["6Rnd_45ACP"];
-			_c = _c + [2];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["8Rnd_9x18_Makarov"];
-			_c = _c + [2];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["8Rnd_9x18_MakarovSD"];
-			_c = _c + [3];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["10Rnd_B_765x17_Ball"];
-			_c = _c + [3];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_m = _m + ["20Rnd_B_765x17_Ball"];
-			_c = _c + [4];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["30Rnd_9x19_UZI"];
-			_c = _c + [4];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_m = _m + ["30Rnd_9x19_UZI_SD"];
-			_c = _c + [7];
-			_r = _r + [true];
-			_t = _t + ['sidearm'];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_p = [];
-			_d = [];
-			_s = [];
-
-			{
-				_p = _p + [getText(configFile >> 'CfgMagazines' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgMagazines' >> _x >> 'displayName')];
-				_s = _s + [ceil(getNumber(configFile >> 'CfgMagazines' >> _x >> 'type') / 256)];
-			} forEach _m;
 
 			WF_Logic setVariable ['magazineClasses',_m];
-			WF_Logic setVariable ['magazineCosts',_c];
-			WF_Logic setVariable ['magazinePictures',_p];
-			WF_Logic setVariable ['magazineNames',_d];
-			WF_Logic setVariable ['magazineSpaces',_s];
-			WF_Logic setVariable ['magazineMain',_r];
-			WF_Logic setVariable ['magazineTypes',_t];
-			WF_Logic setVariable ['magazineUpgrades',_l];
-			WF_Logic setVariable ['magazineAllowed',_b];
 
-			_magazinesT = _m;
-			
-			//--- Primary.
+			/* Primary. */
 			_w = ['AK_47_M'];
-			_c = [50];
-			_a = [true];
-			_l = [0];
-			_b = [true];
-
 			_w = _w + ['AK_47_S'];
-			_c = _c + [60];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['M16A2'];
-			_c = _c + [80];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['M16A2GL'];
-			_c = _c + [85];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['AK_74'];
-			_c = _c + [85];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['AK_74_GL'];
-			_c = _c + [105];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['AK_74_GL_kobra'];
-			_c = _c + [105];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['AK_107_kobra'];
-			_c = _c + [155];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['AK_107_GL_kobra'];
-			_c = _c + [180];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['AK_107_pso'];
-			_c = _c + [175];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [false];
-
 			_w = _w + ['AK_107_GL_pso'];
-			_c = _c + [200];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [false];
-			
 			_w = _w + ['AKS_74'];
-			_c = _c + [115];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['AKS_74_GOSHAWK'];
-			_c = _c + [175];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-			
 			_w = _w + ['AKS_74_kobra'];
-			_c = _c + [140];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['AKS_74_NSPU'];
-			_c = _c + [180];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
 			_w = _w + ['AKS_74_pso'];
-			_c = _c + [160];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['AKS_74_U'];
-			_c = _c + [185];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['AKS_74_UN_kobra'];
-			_c = _c + [215];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-			
 			_w = _w + ['AKS_GOLD'];
-			_c = _c + [500];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-			
 			_w = _w + ['bizon'];
-			_c = _c + [240];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['bizon_silenced'];
-			_c = _c + [275];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['FN_FAL'];
-			_c = _c + [120];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['FN_FAL_ANPVS4'];
-			_c = _c + [150];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['LeeEnfield'];
-			_c = _c + [25];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['PK'];
-			_c = _c + [280];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['Pecheneg'];
-			_c = _c + [340];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['RPK_74'];
-			_c = _c + [185];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-			
 			_w = _w + ['huntingrifle'];
-			_c = _c + [145];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['Sa58P_EP1'];
-			_c = _c + [185];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['Sa58V_EP1'];
-			_c = _c + [190];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['Sa58V_RCO_EP1'];
-			_c = _c + [200];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-			
 			_w = _w + ['Sa58V_CCO_EP1'];
-			_c = _c + [205];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['SVD'];
-			_c = _c + [210];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['SVD_des_EP1'];
-			_c = _c + [210];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['SVD_NSPU_EP1'];
-			_c = _c + [230];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-			
 			_w = _w + ['SVD_CAMO'];
-			_c = _c + [245];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-			
 			_w = _w + ['Saiga12K'];
-			_c = _c + [130];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ksvk'];
-			_c = _c + [340];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-			
 			_w = _w + ['VSS_vintorez'];
-			_c = _c + [310];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
-				//--- Custom override, nested array.
-				if (typeName(_a select _u) == 'BOOL') then {
-					_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
-					_artm = _tm;
-					{
-						if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
-					} forEach _tm;
-					_s = _s + [_artm];
-				} else {
-					_s = _s + [_a select _u];
-				};
-				_u = _u + 1;
-			} forEach _w;
 
 			WF_Logic setVariable ['primaryClasses',_w];
-			WF_Logic setVariable ['primaryCosts',_c];
-			WF_Logic setVariable ['primaryPictures',_p];
-			WF_Logic setVariable ['primaryNames',_d];
-			WF_Logic setVariable ['primaryMagazines',_s];
-			WF_Logic setVariable ['primaryUpgrades',_l];
-			WF_Logic setVariable ['primaryAllowed',_b];
 
-			//--- Secondary.
+			/* Secondary. */
 
 			_w = ['RPG7V'];
-			_c = [150];
-			_a = [true];
-			_l = [0];
-			_b = [true];
-
 			_w = _w + ['RPG18'];
-			_c = _c + [120];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['M47Launcher_EP1'];
-			_c = _c + [325];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['MetisLauncher'];
-			_c = _c + [460];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [false];
-
 			_w = _w + ['Igla'];
-			_c = _c + [350];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['Strela'];
-			_c = _c + [300];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [false];
-
 			_w = _w + ['Laserdesignator'];
-			_c = _c + [300];
-			_a = _a + [true];
-			_l = _l + [3];
-			_b = _b + [true];
 			
 			/* Not all units are able to carry a backpack */
 			_get = getNumber(configFile >> 'CfgVehicles' >> typeOf player >> 'canCarryBackPack');
 			
 			if (_get == 1) then {
 				_w = _w + ['TK_Assault_Pack_EP1'];
-				_c = _c + [80];
-				_a = _a + [-1];
-				_l = _l + [1];
-				_b = _b + [true];
-				
 				_w = _w + ['TK_RPG_Backpack_EP1'];
-				_c = _c + [70];
-				_a = _a + [-1];
-				_l = _l + [0];
-				_b = _b + [true];
-				
 				_w = _w + ['TK_ALICE_Pack_EP1'];
-				_c = _c + [90];
-				_a = _a + [-1];
-				_l = _l + [2];
-				_b = _b + [true];
-				
 				_w = _w + ['Tripod_Bag'];
-				_c = _c + [40];
-				_a = _a + [-1];
-				_l = _l + [0];
-				_b = _b + [false];
-
 				_w = _w + ['KORD_TK_Bag_EP1'];
-				_c = _c + [155];
-				_a = _a + [-1];
-				_l = _l + [0];
-				_b = _b + [false];
-				
 				_w = _w + ['KORD_high_TK_Bag_EP1'];
-				_c = _c + [190];
-				_a = _a + [-1];
-				_l = _l + [0];
-				_b = _b + [false];
-				
 				_w = _w + ['SPG9_TK_INS_Bag_EP1'];
-				_c = _c + [410];
-				_a = _a + [-1];
-				_l = _l + [1];
-				_b = _b + [false];		
-				
 				_w = _w + ['AGS_TK_Bag_EP1'];
-				_c = _c + [490];
-				_a = _a + [-1];
-				_l = _l + [1];
-				_b = _b + [false];
-
 				_w = _w + ['Metis_TK_Bag_EP1'];
-				_c = _c + [600];
-				_a = _a + [-1];
-				_l = _l + [2];
-				_b = _b + [false];
-
 				_w = _w + ['2b14_82mm_TK_Bag_EP1'];
-				_c = _c + [750];
-				_a = _a + [-1];
-				_l = _l + [1];
-				_b = _b + [false];
 			};
 
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				if (typeName(_a select _u) == 'SCALAR') then {
-					_p = _p + [getText(configFile >> 'CfgVehicles' >> _x >> 'picture')];
-					_d = _d + [getText(configFile >> 'CfgVehicles' >> _x >> 'displayName')];
-					_s = _s + [[]];
-				} else {
-					_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
-					_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
-					//--- Custom override, nested array.
-					if (typeName(_a select _u) == 'BOOL') then {
-						_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
-						_artm = _tm;
-						{
-							if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
-						} forEach _tm;
-						_s = _s + [_artm];
-					} else {
-						_s = _s + [_a select _u];
-					};
-				};
-				_u = _u + 1;
-			} forEach _w;
-
 			WF_Logic setVariable ['secondaryClasses',_w];
-			WF_Logic setVariable ['secondaryCosts',_c];
-			WF_Logic setVariable ['secondaryPictures',_p];
-			WF_Logic setVariable ['secondaryNames',_d];
-			WF_Logic setVariable ['secondaryMagazines',_s];
-			WF_Logic setVariable ['secondaryUpgrades',_l];
-			WF_Logic setVariable ['secondaryAllowed',_b];
 
-			//--- Sidearms.
-
+			/* Sidearms. */
 			_w = ['Makarov'];
-			_c = [8];
-			_a = [true];
-			_l = [0];
-			_b = [true];
-
 			_w = _w + ['revolver_EP1'];
-			_c = _c + [10];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['revolver_gold_EP1'];
-			_c = _c + [100];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-			
 			_w = _w + ['MakarovSD'];
-			_c = _c + [15];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['Sa61_EP1'];
-			_c = _c + [25];
-			_a = _a + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-			
 			_w = _w + ['UZI_EP1'];
-			_c = _c + [55];
-			_a = _a + [true];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['UZI_SD_EP1'];
-			_c = _c + [65];
-			_a = _a + [true];
-			_l = _l + [2];
-			_b = _b + [true];
-
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				_p = _p + [getText(configFile >> 'CfgWeapons' >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> 'CfgWeapons' >> _x >> 'displayName')];
-				//--- Custom override, nested array.
-				if (typeName(_a select _u) == 'BOOL') then {
-					_tm = getArray(configFile >> 'CfgWeapons' >> _x >> 'magazines');
-					_artm = _tm;
-					{
-						if (!(_x in _magazinesT)) then {_artm = _artm - [_x]};
-					} forEach _tm;
-					_s = _s + [_artm];
-				} else {
-					_s = _s + [_a select _u];
-				};
-				_u = _u + 1;
-			} forEach _w;
 
 			WF_Logic setVariable ['sidearmClasses',_w];
-			WF_Logic setVariable ['sidearmCosts',_c];
-			WF_Logic setVariable ['sidearmPictures',_p];
-			WF_Logic setVariable ['sidearmNames',_d];
-			WF_Logic setVariable ['sidearmMagazines',_s];
-			WF_Logic setVariable ['sidearmUpgrades',_l];
-			WF_Logic setVariable ['sidearmAllowed',_b];
 
-			//--- Misc.
-			
+			/* Misc. */
 			_w = ['HandGrenade_East'];
-			_c = [10];
-			_t = ['CfgMagazines'];
-			_r = [false];
-			_l = [0];
-			_b = [true];
-
 			_w = _w + ['HandGrenade_Stone'];
-			_c = _c + [2];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShell'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellRed'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellGreen'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellBlue'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellYellow'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellOrange'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['SmokeShellPurple'];
-			_c = _c + [8];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareWhite_GP25'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareYellow_GP25'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareGreen_GP25'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['FlareRed_GP25'];
-			_c = _c + [9];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_HE_M203'];
-			_c = _c + [15];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_HE_GP25'];
-			_c = _c + [15];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_SMOKE_GP25'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_SMOKERED_GP25'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_SMOKEGREEN_GP25'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['1Rnd_SMOKEYELLOW_GP25'];
-			_c = _c + [12];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [true];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['MineE'];
-			_c = _c + [40];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['PipeBomb'];
-			_c = _c + [50];
-			_t = _t + ['CfgMagazines'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['Binocular'];
-			_c = _c + [10];
-			_t = _t + ['Special'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['NVGoggles'];
-			_c = _c + [20];
-			_t = _t + ['Special'];
-			_r = _r + [false];
-			_l = _l + [1];
-			_b = _b + [true];
-			
 			_w = _w + ['Binocular_Vector'];
-			_c = _c + [50];
-			_t = _t + ['Special'];
-			_r = _r + [false];
-			_l = _l + [1];
-			_b = _b + [true];
-
 			_w = _w + ['ItemCompass'];
-			_c = _c + [4];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemGPS'];
-			_c = _c + [25];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemMap'];
-			_c = _c + [6];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemRadio'];
-			_c = _c + [15];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
 			_w = _w + ['ItemWatch'];
-			_c = _c + [5];
-			_t = _t + ['Item'];
-			_r = _r + [false];
-			_l = _l + [0];
-			_b = _b + [true];
-
-			_p = [];
-			_d = [];
-			_s = [];
-			_u = 0;
-
-			{
-				_curType = _t select _u;
-				if (_curType == 'Special' || _curType == 'Item') then {_curType = 'CfgWeapons'};
-				_p = _p + [getText(configFile >> _curType >> _x >> 'picture')];
-				_d = _d + [getText(configFile >> _curType >> _x >> 'displayName')];
-				if (_curType == 'CfgMagazines') then {
-					_s = _s + [ceil(getNumber(configFile >> 'CfgMagazines' >> _x >> 'type') / 256)];
-				} else {
-					_s = _s + [1];
-				};
-				_u = _u + 1;
-			} forEach _w;
 
 			WF_Logic setVariable ['miscClasses',_w];
-			WF_Logic setVariable ['miscCosts',_c];
-			WF_Logic setVariable ['miscPictures',_p];
-			WF_Logic setVariable ['miscSpaces',_s];
-			WF_Logic setVariable ['miscNames',_d];
-			WF_Logic setVariable ['miscTypes',_t];
-			WF_Logic setVariable ['miscMain',_r];
-			WF_Logic setVariable ['miscUpgrades',_l];
-			WF_Logic setVariable ['miscAllowed',_b];
 
 			//--- Templates.
 			_items = ['ItemCompass','ItemGPS','ItemMap','ItemRadio','ItemWatch'];
@@ -7092,7 +2160,7 @@ if (WF_A2_CombinedOps) then {
 			_m = _m + [['10Rnd_762x54_SVD','10Rnd_762x54_SVD','10Rnd_762x54_SVD','10Rnd_762x54_SVD','10Rnd_762x54_SVD','10Rnd_762x54_SVD','10Rnd_762x54_SVD','10Rnd_762x54_SVD',
 				'10Rnd_762x54_SVD','10Rnd_762x54_SVD','HandGrenade_East','HandGrenade_East','8Rnd_9x18_MakarovSD','8Rnd_9x18_MakarovSD','8Rnd_9x18_MakarovSD','8Rnd_9x18_MakarovSD','8Rnd_9x18_MakarovSD',
 				'8Rnd_9x18_MakarovSD','8Rnd_9x18_MakarovSD','8Rnd_9x18_MakarovSD']];
-			_s = _s + [['Binocular_Vector']];
+			_s = _s + [['Binocular']];
 			_i = _i + [_items];
 			_l = _l + [0];
 			_b = _b + [true];
@@ -7122,33 +2190,19 @@ if (WF_A2_CombinedOps) then {
 			_c = [];
 			_totalTemplates = count _d;
 
-			_primary = WF_Logic getVariable 'primaryClasses';
-			_primaryCosts = WF_Logic getVariable 'primaryCosts';
-			_secondary = WF_Logic getVariable 'secondaryClasses';
-			_secondaryCosts = WF_Logic getVariable 'secondaryCosts';
-			_sidearm = WF_Logic getVariable 'sidearmClasses';
-			_sidearmCosts = WF_Logic getVariable 'sidearmCosts';
-			_misc = WF_Logic getVariable 'miscClasses';
-			_miscCosts = WF_Logic getVariable 'miscCosts';
-			_magazine = WF_Logic getVariable 'magazineClasses';
-			_magazineCosts = WF_Logic getVariable 'magazineCosts';
-
 			for [{_count = 0},{_count < _totalTemplates},{_count = _count + 1}] do {
 				_cost = 0;
 				{
-					_index = _primary find _x;
-					if (_index != -1) then {_cost = _cost + (_primaryCosts select _index)};
-					_index = _secondary find _x;
-					if (_index != -1) then {_cost = _cost + (_secondaryCosts select _index)};
-					_index = _sidearm find _x;
-					if (_index != -1) then {_cost = _cost + (_sidearmCosts select _index)};
+					_get = (_x+"_W") Call GetNamespace;
+					if (isNil '_get') then {
+						_get = _x Call GetNamespace;
+					};
+					if !(isNil '_get') then {_cost = _cost + (_get select QUERYGEARCOST)};
 				} forEach (_t select _count);
 				
 				{
-					_index = _magazine find _x;
-					if (_index != -1) then {_cost = _cost + (_magazineCosts select _index)};
-					_index = _misc find _x;
-					if (_index != -1) then {_cost = _cost + (_miscCosts select _index)};
+					_get = _x Call GetNamespace;
+					if !(isNil '_get') then {_cost = _cost + (_get select QUERYGEARCOST)};
 				} forEach ((_m select _count) + (_s select _count) + (_i select _count));
 				
 				_c = _c + [_cost];

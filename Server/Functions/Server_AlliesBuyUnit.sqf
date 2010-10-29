@@ -1,4 +1,4 @@
-Private ["_building","_built","_crew","_direction","_distance","_factoryType","_id","_index","_isVehicle","_longest","_position","_queu","_queu2","_ret","_side","_sideText","_soldier","_team","_type","_unitType","_vehicle","_waitTime"];
+Private ["_building","_built","_crew","_direction","_dir","_distance","_factoryType","_id","_index","_isVehicle","_longest","_position","_queu","_queu2","_ret","_side","_sideText","_soldier","_team","_type","_unitType","_vehicle","_waitTime"];
 _id = _this select 0;
 _building = _this select 1;
 _unitType = _this select 2;
@@ -91,7 +91,10 @@ if (_unitType isKindOf "Man") then {
 	_vehicle setDir -((((_position select 1) - (_factoryPosition select 1)) atan2 ((_position select 0) - (_factoryPosition select 0))) - 90);
 	_vehicle setVelocity [0,0,-1];
 	//--- AI Can fly...? (*roll eyes at the harriers*).
-	if (_vehicle isKindOf "Plane") then {_vehicle setPos [_position select 0,_position select 1,1500]};
+	if (_vehicle isKindOf "Plane") then {
+		_vehicle setPos [_position select 0,_position select 1,1500];
+		_vehicle setVelocity [sin _dir * 250,cos _dir * 250,0];
+	};
 	
 	/* Clear the vehicle */
 	clearWeaponCargo _vehicle;

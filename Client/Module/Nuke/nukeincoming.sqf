@@ -4,7 +4,7 @@ _nukeMarker = _this select 1;
 
 WFBE_LocalizeMessage = [nil,'CLTFNCLOCALIZEMESSAGE',['TacticalLaunch']];
 publicVariable 'WFBE_LocalizeMessage';
-if (!isMultiplayer || local player) then {[nil,'CLTFNCLOCALIZEMESSAGE',['TacticalLaunch']] Spawn HandlePVF};
+if (!isMultiplayer || (isServer && local player) || local player) then {[nil,'CLTFNCLOCALIZEMESSAGE',['TacticalLaunch']] Spawn HandlePVF};
 
 sleep 300;
 
@@ -22,13 +22,13 @@ _cruise setSpeedMode "FULL";
 
 WFBE_RequestSpecial = ['SRVFNCREQUESTSPECIAL',["ICBM",sideJoined,_target,_cruise,clientTeam]];
 publicVariable 'WFBE_RequestSpecial';
-if !(isMultiplayer) then {['SRVFNCREQUESTSPECIAL',["ICBM",sideJoined,_target,_cruise,clientTeam]] Spawn HandleSPVF};
+if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTSPECIAL',["ICBM",sideJoined,_target,_cruise,clientTeam]] Spawn HandleSPVF};
 
 sleep 1.5;
 
 WFBE_DisplayICBM = [sideJoined,'CLTFNCDISPLAYICBM',[_target,_cruise]];
 publicVariable 'WFBE_DisplayICBM';
-if (!isMultiplayer || local player) then {[sideJoined,'CLTFNCDISPLAYICBM',[_target,_cruise]] Spawn HandlePVF};
+if (!isMultiplayer || (isServer && local player) || local player) then {[sideJoined,'CLTFNCDISPLAYICBM',[_target,_cruise]] Spawn HandlePVF};
 
 _misFlare = objNull;
 if (WF_A2_Vanilla || WF_A2_CombinedOps) then {

@@ -59,7 +59,7 @@ if (_defense EmptyPositions "gunner" > 0 && paramAutoDefense) then {
 	if (_manned) then {
 		_alives = (units _team) Call GetLiveUnits;
 		if (count _alives < ('WFBE_MAXAIDEFENSE' Call GetNamespace)) then {
-			_buildings = WF_Logic getVariable Format ["%1BaseStructures",str _side];
+			_buildings = (str _side) Call GetSideStructures;
 			_check = ['BARRACKSTYPE',_buildings,'WFBE_DEFENSEMANRANGE' Call GetNamespace,_side,_defense] Call BuildingInRange;
 			_closest = _check select 0;
 			_barrackNearby = _check select 1;

@@ -213,7 +213,7 @@ class FSM
        "_camp setVariable [""sideID"",_captureSideID,true];" \n
 	   "WFBE_CampCaptured = [nil,'CLTFNCCAMPCAPTURED',[_town,_captureSideID,_camp]];" \n
 	   "publicVariable 'WFBE_CampCaptured';" \n
-	   "if !(isMultiplayer) then {[nil,'CLTFNCCAMPCAPTURED',[_town,_captureSideID,_camp]] Spawn HandlePVF};" \n
+	   "if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCCAMPCAPTURED',[_town,_captureSideID,_camp]] Spawn HandlePVF};" \n
        "_side = _captureSideID Call GetSideFromID;" \n
        "if (_captureSideID != RESISTANCEID) then {[""CapturedNear"",""Strongpoint"",_side,_town] Spawn SideMessage};" \n
        "_texture = Format[""WFBE_%1FLAG"",str _side] Call GetNamespace;" \n

@@ -70,7 +70,7 @@ if (isNil '_get') exitWith {
 	*/
 	[Format["WFBE_JIP_USER%1",_uid],[_uid,_slotIndex,0,_side,_side,if (mysql) then {round(time)} else {0}],true] Call SetNamespace;
 
-	_team setVariable ['funds',Format ["WFBE_%1STARTINGMONEY",str _side] Call GetNamespace,true];
+	Call Compile Format ["%1Funds%2 = %3; publicVariable '%1Funds%2';",str _side,_slotIndex+1,Format ["WFBE_%1STARTINGMONEY",str _side] Call GetNamespace];
 };
 
 //--- Player d/c before, update info.
@@ -105,4 +105,4 @@ if (_sideLeft != _side) then {
 };
 
 //--- Set the cash.
-_team setVariable ["funds",_funds,true];
+Call Compile Format ["%1Funds%2 = _funds; publicVariable '%1Funds%2';",str _side,_slotIndex+1];

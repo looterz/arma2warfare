@@ -189,8 +189,8 @@ class Params {
 	};
 	class environmentWeather {
 		title = "$STR_WF_Gameplay_Weather";
-		values[] = {0,1};
-		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		values[] = {0,1,2,3};
+		texts[] = {"$STR_WF_Weather_Clear","$STR_WF_Weather_Cloudy","$STR_WF_Weather_Rainny","$STR_WF_Weather_Dynamic"};
 		default = 0;
 	};
 	#ifndef VANILLA
@@ -261,12 +261,6 @@ class Params {
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 1;
 	};
-	class gameplaySpacebarScanning {
-		title = "$STR_WF_Gameplay_Spacebar";
-		values[] = {0,1};
-		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 1;
-	};
 	class gameplayTrackAI {
 		title = "$STR_WF_Gameplay_TrackAI";
 		values[] = {0,1};
@@ -327,6 +321,24 @@ class Params {
 		texts[] = {"200m","500m","800m","1000m","1500m","2000m","2500m","3000m","3500m","4000m"};
 		default = 4000;
 	};
+	class keyboardLockTargets {
+		title = "$STR_WF_Gameplay_TabLock";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 1;
+	};
+	class keyboardSpacebarScanning {
+		title = "$STR_WF_Gameplay_Spacebar";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 1;
+	};
+	class keyboardTacticalView {
+		title = "$STR_WF_Gameplay_TacticalView";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 1;
+	};
 	#ifdef VANILLA
 		class moduleCM {
 			title = "$STR_WF_Gameplay_Countermeasures";
@@ -384,12 +396,6 @@ class Params {
 		"55 Seconds","60 Seconds","65 Seconds","70 Seconds","75 Seconds","80 Seconds","85 Seconds","90 Seconds"};
 		default = 30;
 	};
-	class respawnGear {
-		title = "$STR_WF_Gameplay_GearOnRespawn";
-		values[] = {0,1};
-		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 1;
-	};
 	class respawnMASH {
 		title = "$STR_WF_Gameplay_Respawn_MASH";
 		values[] = {0,1};
@@ -401,6 +407,12 @@ class Params {
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 1;
+	};
+	class respawnPenalty {
+		title = "$STR_WF_Respawn_Penalty";
+		values[] = {0,1,2,3,4};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Respawn_Penalty_Remove","$STR_WF_Respawn_Penalty_Full","$STR_WF_Respawn_Penalty_OneHalf","$STR_WF_Respawn_Penalty_OneFourth"};
+		default = 0;
 	};
 	class respawnTownsRange {
 		title = "$STR_WF_Gameplay_TownRespawnRange";
@@ -490,6 +502,12 @@ class Params {
 	};
 	class townsResistanceReinforcement {
 		title = "$STR_WF_Gameplay_Reinforcement_Resistance";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 0;
+	};
+	class townsResistanceVehicleLock {
+		title = "$STR_WF_Gameplay_Resistance_VehLock";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 0;

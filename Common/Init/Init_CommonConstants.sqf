@@ -1,15 +1,8 @@
-//--- DO NOT CHANGE!
+/* DO NOT CHANGE! */
 EASTID = 128;
 WESTID = 256;
 RESISTANCEID = 512;
-CMDPARAMETERBIT0 = 1024;
-CMDPARAMETERBIT1 = 2048;
-//--- DO NOT CHANGE!
-CMD0PARAMETERS = 0;
-CMD1PARAMETERS = CMDPARAMETERBIT0;
-CMD2PARAMETERS = CMDPARAMETERBIT1;
-CMD3PARAMETERS = CMDPARAMETERBIT0 + CMDPARAMETERBIT1;
-//--- DO NOT CHANGE!
+/* DO NOT CHANGE! */
 QUERYUNITLABEL = 0;
 QUERYUNITPICTURE = 1;
 QUERYUNITPRICE = 2;
@@ -19,6 +12,17 @@ QUERYUNITUPGRADE = 5;
 QUERYUNITFACTORY = 6;
 QUERYUNITSKILL = 7;
 QUERYUNITFACTION = 8;
+/* DO NOT CHANGE! */
+QUERYGEARLABEL = 0;
+QUERYGEARPICTURE = 1;
+QUERYGEARCLASS = 2;
+QUERYGEARTYPE = 3;
+QUERYGEARCOST = 4;
+QUERYGEARUPGRADE = 5;
+QUERYGEARALLOWED = 6;
+QUERYGEARHANDGUNPOOL = 7;
+QUERYGEARMAGAZINES = 8;
+QUERYGEARSPACE = 9;
 
 /* IMPORTANT: New Getter/Setter, variable are stored into missionNamespace, the true/false variable define whether we shall override an existing variable or not */
 //--- How long a vehicle last empty before being sweeped.
@@ -103,6 +107,8 @@ if (WF_A2_CombinedOps) then {
 ['WFBE_INCOMEINTERVAL',60,false] Call SetNamespace;
 //--- Income System (1:Full, 2:Half (Half -> 120 SV Town = 60$ / 60SV))
 ['WFBE_INCOMESYSTEM',1,false] Call SetNamespace;
+//--- Infantry Base Cost.
+['WFBE_INFANTRYBASECOST',50,false] Call SetNamespace;
 //--- Time that a marker remain on a dead unit.
 ['WFBE_MARKERDEADDELAY',60,true] Call SetNamespace;
 //--- Maximum AIs that will be able to man defense within the barracks area.
@@ -154,6 +160,8 @@ if (WF_A2_CombinedOps) then {['WFBE_RESISTANCEFACTION',1,false] Call SetNamespac
 ['WFBE_RESISTANCEINACTIVETIME',400,true] Call SetNamespace;
 //--- Respawn Delay (Players/AI).
 ['WFBE_RESPAWNDELAY',30,false] Call SetNamespace;
+//--- Respawn Penalty (0: None, 1: Remove All, 2: Pay full gear price, 3: Pay 1/2 gear price, 4: pay 1/4 gear price).
+['WFBE_RESPAWNPENALTY',0,false] Call SetNamespace;
 //--- How far a player need to be from a town to spawn at camps.
 ['WFBE_RESPAWNRANGE',550,false] Call SetNamespace;
 ['WFBE_RESPAWNMINRANGE',50,true] Call SetNamespace;
@@ -247,11 +255,22 @@ if (WF_DEBUG) then {
 } else 
 { 	['WFBE_VOTETIME',60,true] Call SetNamespace; };
 
+//--- Weather Type, 0: Clear, 1: Cloudy, 2: Rainny, 3: Dynamic)
+['WFBE_WEATHER',0,false] Call SetNamespace;
 //--- Weather Transition period (longer is more realistic).
 ['WFBE_WEATHERTRANSITION',600,true] Call SetNamespace;
 //--- Proper worlds (Radio town localization).
 ['WFBE_WORLDWHITELISTOA',["Zargabad","Takistan"],true] Call SetNamespace;
 ['WFBE_WORLDWHITELISTVA',["chernarus","utes"],true] Call SetNamespace;
+
+//--- Construction Module, Flat Detection.
+if (WF_A2_Vanilla) then {
+	['WFBE_COINMINDISTANCE',4,true] Call SetNamespace;
+	['WFBE_COINMAXGRADIENT',0.7,true] Call SetNamespace;
+} else {
+	['WFBE_COINMINDISTANCE',8,true] Call SetNamespace;
+	['WFBE_COINMAXGRADIENT',0.6,true] Call SetNamespace;
+};
 
 //--- Resistance Island Patrol System.
 ['WFBE_RESPATROLINTERVAL',1200,true] Call SetNamespace;
@@ -317,9 +336,6 @@ if (WF_A2_Arrowhead || _resType == 1) then {
 ['WFBE_UPGRADEPRICESLEVEL2',[[400,1150],[800,2450],[2100,4750],[4600,9900],[3800,8700],[],[3600,12400],[700,2400],[],[],[1800,4400],[],[],[650,2550],[],[],[]],true] Call SetNamespace;
 ['WFBE_UPGRADEPRICESLEVEL3',[[500,1620],[1000,3400],[2400,6050],[5500,10750],[4400,9800],[],[],[],[],[],[3000,7500],[],[],[1400,4250],[],[],[]],true] Call SetNamespace;
 //--- Time required per upgrade.
-//['WFBE_UPGRADETIMESLEVEL1',[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],true] Call SetNamespace;
-//['WFBE_UPGRADETIMESLEVEL2',[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],true] Call SetNamespace;
-//['WFBE_UPGRADETIMESLEVEL3',[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],true] Call SetNamespace;
 ['WFBE_UPGRADETIMESLEVEL1',[160,210,320,420,340,260,310,175,195,320,220,850,260,180,170,420,380],true] Call SetNamespace;
 ['WFBE_UPGRADETIMESLEVEL2',[220,250,340,455,370,0,420,220,0,0,260,0,0,260,0,0,0],true] Call SetNamespace;
 ['WFBE_UPGRADETIMESLEVEL3',[240,290,360,495,390,0,0,0,0,0,320,0,0,340,0,0,0],true] Call SetNamespace;

@@ -4,13 +4,13 @@ _blist = _this Select 1;
 [_side] ExecVM "Client\GUI\GUI_EndOfGameStats.sqf";
 _track = if (WF_A2_Vanilla) then {"Track21_Rise_Of_The_Fallen"} else {"EP1_Track15"};
 playMusic _track;
-_base = WF_Logic getVariable "WestMHQ";
-_secTarget = WF_Logic getVariable "EastMHQ";
-if (_side == West) then {_base = WF_Logic getVariable "EastMHQ";_secTarget = WF_Logic getVariable "WestMHQ"};
+_base = WestMHQ;
+_secTarget = EastMHQ;
+if (_side == West) then {_base = EastMHQ;_secTarget = WestMHQ};
 _position = getPos _base;
 
 //--- Safety Pos.
-_HQ = WF_Logic getVariable Format ["%1MHQ",sideJoined];
+_HQ = (sideJoinedText) Call GetSideHQ;
 _vehi = vehicle player;
 if (_vehi != player) then {player action ["EJECT", _vehi];_vehi = player};
 _vehi setPos ([getPos _HQ,20,30] Call GetRandomPosition);

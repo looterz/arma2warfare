@@ -4,16 +4,22 @@ _town = _this Select 1;
 waitUntil {townModeSet};
 if (isNull _town) exitWith {
 	if (isServer && !isNull _camp) then {
-		_defenses = _camp nearEntities[["GUE_WarfareBMGNest_PK","WarfareBMGNest_PK_TK_GUE_EP1"],200];
+		(getPos _camp) Spawn {
+			waitUntil {commonInitComplete};
+			_defenses = _this nearEntities[('WFBE_RESISTANCEDEFENSENAMES' Call GetNamespace),250];
 		{deleteVehicle _x} forEach _defenses;
+		};
 		deleteVehicle _camp;
 	};
 };
 if ((str _town) in TownTemplate) exitWith {
 	if (isServer) then {
 		diag_log Format ["[WFBE (INIT)] Init_Camp.sqf: Removing camp %1 (%2) since the town is removed in the towns templates.",_camp,str _town];
-		_defenses = _camp nearEntities[["GUE_WarfareBMGNest_PK","WarfareBMGNest_PK_TK_GUE_EP1"],200];
+		(getPos _camp) Spawn {
+			waitUntil {commonInitComplete};
+			_defenses = _this nearEntities[('WFBE_RESISTANCEDEFENSENAMES' Call GetNamespace),250];
 		{deleteVehicle _x} forEach _defenses;
+		};
 		deleteVehicle _camp;
 	};
 };

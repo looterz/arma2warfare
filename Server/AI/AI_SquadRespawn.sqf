@@ -1,4 +1,4 @@
-Private ["_buildings","_closestRespawn","_deathLoc","_leader","_order","_orderAI","_pos","_rd","_rmr","_rr","_respawn","_respawnLoc","_side","_sideText","_slot","_team","_upgrades"];
+Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr","_rr","_respawn","_respawnLoc","_side","_sideText","_slot","_team","_upgrades"];
 _side = _this select 0;
 _team = _this select 1;
 _slot = _this select 2;
@@ -6,7 +6,6 @@ _sideText = str _side;
 _deathLoc = objNull;
 _respawnLoc = objNull;
 
-_orderAI = Format ["%1AITeam%2Order",_sideText,_slot + 1];
 _rd = 'WFBE_RESPAWNDELAY' Call GetNamespace;
 _rr = 'WFBE_RESPAWNRANGE' Call GetNamespace;
 _rmr = 'WFBE_RESPAWNMINRANGE' Call GetNamespace;
@@ -23,9 +22,7 @@ while {!gameOver} do {
 	if (isPlayer leader _team) exitWith {};
 	waitUntil {alive leader _team || isPlayer leader _team};
 	if (isPlayer leader _team) exitWith {};
-	
-	_order = Call Compile _orderAI;
-	Call Compile Format ["%1 = ''",_orderAI];
+
 	_respawn = (_team) Call GetTeamRespawn;
 	
 	//--- Place the AI.
@@ -57,7 +54,7 @@ while {!gameOver} do {
 		};
 	};
 	
-	_upgrades = WF_Logic getVariable Format ["%1Upgrades",_sideText];
+	_upgrades = (_sideText) Call GetSideUpgrades;
 	
 	//--- Mobile Respawn.
 	if (paramMobileRespawn && _respawn != "forceRespawn") then {
@@ -74,8 +71,8 @@ while {!gameOver} do {
 	//--- Equip the AI.
 	_ran = 1 + round(random(2));
 	[_leader,Format ["WFBE_%1LEADERWEAPONS%2%3",_sideText,_upgrades select 13,_ran] Call GetNamespace, Format ["WFBE_%1LEADERAMMO%2%3",_sideText,_upgrades select 13,_ran] Call GetNamespace] Call EquipLoadout;
-	_hq = WF_Logic getVariable Format ["%1MHQ",_sideText];
-	_buildings = WF_Logic getVariable Format ["%1BaseStructures",_sideText];
+	_hq = (_sideText) Call GetSideHQ;
+	_buildings = (_sideText) Call GetSideStructures;
 
 	//--- Check whether AI has a spawn set or not.
 	_update = false;
@@ -110,6 +107,4 @@ while {!gameOver} do {
 	_pos = [getPos _respawnLoc,20,30] Call GetRandomPosition;
 	_pos set [2,0];
 	_leader setPos _pos;
-	
-	Call Compile Format ["%1 = _order",_orderAI];
 };

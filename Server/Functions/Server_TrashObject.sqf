@@ -1,3 +1,12 @@
+/* 
+	Author: Benny
+	Name: Server_TrashObject.sqf
+	Parameters:
+	  0 - Object
+	Description:
+	  This function will remove an object after the defined amount of time.
+*/
+
 Private ["_alive","_group","_isMan","_object"];
 _object = _this;
 

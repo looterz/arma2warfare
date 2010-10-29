@@ -10,12 +10,7 @@ if (side _team == west || side _team == east) then {
 };
 
 //--- Override.
-if (_update) then {
-	_team setFormation "LINE";
-	_team setBehaviour "SAFE";
-	_team setSpeedMode "LIMITED";
-	_team setCombatMode "YELLOW";
-};
+if (_update) then {_team Call UpdateTeam};
 
 _maxWaypoints = 8;
 _wps = [];

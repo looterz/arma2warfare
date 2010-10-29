@@ -93,6 +93,9 @@ _i = _i + [['','',15,0,0,0,'Strategic',0,'Civilians']];
 _c = _c + ['MASH'];
 _i = _i + [['','',30,0,0,0,'Strategic',0,'Civilians']];
 
+_c = _c + ['Land_Campfire'];
+_i = _i + [['','',3,0,0,0,'Strategic',0,'Civilians']];
+
 _c = _c + ['Base_WarfareBBarrier5x'];
 _i = _i + [['','',15,0,0,0,'Fortification',0,'Civilians']];
 

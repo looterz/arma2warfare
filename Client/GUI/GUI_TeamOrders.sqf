@@ -40,11 +40,11 @@ _index = (_team) Call GetTeamType;
 if (_index == -1) then {_index = 1};
 lbSetCurSel [14010,_index];
 
-_txt = Call Compile Format ["%1AITeam%2Order",sideJoinedText,1];
-if (_txt == "" || _txt == "TAKETOWNS") then {_txt = localize "STR_WF_Mission" + ": " + localize "STR_WF_TakeTowns"};
-if (_txt == "MOVE") then {_txt = localize "STR_WF_Mission" + ": " + localize "STR_WF_Move"};
-if (_txt == "PATROL") then {_txt = localize "STR_WF_Mission" + ": " + localize "STR_WF_Patrol"};
-if (_txt == "DEFENSE") then {_txt = localize "STR_WF_Mission" + ": " + localize "STR_WF_Defense"};
+_txt = (_team) Call GetTeamMoveMode;
+if (_txt == "" || _txt == "towns") then {_txt = localize "STR_WF_Mission" + ": " + localize "STR_WF_TakeTowns"};
+if (_txt == "move") then {_txt = localize "STR_WF_Mission" + ": " + localize "STR_WF_Move"};
+if (_txt == "patrol") then {_txt = localize "STR_WF_Mission" + ": " + localize "STR_WF_Patrol"};
+if (_txt == "defense") then {_txt = localize "STR_WF_Mission" + ": " + localize "STR_WF_Defense"};
 ctrlSetText [14013,_txt];
 
 _map = _display displayCtrl 14002;
@@ -66,9 +66,9 @@ _speeds = ["LIMITED","FULL","NORMAL"];
 {lbAdd [14020, _x]} forEach _speeds;
 
 _structures = [""];
-_hq = WF_Logic getVariable Format ["%1MHQ",sideJoinedText];
+_hq = (sideJoinedText) Call GetSideHQ;
 if (alive _hq) then {_structures = _structures + [_hq]};
-_structures = _structures + (WF_Logic getVariable Format ["%1BaseStructures",sideJoinedText]);
+_structures = _structures + ((sideJoinedText) Call GetSideStructures);
 _structuresLbl = ["Default"];
 lbAdd[14025,"Default"];
 
@@ -131,7 +131,7 @@ _fillList = {
 
 while {alive player && dialog} do {
 	sleep 0.1;
-	if (Side player != sideJoined) exitWith {activeAnimMarker = false;closeDialog 0};
+	if (side player != sideJoined) exitWith {activeAnimMarker = false;closeDialog 0};
 	if (!dialog) exitWith {activeAnimMarker = false};
 
 	if (MenuAction == 601) then {if (_mode != 0) then {_updateTab = true};_mode = 0};//--- Team properties.
@@ -184,11 +184,11 @@ while {alive player && dialog} do {
 		_updateTab = false;
 	};
 	
-	_txt = Call Compile Format ["%1AITeam%2Order",sideJoinedText,_curSel];
-	if (_txt == "" || _txt == "TAKETOWNS") then {_txt = localize "STR_WF_Mission" + ": " + localize "STR_WF_TakeTowns"};
-	if (_txt == "MOVE") then {_txt = localize "STR_WF_Mission" + ": " + localize "STR_WF_Move"};
-	if (_txt == "PATROL") then {_txt = localize "STR_WF_Mission" + ": " + localize "STR_WF_Patrol"};
-	if (_txt == "DEFENSE") then {_txt = localize "STR_WF_Mission" + ": " + localize "STR_WF_Defense"};
+	_txt = (_team) Call GetTeamMoveMode;
+	if (_txt == "" || _txt == "towns") then {_txt = localize "STR_WF_Mission" + ": " + localize "STR_WF_TakeTowns"};
+	if (_txt == "move") then {_txt = localize "STR_WF_Mission" + ": " + localize "STR_WF_Move"};
+	if (_txt == "patrol") then {_txt = localize "STR_WF_Mission" + ": " + localize "STR_WF_Patrol"};
+	if (_txt == "defense") then {_txt = localize "STR_WF_Mission" + ": " + localize "STR_WF_Defense"};
 	ctrlSetText [14013,_txt];
 	
 	//--- Team Funds.
@@ -201,14 +201,13 @@ while {alive player && dialog} do {
 		_map ctrlMapAnimAdd [2,.075,getPos(leader _team)];
 		ctrlMapAnimCommit _map;
 		_index = (_team) Call GetTeamType;
-		_u = if (_isAll) then {1} else {_curSel};
-		_currentCoord = Call Compile Format ["%1AITeam%2Coord",sideJoinedText,_u];
-		_currentMission = Call Compile Format ["%1AITeam%2Order",sideJoinedText,_u];
+		_currentCoord = (_team) Call GetTeamMovePos;
+		_currentMission = (_team) Call GetTeamMoveMode;
 		if (count _currentCoord > 0) then {
 			_position = _currentCoord;
-			if (_currentMission == "MOVE") then {["TempAnim",_position,"selector_selectedMission",1,"ColorOrange"] Spawn MarkerAnim};
-			if (_currentMission == "PATROL") then {["TempAnim",_position,"selector_selectedMission",1,"ColorYellow","areaPatrol"] Spawn MarkerAnim};
-			if (_currentMission == "DEFENSE") then {["TempAnim",_position,"selector_selectedMission",1,"ColorRed"] Spawn MarkerAnim};
+			if (_currentMission == "move") then {["TempAnim",_position,"selector_selectedMission",1,"ColorOrange"] Spawn MarkerAnim};
+			if (_currentMission == "patrol") then {["TempAnim",_position,"selector_selectedMission",1,"ColorYellow","areaPatrol"] Spawn MarkerAnim};
+			if (_currentMission == "defense") then {["TempAnim",_position,"selector_selectedMission",1,"ColorRed"] Spawn MarkerAnim};
 		};
 		
 		_enable = if (isPlayer(leader _team)) then {false} else {true};
@@ -245,11 +244,9 @@ while {alive player && dialog} do {
 	if (MenuAction == 101) then {
 		MenuAction = -1;
 		if (!_isAll) then {
-			Call Compile Format ["%1AITeam%2Order = 'TAKETOWNS';publicVariable '%1AITeam%2Order'",sideJoinedText,_curSel];
+			[_team,'towns'] Call SetTeamMoveMode;
 		} else {
-			for [{_x = 1},{_x < (maxPlayers+1)},{_x = _x + 1}] do {
-				Call Compile Format ["%1AITeam%2Order = 'TAKETOWNS';publicVariable '%1AITeam%2Order'",sideJoinedText,_x];
-			};
+			{[_x,'towns'] Call SetTeamMoveMode} forEach clientTeams;
 		};
 		activeAnimMarker = false;
 	};
@@ -269,27 +266,26 @@ while {alive player && dialog} do {
 			MenuAction = -1;
 			_position = _map posScreenToWorld[mouseX,mouseY];
 			
-			[_curSel,_position,_order,_isAll] Spawn {
-				Private ["_curSel","_isAll","_order","_position","_radio","_radioLabel"];
+			[_curSel,_position,_order,_isAll,_team] Spawn {
+				Private ["_curSel","_isAll","_order","_position","_radio","_radioLabel","_team"];
 				_curSel = _this select 0;
 				_position = _this select 1;
 				_order = _this select 2;
 				_isAll = _this select 3;
+				_team = _this select 4;
 				_radio = ["all","alpha","bravo","charlie","delta","echo","foxtrot","golf","hotel","india","juliet","kilo","lima","mike","november","oscar","papa"];
 				_radioLabel = ["All","Alpha","Bravo","Charlie","Delta","Echo","Foxtrot","Golf","Hotel","India","Juliet","Kilo","Lima","Mike","November","Oscar","Papa"];
 				
 				if (!_isAll) then {
 					player kbTell [sideHQ, (sideHQ getVariable "_topic_identity"), "OrderSent",["1","",(_radioLabel select _curSel),[(_radio select _curSel)]],["2","","one",["one2"]],["3","","moving to position",["HC_MovingToPosition"]],["4","","over.",["Over1"]],true];
-					Call Compile Format ["%1AITeam%2Coord = _position;publicVariable '%1AITeam%2Coord'",sideJoinedText,_curSel];
-					sleep 0.05;
-					Call Compile Format ["%1AITeam%2Order = '%3';publicVariable '%1AITeam%2Order'",sideJoinedText,_curSel,_order];
+					[_team,_position] Call SetTeamMovePos;
+					[_team,_order] Call SetTeamMoveMode;
 				} else {
 					player kbTell [sideHQ, (sideHQ getVariable "_topic_identity"), "OrderSentAll",["1","",(_radioLabel select 0),[(_radio select 0)]],["2","","moving to position",["HC_MovingToPosition"]],["3","","over.",["Over1"]],true];
-					for [{_x = 1},{_x < (maxPlayers+1)},{_x = _x + 1}] do {
-						Call Compile Format ["%1AITeam%2Coord = _position;publicVariable '%1AITeam%2Coord'",sideJoinedText,_x];
-						sleep 0.05;
-						Call Compile Format ["%1AITeam%2Order = '%3';publicVariable '%1AITeam%2Order'",sideJoinedText,_x,_order];
-					};			
+					{
+						[_x,_position] Call SetTeamMovePos;
+						[_x,_order] Call SetTeamMoveMode;
+					} forEach clientTeams;			
 				};
 			};
 
@@ -302,7 +298,7 @@ while {alive player && dialog} do {
 		if (MenuAction == 105) then {
 			MenuAction = -1;
 			_position = _map posScreenToWorld[mouseX,mouseY];
-			_structures = WF_Logic getVariable Format ["%1BaseStructures",sideJoinedText];
+			_structures = (sideJoinedText) Call GetSideStructures;
 			_existingStruct = [_position,_structures] Call SortByDistance;
 			if (count _existingStruct > 0) then {
 				_closest = _existingStruct select 0;
@@ -333,14 +329,14 @@ while {alive player && dialog} do {
 					if (_id != clientID) then {
 						WFBE_SetTask = [[_id,sideJoined],'CLTFNCSETTASK',[_taskType,_taskTime,_taskTimeLabel,_position]];
 						publicVariable 'WFBE_SetTask';
-						if !(isMultiplayer) then {[[_id,sideJoined],'CLTFNCSETTASK',[_taskType,_taskTime,_taskTimeLabel,_position]] Spawn HandlePVF};
+						if (!isMultiplayer || (isServer && local player)) then {[[_id,sideJoined],'CLTFNCSETTASK',[_taskType,_taskTime,_taskTimeLabel,_position]] Spawn HandlePVF};
 					};
 				};
 			} else {
 				player kbTell [sideHQ, (sideHQ getVariable "_topic_identity"), "OrderSentAll",["1","",(_radioLabel select 0),[(_radio select 0)]],["2","","moving to position",["HC_MovingToPosition"]],["3","","over.",["Over1"]],true];
 				WFBE_SetTask = [sideJoined,'CLTFNCSETTASK',[_taskType,_taskTime,_taskTimeLabel,_position]];
 				publicVariable 'WFBE_SetTask';
-				if !(isMultiplayer) then {[sideJoined,'CLTFNCSETTASK',[_taskType,_taskTime,_taskTimeLabel,_position]] Spawn HandlePVF};
+				if (!isMultiplayer || (isServer && local player)) then {[sideJoined,'CLTFNCSETTASK',[_taskType,_taskTime,_taskTimeLabel,_position]] Spawn HandlePVF};
 			};
 		};
 	};
@@ -408,7 +404,7 @@ while {alive player && dialog} do {
 		
 		WFBE_RequestTeamUpdate = ['SRVFNCREQUESTTEAMUPDATE',[_to,_behavior,_combat,_formation,_speed]];
 		publicVariable 'WFBE_RequestTeamUpdate';
-		if !(isMultiplayer) then {['SRVFNCREQUESTTEAMUPDATE',[_to,_behavior,_combat,_formation,_speed]] Spawn HandleSPVF};
+		if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTTEAMUPDATE',[_to,_behavior,_combat,_formation,_speed]] Spawn HandleSPVF};
 	};	
 	
 	//--- Set respawn.

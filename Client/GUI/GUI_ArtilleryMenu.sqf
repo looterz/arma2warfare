@@ -46,12 +46,11 @@ if (WF_A2_Arrowhead && sideJoined == east) then {
 	{ctrlEnable [_x,false]} forEach [17012,17013];
 };
 
-_closeDialog = false;
-while {alive player && dialog && !_closeDialog} do {
+while {alive player && dialog} do {
 	if (side player != sideJoined) exitWith {deleteMarkerLocal _marker;deleteMarkerLocal _area;{deleteMarkerLocal _x} forEach _markers;closeDialog 0};
 	if (!dialog) exitWith {deleteMarkerLocal _marker;deleteMarkerLocal _area;{deleteMarkerLocal _x} forEach _markers};
 	
-	_currentUpgrades = WF_Logic getVariable Format ["%1Upgrades",sideJoinedText];
+	_currentUpgrades = (sideJoinedText) Call GetSideUpgrades;
 	
 	if (paramFastTravel) then {
 		_currentLevel = _currentUpgrades select 12;
@@ -62,8 +61,8 @@ while {alive player && dialog && !_closeDialog} do {
 			_canFT = false;
 			_startPoint = objNull;
 			_lastUpdate = time;
-			_base = WF_Logic getVariable Format ["%1MHQ",sideJoinedText];
-			_isDeployed = WF_Logic getVariable Format ["%1MHQDeployed",sideJoinedText];
+			_base = (sideJoinedText) Call GetSideHQ;
+			_isDeployed = (sideJoinedText) Call GetSideHQDeployed;
 			if (player distance _base < _ftr && alive _base && vehicle player != _base && _isDeployed) then {
 				_canFT = true;
 				_startPoint = _base;
@@ -74,7 +73,7 @@ while {alive player && dialog && !_closeDialog} do {
 				_camps = [_closest,sideJoined] Call GetFriendlyCamps;
 				_allCamps = _closest getVariable "camps";
 				if (_sideID == sideID && player distance _closest < _ftr && (count _camps == count _allCamps)) then {_canFT = true;_startPoint = _closest} else {
-					_buildings = WF_Logic getVariable Format ["%1BaseStructures",sideJoinedText];
+					_buildings = (sideJoinedText) Call GetSideStructures;
 					_checks = [sideJoined,Format ["WFBE_%1COMMANDCENTERTYPE",sideJoinedText] Call GetNamespace,_buildings] Call GetFactories;
 					if (count _checks > 0) then {
 						_sorted = [player,_checks] Call SortByDistance;
@@ -89,7 +88,7 @@ while {alive player && dialog && !_closeDialog} do {
 			};
 			if (!canMove (vehicle player)) then {_canFT = false};
 			if (_canFT) then {
-				_buildings = WF_Logic getVariable Format ["%1BaseStructures",sideJoinedText];
+				_buildings = (sideJoinedText) Call GetSideStructures;
 				_checks = [sideJoined,Format ["WFBE_%1COMMANDCENTERTYPE",sideJoinedText] Call GetNamespace,_buildings] Call GetFactories;
 				_locations = towns + _checks;
 				if (alive _base && _isDeployed) then {_locations = _locations + [_base]};
@@ -149,10 +148,6 @@ while {alive player && dialog && !_closeDialog} do {
 	_enable = if (_funds >= 9500 && _currentLevel > 0 && time - lastSupplyCall > _pard) then {true} else {false};
 	ctrlEnable [17018,_enable];
 	
-	_isCommander = false;
-	if (paramSupplyExchange && !isNull(commanderTeam)) then {if (commanderTeam == group player) then {_isCommander = true}};
-	ctrlEnable [17100, _isCommander];
-	
 	if (mouseButtonUp == 0) then {
 		mouseButtonUp = -1;
 		//--- Set Artillery Marker on map.
@@ -171,7 +166,7 @@ while {alive player && dialog && !_closeDialog} do {
 				-(11500) Call ChangePlayerFunds;
 				WFBE_RequestSpecial = ['SRVFNCREQUESTSPECIAL',["Paratroops",sideJoined,_callPos,clientTeam]];
 				publicVariable 'WFBE_RequestSpecial';
-				if !(isMultiplayer) then {['SRVFNCREQUESTSPECIAL',["Paratroops",sideJoined,_callPos,clientTeam]] Spawn HandleSPVF};
+				if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTSPECIAL',["Paratroops",sideJoined,_callPos,clientTeam]] Spawn HandleSPVF};
 				hint (localize "STR_WF_Paratroop_Info");
 			};
 		};
@@ -225,7 +220,7 @@ while {alive player && dialog && !_closeDialog} do {
 				_skip = false;
 				if (!alive player) then {_skip = true};
 				if (!_skip) then {
-					{_pos = [_locationPosition,20,100,10,0,50,0] Call BIS_fnc_findSafePos;_x setPos _pos;_x setVelocity [0,0,-1]} forEach _travelingWith;
+					{[_x,_locationPosition,120] Call PlaceSafe;_x setVelocity [0,0,-1]} forEach _travelingWith;
 				};
 				sleep 1;
 				
@@ -262,7 +257,7 @@ while {alive player && dialog && !_closeDialog} do {
 			_callPos = _map PosScreenToWorld[mouseX,mouseY];
 			WFBE_RequestSpecial = ['SRVFNCREQUESTSPECIAL',["ParaVehi",sideJoined,_callPos,clientTeam]];
 			publicVariable 'WFBE_RequestSpecial';
-			if !(isMultiplayer) then {['SRVFNCREQUESTSPECIAL',["ParaVehi",sideJoined,_callPos,clientTeam]] Spawn HandleSPVF};
+			if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTSPECIAL',["ParaVehi",sideJoined,_callPos,clientTeam]] Spawn HandleSPVF};
 		};
 		//--- Ammo Paradrop.
 		if (MenuAction == 10) then {
@@ -272,7 +267,7 @@ while {alive player && dialog && !_closeDialog} do {
 			_callPos = _map PosScreenToWorld[mouseX,mouseY];
 			WFBE_RequestSpecial = ['SRVFNCREQUESTSPECIAL',["ParaAmmo",sideJoined,_callPos,clientTeam]];
 			publicVariable 'WFBE_RequestSpecial';
-			if !(isMultiplayer) then {['SRVFNCREQUESTSPECIAL',["ParaAmmo",sideJoined,_callPos,clientTeam]] Spawn HandleSPVF};
+			if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTSPECIAL',["ParaAmmo",sideJoined,_callPos,clientTeam]] Spawn HandleSPVF};
 		};
 	};
 	if (paramArty) then {

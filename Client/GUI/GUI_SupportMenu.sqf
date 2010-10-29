@@ -20,7 +20,7 @@ _lastVeh = objNull;
 _lastDmg = 0;
 _lastFue = 0;
 
-_buildings = WF_Logic getVariable Format ["%1BaseStructures",sideJoinedText];
+_buildings = (sideJoinedText) Call GetSideStructures;
 
 //--- Service Point.
 _csp = objNull;
@@ -32,7 +32,7 @@ if (count _sp > 0) then {
 
 if (paramEASA) then {
 	_enable = false;
-	_currentUpgrades = WF_Logic getVariable Format ["%1Upgrades",sideJoinedText];
+	_currentUpgrades = (sideJoinedText) Call GetSideUpgrades;
 	_easaLevel = _currentUpgrades select 15;
 	if (!(isNull _csp) && _easaLevel > 0) then {
 		if (player distance _csp < ('WFBE_SUPPORTRANGE' Call GetNamespace)) then {
@@ -152,7 +152,7 @@ while {true} do {
 			//--- Healing.
 			_healPrice = 0;
 			{
-				_healPrice = _healPrice + round((getDammage _x)*('WFBE_SUPPORTHEALPRICE' Call GetNamespace));
+				if (alive _x) then {_healPrice = _healPrice + round((getDammage _x)*('WFBE_SUPPORTHEALPRICE' Call GetNamespace))};
 			} forEach (crew _veh);
 			ctrlSetText [20014,"$"+str(_healPrice)+"."];
 			//--- Repair.
@@ -242,7 +242,7 @@ while {true} do {
 		MenuAction = -1;
 		WFBE_RequestSpecial = ['SRVFNCREQUESTSPECIAL',["RespawnST",sideJoined]];
 		publicVariable 'WFBE_RequestSpecial';
-		if !(isMultiplayer) then {['SRVFNCREQUESTSPECIAL',["RespawnST",sideJoined]] Spawn HandleSPVF};
+		if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTSPECIAL',["RespawnST",sideJoined]] Spawn HandleSPVF};
 		_lastUse = time;
 	};
 	

@@ -65,6 +65,12 @@ switch (true) do
 		{
 			_keyHandled = true;
 		};
+	};
+
+	// disable tactical view
+	case (paramTacView && ({_x in _pressedButtonArray} count (actionKeys "TacticalView")) > 0):
+	{
+		_keyHandled = true;
 	};	
 };
 

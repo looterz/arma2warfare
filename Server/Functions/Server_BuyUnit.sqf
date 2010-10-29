@@ -1,4 +1,4 @@
-Private ["_building","_built","_crew","_direction","_distance","_factoryType","_gbq","_id","_index","_isVehicle","_longest","_position","_queu","_queu2","_ret","_side","_sideText","_soldier","_team","_type","_unitType","_vehicle","_waitTime"];
+Private ["_building","_built","_crew","_direction","_dir","_distance","_factoryType","_gbq","_id","_index","_isVehicle","_longest","_position","_queu","_queu2","_ret","_side","_sideText","_soldier","_team","_type","_unitType","_vehicle","_waitTime"];
 _id = _this select 0;
 _building = _this select 1;
 _unitType = _this select 2;
@@ -86,10 +86,18 @@ if (_unitType isKindOf "Man") then {
 	if (_unitType isKindOf "Air") then {_crew = Format ["WFBE_%1PILOT",_sideText] Call GetNamespace};
 	_vehicle = [_unitType,_position,_side,true] Call CreateVehi;
 	_factoryPosition = getPos _building;
-	_vehicle setDir -((((_position select 1) - (_factoryPosition select 1)) atan2 ((_position select 0) - (_factoryPosition select 0))) - 90);
+	_dir = -((((_position select 1) - (_factoryPosition select 1)) atan2 ((_position select 0) - (_factoryPosition select 0))) - 90);
+	_vehicle setDir _dir;
 	_vehicle setVelocity [0,0,-1];
 	//--- AI Can fly.
-	if (_vehicle isKindOf "Plane") then {_vehicle setPos [_position select 0,_position select 1,1500];_vehicle setVelocity [250,250,0]};
+	if (_vehicle isKindOf "Air") then {
+		_vehicle flyInHeight 120;
+		if (_vehicle isKindOf "Plane") then {
+			_vehicle setPos [_position select 0,_position select 1,1500];
+			_vehicle setVelocity [sin _dir * 250,cos _dir * 250,0];
+		};
+	};
+
 	emptyQueu = emptyQueu + [_vehicle];
 	_vehicle Spawn HandleEmptyVehicle;
 	if (_vehicle distance (leader _team) < 200) then {(units _team) allowGetIn true;_team addVehicle _vehicle};

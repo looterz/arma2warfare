@@ -34,7 +34,7 @@ while {alive player && dialog} do {
 	if (Side player != sideJoined) exitWith {closeDialog 0};
 	if !(dialog) exitWith {};
 	
-	_upgrades = WF_Logic getVariable Format ["%1Upgrades",sideJoinedText];
+	_upgrades = (sideJoinedText) Call GetSideUpgrades;
 	
 	_u = 0;
 	{

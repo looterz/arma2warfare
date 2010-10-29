@@ -2,7 +2,7 @@ Private ["_hq","_HQName","_MHQ","_side","_sideText"];
 _side = _this select 0;
 _sideText = str _side;
 
-_hq = WF_Logic getVariable Format ["%1MHQ",_sideText];
+_hq = (_sideText) Call GetSideHQ;
 _position = getPos _hq;
 _direction = getDir _hq;
 
@@ -11,7 +11,7 @@ if !(isNull _commanderTeam) then {
 	_commanderID = (Leader _commanderTeam) Call GetClientID;
 	WFBE_SetHQStatus = [[_commanderID,_side],'CLTFNCSETHQSTATUS',false];
 	publicVariable 'WFBE_SetHQStatus';
-	if !(isMultiplayer) then {[[_commanderID,_side],'CLTFNCSETHQSTATUS',false] Spawn HandlePVF};
+	if (!isMultiplayer || (isServer && local player)) then {[[_commanderID,_side],'CLTFNCSETHQSTATUS',false] Spawn HandlePVF};
 };
 
 sleep 15;
@@ -19,8 +19,7 @@ sleep 15;
 _HQName = Format["WFBE_%1MHQNAME",_sideText] Call GetNamespace;
 _MHQ = _HQName createVehicle _position;
 
-WF_Logic setVariable [Format["%1MHQ",_sideText],_MHQ,true];
-WF_Logic setVariable [Format["%1MHQDeployed",_sideText],false,true];
+Call Compile Format ["%1MHQ = _MHQ; publicVariable '%1MHQ';",_sideText];
 
 _MHQ setDir _direction;
 _MHQ setVelocity [0,0,-1];
@@ -32,6 +31,6 @@ processInitCommands;
 	
 deleteVehicle _hq;
 
-WF_Logic setVariable [Format ["%1MHQRepair",_sideText],false,true];
+Call Compile Format ["%1MHQDeployed = false; publicVariable '%1MHQDeployed';",_sideText];
 
 diag_log Format["[WFBE (INFORMATION)] Server_MHQRepair: The %1 MHQ was repaired.",_sideText];

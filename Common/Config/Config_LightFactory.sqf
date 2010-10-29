@@ -160,6 +160,7 @@ if (WF_A2_Vanilla) then {
 	_u = _u		+ ['WarfareReammoTruck_RU'];
 	_u = _u		+ ['KamazRefuel'];
 	if (('WFBE_SUPPLYSYSTEM' Call GetNamespace) == 0) then {_u = _u		+ ['WarfareSupplyTruck_RU']};
+	_u = _u		+ ['GAZ_Vodnik_MedEvac'];
 	_u = _u		+ ['BRDM2_INS'];
 	_u = _u		+ ['BRDM2_ATGM_INS'];
 	_u = _u		+ ['GAZ_Vodnik'];

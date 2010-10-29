@@ -17,7 +17,7 @@ link5[] = {4,2};
 link6[] = {5,3};
 link7[] = {6,5};
 globals[] = {0.000000,0,0,0,0,640,480,1,22,6316128,1,-345.209412,345.209290,108.499458,-297.536255,1028,906,1};
-window[] = {2,-1,-1,-1,-1,703,141,1593,69,3,1046};
+window[] = {2,-1,-1,-1,-1,834,200,1652,200,3,1046};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -30,7 +30,6 @@ class FSM
       name = "Init";
       init = /*%FSM<STATEINIT""">*/"commanderTeam = (SideJoined) Call GetCommanderTeam;" \n
        "_sideCommanderTeam = Format[""%1CommanderTeam"",sideJoinedText];" \n
-       "_sideMHQ = Format [""%1MHQ"",sideJoinedText];" \n
        "" \n
        "_lastCommanderTeam = commanderTeam;" \n
        "_changeCommander = false;" \n
@@ -117,7 +116,7 @@ class FSM
       name = "Update_Commander";
       init = /*%FSM<STATEINIT""">*/"_changeCommander = false;" \n
        "_lastCommanderTeam = commanderTeam;	" \n
-       "_MHQ = WF_Logic getVariable _sideMHQ;" \n
+       "_MHQ = (sideJoinedText) Call GetSideHQ;" \n
        "" \n
        "if (IsNull commanderTeam) then {" \n
        "	if (!IsNull _MHQ) then {" \n
@@ -137,13 +136,13 @@ class FSM
        "			_MHQ addAction [localize ""STR_WF_Unlock_MHQ"",""Client\Action\Action_ToggleLock.sqf"", [], 95, false, true, '', 'alive _target && locked _target'];" \n
        "			_MHQ addAction [localize ""STR_WF_Lock_MHQ"",""Client\Action\Action_ToggleLock.sqf"", [], 94, false, true, '', 'alive _target && !(locked _target)'];" \n
        "		};" \n
-       "		_deployed = WF_Logic getVariable Format [""%1MHQDeployed"",sideJoinedText];" \n
+       "		_deployed = (sideJoinedText) Call GetSideHQDeployed;" \n
        "		if (_deployed) then {" \n
        "			['WFBE_AREAHQDEPLOYED' Call GetNameSpace,true,MCoin] Call Compile PreprocessFile ""Client\Init\Init_Coin.sqf"";" \n
        "		} else {" \n
        "			['WFBE_AREAHQUNDEPLOYED' Call GetNamespace,false,MCoin] Call Compile PreprocessFile ""Client\Init\Init_Coin.sqf"";" \n
        "		};" \n
-       "		HQAction = player addAction [localize ""STR_WF_BuildMenu"",""Client\Action\Action_Build.sqf"", [_MHQ], 100, false, true, """", ""hqInRange""];	" \n
+       "		HQAction = player addAction [localize ""STR_WF_BuildMenu"",""Client\Action\Action_Build.sqf"", [_MHQ], 100, false, true, """", ""hqInRange && canBuildWHQ""];	" \n
        "		if (paramHighCommand) then {player setVariable [""BIS_HC_scope"",HC];{if !(isNil '_x') then {player HCSetGroup [_x]; [_x,false] Call SetTeamAutonomous}} forEach clientTeams};" \n
        "		[Localize ""STR_WF_PlayerCommander""] Call TitleTextMessage;" \n
        "	} else {" \n

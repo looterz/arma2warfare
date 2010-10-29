@@ -16,7 +16,7 @@
 
 /* Description.ext Specific */
 #define WF_MAXPLAYERS 40
-#define WF_MISSIONNAME "[40]Warfare BE V2.064 Lite CO Balanced Bomba Edition - Chernarus"
+#define WF_MISSIONNAME "[40]Warfare BE V2.065 Lite CO Balanced Bomba Edition - Chernarus"
 #define WF_RESPAWNDELAY 2
 
 /* MySQL Support */

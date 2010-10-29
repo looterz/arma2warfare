@@ -41,7 +41,7 @@ Call Compile Format ["_vehicle addEventHandler ['Killed',{[_this select 0,_this 
 _vehicle setVehicleInit Format["[this,%1] ExecVM 'Common\Common_InitUnit.sqf';",_side];
 processInitCommands;
 _vehicle flyInHeight (300 + random(75));
-_currentUpgrades = WF_Logic getVariable Format ["%1Upgrades",Str _side];
+_currentUpgrades = (str _side) Call GetSideUpgrades;
 _currentLevel = _currentUpgrades select 4;
 _units = Format ["WFBE_%1PARACHUTELEVEL%2",Str _side,_currentLevel] Call GetNamespace;
 {

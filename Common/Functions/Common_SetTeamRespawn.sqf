@@ -1,6 +1,8 @@
-Private['_respawn','_team'];
+Private['_index','_respawn','_team'];
 
 _team = _this select 0;
 _respawn = _this select 1;
 
-if (!isNil "_team") then {_team setVariable ['respawn',_respawn,true]};
+_index = _team Call GetClientIDFromTeam;
+
+Call Compile Format ["%1Respawn%2 = _respawn; publicVariable '%1Respawn%2';",str (side _team),_index];

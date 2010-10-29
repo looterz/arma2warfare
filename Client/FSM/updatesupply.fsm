@@ -41,11 +41,8 @@ class FSM
        "_timer = 0;" \n
        "_exit = false;" \n
        "_canDeliver = false;" \n
-       "_sideMHQ = Format [""%1MHQ"",sideJoinedText];" \n
-       "_sideMHQDeployed = Format [""%1MHQDeployed"",sideJoinedText];" \n
-       "_sideBaseStructures = Format [""%1BaseStructures"",sideJoinedText];" \n
-       "_sideUpgrades = Format [""%1Upgrades"",sideJoinedText];" \n
-       "_hq = WF_Logic getVariable _sideMHQ;" \n
+       "_sideUpgrades = (sideJoinedText) Call GetSideUpgrades;" \n
+       "_hq = (sideJoinedText) Call GetSideHQ;" \n
        "_lastDestination = _hq;" \n
        "_delRange = 'WFBE_DELIVERYRANGE' Call GetNamespace;" \n
        "_fpsp = 'WFBE_FUNDSPERSUPPLYPOINT' Call GetNamespace;" \n
@@ -146,12 +143,12 @@ class FSM
        "	};" \n
        "};" \n
        "	" \n
-       "_hq = WF_Logic getVariable _sideMHQ;" \n
-       "_isDeployed = WF_Logic getVariable _sideMHQDeployed;" \n
+       "_hq = (sideJoinedText) Call GetSideHQ;" \n
+       "_isDeployed = (sideJoinedText) Call GetSideHQDeployed;" \n
        "if (_vehicle Distance _hq < 70 && _SV != 1000 && getDammage _hq < 1 && _isDeployed) then {_SV = 1000;_vehicle setFuel 1;_lastDestination = _hq;if (_playerInVehicle) then {hint (localize ""STR_WF_Supply_Full"")}};" \n
        "" \n
        "if (_SV != 1000) then {" \n
-       "	_buildings = WF_Logic getVariable _sideBaseStructures;" \n
+       "	_buildings = (sideJoinedText) Call GetSideStructures;" \n
        "	_checks = [sideJoined,Format [""WFBE_%1SERVICEPOINTTYPE"",sideJoinedText] Call GetNamespace,_buildings] Call GetFactories;" \n
        "	if (count _checks > 0) then {" \n
        "		_sorted = [_vehicle,_checks] Call SortByDistance;" \n
@@ -189,7 +186,7 @@ class FSM
        "	};" \n
 	   "	WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + _spsp]];" \n
 	   "	publicVariable 'WFBE_RequestChangeScore';" \n
-	   "	if !(isMultiplayer) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + _spsp]] Spawn HandleSPVF};" \n
+	   "	if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + _spsp]] Spawn HandleSPVF};" \n
        "};"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links

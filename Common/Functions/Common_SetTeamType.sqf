@@ -1,6 +1,8 @@
-Private['_index','_team'];
+Private['_idtype','_index','_team'];
 
 _team = _this select 0;
-_index = _this select 1;
+_idtype = _this select 1;
 
-if (!isNil "_team") then {_team setVariable ['types',_index,true]};
+_index = _team Call GetClientIDFromTeam;
+
+Call Compile Format ["%1Types%2 = _idtype; publicVariable '%1Types%2';",str (side _team),_index];

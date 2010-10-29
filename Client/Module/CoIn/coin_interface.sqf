@@ -18,16 +18,16 @@ if (paramBaseArea) then {
 
 if (_tooFar) exitWith {hint  (localize 'STR_WF_BaseArea_Reached')};//--- Base area reached.
 
-uinamespace setvariable ["COIN_displayMain",finddisplay 46];
+uiNamespace setVariable ["COIN_displayMain",finddisplay 46];
 
 //--- Terminate of system is already running
-if !(isnil {player getvariable "bis_coin_logic"}) exitwith {};
-player setvariable ["bis_coin_logic",_logic];
+if !(isNil {player getVariable "bis_coin_logic"}) exitWith {};
+player setVariable ["bis_coin_logic",_logic];
 bis_coin_player = player;
 
 _camera = BIS_CONTROL_CAM;
-if (isnil "BIS_CONTROL_CAM") then {
-	_camera = "camconstruct" camcreate [position player select 0,position player select 1,15];
+if (isNil "BIS_CONTROL_CAM") then {
+	_camera = "camconstruct" camCreate [position player select 0,position player select 1,15];
 	_camera cameraEffect ["internal","back"];
 	_camera camPrepareFov 0.900;
 	_camera camPrepareFocus [-1,-1];
@@ -40,30 +40,30 @@ if (isnil "BIS_CONTROL_CAM") then {
 BIS_CONTROL_CAM = _camera;
 BIS_CONTROL_CAM_LMB = false;
 BIS_CONTROL_CAM_RMB = false;
-showcinemaborder false;
+showCinemaBorder false;
 
 1122 cutrsc ["constructioninterface","plain"];
 
 //--- Prevent uikey override for other mods.
-WF_COIN_DEH1 = (uinamespace getvariable "COIN_displayMain") displayAddEventHandler ["KeyDown",		"if !(isnil 'BIS_CONTROL_CAM_Handler') then {BIS_temp = ['keydown',_this,commandingmenu] spawn BIS_CONTROL_CAM_Handler; BIS_temp = nil;}"];
-WF_COIN_DEH2 = (uinamespace getvariable "COIN_displayMain") displayAddEventHandler ["KeyUp",		"if !(isnil 'BIS_CONTROL_CAM_Handler') then {BIS_temp = ['keyup',_this] spawn BIS_CONTROL_CAM_Handler; BIS_temp = nil;}"];
-WF_COIN_DEH3 = (uinamespace getvariable "COIN_displayMain") displayAddEventHandler ["MouseButtonDown",	"if !(isnil 'BIS_CONTROL_CAM_Handler') then {BIS_temp = ['mousedown',_this,commandingmenu] spawn BIS_CONTROL_CAM_Handler; BIS_temp = nil; BIS_CONTROL_CAM_onMouseButtonDown = _this; if (_this select 1 == 1) then {BIS_CONTROL_CAM_RMB = true}; if (_this select 1 == 0) then {BIS_CONTROL_CAM_LMB = true};}"];
-WF_COIN_DEH4 = (uinamespace getvariable "COIN_displayMain") displayAddEventHandler ["MouseButtonUp",	"if !(isnil 'BIS_CONTROL_CAM_Handler') then {BIS_CONTROL_CAM_RMB = false; BIS_CONTROL_CAM_LMB = false;}"];
+WF_COIN_DEH1 = (uiNamespace getVariable "COIN_displayMain") displayAddEventHandler ["KeyDown",		"if !(isNil 'BIS_CONTROL_CAM_Handler') then {BIS_temp = ['keydown',_this,commandingMenu] spawn BIS_CONTROL_CAM_Handler; BIS_temp = nil;}"];
+WF_COIN_DEH2 = (uiNamespace getVariable "COIN_displayMain") displayAddEventHandler ["KeyUp",		"if !(isNil 'BIS_CONTROL_CAM_Handler') then {BIS_temp = ['keyup',_this] spawn BIS_CONTROL_CAM_Handler; BIS_temp = nil;}"];
+WF_COIN_DEH3 = (uiNamespace getVariable "COIN_displayMain") displayAddEventHandler ["MouseButtonDown",	"if !(isNil 'BIS_CONTROL_CAM_Handler') then {BIS_temp = ['mousedown',_this,commandingMenu] spawn BIS_CONTROL_CAM_Handler; BIS_temp = nil; BIS_CONTROL_CAM_onMouseButtonDown = _this; if (_this select 1 == 1) then {BIS_CONTROL_CAM_RMB = true}; if (_this select 1 == 0) then {BIS_CONTROL_CAM_LMB = true};}"];
+WF_COIN_DEH4 = (uiNamespace getVariable "COIN_displayMain") displayAddEventHandler ["MouseButtonUp",	"if !(isNil 'BIS_CONTROL_CAM_Handler') then {BIS_CONTROL_CAM_RMB = false; BIS_CONTROL_CAM_LMB = false;}"];
 
 BIS_CONTROL_CAM_keys = [];
 
-if (isnil "BIS_CONTROL_CAM_ASL") then {
-	createcenter sidelogic;
-	_logicGrp = creategroup sidelogic;
-	_logicASL = _logicGrp createunit ["Logic",position player,[],0,"none"];
+if (isNil "BIS_CONTROL_CAM_ASL") then {
+	createCenter sideLogic;
+	_logicGrp = createGroup sidelogic;
+	_logicASL = _logicGrp createUnit ["Logic",position player,[],0,"none"];
 	BIS_CONTROL_CAM_ASL = _logicASL;
 };
 
-_logic setvariable ["BIS_COIN_selected",objnull];
-_logic setvariable ["BIS_COIN_params",[]];
-_logic setvariable ["BIS_COIN_tooltip",""];
-_logic setvariable ["BIS_COIN_menu","#USER:BIS_Coin_categories_0"];
-_logic setvariable ["BIS_COIN_restart",true];
+_logic setVariable ["BIS_COIN_selected",objNull];
+_logic setVariable ["BIS_COIN_params",[]];
+_logic setVariable ["BIS_COIN_tooltip",""];
+_logic setVariable ["BIS_COIN_menu","#USER:BIS_Coin_categories_0"];
+_logic setVariable ["BIS_COIN_restart",true];
 _logic setVariable ["WF_RequestUpdate",false];
 _get = _logic getVariable 'WF_NVGPersistent';
 _nvgstate = true;
@@ -73,8 +73,8 @@ if (isNil '_get') then {
 } else {
 	_nvgstate = _logic getVariable 'WF_NVGPersistent';
 };
-camusenvg _nvgstate;
-_logic setvariable ["BIS_COIN_nvg",_nvgstate];
+camUseNVG _nvgstate;
+_logic setVariable ["BIS_COIN_nvg",_nvgstate];
 
 _bns = Format["WFBE_%1STRUCTURENAMES",sideJoinedText] Call GetNamespace;
 _greenList = [WESTBAR,WESTLVF,WESTHEAVY,WESTAIR,EASTBAR,EASTLVF,EASTHEAVY,EASTAIR];
@@ -87,15 +87,15 @@ _buildingsType = _buildingsType - [_buildingsType select 0];
 //--- Open menu
 _logic spawn {
 	_logic = _this;
-	waituntil {!isnil {_this getvariable "BIS_COIN_fundsOld"}};
-	while {!isnil "BIS_CONTROL_CAM"} do {
-		waituntil {
-			_params = _logic getvariable "BIS_COIN_params";
-			if (isnil "_params") then {_params = []};
-			(commandingmenu == "" && count _params == 0 && !BIS_CONTROL_CAM_RMB) || isnil "BIS_CONTROL_CAM"
+	waitUntil {!isNil {_this getVariable "BIS_COIN_fundsOld"}};
+	while {!isNil "BIS_CONTROL_CAM"} do {
+		waitUntil {
+			_params = _logic getVariable "BIS_COIN_params";
+			if (isNil "_params") then {_params = []};
+			(commandingMenu == "" && count _params == 0 && !BIS_CONTROL_CAM_RMB) || isNil "BIS_CONTROL_CAM"
 		};
-		if (isnil "BIS_CONTROL_CAM") exitwith {};
-		showcommandingmenu "#USER:BIS_Coin_categories_0";
+		if (isNil "BIS_CONTROL_CAM") exitWith {};
+		showCommandingMenu "#USER:BIS_Coin_categories_0";
 		sleep 0.01;
 	};
 };
@@ -104,11 +104,11 @@ _logic spawn {
 _createBorder = {
 	_logic = _this select 0;
 	_startpos = _this select 1;
-	_oldBorder = missionnamespace getvariable "BIS_COIN_border";
-	if (!isnil "_oldBorder") then {
-		{deletevehicle _x} foreach _oldBorder;
+	_oldBorder = missionNamespace getVariable "BIS_COIN_border";
+	if (!isNil "_oldBorder") then {
+		{deleteVehicle _x} forEach _oldBorder;
 	};
-	missionnamespace setvariable ["BIS_COIN_border",nil];
+	missionNamespace setVariable ["BIS_COIN_border",nil];
 	
 	_border = [];
 	_center = _startpos;
@@ -136,26 +136,26 @@ _createBorder = {
 		_ypos = (_center select 1) + (cos _dir * _size);
 		_zpos = (_center select 2);
 
-		_a = "transparentwall" createvehiclelocal [_xpos,_ypos,_zpos];
+		_a = "transparentwall" createVehicleLocal [_xpos,_ypos,_zpos];
 		_a setposasl [_xpos,_ypos,0];
 		_a setdir (_dir + 90);
 		_border = _border + [_a];
 	};
-	missionnamespace setvariable ["BIS_COIN_border",_border];
+	missionNamespace setVariable ["BIS_COIN_border",_border];
 };
 _createBorderScope = [_logic,_startpos] spawn _createBorder;
 
 //--- This block is pretty important
-if !(isnil "BIS_CONTROL_CAM_Handler") exitwith {endLoadingScreen};
+if !(isNil "BIS_CONTROL_CAM_Handler") exitWith {endLoadingScreen};
 
 BIS_CONTROL_CAM_Handler = {
 	_mode = _this select 0;
 	_input = _this select 1;
 	_camera = BIS_CONTROL_CAM;
-	_logic = bis_coin_player getvariable "bis_coin_logic";
+	_logic = bis_coin_player getVariable "bis_coin_logic";
 	_terminate = false;
   
-  	if (isnil "_logic") exitwith {};
+  	if (isNil "_logic") exitWith {};
 
 	_areasize = (_logic getVariable "BIS_COIN_areasize");
 	_limitH = _areasize select 0;
@@ -180,22 +180,22 @@ BIS_CONTROL_CAM_Handler = {
 		if !(_key in (BIS_CONTROL_CAM_keys + _keysBanned)) then {BIS_CONTROL_CAM_keys = BIS_CONTROL_CAM_keys + [_key]};
 
 		//--- Terminate CoIn
-		if (_key in _keysCancel && isnil "BIS_Coin_noExit") then {_terminate = true};
+		if (_key in _keysCancel && isNil "BIS_Coin_noExit") then {_terminate = true};
 
 		//--- Start NVG
 		if (_key in _keyNightVision) then {
-			_NVGstate = !(_logic getvariable "BIS_COIN_nvg");
-			_logic setvariable ["BIS_COIN_nvg",_NVGstate];
+			_NVGstate = !(_logic getVariable "BIS_COIN_nvg");
+			_logic setVariable ["BIS_COIN_nvg",_NVGstate];
 			_logic setVariable ['WF_NVGPersistent',_NVGstate];
-			camusenvg _NVGstate;
+			camUseNVG _NVGstate;
 		};
 		
 		//--- Last Built Defense (Ctrl + L).
 		if (_key == 38 && _ctrl && count lastBuilt > 0) then {
 			_currentCash = Call GetPlayerFunds;
 			if (_currentCash > (lastBuilt select 2) select 1) then {
-				showcommandingmenu '';
-				_logic setvariable ["BIS_COIN_params",lastBuilt];
+				showCommandingMenu '';
+				_logic setVariable ["BIS_COIN_params",lastBuilt];
 			};
 		};
 		
@@ -209,7 +209,7 @@ BIS_CONTROL_CAM_Handler = {
 		//--- Sell Defense. (Commander only) (Ctrl + K).
 		if (_key == 37 && _ctrl && !isNull(commanderTeam)) then {
 			if(commanderTeam == clientTeam) then {
-				_preview = _logic getvariable "BIS_COIN_preview";
+				_preview = _logic getVariable "BIS_COIN_preview";
 				if (isNil "_preview") then {//--- Proceed when there is no preview.
 					_targeting = screenToWorld [0.5,0.5];
 					_near = nearestObjects [_targeting,Format["WFBE_%1DEFENSENAMES",sideJoinedText] Call GetNamespace,25];
@@ -221,7 +221,7 @@ BIS_CONTROL_CAM_Handler = {
 							_price = _get select QUERYUNITPRICE;
 							if (!(isNil "townDefenceRange")) then {
 								if (townDefenceRange) then {
-									_price = (ceil(_price * 0.25 /10))*10;							
+									_price = (ceil(_price * 0.5 /10))*10;							
 									if (_price < 10) then {
 										_price = 10;
 									};		
@@ -246,16 +246,16 @@ BIS_CONTROL_CAM_Handler = {
 		_menu = _this select 2;
 
 		//--- Close
-		if (isnil "BIS_Coin_noExit") then {
+		if (isNil "BIS_Coin_noExit") then {
 			if (_menu == "#USER:BIS_Coin_categories_0") then {
-				BIS_CONTROL_CAM cameraeffect ["terminate","back"];
-				camdestroy BIS_CONTROL_CAM;
+				BIS_CONTROL_CAM cameraEffect ["terminate","back"];
+				camDestroy BIS_CONTROL_CAM;
 				BIS_CONTROL_CAM = nil;
 			} else {
-				_preview = _logic getvariable "BIS_COIN_preview";
-				if !(isnil "_preview") then {deletevehicle _preview};
-				_logic setvariable ["BIS_COIN_preview",nil];
-				_logic setvariable ["BIS_COIN_params",[]];
+				_preview = _logic getVariable "BIS_COIN_preview";
+				if !(isNil "_preview") then {deleteVehicle _preview};
+				_logic setVariable ["BIS_COIN_preview",nil];
+				_logic setVariable ["BIS_COIN_params",[]];
 				_get = _logic getVariable 'WFBE_Helper';
 				if !(isNil '_get') then {
 					deleteVehicle _get;
@@ -266,108 +266,111 @@ BIS_CONTROL_CAM_Handler = {
 	};
 
 	//--- Camera no longer exists - terminate and start cleanup	
-	if (isnil "BIS_CONTROL_CAM" || player != bis_coin_player || !isnil "BIS_COIN_QUIT") exitwith {
-		if !(isnil "BIS_CONTROL_CAM") then {BIS_CONTROL_CAM cameraeffect ["terminate","back"];camdestroy BIS_CONTROL_CAM;};
+	if (isNil "BIS_CONTROL_CAM" || player != bis_coin_player || !isNil "BIS_COIN_QUIT") exitWith {
+		if !(isNil "BIS_CONTROL_CAM") then {BIS_CONTROL_CAM cameraEffect ["terminate","back"];camDestroy BIS_CONTROL_CAM;};
 		BIS_CONTROL_CAM = nil;
 		BIS_CONTROL_CAM_Handler = nil;
 		1122 cuttext ["","plain"];
 		_player = bis_coin_player;
-		_player setvariable ["bis_coin_logic",nil];
-		bis_coin_player = objnull;
-		_preview = _logic getvariable "BIS_COIN_preview";
-		if !(isnil "_preview") then {deletevehicle _preview};
-		_logic setvariable ["BIS_COIN_preview",nil];
+		_player setVariable ["bis_coin_logic",nil];
+		bis_coin_player = objNull;
+		_preview = _logic getVariable "BIS_COIN_preview";
+		if !(isNil "_preview") then {deleteVehicle _preview};
+		_logic setVariable ["BIS_COIN_preview",nil];
 		_get = _logic getVariable 'WFBE_Helper';
 		if !(isNil '_get') then {
 			deleteVehicle _get;
 			_logic setVariable ['WFBE_Helper',nil];
 		};
-		_logic setvariable ["BIS_COIN_selected",nil];
-		_logic setvariable ["BIS_COIN_params",nil];
-		_logic setvariable ["BIS_COIN_lastdir",nil];
-		_logic setvariable ["BIS_COIN_tooltip",nil];
-		_logic setvariable ["BIS_COIN_fundsOld",nil];
-		_logic setvariable ["BIS_COIN_restart",nil];
-		_logic setvariable ["BIS_COIN_nvg",nil];
+		_logic setVariable ["BIS_COIN_selected",nil];
+		_logic setVariable ["BIS_COIN_params",nil];
+		_logic setVariable ["BIS_COIN_lastdir",nil];
+		_logic setVariable ["BIS_COIN_tooltip",nil];
+		_logic setVariable ["BIS_COIN_fundsOld",nil];
+		_logic setVariable ["BIS_COIN_restart",nil];
+		_logic setVariable ["BIS_COIN_nvg",nil];
 		_logic setVariable ["WF_RequestUpdate",nil];
-		showcommandingmenu "";
+		showCommandingMenu "";
 
 		//_display = finddisplay 46;
-		(uinamespace getvariable "COIN_displayMain") displayRemoveEventHandler ["KeyDown",WF_COIN_DEH1];
-		(uinamespace getvariable "COIN_displayMain") displayRemoveEventHandler ["KeyUp",WF_COIN_DEH2];
-		(uinamespace getvariable "COIN_displayMain") displayRemoveEventHandler ["MouseButtonDown",WF_COIN_DEH3];
-		(uinamespace getvariable "COIN_displayMain") displayRemoveEventHandler ["MouseButtonUp",WF_COIN_DEH4];
+		(uiNamespace getVariable "COIN_displayMain") displayRemoveEventHandler ["KeyDown",WF_COIN_DEH1];
+		(uiNamespace getVariable "COIN_displayMain") displayRemoveEventHandler ["KeyUp",WF_COIN_DEH2];
+		(uiNamespace getVariable "COIN_displayMain") displayRemoveEventHandler ["MouseButtonDown",WF_COIN_DEH3];
+		(uiNamespace getVariable "COIN_displayMain") displayRemoveEventHandler ["MouseButtonUp",WF_COIN_DEH4];
 
 		//--- Behold the placeholders
 		BIS_COIN_QUIT = nil;
-		_border = missionnamespace getvariable "BIS_COIN_border";
-		{deletevehicle _x} foreach _border;
-		missionnamespace setvariable ["BIS_COIN_border",nil];
+		_border = missionNamespace getVariable "BIS_COIN_border";
+		{deleteVehicle _x} forEach _border;
+		missionNamespace setVariable ["BIS_COIN_border",nil];
 	};
 };
 
-waituntil {scriptdone _createBorderScope};
+waitUntil {scriptDone _createBorderScope};
 endLoadingScreen;
 
 
 ///*** LOOOP ****
 _canAffordCount = 0;
 _canAffordCountOld = 0;
-_oldMenu = commandingmenu;
+_oldMenu = commandingMenu;
 _limitHOld = -1;
 _limitVOld = -1;
 _loaded = false;
 _localtime = time;
 
-while {!isnil "BIS_CONTROL_CAM"} do {
-	if (isnull (uinamespace getvariable 'BIS_CONTROL_CAM_DISPLAY') && !_loaded) then {
+_maxGrad = 'WFBE_COINMAXGRADIENT' Call GetNamespace;
+_minDist = 'WFBE_COINMINDISTANCE' Call GetNamespace;
+
+while {!isNil "BIS_CONTROL_CAM"} do {
+	if (isnull (uiNamespace getVariable 'BIS_CONTROL_CAM_DISPLAY') && !_loaded) then {
 		cameraEffectEnableHUD true;
 		1122 cutrsc ["constructioninterface","plain"];
 		_loaded = true;
-		_logic setvariable ["BIS_COIN_restart",true];
+		_logic setVariable ["BIS_COIN_restart",true];
 		_localtime = time;
 	};
 	if ((time - _localtime) >= 1 && _loaded) then {_loaded = false};
-	_logic = bis_coin_player getvariable "bis_coin_logic";
+	_logic = bis_coin_player getVariable "bis_coin_logic";
 
 	_mode = "mousemoving";
 	_camera = BIS_CONTROL_CAM;
 	
-  	if (isnil "_logic") exitwith {};
+  	if (isNil "_logic") exitWith {};
 	
 	//--- Player dies on construction mode or the source die.
 	if (!alive player || !alive _source) exitWith {
 		startLoadingScreen [localize "str_coin_exit" + " " + localize "str_coin_name","RscDisplayLoadMission"];
 
-		if !(isnil "BIS_CONTROL_CAM") then {BIS_CONTROL_CAM cameraeffect ["terminate","back"];camdestroy BIS_CONTROL_CAM;};
+		if !(isNil "BIS_CONTROL_CAM") then {BIS_CONTROL_CAM cameraEffect ["terminate","back"];camDestroy BIS_CONTROL_CAM;};
 		BIS_CONTROL_CAM = nil;
 		BIS_CONTROL_CAM_Handler = nil;
 		1122 cuttext ["","plain"];
 		_player = bis_coin_player;
-		_player setvariable ["bis_coin_logic",nil];
-		bis_coin_player = objnull;
-		_preview = _logic getvariable "BIS_COIN_preview";
-		if !(isnil "_preview") then {deletevehicle _preview};
-		_logic setvariable ["BIS_COIN_preview",nil];
+		_player setVariable ["bis_coin_logic",nil];
+		bis_coin_player = objNull;
+		_preview = _logic getVariable "BIS_COIN_preview";
+		if !(isNil "_preview") then {deleteVehicle _preview};
+		_logic setVariable ["BIS_COIN_preview",nil];
 		_get = _logic getVariable 'WFBE_Helper';
 		if !(isNil '_get') then {
 			deleteVehicle _get;
 			_logic setVariable ['WFBE_Helper',nil];
 		};
-		_logic setvariable ["BIS_COIN_selected",nil];
-		_logic setvariable ["BIS_COIN_params",nil];
-		_logic setvariable ["BIS_COIN_lastdir",nil];
-		_logic setvariable ["BIS_COIN_tooltip",nil];
-		_logic setvariable ["BIS_COIN_fundsOld",nil];
-		_logic setvariable ["BIS_COIN_restart",nil];
-		_logic setvariable ["BIS_COIN_nvg",nil];
+		_logic setVariable ["BIS_COIN_selected",nil];
+		_logic setVariable ["BIS_COIN_params",nil];
+		_logic setVariable ["BIS_COIN_lastdir",nil];
+		_logic setVariable ["BIS_COIN_tooltip",nil];
+		_logic setVariable ["BIS_COIN_fundsOld",nil];
+		_logic setVariable ["BIS_COIN_restart",nil];
+		_logic setVariable ["BIS_COIN_nvg",nil];
 		_logic setVariable ["WF_RequestUpdate",nil];
-		showcommandingmenu "";
+		showCommandingMenu "";
 
-		(uinamespace getvariable "COIN_displayMain") displayRemoveEventHandler ["KeyDown",WF_COIN_DEH1];
-		(uinamespace getvariable "COIN_displayMain") displayRemoveEventHandler ["KeyUp",WF_COIN_DEH2];
-		(uinamespace getvariable "COIN_displayMain") displayRemoveEventHandler ["MouseButtonDown",WF_COIN_DEH3];
-		(uinamespace getvariable "COIN_displayMain") displayRemoveEventHandler ["MouseButtonUp",WF_COIN_DEH4];
+		(uiNamespace getVariable "COIN_displayMain") displayRemoveEventHandler ["KeyDown",WF_COIN_DEH1];
+		(uiNamespace getVariable "COIN_displayMain") displayRemoveEventHandler ["KeyUp",WF_COIN_DEH2];
+		(uiNamespace getVariable "COIN_displayMain") displayRemoveEventHandler ["MouseButtonDown",WF_COIN_DEH3];
+		(uiNamespace getVariable "COIN_displayMain") displayRemoveEventHandler ["MouseButtonUp",WF_COIN_DEH4];
 
 		//--- Behold the placeholders
 		BIS_COIN_QUIT = nil;
@@ -375,9 +378,9 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 		WF_COIN_DEH2 = nil;
 		WF_COIN_DEH3 = nil;
 		WF_COIN_DEH4 = nil;
-		_border = missionnamespace getvariable "BIS_COIN_border";
-		{deletevehicle _x} foreach _border;
-		missionnamespace setvariable ["BIS_COIN_border",nil];
+		_border = missionNamespace getVariable "BIS_COIN_border";
+		{deleteVehicle _x} forEach _border;
+		missionNamespace setVariable ["BIS_COIN_border",nil];
 
 		endLoadingScreen;
 	};
@@ -409,10 +412,10 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 		_alt = (56 in _keys);
 
 		//--- Construction or Selection
-		_params = _logic getvariable "BIS_COIN_params";
+		_params = _logic getVariable "BIS_COIN_params";
 		_tooltip = "empty";
 		_tooltipType = "empty";
-		_selected = objnull;
+		_selected = objNull;
 		if (count _params > 0) then {
 			//--- Basic colors
 			_colorGreen = "#(argb,8,8,3)color(0,1,0,0.3,ca)";
@@ -436,8 +439,8 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 				_funds = [Call GetPlayerFunds];
 			};
 			_itemFunds = _funds select _itemcash;
-			_itemname = if (count _params > 3) then {_params select 3} else {gettext (configfile >> "CfgVehicles" >> _itemclass >> "displayName")};
-			_itemclass_preview = gettext (configfile >> "CfgVehicles" >> _itemclass >> "ghostpreview");
+			_itemname = if (count _params > 3) then {_params select 3} else {getText (configFile >> "CfgVehicles" >> _itemclass >> "displayName")};
+			_itemclass_preview = getText (configFile >> "CfgVehicles" >> _itemclass >> "ghostpreview");
 			if (_itemclass_preview == "") then {_itemclass_preview = _itemclass};
 
 			_structs = Format["WFBE_%1STRUCTURENAMES",sideJoinedText] Call GetNamespace;  
@@ -445,32 +448,35 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 			
 			//--- Preview building
 			_preview = camtarget BIS_CONTROL_CAM;
+			_new = false;
 			if (typeof _preview != _itemclass_preview) then {
 				//--- No preview
-				deletevehicle _preview;
-				if !(isnil {_logic getvariable "BIS_COIN_preview"}) then {deletevehicle (_logic getvariable "BIS_COIN_preview")}; //--- Serialization hack
+				deleteVehicle _preview;
+				if !(isNil {_logic getVariable "BIS_COIN_preview"}) then {deleteVehicle (_logic getVariable "BIS_COIN_preview")}; //--- Serialization hack
 				_get = _logic getVariable 'WFBE_Helper';
 				if !(isNil '_get') then {
 					deleteVehicle _get;
 					_logic setVariable ['WFBE_Helper',nil];
 				};
-				_hqDeployed = WF_Logic getVariable Format ["%1MHQDeployed",sideJoinedText];
+				_hqDeployed = (sideJoinedText) Call GetSideHQDeployed;
 				_index = _bns find _itemclass;
 				
 				// check can we unfold mhq
 				_canBuild = false;
 				if (_index == 0) then {
-					_mhq = WF_Logic getVariable Format ["%1MHQ",sideJoinedText];
+					_mhq = (sideJoinedText) Call GetSideHQ;
 					_canBuild = if (alive _mhq) then { true; } else { false; };
 				};
 				
 				if (_index == 0 && _hqDeployed && _canBuild) exitWith {
+					_mhq = (sideJoinedText) Call GetSideHQ;
+					(_mhq) Spawn HandleHQAction;
 
 					WFBE_RequestStructure = ['SRVFNCREQUESTSTRUCTURE',[sideJoined,_itemclass,[0,0,0],0]];
 					publicVariable 'WFBE_RequestStructure';
-					if !(isMultiplayer) then {['SRVFNCREQUESTSTRUCTURE',[sideJoined,_itemclass,[0,0,0],0]] Spawn HandleSPVF};
+					if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTSTRUCTURE',[sideJoined,_itemclass,[0,0,0],0]] Spawn HandleSPVF};
 
-					['WFBE_AREAHQUNDEPLOYED' Call GetNamespace,false,MCoin] Call Compile PreprocessFile "Client\Init\Init_Coin.sqf";
+					['WFBE_AREAHQUNDEPLOYED' Call GetNamespace,false,MCoin] Call Compile preprocessFile "Client\Init\Init_Coin.sqf";
 					
 					_structuresCosts = Format["WFBE_%1STRUCTURECOSTS",sideJoinedText] Call GetNamespace;
 					_supply = WF_Logic getVariable Format ["%1Supplies",sideJoinedText];
@@ -481,30 +487,30 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 					startLoadingScreen [localize "str_coin_exit" + " " + localize "str_coin_name","RscDisplayLoadMission"];
 					//////////////////////////////////////////////////
 
-					if !(isnil "BIS_CONTROL_CAM") then {BIS_CONTROL_CAM cameraeffect ["terminate","back"];camdestroy BIS_CONTROL_CAM;};
+					if !(isNil "BIS_CONTROL_CAM") then {BIS_CONTROL_CAM cameraEffect ["terminate","back"];camDestroy BIS_CONTROL_CAM;};
 					BIS_CONTROL_CAM = nil;
 					BIS_CONTROL_CAM_Handler = nil;
 					1122 cuttext ["","plain"];
 					_player = bis_coin_player;
-					_player setvariable ["bis_coin_logic",nil];
-					bis_coin_player = objnull;
-					_preview = _logic getvariable "BIS_COIN_preview";
-					if !(isnil "_preview") then {deletevehicle _preview};
-					_logic setvariable ["BIS_COIN_preview",nil];
-					_logic setvariable ["BIS_COIN_selected",nil];
-					_logic setvariable ["BIS_COIN_params",nil];
-					_logic setvariable ["BIS_COIN_lastdir",nil];
-					_logic setvariable ["BIS_COIN_tooltip",nil];
-					_logic setvariable ["BIS_COIN_fundsOld",nil];
-					_logic setvariable ["BIS_COIN_restart",nil];
-					_logic setvariable ["BIS_COIN_nvg",nil];
+					_player setVariable ["bis_coin_logic",nil];
+					bis_coin_player = objNull;
+					_preview = _logic getVariable "BIS_COIN_preview";
+					if !(isNil "_preview") then {deleteVehicle _preview};
+					_logic setVariable ["BIS_COIN_preview",nil];
+					_logic setVariable ["BIS_COIN_selected",nil];
+					_logic setVariable ["BIS_COIN_params",nil];
+					_logic setVariable ["BIS_COIN_lastdir",nil];
+					_logic setVariable ["BIS_COIN_tooltip",nil];
+					_logic setVariable ["BIS_COIN_fundsOld",nil];
+					_logic setVariable ["BIS_COIN_restart",nil];
+					_logic setVariable ["BIS_COIN_nvg",nil];
 					_logic setVariable ["WF_RequestUpdate",nil];
-					showcommandingmenu "";
+					showCommandingMenu "";
 
-					(uinamespace getvariable "COIN_displayMain") displayRemoveEventHandler ["KeyDown",WF_COIN_DEH1];
-					(uinamespace getvariable "COIN_displayMain") displayRemoveEventHandler ["KeyUp",WF_COIN_DEH2];
-					(uinamespace getvariable "COIN_displayMain") displayRemoveEventHandler ["MouseButtonDown",WF_COIN_DEH2];
-					(uinamespace getvariable "COIN_displayMain") displayRemoveEventHandler ["MouseButtonUp",WF_COIN_DEH3];
+					(uiNamespace getVariable "COIN_displayMain") displayRemoveEventHandler ["KeyDown",WF_COIN_DEH1];
+					(uiNamespace getVariable "COIN_displayMain") displayRemoveEventHandler ["KeyUp",WF_COIN_DEH2];
+					(uiNamespace getVariable "COIN_displayMain") displayRemoveEventHandler ["MouseButtonDown",WF_COIN_DEH2];
+					(uiNamespace getVariable "COIN_displayMain") displayRemoveEventHandler ["MouseButtonUp",WF_COIN_DEH3];
 
 					//--- Behold the placeholders
 					BIS_COIN_QUIT = nil;
@@ -512,18 +518,16 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 					WF_COIN_DEH2 = nil;
 					WF_COIN_DEH3 = nil;
 					WF_COIN_DEH4 = nil;
-					_border = missionnamespace getvariable "BIS_COIN_border";
-					{deletevehicle _x} foreach _border;
-					missionnamespace setvariable ["BIS_COIN_border",nil];
+					_border = missionNamespace getVariable "BIS_COIN_border";
+					{deleteVehicle _x} forEach _border;
+					missionNamespace setVariable ["BIS_COIN_border",nil];
 					
 					[] Spawn {
-					
-						_hqDeployed = WF_Logic getVariable Format ["%1MHQDeployed",sideJoinedText];
 						_start = time;
-						waitUntil {_hqDeployed = WF_Logic getVariable Format ["%1MHQDeployed",sideJoinedText];!_hqDeployed || time - _start > 15};
+						waitUntil {!((sideJoinedText) Call GetSideHQDeployed) || time - _start > 15};
 						if (time - _start < 15) then {
 							sleep 2;
-							_mhq = WF_Logic getVariable Format ["%1MHQ",sideJoinedText];
+							_mhq = (sideJoinedText) Call GetSideHQ;
 							if (alive _mhq) then {
 								_mhq addAction [localize "STR_WF_Unlock_MHQ","Client\Action\Action_ToggleLock.sqf", [], 95, false, true, '', 'alive _target && locked _target'];
 								_mhq addAction [localize "STR_WF_Lock_MHQ","Client\Action\Action_ToggleLock.sqf", [], 94, false, true, '', 'alive _target && !(locked _target)'];
@@ -534,10 +538,13 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 					endLoadingScreen;
 				};
 				
-				_preview = _itemclass_preview createvehiclelocal (screentoworld [0.5,0.5]);
-				BIS_CONTROL_CAM camsettarget _preview;
-				BIS_CONTROL_CAM camcommit 0;
-				_logic setvariable ["BIS_COIN_preview",_preview];
+				_preview = _itemclass_preview createVehicleLocal (screenToWorld [0.5,0.5]);
+				_gdir = _logic getVariable 'BIS_COIN_lastdir';
+				if !(isNil '_gdir') then {_preview setDir _gdir};
+				BIS_CONTROL_CAM camSetTarget _preview;
+				BIS_CONTROL_CAM camCommit 0;
+				_logic setVariable ["BIS_COIN_preview",_preview];
+				_new = true;
 				
 				//--- Preview Helper.
 				if (_itemclass in _greenList && _index != -1) then {
@@ -556,13 +563,13 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 				};
 
 				_preview setObjectTexture [0,_colorGray];
-				_preview setvariable ["BIS_COIN_color",_colorGray];
+				_preview setVariable ["BIS_COIN_color",_colorGray];
 
 				//--- Exception - preview not created
 				if (isnull _preview) then {
-					deletevehicle _preview;
-					_logic setvariable ["BIS_COIN_preview",nil];
-					_logic setvariable ["BIS_COIN_params",[]];
+					deleteVehicle _preview;
+					_logic setVariable ["BIS_COIN_preview",nil];
+					_logic setVariable ["BIS_COIN_params",[]];
 					_get = _logic getVariable 'WFBE_Helper';
 					if !(isNil '_get') then {
 						deleteVehicle _get;
@@ -579,7 +586,7 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 
 					//--- No money
 					_funds = 0;
-					call compile format ["_funds = %1",_itemFunds];
+					call compile format ["_funds = %1;",_itemFunds];
 					_fundsRemaining = _funds - _itemcost;
 					if (_fundsRemaining < 0) then {_color = _colorRed};
 					
@@ -607,11 +614,11 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 				if (_color == _colorGreen) then {_colorGUI = [0.3,1,0.3,0.3]};
 				if (_color == _colorRed) then {_colorGUI = [1,0.2,0.2,0.4]};
 
-				((uiNamespace getvariable "BIS_CONTROL_CAM_DISPLAY") displayctrl 112201) ctrlsettextcolor _colorGUI;
-				((uiNamespace getvariable "BIS_CONTROL_CAM_DISPLAY") displayctrl 112201) ctrlcommit 0;
+				((uiNamespace getVariable "BIS_CONTROL_CAM_DISPLAY") displayCtrl 112201) ctrlSetTextColor _colorGUI;
+				((uiNamespace getVariable "BIS_CONTROL_CAM_DISPLAY") displayCtrl 112201) ctrlCommit 0;
 			};
 
-			_canBuild = if (_color == _colorGreen) then { true } else { false };
+			_canBuild = if (_new && _color == _colorGreen) then { true } else { false };
 			
 			if (_isBuilding && _canBuild) then {
 				_mhq = WF_Logic getVariable Format ["%1MHQ",sideJoinedText];
@@ -622,9 +629,9 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 			if (_canBuild && !isnull _preview && ((BIS_CONTROL_CAM_LMB && 65536 in (actionKeys "DefaultAction")) || {_x in (actionKeys "DefaultAction")} count BIS_CONTROL_CAM_keys > 0)) then {
 				_pos = position _preview;
 				_dir = direction _preview;
-				deletevehicle _preview;
-				_logic setvariable ["BIS_COIN_preview",nil];
-				_logic setvariable ["BIS_COIN_params",[]];
+				deleteVehicle _preview;
+				_logic setVariable ["BIS_COIN_preview",nil];
+				_logic setVariable ["BIS_COIN_params",[]];
 				_get = _logic getVariable 'WFBE_Helper';
 				if !(isNil '_get') then {
 					deleteVehicle _get;
@@ -632,7 +639,7 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 				};
 
 				//--- Remove funds
-				call compile format ["%1 = %1 - _itemcost",_itemFunds];
+				//call compile format ["%1 = %1 - _itemcost;",_itemFunds];
 
 				//--- Execute designer defined code
 				[_logic,_itemclass,_pos,_dir,_params] spawn {
@@ -641,6 +648,9 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 					_pos = _this select 2;
 					_dir = _this select 3;
 					_par = _this select 4;
+
+					//--- Define the last direction used.
+					_logic setVariable ["BIS_COIN_lastdir",_dir];
 
 					//--- On Purchase.
 					[_logic,_itemclass] call {
@@ -659,17 +669,17 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 							_supply = _supply - _price;
 							WF_Logic setVariable [Format["%1Supplies",sideJoinedText],_supply,true];
 							if (_index == 0) then {
-								_hqDeployed = WF_Logic getVariable Format ["%1MHQDeployed",sideJoinedText];
+								_hqDeployed = (sideJoinedText) Call GetSideHQDeployed;
 								if (_hqDeployed) then {
-									['WFBE_AREAHQUNDEPLOYED' Call GetNamespace,false,MCoin] Call Compile PreprocessFile "Client\Init\Init_Coin.sqf";
+									['WFBE_AREAHQUNDEPLOYED' Call GetNamespace,false,MCoin] Call Compile preprocessFile "Client\Init\Init_Coin.sqf";
 								} else {
-									['WFBE_AREAHQDEPLOYED' Call GetNamespace,true,MCoin] Call Compile PreprocessFile "Client\Init\Init_Coin.sqf";
+									['WFBE_AREAHQDEPLOYED' Call GetNamespace,true,MCoin] Call Compile preprocessFile "Client\Init\Init_Coin.sqf";
 								};
 								_logic setVariable ["BIS_COIN_restart",true];
 							} else {
 								WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_COMMANDERBUILDSCORE' Call GetNamespace)]];
 								publicVariable 'WFBE_RequestChangeScore';
-								if !(isMultiplayer) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_COMMANDERBUILDSCORE' Call GetNamespace)]] Spawn HandleSPVF};
+								if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_COMMANDERBUILDSCORE' Call GetNamespace)]] Spawn HandleSPVF};
 							};
 						};
 						
@@ -679,7 +689,7 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 							_price = _get select QUERYUNITPRICE;	
 							if (!(isNil "townDefenceRange")) then {
 								if (townDefenceRange) then {
-									_price = (ceil(_price * 0.25 /10))*10;							
+									_price = (ceil(_price * 0.5 /10))*10;							
 									if (_price < 10) then {
 										_price = 10;
 									};		
@@ -697,18 +707,18 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 						_pos = _this select 2;
 						_dir = _this select 3;
 						_par = _this select 4;
-						_deployed = WF_Logic getVariable Format["%1MHQDeployed",sideJoinedText];
+						_deployed = (sideJoinedText) Call GetSideHQDeployed;
 						_structures = Format["WFBE_%1STRUCTURENAMES",sideJoinedText] Call GetNamespace;
 						_defenses = Format["WFBE_%1DEFENSENAMES",sideJoinedText] Call GetNamespace;
 						if (_class in _structures) then {
 							WFBE_RequestStructure = ['SRVFNCREQUESTSTRUCTURE',[sideJoined,_class,_pos,_dir]];
 							publicVariable 'WFBE_RequestStructure';
-							if !(isMultiplayer) then {['SRVFNCREQUESTSTRUCTURE',[sideJoined,_class,_pos,_dir]] Spawn HandleSPVF};
+							if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTSTRUCTURE',[sideJoined,_class,_pos,_dir]] Spawn HandleSPVF};
 						};
 						if (_class in _defenses) then {
 							WFBE_RequestDefense = ['SRVFNCREQUESTDEFENSE',[sideJoined,_class,_pos,_dir,manningDefense]];
 							publicVariable 'WFBE_RequestDefense';
-							if !(isMultiplayer) then {['SRVFNCREQUESTDEFENSE',[sideJoined,_class,_pos,_dir,manningDefense]] Spawn HandleSPVF};
+							if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTDEFENSE',[sideJoined,_class,_pos,_dir,manningDefense]] Spawn HandleSPVF};
 							lastBuilt = _par;
 						};
 					};
@@ -716,17 +726,17 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 
 				//--- Temporary solution
 				_colorGUI = [1,1,1,0.1];
-				((uiNamespace getvariable "BIS_CONTROL_CAM_DISPLAY") displayctrl 112201) ctrlsettextcolor _colorGUI;
-				((uiNamespace getvariable "BIS_CONTROL_CAM_DISPLAY") displayctrl 112201) ctrlcommit 0;
+				((uiNamespace getVariable "BIS_CONTROL_CAM_DISPLAY") displayCtrl 112201) ctrlSetTextColor _colorGUI;
+				((uiNamespace getVariable "BIS_CONTROL_CAM_DISPLAY") displayCtrl 112201) ctrlCommit 0;
 			};
 		} else {
 			_colorGUI = [1,1,1,0.1];
-			((uiNamespace getvariable "BIS_CONTROL_CAM_DISPLAY") displayctrl 112201) ctrlsettextcolor _colorGUI;
-			((uiNamespace getvariable "BIS_CONTROL_CAM_DISPLAY") displayctrl 112201) ctrlcommit 0;
+			((uiNamespace getVariable "BIS_CONTROL_CAM_DISPLAY") displayCtrl 112201) ctrlSetTextColor _colorGUI;
+			((uiNamespace getVariable "BIS_CONTROL_CAM_DISPLAY") displayCtrl 112201) ctrlCommit 0;
 		};
 
-		_oldTooltip = _logic getvariable "BIS_COIN_tooltip";
-		if ((_tooltipType + _tooltip) != _oldTooltip || commandingmenu != _oldMenu || _logic getVariable "WF_RequestUpdate") then {
+		_oldTooltip = _logic getVariable "BIS_COIN_tooltip";
+		if ((_tooltipType + _tooltip) != _oldTooltip || commandingMenu != _oldMenu || _logic getVariable "WF_RequestUpdate") then {
 			_logic setVariable ["WF_RequestUpdate",false];
 			
 			//--- Description
@@ -735,14 +745,14 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 			//--- Header & preview picture
 			_textHeader = "<t size='1.2'><br /></t>";
 			_textPicture = "<t size='2.8'><br /></t><br /><br />";
-			_fileIcon = gettext (configfile >> "cfgvehicles" >> _type >> "icon");
-			if (str(configfile >> "CfgVehicleIcons" >> _fileIcon) != "") then {_fileIcon = gettext (configfile >> "CfgVehicleIcons" >> _fileIcon)};
-			_filePicture = gettext (configfile >> "cfgvehicles" >> _type >> "picture");
-			if (str(configfile >> "CfgVehicleIcons" >> _filePicture) != "") then {_filePicture = gettext (configfile >> "CfgVehicleIcons" >> _filePicture)};
+			_fileIcon = getText (configFile >> "cfgvehicles" >> _type >> "icon");
+			if (str(configFile >> "CfgVehicleIcons" >> _fileIcon) != "") then {_fileIcon = getText (configFile >> "CfgVehicleIcons" >> _fileIcon)};
+			_filePicture = getText (configFile >> "cfgvehicles" >> _type >> "picture");
+			if (str(configFile >> "CfgVehicleIcons" >> _filePicture) != "") then {_filePicture = getText (configFile >> "CfgVehicleIcons" >> _filePicture)};
 
 			if (_tooltipType != "empty") then {
 				_textHeader = format ["<t align='center'><t size='1.4'>%1</t><br /><t size='1'></t></t>",
-					gettext (configfile >> "cfgvehicles" >> _type >> "displayname"),
+					getText (configFile >> "cfgvehicles" >> _type >> "displayname"),
 					if (isnull _selected) then {""} else {str round ((1 - damage _selected) * 100) + "%"}
 				];
 				_textPicture = format ["<t align='left' size='2.8' shadow='0'><img image='%1'/></t> ",_filePicture];
@@ -753,15 +763,15 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 			_status = if (manningDefense) then {"Enabled"} else {"Disabled"};
 			_text2 = if (count _params > 0) then {localize "str_coin_build" + "<t align='right'>" + call compile (actionKeysNames ["DefaultAction",1]) + "</t><br />"} else {localize "STR_WF_Gameplay_AutoDefense" + ":<t align='right'>" + _status + "</t><br />"};
 
-			_text3 = if (commandingmenu != "#USER:BIS_Coin_categories_0") then {
+			_text3 = if (commandingMenu != "#USER:BIS_Coin_categories_0") then {
 				//--- Back hint
-				if (isnil "BIS_Coin_noExit") then {
+				if (isNil "BIS_Coin_noExit") then {
 					localize "str_coin_back" + "<t align='right'>" + call compile (actionKeysNames ["MenuBack",1]) + "</t>";
 				} else {""};
 			} else {
 			
 				//--- Exit hint
-				if (isnil "BIS_Coin_noExit") then {
+				if (isNil "BIS_Coin_noExit") then {
 					"<t color='#ff5544'>" + localize "str_coin_exit" + "<t align='right'>" + call compile (actionKeysNames ["MenuBack",1]) + "</t></t>";
 				} else {""};
 			};
@@ -781,14 +791,14 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 			);
 
 			//--- Set box
-			((uiNamespace getvariable "BIS_CONTROL_CAM_DISPLAY") displayctrl 112211) ctrlshow true;
-			((uiNamespace getvariable "BIS_CONTROL_CAM_DISPLAY") displayctrl 112211) ctrlcommit 0;
-			((uiNamespace getvariable "BIS_CONTROL_CAM_DISPLAY") displayctrl 112214) ctrlsetstructuredtext (parsetext _textHint);
-			((uiNamespace getvariable "BIS_CONTROL_CAM_DISPLAY") displayctrl 112214) ctrlshow true;
-			((uiNamespace getvariable "BIS_CONTROL_CAM_DISPLAY") displayctrl 112214) ctrlcommit 0;
-			((uiNamespace getvariable "BIS_CONTROL_CAM_DISPLAY") displayctrl 112215) ctrlsetstructuredtext (parsetext _textControls);
-			((uiNamespace getvariable "BIS_CONTROL_CAM_DISPLAY") displayctrl 112215) ctrlshow true;
-			((uiNamespace getvariable "BIS_CONTROL_CAM_DISPLAY") displayctrl 112215) ctrlcommit 0;
+			((uiNamespace getVariable "BIS_CONTROL_CAM_DISPLAY") displayCtrl 112211) ctrlShow true;
+			((uiNamespace getVariable "BIS_CONTROL_CAM_DISPLAY") displayCtrl 112211) ctrlCommit 0;
+			((uiNamespace getVariable "BIS_CONTROL_CAM_DISPLAY") displayCtrl 112214) ctrlSetStructuredText (parseText _textHint);
+			((uiNamespace getVariable "BIS_CONTROL_CAM_DISPLAY") displayCtrl 112214) ctrlShow true;
+			((uiNamespace getVariable "BIS_CONTROL_CAM_DISPLAY") displayCtrl 112214) ctrlCommit 0;
+			((uiNamespace getVariable "BIS_CONTROL_CAM_DISPLAY") displayCtrl 112215) ctrlSetStructuredText (parseText _textControls);
+			((uiNamespace getVariable "BIS_CONTROL_CAM_DISPLAY") displayCtrl 112215) ctrlShow true;
+			((uiNamespace getVariable "BIS_CONTROL_CAM_DISPLAY") displayCtrl 112215) ctrlCommit 0;
 		};
 
 		//--- Amount of funds changed
@@ -802,10 +812,10 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 		};
 		_fundsDescription = _logic getVariable "BIS_COIN_fundsDescription";
 		_cashValues = [];
-		{_cashValues = _cashValues + [_x]} foreach _funds;
-		_cashValuesOld = _logic getvariable "BIS_COIN_fundsOld";
-		if (isnil "_cashValuesOld") then {_cashValuesOld = []; _cashValuesOld set [count _cashValues - 1,-1]};
-		_restart = _logic getvariable "BIS_COIN_restart";
+		{_cashValues = _cashValues + [_x]} forEach _funds;
+		_cashValuesOld = _logic getVariable "BIS_COIN_fundsOld";
+		if (isNil "_cashValuesOld") then {_cashValuesOld = []; _cashValuesOld set [count _cashValues - 1,-1]};
+		_restart = _logic getVariable "BIS_COIN_restart";
 		if (!([_cashValues,_cashValuesOld] call bis_fnc_arraycompare) || _restart) then {
 			_cashValuesCount = count _cashValues;
 			_cashSize = if (_cashValuesCount <= 1) then {2} else {2.8 / _cashValuesCount};
@@ -818,17 +828,17 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 				_cashLines = _cashLines + 0.05;
 			};
 			_cashText = _cashText + "</t>";
-			_cashPos = ctrlposition ((uiNamespace getvariable "BIS_CONTROL_CAM_DISPLAY") displayctrl 112224);
-			((uiNamespace getvariable "BIS_CONTROL_CAM_DISPLAY") displayctrl 112224) ctrlsetstructuredtext (parsetext _cashText);
-			((uiNamespace getvariable "BIS_CONTROL_CAM_DISPLAY") displayctrl 112224) ctrlsetposition [_cashPos select 0,_cashPos select 1,_cashPos select 2,(_cashPos select 3)/*0.1*/ + _cashLines];
-			((uiNamespace getvariable "BIS_CONTROL_CAM_DISPLAY") displayctrl 112224) ctrlshow true;
-			((uiNamespace getvariable "BIS_CONTROL_CAM_DISPLAY") displayctrl 112224) ctrlcommit 0;
+			_cashPos = ctrlPosition ((uiNamespace getVariable "BIS_CONTROL_CAM_DISPLAY") displayCtrl 112224);
+			((uiNamespace getVariable "BIS_CONTROL_CAM_DISPLAY") displayCtrl 112224) ctrlSetStructuredText (parseText _cashText);
+			((uiNamespace getVariable "BIS_CONTROL_CAM_DISPLAY") displayCtrl 112224) ctrlSetPosition [_cashPos select 0,_cashPos select 1,_cashPos select 2,(_cashPos select 3)/*0.1*/ + _cashLines];
+			((uiNamespace getVariable "BIS_CONTROL_CAM_DISPLAY") displayCtrl 112224) ctrlShow true;
+			((uiNamespace getVariable "BIS_CONTROL_CAM_DISPLAY") displayCtrl 112224) ctrlCommit 0;
 
 			//--- Categories menu
 			_categories = +(_logic getVariable "BIS_COIN_categories");
 			_categoriesMenu = [];
 			//--- Ammo Upgrade.
-			_upgrades = WF_Logic getVariable Format ["%1Upgrades",sideJoinedText];
+			_upgrades = (sideJoinedText) Call GetSideUpgrades;
 			if (_upgrades select 14 < 1) then {_categories = _categories - [localize 'STR_WF_Ammo']}; 
 			
 			for "_i" from 0 to (count _categories - 1) do {
@@ -860,12 +870,12 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 						if (typename _itemcost == "ARRAY") then {_itemcash = _itemcost select 0; _itemcost = _itemcost select 1};
 						_cashValue = _cashValues select _itemcash;
 						_cashDescription = if (count _fundsDescription > _itemcash) then {_fundsDescription select _itemcash} else {"?"};
-						_itemname = if (count _x > 3) then {_x select 3} else {gettext (configfile >> "CfgVehicles" >> _itemclass >> "displayName")};
+						_itemname = if (count _x > 3) then {_x select 3} else {getText (configFile >> "CfgVehicles" >> _itemclass >> "displayName")};
 						//--- Build Limit reached?
 						_buildLimit = false;
 						_find = _buildingsNames find _itemclass;
 						if (_find != -1) then {
-							_buildings = WF_Logic getVariable Format ["%1BaseStructures",sideJoinedText];
+							_buildings = (sideJoinedText) Call GetSideStructures;
 							_checks = [sideJoined, Format ["WFBE_%1%2TYPE",sideJoinedText,(_buildingsType select _find)] Call GetNamespace,_buildings] Call GetFactories;
 							_limit = (Format['WFBE_BUILDINGMAX%1',(_buildingsType select _find)]) Call GetNamespace;
 							if (isNil "_limit") then {_limit = 4}; //--- Default.
@@ -878,10 +888,10 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 							_arrayNames = _arrayNames + [_text];
 							_arrayNamesLong = _arrayNamesLong + [_text + "                   "];
 							_arrayEnable = _arrayEnable + [_canAfford];
-							_arrayParams = _arrayParams + [[_logic getvariable "BIS_COIN_ID"] + [_x,_i]];
+							_arrayParams = _arrayParams + [[_logic getVariable "BIS_COIN_ID"] + [_x,_i]];
 						};  
 					};
-				} foreach _items;
+				} forEach _items;
 				
 				[[_category,true],format ["BIS_Coin_%1_items",_i],[_arrayNames,_arrayNamesLong,_arrayEnable],"","
 					BIS_CONTROL_CAM_LMB = false;
@@ -892,24 +902,24 @@ while {!isnil "BIS_CONTROL_CAM"} do {
 					_logic = call compile ('BIS_COIN_'+ str (_array select 0));
 
 					_params = _array select 1;
-					_logic setvariable ['BIS_COIN_params',_params];
-					_logic setvariable ['BIS_COIN_menu',commandingmenu];
-					showcommandingmenu '';
+					_logic setVariable ['BIS_COIN_params',_params];
+					_logic setVariable ['BIS_COIN_menu',commandingMenu];
+					showCommandingMenu '';
 
 				",_arrayParams] call BIS_fnc_createmenu;	
 			};
 
-			if (_canAffordCount != _canAffordCountOld) then {showcommandingmenu (commandingmenu)}; //<-- Open menu again to show disabled items
+			if (_canAffordCount != _canAffordCountOld) then {showCommandingMenu (commandingMenu)}; //<-- Open menu again to show disabled items
 		};
-		_logic setvariable ["BIS_COIN_fundsOld",_cashValues];
-		_logic setvariable ["BIS_COIN_tooltip",_tooltipType + _tooltip];
+		_logic setVariable ["BIS_COIN_fundsOld",_cashValues];
+		_logic setVariable ["BIS_COIN_tooltip",_tooltipType + _tooltip];
 
 		if (_restart) then {
-			_logic setvariable ["BIS_COIN_restart",false];
+			_logic setVariable ["BIS_COIN_restart",false];
 		};
 	};
-	_oldMenu = commandingmenu;
+	_oldMenu = commandingMenu;
 	sleep 0.01;
 };
 
-showcommandingmenu '';
+showCommandingMenu '';

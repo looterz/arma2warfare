@@ -116,7 +116,7 @@ class FSM
     class Worth__defending
     {
       name = "Worth__defending";
-      init = /*%FSM<STATEINIT""">*/"_buildings = WF_Logic getVariable Format [""%1BaseStructures"",str _side];" \n
+      init = /*%FSM<STATEINIT""">*/"_buildings = (str _side) Call GetSideStructures;" \n
        "_sorted = [_posBuilding, _buildings] Call SortByDistance;" \n
        "" \n
        "_nearby = false;" \n
@@ -235,7 +235,7 @@ class FSM
       name = "Spawn";
       init = /*%FSM<STATEINIT""">*/"_group = createGroup _side;" \n
        "" \n
-       "_currentUpgrades = WF_Logic getVariable Format [""%1Upgrades"",_side];" \n
+       "_currentUpgrades = (str _side) Call GetSideUpgrades;" \n
        "_currentLevel = _currentUpgrades select 13;" \n
        "" \n
        "if (count _teams > 1) then {" \n

@@ -1,42 +1,13 @@
 /* Important, use +array if you plan to use Setters */
 _primary = +(WF_Logic getVariable 'primaryClasses');
-_primaryCosts = +(WF_Logic getVariable 'primaryCosts');
-_primaryPictures = +(WF_Logic getVariable 'primaryPictures');
-_primaryNames = +(WF_Logic getVariable 'primaryNames');
-_primaryMagazines = +(WF_Logic getVariable 'primaryMagazines');
-_primaryUpgrades = +(WF_Logic getVariable 'primaryUpgrades');
-_primaryAllowed = +(WF_Logic getVariable 'primaryAllowed');
 
 _secondary = +(WF_Logic getVariable 'secondaryClasses');
-_secondaryCosts = +(WF_Logic getVariable 'secondaryCosts');
-_secondaryPictures = +(WF_Logic getVariable 'secondaryPictures');
-_secondaryNames = +(WF_Logic getVariable 'secondaryNames');
-_secondaryMagazines = +(WF_Logic getVariable 'secondaryMagazines');
-_secondaryUpgrades = +(WF_Logic getVariable 'secondaryUpgrades');
-_secondaryAllowed = +(WF_Logic getVariable 'secondaryAllowed');
 
 _sidearm = +(WF_Logic getVariable 'sidearmClasses');
-_sidearmCosts = +(WF_Logic getVariable 'sidearmCosts');
-_sidearmPictures = +(WF_Logic getVariable 'sidearmPictures');
-_sidearmNames = +(WF_Logic getVariable 'sidearmNames');
-_sidearmMagazines = +(WF_Logic getVariable 'sidearmMagazines');
-_sidearmUpgrades = +(WF_Logic getVariable 'sidearmUpgrades');
-_sidearmAllowed = +(WF_Logic getVariable 'sidearmAllowed');
 
 _misc = +(WF_Logic getVariable 'miscClasses');
-_miscCosts = +(WF_Logic getVariable 'miscCosts');
-_miscPictures = +(WF_Logic getVariable 'miscPictures');
-_miscTypes = +(WF_Logic getVariable 'miscTypes');
-_miscNames = +(WF_Logic getVariable 'miscNames');
-_miscUpgrades = +(WF_Logic getVariable 'miscUpgrades');
-_miscAllowed = +(WF_Logic getVariable 'miscAllowed');
 
 _magazine = +(WF_Logic getVariable 'magazineClasses');
-_magazineCosts = +(WF_Logic getVariable 'magazineCosts');
-_magazinePictures = +(WF_Logic getVariable 'magazinePictures');
-_magazineNames = +(WF_Logic getVariable 'magazineNames');
-_magazineUpgrades = +(WF_Logic getVariable 'magazineUpgrades');
-_magazineAllowed = +(WF_Logic getVariable 'magazineAllowed');
 
 _template = +(WF_Logic getVariable 'templateClasses');
 _templateCosts = +(WF_Logic getVariable 'templateCosts');
@@ -49,12 +20,6 @@ _templateUpgrades = +(WF_Logic getVariable 'templateUpgrades');
 _templateAllowed = +(WF_Logic getVariable 'templateAllowed');
 
 _all = _primary + _secondary + _sidearm + _misc;
-_allCosts = _primaryCosts + _secondaryCosts + _sidearmCosts + _miscCosts;
-_allPictures = _primaryPictures + _secondaryPictures + _sidearmPictures + _miscPictures;
-_allNames = _primaryNames + _secondaryNames + _sidearmNames + _miscNames;
-_allMagazines = _primaryMagazines + _secondaryMagazines + _sidearmMagazines;
-_allUpgrades = _primaryUpgrades + _secondaryUpgrades + _sidearmUpgrades + _miscUpgrades;
-_allAllowed = _primaryAllowed + _secondaryAllowed + _sidearmAllowed + _miscAllowed;
 
 WF_Logic setVariable ['lbChange',false];
 WF_Logic setVariable ['lbMainAction',''];
@@ -91,8 +56,6 @@ _inventorySlots = [];
 _lastFiller = 'nil';
 _id = _fillerTypes find 'primary';
 _list = [];
-_listPictures = [];
-_listMagazines = [];
 _miscItemSlots = [];
 _sidearmInventorySlots = [];
 (_display DisplayCtrl (_fillerIDC select _id)) ctrlSetTextColor [0.7, 1, 0.7, 1];
@@ -119,119 +82,6 @@ _currentSpecials = [];
 _currentItems = [];
 _currentMagazines = [];
 _slistMagazines = [];
-
-//--- Set command is just terrific...
-_replaceArray = {
-	Private ['_array','_indexExcluded','_newArray'];
-	_array = _this select 0;
-	_indexExcluded = _this select 1;
-	
-	_newArray = [];
-	for [{_x = 0},{_x < count(_array)},{_x = _x + 1}] do {
-		if (_x != _indexExcluded) then {
-			_newArray = _newArray + [_array select _x];
-		};
-	};
-	
-	_newArray
-};
-
-_fillList = {
-	Private ['_currentUpgrades','_filler','_i','_listBox','_listBoxArray','_listCosts','_listNames','_listPictures','_listUpgrades','_listAllowed','_u'];
-	_listCosts = _this select 0;
-	_listNames = _this select 1;
-	_listPictures = _this select 2;
-	_listUpgrades = _this select 3;
-	_listAllowed = _this select 4;
-	_filler = _this select 5;
-	_listBox = _this select 6;
-	_listBoxArray = [];
-	_u = 0;
-	_i = 0;
-	
-	_currentUpgrades = WF_Logic getVariable Format ["%1Upgrades",sideJoinedText];
-	
-	{
-		if ((_listUpgrades select _u) <= (_currentUpgrades select 13)) then {
-			_add = true;
-			if (gearRestriction && !gearInRange) then {
-				if !(_listAllowed select _u) then {_add = false};
-			};
-			if (_add) then {
-				lnbAddRow [_listBox,['$'+str (_listCosts Select _u),_x]];
-				lnbSetPicture [_listBox,[_i,0],_listPictures select _u];
-				lnbSetData [_listBox,[_i,0],_filler];
-				lnbSetValue [_listBox,[_i,0],_u];
-				_i = _i + 1;
-			};
-		};
-		_u = _u + 1;
-	} forEach _listNames;
-	
-	lnbSetCurSelRow [_listBox,0]
-};
-
-_addMagazine = {
-	Private ['_index','_limit','_mag','_magazines','_size','_totalInventory','_totalMain','_totalSpaces'];
-	_magazines = _this select 0;
-	_mag = _this select 1;
-	_size = 0;
-	_limit = 12;
-	
-	_magazine = WF_Logic getVariable 'magazineClasses';
-	_magazineSpaces = WF_Logic getVariable 'magazineSpaces';
-	_magazineMain = WF_Logic getVariable 'magazineMain';
-	
-	_misc = WF_Logic getVariable 'miscClasses';
-	_miscSpaces = WF_Logic getVariable 'miscSpaces';
-	_miscMain = WF_Logic getVariable 'miscMain';
-	
-	_totalInventory = _magazine + _misc;
-	_totalSpaces = _magazineSpaces + _miscSpaces;
-	_totalMain = _magazineMain + _miscMain;
-	
-	_newMagSpace = _totalSpaces select (_totalInventory find _mag);
-	_newMagSideInv = _totalMain select (_totalInventory find _mag);
-	_limit = if (_newMagSideInv) then {8} else {12};
-
-	if (_newMagSideInv) then {
-		{
-			_index = _totalInventory find _x;
-			if (_index != -1) then {
-				if (_totalMain select _index) then {
-					_size = _size + (_totalSpaces select _index)
-				};
-			};
-		} forEach _magazines;
-	} else {
-		{
-			_index = _totalInventory find _x;
-			if (_index != -1) then {
-				if (!(_totalMain select _index)) then {
-					_size = _size + (_totalSpaces select _index)
-				};
-			};
-		} forEach _magazines;	
-	};
-	
-	
-	if (_size + _newMagSpace <= _limit) then {_magazines = _magazines + [_mag]};
-	_magazines
-};
-
-_addItem = {
-	Private ['_index','_items','_limit','_mag','_magazines','_size','_totalInventory','_totalMain','_totalSpaces'];
-	_items = _this select 0;
-	_mag = _this select 1;
-	_size = 0;
-	_limit = 12;
-	
-	{_size = _size + 1} forEach _items;
-	
-	if (_size + 1 <= _limit) then {_items = _items + [_mag]};
-	
-	_items
-};
 
 WF_Gear_Hotkeys = {
 	Private ['_ctrl','_key'];
@@ -261,7 +111,7 @@ _disp = (findDisplay 16000) displayAddEventHandler ['KeyDown','_this Call WF_Gea
 
 //--- Fill the available units list.
 _unitList = [];
-_buildings = WF_Logic getVariable Format ["%1BaseStructures",sideJoinedText];
+_buildings = (sideJoinedText) Call GetSideStructures;
 {
 	_check = ['BARRACKSTYPE',_buildings,'WFBE_PURCHASEGEARRANGE' Call GetNamespace,sideJoined,_x] Call BuildingInRange;
 	_inRange = _check select 1;
@@ -306,14 +156,12 @@ while {alive player && dialog} do {
 	if (_filler != _lastFiller || _updateFiller) then {
 		_updateFiller = false;
 		_list = Call Compile Format ['_%1',_filler];
-		_listCosts = Call Compile Format ['_%1Costs',_filler];
-		_listNames = Call Compile Format ['_%1Names',_filler];
-		_listPictures = Call Compile Format ['_%1Pictures',_filler];
-		_listMagazines = Call Compile Format ['_%1Magazines',_filler];
-		_listUpgrades = Call Compile Format ['_%1Upgrades',_filler];
-		_listAllowed = Call Compile Format ['_%1Allowed',_filler];
 		lnbClear _lb;
-		[_listCosts,_listNames,_listPictures,_listUpgrades,_listAllowed,_filler,_lb] Call _fillList;
+		if (_filler != 'template') then {
+			[_list,_filler,_lb] Call UIGearFillList;
+		} else {
+			[_templateCosts,_templateNames,_templatePictures,_templateUpgrades,_templateAllowed,_filler,_lb] Call UIGearFillTemplateList;
+		};
 		_id = _fillerTypes find _filler;
 		{(_display displayCtrl _x) ctrlSetTextColor [1, 1, 1, 1]} forEach _fillerIDC;
 		(_display displayCtrl (_fillerIDC select _id)) ctrlSetTextColor [0.7, 1, 0.7, 1];
@@ -329,26 +177,25 @@ while {alive player && dialog} do {
 		_currentValue = lnbValue[_lb,[_currentRow,0]];
 		_currentItem = _list select _currentValue;
 		lnbClear _lbm;
-		if (!isNil '_listMagazines') then {
-			if (_currentValue < count _listMagazines) then {
-				_magListCosts = [];
-				_magListNames = [];
-				_magListPictures = [];
-				_magListUpgrades = [];
-				_magListAllowed = [];
-				_currentMags = _listMagazines select _currentValue;
-				if (count _currentMags > 0) then {
-					{
-						_index = _magazine find _x;
-						if (_index != -1) then {
-							_magListCosts = _magListCosts + [_magazineCosts select _index];
-							_magListNames = _magListNames + [_magazineNames select _index];
-							_magListPictures = _magListPictures + [_magazinePictures select _index];
-							_magListUpgrades = _magListUpgrades + [_magazineUpgrades select _index];
-							_magListAllowed = _magListAllowed + [_magazineAllowed select _index];
-						};
-					} forEach _currentMags;
-					[_magListCosts,_magListNames,_magListPictures,_magListUpgrades,_magazineAllowed,'magazine',_lbm] Call _fillList;
+		_get = [];
+		
+		/* Get */
+		if (_filler != 'template') then {
+			if (_filler == 'secondary' || _filler == 'all') then {
+				_get = (_currentItem+'_W') Call GetNamespace;
+				if (isNil '_get') then {
+					_get = _currentItem Call GetNamespace;
+				};
+			} else {
+				_get = _currentItem Call GetNamespace;
+			};
+
+			if !(isNil '_get') then {
+				_currentMags = _get select QUERYGEARMAGAZINES;
+				if (typeName _currentMags != 'SCALAR') then {
+					if (count _currentMags > 0) then {
+						[_currentMags,'magazine',_lbm] Call UIGearFillList;
+					};
 				};
 			};
 		};
@@ -359,15 +206,21 @@ while {alive player && dialog} do {
 		switch (_mainAction) do {
 			case 'addWeapon': {
 				_skip = true;
+				_get = [];
+				
+				if (_filler != 'template') then {
+					_get = (_currentItem+"_W") Call GetNamespace;
+					if (isNil '_get') then {
+						_get = _currentItem Call GetNamespace;
+					};
+				};
+				
 				if (_filler == 'primary' || _filler == 'secondary' || _filler == 'sidearm' || _filler == 'all') then {
 					if (_currentItem in _misc) then {_skip = false;_currentValue = _currentValue - _totalWeapons};
 					if (_skip) then {
 						_slist = Call Compile Format ['_%1',_currentData];
-						_slistPictures = Call Compile Format ['_%1Pictures',_currentData];
-						_slistCosts = Call Compile Format ['_%1Costs',_currentData];
 						_index = _slist find _currentItem;
 						if (_index != -1) then {
-							_slistMagazines = Call Compile Format ['_%1Magazines',_currentData];
 							if (_filler == 'all') then {
 								if (_currentItem in _primary) then {_currentData = 'primary'} else {
 									if (_currentItem in _secondary) then {_currentData = 'secondary'} else {
@@ -375,25 +228,27 @@ while {alive player && dialog} do {
 									};
 								};
 							};
-							Call Compile Format ['_old = _current%1;_currentWeapons = _currentWeapons - [_current%1];_current%1Cost = _slistCosts select _index;_current%1 = _slist select _index;ctrlSetText[_%IDC,_slistPictures select _index];ctrlSetText[_%1IDC,_slistPictures select _index]',_currentData];
+							Call Compile Format ['_old = _current%1;_currentWeapons = _currentWeapons - [_current%1]; _current%1Cost = %2; _current%1 = "%3";ctrlSetText[_%1IDC,"%4"]',_currentData,_get select QUERYGEARCOST,_currentItem,_get select QUERYGEARPICTURE];
 							//--- New Magazines.
-							_currentMags = _slistMagazines select _index;
+							_currentMags = _get select QUERYGEARMAGAZINES;
 							//--- Old Magazines.
-							_oldWeaponIndex = _slist find _old;
-							if (_oldWeaponIndex > -1) then {
-								_oldMags = _slistMagazines select _oldWeaponIndex;
+							_get2 = (_old+"_W") Call GetNamespace;
+							if (isNil '_get2') then {
+								_get2 = _old Call GetNamespace;
+							};
+							if !(isNil '_get2') then {
+								_oldMags = _get2 select QUERYGEARMAGAZINES;
 								_currentMagazines = [_currentMags select 0,_oldMags,_currentMagazines] Call ReplaceInventoryAmmo;
 							};
 						};
-						
 						_currentWeapons = _currentWeapons + [_currentItem];
 						_displayInv = true;
 					};
 				};
 				if (_filler == 'misc' || !_skip) then {
-					_type = _miscTypes select _currentValue;
+					_type = _get select QUERYGEARTYPE;
 					if (_type == 'CfgMagazines') then {
-						_currentMagazines = [_currentMagazines,_currentItem] Call _addMagazine;
+						_currentMagazines = [_currentMagazines,_currentItem] Call UIAddMagazine;
 						_displayInv = true;
 					};
 					if (_type == 'Special' && count _currentSpecials < 3 && !(_currentItem in _currentSpecials)) then {
@@ -401,20 +256,21 @@ while {alive player && dialog} do {
 						_currentSpecialCost = 0;
 						_u = 0;
 						{
-							_index = _misc find _x;
-							ctrlSetText[_specialIDC + _u,_miscPictures select _index];
-							_currentSpecialCost = _currentSpecialCost + (_miscCosts select _index);
+							_zt = _x Call GetNamespace;
+							ctrlSetText[_specialIDC + _u,_zt select QUERYGEARPICTURE];
+							_currentSpecialCost = _currentSpecialCost + (_zt select QUERYGEARCOST);
 							_u = _u + 1;
 						} forEach _currentSpecials;
 						_displayInv = true;
 					};
 					if (_type == 'Item') then {
 						if (!(_currentItem in _currentItems)) then {
-							_currentItems = [_currentItems,_currentItem] Call _addItem;
+							_currentItems = [_currentItems,_currentItem] Call UIAddItem;
 							_displayInv = true;
 						};
 					};
 				};
+				/* TODO */
 				if (_filler == 'template') then {
 					_tempWeapons = _template select _currentValue;
 					_tempItems = _templateItems select _currentValue;
@@ -429,12 +285,15 @@ while {alive player && dialog} do {
 					_currentWeapons = [];
 					_currentItems = _tempItems;
 					{
-						_index = _primary find _x;
-						if (_index != -1) then {_currentWeapons = _currentWeapons + [_x];_currentPrimary = _x;_currentPrimaryCost = _primaryCosts select _index;ctrlSetText[_primaryIDC,_primaryPictures select _index]} else {
-							_index = _secondary find _x;
-							if (_index != -1) then {_currentWeapons = _currentWeapons + [_x];_currentSecondary = _x;_currentSecondaryCost = _secondaryCosts select _index;ctrlSetText[_secondaryIDC,_secondaryPictures select _index]} else {
-								_index = _sidearm find _x;
-								if (_index != -1) then {_currentWeapons = _currentWeapons + [_x];_currentSidearm = _x;_currentSidearmCost = _sidearmCosts select _index;ctrlSetText[_sidearmIDC,_sidearmPictures select _index]};
+						_cwep = _x;
+						_get = (_x+"_W") Call GetNamespace;
+						if (isNil '_get') then {
+							_get = _x Call GetNamespace;
+						};
+						
+						if (({_x == _cwep} count _primary) > 0) then {_currentWeapons = _currentWeapons + [_x];_currentPrimary = _x;_currentPrimaryCost = _get select QUERYGEARCOST;ctrlSetText[_primaryIDC,_get select QUERYGEARPICTURE]} else {
+							if (({_x == _cwep} count _secondary) > 0) then {_currentWeapons = _currentWeapons + [_x];_currentSecondary = _x;_currentSecondaryCost = _get select QUERYGEARCOST;ctrlSetText[_secondaryIDC,_get select QUERYGEARPICTURE]} else {
+								if (({_x == _cwep} count _sidearm) > 0) then {_currentWeapons = _currentWeapons + [_x];_currentSidearm = _x;_currentSidearmCost = _get select QUERYGEARCOST;ctrlSetText[_sidearmIDC,_get select QUERYGEARPICTURE]};
 							};
 						};
 					} forEach _tempWeapons;
@@ -447,9 +306,9 @@ while {alive player && dialog} do {
 					for [{_x = 0},{_x < 2},{_x = _x + 1}] do {ctrlSetText[_specialIDC + _x,'\Ca\UI\Data\ui_gear_eq_gs.paa']};
 					_u = 0;
 					{
-						_index = _misc find _x;
-						_currentSpecialCost = _currentSpecialCost + (_miscCosts select _index);
-						ctrlSetText[_specialIDC + _u,_miscPictures select _index];
+						_get = _x Call GetNamespace;
+						_currentSpecialCost = _currentSpecialCost + (_get select QUERYGEARCOST);
+						ctrlSetText[_specialIDC + _u,_get select QUERYGEARPICTURE];
 						_u = _u + 1;
 					} forEach _currentSpecials;
 					_displayInv = true;
@@ -459,7 +318,7 @@ while {alive player && dialog} do {
 			case 'addMagazine': {
 				_currentMagValue = lnbValue[_lbm,[lnbCurSelRow _lbm,0]];
 				_currentMag = _currentMags select _currentMagValue;
-				_currentMagazines = [_currentMagazines,_currentMag] Call _addMagazine;
+				_currentMagazines = [_currentMagazines,_currentMag] Call UIAddMagazine;
 				_displayInv = true;
 			};
 		};
@@ -508,27 +367,42 @@ while {alive player && dialog} do {
 		ctrlSetText [3536,'\Ca\UI\Data\ui_gear_eq_gs.paa'];
 		
 		{
-			_index = _primary find _x;
-			if (_index != -1) then {_currentPrimary = _primary select _index;_currentPrimaryCost = _primaryCosts select _index;ctrlSetText[_primaryIDC,_primaryPictures select _index]};
-			_index = _secondary find _x;
-			if (_index != -1) then {_currentSecondary = _secondary select _index;_currentSecondaryCost = _secondaryCosts select _index;ctrlSetText[_secondaryIDC,_secondaryPictures select _index]};
-			_index = _sidearm find _x;
-			if (_index != -1) then {_currentSidearm = _sidearm select _index;_currentSidearmCost = _sidearmCosts select _index;ctrlSetText[_sidearmIDC,_sidearmPictures select _index]};
-			_index = _misc find _x;
-			if (_index != -1) then {
-				switch (_miscTypes select _index) do {
-					case 'Special': {
-						_currentSpecials = _currentSpecials + [_x];
-						_currentSpecialCost = _currentSpecialCost + (_miscCosts select _index);
-						_u = 0;
-						{
-							_i = _misc find _x;
-							ctrlSetText[_specialIDC + _u,_miscPictures select _i];
-							_u = _u + 1;
-						} forEach _currentSpecials;
-					};
-					case 'Item': {
-						_currentItems = _currentItems + [_x];
+			_cwep = _x;
+			_get = (_cwep+"_W") Call GetNamespace;
+			if (isNil '_get') then {
+				_get = _cwep Call GetNamespace;
+			};
+			
+			if !(isNil '_get') then {
+				_found = false;
+				_index = {_x == _cwep} count _primary;
+				if (_index > 0) then {_currentPrimary = _cwep;_currentPrimaryCost = _get select QUERYGEARCOST;ctrlSetText[_primaryIDC,_get select QUERYGEARPICTURE];_found = true};
+				if !(_found) then {
+					_index = {_x == _cwep} count _secondary;
+					if (_index > 0) then {_currentSecondary = _cwep;_currentSecondaryCost = _get select QUERYGEARCOST;ctrlSetText[_secondaryIDC,_get select QUERYGEARPICTURE];_found = true};
+					if !(_found) then {
+						_index = {_x == _cwep} count _sidearm;
+						if (_index > 0) then {_currentSidearm = _cwep;_currentSidearmCost = _get select QUERYGEARCOST;ctrlSetText[_sidearmIDC,_get select QUERYGEARPICTURE];_found = true};
+						if !(_found) then {
+							_index = {_x == _cwep} count _misc;
+							if (_index > 0) then {
+								switch (_get select QUERYGEARTYPE) do {
+									case 'Special': {
+										_currentSpecials = _currentSpecials + [_x];
+										_currentSpecialCost = _currentSpecialCost + (_get select QUERYGEARCOST);
+										_u = 0;
+										{
+											_zt = _x Call GetNamespace;
+											ctrlSetText[_specialIDC + _u,_zt select QUERYGEARPICTURE];
+											_u = _u + 1;
+										} forEach _currentSpecials;
+									};
+									case 'Item': {
+										_currentItems = _currentItems + [_x];
+									};
+								};
+							};
+						};
 					};
 				};
 			};
@@ -550,24 +424,24 @@ while {alive player && dialog} do {
 		if (_inventoryClick > 3502 && _inventoryClick < 3515) then {
 			_slot = _inventoryClick - 3503;
 			if (_slot < Count _inventorySlots) then {
-				_index = _currentMagazines find (_inventorySlots Select _slot);
-				if (_index != -1) then {_currentMagazines = [_currentMagazines,_index] Call _replaceArray};
+				_index = _currentMagazines find (_inventorySlots select _slot);
+				if (_index != -1) then {_currentMagazines = [_currentMagazines,_index] Call ReplaceArray};
 			};
 		};
 		//--- Handgun Inventory
 		if (_inventoryClick > 3514 && _inventoryClick < 3523) then {
 			_slot = _inventoryClick - 3515;
 			if (_slot < Count _sidearmInventorySlots) then {
-				_index = _currentMagazines find (_sidearmInventorySlots Select _slot);
-				if (_index != -1) then {_currentMagazines = [_currentMagazines,_index] Call _replaceArray};
+				_index = _currentMagazines find (_sidearmInventorySlots select _slot);
+				if (_index != -1) then {_currentMagazines = [_currentMagazines,_index] Call ReplaceArray};
 			};
 		};
 		//--- Misc Inventory
 		if (_inventoryClick > 3522 && _inventoryClick < 3535) then {
 			_slot = _inventoryClick - 3523;
 			if (_slot < Count _miscItemSlots) then {
-				_index = _currentItems find (_miscItemSlots Select _slot);
-				if (_index != -1) then {_currentItems = [_currentItems,_index] Call _replaceArray};
+				_index = _currentItems find (_miscItemSlots select _slot);
+				if (_index != -1) then {_currentItems = [_currentItems,_index] Call ReplaceArray};
 			};
 		};
 		//--- Remove a special item.
@@ -579,9 +453,9 @@ while {alive player && dialog} do {
 				for [{_x = 0},{_x < 2},{_x = _x + 1}] do {ctrlSetText[_specialIDC + _x,'\Ca\UI\Data\ui_gear_eq_gs.paa']};
 				_u = 0;
 				{
-					_index = _misc find _x;
-					_currentSpecialCost = _currentSpecialCost + (_miscCosts select _index);
-					ctrlSetText[_specialIDC + _u,_miscPictures select _index];
+					_get = _x Call GetNamespace;
+					_currentSpecialCost = _currentSpecialCost + (_get select QUERYGEARCOST);
+					ctrlSetText[_specialIDC + _u,_get select QUERYGEARPICTURE];
 					_u = _u + 1;
 				} forEach _currentSpecials;				
 			};
@@ -605,43 +479,57 @@ while {alive player && dialog} do {
 					_currentItems = [];
 					_currentSpecials = [];
 					{
-						_index = _primary find _x;
-						if (_index != -1) then {_currentWeapons = _currentWeapons + [_x];_currentPrimary = _x;_currentPrimaryCost = _primaryCosts select _index;ctrlSetText[_primaryIDC,_primaryPictures select _index]} else {
-							_index = _secondary find _x;
-							if (_index != -1) then {_currentWeapons = _currentWeapons + [_x];_currentSecondary = _x;_currentSecondaryCost = _secondaryCosts select _index;ctrlSetText[_secondaryIDC,_secondaryPictures select _index]} else {
-								_index = _sidearm find _x;
-								if (_index != -1) then {_currentWeapons = _currentWeapons + [_x];_currentSidearm = _x;_currentSidearmCost = _sidearmCosts select _index;ctrlSetText[_sidearmIDC,_sidearmPictures select _index]};
-							};
+						_cwep = _x;
+						_get = (_cwep+"_W") Call GetNamespace;
+						if (isNil '_get') then {
+							_get = _cwep Call GetNamespace;
 						};
-						_index = _misc find _x;
-						if (_index != -1) then {
-							switch (_miscTypes select _index) do {
-								case 'Special': {
-									_currentSpecials = _currentSpecials + [_x];
-								};
-								case 'Item': {
-									_currentItems = _currentItems + [_x];
+						
+						if !(isNil '_get') then {
+							_index = {_x == _cwep} count _primary;
+							if (_index > 0) then {_currentWeapons = _currentWeapons + [_x];_currentPrimary = _x;_currentPrimaryCost = _get select QUERYGEARCOST;ctrlSetText[_primaryIDC,_get select QUERYGEARPICTURE]} else {
+								_index = {_x == _cwep} count _secondary;
+								if (_index > 0) then {_currentWeapons = _currentWeapons + [_x];_currentSecondary = _x;_currentSecondaryCost = _get select QUERYGEARCOST;ctrlSetText[_secondaryIDC,_get select QUERYGEARPICTURE]} else {
+									_index = {_x == _cwep} count _sidearm;
+									if (_index > 0) then {_currentWeapons = _currentWeapons + [_x];_currentSidearm = _x;_currentSidearmCost = _get select QUERYGEARCOST;ctrlSetText[_sidearmIDC,_get select QUERYGEARPICTURE]} else {
+										_index = {_x == _cwep} count _misc;
+										if (_index > 0) then {
+											switch (_get select QUERYGEARTYPE) do {
+												case 'Special': {
+													_currentSpecials = _currentSpecials + [_x];
+												};
+												case 'Item': {
+													_currentItems = _currentItems + [_x];
+												};
+											};
+										};
+									};
 								};
 							};
 						};
 					} forEach respawnWeapons;
+					
 					if (_currentPrimary == '') then  {ctrlSetText [_primaryIDC,'\ca\ui\data\ui_gear_gun_gs.paa']};
 					if (_currentSecondary == '') then  {ctrlSetText [_secondaryIDC,'\ca\ui\data\ui_gear_sec_gs.paa']};
 					if (_currentSidearm == '') then  {ctrlSetText [_sidearmIDC,'\ca\ui\data\ui_gear_hgun_gs.paa']};
+					
 					_currentMagazines = respawnAmmo;
 					_currentSpecialCost = 0;
+					
 					for [{_x = 0},{_x < 2},{_x = _x + 1}] do {ctrlSetText[_specialIDC + _x,'\Ca\UI\Data\ui_gear_eq_gs.paa']};
+					
 					_u = 0;
 					{
-						_index = _misc find _x;
-						_currentSpecialCost = _currentSpecialCost + (_miscCosts select _index);
-						ctrlSetText[_specialIDC + _u,_miscPictures select _index];
+						_get = _x Call GetNamespace;
+						_currentSpecialCost = _currentSpecialCost + (_get select QUERYGEARCOST);
+						ctrlSetText[_specialIDC + _u,_get select QUERYGEARPICTURE];
 						_u = _u + 1;
 					} forEach _currentSpecials;
 
 					_displayInv = true;
 				};
 			};
+			
 			case 'clear': {
 				_currentPrimary = '';
 				_currentSecondary = '';
@@ -696,12 +584,13 @@ while {alive player && dialog} do {
 			_sidearmInventorySlots = _data select 1;
 			_miscItemSlots = _data select 2;
 			_currentCost = (_data select 3) + _currentPrimaryCost + _currentSecondaryCost + _currentSidearmCost + _currentSpecialCost;
+			respawnGearCost = _currentCost;
 			_cost = 0;
 		} else {
 			hint parseText(Format [localize "STR_WF_Funds_Missing_Gear",_cost - _funds]);
 		};
 	};
-	
+
 	//--- Remove an existing template.
 	if (deleteLoadout) then {
 		deleteLoadout = false;
@@ -741,6 +630,7 @@ while {alive player && dialog} do {
 		};
 	};
 	
+	//--- TODO
 	if (saveLoadout) then {
 		saveLoadout = false;
 		//--- Behave only on template filler.
@@ -751,33 +641,37 @@ while {alive player && dialog} do {
 			_temp = [];
 			_cAllow = true;
 			_upgr = 0;
+
 			if (_currentPrimary != '') then {
+				_get = _currentPrimary Call GetNamespace;
 				_temp = _temp + [_currentPrimary];
-				_ind = _primary find _currentPrimary;
-				_desc = _desc + (_primaryNames select _ind);
-				_pict = (_primaryPictures select _ind);
-				if !(_primaryAllowed select _ind) then {_cAllow = false};
-				_upgr = _primaryUpgrades select _ind;
+				_desc = _desc + (_get select QUERYGEARLABEL);
+				_pict = (_get select QUERYGEARPICTURE);
+				if !(_get select QUERYGEARALLOWED) then {_cAllow = false};
+				_upgr = _get select QUERYGEARUPGRADE;
 			};
 			if (_currentSecondary != '') then {
+				_get = (_currentSecondary+"_W") Call GetNamespace;
+				if (isNil '_get') then {
+					_get = _currentSecondary Call GetNamespace;
+				};
 				_temp = _temp + [_currentSecondary];
 				if (_desc != '') then { _desc = _desc + "/"};
 				//--- Needless to check if the primary is prohibed.
-				_ind = _secondary find _currentSecondary;
-				_desc = _desc + (_secondaryNames select _ind);
-				if (_pict == '') then {_pict = _secondaryPictures select _ind};
-				if (_cAllow) then {if !(_secondaryAllowed select _ind) then {_cAllow = false}};
-				if ((_secondaryUpgrades select _ind) > _upgr) then {_upgr = _secondaryUpgrades select _ind};
+				_desc = _desc + (_get select QUERYGEARLABEL);
+				if (_pict == '') then {_pict = _get select QUERYGEARPICTURE};
+				if (_cAllow) then {if !(_get select QUERYGEARALLOWED) then {_cAllow = false}};
+				if ((_get select QUERYGEARUPGRADE) > _upgr) then {_upgr = (_get select QUERYGEARUPGRADE)};
 			};
 			if (_currentSidearm != '') then {
+				_get = _currentSidearm Call GetNamespace;
 				_temp = _temp + [_currentSidearm];
 				if (_desc != '') then { _desc = _desc + "/"};
 				//--- Needless to check if the secondary is prohibed.
-				_ind = _sidearm find _currentSidearm;
-				_desc = _desc + (_sidearmNames select _ind);
-				if (_pict == '') then {_pict = _sidearmPictures select _ind};
-				if (_cAllow) then {if !(_sidearmAllowed select _ind) then {_cAllow = false}};
-				if ((_sidearmUpgrades select _ind) > _upgr) then {_upgr = _sidearmUpgrades select _ind};
+				_desc = _desc + (_get select QUERYGEARLABEL);
+				if (_pict == '') then {_pict = _get select QUERYGEARPICTURE};
+				if (_cAllow) then {if !(_get select QUERYGEARALLOWED) then {_cAllow = false}};
+				if ((_get select QUERYGEARUPGRADE) > _upgr) then {_upgr = (_get select QUERYGEARUPGRADE)};
 			};
 			_template = _template + [_temp];
 			WF_Logic setVariable["templateClasses",_template];

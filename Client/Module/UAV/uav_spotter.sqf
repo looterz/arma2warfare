@@ -22,7 +22,7 @@ while {true} do {
 			sleep (0.05 + random 0.05);
 			WFBE_UAV_Reveal = [sideJoined,'CLTFNCUAV_REVEAL',[_uav,_x]];
 			publicVariable 'WFBE_UAV_Reveal';
-			if !(isMultiplayer) then {[sideJoined,'CLTFNCUAV_REVEAL',[_uav,_x]] Spawn HandlePVF};
+			if (!isMultiplayer || (isServer && local player)) then {[sideJoined,'CLTFNCUAV_REVEAL',[_uav,_x]] Spawn HandlePVF};
 		};
 	} forEach (_uav nearEntities _range);
 };

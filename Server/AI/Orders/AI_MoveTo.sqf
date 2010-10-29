@@ -10,13 +10,7 @@ if (side _team == west || side _team == east) then {
 };
 
 //--- Override.
-if (_update) then {
-	_formations = ['FILE','DIAMOND','STAG COLUMN','WEDGE'];
-	_team setFormation (_formations select round(random(count _formations -1)));
-	_team setBehaviour "AWARE";
-	_team setSpeedMode "NORMAL";
-	_team setCombatMode "YELLOW";
-};
+if (_update) then {_team Call UpdateTeam};
 
 diag_log Format["[WFBE (INFORMATION)] AI_MoveTo: The %1 %2 Team is moving to %3",side _team,_team,_destination];
 

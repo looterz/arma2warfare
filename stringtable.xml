@@ -667,13 +667,6 @@
         <Russian>Экономика: Деньги на старте (Запад)</Russian>
         <Italian>Economia: Fondi Iniziali (Ovest)</Italian>
       </Key>
-      <Key ID="STR_WF_Gameplay_GearOnRespawn">
-        <English>Respawn: Gear Remains</English>
-        <French>Réapparition: Equipement Conservé</French>
-        <German>Respawn: mit Ausrüstung</German>
-        <Russian>Возрожд: С оружием</Russian>
-        <Italian>Respawn: Conserva Equipaggiamento</Italian>
-      </Key>
       <Key ID="STR_WF_Gameplay_GearRestriction">
         <English>Restriction: Camp Gear</English>
         <French>Réstriction: Equipements Camps</French>
@@ -849,6 +842,13 @@
         <Russian>Город: Сопротивление</Russian>
         <Italian>Città: Resistenza</Italian>
       </Key>
+	  <Key ID="STR_WF_Gameplay_Resistance_VehLock">
+        <English>Towns: Resistance Veh. Lock</English>
+        <French>Villes: Vérouillage Véhi. Résistance</French>
+        <German>Towns: Resistance Veh. Lock</German>
+        <Russian>Towns: Resistance Veh. Lock</Russian>
+        <Italian>Towns: Resistance Veh. Lock</Italian>
+      </Key>
       <Key ID="STR_WF_Gameplay_Respawn">
         <English>Respawn: Delay</English>
         <French>Réapparition: Délai</French>
@@ -885,11 +885,11 @@
         <Italian>Gameplay: Mostra UID Giocatore</Italian>
       </Key>
       <Key ID="STR_WF_Gameplay_Spacebar">
-        <English>Gameplay: Spacebar Scanning</English>
-        <French>Jouabilité: Scan avec Barre d'Espacement</French>
-        <German>Gameplay: Spacebar-Scannen</German>
-        <Russian>Прочее: Сканирование пробелом</Russian>
-        <Italian>Gameplay: Spacebar Scanning</Italian>
+        <English>Keyboard: Spacebar Scanning</English>
+        <French>Clavier: Scan avec Barre d'Espacement</French>
+        <German>Keyboard: Spacebar Scanning</German>
+        <Russian>Управление: Сканирование пробелом</Russian>
+        <Italian>Keyboard: Spacebar Scanning</Italian>
       </Key>
       <Key ID="STR_WF_Gameplay_StartingDistance">
         <English>Base: Starting Distance</English>
@@ -968,6 +968,20 @@
         <German>Lastwagen</German>
         <Russian>Грузовики</Russian>
         <Italian>Camion</Italian>
+      </Key>
+      <Key ID="STR_WF_Gameplay_TabLock">
+        <English>Keyboard: Lock Targets</English>
+        <French>Clavier: Verouillage Cibles</French>
+        <German>Keyboard: Lock Targets</German>
+        <Russian>Keyboard: Lock Targets</Russian>
+        <Italian>Keyboard: Lock Targets</Italian>
+      </Key>
+      <Key ID="STR_WF_Gameplay_TacticalView">
+        <English>Keyboard: Tactical View</English>
+        <French>Clavier: Vue Tactique</French>
+        <German>Keyboard: Tactical View</German>
+        <Russian>Keyboard: Tactical View</Russian>
+        <Italian>Keyboard: Tactical View</Italian>
       </Key>
       <Key ID="STR_WF_Gameplay_TownsAmount">
         <English>Towns: Amount</English>
@@ -1143,6 +1157,13 @@
         <German>Lösen (Fahrzeug)</German>
         <Russian>Отцепить (Транспорт)</Russian>
         <Italian>Sgancia (Veicolo)</Italian>
+      </Key>
+      <Key ID="STR_WF_Loading">
+        <English>Loading</English>
+        <French>Chargement</French>
+        <German>Loading</German>
+        <Russian>Loading</Russian>
+        <Italian>Loading</Italian>
       </Key>
       <Key ID="STR_WF_Lock">
         <English>Lock</English>
@@ -1444,6 +1465,41 @@
         <German>Wiedereinstieg</German>
         <Russian>Возрождение</Russian>
         <Italian>Respawn</Italian>
+      </Key>
+	  <Key ID="STR_WF_Respawn_Penalty">
+        <English>Respawn: Penalty</English>
+        <French>Réapparition: Pénalité</French>
+        <German>Respawn: Penalty</German>
+        <Russian>Respawn: Penalty</Russian>
+        <Italian>Respawn: Penalty</Italian>
+      </Key>
+	  <Key ID="STR_WF_Respawn_Penalty_Full">
+        <English>Gear Price</English>
+        <French>Prix Equip.</French>
+        <German>Gear Price</German>
+        <Russian>Gear Price</Russian>
+        <Italian>Gear Price</Italian>
+      </Key>
+	  <Key ID="STR_WF_Respawn_Penalty_OneFourth">
+        <English>Gear Price 1/4</English>
+        <French>Prix Equip. 1/4</French>
+        <German>Gear Price 1/4</German>
+        <Russian>Gear Price 1/4</Russian>
+        <Italian>Gear Price 1/4</Italian>
+      </Key>
+	  <Key ID="STR_WF_Respawn_Penalty_OneHalf">
+        <English>Gear Price 1/2</English>
+        <French>Prix Equip. 1/2</French>
+        <German>Gear Price 1/2</German>
+        <Russian>Gear Price 1/2</Russian>
+        <Italian>Gear Price 1/2</Italian>
+      </Key>
+	  <Key ID="STR_WF_Respawn_Penalty_Remove">
+        <English>Default Gear</English>
+        <French>Equipement par Défaut</French>
+        <German>Default Gear</German>
+        <Russian>Default Gear</Russian>
+        <Italian>Default Gear</Italian>
       </Key>
       <Key ID="STR_WF_RespawnInfo">
         <English>Respawn Information:\n\n - You can select a respawn location by clicking on the map Yellow Circle (Around the team buildings or a friendly Town Camp).</English>
@@ -2046,6 +2102,34 @@
         <German>%1 ist der Kommandeur.</German>
         <Russian>%1 командует.</Russian>
         <Italian>%1 è il Comandante!</Italian>
+      </Key>
+	  <Key ID="STR_WF_Weather_Clear">
+        <English>Clear</English>
+        <French>Clair</French>
+        <German>Clear</German>
+        <Russian>Clear</Russian>
+        <Italian>Clear</Italian>
+      </Key>
+	  <Key ID="STR_WF_Weather_Cloudy">
+        <English>Cloudy</English>
+        <French>Nuageux</French>
+        <German>Cloudy</German>
+        <Russian>Cloudy</Russian>
+        <Italian>Cloudy</Italian>
+      </Key>
+	  <Key ID="STR_WF_Weather_Dynamic">
+        <English>Dynamic</English>
+        <French>Dynamique</French>
+        <German>Dynamic</German>
+        <Russian>Dynamic</Russian>
+        <Italian>Dynamic</Italian>
+      </Key>
+	  <Key ID="STR_WF_Weather_Rainny">
+        <English>Rainny</English>
+        <French>Pluvieux</French>
+        <German>Rainny</German>
+        <Russian>Rainny</Russian>
+        <Italian>Rainny</Italian>
       </Key>
 	  <Key ID="STR_WF_OnlyInVehicles">
         <English>Only in vehicles</English>

@@ -1,6 +1,6 @@
 _vehicle = _this select 0;
 
-_hq = WF_Logic getVariable Format ["%1MHQ",sideJoinedText];
+_hq = (sideJoinedText) Call GetSideHQ;
 if (alive _hq || (_hq distance _vehicle > 30)) exitWith {};
 
 //--- Is HQ already being fixed?
@@ -15,6 +15,6 @@ WF_Logic setVariable [Format["%1Supplies",sideJoinedText],_supply,true];
 
 WFBE_RequestMHQRepair = ['SRVFNCREQUESTMHQREPAIR',sideJoined];
 publicVariable 'WFBE_RequestMHQRepair';
-if !(isMultiplayer) then {['SRVFNCREQUESTMHQREPAIR',sideJoined] Spawn HandleSPVF};
+if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTMHQREPAIR',sideJoined] Spawn HandleSPVF};
 
 WF_Logic setVariable [Format ["%1MHQRepair",sideJoinedText],true,true];

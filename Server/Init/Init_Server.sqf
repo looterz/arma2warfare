@@ -32,6 +32,7 @@ SetCampsToSide = Compile preprocessFile "Server\Functions\Server_SetCampsToSide.
 SideMessage = Compile preprocessFile "Server\Functions\Server_SideMessage.sqf";
 SVoteForCommander = Compile preprocessFile "Server\Server_VoteForCommander.sqf";
 TrashObject = Compile preprocessFile "Server\Functions\Server_TrashObject.sqf";
+UpdateTeam = Compile preprocessFile "Server\Functions\Server_UpdateTeam.sqf";
 UpdateSupplyTruck = Compile preprocessFile "Server\AI\AI_UpdateSupplyTruck.sqf";
 
 KAT_ParaAmmo = Compile preProcessfile "Server\Support\Support_ParaAmmo.sqf";
@@ -75,10 +76,24 @@ if (paramFastTime) then {
 	[] ExecFSM "Server\FSM\fasttime.fsm";
 	diag_log "[WFBE (INIT)] Init_Server: Fast Time Module - [Done]";
 };
-if (paramWeather) then {
+
+//--- Weather.
+_weat = 'WFBE_WEATHER' Call GetNamespace;
+if (_weat == 3) then {
 	[] ExecFSM "Server\FSM\weather.fsm";
-	diag_log "[WFBE (INIT)] Init_Server: Weather Module - [Done]";
+} else {
+	if (isDedicated) then {
+		_oc = 0.05;
+		switch (_weat) do {
+			case 0: {_oc = 0};
+			case 1: {_oc = 0.5};
+			case 2: {_oc = 1};
+		};
+		60 setOvercast _oc;
+	};
 };
+
+diag_log "[WFBE (INIT)] Init_Server: Weather Module - [Done]";
 
 //--- Static defenses in town main group, they share their knowledge.
 WF_ResistanceDefenseTeam = createGroup resistance;
@@ -145,10 +160,6 @@ if (paramHandleFF) then {
 eastStartingLocation = _eastLocation;
 westStartingLocation = _westLocation;
 
-//--- Store HQ in the global var.
-WF_Logic setVariable ["WestMHQ",WestMHQ,true];
-WF_Logic setVariable ["EastMHQ",EastMHQ,true];
-
 Call Compile Format ["EastMHQ AddEventHandler ['killed',{[_this select 0,_this select 1,%1,'%2'] Spawn HQKilled}];",east,typeOf EastMHQ];
 Call Compile Format ["WestMHQ AddEventHandler ['killed',{[_this select 0,_this select 1,%1,'%2'] Spawn HQKilled}];",west,typeOf WestMHQ];
 
@@ -168,20 +179,25 @@ BIS_WF_HQWEST = _WF_GroupLogic2 createUnit ["Logic",[0,0,0],[],0,"NONE"]; [BIS_W
 BIS_WF_HQEAST2 = _WF_GroupLogic3 createUnit ["Logic",[0,0,0],[],0,"NONE"]; [BIS_WF_HQEAST2] joinSilent _BIS_WF_HQEASTgrp2;
 BIS_WF_HQWEST2 = _WF_GroupLogic4 createUnit ["Logic",[0,0,0],[],0,"NONE"]; [BIS_WF_HQWEST2] joinSilent _BIS_WF_HQWESTgrp2;
 
-BIS_WF_HQEAST setVariable ['_topic_identity',('WFBE_ANNOUNCERSEAST' Call GetNamespace) select round(random((count ('WFBE_ANNOUNCERSEAST' Call GetNamespace))-1)),true];
-BIS_WF_HQWEST setVariable ['_topic_identity',('WFBE_ANNOUNCERSWEST' Call GetNamespace) select round(random((count ('WFBE_ANNOUNCERSWEST' Call GetNamespace))-1)),true];
+BIS_WF_HQEAST_TI = ('WFBE_ANNOUNCERSEAST' Call GetNamespace) select round(random((count ('WFBE_ANNOUNCERSEAST' Call GetNamespace))-1));
+BIS_WF_HQWEST_TI = ('WFBE_ANNOUNCERSWEST' Call GetNamespace) select round(random((count ('WFBE_ANNOUNCERSWEST' Call GetNamespace))-1));
 
-{  
-  _x setIdentity (_x getVariable "_topic_identity");
-  _x setRank "COLONEL";
-  _x setGroupId ["HQ"];
-  _x kbAddTopic [(_x getVariable "_topic_identity"),"Client\kb\hq.bikb","Client\kb\hq.fsm",{call compile preprocessFileLineNumbers "Client\kb\hq.sqf"}]; 
-} forEach [BIS_WF_HQEAST, BIS_WF_HQWEST];
+BIS_WF_HQEAST setIdentity BIS_WF_HQEAST_TI;
+BIS_WF_HQEAST setRank 'COLONEL';
+BIS_WF_HQEAST setGroupId ["HQ"];
+BIS_WF_HQEAST kbAddTopic [BIS_WF_HQEAST_TI,"Client\kb\hq.bikb","Client\kb\hq.fsm",{call compile preprocessFileLineNumbers "Client\kb\hq.sqf"}];
 
-WF_Logic setVariable ["BIS_WF_HQEAST",BIS_WF_HQEAST,true];
-WF_Logic setVariable ["BIS_WF_HQWEST",BIS_WF_HQWEST,true];
+BIS_WF_HQWEST setIdentity BIS_WF_HQWEST_TI;
+BIS_WF_HQWEST setRank 'COLONEL';
+BIS_WF_HQWEST setGroupId ["HQ"];
+BIS_WF_HQWEST kbAddTopic [BIS_WF_HQWEST_TI,"Client\kb\hq.bikb","Client\kb\hq.fsm",{call compile preprocessFileLineNumbers "Client\kb\hq.sqf"}];
 
-diag_log Format["[WFBE (INIT)] Init_Server: Registered Radio Announcers (West: %1 East: %2) - [Done]",BIS_WF_HQWEST getVariable '_topic_identity',BIS_WF_HQEAST getVariable '_topic_identity'];
+publicVariable 'BIS_WF_HQEAST';
+publicVariable 'BIS_WF_HQEAST_TI';
+publicVariable 'BIS_WF_HQWEST';
+publicVariable 'BIS_WF_HQWEST_TI';
+
+diag_log Format["[WFBE (INIT)] Init_Server: Registered Radio Announcers (West: %1 East: %2) - [Done]",BIS_WF_HQWEST_TI,BIS_WF_HQEAST_TI];
 
 ['WFBE_West_TimeUnderAttack',0,true] Call SetNamespace;
 ['WFBE_East_TimeUnderAttack',0,true] Call SetNamespace;
@@ -218,8 +234,14 @@ WF_Logic setVariable ["WF_CHQInUse_East",false];
 
 diag_log "[WFBE (INIT)] Init_Server: Stats Variable - [Done]";
 
+EastBaseStructures = [];
+WestBaseStructures = [];
+publicVariable "EastBaseStructures";
+publicVariable "WestBaseStructures";
+
 if (paramAI) then {
 	//--- Loadout replacement & positioning & variables.
+	_i = 1;
 	{
 		if !(isNil "_x") then {
 			if (!isPlayer (leader _x) && alive (leader _x)) then {
@@ -228,14 +250,18 @@ if (paramAI) then {
 				[(leader _x),Format ["WFBE_EASTLEADERWEAPONS0%1",_ran] Call GetNamespace,Format ["WFBE_EASTLEADERAMMO0%1",_ran] Call GetNamespace] Call EquipLoadout;
 			};
 			_x setVariable ["queue",[]];
-			_x setVariable ["funds",'WFBE_EASTSTARTINGMONEY' Call GetNamespace,true];
+			Call Compile Format ["EASTFunds%1 = %2; publicVariable 'EASTFunds%1';",_i,'WFBE_EASTSTARTINGMONEY' Call GetNamespace];
 			[_x, false] 	Call SetTeamAutonomous;
 			[_x, ""] 		Call SetTeamRespawn;
 			[_x, -1] 		Call SetTeamType;
+			[_x, "towns"]	Call SetTeamMoveMode;
+			[_x, [0,0,0]]	Call SetTeamMovePos;
 			if (paramISIS) then {(leader _x) addEventHandler['handleDamage',{_this Call ISIS_Wound}]};
 			diag_log Format ["[WFBE (INIT)] Init_Server: East AI Team (%1) Full Init - [Done]",_x];
 		};
+		_i = _i + 1;
 	} forEach ('WFBE_EASTTEAMS' Call GetNamespace);
+	_i = 1;
 	{
 		if !(isNil "_x") then {
 			if (!isPlayer (leader _x) && alive (leader _x)) then {
@@ -244,13 +270,16 @@ if (paramAI) then {
 				[(leader _x),Format ["WFBE_WESTLEADERWEAPONS0%1",_ran] Call GetNamespace,Format ["WFBE_WESTLEADERAMMO0%1",_ran] Call GetNamespace] Call EquipLoadout;
 			};
 			_x setVariable ["queue",[]];
-			_x setVariable ["funds",'WFBE_WESTSTARTINGMONEY' Call GetNamespace,true];
+			Call Compile Format ["WESTFunds%1 = %2; publicVariable 'WESTFunds%1';",_i,'WFBE_WESTSTARTINGMONEY' Call GetNamespace];
 			[_x, false] 	Call SetTeamAutonomous;
 			[_x, ""] 		Call SetTeamRespawn;
 			[_x, -1] 		Call SetTeamType;
+			[_x, "towns"]	Call SetTeamMoveMode;
+			[_x, [0,0,0]]	Call SetTeamMovePos;
 			if (paramISIS) then {(leader _x) addEventHandler['handleDamage',{_this Call ISIS_Wound}]};
 			diag_log Format ["[WFBE (INIT)] Init_Server: West AI Team (%1) Full Init - [Done]",_x];
 		};
+		_i = _i + 1;
 	} forEach ('WFBE_WESTTEAMS' Call GetNamespace);
 	
 	//--- AI Supply Trucks.
@@ -268,28 +297,29 @@ if (paramAI) then {
 		diag_log "[WFBE (INIT)] Init_Server: AI Teams FSM - [Done]";
 	};
 } else {
+	_i = 1;
 	{
 		if !(isNil "_x") then {
-			_x setVariable ["funds",'WFBE_EASTSTARTINGMONEY' Call GetNamespace,true];
+			Call Compile Format ["EASTFunds%1 = %2; publicVariable 'EASTFunds%1';",_i,'WFBE_EASTSTARTINGMONEY' Call GetNamespace];
 			[_x, false] 	Call SetTeamAutonomous;
 			[_x, ""] 		Call SetTeamRespawn;
 			[_x, -1] 		Call SetTeamType;
 			diag_log Format ["[WFBE (INIT)] Init_Server: West AI Team (%1) Partial Init - [Done]",_x];
 		};
+		_i = _i + 1;
 	} forEach ('WFBE_EASTTEAMS' Call GetNamespace);
+	_i = 1;
 	{
 		if !(isNil "_x") then {
-			_x setVariable ["funds",'WFBE_WESTSTARTINGMONEY' Call GetNamespace,true];
+			Call Compile Format ["WESTFunds%1 = %2; publicVariable 'WESTFunds%1';",_i,'WFBE_WESTSTARTINGMONEY' Call GetNamespace];
 			[_x, false] 	Call SetTeamAutonomous;
 			[_x, ""] 		Call SetTeamRespawn;
 			[_x, -1] 		Call SetTeamType;
 			diag_log Format ["[WFBE (INIT)] Init_Server: West AI Team (%1) Partial Init - [Done]",_x];
 		};
+		_i = _i + 1;
 	} forEach ('WFBE_WESTTEAMS' Call GetNamespace);
 };
-
-WF_Logic setVariable ["EastBaseStructures",EastBaseStructures,true];
-WF_Logic setVariable ["WestBaseStructures",WestBaseStructures,true];
 
 //--- Create the respawn markers for both side.
 createMarkerLocal ["Respawn_east",getPos EastMHQ];
@@ -323,6 +353,9 @@ _starterVehicle = _starterVehicle + [_vehicle];
 _vehicle = if (WF_A2_Vanilla) then {["HMMWV_Ambulance",(getPos WestMHQ),west,false] Call CreateVehi} else {["HMMWV_Ambulance_DES_EP1",(getPos WestMHQ),west,false] Call CreateVehi};
 [_vehicle,getPos WestMHQ,45,60,true,false,true] Call PlaceNear;
 _starterVehicle = _starterVehicle + [_vehicle];
+
+//--- Clear the cargo.
+{clearWeaponCargo _x; clearMagazineCargo _x} forEach _starterVehicle;
 
 diag_log "[WFBE (INIT)] Init_Server: Starting Vehicles - [Done]";
 
@@ -358,14 +391,11 @@ diag_log "[WFBE (INIT)] Init_Server: Garbage Collector Module - [Done]";
 diag_log "[WFBE (INIT)] Init_Server: Empty Vehicles Collector - [Done]";
 
 //--- Network System Part 2.
-WF_Logic setVariable ["EastMHQDeployed",false,true];
-WF_Logic setVariable ["WestMHQDeployed",false,true];
+EastMHQDeployed = false; publicVariable 'EastMHQDeployed';
+WestMHQDeployed = false; publicVariable 'WestMHQDeployed';
 
 WF_Logic setVariable ["EastSupplies",EastSupplies,true];
 WF_Logic setVariable ["WestSupplies",WestSupplies,true];
-
-WF_Logic setVariable ["EastStartingLocation",_eastLocation,true];
-WF_Logic setVariable ["WestStartingLocation",_westLocation,true];
 
 WF_Logic setVariable ["EastCommanderVoteTime",60,true];
 WF_Logic setVariable ["WestCommanderVoteTime",60,true];
@@ -376,10 +406,15 @@ WF_Logic setVariable ["WestCommanderTeam",WestCommanderTeam,true];
 WF_Logic setVariable ["EastMHQRepair",false,true];
 WF_Logic setVariable ["WestMHQRepair",false,true];
 
+publicVariable 'EastStartingLocation';
+publicVariable 'WestStartingLocation';
+
 _upArray = if (paramUpgradesEast) then {[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]} else {'WFBE_UPGRADELEVELS' Call GetNamespace};
-WF_Logic setVariable ["EastUpgrades",_upArray,true];
 _upArray = if (paramUpgradesWest) then {[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]} else {'WFBE_UPGRADELEVELS' Call GetNamespace};
-WF_Logic setVariable ["WestUpgrades",_upArray,true];
+EASTUpgrades = _upArray;
+PublicVariable 'EASTUpgrades';
+WESTUpgrades = _upArray;
+PublicVariable 'WESTUpgrades';
 
 if (paramRespawnMASH) then {
 	WF_Logic setVariable ["EastMASH",objNull,true];

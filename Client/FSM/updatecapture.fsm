@@ -164,7 +164,7 @@ class FSM
        "if ((_sideID == EASTID)&&(sideID == EASTID)) then {_barColor = [0,0.7,0,0.7]}; //--- Green" \n
        "if ((_sideID == EASTID)&&(sideID == WESTID)) then {_barColor = [0.7,0,0,0.7]}; //--- Red" \n
        "if (_sideID != _lastSID) then {_delay = 0};" \n
-       "if (isNull ([""currentCutDisplay""] call BIS_FNC_GUIget)) then {CutRsc[""OptionsAvailable"",""PLAIN"",0];_delay = 0};" \n
+       "if (isNull ([""currentCutDisplay""] call BIS_FNC_GUIget)) then {12450 cutRsc[""OptionsAvailable"",""PLAIN"",0];_delay = 0};" \n
        "if (!isNull ([""currentCutDisplay""] call BIS_FNC_GUIget)) then {" \n
        "	_control = ([""currentCutDisplay""] call BIS_FNC_GUIget) DisplayCtrl 3800;" \n
        "	_control ctrlShow true;" \n
@@ -204,7 +204,7 @@ class FSM
     {
       name = "Hide";
       init = /*%FSM<STATEINIT""">*/"_delay = 0;" \n
-       "if (isNull ([""currentCutDisplay""] call BIS_FNC_GUIget)) then {CutRsc[""OptionsAvailable"",""PLAIN"",0]};" \n
+       "if (isNull ([""currentCutDisplay""] call BIS_FNC_GUIget)) then {12450 cutRsc[""OptionsAvailable"",""PLAIN"",0]};" \n
        "if (!isNull ([""currentCutDisplay""] call BIS_FNC_GUIget)) then {" \n
        "	_control = ([""currentCutDisplay""] call BIS_FNC_GUIget) DisplayCtrl 3800;" \n
        "	_backgroundControl = ([""currentCutDisplay""] call BIS_FNC_GUIget) DisplayCtrl 3600;" \n

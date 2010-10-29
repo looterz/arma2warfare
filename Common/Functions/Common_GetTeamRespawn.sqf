@@ -1,8 +1,5 @@
-Private['_respawn','_team'];
+Private['_index'];
 
-_team = _this;
+_index = _this Call GetClientIDFromTeam;
 
-_respawn = _team getVariable 'respawn';
-if (isNil '_respawn') then {_respawn = ''};
-
-_respawn
+Call Compile Format ["%1Respawn%2",str (side _this),_index]

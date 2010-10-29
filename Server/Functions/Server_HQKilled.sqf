@@ -9,7 +9,7 @@ _dir = getDir _hq;
 _kuid = if (isPlayer _killer) then {getPlayerUID _killer} else {'0'};
 _kname = name _killer;
 
-_deployed = WF_Logic getVariable Format ["%1MHQDeployed",str _side];
+_deployed = (str _side) Call GetSideHQDeployed;
 
 diag_log Format["[WFBE (INFORMATION)] Server_HQKilled: The %1 MHQ has been destroyed",str _side];
 
@@ -25,7 +25,7 @@ if ((side _killer != _side)&&(isPlayer(_killer)))  then {
 
 	WFBE_LocalizeMessage = [[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveBounty',_bounty, _killedName]];
 	publicVariable 'WFBE_LocalizeMessage';
-	if !(isMultiplayer) then {[[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveBounty',_bounty, _killedName]] Spawn HandlePVF};
+	if !(isMultiplayer || (isServer && local player)) then {[[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveBounty',_bounty, _killedName]] Spawn HandlePVF};
 };
 
 
@@ -35,21 +35,19 @@ if ((side _killer == _side)&&(isPlayer(_killer))) then {
 	_tked = [_type, 'displayName'] Call GetConfigInfo;
 	WFBE_LocalizeMessage = [_side,'CLTFNCLOCALIZEMESSAGE',['BuildingTeamkill',name _killer,_uid,_tked]];
 	publicVariable 'WFBE_LocalizeMessage';
-	if !(isMultiplayer) then {[_side,'CLTFNCLOCALIZEMESSAGE',['BuildingTeamkill',name _killer,_uid,_tked]] Spawn HandlePVF};
+	if (!isMultiplayer || (isServer && local player)) then {[_side,'CLTFNCLOCALIZEMESSAGE',['BuildingTeamkill',name _killer,_uid,_tked]] Spawn HandlePVF};
 	
 	diag_log Format["[WFBE (INFORMATION)] Server_HQKilled: Player %1 (%2) has teamkilled the MHQ.",name _killer,_uid];
 };
 
 sleep random(2);
 if (_deployed) then {
-	WF_Logic setVariable [Format ["%1MHQDeployed",str _side],false,true];
-	
 	_HQName = Format["WFBE_%1MHQNAME",_side] Call GetNamespace;
 	_MHQ = _HQName createVehicle _pos;
 	_MHQ setDir _dir;
 	_MHQ setDammage 1;
 
-	WF_Logic setVariable [Format ["%1MHQ",str _side],_MHQ,true];
+	Call Compile Format ["%1MHQ = _MHQ; %1MHQDeployed = false; publicVariable '%1MHQ'; publicVariable '%1MHQDeployed';",str _side];
 };
 
 if (mysql) then {

@@ -75,6 +75,9 @@ _i = _i + [['','',15,0,0,0,'Strategic',0,'Takistani Civilians']];
 _c = _c + ['MASH_EP1'];
 _i = _i + [['','',30,0,0,0,'Strategic',0,'Takistani Civilians']];
 
+_c = _c + ['Land_Campfire'];
+_i = _i + [['','',3,0,0,0,'Strategic',0,'Civilians']];
+
 _c = _c + ['Land_fort_rampart_EP1'];
 _i = _i + [['','',30,0,0,0,'Fortification',0,'Takistani Civilians']];
 

@@ -1,13 +1,13 @@
-/*%FSM<COMPILE "F:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, respatrol">*/
+/*%FSM<COMPILE "D:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, respatrol">*/
 /*%FSM<HEAD>*/
 /*
 item0[] = {"Init_Patrol",0,250,-37.336731,-245.259415,52.663269,-195.259415,0.000000,"Init Patrol"};
-item1[] = {"_",8,218,-15.584101,-51.521248,25.485752,-27.371136,0.000000,""};
+item1[] = {"Wait",4,218,-34.704277,-60.518974,55.295708,-10.518976,0.000000,"Wait"};
 item2[] = {"Activity",2,250,-38.403221,10.450424,51.596794,60.450424,0.000000,"Activity"};
 item3[] = {"is_Active",4,218,101.439552,11.111540,191.439560,61.111511,1.000000,"is Active"};
 item4[] = {"Actions",2,250,100.520218,-64.953995,190.520096,-14.954021,0.000000,"Actions"};
 item5[] = {"Spawn",4,218,-316.513123,35.015533,-226.513107,85.015488,10.000000,"Spawn"};
-item6[] = {"Create",2,4346,-316.368622,-205.743271,-226.368637,-155.743256,0.000000,"Create"};
+item6[] = {"Create",2,250,-316.368622,-205.743271,-226.368637,-155.743256,0.000000,"Create"};
 item7[] = {"Gameover",4,218,-99.764572,74.877029,-9.764542,124.877037,0.000000,"Gameover"};
 item8[] = {"End",1,250,-101.050774,175.913666,-11.050694,225.913651,0.000000,"End"};
 item9[] = {"Wait",4,218,-38.930679,109.403816,51.069321,159.403778,0.000000,"Wait"};
@@ -36,8 +36,8 @@ link15[] = {12,13};
 link16[] = {13,1};
 link17[] = {14,15};
 link18[] = {15,1};
-globals[] = {0.000000,0,0,0,0,640,480,1,40,6316128,1,-274.306580,357.765381,230.157455,-229.953751,680,515,1};
-window[] = {0,-1,-1,-1,-1,664,22,1321,29,1,698};
+globals[] = {0.000000,0,0,0,0,640,480,1,40,6316128,1,-340.674133,424.132904,299.011444,-280.217407,680,515,1};
+window[] = {0,-1,-1,-1,-1,735,100,1399,100,1,698};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -175,13 +175,13 @@ class FSM
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
-        /*%FSM<LINK "_">*/
-        class _
+        /*%FSM<LINK "Wait">*/
+        class Wait
         {
           priority = 0.000000;
           to="Activity";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > 30"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > (30+random 1)"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -202,7 +202,7 @@ class FSM
        "		_unit = [_x,_team,_position,resistance] Call CreateMan;" \n
        "	} else {" \n
        "		_type = if (_x isKindOf ""Tank"") then {'WFBE_GUERCREW' Call GetNamespace} else {'WFBE_GUERSOLDIER' Call GetNamespace};" \n
-       "		_vehicle = [_x,_position,resistance,false] Call CreateVehi;" \n
+       "		_vehicle = [_x,_position,resistance,paramResVehLock] Call CreateVehi;" \n
        "		_vehicles = _vehicles + [_vehicle];" \n
        "		_unit = [_type,_team,_position,resistance] Call CreateMan;" \n
        "		_unit moveInDriver _vehicle;" \n
@@ -224,13 +224,13 @@ class FSM
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
-        /*%FSM<LINK "_">*/
-        class _
+        /*%FSM<LINK "Wait">*/
+        class Wait
         {
           priority = 0.000000;
           to="Activity";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > 30"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > (30+random 1)"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -292,13 +292,13 @@ class FSM
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
-        /*%FSM<LINK "_">*/
-        class _
+        /*%FSM<LINK "Wait">*/
+        class Wait
         {
           priority = 0.000000;
           to="Activity";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > 30"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > (30+random 1)"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -313,13 +313,13 @@ class FSM
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
-        /*%FSM<LINK "_">*/
-        class _
+        /*%FSM<LINK "Wait">*/
+        class Wait
         {
           priority = 0.000000;
           to="Activity";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > 30"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > (30+random 1)"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/

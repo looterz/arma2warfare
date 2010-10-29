@@ -77,7 +77,7 @@ _fillList = {
 	_u = 0;
 	_i = 0;
 	
-	_currentUpgrades = WF_Logic getVariable Format ['%1Upgrades',sideJoinedText];
+	_currentUpgrades = (sideJoinedText) Call GetSideUpgrades;
 	_filter = Format["WFBE_%1%2CURRENTFACTIONSELECTED",sideJoinedText,_filler] Call GetNamespace;
 	if (isNil '_filter') then {_filter = "nil"} else {
 		if (_filter == 0) then {
@@ -174,7 +174,7 @@ while {alive player && dialog} do {
 				_txt = parseText(Format [localize 'STR_WF_BuyEffective',_currentUnit select QUERYUNITLABEL]);
 				if (!isNil '_queu') then {if (count _queu > 0) then {_txt = parseText(Format [localize 'STR_WF_Queu',_currentUnit select QUERYUNITLABEL])}};
 				hint _txt;
-				_params = if (_isInfantry) then {[_type, _closest,_unit,[]]} else {[_type, _closest,_unit,[_driver,_gunner,_commander,_isLocked]]};
+				_params = if (_isInfantry) then {[_closest,_unit,[]]} else {[_closest,_unit,[_driver,_gunner,_commander,_isLocked]]};
 				_params Spawn BuildUnit;
 				-(_currentCost) Call ChangePlayerFunds;
 				[_closestFactory, _unit] Call marketUseResourcesToBuyUnit;
@@ -196,6 +196,7 @@ while {alive player && dialog} do {
 	if (MenuAction == 203) then {MenuAction = -1;_commander = if (_commander) then {false} else {true};_updateDetails = true};
 	
 	//--- Factory DropDown list value has changed.
+//--- TODO: update = true call repaint list view twice!
 	if (MenuAction == 301) then {MenuAction = -1;_factSel = lbCurSel 12018;_closest = _sorted select _factSel;_updateMap = true;_update=true;};
 	
 	//--- Selection change, we update the details.
@@ -279,7 +280,6 @@ while {alive player && dialog} do {
 		_con ctrlSetTextColor [0.75,0.75,0.75,1];
 		{_con = _display DisplayCtrl _x;_con ctrlSetTextColor [0.4, 0.4, 0.4, 1]} forEach _IDCS;
 
-		
 		_update = false;
 		
 		if (!_updateMap) then {
@@ -304,7 +304,7 @@ while {alive player && dialog} do {
 			};
 			//--- Factories
 			default {
-				_buildings = WF_Logic getVariable Format ['%1BaseStructures',sideJoinedText];
+				_buildings = (sideJoinedText) Call GetSideStructures;
 				_factories = [sideJoined,Format ['WFBE_%1%2TYPE',sideJoinedText,_type] Call GetNamespace,_buildings] Call GetFactories;
 				_countAlive = count _factories;
 			
@@ -473,7 +473,7 @@ while {alive player && dialog} do {
 	_lastCheck = _lastCheck + 0.1;
 	if (_lastCheck > 2 && _type != 'Depot' && _type != 'Airport') then {
 		_lastCheck = 0;
-		_buildings = WF_Logic getVariable Format ['%1BaseStructures',sideJoinedText];
+		_buildings = (sideJoinedText) Call GetSideStructures;
 		_factories = [sideJoined,Format ['WFBE_%1%2TYPE',sideJoinedText,_type] Call GetNamespace,_buildings] Call GetFactories;
 		if (count _factories != _countAlive) then {_updateList = true};
 	};
