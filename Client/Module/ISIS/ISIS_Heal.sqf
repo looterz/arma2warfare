@@ -67,7 +67,9 @@ sleep 2;
 while {true} do {
 	sleep 0.5;
 	_anim = animationState _healer;
-	if !(_anim in _anims) exitWith {diag_log Format["%1",animationState _healer]};
+	if !(_anim in _anims) exitWith {
+		Format["Healing %1",animationState _healer] call LogHigh;
+	};
 	if (!alive _injured || !(_injured getVariable "stunned")) exitWith {_healer playActionNow "medicStop"};
 	if (time - _healTime > 40) exitWith {_healer playActionNow "medicStop";_injured setVariable ["stunned",false,true]};
 	if !(alive _healer) exitWith {};

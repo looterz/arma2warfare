@@ -14,7 +14,7 @@ if (isNull _town) exitWith {
 };
 if ((str _town) in TownTemplate) exitWith {
 	if (isServer) then {
-		diag_log Format ["[WFBE (INIT)] Init_Camp.sqf: Removing camp %1 (%2) since the town is removed in the towns templates.",_camp,str _town];
+		Format ["Init_Camp.sqf: Removing camp %1 (%2) since the town is removed in the towns templates.",_camp,str _town] call LogHigh;
 		(getPos _camp) Spawn {
 			waitUntil {commonInitComplete};
 			_defenses = _this nearEntities[('WFBE_RESISTANCEDEFENSENAMES' Call GetNamespace),250];
@@ -37,7 +37,7 @@ _marker setMarkerTypeLocal "Strongpoint";
 _marker setMarkerColorLocal "ColorBlue";
 _marker setMarkerSizeLocal [0.5,0.5];
 
-diag_log Format["[WFBE (INIT)] Init_Camp: Camp '%1' of town '%2' initialization - [Done]",str _camp,str _town];
+Format["Init_Camp: Camp '%1' of town '%2' initialization - [Done]",str _camp,str _town] call LogHigh;
 
 waitUntil {commonInitComplete};
 

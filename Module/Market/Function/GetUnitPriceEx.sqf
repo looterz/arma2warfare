@@ -9,7 +9,7 @@ if (!paramVehicleComponents) exitWith { _unitPrice; };
 _unitData = _unit call marketGetUnitRequiredProducts;
 	
 if (isNil "_unitData") exitWith { 
-	format["Resources is not found for buy unit %1", _unit] call Logger;
+	format["Resources is not found for buy unit %1", _unit] call LogHigh;
 	_unitPrice; 
 };
 

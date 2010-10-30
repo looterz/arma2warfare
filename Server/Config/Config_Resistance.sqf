@@ -273,4 +273,4 @@ if (WF_A2_Arrowhead || _resType == 1) then {
 	[Format["WFBE_RES%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
 };
 
-diag_log "[WFBE (INIT)] Config_Resistance: Intialization - [Done]";
+"Config_Resistance: Intialization - [Done]" call LogMedium;

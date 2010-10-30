@@ -8,7 +8,9 @@ _exit = false;
 _driver = driver _uav;
 _gunner = gunner _uav;
 _playerTeam = (_args select 3);
-diag_log Format["[WFBE (INFORMATION)] Server_HandleSpecial: The %1 %2 Team (Leader: %3) has called an UAV",str _side,_playerTeam,name leader _playerTeam];
+
+Format["Server_HandleSpecial: The %1 %2 Team (Leader: %3) has called an UAV",str _side,_playerTeam,name leader _playerTeam] call LogInform;
+
 while {!_exit} do {
 	sleep 5;
 	if (!isPlayer leader _playerTeam || !alive _uav) then {_exit = true};

@@ -4,7 +4,8 @@ _args = _this;
 _side = _args select 1;
 
 _playerTeam = (_args select 3);
-diag_log Format["[WFBE (INFORMATION)] Server_HandleSpecial: The %1 %2 Team (Leader: %3) has called an Ammunition Paradroping",str _side,_playerTeam,name leader _playerTeam];
+Format["Server_HandleSpecial: The %1 %2 Team (Leader: %3) has called an Ammunition Paradroping",str _side,_playerTeam,name leader _playerTeam] call LogInform;
+
 _ranPos = [];
 _ranDir = [];
 if (paramBoundaries) then {
@@ -59,7 +60,9 @@ while {!_exit} do {
 	_side = _this select 1;
 	
 	_ammos = Format["WFBE_%1PARAAMMO",_side] Call GetNamespace;
-	if (typeName _ammos != 'ARRAY') exitWith {diag_log Format["[WFBE (INFORMATION)] Server_HandleSpecial: Expected array, given %1 for ammunitions.",typeName _ammos]};
+	if (typeName _ammos != 'ARRAY') exitWith {
+		Format["Server_HandleSpecial: Expected array, given %1 for ammunitions.",typeName _ammos] call LogError;
+	};
 	
 	{
 		_ammo = _x createVehicle [0,0,0];

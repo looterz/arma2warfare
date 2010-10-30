@@ -33,7 +33,7 @@ while {alive _defense} do {
 					_built = _built + 1;
 					WF_Logic setVariable [Format["%1UnitsCreated",str _side],_built,true];
 					
-					diag_log Format["[WFBE (INFORMATION)] Server_HandleDefense: A Soldier has been dispatched to the %1 defense %2",str _side,_type];
+					Format["Server_HandleDefense: A Soldier has been dispatched to the %1 defense %2",str _side,_type]  call LogInform;
 					
 					//--- Calculate the average time in function of the distance and the speed.
 					sleep (((_soldier distance _defense)/(14*1000))*3600)+20;
@@ -42,7 +42,7 @@ while {alive _defense} do {
 						if ((_defense EmptyPositions "gunner" > 0)&& alive _defense &&(!isNull _defense)) then {_unit MoveInGunner _defense} else {deleteVehicle _unit};
 					};
 				} else {
-					diag_log "[WFBE (INFORMATION)] Server_HandleDefense.sqf: Canceled auto manning, the barracks is destroyed.";
+					"Server_HandleDefense.sqf: Canceled auto manning, the barracks is destroyed."  call LogInform;
 				};
 			};
 		};

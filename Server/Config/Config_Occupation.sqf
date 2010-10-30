@@ -864,4 +864,4 @@ if (WF_A2_CombinedOps) then {
 	[Format["WFBE_EAST%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
 };
 
-diag_log "[WFBE (INIT)] Config_Occupation: Intialization - [Done]";
+"Config_Occupation: Intialization - [Done]" call LogMedium;

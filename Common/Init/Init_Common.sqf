@@ -1,4 +1,6 @@
-diag_log Format["[WFBE (INIT)] Init_Common: Init Start at %1",time];
+waitUntil { !isNil "LOGLEVEL" };
+ 
+Format["Init_Common: Init Start at %1",time] call LogMedium;
 
 if (paramBalancing) then {BalanceInit = Compile PreprocessFile "Common\Functions\Common_BalanceInit.sqf"};
 if !(WF_A2_Vanilla) then {
@@ -82,7 +84,7 @@ if (paramICBM) then {
 	NukeRadiation = Compile PreprocessFile "Client\Module\Nuke\radzone.sqf";
 };
 
-diag_log "[WFBE (INIT)] Init_Common: Functions - [Done]";
+"Init_Common: Functions - [Done]" call LogMedium;
 
 executed = 0;
 varQueu = random(10)+random(100)+random(1000);
@@ -93,18 +95,18 @@ WestCommanderTeam = ObjNull;
 if (isNil "EastSupplies") then {EastSupplies = 1200};
 if (isNil "WestSupplies") then {WestSupplies = 1200};
 
-diag_log Format["[WFBE (INIT)] Init_Common: Starting Supply (West: %1 East: %2) - [Done]",WestSupplies,EastSupplies];
+Format["Init_Common: Starting Supply (West: %1 East: %2) - [Done]",WestSupplies,EastSupplies] call LogMedium;
 
 ['WFBE_EASTSTARTINGMONEY',800,false] Call SetNamespace;
 ['WFBE_WESTSTARTINGMONEY',800,false] Call SetNamespace;
 
-diag_log Format["[WFBE (INIT)] Init_Common: Starting Funds (West: %1 East: %2) - [Done]",'WFBE_WESTSTARTINGMONEY' Call GetNamespace,'WFBE_EASTSTARTINGMONEY' Call GetNamespace];
+Format["Init_Common: Starting Funds (West: %1 East: %2) - [Done]",'WFBE_WESTSTARTINGMONEY' Call GetNamespace,'WFBE_EASTSTARTINGMONEY' Call GetNamespace] call LogMedium;
 
 if (paramAllies) then {
 	westAlliesFunds = ('WFBE_WESTSTARTINGMONEY' Call GetNamespace)*5;
 	eastAlliesFunds = ('WFBE_EASTSTARTINGMONEY' Call GetNamespace)*5;
 	
-	diag_log Format["[WFBE (INIT)] Init_Common: Allies Starting Funds (West: %1 East: %2) - [Done]",('WFBE_WESTSTARTINGMONEY' Call GetNamespace)*5,('WFBE_EASTSTARTINGMONEY' Call GetNamespace)*5];
+	Format["Init_Common: Allies Starting Funds (West: %1 East: %2) - [Done]",('WFBE_WESTSTARTINGMONEY' Call GetNamespace)*5,('WFBE_EASTSTARTINGMONEY' Call GetNamespace)*5] call LogMedium;
 };
 
 unitMarker = 0;
@@ -175,7 +177,7 @@ if (WF_A2_CombinedOps) then {
 };
 /* CORE SYSTEM - End */
 
-diag_log "[WFBE (INIT)] Init_Common: Core Loading - [Done]";
+"Init_Common: Core Loading - [Done]" call LogMedium;
 
 [] Call Compile PreprocessFile "Common\Init\Init_PublicVariables.sqf";
 [] Call Compile PreprocessFile "Common\Config\Config_Artillery.sqf";
@@ -189,16 +191,16 @@ diag_log "[WFBE (INIT)] Init_Common: Core Loading - [Done]";
 [] Call Compile PreprocessFile "Common\Config\Config_Squads.sqf";
 [] Call Compile PreprocessFile "Common\Config\Config_Loadouts.sqf";
 
-diag_log "[WFBE (INIT)] Init_Common: Config Loading - [Done]";
+"Init_Common: Config Loading - [Done]" call LogMedium;
 
-//--- Boundaries, use setPos to find the perfect spot on other islands and worldName to determine the island name (editor: diag_log worldName; player setPos [0,5120,0]; ).
+//--- Boundaries, use setPos to find the perfect spot on other islands and worldName to determine the island name (editor: LogInform worldName; player setPos [0,5120,0]; ).
 if (paramBoundaries) then {
 	[] Call Compile preprocessFile "Common\Init\Init_Boundaries.sqf";
-	diag_log "[WFBE (INIT)] Init_Common: Boundaries Loading - [Done]";
+	"Init_Common: Boundaries Loading - [Done]" call LogMedium;;
 };
 
 //--- Disable Artillery Computer.
 if (!paramArtyComputer && !WF_A2_Vanilla) then {[] Call Compile preprocessFile 'Common\Common_DisableAC.sqf'};
 
-diag_log Format["[WFBE (INIT)] Init_Common: Init End at %1",time];
+"Init_Common: Init End" call LogMedium;
 commonInitComplete = true;

@@ -6,7 +6,9 @@ _side = _this Select 2;
 _radius = _this Select 3;
 _index = _this select 4;
 
-if (_index == -1) ExitWith {diag_log Format ["[WFBE (INFORMATION)] Common_FireArtillery.sqf: No artillery types were found for '%1'.",_artillery]};
+if (_index == -1) exitWith {
+	Format ["Common_FireArtillery.sqf: No artillery types were found for '%1'.",_artillery] call LogError;
+};
 
 _minRange = artilleryMinRanges Select _index;
 _maxRange = artilleryMaxRanges Select _index;
@@ -18,8 +20,12 @@ _dispersion = artilleryDispersions Select _index;
 _magazine = currentMagazine _artillery;
 _ammo = getText (configFile >> "CfgMagazines" >> _magazine >> "ammo");
 
-if (IsNull Gunner _artillery) ExitWith {diag_log Format ["[WFBE (INFORMATION)] Common_FireArtillery.sqf: Artillery '%1' gunner is null.",_artillery]};
-if (IsPlayer Gunner _artillery) ExitWith {diag_log Format ["[WFBE (INFORMATION)] Common_FireArtillery.sqf: Artillery '%1' gunner is player.",_artillery]};
+if (IsNull Gunner _artillery) exitWith {
+	Format ["Common_FireArtillery.sqf: Artillery '%1' gunner is null.",_artillery] call LogHigh;
+};
+if (IsPlayer Gunner _artillery) exitWith {
+	Format ["Common_FireArtillery.sqf: Artillery '%1' gunner is player.",_artillery] call LogHigh;
+};
 
 _position = GetPos _artillery;
 _x = (_destination Select 0) - (_position Select 0);

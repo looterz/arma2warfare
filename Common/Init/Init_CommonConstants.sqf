@@ -441,4 +441,5 @@ if (WF_A2_CombinedOps) then {
 	['WFBE_EASTPARAAMMO',['RUBasicAmmunitionBox','RUBasicWeaponsBox','RULaunchersBox'],true] Call SetNamespace;
 };
 
-diag_log "[WFBE (INIT)] Init_CommonConstants: Constants Initialization - [Done]";
+waitUntil { !isNil "LOGLEVEL" };
+"Init_CommonConstants: Constants Initialization - [Done]" call LogMedium;

@@ -11,11 +11,13 @@ Private ['_buildings','_closestRespawn','_funds','_get','_hq','_name','_respawnL
 _uid = _this select 0;
 _name = _this select 1;
 
-diag_log Format["[WFBE (INFORMATION)] Server_PlayerDisconnected: Player %1 (%2) has left the game",_name,_uid];
+Format["Server_PlayerDisconnected: Player %1 (%2) has left the game",_name,_uid] call LogNotify;
 
 //--- Grab the player info (if they exist).
 _get = Format["WFBE_JIP_USER%1",_uid] Call GetNamespace;
-if (isNil '_get') exitWith {diag_log Format ["[WFBE (INFORMATION)] Server_PlayerDisconnected: Player %1 (%2) don't have any information stored.",_name,_uid]};
+if (isNil '_get') exitWith {
+	Format ["Server_PlayerDisconnected: Player %1 (%2) don't have any information stored.",_name,_uid] call LogNotify;
+};
 
 //--- Check this mess.
 _side = _get select 4;

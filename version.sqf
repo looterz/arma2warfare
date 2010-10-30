@@ -4,7 +4,8 @@
 */
 
 /* DEBUG */
-//#define WF_DEBUG 1
+#define WF_DEBUG 1
+#define WF_LOGLEVEL 5
 
 /* Gameplay: Change the overall camo */
 #define WF_CAMO 1

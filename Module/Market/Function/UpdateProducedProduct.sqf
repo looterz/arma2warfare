@@ -13,8 +13,6 @@ Private ['_unitType','_su'];
 	if (!WF_DEBUG) then {
 		_dT = (_dT / 60); // we has productivity in minutes
 	};
-
-	//diag_log format['update produced products: _dT=%1', _dT];
 	
 	_stock = _products select 0;
 	_prices = _products select 1;

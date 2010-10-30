@@ -1,7 +1,10 @@
 MenuAction = -1;
 
 _type = ('WFBE_EASA_Vehicles' Call GetNamespace) find (typeOf (vehicle player));
-if (_type == -1) exitWith {diag_log Format['[WFBE (ERROR)] GUI_EASA: The player vehicle was not found within the list (%1)',_type]};
+if (_type == -1) exitWith {
+	Format['GUI_EASA: The player vehicle was not found within the list (%1)',_type] call LogError;
+};
+	
 _data = (('WFBE_EASA_Loadouts' Call GetNamespace) select _type);
 
 

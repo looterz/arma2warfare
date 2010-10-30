@@ -2255,4 +2255,4 @@ if (WF_A2_CombinedOps) then {
 	};
 };
 
-diag_log "[WFBE (INIT)] Config_Loadout: Initialization - [Done]";
+"Config_Loadout: Initialization - [Done]" call LogMedium;

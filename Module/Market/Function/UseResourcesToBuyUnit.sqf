@@ -7,7 +7,7 @@ _unitPrice = _this select 2;
 _unitData = _unit call marketGetUnitRequiredProducts;
 	
 if (isNil '_unitData') exitWith { 
-	format["Resources is not required for buy unit %1", _unit] call Logger;
+	format["Resources is not required for buy unit %1", _unit] call LogHigh;
 	_unitPrice; 
 };
 

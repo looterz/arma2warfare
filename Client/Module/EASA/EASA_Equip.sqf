@@ -4,7 +4,9 @@ _index = _this select 1;
 _tindex = _index;
 _override = if (count _this > 2) then {_this select 2} else {false};
 
-if (typeName _vehicle != 'OBJECT') exitWith {diag_log Format['[WFBE (ERROR)] EASA_Equip: Invalid Parameter (_vehicle), expected object instead of %1',_vehicle]};
+if (typeName _vehicle != 'OBJECT') exitWith {
+	Format['EASA_Equip: Invalid Parameter (_vehicle), expected object instead of %1',_vehicle] call LogError;
+};
 
 _type = ('WFBE_EASA_Vehicles' Call GetNamespace) find (typeOf _vehicle);
 if (_type != -1) then {

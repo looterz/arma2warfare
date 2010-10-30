@@ -3,6 +3,8 @@ _boundariesXY = -1;
 
 switch (worldName) do {
 	case 'chernarus': {_boundariesXY = 15360};
+	case 'Chernarus': {_boundariesXY = 15360};
+	
 	case 'utes': {_boundariesXY = 5120};
 	case 'queshkibrul': {_boundariesXY = 5120};
 	case 'eden': {_boundariesXY = 12800};
@@ -21,8 +23,8 @@ if (_boundariesXY == -1) then {
 		BoundariesIsOnMap = nil;
 		BoundariesHandleOnMap = nil;
 	};
-	diag_log Format["[WFBE (INIT)] Init_Boundaries: There is no proper boundaries set for the island '%1'",worldName];
+	Format["Init_Boundaries: There is no proper boundaries set for the island '%1'",worldName] call LogMedium;
 } else {
 	['WFBE_BOUNDARIESXY',_boundariesXY,true] Call SetNamespace;
-	diag_log Format["[WFBE (INIT)] Init_Boundaries: Boundaries found for the island '%1' %2",worldName,_boundariesXY];
+	Format["Init_Boundaries: Boundaries found for the island '%1' %2",worldName,_boundariesXY] call LogMedium;
 };

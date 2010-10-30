@@ -46,7 +46,7 @@ if (!_deployed) then {
 		};
 	};
 	
-	diag_log Format["[WFBE (INFORMATION)] Construction_HQSite: The %1 MHQ (%2) was deployed",_sideText,_type];
+	Format["Construction_HQSite: The %1 MHQ (%2) was deployed",_sideText,_type] call LogInform;
 	
 	deleteVehicle _HQ;
 } else {
@@ -70,7 +70,7 @@ if (!_deployed) then {
 	_MHQ setVehicleInit Format["['Headquarters','ColorGreen',[1,1],'','HQUndeployed',this,0.2,false,'','',false,%1] ExecVM 'Common\Common_MarkerUpdate.sqf';",_side];
 	processInitCommands;
 	
-	diag_log Format["[WFBE (INFORMATION)] Construction_HQSite: The %1 MHQ (%2) was mobilized",_sideText,_HQName];
+	Format["Construction_HQSite: The %1 MHQ (%2) was mobilized",_sideText,_HQName] call LogInform;
 	
 	deleteVehicle _HQ;
 };

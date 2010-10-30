@@ -99,6 +99,9 @@ _fillList = {
 		
 			_basePrice = if (_x isKindOf "Man") then { _x call GetUnitEquipmentPrice; } else { _c select QUERYUNITPRICE; };
 			_basePrice = [_products, _x, _basePrice] call marketGetUnitPriceEx;
+			//_basePrice = _c select QUERYUNITPRICE;
+			
+			_cost = _basePrice;
 			_cost = (ceil(_basePrice*_costCoefficient / 5))*5;		
 			if (_cost < 5) then { _cost = 5; };
 			
@@ -197,7 +200,16 @@ while {alive player && dialog} do {
 	
 	//--- Factory DropDown list value has changed.
 //--- TODO: update = true call repaint list view twice!
-	if (MenuAction == 301) then {MenuAction = -1;_factSel = lbCurSel 12018;_closest = _sorted select _factSel;_updateMap = true;_update=true;};
+	if (MenuAction == 301) then {
+		MenuAction = -1;_factSel = lbCurSel 12018;
+		
+		if (_closest != _sorted select _factSel) then {
+			_updateMap = true;
+			_update=true;
+			_closest = _sorted select _factSel;
+		};
+		
+	};
 	
 	//--- Selection change, we update the details.
 	if (MenuAction == 302) then {MenuAction = -1;_updateDetails = true};
@@ -211,9 +223,66 @@ while {alive player && dialog} do {
 	//--- Player funds.
 	ctrlSetText [12019,Format [localize 'STR_WF_Cash',Call GetPlayerFunds]];
 
+	//--- Update factories.
+	if (_updateList) then {
+	
+		format["GUI_BuyUnit UpdateList type=%1", _type] call LogTrace;
+	
+		switch (_type) do {
+			//--- Specials.
+			case 'Depot': {
+				_nObjects = nearestObjects [player, WFDEPOT,('WFBE_TOWNPURCHASERANGE' Call GetNamespace)];
+				_closest = if (count _nObjects > 0) then {_nObjects select 0} else {objNull};
+				_sorted = [_closest];
+			};
+			case 'Airport': {
+				_sorted = [player,Airfields] Call SortByDistance;
+				_closest = _sorted select 0;
+				_sorted = [_closest];
+			};
+			//--- Factories
+			default {
+				_buildings = (sideJoinedText) Call GetSideStructures;
+				_factories = [sideJoined,Format ['WFBE_%1%2TYPE',sideJoinedText,_type] Call GetNamespace,_buildings] Call GetFactories;
+				_countAlive = count _factories;
+			
+				_sorted = [player,_factories] Call SortByDistance;
+				_closest = _sorted select 0;
+			
+				if (paramBuyVehiclesInTown && _countAlive > 0 && depotInRange && _type != 'Aircraft') then {
+					
+					_nearDepotList = nearestObjects [player, WFDEPOT,('WFBE_TOWNPURCHASERANGE' Call GetNamespace)];
+					if (count _nearDepotList > 0) then {
+						
+						_nearDepot = _nearDepotList select 0;
+						if (_closest distance _nearDepot >  0.8*('WFBE_DEFENSEMANRANGE' Call GetNamespace)) then {
+						// -- if  town has factory not add buy from central depot
+							_factories = _factories + [_nearDepot];
+							_sorted = [player,_factories] Call SortByDistance;
+							_closest = _sorted select 0;						
+						};
+					};
+				};
+			};
+		};
+
+		//--- Refresh the Factory DropDown list.
+		lbClear 12018;
+		{
+			_nearest = [_x,towns] Call SortByDistance;
+			_nearTown = (_nearest select 0) getVariable 'name';
+			_txt = _type + ' ' + _nearTown + ' ' + str (round(player distance _x)) + 'M';
+			lbAdd[12018,_txt];
+		} forEach _sorted;
+		lbSetCurSel [12018,0];
+		
+		_updateList = false;
+		_updateMap = true;
+	};
+	
 	//--- Update tabs.
 	if (_update) then {
-	
+
 		_costCoefficient = 1;
 		_closestFactory = _closest;
 		
@@ -223,7 +292,7 @@ while {alive player && dialog} do {
 			_closestFactory = _closest;
 			if ((typeOf _closest) in WFDEPOT) then 
 			{ 
-				_buildings1 = WF_Logic getVariable Format ['%1BaseStructures',sideJoinedText];
+				_buildings1 = (sideJoinedText) Call GetSideStructures;				
 				_factories1 = [sideJoined,Format ['WFBE_%1%2TYPE',sideJoinedText,_type] Call GetNamespace,_buildings1] Call GetFactories;
 				_sorted1 = [_closest, _factories1] Call SortByDistance;
 				_closestFactory = if (count _sorted1 > 0) then { _sorted1 select 0; } else { objNull; };
@@ -270,6 +339,9 @@ while {alive player && dialog} do {
 		
 		_listUnits = Format ['WFBE_%1%2UNITS',sideJoinedText,_type] Call GetNamespace;
 
+		CF_COEF = _costCoefficient;
+		CF_ClosestFactory = _closestFactory;
+		CF_FACT = _closest;
 		[_comboFaction,_type] Call _changeFactionCombo;
 		[_listUnits,_type,_listBox,_val] Call _fillList;
 		
@@ -286,66 +358,6 @@ while {alive player && dialog} do {
   		      _updateList = true;
 		      _updateDetails = true;
                 };
-	};
-	
-	//--- Update factories.
-	if (_updateList) then {
-		switch (_type) do {
-			//--- Specials.
-			case 'Depot': {
-				_nObjects = nearestObjects [player, WFDEPOT,('WFBE_TOWNPURCHASERANGE' Call GetNamespace)];
-				_closest = if (count _nObjects > 0) then {_nObjects select 0} else {objNull};
-				_sorted = [_closest];
-			};
-			case 'Airport': {
-				_sorted = [player,Airfields] Call SortByDistance;
-				_closest = _sorted select 0;
-				_sorted = [_closest];
-			};
-			//--- Factories
-			default {
-				_buildings = (sideJoinedText) Call GetSideStructures;
-				_factories = [sideJoined,Format ['WFBE_%1%2TYPE',sideJoinedText,_type] Call GetNamespace,_buildings] Call GetFactories;
-				_countAlive = count _factories;
-			
-				_sorted = [player,_factories] Call SortByDistance;
-				_closest = _sorted select 0;
-				
-				format["Buy factories in town:%1", _type] call Logger;
-				format["paramBuyVehiclesInTown:%1", paramBuyVehiclesInTown] call Logger;
-				format["_countAlive:%1", _countAlive] call Logger;
-				format["depotInRange:%1", depotInRange] call Logger;
-				format["_type:%1", _type] call Logger;
-			
-				if (paramBuyVehiclesInTown && _countAlive > 0 && depotInRange && _type != 'Aircraft') then {
-					
-					_nearDepotList = nearestObjects [player, WFDEPOT,('WFBE_TOWNPURCHASERANGE' Call GetNamespace)];
-					if (count _nearDepotList > 0) then {
-						
-						_nearDepot = _nearDepotList select 0;
-						if (_closest distance _nearDepot >  0.8*('WFBE_DEFENSEMANRANGE' Call GetNamespace)) then {
-						// -- if  town has factory not add buy from central depot
-							_factories = _factories + [_nearDepot];
-							_sorted = [player,_factories] Call SortByDistance;
-							_closest = _sorted select 0;						
-						};
-					};
-				};
-			};
-		};
-
-		//--- Refresh the Factory DropDown list.
-		lbClear 12018;
-		{
-			_nearest = [_x,towns] Call SortByDistance;
-			_nearTown = (_nearest select 0) getVariable 'name';
-			_txt = _type + ' ' + _nearTown + ' ' + str (round(player distance _x)) + 'M';
-			lbAdd[12018,_txt];
-		} forEach _sorted;
-		lbSetCurSel [12018,0];
-		
-		_updateList = false;
-		_updateMap = true;
 	};
 	
 	//--- Display Factory Queu.

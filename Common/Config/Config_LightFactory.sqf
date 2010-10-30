@@ -298,9 +298,9 @@ _longestLightBuildTime = 0;
 			_longestLightBuildTime = (_c select QUERYUNITTIME);
 		};
 	} else {
-		diag_log Format ["[WFBE (ERROR)] Config_LightFactory: '%1' is not defined in the Core files.",_x];
+		Format ["Config_LightFactory: '%1' is not defined in the Core files.",_x] call LogError;
 	};
 } forEach (('WFBE_EASTLIGHTUNITS' Call GetNamespace) + ('WFBE_WESTLIGHTUNITS' Call GetNamespace) + ('WFBE_GUERLIGHTUNITS' Call GetNamespace));
 
 ['WFBE_LONGESTLIGHTBUILDTIME',_longestLightBuildTime,true] Call SetNamespace;
-diag_log "[WFBE (INIT)] Config_LightFactory: Initialization - [Done]";
+"Config_LightFactory: Initialization - [Done]"  call LogMedium;

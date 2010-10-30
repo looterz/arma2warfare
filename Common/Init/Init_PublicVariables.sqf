@@ -1,4 +1,5 @@
 Private ['_count','_l'];
+waitUntil { !isNil "LOGLEVEL" };
 
 _l		= ["RequestVehicleLock"];
 _l = _l + ["RequestCommanderVote"];
@@ -42,4 +43,4 @@ if (isServer) then {
 	{Format['WFBE_%1',_x] addPublicVariableEventHandler {(_this select 1) Spawn HandleSPVF}} forEach _serverCommandPV;
 };
 
-diag_log Format["[WFBE (INIT)] Init_PublicVariables: Public Variable Initialization (SRV: %1 CLT: %2) - [Done]",count _serverCommandPV, count _clientCommandPV];
+Format["Init_PublicVariables: Public Variable Initialization (SRV: %1 CLT: %2) - [Done]",count _serverCommandPV, count _clientCommandPV] call LogMedium;

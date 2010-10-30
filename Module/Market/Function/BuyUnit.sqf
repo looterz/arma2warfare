@@ -11,12 +11,12 @@ _u = 0;
 _found = false;
 _unitData = objNull;
 
-format["Get Required Product List for %1", _unit] call Logger;
+format["Get Required Product List for %1", _unit] call LogHigh;
 while { _u < count marketBuildUnitProductRequire && !_found } do {
 
 	_unitData1 = marketBuildUnitProductRequire select _u;
 	_type = _unitData1 select 0;
-	format["_unitData: %1", _type] call Logger;
+	format["_unitData: %1", _type] call LogHigh;
 	
 	if (_unit isKindOf _type) then {
 		_unitData = _unitData1;
@@ -26,7 +26,7 @@ while { _u < count marketBuildUnitProductRequire && !_found } do {
 };
 	
 if (!_found) exitWith { 
-	format["Get Required Product List for %1: Data Not Found", _unit] call Logger;
+	format["Get Required Product List for %1: Data Not Found", _unit] call LogHigh;
 	_unitPrice; 
 };
 
@@ -61,7 +61,7 @@ while { _u < count _unitData  } do {
 	_unitPrice = _unitPrice + _cost;
 	if (WF_DEBUG) then {
 		_name = (marketProductCollection select _reqProductId) select 0;
-		format["Product %1: Required=%2 StockValue=%3 Cost=%4 --> UnitPrice=%5", _name, _reqProductValue, _stockValue, _cost, _unitPrice ] call Logger;
+		format["Product %1: Required=%2 StockValue=%3 Cost=%4 --> UnitPrice=%5", _name, _reqProductValue, _stockValue, _cost, _unitPrice ] call LogHigh;
 	};
 	_u = _u+1;
 };

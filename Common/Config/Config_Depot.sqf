@@ -121,7 +121,7 @@ _longestDepotBuildTime = 0;
 			_longestDepotBuildTime = (_c select QUERYUNITTIME);
 		};
 	} else {
-		diag_log Format ["[WFBE (ERROR)] Config_Depot: '%1' is not defined in the Core files.",_x];
+		Format ["Config_Depot: '%1' is not defined in the Core files.",_x] call LogError;
 	};
 } forEach (('WFBE_EASTDEPOTUNITS' Call GetNamespace) + ('WFBE_WESTDEPOTUNITS' Call GetNamespace));
 
@@ -130,4 +130,4 @@ _longestDepotBuildTime = 0;
 depotDistance = 21;
 depotDirection = 90;
 
-diag_log "[WFBE (INIT)] Config_Depot: Initialization - [Done]";
+"Config_Depot: Initialization - [Done]" call LogMedium;

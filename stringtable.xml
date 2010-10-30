@@ -1393,8 +1393,8 @@
         <English>Factory Queue: %1</English>
         <French>Queu de fabrication: %1</French>
         <German>Warteschlange: %1</German>
-        <Russian>Конвеер завода: %1</Russian>
-        <Italian>Coda Produzione:</Italian>
+        <Russian>На конвеере: %1</Russian>
+        <Italian>Coda Produzione: %1</Italian>
       </Key>
       <Key ID="STR_WF_Rearm">
         <English>Rearm</English>

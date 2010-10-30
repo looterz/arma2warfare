@@ -82,7 +82,7 @@ _longestAirportBuildTime = 0;
 			_longestAirportBuildTime = (_c select QUERYUNITTIME);
 		};
 	} else {
-		diag_log Format ["[WFBE (ERROR)] Config_Airport: '%1' is not defined in the Core files.",_x];
+		Format ["Config_Airport: '%1' is not defined in the Core files.",_x]  call LogError;
 	};
 } forEach (('WFBE_EASTAIRPORTUNITS' Call GetNamespace) + ('WFBE_WESTAIRPORTUNITS' Call GetNamespace));
 
@@ -91,4 +91,4 @@ _longestAirportBuildTime = 0;
 airportDistance = 60;
 airportDirection = 180;
 
-diag_log "[WFBE (INIT)] Config_Airport: Initialization - [Done]";
+"Config_Airport: Initialization - [Done]" call LogMedium;

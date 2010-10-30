@@ -29,8 +29,6 @@ marketProductIdComputers = 8;
 marketProductIdAlloys    = 9;
 marketProductIdMachinery = 10;
 
-Logger = { if (WF_DEBUG) then { diag_log _this; }; };
-
 MARKET_PRODUCTCOLLECTION_NAME = 0;
 MARKET_PRODUCTCOLLECTION_UNIT = 1;
 MARKET_PRODUCTCOLLECTION_BASEPRICE = 2;

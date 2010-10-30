@@ -113,7 +113,7 @@ for '_z' from 0 to (count _u)-1 do {
 		} else {
 			//--- Two elements can have the same name, like "Javelin(Weapon) >> Javelin (Magazine)", if two elements are found, we compare the class to see if they're already defined or not.
 			if ((_get select 2) == _config) then {
-				diag_log Format ["[WFBE (INIT)] Core_BAF_G: Duplicated Loadout Element found '%1' for class '%2'",_element,_config];
+				Format ["Core_BAF_G: Duplicated Loadout Element found '%1' for class '%2'",_element,_config] call LogMedium;
 			} else {
 				//--- Is it a special class?
 				_get = (_element+'_W') Call GetNamespace;
@@ -121,7 +121,7 @@ for '_z' from 0 to (count _u)-1 do {
 					_prefix = '_W';
 					_proceed = true;
 				} else {
-					diag_log Format ["[WFBE (INIT)] Core_BAF_G: Duplicated Loadout Element found '%1' for class '%2'",_element,_config];
+					Format ["Core_BAF_G: Duplicated Loadout Element found '%1' for class '%2'",_element,_config] call LogMedium;
 				};
 			};
 		};
@@ -148,8 +148,8 @@ for '_z' from 0 to (count _u)-1 do {
 			[_element+_prefix,_info] Call SetNamespace;
 		};
 	} else {
-		diag_log Format ["[WFBE (ERROR)] Core_BAF_G: Loadout Element '%1' with class '%2' is not a defined a class!",_element,_config];
+		Format ["Core_BAF_G: Loadout Element '%1' with class '%2' is not a defined a class!",_element,_config] call LogError;
 	};
 };
 
-diag_log Format ["[WFBE (INIT)] Core_BAF_G: Loadout Initialization (%1 Elements) - [Done]",count _u];
+Format ["Core_BAF_G: Loadout Initialization (%1 Elements) - [Done]",count _u] call LogMedium; 

@@ -22,6 +22,6 @@ if (_side != resistance) then {
 
 if (paramISIS) then {_unit addEventHandler['handleDamage',{_this Call ISIS_Wound}]};
 
-diag_log Format["[WFBE (INFORMATION)] Common_CreateUnit: A '%1' unit was created and has joined the %2 %3 Team",_type,str _side,_team];
+Format["Common_CreateUnit: A '%1' unit was created and has joined the %2 %3 Team",_type,str _side,_team] call LogInform;
 
 _unit

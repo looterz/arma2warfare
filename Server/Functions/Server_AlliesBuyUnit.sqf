@@ -9,7 +9,7 @@ if (count _this > 4) then {_isVehicle = _this select 5};
 
 _sideText = str _side;
 
-diag_log Format["[WFBE (INFORMATION)] Server_AlliesBuyUnit: AI Team %1 has purchased a '%2'",_team,_unitType];
+Format["Server_AlliesBuyUnit: AI Team %1 has purchased a '%2'",_team,_unitType] call LogInform;
 
 _queu = _building getVariable "queu";
 if (isNil "_queu") then {_queu = []};
@@ -47,7 +47,7 @@ while {_id select 0 != _queu select 0} do {
 		_queu = _building getVariable "queu";
 		_queu = _queu - [_queu select 0];
 		_building setVariable ["queu",_queu];
-		diag_log Format ["[WFBE (INFORMATION)] Server_BuyUnit.sqf: Canceled unit '%1', the factory is destroyed.",_unitType];
+		Format ["Server_BuyUnit.sqf: Canceled unit '%1', the factory is destroyed.",_unitType] call LogInform;
 	};
 	
 	if (_queu select 0 == _queu2 select 0) then {
@@ -71,7 +71,9 @@ _queu = _building getVariable "queu";
 _queu = _queu - [_unique];
 _building setVariable ["queu",_queu];
 
-if ((!alive _building)||(isNull _building)) exitWith {diag_log Format ["[WFBE (INFORMATION)] Server_AlliesBuyUnit.sqf: Canceled unit '%1', the factory is destroyed.",_unitType];};
+if ((!alive _building)||(isNull _building)) exitWith {
+	Format ["Server_AlliesBuyUnit.sqf: Canceled unit '%1', the factory is destroyed.",_unitType] call LogInform;
+};
 
 if (_unitType isKindOf "Man") then {
 	_soldier = [_unitType,_team,_position,_side] Call CreateMan;

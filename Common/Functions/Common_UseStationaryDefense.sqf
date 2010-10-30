@@ -4,7 +4,9 @@ _units = _this select 0;
 _range = _this select 1;
 
 _total = count _units;
-if (_total < 1) exitWith {diag_log "[WFBE (ERROR)] Common_UseStationaryDefense.sqf: No units were specified"};
+if (_total < 1) exitWith {
+	"[WFBE (ERROR)] Common_UseStationaryDefense.sqf: No units were specified" call LogError;
+};
 
 _defenseTypes = Format["WFBE_%1DEFENSENAMES",side leader group (_units select 0)] Call GetNamespace;
 _defenses = (leader group (_units select 0)) nearEntities[_defenseTypes,_range];

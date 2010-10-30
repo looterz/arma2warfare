@@ -1,6 +1,8 @@
-if (!isServer || time > 30) exitWith {diag_log "[WFBE (ERROR)] Init_Server: The server initialization cannot be called more than once."};
+if (!isServer || time > 30) exitWith {
+	"Init_Server: The server initialization cannot be called more than once." call LogError;
+};
 
-diag_log Format["[WFBE (INIT)] Init_Server: Init Start at %1",time];
+Format["Init_Server: Init Start"] call LogMedium;
 
 createCenter resistance; //--- Allow resistance group to be spawned without a placeholder.
 resistance setFriend [west,0];
@@ -42,21 +44,21 @@ KAT_UAV = Compile preProcessfile "Server\Support\Support_UAV.sqf";
 
 serverInitComplete = true;
 
-diag_log "[WFBE (INIT)] Init_Server: Functions - [Done]";
+"Init_Server: Functions - [Done]" call LogMedium;
 
 if (mysql) then {
 	WF_Logic setVariable ["WF_MYSQL_CLIENT",[],true];
 	WF_Logic setVariable ["WF_MYSQL_SERVER",[Format ["MYSQLDATA§WFBE_Insert_Island§%1§%2",worldName,getText (configFile >> "CfgWorlds" >> worldName >> "description")]]];
 	[] ExecFSM "Server\FSM\queryhandler.fsm";
 	
-	diag_log "[WFBE (INIT)] Init_Server: MySQL Module - [Done]";
+	"Init_Server: MySQL Module - [Done]"  call LogMedium;
 };
 
 //--- JIP Handling.
 onPlayerConnected "[_uid,_name] ExecVM 'Server\Server_PlayerConnected.sqf'";
 onPlayerDisconnected "[_uid,_name] ExecVM 'Server\Server_PlayerDisconnected.sqf'";
 
-diag_log "[WFBE (INIT)] Init_Server: JIP - [Done]";
+"Init_Server: JIP - [Done]" call LogMedium;
 
 startingLocations = [];
 _total = 0;
@@ -67,14 +69,14 @@ while {!isNil Format["StartingLocation%1",_total]} do {
 	_total = _total + 1;
 };
 
-diag_log "[WFBE (INIT)] Init_Server: Starting Locations - [Done]";
+"Init_Server: Starting Locations - [Done]"  call LogMedium;
 
 //--- Waiting for the common part to be executed.
 waitUntil {commonInitComplete && townInit};
 
 if (paramFastTime) then {
 	[] ExecFSM "Server\FSM\fasttime.fsm";
-	diag_log "[WFBE (INIT)] Init_Server: Fast Time Module - [Done]";
+	"Init_Server: Fast Time Module - [Done]"  call LogMedium;;
 };
 
 //--- Weather.
@@ -93,12 +95,12 @@ if (_weat == 3) then {
 	};
 };
 
-diag_log "[WFBE (INIT)] Init_Server: Weather Module - [Done]";
+"Init_Server: Weather Module - [Done]"  call LogMedium;;
 
 //--- Static defenses in town main group, they share their knowledge.
 WF_ResistanceDefenseTeam = createGroup resistance;
 
-diag_log "[WFBE (INIT)] Init_Server: Common and Towns - [Done]";
+"Init_Server: Common and Towns - [Done]" call LogMedium;
 
 _locationLogics = [];
 if (paramSpawnRestriction) then {
@@ -107,7 +109,7 @@ if (paramSpawnRestriction) then {
 		if (count _nearLogics > 0) then {{if !(_x in _locationLogics) then {_locationLogics = _locationLogics + [_x]}} forEach _nearLogics};
 	} forEach towns;
 	if (count _locationLogics < 3) then {{if !(_x in _locationLogics) then {_locationLogics = _locationLogics + [_x]}} forEach [StartingLocation0,StartingLocation1]};
-	diag_log "[WFBE (INIT)] Init_Server: Spawn Restriction - [Done]";
+	"Init_Server: Spawn Restriction - [Done]"  call LogMedium;
 } else {
 	_locationLogics = startingLocations;
 };
@@ -143,18 +145,18 @@ switch ('WFBE_STARTINGLOCATIONMODE' Call GetNamespace) do {
 	};
 };
 
-diag_log Format ["[WFBE (INIT)] Init_Server: Starting Location Mode (%1) - [Done]",'WFBE_STARTINGLOCATIONMODE' Call GetNamespace];
+Format ["Init_Server: Starting Location Mode (%1) - [Done]",'WFBE_STARTINGLOCATIONMODE' Call GetNamespace]  call LogMedium;
 
 //--- Moving each non-owner objects to the location.
 EastMHQ setPos getPos _eastLocation;
 WestMHQ setPos getPos _westLocation;
 
-diag_log "[WFBE (INIT)] Init_Server: HQ Positioned - [Done]";
+"Init_Server: HQ Positioned - [Done]" call LogMedium;
 
 if (paramHandleFF) then {
 	EastMHQ addEventHandler ['handleDamage',{[_this select 0,_this select 2,_this select 3, east] Call BuildingHandleDamages}];
 	WestMHQ addEventHandler ['handleDamage',{[_this select 0,_this select 2,_this select 3, west] Call BuildingHandleDamages}];
-	diag_log "[WFBE (INIT)] Init_Server: Friendly Fire Handling - [Done]";
+	"Init_Server: Friendly Fire Handling - [Done]" call LogMedium;
 };
 
 eastStartingLocation = _eastLocation;
@@ -197,7 +199,7 @@ publicVariable 'BIS_WF_HQEAST_TI';
 publicVariable 'BIS_WF_HQWEST';
 publicVariable 'BIS_WF_HQWEST_TI';
 
-diag_log Format["[WFBE (INIT)] Init_Server: Registered Radio Announcers (West: %1 East: %2) - [Done]",BIS_WF_HQWEST_TI,BIS_WF_HQEAST_TI];
+Format["Init_Server: Registered Radio Announcers (West: %1 East: %2) - [Done]",BIS_WF_HQWEST_TI,BIS_WF_HQEAST_TI] call LogMedium;
 
 ['WFBE_West_TimeUnderAttack',0,true] Call SetNamespace;
 ['WFBE_East_TimeUnderAttack',0,true] Call SetNamespace;
@@ -232,7 +234,7 @@ WF_Logic setVariable ["westVehiclesLost",0,true];
 WF_Logic setVariable ["WF_CHQInUse_West",false];
 WF_Logic setVariable ["WF_CHQInUse_East",false];
 
-diag_log "[WFBE (INIT)] Init_Server: Stats Variable - [Done]";
+"Init_Server: Stats Variable - [Done]" call LogMedium;
 
 EastBaseStructures = [];
 WestBaseStructures = [];
@@ -257,7 +259,7 @@ if (paramAI) then {
 			[_x, "towns"]	Call SetTeamMoveMode;
 			[_x, [0,0,0]]	Call SetTeamMovePos;
 			if (paramISIS) then {(leader _x) addEventHandler['handleDamage',{_this Call ISIS_Wound}]};
-			diag_log Format ["[WFBE (INIT)] Init_Server: East AI Team (%1) Full Init - [Done]",_x];
+			Format ["Init_Server: East AI Team (%1) Full Init - [Done]",_x] call LogHigh;
 		};
 		_i = _i + 1;
 	} forEach ('WFBE_EASTTEAMS' Call GetNamespace);
@@ -277,7 +279,7 @@ if (paramAI) then {
 			[_x, "towns"]	Call SetTeamMoveMode;
 			[_x, [0,0,0]]	Call SetTeamMovePos;
 			if (paramISIS) then {(leader _x) addEventHandler['handleDamage',{_this Call ISIS_Wound}]};
-			diag_log Format ["[WFBE (INIT)] Init_Server: West AI Team (%1) Full Init - [Done]",_x];
+			Format ["Init_Server: West AI Team (%1) Full Init - [Done]",_x] call LogHigh;
 		};
 		_i = _i + 1;
 	} forEach ('WFBE_WESTTEAMS' Call GetNamespace);
@@ -286,7 +288,7 @@ if (paramAI) then {
 	if (('WFBE_SUPPLYSYSTEM' Call GetNamespace) == 0) then {
 		[east] Spawn UpdateSupplyTruck;
 		[west] Spawn UpdateSupplyTruck;
-		diag_log "[WFBE (INIT)] Init_Server: Truck Supply System - [Done]";
+		"Init_Server: Truck Supply System - [Done]" call LogHigh;
 	};
 	
 	//--- AI Teams (Don't pause the server initialization process).
@@ -294,7 +296,7 @@ if (paramAI) then {
 		waitUntil{townInit};
 		{if (!isNil "_x") then {[_x] ExecFSM "Server\FSM\aiteam.fsm"}} forEach ('WFBE_EASTTEAMS' Call GetNamespace);
 		{if (!isNil "_x") then {[_x] ExecFSM "Server\FSM\aiteam.fsm"}} forEach ('WFBE_WESTTEAMS' Call GetNamespace);
-		diag_log "[WFBE (INIT)] Init_Server: AI Teams FSM - [Done]";
+		"Init_Server: AI Teams FSM - [Done]" call LogHigh;
 	};
 } else {
 	_i = 1;
@@ -304,7 +306,7 @@ if (paramAI) then {
 			[_x, false] 	Call SetTeamAutonomous;
 			[_x, ""] 		Call SetTeamRespawn;
 			[_x, -1] 		Call SetTeamType;
-			diag_log Format ["[WFBE (INIT)] Init_Server: West AI Team (%1) Partial Init - [Done]",_x];
+			Format ["Init_Server: West AI Team (%1) Partial Init - [Done]",_x] call LogHigh;
 		};
 		_i = _i + 1;
 	} forEach ('WFBE_EASTTEAMS' Call GetNamespace);
@@ -315,7 +317,7 @@ if (paramAI) then {
 			[_x, false] 	Call SetTeamAutonomous;
 			[_x, ""] 		Call SetTeamRespawn;
 			[_x, -1] 		Call SetTeamType;
-			diag_log Format ["[WFBE (INIT)] Init_Server: West AI Team (%1) Partial Init - [Done]",_x];
+			Format ["Init_Server: West AI Team (%1) Partial Init - [Done]",_x] call LogHigh;
 		};
 		_i = _i + 1;
 	} forEach ('WFBE_WESTTEAMS' Call GetNamespace);
@@ -333,7 +335,7 @@ createMarkerLocal ["Respawn_west",getPos WestMHQ];
 "Respawn_east" setMarkerPosLocal getPos EastMHQ;
 "Respawn_west" setMarkerPosLocal getPos WestMHQ;
 
-diag_log "[WFBE (INIT)] Init_Server: Respawn Markers - [Done]";
+"Init_Server: Respawn Markers - [Done]" call LogHigh;
 
 //--- Town starting mode.
 if (('WFBE_TOWNSTARTINGMODE' Call GetNamespace) != 0 || ('WFBE_RESPATROL' Call GetNamespace) > 0 || ('WFBE_RESSTRIKER' Call GetNamespace) > 0) then {[] Call Compile preprocessFile "Server\Init\Init_Towns.sqf"};
@@ -357,7 +359,7 @@ _starterVehicle = _starterVehicle + [_vehicle];
 //--- Clear the cargo.
 {clearWeaponCargo _x; clearMagazineCargo _x} forEach _starterVehicle;
 
-diag_log "[WFBE (INIT)] Init_Server: Starting Vehicles - [Done]";
+"Init_Server: Starting Vehicles - [Done]" call LogHigh;
 
 emptyQueu = [];
 trashQueu = [];
@@ -373,22 +375,22 @@ WF_Logic setVariable ["emptyVehicles",[],true];
 
 //--- Misc SQF|FSM execution.
 [] Call Compile preprocessFile "Server\Config\Config_Resistance.sqf";
-diag_log "[WFBE (INIT)] Init_Server: Resistance Config - [Done]";
+"Init_Server: Resistance Config - [Done]"  call LogHigh;
 [] Call Compile preprocessFile "Server\Config\Config_Occupation.sqf";
-diag_log "[WFBE (INIT)] Init_Server: Occupation Config - [Done]";
+"Init_Server: Occupation Config - [Done]" call LogHigh;
 
 //--- Don't pause the server init script.
 [] Spawn {
 	waitUntil {townInit};
 	[] ExecFSM "Server\FSM\updateserver.fsm";
-	diag_log "[WFBE (INIT)] Init_Server (Delayed): Server Module - [Done]";
+	"Init_Server (Delayed): Server Module - [Done]" call LogHigh;
 	[] ExecFSM "Server\FSM\updateresources.fsm";
-	diag_log "[WFBE (INIT)] Init_Server (Delayed): Ressources Module - [Done]";
+	"Init_Server (Delayed): Ressources Module - [Done]" call LogHigh;
 };
 [] ExecFSM "Server\FSM\garbagecollector.fsm";
-diag_log "[WFBE (INIT)] Init_Server: Garbage Collector Module - [Done]";
+"Init_Server: Garbage Collector Module - [Done]" call LogHigh;
 [] ExecFSM "Server\FSM\emptyvehiclescollector.fsm";
-diag_log "[WFBE (INIT)] Init_Server: Empty Vehicles Collector - [Done]";
+"Init_Server: Empty Vehicles Collector - [Done]" call LogHigh;
 
 //--- Network System Part 2.
 EastMHQDeployed = false; publicVariable 'EastMHQDeployed';
@@ -429,7 +431,7 @@ if (paramBaseArea) then {
 	[] ExecFSM "Server\FSM\basearea.fsm";
 };
 
-diag_log "[WFBE (INIT)] Init_Server: NetVar - [Done]";
+"Init_Server: NetVar - [Done]" call LogHigh;
 
 //--- Allies base.
 if (paramAllies && (WF_A2_Vanilla || WF_A2_CombinedOps)) then {
@@ -437,7 +439,7 @@ if (paramAllies && (WF_A2_Vanilla || WF_A2_CombinedOps)) then {
 	[west] ExecFSM "Server\FSM\allies.fsm";
 	[east] ExecFSM "Server\FSM\allies.fsm";
 	
-	diag_log "[WFBE (INIT)] Init_Server: Allies Module - [Done]";
+	"Init_Server: Allies Module - [Done]" call LogHigh;
 };
 
 //--- Auto Defenses Manning.
@@ -445,7 +447,7 @@ if (paramAutoDefense) then {
 	WF_DefenseWestGrp = createGroup west;
 	WF_DefenseEastGrp = createGroup east;
 	
-	diag_log "[WFBE (INIT)] Init_Server: Auto Defenses - [Done]";
+	"Init_Server: Auto Defenses - [Done]" call LogHigh;
 };
 
 //--- ALICE Module.
@@ -453,10 +455,10 @@ if (paramAlice) then {
 	_type = if (WF_A2_Vanilla) then {'AliceManager'} else {'Alice2Manager'};
 	_alice = (createGroup sideLogic) createUnit [_type,[0,0,0],[],0,"NONE"];
 	
-	diag_log "[WFBE (INIT)] Init_Server: ALICE Module - [Done]";
+	"Init_Server: ALICE Module - [Done]" call LogHigh;
 };
 
-diag_log Format["[WFBE (INIT)] Init_Server: Init End at %1",time];
+"Init_Server: Init Server [Done]" call LogMedium;
 
 //--- Waiting until that the game is launched.
 waitUntil {time > 0};

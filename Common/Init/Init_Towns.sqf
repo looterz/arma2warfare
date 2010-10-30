@@ -1,4 +1,6 @@
+waitUntil{!isNil "LOGLEVEL"};
 waitUntil{townModeSet};
+
 _startAt = time;
 waitUntil {!isNil "totalTowns"};
 waitUntil {(count towns == totalTowns) ||  time - _startAt > 30};
@@ -11,4 +13,4 @@ if (time - _startAt >= 27 && local player) then {
 	if (count towns == totalTowns) then {townInit = true} else {sleep 5; failMission "END1"};
 } else {townInit = true};
 
-diag_log "[WFBE (INIT)] Init_Towns: Towns initialization - [Done]";
+"Init_Towns: Towns initialization - [Done]" call LogMedium;

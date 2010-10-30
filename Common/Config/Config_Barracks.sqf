@@ -570,9 +570,9 @@ _longestBarracksBuildTime = 0;
 			_longestBarracksBuildTime = (_c select QUERYUNITTIME);
 		};
 	} else {
-		diag_log Format ["[WFBE (ERROR)] Config_Barracks: '%1' is not defined in the Core files.",_x];
+		Format ["Config_Barracks: '%1' is not defined in the Core files.",_x] call LogError;
 	};
 } forEach (('WFBE_EASTBARRACKSUNITS' Call GetNamespace) + ('WFBE_WESTBARRACKSUNITS' Call GetNamespace) + ('WFBE_GUERBARRACKSUNITS' Call GetNamespace));
 
 ['WFBE_LONGESTBARRACKSBUILDTIME',_longestBarracksBuildTime,true] Call SetNamespace;
-diag_log "[WFBE (INIT)] Config_Barracks: Initialization - [Done]";
+"Config_Barracks: Initialization - [Done]" call LogMedium;

@@ -1,10 +1,20 @@
 //--- Global Init, first file called.
 
+//--- Define which 'part' of the game to run.
+#include "version.sqf"
+#include "logging.sqf"
+
+"Initialization begin" call LogMedium;
+
 //--- Client Init.
 if (!isServer || local player) then {
+	
+	"Player initialization" call LogMedium;
 	waitUntil {!isNull(player)};
 	/* Client Init Done - Begin the blackout on Layer 1 */
 	12452 cutText [(localize 'STR_WF_Loading')+"...","BLACK FADED",0];
+	
+	"Begin the blackout on Layer" call LogMedium;
 };
 
 setViewDistance 1500;
@@ -15,9 +25,7 @@ gameOver = false;
 townInit = false;
 towns = [];
 
-/* Hybrid */
-//--- Define which 'part' of the game to run.
-#include "version.sqf"
+
 
 WF_A2_Vanilla = false;
 #ifdef VANILLA
@@ -109,6 +117,7 @@ paramTrade = true;
 
 missionNamespace setVariable ['WFBE_EASTSTARTINGMONEY',200000];
 missionNamespace setVariable ['WFBE_WESTSTARTINGMONEY',200000];
+missionNamespace setVariable ['WFBE_SUPPLYSYSTEM', 1]; // time
 EastSupplies = 100000;
 WestSupplies = 100000;
 

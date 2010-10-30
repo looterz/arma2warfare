@@ -155,9 +155,9 @@ _longestHeavyBuildTime = 0;
 			_longestHeavyBuildTime = (_c select QUERYUNITTIME);
 		};
 	} else {
-		diag_log Format ["[WFBE (ERROR)] Config_HeavyFactory: '%1' is not defined in the Core files.",_x];
+		Format ["Config_HeavyFactory: '%1' is not defined in the Core files.",_x] call LogError;
 	};
 } forEach (('WFBE_EASTHEAVYUNITS' Call GetNamespace) + ('WFBE_WESTHEAVYUNITS' Call GetNamespace) + ('WFBE_GUERHEAVYUNITS' Call GetNamespace));
 
 ['WFBE_LONGESTHEAVYBUILDTIME',_longestHeavyBuildTime,true] Call SetNamespace;
-diag_log "[WFBE (INIT)] Config_HeavyFactory: Initialization - [Done]";
+"Config_HeavyFactory: Initialization - [Done]" call LogMedium;

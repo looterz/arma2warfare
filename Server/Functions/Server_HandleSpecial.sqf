@@ -19,7 +19,7 @@ switch (_args select 0) do {
 	case "RespawnST": {
 		_st = Format ["WFBE_%1_AISupplyTrucks",Str _side] Call GetNamespace;
 		{if (!isNull (driver _x)) then {driver _x setDammage 1};_x setDammage 1} forEach _st;
-		diag_log Format["[WFBE (INFORMATION)] Server_HandleSpecial: The %1 supply trucks have been respawned",str _side];
+		Format["Server_HandleSpecial: The %1 supply trucks have been respawned",str _side]  call LogInform;
 	};
 	
 	case "uav": {
@@ -32,7 +32,7 @@ switch (_args select 0) do {
 		_base = (_args select 2);
 		_target = (_args select 3);
 		_playerTeam = (_args select 4);
-		diag_log Format["[WFBE (INFORMATION)] Server_HandleSpecial: The %1 %2 Team (Leader: %3) has called an ICBM",str _side,_playerTeam,name leader _playerTeam];
+		Format["Server_HandleSpecial: The %1 %2 Team (Leader: %3) has called an ICBM",str _side,_playerTeam,name leader _playerTeam] call LogNotify;
 		if (isNull _target || !alive _target) exitWith {};
 		_dropPosX = getPos _base select 0;
 		_dropPosY = getPos _base select 1;

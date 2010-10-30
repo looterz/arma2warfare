@@ -935,7 +935,7 @@ class FSM
        "					};" \n
        "				};" \n
        "			} else {" \n
-       "				diag_log Format [""[WFBE (ERROR)] aiteam.fsm: Element %1 is not defined within the core system"",_x];" \n
+       "				Format [""aiteam.fsm: Element %1 is not defined within the core system"",_x] call LogError;" \n
        "			};" \n
        "		} forEach _teamType;" \n
        "	};" \n

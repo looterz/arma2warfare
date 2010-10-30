@@ -1826,4 +1826,4 @@ if (WF_A2_CombinedOps) then {
 	['WFBE_EASTAITEAMTEMPLATEDESCRIPTIONS',_d,true] Call SetNamespace;
 };
 
-diag_log "[WFBE (INIT)] Config_Squads: Initialization - [Done]";
+"Config_Squads: Initialization - [Done]" call LogMedium;

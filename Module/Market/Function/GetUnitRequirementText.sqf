@@ -6,10 +6,10 @@ _unit = _this select 1;
 _unitData = _unit call marketGetUnitRequiredProducts;
 _requirementText = "";
 	
-format['get unit requirment text: %1', _unit] call Logger;	
+format['get unit requirment text: %1', _unit] call LogHigh;	
 	
 if (isNil '_unitData') exitWith { 
-	format['empty requirmenttext=%1', _requirementText] call Logger;
+	format['empty requirmenttext=%1', _requirementText] call LogHigh;
 	_requirementText; 
 };
 
@@ -17,7 +17,7 @@ _products = [_factory] call marketGetMarketProducts;
 _marketStock = _products select 0;
 _marketPrices = _products select 1;
 
-format['_unitData=%1', _unitData] call Logger;
+format['_unitData=%1', _unitData] call LogHigh;
 
 _found = 0;
 _u = 1;

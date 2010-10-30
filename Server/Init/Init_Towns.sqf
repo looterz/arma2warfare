@@ -108,4 +108,4 @@ if (('WFBE_TOWNSTARTINGMODE' Call GetNamespace) != 1 && ('WFBE_RESSTRIKER' Call 
 	};
 };
 
-diag_log "[WFBE (INIT)] Init_Towns (S): Towns starting mode initialization - [Done]";
+"Init_Towns (S): Towns starting mode initialization - [Done]"  call LogMedium;

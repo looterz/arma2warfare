@@ -11,7 +11,7 @@ _kname = name _killer;
 
 _deployed = (str _side) Call GetSideHQDeployed;
 
-diag_log Format["[WFBE (INFORMATION)] Server_HQKilled: The %1 MHQ has been destroyed",str _side];
+Format["Server_HQKilled: The %1 MHQ has been destroyed",str _side]  call LogInform;
 
 
 if ((side _killer != _side)&&(isPlayer(_killer)))  then {
@@ -37,7 +37,7 @@ if ((side _killer == _side)&&(isPlayer(_killer))) then {
 	publicVariable 'WFBE_LocalizeMessage';
 	if (!isMultiplayer || (isServer && local player)) then {[_side,'CLTFNCLOCALIZEMESSAGE',['BuildingTeamkill',name _killer,_uid,_tked]] Spawn HandlePVF};
 	
-	diag_log Format["[WFBE (INFORMATION)] Server_HQKilled: Player %1 (%2) has teamkilled the MHQ.",name _killer,_uid];
+	Format["Server_HQKilled: Player %1 (%2) has teamkilled the MHQ.",name _killer,_uid]  call LogInform;;
 };
 
 sleep random(2);

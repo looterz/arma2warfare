@@ -1,3 +1,5 @@
+waitUntil { !isNil "LOGLEVEL" };
+ 
 _location = _this Select 0;
 _locationName = _this Select 1;
 _resistanceTeamTypes = ["Group","Group"];
@@ -24,7 +26,7 @@ if (local player) then {
 	_marker setMarkerColorLocal "ColorBlue";
 };
 
-diag_log Format["[WFBE (INIT)] Init_Location: Town '%1' (%2) initialization - [Done]",str _location,_locationName];
+Format["Init_Location: Town '%1' (%2) initialization - [Done]",str _location,_locationName] call LogHigh;
 
 waitUntil {commonInitComplete};
 

@@ -13,7 +13,9 @@ Private ['_camps','_insert','_insertObject','_insertStep','_maxWaypoints','_pos'
 _team = _this select 0;
 _town = _this select 1;
 _radius = if (count _this > 2) then {_this select 2} else {30};
-if (typeName _town != 'OBJECT') exitWith {diag_log Format ["[WFBE (ERROR)] AI_TownPatrol: Object expected, %1 given",_town]};
+if (typeName _town != 'OBJECT') exitWith {
+	Format ["AI_TownPatrol: Object expected, %1 given",_town] call LogError;
+};
 _townPos = getPos _town;
 
 _camps = _town getVariable 'camps';
@@ -62,6 +64,5 @@ for [{_x=0},{_x<=_maxWaypoints},{_x=_x+1}] do {
 	_wps = _wps + [[_pos,_type,_wpradius,_wpcompletionRadius]];
 };
 
-diag_log Format["[WFBE (INFORMATION)] AI_TownPatrol: The %1 %2 Team is patrolling the %3 town",side _team,_team,_town];
-
+Format["AI_TownPatrol: The %1 %2 Team is patrolling the %3 town",side _team,_team,_town] call LogInform;
 [_team, true, _wps] Call AIWPAdd;

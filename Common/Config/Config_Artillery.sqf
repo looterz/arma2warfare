@@ -56,4 +56,4 @@ if (WF_A2_Arrowhead || WF_A2_CombinedOps) then {
 	};
 };
 
-diag_log '[WFBE (INIT)] Config_Artillery: Initialization - [Done]';
+'Config_Artillery: Initialization - [Done]' call LogMedium;

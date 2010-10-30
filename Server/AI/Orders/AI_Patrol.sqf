@@ -27,6 +27,6 @@ for [{_x=0},{_x<=_maxWaypoints},{_x=_x+1}] do {
 	_wps = _wps + [[_pos,_type,35,40]];
 };
 
-diag_log Format["[WFBE (INFORMATION)] AI_Patrol: The %1 %2 Team is patrolling at %3",side _team,_team,_destination];
+Format["AI_Patrol: The %1 %2 Team is patrolling at %3",side _team,_team,_destination] call LogInform;
 
 [_team, true, _wps] Call AIWPAdd;

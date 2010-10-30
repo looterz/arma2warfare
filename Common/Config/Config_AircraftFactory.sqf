@@ -206,9 +206,9 @@ _longestAircraftBuildTime = 0;
 			_longestAircraftBuildTime = (_c select QUERYUNITTIME);
 		};
 	} else {
-		diag_log Format ["[WFBE (ERROR)] Config_AircraftFactory: '%1' is not defined in the Core files.",_x];
+		Format [" Config_AircraftFactory: '%1' is not defined in the Core files.",_x] call LogError;
 	};
 } forEach (('WFBE_EASTAIRCRAFTUNITS' Call GetNamespace) + ('WFBE_WESTAIRCRAFTUNITS' Call GetNamespace) + ('WFBE_GUERAIRCRAFTUNITS' Call GetNamespace));
 
 ['WFBE_LONGESTAIRCRAFTBUILDTIME',_longestAircraftBuildTime,true] Call SetNamespace;
-diag_log "[WFBE (INIT)] Config_AircraftFactory: Initialization - [Done]";
+"Config_AircraftFactory: Initialization - [Done]" call LogMedium;

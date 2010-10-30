@@ -13,7 +13,7 @@ _defense = _type createVehicle _position;
 _defense setDir _direction;
 _defense setPos _position;
 
-diag_log Format["[WFBE (INFORMATION)] Construction_StationaryDefense: A %1 %2 was created",str _side,_type];
+Format["Construction_StationaryDefense: A %1 %2 was created",str _side,_type] call LogInform;
 
 //--- If it's a minefield, we exit the script while spawning it.
 if (_type == 'Sign_Danger') exitWith {
@@ -77,6 +77,6 @@ if (paramArtyUI) then {
     if (_isVeh == 1) then {
 		_defense setVehicleInit "[this] ExecVM 'Common\Common_InitArtillery.sqf'";
 		processInitCommands;
-		diag_log Format["[WFBE (INFORMATION)] Construction_StationaryDefense: Artillery UI has been set over the %1 %2",str _side,_type];
+		Format["Construction_StationaryDefense: Artillery UI has been set over the %1 %2",str _side,_type] call LogInform;
 	};
 };

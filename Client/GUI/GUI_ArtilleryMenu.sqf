@@ -281,20 +281,22 @@ while {alive player && dialog} do {
 			_txt = localize 'STR_WF_Available';
 		
 			_artilleryMarker = GetMarkerPos "artilleryMarker";
-			_units = [Group player,GetPos player,false,lbCurSel(17008)] Call GetTeamArtillery;
+			_artyTypeId = lbCurSel(17008);
+			_units = [Group player,GetPos player,false, _artyTypeId] Call GetTeamArtillery;
 			_countInRange = 0;
 
 			if (count _units == 0) then {
 				_txt = localize 'STR_WF_ArtyNoGuns';
 			} else {
-				{
-					_artillery = _x;
-					_type = artilleryNames Find (typeOf _artillery);
-					_minRange = artilleryMinRanges Select _type;
-					_maxRange = artilleryMaxRanges Select _type;
+				
+				_minRange = artilleryMinRanges Select _artyTypeId;
+				_maxRange = artilleryMaxRanges Select _artyTypeId;
 					
+				{
+					_artillery = _x;					
 					_dist = _artilleryMarker distance _artillery;
 					if ( _minRange <= _dist && _dist <= _maxRange) then { _countInRange = _countInRange + 1; };
+					
 				} forEach _units;
 				
 				if (_countInRange == 0) then { 

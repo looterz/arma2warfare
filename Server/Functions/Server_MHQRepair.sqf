@@ -33,4 +33,4 @@ deleteVehicle _hq;
 
 Call Compile Format ["%1MHQDeployed = false; publicVariable '%1MHQDeployed';",_sideText];
 
-diag_log Format["[WFBE (INFORMATION)] Server_MHQRepair: The %1 MHQ was repaired.",_sideText];
+Format["Server_MHQRepair: The %1 MHQ was repaired.",_sideText]  call LogInform;

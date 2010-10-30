@@ -31,8 +31,8 @@ for '_z' from 0 to (count _c)-1 do {
 		(_i select _z) set [1, [_c select _z,_p] Call GetConfigInfo];
 		[_c select _z,_i select _z] Call SetNamespace;
 	} else {
-		diag_log Format ["[WFBE (INIT)] Core_MVD: Duplicated Element found '%1'",(_c select _z)];
+		Format ["Core_MVD: Duplicated Element found '%1'",(_c select _z)] call LogMedium;
 	};
 };
 
-diag_log Format ["[WFBE (INIT)] Core_MVD: Initialization (%1 Elements) - [Done]",count _c];
+Format ["Core_MVD: Initialization (%1 Elements) - [Done]",count _c] call LogMedium;

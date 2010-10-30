@@ -32,7 +32,7 @@ _aibase = Format["WFBE_%1_AIBase",_sideText] Call GetNamespace;
 if (isNull _commanderTeam && paramAIcom && !_aibase) then {[_side] ExecFSM "Server\FSM\aibase.fsm"};
 
 if (isNull _commanderTeam) then {
-	diag_log Format["[WFBE (INFORMATION)] Server_VoteForCommander: %1 Commander = AI Commander.",_sideText];
+	Format["Server_VoteForCommander: %1 Commander = AI Commander.",_sideText] call LogMedium;
 } else {
-	diag_log Format["[WFBE (INFORMATION)] Server_VoteForCommander: %1 Commander = %2.",_sideText,name leader _commanderTeam];
+	Format["Server_VoteForCommander: %1 Commander = %2.",_sideText,name leader _commanderTeam] call LogMedium;
 };

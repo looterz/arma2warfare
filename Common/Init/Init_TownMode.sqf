@@ -4,6 +4,8 @@
 		Custom templates can be added bellow.
 */
 
+waitUntil { !isNil "LOGLEVEL" };
+
 _index = 0;
 for [{_i = 0},{_i < (count (missionConfigFile/"Params"))},{_i = _i + 1}]  do {
 	_paramName = (configName ((missionConfigFile >> "Params") select _i));
@@ -48,4 +50,4 @@ totalTowns = (WF_Logic getVariable "totalTowns") - (count TownTemplate);
 
 townModeSet = true;
 
-diag_log "[WFBE (INIT)] Init_TownMode: Towns mode initialization - [Done]";
+"Init_TownMode: Towns mode initialization - [Done]" call LogMedium;

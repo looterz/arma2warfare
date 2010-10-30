@@ -9,7 +9,7 @@ if (count _this > 4) then {_isVehicle = _this select 5};
 
 _sideText = str _side;
 
-diag_log Format["[WFBE (INFORMATION)] Server_BuyUnit: AI Team %1 has purchased a '%2'",_team,_unitType];
+Format["Server_BuyUnit: AI Team %1 has purchased a '%2'",_team,_unitType] call LogInform;
 
 _queu = _building getVariable "queu";
 if (isNil "_queu") then {_queu = []};
@@ -43,8 +43,12 @@ while {_id select 0 != _queu select 0} do {
 		_queu = _building getVariable "queu";
 		_queu = _queu - [_queu select 0];
 		_building setVariable ["queu",_queu,true];
-		if !(alive _building) then {diag_log Format ["[WFBE (INFORMATION)] Server_BuyUnit.sqf: Canceled unit '%1', the factory is destroyed.",_unitType]};
-		if !(isPlayer(leader _team)) then {diag_log Format ["[WFBE (INFORMATION)] Server_BuyUnit.sqf: Canceled unit '%1', Player %2 has replaced the AI Team leader.",_unitType, name (leader _team)]};
+		if !(alive _building) then {
+			Format ["Server_BuyUnit.sqf: Canceled unit '%1', the factory is destroyed.",_unitType]  call LogInform;
+		};
+		if !(isPlayer(leader _team)) then {
+			Format ["Server_BuyUnit.sqf: Canceled unit '%1', Player %2 has replaced the AI Team leader.",_unitType, name (leader _team)]  call LogInform;
+		};
 	};
 	
 	if (_queu select 0 == _queu2 select 0) then {
@@ -71,8 +75,12 @@ _building setVariable ["queu",_queu,true];
 if ((!alive _building)||(isNull _building)||(isPlayer(leader _team))) exitWith {
 	_gbq = (_team getVariable "queue") - _id;
 	_team setVariable ["queue",_gbq];
-	if !(alive _building) then {diag_log Format ["[WFBE (INFORMATION)] Server_BuyUnit.sqf: Canceled unit '%1', the factory is destroyed.",_unitType]};
-	if !(isPlayer(leader _team)) then {diag_log Format ["[WFBE (INFORMATION)] Server_BuyUnit.sqf: Canceled unit '%1', Player %2 has replaced the AI Team leader.",_unitType, name (leader _team)]};
+	if !(alive _building) then {
+		Format ["Server_BuyUnit.sqf: Canceled unit '%1', the factory is destroyed.",_unitType] call LogInform;
+	};
+	if !(isPlayer(leader _team)) then {
+		Format ["Server_BuyUnit.sqf: Canceled unit '%1', Player %2 has replaced the AI Team leader.",_unitType, name (leader _team)] call LogInform;
+	};
 };
 
 if (_unitType isKindOf "Man") then {

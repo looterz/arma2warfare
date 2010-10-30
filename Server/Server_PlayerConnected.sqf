@@ -11,7 +11,7 @@ Private ['_attempts','_funds','_get','_leader','_name','_side','_sideLeft','_slo
 _uid = _this select 0;
 _name = _this select 1;
 
-diag_log Format["[WFBE (INFORMATION)] Server_PlayerConnected: Player %1 (%2) has joined the game",_name,_uid];
+Format["Server_PlayerConnected: Player %1 (%2) has joined the game",_name,_uid] call LogNotify;
 
 sleep (0.1+random(0.1));
 
@@ -26,7 +26,9 @@ while {_attempts < 12 && isNull _team} do {
 };
 
 //--- Not found, exit.
-if (isNull _team) exitWith {diag_log Format ["[WFBE (INFORMATION)] Server_PlayerConnected: Player %1 (%2) is not defined within the west and east teams.",_name,_uid]};
+if (isNull _team) exitWith {
+	Format ["Server_PlayerConnected: Player %1 (%2) is not defined within the west and east teams.",_name,_uid] call LogNotify;
+};
 _leader = leader _team;
 _side = objNull;
 
@@ -36,7 +38,9 @@ if (_leader isKindOf eastSoldierBaseClass) then {_side = east};
 
 //--- Retrieve the player's team.
 _slotIndex = (Format["WFBE_%1TEAMS",str _side] Call GetNamespace) find _team;
-if (_slotIndex == -1) exitWith {diag_log Format ["[WFBE (INFORMATION)] Server_PlayerConnected: Player %1 (%2) team's wasn't found.",_name,_uid]};
+if (_slotIndex == -1) exitWith {
+	Format ["Server_PlayerConnected: Player %1 (%2) team's wasn't found.",_name,_uid] call LogNotify;
+};
 
 //--- MySQL Update.
 if (mysql && _name != "__SERVER__") then {
@@ -100,7 +104,7 @@ if (_sideLeft != _side) then {
 	if (paramKickTeamswappers) then {
 		serverCommand Format["#kick %1",_name];
 		
-		diag_log Format["[WFBE (INFORMATION)] Server_PlayerConnected: Player %1 (%2) was kicked for teamswapping",_name,_get select 0];
+		Format["Server_PlayerConnected: Player %1 (%2) was kicked for teamswapping",_name,_get select 0] call LogNotify;
 	};
 };
 
