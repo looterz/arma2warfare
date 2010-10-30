@@ -15,10 +15,7 @@ _artillery = [];
 	_vehicle = vehicle _x;
 
 	if (typeOf (_vehicle) == _artyType) then {	 
-		format["ArtyType "] call LogTrace;
-	
 		if (!isNull (gunner _vehicle) && !(_vehicle in _artillery) && !(isPlayer gunner _vehicle)) then {
-
 			_weapon = artilleryWeapons select _index;
 			if (_ignoreAmmo || (_vehicle ammo _weapon > 0)) then {
 				_artillery = _artillery + [_vehicle];

@@ -23,9 +23,7 @@ for [{_count1 = 0},{_count1 < _burst},{_count1 = _count1 + 1}] do {
 		[_units Select _count,_destination,Side player,artyRange,_index] Spawn FireArtillery;
 	};
 
-	if (!WF_DEBUG) then {
-		sleep _reloadTime;
-	};
+	sleep _reloadTime;
 };
 
 //Keep weapons reloaded.

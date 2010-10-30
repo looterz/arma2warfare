@@ -135,16 +135,18 @@ _procUpdateStockProduct = {
 	_market = _this select 0;
 	_productId  = _this select 1;
 	_incValue  = _this select 2;
+	
+	_isFactory = if (_market in ((sideJoinedText) Call GetSideStructures)) then { true} else { false };
+	_isHq = if (_market == (sideJoinedText) Call GetSideHQ) then { true } else { false };
 
-	if (_market == _hq) then {
+	if (_productId == marketProductIdSupply && (_isHq  || (_isFactory && _incValue > 0))  ) then {
 
-		if (_productId == marketProductIdSupply) then {
-			_sv = WF_Logic getVariable Format ["%1Supplies",sideJoinedText];
-			_sv = _sv  + (_incValue * 1000);
-			
-			if (_sv < 0) then { _sv = 0; };
-			WF_Logic setVariable [Format ["%1Supplies",sideJoinedText], _sv, true];
-		};	
+		_sv = WF_Logic getVariable Format ["%1Supplies",sideJoinedText];
+		_sv = _sv  + (_incValue * 1000);
+		
+		if (_sv < 0) then { _sv = 0; };
+		WF_Logic setVariable [Format ["%1Supplies",sideJoinedText], _sv, true];
+
 	} else {
 		[_market, _productId, _incValue] call marketUpdateProductValue;
 		_market setVariable ["marketTimeStamp", format["%1", time], true];
