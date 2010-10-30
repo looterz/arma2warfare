@@ -9,4 +9,4 @@ _playerChanged addScore _newScore;
 
 WFBE_ChangeScore = [nil,'CLTFNCCHANGESCORE',[_playerChanged,_newScore]];
 publicVariable 'WFBE_ChangeScore';
-if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCCHANGESCORE',[_playerChanged,_newScore]] Spawn HandlePVF};
+if (IsClientServer) then {[nil,'CLTFNCCHANGESCORE',[_playerChanged,_newScore]] Spawn HandlePVF};

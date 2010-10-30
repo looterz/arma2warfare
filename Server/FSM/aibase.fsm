@@ -191,7 +191,7 @@ class FSM
        "	" \n
        "	WFBE_LocalizeMessage = [_side,'CLTFNCLOCALIZEMESSAGE',['UpgradeComplete',_index2,(_index + 1)]];" \n
        "	publicVariable 'WFBE_LocalizeMessage';" \n
-       "	if (!isMultiplayer || (isServer && local player)) then {[_side,'CLTFNCLOCALIZEMESSAGE',['UpgradeComplete',_index2,(_index + 1)]] Spawn HandlePVF};" \n
+       "	if (IsClientServer) then {[_side,'CLTFNCLOCALIZEMESSAGE',['UpgradeComplete',_index2,(_index + 1)]] Spawn HandlePVF};" \n
        "	[Format[""WFBE_%1_Upgrading"",_sideText],false,true] Call SetNamespace;" \n
        "" \n
        "	[""NewIntelAvailable"","""",_side,""""] Spawn SideMessage" \n

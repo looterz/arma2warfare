@@ -15,6 +15,6 @@ WF_Logic setVariable [Format["%1Supplies",sideJoinedText],_supply,true];
 
 WFBE_RequestMHQRepair = ['SRVFNCREQUESTMHQREPAIR',sideJoined];
 publicVariable 'WFBE_RequestMHQRepair';
-if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTMHQREPAIR',sideJoined] Spawn HandleSPVF};
+if (IsClientServer) then {['SRVFNCREQUESTMHQREPAIR',sideJoined] Spawn HandleSPVF};
 
 WF_Logic setVariable [Format ["%1MHQRepair",sideJoinedText],true,true];

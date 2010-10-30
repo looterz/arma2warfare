@@ -474,7 +474,7 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 
 					WFBE_RequestStructure = ['SRVFNCREQUESTSTRUCTURE',[sideJoined,_itemclass,[0,0,0],0]];
 					publicVariable 'WFBE_RequestStructure';
-					if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTSTRUCTURE',[sideJoined,_itemclass,[0,0,0],0]] Spawn HandleSPVF};
+					if (IsClientServer) then {['SRVFNCREQUESTSTRUCTURE',[sideJoined,_itemclass,[0,0,0],0]] Spawn HandleSPVF};
 
 					['WFBE_AREAHQUNDEPLOYED' Call GetNamespace,false,MCoin] Call Compile preprocessFile "Client\Init\Init_Coin.sqf";
 					
@@ -681,7 +681,7 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 							} else {
 								WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_COMMANDERBUILDSCORE' Call GetNamespace)]];
 								publicVariable 'WFBE_RequestChangeScore';
-								if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_COMMANDERBUILDSCORE' Call GetNamespace)]] Spawn HandleSPVF};
+								if (IsClientServer) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_COMMANDERBUILDSCORE' Call GetNamespace)]] Spawn HandleSPVF};
 							};
 						};
 						
@@ -715,12 +715,12 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 						if (_class in _structures) then {
 							WFBE_RequestStructure = ['SRVFNCREQUESTSTRUCTURE',[sideJoined,_class,_pos,_dir]];
 							publicVariable 'WFBE_RequestStructure';
-							if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTSTRUCTURE',[sideJoined,_class,_pos,_dir]] Spawn HandleSPVF};
+							if (IsClientServer) then {['SRVFNCREQUESTSTRUCTURE',[sideJoined,_class,_pos,_dir]] Spawn HandleSPVF};
 						};
 						if (_class in _defenses) then {
 							WFBE_RequestDefense = ['SRVFNCREQUESTDEFENSE',[sideJoined,_class,_pos,_dir,manningDefense]];
 							publicVariable 'WFBE_RequestDefense';
-							if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTDEFENSE',[sideJoined,_class,_pos,_dir,manningDefense]] Spawn HandleSPVF};
+							if (IsClientServer) then {['SRVFNCREQUESTDEFENSE',[sideJoined,_class,_pos,_dir,manningDefense]] Spawn HandleSPVF};
 							lastBuilt = _par;
 						};
 					};

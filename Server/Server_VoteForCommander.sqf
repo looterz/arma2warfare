@@ -24,7 +24,7 @@ sleep _delay;
 
 WFBE_CommanderVote = [_side,'CLTFNCCOMMANDERVOTE',_commanderTeam];
 publicVariable 'WFBE_CommanderVote';
-if (!isMultiplayer || (isServer && local player)) then {[_side,'CLTFNCCOMMANDERVOTE',_commanderTeam] Spawn HandlePVF};
+if (IsClientServer) then {[_side,'CLTFNCCOMMANDERVOTE',_commanderTeam] Spawn HandlePVF};
 
 [Format["WFBE_%1_LastCommander",_sideText],_commanderTeam,true] Call SetNamespace;
 

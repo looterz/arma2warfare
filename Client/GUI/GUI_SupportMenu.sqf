@@ -242,7 +242,7 @@ while {true} do {
 		MenuAction = -1;
 		WFBE_RequestSpecial = ['SRVFNCREQUESTSPECIAL',["RespawnST",sideJoined]];
 		publicVariable 'WFBE_RequestSpecial';
-		if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTSPECIAL',["RespawnST",sideJoined]] Spawn HandleSPVF};
+		if (IsClientServer) then {['SRVFNCREQUESTSPECIAL',["RespawnST",sideJoined]] Spawn HandleSPVF};
 		_lastUse = time;
 	};
 	

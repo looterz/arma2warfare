@@ -9,7 +9,7 @@ hint Format [localize "STR_WF_Upgrade_Start",_name];
 
 WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_COMMANDERUPGRADESCORE' Call GetNamespace)]];
 publicVariable 'WFBE_RequestChangeScore';
-if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_COMMANDERUPGRADESCORE' Call GetNamespace)]] Spawn HandleSPVF};
+if (IsClientServer) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_COMMANDERUPGRADESCORE' Call GetNamespace)]] Spawn HandleSPVF};
 
 _i = _time;
 if (WF_DEBUG) then { _i = 1; };
@@ -27,10 +27,10 @@ isUpgrading = false;
 hint Format [localize "STR_WF_Upgrade_Complete",_name,_index2 + 1];
 WFBE_LocalizeMessage = [sideJoined,'CLTFNCLOCALIZEMESSAGE',['UpgradeComplete',_index,(_index2 + 1)]];
 publicVariable 'WFBE_LocalizeMessage';
-if (!isMultiplayer || (isServer && local player) || local player) then {[sideJoined,'CLTFNCLOCALIZEMESSAGE',['UpgradeComplete',_index,(_index2 + 1)]] Spawn HandlePVF};
+if (IsClientServer) then {[sideJoined,'CLTFNCLOCALIZEMESSAGE',['UpgradeComplete',_index,(_index2 + 1)]] Spawn HandlePVF};
 
 sleep 0.3;
 
 WFBE_RequestSpecial = ['SRVFNCREQUESTSPECIAL',['upgrade',sideJoined]];
 publicVariable 'WFBE_RequestSpecial';
-if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTSPECIAL',['upgrade',sideJoined]] Spawn HandleSPVF};
+if (IsClientServer) then {['SRVFNCREQUESTSPECIAL',['upgrade',sideJoined]] Spawn HandleSPVF};

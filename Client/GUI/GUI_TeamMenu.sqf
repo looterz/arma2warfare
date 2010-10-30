@@ -79,7 +79,7 @@ while {alive player && dialog} do {
 			_funds = Call GetPlayerFunds;
 			WFBE_LocalizeMessage = [[_curSel + 1,sideJoined],'CLTFNCLOCALIZEMESSAGE',['FundsTransfer',_transferAmount,name player]];
 			publicVariable 'WFBE_LocalizeMessage';
-			if (!isMultiplayer || (isServer && local player)) then {[[_curSel + 1,sideJoined],'CLTFNCLOCALIZEMESSAGE',['FundsTransfer',_transferAmount,name player]] Spawn HandlePVF};
+			if (IsClientServer) then {[[_curSel + 1,sideJoined],'CLTFNCLOCALIZEMESSAGE',['FundsTransfer',_transferAmount,name player]] Spawn HandlePVF};
 			sliderSetRange[13007,0,_funds];
 		};
 	};

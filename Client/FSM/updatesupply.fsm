@@ -186,7 +186,7 @@ class FSM
        "	};" \n
 	   "	WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + _spsp]];" \n
 	   "	publicVariable 'WFBE_RequestChangeScore';" \n
-	   "	if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + _spsp]] Spawn HandleSPVF};" \n
+	   "	if (IsClientServer) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + _spsp]] Spawn HandleSPVF};" \n
        "};"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links

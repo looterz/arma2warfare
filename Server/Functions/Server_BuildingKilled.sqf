@@ -17,7 +17,7 @@ if ((side _killer != _side)&&(isPlayer(_killer)))  then {
 	
 	WFBE_LocalizeMessage = [[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveBounty',_bounty, _killedName]];
 	publicVariable 'WFBE_LocalizeMessage';
-	if !(isMultiplayer || (isServer && local player)) then {[[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveBounty',_bounty, _killedName]] Spawn HandlePVF};
+	if (IsClientServer) then {[[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveBounty',_bounty, _killedName]] Spawn HandlePVF};
 };
 
 //--- Building Teamkill.
@@ -27,7 +27,7 @@ if ((side _killer == _side)&&(isPlayer(_killer))) then {
 	_tked = [_type, 'displayName'] Call GetConfigInfo;
 	WFBE_LocalizeMessage = [_side,'CLTFNCLOCALIZEMESSAGE',['BuildingTeamkill',name _killer,_uid,_tked]];
 	publicVariable 'WFBE_LocalizeMessage';
-	if (!isMultiplayer || (isServer && local player)) then {[_side,'CLTFNCLOCALIZEMESSAGE',['BuildingTeamkill',name _killer,_uid,_tked]] Spawn HandlePVF};
+	if (IsClientServer) then {[_side,'CLTFNCLOCALIZEMESSAGE',['BuildingTeamkill',name _killer,_uid,_tked]] Spawn HandlePVF};
 	if (mysql) then {
 		WF_Logic setVariable ["WF_MYSQL_SERVER",(WF_Logic getVariable "WF_MYSQL_SERVER") + [Format ["MYSQLDATA§WFBE_Update§%1§%2§teamkillstr§%3",_uid,name _killer,worldName]]];
 	};

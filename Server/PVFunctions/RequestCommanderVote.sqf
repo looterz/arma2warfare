@@ -16,5 +16,5 @@ if ((WF_Logic getVariable Format["%1CommanderVoteTime",str _side]) <= 0) then {
 
 	WFBE_VoteForCommander = [_side,'CLTFNCVOTEFORCOMMANDER'];
 	publicVariable 'WFBE_VoteForCommander';
-	if (!isMultiplayer || (isServer && local player)) then {[_side,'CLTFNCVOTEFORCOMMANDER'] Spawn HandlePVF};
+	if (IsClientServer) then {[_side,'CLTFNCVOTEFORCOMMANDER'] Spawn HandlePVF};
 };

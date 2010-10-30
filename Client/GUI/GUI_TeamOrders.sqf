@@ -329,14 +329,14 @@ while {alive player && dialog} do {
 					if (_id != clientID) then {
 						WFBE_SetTask = [[_id,sideJoined],'CLTFNCSETTASK',[_taskType,_taskTime,_taskTimeLabel,_position]];
 						publicVariable 'WFBE_SetTask';
-						if (!isMultiplayer || (isServer && local player)) then {[[_id,sideJoined],'CLTFNCSETTASK',[_taskType,_taskTime,_taskTimeLabel,_position]] Spawn HandlePVF};
+						if (IsClientServer) then {[[_id,sideJoined],'CLTFNCSETTASK',[_taskType,_taskTime,_taskTimeLabel,_position]] Spawn HandlePVF};
 					};
 				};
 			} else {
 				player kbTell [sideHQ, (sideHQ getVariable "_topic_identity"), "OrderSentAll",["1","",(_radioLabel select 0),[(_radio select 0)]],["2","","moving to position",["HC_MovingToPosition"]],["3","","over.",["Over1"]],true];
 				WFBE_SetTask = [sideJoined,'CLTFNCSETTASK',[_taskType,_taskTime,_taskTimeLabel,_position]];
 				publicVariable 'WFBE_SetTask';
-				if (!isMultiplayer || (isServer && local player)) then {[sideJoined,'CLTFNCSETTASK',[_taskType,_taskTime,_taskTimeLabel,_position]] Spawn HandlePVF};
+				if (IsClientServer) then {[sideJoined,'CLTFNCSETTASK',[_taskType,_taskTime,_taskTimeLabel,_position]] Spawn HandlePVF};
 			};
 		};
 	};
@@ -404,7 +404,7 @@ while {alive player && dialog} do {
 		
 		WFBE_RequestTeamUpdate = ['SRVFNCREQUESTTEAMUPDATE',[_to,_behavior,_combat,_formation,_speed]];
 		publicVariable 'WFBE_RequestTeamUpdate';
-		if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTTEAMUPDATE',[_to,_behavior,_combat,_formation,_speed]] Spawn HandleSPVF};
+		if (IsClientServer) then {['SRVFNCREQUESTTEAMUPDATE',[_to,_behavior,_combat,_formation,_speed]] Spawn HandleSPVF};
 	};	
 	
 	//--- Set respawn.

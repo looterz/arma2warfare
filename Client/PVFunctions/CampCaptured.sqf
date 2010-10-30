@@ -22,7 +22,7 @@ if (_index != -1) then {
 			('WFBE_CAMPCAPTUREBOUNTY' Call GetNamespace) Call ChangePlayerFunds;		
 			WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCORECAPTURECAMP' Call GetNamespace)]];
 			publicVariable 'WFBE_RequestChangeScore';
-			if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCORECAPTURECAMP' Call GetNamespace)]] Spawn HandleSPVF};
+			if (IsClientServer) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCORECAPTURECAMP' Call GetNamespace)]] Spawn HandleSPVF};
 			Format[localize "STR_WF_Camp_Captured_Bounty",_name,'WFBE_CAMPCAPTUREBOUNTY' Call GetNamespace] Call CommandChatMessage;
 			if (mysql) then {
 				WF_Logic setVariable ["WF_MYSQL_CLIENT",(WF_Logic getVariable "WF_MYSQL_CLIENT") + [Format ["MYSQLDATA§WFBE_Update§%1§%2§campcaptured§%3",getPlayerUID(player),name player,worldName]],true];

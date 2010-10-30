@@ -25,6 +25,6 @@ _notifyAllSides = (_previousSide == East || _previousSide == West);
 
 WFBE_AllCampsCaptured = [nil,'CLTFNCALLCAMPSCAPTURED',[_town,_sideID,_notifyAllSides]];
 publicVariable 'WFBE_AllCampsCaptured';
-if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCALLCAMPSCAPTURED',[_town,_sideID,_notifyAllSides]] Spawn HandlePVF};
+if (IsClientServer) then {[nil,'CLTFNCALLCAMPSCAPTURED',[_town,_sideID,_notifyAllSides]] Spawn HandlePVF};
 
 Format["Server_SetCampsToSide: '%1' Camps have been set to %2",_town,str _side]  call LogInform;

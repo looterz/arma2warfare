@@ -166,7 +166,7 @@ while {alive player && dialog} do {
 				-(11500) Call ChangePlayerFunds;
 				WFBE_RequestSpecial = ['SRVFNCREQUESTSPECIAL',["Paratroops",sideJoined,_callPos,clientTeam]];
 				publicVariable 'WFBE_RequestSpecial';
-				if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTSPECIAL',["Paratroops",sideJoined,_callPos,clientTeam]] Spawn HandleSPVF};
+				if (IsClientServer) then {['SRVFNCREQUESTSPECIAL',["Paratroops",sideJoined,_callPos,clientTeam]] Spawn HandleSPVF};
 				hint (localize "STR_WF_Paratroop_Info");
 			};
 		};
@@ -257,7 +257,7 @@ while {alive player && dialog} do {
 			_callPos = _map PosScreenToWorld[mouseX,mouseY];
 			WFBE_RequestSpecial = ['SRVFNCREQUESTSPECIAL',["ParaVehi",sideJoined,_callPos,clientTeam]];
 			publicVariable 'WFBE_RequestSpecial';
-			if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTSPECIAL',["ParaVehi",sideJoined,_callPos,clientTeam]] Spawn HandleSPVF};
+			if (IsClientServer) then {['SRVFNCREQUESTSPECIAL',["ParaVehi",sideJoined,_callPos,clientTeam]] Spawn HandleSPVF};
 		};
 		//--- Ammo Paradrop.
 		if (MenuAction == 10) then {
@@ -267,7 +267,7 @@ while {alive player && dialog} do {
 			_callPos = _map PosScreenToWorld[mouseX,mouseY];
 			WFBE_RequestSpecial = ['SRVFNCREQUESTSPECIAL',["ParaAmmo",sideJoined,_callPos,clientTeam]];
 			publicVariable 'WFBE_RequestSpecial';
-			if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTSPECIAL',["ParaAmmo",sideJoined,_callPos,clientTeam]] Spawn HandleSPVF};
+			if (IsClientServer) then {['SRVFNCREQUESTSPECIAL',["ParaAmmo",sideJoined,_callPos,clientTeam]] Spawn HandleSPVF};
 		};
 	};
 	if (paramArty) then {

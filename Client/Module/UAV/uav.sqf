@@ -61,7 +61,7 @@ WF_Logic setVariable [Format["%1VehiclesCreated",sideJoinedText],_built,true];
 
 WFBE_RequestSpecial = ['SRVFNCREQUESTSPECIAL',["uav",sideJoined,_uav,clientTeam]];
 publicVariable 'WFBE_RequestSpecial';
-if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTSPECIAL',["uav",sideJoined,_uav,clientTeam]] Spawn HandleSPVF};
+if (IsClientServer) then {['SRVFNCREQUESTSPECIAL',["uav",sideJoined,_uav,clientTeam]] Spawn HandleSPVF};
 
 sleep 0.02;
 

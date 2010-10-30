@@ -11,7 +11,7 @@ if !(isNull _commanderTeam) then {
 	_commanderID = (Leader _commanderTeam) Call GetClientID;
 	WFBE_SetHQStatus = [[_commanderID,_side],'CLTFNCSETHQSTATUS',false];
 	publicVariable 'WFBE_SetHQStatus';
-	if (!isMultiplayer || (isServer && local player)) then {[[_commanderID,_side],'CLTFNCSETHQSTATUS',false] Spawn HandlePVF};
+	if (IsClientServer) then {[[_commanderID,_side],'CLTFNCSETHQSTATUS',false] Spawn HandlePVF};
 };
 
 sleep 15;

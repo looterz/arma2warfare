@@ -154,7 +154,7 @@ class FSM
        "if ((count _westBuildings == 0)&&(!_westMHQAlive) && !gameOver) then {" \n
        "	WFBE_EndGame = [nil,'CLTFNCENDGAME',[EASTID,_eastBuildings]];" \n
        "	publicVariable 'WFBE_EndGame';" \n
-       "	if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCENDGAME',[EASTID,_eastBuildings]] Spawn HandlePVF};" \n
+       "	if (IsClientServer) then {[nil,'CLTFNCENDGAME',[EASTID,_eastBuildings]] Spawn HandlePVF};" \n
        "	WF_Logic setVariable [""WF_Winner"",east];" \n
        "	gameOver = true;" \n
        "	_winTime = time;" \n
@@ -164,7 +164,7 @@ class FSM
        "if ((count _eastBuildings == 0)&&(!_eastMHQAlive) && !gameOver) then {" \n
        "	WFBE_EndGame = [nil,'CLTFNCENDGAME',[WESTID,_westBuildings]];" \n
        "	publicVariable 'WFBE_EndGame';" \n
-       "	if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCENDGAME',[WESTID,_westBuildings]] Spawn HandlePVF};" \n
+       "	if (IsClientServer) then {[nil,'CLTFNCENDGAME',[WESTID,_westBuildings]] Spawn HandlePVF};" \n
        "	WF_Logic setVariable [""WF_Winner"",west];" \n
        "	gameOver = true;" \n
        "	_winTime = time;" \n
@@ -219,7 +219,7 @@ class FSM
        "if (!_westMHQAlive || (_eastTowns == _total) && !gameOver) then {" \n
        "	WFBE_EndGame = [nil,'CLTFNCENDGAME',[EASTID,_eastBuildings]];" \n
        "	publicVariable 'WFBE_EndGame';" \n
-       "	if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCENDGAME',[EASTID,_eastBuildings]] Spawn HandlePVF};" \n
+       "	if (IsClientServer) then {[nil,'CLTFNCENDGAME',[EASTID,_eastBuildings]] Spawn HandlePVF};" \n
        "	WF_Logic setVariable [""WF_Winner"",east];" \n
        "	gameOver = true;" \n
        "	_winTime = time;" \n
@@ -229,7 +229,7 @@ class FSM
        "if (!_eastMHQAlive || (_westTowns == _total) && !gameOver) then {" \n
        "	WFBE_EndGame = [nil,'CLTFNCENDGAME',[WESTID,_westBuildings]];" \n
        "	publicVariable 'WFBE_EndGame';" \n
-       "	if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCENDGAME',[WESTID,_westBuildings]] Spawn HandlePVF};" \n
+       "	if (IsClientServer) then {[nil,'CLTFNCENDGAME',[WESTID,_westBuildings]] Spawn HandlePVF};" \n
        "	WF_Logic setVariable [""WF_Winner"",west];" \n
        "	gameOver = true;" \n
        "	_winTime = time;" \n
@@ -293,7 +293,7 @@ class FSM
        "if (!_westMHQAlive && _westFactories == 0 || (_eastTowns == _total) && !gameOver) then {" \n
        "	WFBE_EndGame = [nil,'CLTFNCENDGAME',[EASTID,_eastBuildings]];" \n
        "	publicVariable 'WFBE_EndGame';" \n
-       "	if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCENDGAME',[EASTID,_eastBuildings]] Spawn HandlePVF};" \n
+       "	if (IsClientServer) then {[nil,'CLTFNCENDGAME',[EASTID,_eastBuildings]] Spawn HandlePVF};" \n
        "	WF_Logic setVariable [""WF_Winner"",east];" \n
        "	gameOver = true;" \n
        "	_winTime = time;" \n
@@ -303,7 +303,7 @@ class FSM
        "if (!_eastMHQAlive && _eastFactories == 0 || (_westTowns == _total) && !gameOver) then {" \n
        "	WFBE_EndGame = [nil,'CLTFNCENDGAME',[WESTID,_westBuildings]];" \n
        "	publicVariable 'WFBE_EndGame';" \n
-       "	if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCENDGAME',[WESTID,_westBuildings]] Spawn HandlePVF};" \n
+       "	if (IsClientServer) then {[nil,'CLTFNCENDGAME',[WESTID,_westBuildings]] Spawn HandlePVF};" \n
        "	WF_Logic setVariable [""WF_Winner"",west];" \n
        "	gameOver = true;" \n
        "	_winTime = time;" \n
@@ -370,7 +370,7 @@ class FSM
        "	_eastBuildings = EastBaseStructures;" \n
        "	WFBE_EndGame = [nil,'CLTFNCENDGAME',[EASTID,_eastBuildings]];" \n
        "	publicVariable 'WFBE_EndGame';" \n
-       "	if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCENDGAME',[EASTID,_eastBuildings]] Spawn HandlePVF};" \n
+       "	if (IsClientServer) then {[nil,'CLTFNCENDGAME',[EASTID,_eastBuildings]] Spawn HandlePVF};" \n
        "	WF_Logic setVariable [""WF_Winner"",east];" \n
        "	gameOver = true;" \n
        "	_winTime = time;" \n
@@ -381,7 +381,7 @@ class FSM
        "	_westBuildings = WestBaseStructures;" \n
        "	WFBE_EndGame = [nil,'CLTFNCENDGAME',[WESTID,_westBuildings]];" \n
        "	publicVariable 'WFBE_EndGame';" \n
-       "	if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCENDGAME',[WESTID,_westBuildings]] Spawn HandlePVF};" \n
+       "	if (IsClientServer) then {[nil,'CLTFNCENDGAME',[WESTID,_westBuildings]] Spawn HandlePVF};" \n
        "	WF_Logic setVariable [""WF_Winner"",west];" \n
        "	gameOver = true;" \n
        "	_winTime = time;" \n

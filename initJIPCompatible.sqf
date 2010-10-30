@@ -6,6 +6,8 @@
 
 "Initialization begin" call LogMedium;
 
+IsClientServer = if (!isMultiplayer || (isServer && local player)) then { true; } else { false };
+
 //--- Client Init.
 if (!isServer || local player) then {
 	

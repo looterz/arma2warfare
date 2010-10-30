@@ -7,4 +7,4 @@ _vehicle lock _locked;
 
 WFBE_SetVehicleLock = [nil,'CLTFNCSETVEHICLELOCK',[_vehicle,_locked]];
 publicVariable 'WFBE_SetVehicleLock';
-if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCSETVEHICLELOCK',[_vehicle,_locked]] Spawn HandlePVF};
+if (IsClientServer) then {[nil,'CLTFNCSETVEHICLELOCK',[_vehicle,_locked]] Spawn HandlePVF};

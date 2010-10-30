@@ -25,7 +25,7 @@ if ((side _killer != _side)&&(isPlayer(_killer)))  then {
 
 	WFBE_LocalizeMessage = [[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveBounty',_bounty, _killedName]];
 	publicVariable 'WFBE_LocalizeMessage';
-	if !(isMultiplayer || (isServer && local player)) then {[[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveBounty',_bounty, _killedName]] Spawn HandlePVF};
+	if (IsClientServer) then {[[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveBounty',_bounty, _killedName]] Spawn HandlePVF};
 };
 
 
@@ -35,7 +35,7 @@ if ((side _killer == _side)&&(isPlayer(_killer))) then {
 	_tked = [_type, 'displayName'] Call GetConfigInfo;
 	WFBE_LocalizeMessage = [_side,'CLTFNCLOCALIZEMESSAGE',['BuildingTeamkill',name _killer,_uid,_tked]];
 	publicVariable 'WFBE_LocalizeMessage';
-	if (!isMultiplayer || (isServer && local player)) then {[_side,'CLTFNCLOCALIZEMESSAGE',['BuildingTeamkill',name _killer,_uid,_tked]] Spawn HandlePVF};
+	if (IsClientServer) then {[_side,'CLTFNCLOCALIZEMESSAGE',['BuildingTeamkill',name _killer,_uid,_tked]] Spawn HandlePVF};
 	
 	Format["Server_HQKilled: Player %1 (%2) has teamkilled the MHQ.",name _killer,_uid]  call LogInform;;
 };
