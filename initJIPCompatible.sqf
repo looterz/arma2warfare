@@ -1,12 +1,11 @@
 //--- Global Init, first file called.
+IsClientServer = if (!isMultiplayer || (isServer && local player)) then { true; } else { false };
 
 //--- Define which 'part' of the game to run.
 #include "version.sqf"
 #include "logging.sqf"
 
 "Initialization begin" call LogMedium;
-
-IsClientServer = if (!isMultiplayer || (isServer && local player)) then { true; } else { false };
 
 //--- Client Init.
 if (!isServer || local player) then {
