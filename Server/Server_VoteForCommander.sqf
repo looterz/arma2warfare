@@ -1,7 +1,9 @@
 Private ['_aibase','_commanderTeam','_comVoteTime','_side','_sideText'];
 _side = _this select 0;
-_sideText = _side;
 
+waitUntil { !isNil "LOGLEVEL" };
+
+_sideText = _side;
 _comVoteTime = 'WFBE_VOTETIME' Call GetNamespace;
 WF_Logic setVariable [Format["%1CommanderVoteTime",_sideText],_comVoteTime,true];
 

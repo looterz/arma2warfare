@@ -1,3 +1,5 @@
+waitUntil { !isNil "LOGLEVEL" };
+
 if (paramArty) then {
 	ARTY_Prep = Compile preprocessFile "Client\Module\Arty\ARTY_mobileMissionPrep.sqf";
 	ARTY_Finish = Compile preprocessFile "Client\Module\Arty\ARTY_mobileMissionFinish.sqf";

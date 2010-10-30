@@ -1,5 +1,8 @@
 Private ["_AITrucks","_destinations","_driver","_hq","_isDeployed","_maist","_side","_sideText","_team","_type","_vehicle"];
 _side = _this select 0;
+
+waitUntil { !isNil "LOGLEVEL" };
+
 _sideText = str _side;
 _maist = 'WFBE_MAXAISUPPLYTRUCKS' Call GetNamespace;
 

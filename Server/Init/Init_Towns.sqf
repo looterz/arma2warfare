@@ -1,4 +1,6 @@
 waitUntil {townInit};
+waitUntil { !isNil "LOGLEVEL" };
+
 
 //--- Special Towns mode.
 switch ('WFBE_TOWNSTARTINGMODE' Call GetNamespace) do {

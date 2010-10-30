@@ -1,7 +1,9 @@
 _camp = _this Select 0;
 _town = _this Select 1;
 
+waitUntil { !isNil "LOGLEVEL" };
 waitUntil {townModeSet};
+
 if (isNull _town) exitWith {
 	if (isServer && !isNull _camp) then {
 		(getPos _camp) Spawn {
