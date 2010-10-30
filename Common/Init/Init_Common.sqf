@@ -78,6 +78,8 @@ SetTeamType = Compile PreprocessFile "Common\Functions\Common_SetTeamType.sqf";
 SpawnTurrets = Compile PreprocessFile "Common\Functions\Common_SpawnTurrets.sqf";
 SortByDistance = Compile PreprocessFile "Common\Functions\Common_SortByDistance.sqf";
 UnitKilled = Compile PreprocessFile "Common\Functions\Common_UnitKilled.sqf";
+HeadHunters = Compile PreprocessFile "Common\Functions\Common_HeadHunters.sqf";
+
 UseStationaryDefense = Compile PreprocessFile "Common\Functions\Common_UseStationaryDefense.sqf";
 if (paramICBM) then {
 	NukeDammage = Compile PreprocessFile "Client\Module\Nuke\damage.sqf";
