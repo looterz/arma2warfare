@@ -24,4 +24,4 @@ LogMedium     = { if (LOGLEVEL >= 5) then { diag_log format['%2 | MED  | %1', _t
 LogHigh 	  = { if (LOGLEVEL >= 6) then { diag_log format['%2 | HIGH | %1', _this, call LogTime]; };		 };
 LogInform 	  = { if (LOGLEVEL >= 7) then { diag_log format['%2 | INFO | %1', _this, call LogTime]; };	 };
 
-LOGLEVEL = if (WF_DEBUG == 1) then { WF_LOGLEVEL } else { 0 };
+LOGLEVEL = if (!(isNil "WF_LOGLEVEL")) then { WF_LOGLEVEL } else { 0 };
