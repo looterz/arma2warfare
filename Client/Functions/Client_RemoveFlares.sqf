@@ -20,16 +20,21 @@ private['_weapon','_types','_status'];
     _status;
 };
 
-_upgrades = WF_Logic getVariable Format ["%1Upgrades",sideJoinedText];
+_upgrades = (sideJoinedText) Call GetSideUpgrades;
 
 if ((_vehicle isKindOf 'Air') && (_upgrades select 9 == 0)) then {
+
+	"Client_RemoveFlares" call LogHigh;
 
 	_magazines = [configFile >> 'CfgVehicles' >> typeOf _vehicle] call GetVehicleMags;
 	_magazines = _magazines + (_vehicle magazinesTurret [-1]);
 	{ 
 		_mag = _x;
-		if ( (_x call _IsSelectedMagazineFlare) ) then {
-			_vehicle removeMagazinesTurret [_x, [-1]];
+		format["Client_RemoveFlares : magazine %1", _mag] call LogHigh;
+		if ( (_mag call _IsSelectedMagazineFlare) ) then {
+		
+			format["Client_RemoveFlares : remove %1", _mag] call LogHigh;
+			_vehicle removeMagazinesTurret [_mag, [-1]];
 		};
 	} forEach _magazines;
 };
