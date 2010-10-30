@@ -218,15 +218,7 @@ BIS_CONTROL_CAM_Handler = {
 						_closestType = typeOf (_closest);
 						_get = _closestType Call GetNamespace;
 						if !(isNil '_get') then {
-							_price = _get select QUERYUNITPRICE;
-							if (!(isNil "townDefenceRange")) then {
-								if (townDefenceRange) then {
-									_price = (ceil(_price * 0.5 /10))*10;							
-									if (_price < 10) then {
-										_price = 10;
-									};		
-								};	
-							};	   
+							_price = _get select QUERYUNITPRICE;   
 							(_price/2) Call ChangePlayerFunds;
 							deleteVehicle _closest;
 						};
@@ -688,15 +680,7 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 						//--- Defense.
 						_get = _class Call GetNamespace;
 						if !(isNil '_get') then {
-							_price = _get select QUERYUNITPRICE;	
-							if (!(isNil "townDefenceRange")) then {
-								if (townDefenceRange) then {
-									_price = (ceil(_price * 0.5 /10))*10;							
-									if (_price < 10) then {
-										_price = 10;
-									};		
-								};	
-							};
+							_price = _get select QUERYUNITPRICE;
 							-_price Call ChangePlayerFunds;
 						};
 					};

@@ -20,6 +20,10 @@ if (!isNull commanderTeam) then {
 	if (commanderTeam == group player) then {HQAction = player addAction [localize "STR_WF_BuildMenu","Client\Action\Action_Build.sqf", [_hq], 100, false, true, "", "hqInRange && canBuildWHQ"]};
 };
 
+if (paramBuildDefencesInTown) then {
+	player addAction [localize 'STR_WF_BuildMenu_Repair','Client\Action\Action_BuildRepair.sqf', [], 99, false, true, '', 'townDefenceRange'];
+};
+
 _built = WF_Logic getVariable Format ["%1UnitsCreated",sideJoinedText];
 _built = _built + 1;
 WF_Logic setVariable [Format["%1UnitsCreated",sideJoinedText],_built,true];
@@ -141,10 +145,6 @@ if (isNull _spawn) then {
 	_spawn = _hq;
 };
 player setPos ([GetPos _spawn,10,20] Call GetRandomPosition);
-
-if (paramBuildDefencesInTown) then {
-	player addAction [localize 'STR_WF_BuildMenu','Client\Action\Action_BuildRepair.sqf', [], 99, false, true, '', 'townDefenceRange'];
-};
 
 _loadDefault = true;
 if !(isNil "respawnWeapons") then {

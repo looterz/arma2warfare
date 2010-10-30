@@ -237,7 +237,7 @@ if (WF_Debug) then {
 };
 
 if (paramBuildDefencesInTown) then {
-	player addAction [localize 'STR_WF_BuildMenu','Client\Action\Action_BuildRepair.sqf', [], 99, false, true, '', 'townDefenceRange'];
+	player addAction [localize 'STR_WF_BuildMenu_Repair','Client\Action\Action_BuildRepair.sqf', [], 99, false, true, '', 'townDefenceRange'];
 };
 
 Call Compile Format ["player addEventHandler ['Killed',{[_this select 0,_this select 1] Spawn PlayerKilled;[_this select 0,_this select 1,%1,false] Spawn UnitKilled}]",sideJoined];

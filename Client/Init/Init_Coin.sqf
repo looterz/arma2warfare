@@ -75,14 +75,6 @@ if (_extra == "REPAIR") then {_coinItemArray = [];_indexCategory=0;_fix = 0};
 	};
 	
    _price = _defenseCosts select _i;
-	if (!(isNil "townDefenceRange")) then {
-		if (townDefenceRange) then {
-			if (_price < 10) then {
-				_price = 10;
-			};
-		};	
-	};	   
-   
   _coinItemArray = _coinItemArray + [[_x,_curId,[_fix, _price], _defenseDescriptions select _i]];   
   _i=_i+1;  
 } forEach _defenses;

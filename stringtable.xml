@@ -199,18 +199,18 @@
         <Italian>&lt;t color='#F8D664'&gt;Informazioni fabrica:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - il Tuo &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; è arrivato.</Italian>
       </Key>
       <Key ID="STR_WF_BuildMenu">
+        <English>Open Construction Menu (MHQ)</English>
+        <French>Ouvrir Menu de Construction (MHQ)</French>
+        <German>Öffne Konstruktionsmenü (MHQ)</German>
+        <Russian>Открыть меню строительства (Штаб)</Russian>
+        <Italian>Apri Menu Costruzione (MHQ)</Italian>
+      </Key>
+      <Key ID="STR_WF_BuildMenu_Repair">
         <English>Open Construction Menu</English>
         <French>Ouvrir Menu de Construction</French>
         <German>Öffne Konstruktionsmenü</German>
         <Russian>Открыть меню строительства</Russian>
-        <Italian>Apri Menu Costruzione</Italian>
-      </Key>
-      <Key ID="STR_WF_BuildMenu_Repair">
-        <English>Open Construction Menu (Repair Truck)</English>
-        <French>Ouvrir Menu de Construction (Camion de Réparation)</French>
-        <German>Öffne Konstruktionsmenü (Reparatur LKW)</German>
-        <Russian>Открыть меню строительства (Рем. грузовик)</Russian>
-        <Italian>Apri Menu Costruzioni (Camion Riparazioni)</Italian>
+        <Italian>Apri Menu Costruzioni</Italian>
       </Key>
       <Key ID="STR_WF_BuyEffective">
         <English>&lt;t color='#F8D664'&gt;Factory Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Building &lt;t color='#85B5FA'&gt;%1&lt;/t&gt;.</English>
