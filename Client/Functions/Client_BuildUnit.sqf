@@ -168,7 +168,7 @@ if (_isMan) then {
 		
 	};
 	if (_unit in ('WFBE_BALANCEDUNITS' Call GetNamespace) && paramBalancing) then {
-		[_vehicle] call BalanceInit};
+		[_vehicle] call BalanceInit;
 		_vehicle Call RemoveFlares;
 	};
 	//--- Vehicles Init End.
