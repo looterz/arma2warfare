@@ -5,6 +5,8 @@ _destination = _this select 1;
 _ignoreAmmo = _this select 2;
 _index = _this select 3;
 
+if (isNil "_index") then { _index = 0; };
+
 //format["team=%1 dest=%2 ignoreArrmo=%3 index=%4", _team, _destination, _ignoreAmmo, _index] call LogTrace;
 
 _units = units _team;
