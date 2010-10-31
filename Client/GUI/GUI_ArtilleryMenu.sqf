@@ -282,6 +282,10 @@ while {alive player && dialog} do {
 		
 			_artilleryMarker = GetMarkerPos "artilleryMarker";
 			_artyTypeId = lbCurSel(17008);
+			
+			if (isNill '_artyTypeId') then { _artyTypeId = 0; };
+			if (isNull _artyTypeId) then { _artyTypeId = 0; };
+			
 			_units = [Group player,GetPos player,false, _artyTypeId] Call GetTeamArtillery;
 			_countInRange = 0;
 
