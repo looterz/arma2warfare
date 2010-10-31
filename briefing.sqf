@@ -39,7 +39,10 @@ player createDiaryRecord["Diary", ["Bomba What News", "
 <br/>Simple build town defenses. Players can build static defences around town, without repair truck.
 <br/>Commander can build base in a town.
 <br/>Factory builded in town give discounted prices 10-30% (depended current SV and max SV)
+<br/>
 <br/>Artillery: Player notified when target out of range or how much arty guns can hit target.
+<br/>Artillery: Shell tracing traectory and check ground collision, so fired shell sometimes cannot be reach target becouse arty gun has bad position;
+<br/>
 <br/>Player can buy aircrafts only in airport hangars;
 <br/>Player can refuel, rearm and repair aircrafts (only aircrafts) in airport hangars;
 <br/>AI unit cost include cost of gear;

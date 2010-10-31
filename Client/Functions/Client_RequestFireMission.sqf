@@ -18,13 +18,16 @@ _burst = artilleryBurst select _index;
 for [{_count1 = 0},{_count1 < _burst},{_count1 = _count1 + 1}] do {
 	_units = [Group player,_destination,false,_index] Call GetTeamArtillery;
 	if (Count _units < 1) then {BreakTo "FireMission"};
-
+	
+	
 	for [{_count = Count _units - 1},{_count >= 0},{_count = _count - 1}] do {
-		[_units Select _count,_destination,Side player,artyRange,_index] Spawn FireArtillery;
+		[_units Select _count,_destination,Side player,artyRange,_index] spawn FireArtillery;
 	};
 
 	sleep _reloadTime;
 };
+
+{ gunner _artillery DoWatch [0, 0, 0]; } forEach _units;
 
 //Keep weapons reloaded.
 _units = [Group player,_destination,true,_index] Call GetTeamArtillery;
