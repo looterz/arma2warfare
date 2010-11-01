@@ -115,6 +115,7 @@ paramStrictTankTargetLock = true;
 paramVehicleComponents = true;
 paramUnitCostWithGear = true;
 paramTrade = true;
+paramArtilleryHighBallistic = false;
 
 missionNamespace setVariable ['WFBE_EASTSTARTINGMONEY',200000];
 missionNamespace setVariable ['WFBE_WESTSTARTINGMONEY',200000];
@@ -231,6 +232,7 @@ if (!isNil "paramsArray") then {
 	if ((paramsArray select _u) == 0) then {paramVehicleComponents = false} else {paramVehicleComponents = true};_u = _u + 1; //--- Vehicle component requirements
 	if ((paramsArray select _u) == 0) then {paramUnitCostWithGear = false} else {paramUnitCostWithGear = true};_u = _u + 1; //---  Unit Cost with Gear
 	if ((paramsArray select _u) == 0) then {paramTrade = false} else {paramTrade = true};_u = _u + 1; //---  Unit Cost with Gear
+	if ((paramsArray select _u) == 0) then {paramArtilleryHighBallistic = false} else {paramArtilleryHighBallistic = true};_u = _u + 1; //---  Unit Cost with Gear
 
 	if ((paramsArray select _u) == 0) then {param3thView = false} else {param3thView = true}; _u = _u + 1;
 };

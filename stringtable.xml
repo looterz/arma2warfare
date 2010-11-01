@@ -2318,7 +2318,13 @@
         <Italian>Gameplay: Trade</Italian>
       </Key>	  
 	  
-	  
+      <Key ID="STR_WF_Gameplay_ArtilleryHighBallistic">
+        <English>Gameplay: Artillery High Ballistic Traectory</English>
+        <French>Gameplay: Artillery High Ballistic Traectory</French>
+        <German>Gameplay: Artillery High Ballistic Traectory</German>
+        <Russian>Режим: Высокая баллист. траектория артиллерии</Russian>
+        <Italian>Gameplay: Artillery High Ballistic Traectory</Italian>
+      </Key>	  
     </Container>
   </Package>
 </Project>

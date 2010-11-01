@@ -32,7 +32,7 @@ private['_velocity', '_dH1', '_H', '_dH', '_tetha', '_step', '_height', '_distan
 	_height   = (_this select 2);
 	
 	_step = 15;
-	_tetha = 45;
+	_tetha = 0;
 	
 	_H = [_tetha, _velocity, _distance] call _procGetEndHeight;
 	_dH = _height - _H;
@@ -77,20 +77,17 @@ private['_hitPoint', '_destination', '_speed', '_aslH', '_shell', '_posASL1', '_
 	_R = sqrt(_dx*_dx + _dy*_dy);
 	_H = _aslH - _z0;
 	
-	format["position shell = [%1, %2, %3]", _x0, _y0, _z0] call LogHigh;
-	format["velocity shell = %1 m/s", _vel] call LogHigh;
-	format["Distance = %1 m", _R] call LogHigh;
-	format["Target Height overSea = %1 m", _aslH] call LogHigh;
-	format["Arty Height overSea = %1 m", _z0] call LogHigh;
-	format["dH = %1 m", _H] call LogHigh;
+	format["FireArtillery: Position shell = [%1, %2, %3]", _x0, _y0, _z0] call LogHigh;
+	format["FireArtillery: Velocity shell = %1 m/s", _vel] call LogHigh;
+	format["FireArtillery: Distance = %1 m", _R] call LogHigh;
+	format["FireArtillery: Target Height over Sea = %1 m", _aslH] call LogHigh;
+	format["FireArtillery: Arty Height over Sea = %1 m", _z0] call LogHigh;
+	format["FireArtillery: Target height relative Arty = %1 m", _H] call LogHigh;
 	
 	_theta = [_vel, _R, _H] call _procCalculateTheta;
 	
 	_vx = _dx / _R;
 	_vy = _dy / _R;
-
-	format["_vx = %1", _vx] call LogHigh;
-	format["_vy = %1", _vy] call LogHigh;
 	
 	_time = 0;
 	_endTraectory = false;
@@ -105,7 +102,16 @@ private['_hitPoint', '_destination', '_speed', '_aslH', '_shell', '_posASL1', '_
 	_hitPoint setMarkerColorLocal "ColorYellow";
 	_hitPoint setMarkerSizeLocal [10, 10];
 	artyHitPointCount = artyHitPointCount + 1;
-
+	
+	if (_theta > 45 && !paramArtilleryHighBallistic) then { 
+	
+		_oldTheta = _theta;
+		_timeFlight = ceil(_R / (_vel*cos(_theta)));
+		_theta = 45; 
+		_vel = _R / (_timeFlight * cos(_theta));
+		
+		format["FireArtillery: Restrict use high ballistic traectory: theta=%1 --> willUse theta = %2, newVelocity=%3", _oldTheta, _theta, _vel] call LogHigh;
+	};
 	
 	_timeFlight = ceil(_R / (_vel*cos(_theta)));
 	_halfG = 0.5*_gravityConst;
@@ -145,7 +151,7 @@ private['_hitPoint', '_destination', '_speed', '_aslH', '_shell', '_posASL1', '_
 		};
 	};	
 
-	format["Tracing traectory and ground collision: Target=%1, HitPosition=%2", _destination, _endTracePoint] call LogHigh;
+	format["FireArtillery: Tracing traectory and ground collision: Target=%1, HitPosition=%2", _destination, _endTracePoint] call LogHigh;
 	
 	_time = 0;
 	while { _time <= _timeFlight } do {
@@ -219,12 +225,12 @@ if (_amount > 0) then {
 	_shell = nearestObject [_artillery, _ammo];
 	
 	if (!(isNull _shell)) then  {
-		format["Artillery=%1", _artillery] call LogHigh;
-		format["Ammo=%1", _ammo] call  LogHigh;
-		format["Ammo=%1", _destination] call  LogHigh;
-		format["Nearest Shell: Shell=%1", _shell] call LogHigh;
+		format["FireArtillery: Artillery=%1", _artillery] call LogHigh;
+		format["FireArtillery: AmmoType=%1", _ammo] call  LogHigh;
+		format["FireArtillery: Destination=%1", _destination] call  LogHigh;
+		format["FireArtillery: Nearest Shell=%1", _shell] call LogHigh;
 		
-		[_shell, _destination] call _procTraceBallisticTraectory;
+		[_shell, _destination] Spawn _procTraceBallisticTraectory;
 	};
 	
 	Gunner _artillery DoWatch _watchPosition;

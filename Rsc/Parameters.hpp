@@ -567,6 +567,13 @@ class Params {
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 1;
 	};
+	
+	class ArtilleryHighBallistic {
+		title = "$STR_WF_Gameplay_ArtilleryHighBallistic";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 0;
+	};	
 
 	class gameplayThirdView {
 		title = "$STR_WF_Gameplay_ThirdView";
