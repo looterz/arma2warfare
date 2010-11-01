@@ -113,6 +113,7 @@ private['_hitPoint', '_destination', '_speed', '_aslH', '_shell', '_posASL1', '_
 		format["FireArtillery: Restrict use high ballistic traectory: theta=%1 --> willUse theta = %2, newVelocity=%3", _oldTheta, _theta, _vel] call LogHigh;
 	};
 	
+	
 	_timeFlight = ceil(_R / (_vel*cos(_theta)));
 	_halfG = 0.5*_gravityConst;
 	
@@ -120,6 +121,7 @@ private['_hitPoint', '_destination', '_speed', '_aslH', '_shell', '_posASL1', '_
 	_velY = (_H + (_halfG * _timeFlight * _timeFlight)) / _timeFlight;
 	
 	_shellType = typeof _shell;
+	format["FireArtillery: Theta theta=%1 Velocity=%2 FlightTime=%3", _theta, _vel, _timeFlight] call LogHigh;
 	
 	deleteVehicle _shell;
 	
@@ -230,7 +232,7 @@ if (_amount > 0) then {
 		format["FireArtillery: Destination=%1", _destination] call  LogHigh;
 		format["FireArtillery: Nearest Shell=%1", _shell] call LogHigh;
 		
-		[_shell, _destination] Spawn _procTraceBallisticTraectory;
+		[_shell, _destination] call _procTraceBallisticTraectory;
 	};
 	
 	Gunner _artillery DoWatch _watchPosition;
