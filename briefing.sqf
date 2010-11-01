@@ -42,10 +42,11 @@ player createDiaryRecord["Diary", ["Bomba What News", "
 <br/>
 <br/>Artillery: Player notified when target out of range or how much arty guns can hit target.
 <br/>Artillery: Shell tracing traectory and check ground collision, so fired shell sometimes cannot be reach target becouse arty gun has bad position;
+<br/>Artillery: Parameter High Ballistic Traectory. When disabled - arty max shot angle is 45 degrees, so more chance collision with mountains. So Arty operator must select good position (more high) for hit target and factories can be places at hardy targeted places 
 <br/>
 <br/>Player can buy aircrafts only in airport hangars;
 <br/>Player can refuel, rearm and repair aircrafts (only aircrafts) in airport hangars;
-<br/>AI unit cost include cost of gear;
+<br/>AI unit cost include gear cost;
 <br/>
 <br/>Fixed:
 <br/>Artillery does not fired with latest beta patches.

@@ -6,7 +6,7 @@
 LogTime = {
 private['_time', '_str'];
 	_time = time;
-	_time = (floor((_time - floor(_time)) * 1000) / 1000) + 0.0001;
+	_time = floor(_time) + (floor((_time - floor(_time)) * 1000) / 1000) + 0.0001;
 
 	_str = format["%1", _time];
 	_str;

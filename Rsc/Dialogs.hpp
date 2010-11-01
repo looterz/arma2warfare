@@ -2482,7 +2482,7 @@ class RscDisplayIngameParameters {
 		
 		class LB_ParamsTitles : RscListBoxA {
 			idc = 22003;
-			columns[] = {0.01, 0.42};
+			columns[] = {0.01, 0.7};
 			rowHeight = 0.036;
 			drawSideArrows = 0;
 			idcRight = -1;

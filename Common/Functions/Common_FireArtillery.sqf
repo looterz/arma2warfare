@@ -31,18 +31,18 @@ private['_velocity', '_dH1', '_H', '_dH', '_tetha', '_step', '_height', '_distan
 	_distance = (_this select 1);
 	_height   = (_this select 2);
 	
-	_step = 15;
-	_tetha = 0;
+	_step = if (paramArtilleryHighBallistic) then { 15 } else { -15 };
+	_tetha = 45;
 	
 	_H = [_tetha, _velocity, _distance] call _procGetEndHeight;
 	_dH = _height - _H;
 	
-	while {  _dH < 0 && _tetha > 0 && _tetha <= 90 && (abs(_step) > 0.0005) && !StopArtyCalc   } do {
+	while {  abs(_dH) > 5 && _tetha > 0 && _tetha <= 90 && (abs(_step) > 0.0005) && !StopArtyCalc   } do {
 		
 		_H = [_tetha + _step, _velocity, _distance] call _procGetEndHeight;		
 		_dH1 = _height - _H;
-	
-		if (_dH1 > 0) then {
+		
+		if ( abs(_dH1) > abs(_dH) ) then {
 			_step = _step / 2;
 		} else {
 			_tetha = _tetha + _step;
@@ -50,12 +50,12 @@ private['_velocity', '_dH1', '_H', '_dH', '_tetha', '_step', '_height', '_distan
 		};
 	};
 
-	format["Theta: V=%1 Dist=%2 Height=%3 --> Thetha=%4 dH=%5", _velocity, _distance, _height, _tetha, _dH ] call LogHigh;
+	format["Theta: V=%1 Dist=%2 Height=%3 --> tetha=%4 dH=%5", _velocity, _distance, _height, _tetha, _dH ] call LogHigh;
 	_tetha;
 };
 
 _procTraceBallisticTraectory = {
-private['_hitPoint', '_destination', '_speed', '_aslH', '_shell', '_posASL1', '_timeMax', '_shellPos', '_x0', '_y0', '_z0', '_vel', '_dx', '_dy', '_R', '_H', '_theta', '_vx', '_vy', '_sinQ', '_cosQ', '_time', '_endTraectory', '_timeFlight', '_halfG', '_velX', '_velY', '_dL', '_dH', '_posASL2'  ];
+private['_hitPoint', '_destination', '_speed', '_aslH', '_shell', '_posASL1', '_timeMax', '_shellPos', '_x0', '_y0', '_z0', '_vel', '_dx', '_dy', '_R', '_H', '_theta', '_vx', '_vy', '_sinQ', '_cosQ', '_time', '_endTraectory', '_timeFlight', '_halfG', '_velXY', '_velY', '_dL', '_dH', '_posASL2'  ];
 
 	_shell = _this select 0;
 	_destination = _this select 1;
@@ -89,8 +89,6 @@ private['_hitPoint', '_destination', '_speed', '_aslH', '_shell', '_posASL1', '_
 	_vx = _dx / _R;
 	_vy = _dy / _R;
 	
-	_time = 0;
-	_endTraectory = false;
 	_posASL1 = _shellPos;
 	
 	if (isNil 'artyHitPointCount') then { artyHitPointCount = 0; };
@@ -107,6 +105,8 @@ private['_hitPoint', '_destination', '_speed', '_aslH', '_shell', '_posASL1', '_
 	
 		_oldTheta = _theta;
 		_timeFlight = ceil(_R / (_vel*cos(_theta)));
+		format["FireArtillery: Restrict use high ballistic: _timeFlight=%1 _vel=%2 _R=%3", _timeFlight, _vel, _R] call LogHigh;
+		
 		_theta = 45; 
 		_vel = _R / (_timeFlight * cos(_theta));
 		
@@ -115,13 +115,14 @@ private['_hitPoint', '_destination', '_speed', '_aslH', '_shell', '_posASL1', '_
 	
 	
 	_timeFlight = ceil(_R / (_vel*cos(_theta)));
-	_halfG = 0.5*_gravityConst;
+	format["FireArtillery: _timeFlight=%1 _vel=%2 _R=%3", _timeFlight, _vel, _R] call LogHigh;
 	
-	_velX = _R / _timeFlight;
-	_velY = (_H + (_halfG * _timeFlight * _timeFlight)) / _timeFlight;
+	_velXY = _R / _timeFlight;
+	_velZ = (_H + (0.5 * _gravityConst * _timeFlight * _timeFlight)) / _timeFlight;
 	
 	_shellType = typeof _shell;
-	format["FireArtillery: Theta theta=%1 Velocity=%2 FlightTime=%3", _theta, _vel, _timeFlight] call LogHigh;
+	format["FireArtillery: Theta=%1, Velocity=%2 FlightTime=%3", _theta, _vel, _timeFlight] call LogHigh;
+	format["FireArtillery: Effective Theta theta=%1 Vxy=%2 Vz=%3", atan(_velZ / _velXY), _velXY, _velZ] call LogHigh;
 	
 	deleteVehicle _shell;
 	
@@ -130,14 +131,16 @@ private['_hitPoint', '_destination', '_speed', '_aslH', '_shell', '_posASL1', '_
 	
 	_endTracePoint = _destination;
 	
+	_time = 0;
+	_endTraectory = false;
 	_traceH = 0;
 	_dT = 0.010;
 	while { !_endTraectory && _time <= _timeFlight } do {
 
 		_time = _time + _dT;
 
-		_dL = _velX * _time;
-		_dH = _velY * _time - (_halfG*_time*_time);
+		_dL = _velXY * _time;
+		_dH = _velZ * _time - (0.5 * _gravityConst * _time*_time);
 		_tracePos = _fireTarget modelToWorld [ 0, _dL, _dH ];		
 		
 		_traceH = (_tracePos select 2);
@@ -156,20 +159,27 @@ private['_hitPoint', '_destination', '_speed', '_aslH', '_shell', '_posASL1', '_
 	format["FireArtillery: Tracing traectory and ground collision: Target=%1, HitPosition=%2", _destination, _endTracePoint] call LogHigh;
 	
 	_time = 0;
-	while { _time <= _timeFlight } do {
+	while { _time < _timeFlight } do {
 	
-		sleep (1);
-		_time = _time + 1;
-		_dL = _velX * _time;
-		_posASL2 = [(_x0 + _dL * _vx), (_y0 + _dL * _vy) ];
-		_hitPoint setMarkerPosLocal _posASL2;
+		sleep (0.15);
+		_time = _time + 0.15;
+		if (_time > _timeFlight) then { _time = _timeFlight; };
+		
+		_dL = _velXY * _time;
+		_hitPoint setMarkerPosLocal [(_x0 + _dL * _vx), (_y0 + _dL * _vy) ];
 	};
 
 	deleteVehicle _fireTarget;
 	_hitPoint setMarkerPosLocal _endTracePoint;
 	
-	_shellNew = _shellType createVehicle [(_endTracePoint select 0), (_endTracePoint select 1), 20];
-	_shellNew SetVelocity [0,0,-_vel];
+	_shellVx = _velXY * _vx;
+	_shellVy = _velXY * _vy;
+	_shellVz = _velZ - _gravityConst * _timeFlight;
+	
+	format["FireArtillery: prehitting target: shellVx=%1 shellVy=%2 shellVz=%3", _shellVx, _shellVy, _shellVz] call LogHigh;
+	
+	_shellNew = _shellType createVehicle [(_endTracePoint select 0) - _shellVx , (_endTracePoint select 1) - _shellVy, -_shellVz];
+	_shellNew SetVelocity [_shellVx, _shellVy, _shellVz];
 	
 	_hitPoint setMarkerColorLocal "ColorRed";
 	sleep 10;
