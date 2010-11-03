@@ -141,7 +141,7 @@ class FSM
        "if (time - _travelTime > 2400 || !alive _target || isNull _target) then {_update = true};" \n
        "" \n
        "if (_update) then {" \n
-       "	_buildings = (WestBaseStructures) + (EastBaseStructures) + [EastMHQ,WestMHQ]" \n
+       "	_buildings = (WestBaseStructures) + (EastBaseStructures) + [EastMHQ,WestMHQ];" \n
        "	_near = [_location, _buildings] Call SortByDistance;" \n
        "	_target = _near select 0;" \n
        "	[_team, true, [[_target, 'SAD', 100, 60]]] Call AIWPAdd;" \n
