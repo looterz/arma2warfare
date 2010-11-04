@@ -87,7 +87,10 @@ _fillList = {
 		};
 	};
 	
-	_products = [_closestFactory] call marketGetMarketProducts;
+	if (paramTrade && paramVehicleComponents) then {
+		_products = [_closestFactory] call marketGetMarketProducts;
+	};
+	
 	_tmplistUnits = [];
 	{
 		_addin = true;
@@ -182,7 +185,10 @@ while {alive player && dialog} do {
 				_params = if (_isInfantry) then {[_closest,_unit,[]]} else {[_closest,_unit,[_driver,_gunner,_commander,_isLocked]]};
 				_params Spawn BuildUnit;
 				-(_currentCost) Call ChangePlayerFunds;
-				[_closestFactory, _unit] Call marketUseResourcesToBuyUnit;
+				
+				if (paramTrade && paramVehicleComponents) then {
+					[_closestFactory, _unit] Call marketUseResourcesToBuyUnit;
+				};
 			};
 		};
 	};
@@ -378,8 +384,13 @@ while {alive player && dialog} do {
 			_currentCost = _currentUnit select QUERYUNITPRICE;
 
 			_unit = _listUnits select _currentValue;
-			if (_unit isKindOf "Man") then { _currentCost = _unit call GetUnitEquipmentPrice; };
-			_currentCost = [_closestFactory, _unit, _currentCost] call marketGetUnitPrice;
+			if (_unit isKindOf "Man") then { 
+				_currentCost = _unit call GetUnitEquipmentPrice; 
+			};
+			
+			if (paramTrade && paramVehicleComponents) then {
+				_currentCost = [_closestFactory, _unit, _currentCost] call marketGetUnitPrice;
+			};
 			
 			_isInfantry = if ((_listUnits select _currentValue) isKindOf 'Man') then {true} else {false};
 			
