@@ -20,7 +20,7 @@ if (!isNull commanderTeam) then {
 	if (commanderTeam == group player) then {HQAction = player addAction [localize "STR_WF_BuildMenu","Client\Action\Action_Build.sqf", [_hq], 100, false, true, "", "hqInRange && canBuildWHQ"]};
 };
 
-if (paramBuildDefencesInTown) then {
+if (paramBuildDefencesInTown > 0) then {
 	player addAction [localize 'STR_WF_BuildMenu_Repair','Client\Action\Action_BuildRepair.sqf', [], 99, false, true, '', 'townDefenceRange'];
 };
 
