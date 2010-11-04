@@ -523,8 +523,8 @@ class Params {
 	};	
 	class BuildDefencesInTown {
 		title = "$STR_WF_Town_SimpleDefencesConstruct";
-		values[] = {0,1};
-		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		values[] = {0,1,2};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Town_SimpleDefences_EngineerOnly", "$STR_WF_SimpleDefences_AnyBody"};
 		default = 1;
 	};	
 	class SupplyExchangeInTown {

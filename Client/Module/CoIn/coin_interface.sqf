@@ -16,6 +16,29 @@ if (paramBaseArea) then {
 	};
 };
 
+_IsFreePlaceClass = {
+private['_itemTypeName', '_status', '_freePlaceClasses', '_classType' ];
+
+	_itemTypeName = _this;
+
+	_freePlaceClasses = [ 	
+		(configFile >> "CfgVehicles" >> "Land_CamoNet_EAST"), 
+		(configFile >> "CfgVehicles" >> "Land_CamoNet_NATO")
+	];
+
+	_classType = (configFile >> "CfgVehicles" >> _itemTypeName);
+	_status = false;
+	while { !_status && (isClass _classType)  } do {
+		if (_classType in _freePlaceClasses) then 
+		{ 
+			_status = true; 
+		};
+		_classType = inheritsFrom _classType;
+	};
+    _status;
+};
+
+
 if (_tooFar) exitWith {hint  (localize 'STR_WF_BaseArea_Reached')};//--- Base area reached.
 
 uiNamespace setVariable ["COIN_displayMain",finddisplay 46];
@@ -430,6 +453,7 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 			} else {
 				_funds = [Call GetPlayerFunds];
 			};
+			
 			_itemFunds = _funds select _itemcash;
 			_itemname = if (count _params > 3) then {_params select 3} else {getText (configFile >> "CfgVehicles" >> _itemclass >> "displayName")};
 			_itemclass_preview = getText (configFile >> "CfgVehicles" >> _itemclass >> "ghostpreview");
@@ -584,17 +608,22 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 					} else {
 					
 						_color = _colorGreen;
-						_list = position _preview nearObjects 50;						
-						{	
-							if (_color != _colorRed && _x != _preview) then {
-								_positionBuilding = position _x;
-								
-								_sizeBuilding = (sizeof typeof _x)/2.35;
-								_meters = _preview distance _positionBuilding;
-								
-								if (_meters < _sizeBuilding) then { _color = _colorRed;	};						
-							};
-						} forEach _list;
+						_checkPlaceZone = if (_itemclass call _IsFreePlaceClass) then { false } else { true };
+						
+						if (_checkPlaceZone) then {
+					
+							_list = position _preview nearObjects 50;						
+							{	
+								if (_color != _colorRed && _x != _preview) then {
+									_positionBuilding = position _x;
+									
+									_sizeBuilding = (sizeof typeof _x)/2.35;
+									_meters = _preview distance _positionBuilding;
+									
+									if (_meters < _sizeBuilding) then { _color = _colorRed;	};						
+								};
+							} forEach _list;
+						};
 					};
 				};
 				_preview setObjectTexture [0,_color];

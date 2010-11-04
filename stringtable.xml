@@ -2230,6 +2230,22 @@
         <Italian>Towns: Simple Defences construct</Italian>
       </Key>
 
+      <Key ID="STR_WF_Town_SimpleDefences_EngineerOnly">
+        <English>Only Engineers</English>
+        <French>Only Engineers</French>
+        <German>Only Engineers</German>
+        <Russian>Только Инженеры</Russian>
+        <Italian>Only Engineers</Italian>
+      </Key>	  
+
+      <Key ID="STR_WF_SimpleDefences_AnyBody">
+        <English>Any player</English>
+        <French>Any player</French>
+        <German>Any player</German>
+        <Russian>Любой игрок</Russian>
+        <Italian>Any player</Italian>
+      </Key>
+
       <Key ID="STR_WF_Town_SupplyExchange">
         <English>Towns: Supply Exchange</English>
         <French>Towns: Supply Exchange</French>

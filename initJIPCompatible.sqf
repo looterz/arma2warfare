@@ -107,7 +107,7 @@ param3thView = false;
 
 baseFrendlyFire = false;
 paramEnabledHeadHunters = true;
-paramBuildDefencesInTown = true;
+paramBuildDefencesInTown = 2;	// 0 - disabled, 1 - only engineers, 2 - anybody
 paramSupplyExchange = true;
 paramBuyVehiclesInTown = true;
 paramBuyAircraftInAirportOnly = true;
@@ -225,10 +225,10 @@ if (!isNil "paramsArray") then {
 	if (WF_A2_CombinedOps) then {missionNamespace setVariable ['WFBE_RESISTANCEFACTION',(paramsArray select _u)];_u = _u + 1};
 	missionNamespace setVariable ['WFBE_TOWNSTARTINGMODE',(paramsArray select _u)];_u = _u + 1;
 	
-	if ((paramsArray select _u) == 0) then {paramEnabledHeadHunters = false} else {paramEnabledHeadHunters = true};_u = _u + 1; //--- Head Hunters - money loss for die from enemy player / money give for kill enemy player
-	if ((paramsArray select _u) == 0) then {paramBuildDefencesInTown = false} else {paramBuildDefencesInTown = true};_u = _u + 1; //--- Build Defences in Town for everybody
-	if ((paramsArray select _u) == 0) then {paramSupplyExchange = false} else {paramSupplyExchange = true};_u = _u + 1; //--- Supply Exchange in town depot
-	if ((paramsArray select _u) == 0) then {paramBuyVehiclesInTown = false} else {paramBuyVehiclesInTown = true};_u = _u + 1; //--- Supply Exchange in town depot
+	paramEnabledHeadHunters  = if ((paramsArray select _u) == 0) then { false} else { true};_u = _u + 1; 						//--- Head Hunters - money loss for die from enemy player / money give for kill enemy player
+	paramBuildDefencesInTown = (paramsArray select _u);	_u = _u + 1; 															//--- Build Defences in Town for everybody
+	paramSupplyExchange      = if ((paramsArray select _u) == 0) then { false} else { true};_u = _u + 1; 						//--- Supply Exchange in town depot
+	paramBuyVehiclesInTown   = if ((paramsArray select _u) == 0) then { false} else { true};_u = _u + 1; 						//--- Supply Exchange in town depot
 	if ((paramsArray select _u) == 0) then {paramBuyAircraftInAirportOnly = false} else {paramBuyAircraftInAirportOnly = true};_u = _u + 1; //--- Buy aircrafts only in airport
 	if ((paramsArray select _u) == 0) then {paramVehicleComponents = false} else {paramVehicleComponents = true};_u = _u + 1; //--- Vehicle component requirements
 	paramUnitCostWithGear = if ((paramsArray select _u) == 0) then { false} else { true }; _u = _u + 1; //---  Unit Cost with Gear
@@ -268,4 +268,6 @@ ExecVM "Common\Init\Init_Towns.sqf";
 if (local player) then {ExecVM "Client\Init\Init_Client.sqf"; [] execVM "limitThirdPersonView.sqf"; };
 if (isServer) then {ExecVM "Server\Init\Init_Server.sqf"};
 
-execVM "Module\Market\Init_Market.sqf";
+if (paramTrade) then {
+	execVM "Module\Market\Init_Market.sqf";
+};
