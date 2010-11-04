@@ -12,14 +12,14 @@ _userKeyMessage = "";
 _actionKeysImages = "";
 _pressedButtonArray = [_pressedButton];//standard button
 
-
-
 _IsSelectedFactoryLockWeapon = {
 private['_weapon','_types','_status'];
 
 	_tankGuns = [ 	(configFile >> "CfgWeapons" >> "M256"), 
 					(configFile >> "CfgWeapons" >> "2A42"), 
-					(configFile >> "CfgWeapons" >> "D81")
+					(configFile >> "CfgWeapons" >> "D81"),
+					(configFile >> "CfgWeapons" >> "FFARLauncher"),
+					(configFile >> "CfgWeapons" >> "M230")
 				];
 
 	_weapon = configFile >> "CfgWeapons" >> (currentWeapon (vehicle player));
@@ -44,7 +44,7 @@ switch (true) do
 	// disable radar lock
 	case (!paramTabLock && ({_x in _pressedButtonArray} count (actionKeys "LockTargets")) > 0):
 	{
-		if (player != (vehicle player) && (call _IsSelectedFactoryLockWeapon)) then
+		if (call _IsSelectedFactoryLockWeapon) then
 		{
 			_keyHandled = true;
 		};
@@ -53,7 +53,7 @@ switch (true) do
 	// disable infantry direct lock
 	case (!paramTabLock && ({_x in _pressedButtonArray} count (actionKeys "LockTarget")) > 0):
 	{
-		if (player != (vehicle player) && (call _IsSelectedFactoryLockWeapon)) then
+		if (call _IsSelectedFactoryLockWeapon) then
 		{
 			_keyHandled = true;
 		};
@@ -61,7 +61,7 @@ switch (true) do
 	// disable vehicle direct lock
 	case (!paramTabLock && ({_x in _pressedButtonArray} count (actionKeys "VehLockTargets")) > 0):
 	{
-		if (player != (vehicle player) && (call _IsSelectedFactoryLockWeapon)) then
+		if (call _IsSelectedFactoryLockWeapon) then
 		{
 			_keyHandled = true;
 		};
@@ -73,5 +73,4 @@ switch (true) do
 		_keyHandled = true;
 	};	
 };
-
 _keyHandled;
