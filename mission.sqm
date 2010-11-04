@@ -8,7 +8,6 @@ class Mission
 		"chernarus",
 		"ca_modules_functions",
 		"warfarebuildings",
-		"CAWheeled_E_stryker",
 		"CAWheeled2_BTR90",
 		"caweapons_warfare_weapons",
 		"ca_highcommand",
@@ -16,17 +15,17 @@ class Mission
 		"cacharacters_baf",
 		"cawheeled_w_baf",
 		"catracked_w_baf",
-		"caair_baf_ch_47f",
 		"caair_baf",
-		"caweapons_baf"
+		"caweapons_baf",
+		"CAWheeled2_LAV25"
 	};
 	addOnsAuto[]=
 	{
-		"cacharacters2",
 		"cacharacters_e",
+		"cacharacters2",
 		"ca_modules_functions",
 		"ca_highcommand",
-		"CAWheeled_E_stryker",
+		"CAWheeled2_LAV25",
 		"CAWheeled2_BTR90",
 		"warfarebuildings",
 		"caweapons_warfare_weapons",
@@ -1507,7 +1506,7 @@ class Mission
 			position[]={2279.6672,514.16913,15295.711};
 			id=16;
 			side="EMPTY";
-			vehicle="M1130_CV_EP1";
+			vehicle="LAV25_HQ";
 			leader=1;
 			lock="LOCKED";
 			skill=0.60000002;
