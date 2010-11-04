@@ -116,6 +116,7 @@ paramVehicleComponents = true;
 paramUnitCostWithGear = true;
 paramTrade = true;
 paramArtilleryHighBallistic = false;
+paramMissleCamera = false;
 
 missionNamespace setVariable ['WFBE_EASTSTARTINGMONEY',200000];
 missionNamespace setVariable ['WFBE_WESTSTARTINGMONEY',200000];
@@ -230,11 +231,12 @@ if (!isNil "paramsArray") then {
 	if ((paramsArray select _u) == 0) then {paramBuyVehiclesInTown = false} else {paramBuyVehiclesInTown = true};_u = _u + 1; //--- Supply Exchange in town depot
 	if ((paramsArray select _u) == 0) then {paramBuyAircraftInAirportOnly = false} else {paramBuyAircraftInAirportOnly = true};_u = _u + 1; //--- Buy aircrafts only in airport
 	if ((paramsArray select _u) == 0) then {paramVehicleComponents = false} else {paramVehicleComponents = true};_u = _u + 1; //--- Vehicle component requirements
-	if ((paramsArray select _u) == 0) then {paramUnitCostWithGear = false} else {paramUnitCostWithGear = true};_u = _u + 1; //---  Unit Cost with Gear
-	if ((paramsArray select _u) == 0) then {paramTrade = false} else {paramTrade = true};_u = _u + 1; //---  Unit Cost with Gear
-	if ((paramsArray select _u) == 0) then {paramArtilleryHighBallistic = false} else {paramArtilleryHighBallistic = true};_u = _u + 1; //---  Unit Cost with Gear
+	paramUnitCostWithGear = if ((paramsArray select _u) == 0) then { false} else { true }; _u = _u + 1; //---  Unit Cost with Gear
+	paramTrade = if ((paramsArray select _u) == 0) then { false} else { true}; _u = _u + 1; //---  Unit Cost with Gear
+	paramArtilleryHighBallistic  = if ((paramsArray select _u) == 0) then { false} else { true};_u = _u + 1; //---  Unit Cost with Gear
 
-	if ((paramsArray select _u) == 0) then {param3thView = false} else {param3thView = true}; _u = _u + 1;
+	param3thView = (paramsArray select _u); _u = _u + 1;
+	paramMissleCamera = if ((paramsArray select _u) == 0) then { false} else { true }; _u = _u + 1;
 };
 
 //--- Debug.

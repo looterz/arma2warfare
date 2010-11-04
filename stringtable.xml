@@ -2340,6 +2340,14 @@
         <German>Missle Camera Off</German>
         <Russian>Камера на ракете Выкл.</Russian>
         <Italian>Missle Camera Off</Italian>
+      </Key>	 
+
+      <Key ID="STR_WF_Gameplay_MissleCamera">
+        <English>Gameplay: Missle Camera</English>
+        <French>Gameplay: Missle Camera</French>
+        <German>Gameplay: Missle Camera</German>
+        <Russian>Режим: Видеокамера на управл. ракетах</Russian>
+        <Italian>Gameplay: Missle Camera</Italian>
       </Key>	  
     </Container>
   </Package>

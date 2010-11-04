@@ -580,6 +580,13 @@ class Params {
 		values[] = {0,1,2};
 		texts[] = {"$STR_WF_Enabled","$STR_WF_OnlyInVehicles","$STR_WF_Disabled"};
 		default = 0;
+	};
+
+	class gameplayMissleCamera {
+		title = "$STR_WF_Gameplay_MissleCamera";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 0;
 	};	
 };
 
