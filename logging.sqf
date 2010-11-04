@@ -14,7 +14,7 @@ private['_time', '_str'];
 
 LogNotify     = { if (LOGLEVEL >= 0) then { diag_log format['%2 | NOTF | %1', _this, call LogTime]; }; };
 LogUnexpected = { if (LOGLEVEL >= 1) then { diag_log format['%2 | UNEX | %1', _this, call LogTime]; }; };
-LogTrace 	  = { if (LOGLEVEL >= 2) then { diag_log format['%2 | TRAC | %1', _this, call LogTime]; };		 };
+LogTrace 	  = { if (LOGLEVEL >= 2 && WF_DEBUG == 1) then { diag_log format['%2 | TRAC | %1', _this, call LogTime]; };		 };
 LogError 	  = { if (LOGLEVEL >= 3) then { diag_log format['%2 | ERRO | %1', _this, call LogTime]; }; 	 };
 LogWarning    = { if (LOGLEVEL >= 4) then { diag_log format['%2 | WARN | %1', _this, call LogTime]; };	 };
 LogMedium     = { if (LOGLEVEL >= 5) then { diag_log format['%2 | MED  | %1', _this, call LogTime]; };	 };

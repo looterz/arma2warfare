@@ -35,6 +35,7 @@ ReplaceInventoryAmmo = Compile preprocessFile "Client\Functions\Client_ReplaceIn
 
 HandleMainDisplayKeys = Compile preprocessFile "Client\Functions\Client_HandleMainDisplayKeys.sqf";
 RemoveFlares = Compile preprocessFile "Client\Functions\Client_RemoveFlares.sqf";
+Action_MissleCam = Compile preprocessFile "Module\CamMissle\action_misslecam.sqf";
 
 
 if !(WF_A2_Vanilla) then {

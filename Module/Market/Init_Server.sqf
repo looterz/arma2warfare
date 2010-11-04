@@ -5,6 +5,10 @@ if (isNil "_isInited") then { _isInited = 0; };
 
 if  (_isInited == 1) exitWith {};
 
+if (!paramTrade && !paramSupplyExchange) exitWith {
+	"Initialization Market :: Marketing and Supply Exchange are disabled by game settings"  call LogHigh;
+};
+
 "Initialization Market :: Wait town inited"  call LogHigh;
 waitUntil {townInit};
 

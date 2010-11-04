@@ -2324,6 +2324,22 @@
         <German>Gameplay: Artillery High Ballistic Traectory</German>
         <Russian>Режим: Высокая баллист. траектория артиллерии</Russian>
         <Italian>Gameplay: Artillery High Ballistic Traectory</Italian>
+      </Key>	
+
+      <Key ID="STR_WF_MissleCamEnable">
+        <English>Missle Camera On</English>
+        <French>Missle Camera On</French>
+        <German>Missle Camera On</German>
+        <Russian>Камера на ракете Вкл.</Russian>
+        <Italian>Missle Camera On</Italian>
+      </Key>	
+
+      <Key ID="STR_WF_MissleCamDisable">
+        <English>Missle Camera Off</English>
+        <French>Missle Camera Off</French>
+        <German>Missle Camera Off</German>
+        <Russian>Камера на ракете Выкл.</Russian>
+        <Italian>Missle Camera Off</Italian>
       </Key>	  
     </Container>
   </Package>

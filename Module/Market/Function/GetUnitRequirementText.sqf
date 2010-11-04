@@ -2,9 +2,12 @@ private['_factory', '_unit', '_requirementText', '_u', '_found', '_unitData', '_
 
 _factory = _this select 0;
 _unit = _this select 1;
+_requirementText = "";
+
+if (!paramVehicleComponents) exitWith { ""; };
 
 _unitData = _unit call marketGetUnitRequiredProducts;
-_requirementText = "";
+
 	
 format['get unit requirment text: %1', _unit] call LogHigh;	
 	
