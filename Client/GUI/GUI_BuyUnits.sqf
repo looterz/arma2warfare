@@ -98,8 +98,10 @@ _fillList = {
 		if ((_c select QUERYUNITUPGRADE) <= (_currentUpgrades select _value) && _addin) then {
 		
 			_basePrice = if (_x isKindOf "Man") then { _x call GetUnitEquipmentPrice; } else { _c select QUERYUNITPRICE; };
-			_basePrice = [_products, _x, _basePrice] call marketGetUnitPriceEx;
-			//_basePrice = _c select QUERYUNITPRICE;
+			
+			if (paramTrade && paramVehicleComponents) then {
+				_basePrice = [_products, _x, _basePrice] call marketGetUnitPriceEx;
+			};
 			
 			_cost = _basePrice;
 			_cost = (ceil(_basePrice*_costCoefficient / 5))*5;		
@@ -456,8 +458,10 @@ while {alive player && dialog} do {
 				_txt = getText (configFile >> 'CfgVehicles' >> _utype >> 'Library' >> 'libTextDesc');
 			};
 			
-			_txtRequire = [_closestFactory, _utype] call marketGetUnitRequirementText;
-			_txt = _txtRequire + _txt;
+			if (paramTrade && paramVehicleComponents) then {
+				_txtRequire = [_closestFactory, _utype] call marketGetUnitRequirementText;
+				_txt = _txtRequire + _txt;
+			};
 			
 			(_display displayCtrl 12022) ctrlSetStructuredText (parseText _txt);
 			

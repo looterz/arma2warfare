@@ -9,7 +9,7 @@ while {alive player && dialog} do {
 	ctrlEnable [11001,_enable];
 	ctrlEnable [11002,gearInRange];
 	
-	ctrlEnable [11100, ((WF_Logic getVariable "marketInitialized") == 1)];
+	ctrlEnable [11100, (paramTrade && (WF_Logic getVariable "marketInitialized") == 1)];
 	
 	_timer = _timer + 0.1;
 	
