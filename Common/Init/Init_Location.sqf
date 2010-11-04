@@ -1,4 +1,5 @@
-waitUntil { !isNil "LOGLEVEL" };
+
+waitUntil { !isNil "LogInited" };
  
 _location = _this Select 0;
 _locationName = _this Select 1;

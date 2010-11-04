@@ -1,5 +1,4 @@
 disableSerialization;
-waitUntil { !isNil "LOGLEVEL" };
 
 MenuAction = -1;
 mouseButtonUp = -1;

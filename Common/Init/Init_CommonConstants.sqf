@@ -1,3 +1,5 @@
+waitUntil { !isNil "LogInited" };
+
 /* DO NOT CHANGE! */
 EASTID = 128;
 WESTID = 256;
@@ -441,5 +443,4 @@ if (WF_A2_CombinedOps) then {
 	['WFBE_EASTPARAAMMO',['RUBasicAmmunitionBox','RUBasicWeaponsBox','RULaunchersBox'],true] Call SetNamespace;
 };
 
-waitUntil { !isNil "LOGLEVEL" };
 "Init_CommonConstants: Constants Initialization - [Done]" call LogMedium;

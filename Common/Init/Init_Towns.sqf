@@ -1,4 +1,5 @@
-waitUntil{!isNil "LOGLEVEL"};
+
+waitUntil { !isNil "LogInited" };
 waitUntil{townModeSet};
 
 _startAt = time;

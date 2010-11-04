@@ -1,7 +1,7 @@
 Private ['_aibase','_commanderTeam','_comVoteTime','_side','_sideText'];
 _side = _this select 0;
 
-waitUntil { !isNil "LOGLEVEL" };
+waitUntil { !isNil "LogInited" };
 
 _sideText = _side;
 _comVoteTime = 'WFBE_VOTETIME' Call GetNamespace;

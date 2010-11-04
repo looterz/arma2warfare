@@ -3,7 +3,7 @@ _building = _this select 0;
 _unit = _this select 1;
 _vehi = _this select 2;
 
-waitUntil { !isNil "LOGLEVEL" };
+waitUntil { !isNil "LogInited" };
 
 _cpt = 0;
 _isMan = false;

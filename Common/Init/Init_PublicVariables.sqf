@@ -1,5 +1,6 @@
 Private ['_count','_l'];
-waitUntil { !isNil "LOGLEVEL" };
+
+waitUntil { !isNil "LogInited" };
 
 _l		= ["RequestVehicleLock"];
 _l = _l + ["RequestCommanderVote"];

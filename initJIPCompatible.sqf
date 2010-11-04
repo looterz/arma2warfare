@@ -3,9 +3,16 @@ IsClientServer = if (!isMultiplayer || (isServer && local player)) then { true; 
 
 //--- Define which 'part' of the game to run.
 #include "version.sqf"
-#include "logging.sqf"
 
-"Initialization begin" call LogMedium;
+WF_Debug = false;
+#ifdef WF_DEBUG
+	WF_Debug = true;
+#endif
+
+execVM "logging.sqf";
+waitUntil { !isNil "LogInited" };
+
+"Init JIP - Start" call LogMedium;
 
 //--- Client Init.
 if (!isServer || local player) then {
@@ -43,10 +50,6 @@ WF_A2_CombinedOps = false;
 	WF_A2_CombinedOps = true;
 #endif
 
-WF_Debug = false;
-#ifdef WF_DEBUG
-	WF_Debug = true;
-#endif
 
 WF_Camo = false;
 #ifdef WF_CAMO
@@ -249,6 +252,7 @@ if (WF_Debug) then {
 
 //--- All parameters are set and ready.
 initJIP = true;
+"Init JIP - End" call LogMedium;
 
 //--- Prevent Choppy Clouds.
 if (fastTime) then {weather = false};

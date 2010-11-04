@@ -116,8 +116,8 @@ for '_z' from 0 to (count _c)-1 do {
 		(_i select _z) set [1, [_c select _z,_p] Call GetConfigInfo];
 		[_c select _z,_i select _z] Call SetNamespace;
 	} else {
-		Format ["[WFBE (INIT)] Core_INS: Duplicated Element found '%1'",(_c select _z)] call LogMedium;
+		Format ["Core_INS: Duplicated Element found '%1'",(_c select _z)] call LogMedium;
 	};
 };
 
-Format ["[WFBE (INIT)] Core_INS: Initialization (%1 Elements) - [Done]",count _c] call LogMedium;
+Format ["Core_INS: Initialization (%1 Elements) - [Done]",count _c] call LogMedium;

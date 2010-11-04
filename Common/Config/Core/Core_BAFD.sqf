@@ -109,4 +109,4 @@ for '_z' from 0 to (count _c)-1 do {
 	};
 };
 
-Format ["[WFBE (INIT)] Core_BAFD: Initialization (%1 Elements) - [Done]",count _c] call LogMedium;
+Format ["Core_BAFD: Initialization (%1 Elements) - [Done]",count _c] call LogMedium;

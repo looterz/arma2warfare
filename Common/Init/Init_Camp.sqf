@@ -1,7 +1,8 @@
 _camp = _this Select 0;
 _town = _this Select 1;
 
-waitUntil { !isNil "LOGLEVEL" };
+
+waitUntil { !isNil "LogInited" };
 waitUntil {townModeSet};
 
 if (isNull _town) exitWith {

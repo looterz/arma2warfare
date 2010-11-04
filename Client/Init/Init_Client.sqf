@@ -1,4 +1,4 @@
-waitUntil { !isNil "LOGLEVEL" };
+waitUntil { !isNil "LogInited" };
 
 if (paramArty) then {
 	ARTY_Prep = Compile preprocessFile "Client\Module\Arty\ARTY_mobileMissionPrep.sqf";
