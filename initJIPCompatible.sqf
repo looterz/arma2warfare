@@ -1,6 +1,9 @@
 //--- Global Init, first file called.
 IsClientServer = if (!isMultiplayer || (isServer && local player)) then { true; } else { false };
 
+_dT = time;
+waitUntil { _dt < time; };
+
 //--- Define which 'part' of the game to run.
 #include "version.sqf"
 

@@ -12,7 +12,7 @@ private['_time', '_str'];
 	_str;
 };
 
-LOGLEVEL = 5;
+LOGLEVEL = 7;
 #ifdef WF_LOGLEVEL
 	LOGLEVEL = WF_LOGLEVEL;
 #endif
@@ -42,7 +42,8 @@ if (WF_DEBUG) then {
 	if (LOGLEVEL >= 2) then { LogTrace  = { diag_log format['%2 | TRAC | %1', _this, call LogTime]; }; };
 };
 
-LogInited = true;
 "-----------------------------------------------" call LogMedium;
 "" call LogMedium;
 "Initialize Logger - [Done]" call LogMedium;
+
+LogInited = true;

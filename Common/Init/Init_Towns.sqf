@@ -1,4 +1,4 @@
-
+waitUntil { initJIP };
 waitUntil { !isNil "LogInited" };
 waitUntil{townModeSet};
 

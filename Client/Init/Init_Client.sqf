@@ -1,4 +1,12 @@
+waitUntil { initJIP };
 waitUntil { !isNil "LogInited" };
+
+Skills_Soldiers = ['FR_R','RUS_Soldier1','US_Delta_Force_EP1','TK_Special_Forces_EP1'];
+Skills_Engineers = ['USMC_SoldierS_Engineer','MVD_Soldier_TL','US_Soldier_Engineer_EP1','TK_Soldier_Engineer_EP1'];
+Skills_Lockpick = ['FR_TL','RUS_Soldier_TL','US_Delta_Force_TL_EP1','TK_Special_Forces_TL_EP1'];
+Skills_Spot = ['USMC_SoldierS_Sniper','RU_Soldier_Sniper','US_Soldier_Sniper_EP1','TK_Soldier_Sniper_EP1'];
+Skills_MASH = ['FR_Commander','RUS_Commander','US_Soldier_SL_EP1','TK_Soldier_SL_EP1'];
+
 
 if (paramArty) then {
 	ARTY_Prep = Compile preprocessFile "Client\Module\Arty\ARTY_mobileMissionPrep.sqf";
@@ -213,11 +221,6 @@ sleep 1;
 WF_Logic setVariable ['filler','primary'];
 
 //--- Skill Module.
-Skills_Soldiers = ['FR_R','RUS_Soldier1','US_Delta_Force_EP1','TK_Special_Forces_EP1'];
-Skills_Engineers = ['USMC_SoldierS_Engineer','MVD_Soldier_TL','US_Soldier_Engineer_EP1','TK_Soldier_Engineer_EP1'];
-Skills_Lockpick = ['FR_TL','RUS_Soldier_TL','US_Delta_Force_TL_EP1','TK_Special_Forces_TL_EP1'];
-Skills_Spot = ['USMC_SoldierS_Sniper','RU_Soldier_Sniper','US_Soldier_Sniper_EP1','TK_Soldier_Sniper_EP1'];
-Skills_MASH = ['FR_Commander','RUS_Commander','US_Soldier_SL_EP1','TK_Soldier_SL_EP1'];
 [] Call Compile preprocessFile "Client\Module\Skill\Skill_Init.sqf";
 
 //--- Handle Client keys: Disbale command Menu scanning, Factories Lock, etc.

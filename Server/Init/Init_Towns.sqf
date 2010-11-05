@@ -1,3 +1,4 @@
+waitUntil { initJIP };
 waitUntil { !isNil "LogInited" };
 waitUntil {townInit};
 

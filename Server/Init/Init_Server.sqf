@@ -1,3 +1,5 @@
+waitUntil { initJIP };
+
 if (!isServer || time > 30) exitWith {
 	"Init_Server: The server initialization cannot be called more than once." call LogError;
 };

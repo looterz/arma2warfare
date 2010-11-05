@@ -1,6 +1,7 @@
 Private ['_aibase','_commanderTeam','_comVoteTime','_side','_sideText'];
 _side = _this select 0;
 
+waitUntil { initJIP };
 waitUntil { !isNil "LogInited" };
 
 _sideText = _side;

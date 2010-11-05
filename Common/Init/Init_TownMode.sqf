@@ -4,7 +4,7 @@
 		Custom templates can be added bellow.
 */
 
-
+waitUntil { initJIP };
 waitUntil { !isNil "LogInited" };
 
 _index = 0;
