@@ -1674,22 +1674,82 @@ if (WF_A2_CombinedOps) then {
 			_w = _w + ['ItemMap'];
 			_w = _w + ['ItemRadio'];
 			_w = _w + ['ItemWatch'];
+			_w = _w + ['DogtagsLockpick'];
+			_w = _w + ['DogtagsMedic'];
+			_w = _w + ['DogtagsSaboteur'];
+			_w = _w + ['DogtagsEngineer'];
+			_w = _w + ['DogtagsCommander'];
 
 			WF_Logic setVariable ['miscClasses',_w];
 
 			//--- Templates.
 			_items = ['ItemCompass','ItemGPS','ItemMap','ItemRadio','ItemWatch'];
 
-			_d = [getText(configFile >> 'CfgWeapons' >> 'SCAR_L_CQC' >> 'displayName') + '/' + getText(configFile >> 'CfgWeapons' >> 'Colt1911' >> 'displayName')];
-			_p = [getText(configFile >> 'CfgWeapons' >> 'SCAR_L_CQC' >> 'picture')];
-			_t = [['SCAR_L_CQC','Colt1911']];
-			_m = [['30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag',
+			_d = [];
+			_p = []; 
+			_t = []; 
+			_m = []; 
+			_s = []; 
+			_i = []; 
+			_l = []; 
+			_b = []; 
+	
+			_d = _d + ["Assault Backpack"];
+			_p = _p + [getText(configFile >> 'CfgWeapons' >> 'US_Assault_Pack_EP1' >> 'picture')];
+			_t = _t + [['SCAR_L_CQC','US_Assault_Pack_EP1']];
+			_m = _m + [];
+			_s = _s + [['Binocular']];
+			_i = _i + [_items + ['CDF_dogtags']];
+			_l = _l + [0];
+			_b = _b + [true];
+	
+			_d = _d + ["Engineer Backpack"];
+			_p = _p + [getText(configFile >> 'CfgWeapons' >> 'US_Assault_Pack_EP1' >> 'picture')];
+			_t = _t + [['SCAR_L_CQC','US_Assault_Pack_EP1']];
+			_m = _m + [['CDF_dogtags']];
+			_s = _s + [['Binocular']];
+			_i = _i + [_items];
+			_l = _l + [0];
+			_b = _b + [true];
+			
+			_d = _d + ["Medic Backpack"];
+			_p = _p + [getText(configFile >> 'CfgWeapons' >> 'US_Assault_Pack_EP1' >> 'picture')];
+			_t = _t + [['SCAR_L_CQC','US_Assault_Pack_EP1']];
+			_m = _m + [['CDF_dogtags']];
+			_s = _s + [['Binocular']];
+			_i = _i + [_items];
+			_l = _l + [0];
+			_b = _b + [true];	
+
+			_d = _d + ["Commander Backpack"];
+			_p = _p + [getText(configFile >> 'CfgWeapons' >> 'US_Assault_Pack_EP1' >> 'picture')];
+			_t = _t + [['SCAR_L_CQC','US_Assault_Pack_EP1']];
+			_m = _m + [['CDF_dogtags']];
+			_s = _s + [['Binocular']];
+			_i = _i + [_items];
+			_l = _l + [0];
+			_b = _b + [true];				
+			
+			_d = _d + ["Saboteur Backpack"];
+			_p = _p + [getText(configFile >> 'CfgWeapons' >> 'SCAR_L_CQC' >> 'picture')];
+			_t = _t + [['SCAR_L_CQC','US_Assault_Pack_EP1']];
+			_m = _m + [['CDF_dogtags']];
+			_s = _s + [['Binocular']];
+			_i = _i + [_items];
+			_l = _l + [0];
+			_b = _b + [true];
+			
+			
+			_d = _d + [getText(configFile >> 'CfgWeapons' >> 'SCAR_L_CQC' >> 'displayName') + '/' + getText(configFile >> 'CfgWeapons' >> 'Colt1911' >> 'displayName')];
+			_p = _p + [getText(configFile >> 'CfgWeapons' >> 'SCAR_L_CQC' >> 'picture')];
+			_t = _t + [['SCAR_L_CQC','Colt1911']];
+			_m = _m + [['30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag','30Rnd_556x45_Stanag',
 				'HandGrenade_West','HandGrenade_West','SmokeShellBlue','SmokeShellBlue','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911',
 				'7Rnd_45ACP_1911','7Rnd_45ACP_1911']];
-			_s = [['Binocular']];
-			_i = [_items];
-			_l = [0];
-			_b = [true];
+			_s = _s + [['Binocular']];
+			_i = _i + [_items];
+			_l = _l + [0];
+			_b = _b + [true];
 
 			_d = _d + [getText(configFile >> 'CfgWeapons' >> 'M16A4_GL' >> 'displayName')];
 			_p = _p + [getText(configFile >> 'CfgWeapons' >> 'M16A4_GL' >> 'picture')];

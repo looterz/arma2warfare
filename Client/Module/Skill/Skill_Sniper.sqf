@@ -17,7 +17,8 @@ _markerName setMarkerTypeLocal "mil_destroy";
 _markerName setMarkerColorLocal "ColorRed";
 _markerName setMarkerSizeLocal [0.5,0.5];
 markerID = markerID + 1;
-lastSkillUse = time;
+
+lastUseSkill set [1, time];
 
 [_markerName] Spawn {
 	Private ["_marker"];

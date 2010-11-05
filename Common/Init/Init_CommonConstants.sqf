@@ -25,6 +25,7 @@ QUERYGEARALLOWED = 6;
 QUERYGEARHANDGUNPOOL = 7;
 QUERYGEARMAGAZINES = 8;
 QUERYGEARSPACE = 9;
+QUERYGEAR_BASETYPE = 10;
 
 /* IMPORTANT: New Getter/Setter, variable are stored into missionNamespace, the true/false variable define whether we shall override an existing variable or not */
 //--- How long a vehicle last empty before being sweeped.

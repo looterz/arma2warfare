@@ -17,6 +17,9 @@ ChangeClientFunds = Compile PreprocessFile "Common\Functions\Common_ChangeClient
 CreateMan = Compile PreprocessFile "Common\Functions\Common_CreateUnit.sqf";
 CreateVehi = Compile PreprocessFile "Common\Functions\Common_CreateVehicle.sqf";
 EquipLoadout = Compile PreprocessFile "Common\Functions\Common_EquipLoadout.sqf";
+GetEquipLoadout = Compile PreprocessFile "Common\Functions\Common_GetEquipLoadout.sqf";
+GetEquipDogTags = Compile PreprocessFile "Common\Functions\Common_GetEquipDogTags.sqf";
+
 FireArtillery = Compile PreprocessFile "Common\Functions\Common_FireArtillery.sqf";
 GetClientID = Compile PreprocessFile "Common\Functions\Common_GetClientID.sqf";
 GetClientIDFromTeam = Compile PreprocessFile "Common\Functions\Common_GetClientIDFromTeam.sqf";

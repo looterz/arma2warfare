@@ -13,7 +13,7 @@ _vehicle = _sorted select 0;
 
 if (!locked _vehicle) exitWith {};
 
-lastSkillUse = time;
+lastUseSkill set [2, time];
 
 _skip = false;
 for [{_x = 0},{_x < 2},{_x = _x + 1}] do {

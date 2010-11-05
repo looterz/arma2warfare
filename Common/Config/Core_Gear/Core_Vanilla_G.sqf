@@ -455,6 +455,24 @@ _i = _i + [['','','CfgWeapons','Item',10,0,true,false,0,0]];
 _u = _u + ['ItemWatch'];
 _i = _i + [['','','CfgWeapons','Item',5,0,true,false,0,0]];
 
+_u = _u + ['CDF_dogtags'];
+_i = _i + [['','','CfgWeapons','Item', 50,0,true,false,0,0]];
+
+_u = _u + ['DogtagsLockpick'];
+_i = _i + [['STR_WF_RoleDogTags_Lockpick','','CfgWeapons','Item',10000,0,false,false,0,0, 'CDF_dogtags']];
+
+_u = _u + ['DogtagsMedic'];
+_i = _i + [['STR_WF_RoleDogTags_Medic','','CfgWeapons','Item', 15000,0,false,false,0,0, 'CDF_dogtags']];
+
+_u = _u + ['DogtagsSaboteur'];
+_i = _i + [['STR_WF_RoleDogTags_Saboteur','','CfgWeapons','Item', 15000,0,false,false,0,0, 'CDF_dogtags']];
+
+_u = _u + ['DogtagsEngineer'];
+_i = _i + [['STR_WF_RoleDogTags_Engineer','','CfgWeapons','Item',50000,0,false,false,0,0, 'CDF_dogtags']];
+
+_u = _u + ['DogtagsCommander'];
+_i = _i + [['STR_WF_RoleDogTags_Commander','','CfgWeapons','Item',100000,0,false,false,0,0, 'CDF_dogtags']];
+
 /* Misc - East */
 _u = _u + ['HandGrenade_East'];
 _i = _i + [['','','CfgMagazines','CfgMagazines',9,0,true,false,0,0]];
@@ -494,7 +512,10 @@ for '_z' from 0 to (count _u)-1 do {
 	_element = (_u select _z);
 	_config = (_info select 2);
 	
-	if (isClass (configFile >> _config >> _element)) then {
+	_baseType = _info select QUERYGEAR_BASETYPE;
+	if (isNil "_baseType") then { _baseType = _element; };	
+	
+	if (isClass (configFile >> _config >> _baseType)) then {
 		//--- The loadout has a prefix since we can have two elements with the same name but with different class.
 		_get = _element Call GetNamespace;
 		_proceed = false;
@@ -520,20 +541,25 @@ for '_z' from 0 to (count _u)-1 do {
 		
 		if (_proceed) then {
 			//--- A custom loadout displayName can be set.
-			if ((_info select 1) == '') then {_info set [0, [_element,'displayName',_config] Call GetConfigInfo]};
-			_info set [1, [_element,'picture',_config] Call GetConfigInfo];
+
+			if ((_info select 0) == '') then {
+				_info set [0, [_baseType,'displayName',_config] Call GetConfigInfo];
+			} else {
+				_info set [0, localize (_info select 0)];
+			};
+			_info set [1, [_baseType, 'picture',_config] Call GetConfigInfo];
 			
 			if (_config == 'CfgWeapons') then {
 				//--- A custom loadout magazine can be set.
 				if (typeName (_info select 8) != 'ARRAY') then {
-					_info set [8, getArray (configFile >> _config >> _element >> 'magazines')];
+					_info set [8, getArray (configFile >> _config >> _baseType >> 'magazines')];
 				};
 			};
 			
 			//--- Set the magazine space.
 			if (_config == 'CfgMagazines') then {
 				if ((_info select 3) in ['CfgMagazines','primary','secondary','sidearm']) then {
-					_info set [9, ceil(getNumber(configFile >> _config >> _element >> 'type') / 256)];
+					_info set [9, ceil(getNumber(configFile >> _config >> _baseType >> 'type') / 256)];
 				};
 			};
 

@@ -467,7 +467,10 @@ while {alive player && dialog} do {
 	};
 	
 	if (_updateUnit) then {
-		_currentWeapons = weapons _currentUnit;
+		
+		_loadout = (_currentUnit call GetEquipLoadout);
+		_currentWeapons = _loadout select 0;
+		
 		_currentCost = 0;
 		_unitBP = "";
 		if !(isNull(unitBackpack _currentUnit)) then {
@@ -835,7 +838,6 @@ while {alive player && dialog} do {
 				} forEach _weaps;
 				_weaps = _temp;
 			};
-			[_currentUnit,(_weaps + _currentSpecials + _currentItems),_currentMagazines] Call EquipLoadout;
 			
 			/* Equip backpack if needed */
 			if !(WF_A2_Vanilla) then {				
@@ -853,12 +855,21 @@ while {alive player && dialog} do {
 					[unitBackpack _currentUnit,[_currentBackpackLoadout,_currentBackpackLoadoutAmount]] Call EquipBackpack;
 				};
 			};
+
+			[_currentUnit,(_weaps + _currentSpecials + _currentItems),_currentMagazines] Call EquipLoadout;
 			_data = [_currentMagazines,_currentItems] Call DisplayInventory;
 			_inventorySlots = _data select 0;
 			_sidearmInventorySlots = _data select 1;
 			_miscItemSlots = _data select 2;
 			_currentCost = (_data select 3) + _currentPrimaryCost + _currentSecondaryCost + _currentSidearmCost + _currentSpecialCost + _bpcost;
 			respawnGearCost = _currentCost;
+			
+			{ 
+				respawnGearCost = respawnGearCost - ((_x call GetNamespace) select QUERYGEARCOST); 
+			} forEach (_currentUnit call GetEquipDogTags);
+			
+			
+			execVM "Client\Module\Skill\Skill_Init.sqf";			
 			_cost = 0;
 		} else {
 			hint parseText(Format [localize "STR_WF_Funds_Missing_Gear",_cost - _funds]);

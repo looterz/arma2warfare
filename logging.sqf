@@ -43,4 +43,6 @@ if (WF_DEBUG) then {
 };
 
 LogInited = true;
-"Initialize Logger - End" call LogMedium;
+"-----------------------------------------------" call LogMedium;
+"" call LogMedium;
+"Initialize Logger - [Done]" call LogMedium;

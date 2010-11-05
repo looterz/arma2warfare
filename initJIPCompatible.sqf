@@ -12,7 +12,7 @@ WF_Debug = false;
 execVM "logging.sqf";
 waitUntil { !isNil "LogInited" };
 
-"Init JIP - Start" call LogMedium;
+"Init JIP - [Start]" call LogMedium;
 
 //--- Client Init.
 if (!isServer || local player) then {
@@ -21,8 +21,6 @@ if (!isServer || local player) then {
 	waitUntil {!isNull(player)};
 	/* Client Init Done - Begin the blackout on Layer 1 */
 	12452 cutText [(localize 'STR_WF_Loading')+"...","BLACK FADED",0];
-	
-	"Begin the blackout on Layer" call LogMedium;
 };
 
 setViewDistance 1500;
@@ -253,7 +251,7 @@ if (WF_Debug) then {
 
 //--- All parameters are set and ready.
 initJIP = true;
-"Init JIP - End" call LogMedium;
+"Init JIP - [Done]" call LogMedium;
 
 //--- Prevent Choppy Clouds.
 if (fastTime) then {weather = false};

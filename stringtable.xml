@@ -16,6 +16,15 @@
         <Russian>Подтвердить</Russian>
         <Italian>Accetta</Italian>
       </Key>
+	  
+      <Key ID="STR_WF_Action_Heal">
+        <English>Heal</English>
+        <French>Heal</French>
+        <German>Heal</German>
+        <Russian>Вылечить</Russian>
+        <Italian>Heal</Italian>
+      </Key>	  
+	  
       <Key ID="STR_WF_Action_Lockpick">
         <English>Lockpick</English>
         <French>Crocheter</French>
@@ -23,6 +32,7 @@
         <Russian>Открыть отмычкой</Russian>
         <Italian>Apri Serratura</Italian>
       </Key>
+	  
       <Key ID="STR_WF_Action_DeployMASH">
         <English>Deploy MASH</English>
         <French>Déployer Hopital de Campagne</French>
@@ -2364,6 +2374,51 @@
         <German>Gameplay: Missle Camera</German>
         <Russian>Режим: Видеокамера на управл. ракетах</Russian>
         <Italian>Gameplay: Missle Camera</Italian>
+      </Key>	
+
+      <Key ID="STR_WF_RoleDogTags_Engineer">
+        <English>Engineer DogTags</English>
+        <French>Engineer DogTags</French>
+        <German>Engineer DogTags</German>
+        <Russian>Личный знак Инженера</Russian>
+        <Italian>Engineer DogTags</Italian>
+      </Key>
+      <Key ID="STR_WF_RoleDogTags_Medic">
+        <English>Medic DogTags</English>
+        <French>Medic DogTags</French>
+        <German>Medic DogTags</German>
+        <Russian>Личный знак Медика</Russian>
+        <Italian>Medic DogTags</Italian>
+      </Key>	
+      <Key ID="STR_WF_RoleDogTags_Saboteur">
+        <English>Saboteur DogTags</English>
+        <French>Saboteur DogTags</French>
+        <German>Saboteur DogTags</German>
+        <Russian>Личный знак Диверсанта</Russian>
+        <Italian>Saboteur DogTags</Italian>
+      </Key>	
+      <Key ID="STR_WF_RoleDogTags_Commander">
+        <English>Commander DogTags</English>
+        <French>Commander DogTags</French>
+        <German>Commander DogTags</German>
+        <Russian>Личный знак Командира</Russian>
+        <Italian>Commander DogTags</Italian>
+      </Key>
+	  
+      <Key ID="STR_WF_RoleDogTags_Lockpick">
+        <English>Commander DogTags</English>
+        <French>Commander DogTags</French>
+        <German>Commander DogTags</German>
+        <Russian>Личный знак Взломщика</Russian>
+        <Italian>Commander DogTags</Italian>
+      </Key>	  
+	  
+      <Key ID="STR_WF_RoleDogTags_Information">
+        <English>Attention. %1 without a backpack is not valid</English>
+        <French>Attention. %1 without a backpack is not valid</French>
+        <German>Attention. %1 without a backpack is not valid</German>
+        <Russian>Внимание: %1 без рюкзака недействителен.</Russian>
+        <Italian>Attention. %1 without a backpack is not valid</Italian>
       </Key>	  
     </Container>
   </Package>

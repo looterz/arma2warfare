@@ -11,7 +11,8 @@ _vehicle = _sorted select 0;
 
 _dammages = getDammage _vehicle;
 if (_dammages <= 0) exitWith {};
-lastSkillUse = time;
+
+lastUseSkill set [0, time];
 
 _skip = false;
 for [{_x = 0},{_x < 5},{_x = _x + 1}] do {
