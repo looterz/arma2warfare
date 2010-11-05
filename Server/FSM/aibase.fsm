@@ -479,8 +479,8 @@ class FSM
        "		_teamIndex = (_x) Call GetTeamType;" \n
        "		_totalFunds = _totalFunds + ((_x) Call GetTeamFunds);" \n
        "		if (_teamIndex == -1) then {_teamIndex = 0};" \n
-	   "		_teamType = _teamTypes select _teamIndex;
-	   "		if ( !(isNil "_teamType") ) then {" \n
+	   "		_teamType = _teamTypes select _teamIndex;" \n
+	   "		if ( !(isNil ""_teamType"") ) then {" \n
 	   "			_currentConfig = _currentConfig + [_teamTypes select _teamIndex];" \n
 	   "		};" \n
        "	};" \n
