@@ -44,26 +44,77 @@ if (_sideVictim == sideEnemy) then {
 };
 
 //--- Benny's Garbage Collector.
-if (!(isServer) || local player) then {
-	_objects = (WF_Logic getVariable "trash") + [_killed];
-	WF_Logic setVariable ["trash",_objects,true];
-} else {
-	trashQueu = trashQueu + [_killed];
-	_killed Spawn TrashObject;
+fnGarbageCollector = {
+private['_objects', '_killed'];
+
+	sleep 1 + random(4);
+	_killed = _this select 0;
+
+	if (!(isServer) || local player) then {
+		_objects = (WF_Logic getVariable "trash") + [_killed];
+		WF_Logic setVariable ["trash",_objects,true];
+	} else {
+		trashQueu = trashQueu + [_killed];
+		_killed Spawn TrashObject;
+	};
 };
 
-sleep random(2)+random(4);
+fnUpdateSideStat = {
+private['_killedQueu', '_side', '_var', '_count', '_varName', '_lost'];
 
-if (_isMan && (_sideVictim == west || _sideVictim == east)) then {
-	_lost = WF_Logic getVariable Format ["%1Casualties",str _sideVictim];
-	_lost = _lost + 1;
-	WF_Logic setVariable [Format["%1Casualties",str _sideVictim],_lost,true];	
+	_killedQueu = _this select 0;
+	_side = _this select 1;
+	_var = _this select 2;
+	
+	_count = { !(_x select 1) && ((_x select 2) == west) } count _killedQueu;
+	if (_count > 0) then {
+		_varName = Format ["%1%2", west, _var];
+		_lost = WF_Logic getVariable _varName;
+		WF_Logic setVariable [_varName, _lost + _count, true];
+		
+		format["UpdateSideStat:%1 +%2", _varName, _count] call LogHigh;
+	};
+
 };
-if (!_isMan && (_sideVictim == west || _sideVictim == east)) then {
-	_lost = WF_Logic getVariable Format ["%1VehiclesLost",str _sideVictim];
-	_lost = _lost + 1;
-	WF_Logic setVariable [Format["%1VehiclesLost",str _sideVictim],_lost,true];	
+
+fnUpdateSideStatistic = {
+private['_tmpKilledQueu', '_killedList', '_x'];
+	
+	if (isNil "StateUpdateKillStatistic") then { StateUpdateKillStatistic = 0; };
+	if (StateUpdateKillStatistic == 1) exitWith {};
+	
+	StateUpdateKillStatistic = 1;	
+	sleep 10;
+	StateUpdateKillStatistic = 0;
+	
+	if (count unitKilledQueu > 0) then {
+
+		_tmpKilledQueu = [] + unitKilledQueu;
+		unitKilledQueu = [];
+		
+		format["UpdateSideStatistic:%1", _tmpKilledQueu] call LogHigh;
+		
+		_killedList = [];
+		{  _killedList = _killedList + [ _x select 0];  } forEach _tmpKilledQueu;
+		
+		if (!(isServer) || local player) then {
+			WF_Logic setVariable ["trash", ((WF_Logic getVariable "trash") + _killedList), true];
+		} else {
+			trashQueu = trashQueu + _killedList;
+			{_x Spawn TrashObject } forEach _killedList;
+		};
+		
+		{	[_tmpKilledQueu, _x, "VehiclesLost" ] call fnUpdateSideStat;
+			[_tmpKilledQueu, _x, "Casualties" ] call fnUpdateSideStat;
+		} 
+		forEach [west, east];
+	};
 };
+
+if (isNil "unitKilledQueu") then { unitKilledQueu = []; };
+
+unitKilledQueu = unitKilledQueu + [ [_killed, _isMan, _sideVictim] ];
+[] spawn fnUpdateSideStatistic;
 
 _killerID = Leader _killerTeam Call GetClientID;
 _get = _objectType Call GetNamespace;

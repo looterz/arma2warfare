@@ -35,6 +35,8 @@ if (WF_DEBUG || (isPlayer(_victim) && _victimId > 0 && _killerId > 0 && _victimI
 		_victimFunds = ([side _victim, _victimId] Call GetClientTeam) Call GetTeamFunds;
 		if (WF_DEBUG) then { _victimFunds = 35000; };
 		
+		format ["HeadHunting: Victim Funds: %1", _victimFunds] call LogHigh;
+		
 		if (_victimFunds >= 1000) then {
 		
 			_scoreSide = scoreSide (side _victim);
@@ -70,7 +72,8 @@ if (WF_DEBUG || (isPlayer(_victim) && _victimId > 0 && _killerId > 0 && _victimI
 			WFBE_LocalizeMessage = [[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveBounty',_bounty, _nameVictim]];
 			publicVariable 'WFBE_LocalizeMessage';
 			if (IsClientServer) then {[[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveBounty',_bounty, _nameVictim]] Spawn HandlePVF};
-
+			sleep 0.1;
+			
 			WFBE_LocalizeMessage = [[_victimId, _sideVictim],'CLTFNCLOCALIZEMESSAGE',['HeadHunterSendBounty',_bounty, _nameKiller]];
 			publicVariable 'WFBE_LocalizeMessage';
 			if (IsClientServer) then {[[_victimId, _sideVictim],'CLTFNCLOCALIZEMESSAGE',['HeadHunterSendBounty',_bounty, _nameKiller]] Spawn HandlePVF};
@@ -81,6 +84,8 @@ if (WF_DEBUG || (isPlayer(_victim) && _victimId > 0 && _killerId > 0 && _victimI
 	 
 		_killerFunds = ([side _killer, _killerId] Call GetClientTeam) Call GetTeamFunds;
 		if (WF_DEBUG) then { _killerFunds = 35000; };
+		
+		format ["HeadHunting: Killer Funds: %1", _killerFunds] call LogHigh;
 		
 		if (_killerFunds > 0) then {
 
@@ -95,6 +100,7 @@ if (WF_DEBUG || (isPlayer(_victim) && _victimId > 0 && _killerId > 0 && _victimI
 			WFBE_LocalizeMessage = [[_victimId, _sideVictim],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveRefund',_bounty, _nameKiller]];
 			publicVariable 'WFBE_LocalizeMessage';
 			if (IsClientServer) then {[[_victimId, _sideVictim],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveRefund',_bounty, _nameKiller]] Spawn HandlePVF};			
+			sleep 0.1;
 
 			WFBE_LocalizeMessage = [[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterSendRefund',_bounty, _nameVictim]];
 			publicVariable 'WFBE_LocalizeMessage';

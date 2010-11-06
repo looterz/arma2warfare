@@ -2,7 +2,7 @@
 IsClientServer = if (!isMultiplayer || (isServer && local player)) then { true; } else { false };
 
 _dT = time;
-waitUntil { _dt < time; };
+if (!isServer) then { waitUntil { _dt < time; }; }
 
 //--- Define which 'part' of the game to run.
 #include "version.sqf"
@@ -18,7 +18,7 @@ waitUntil { !isNil "LogInited" };
 "Init JIP - [Start]" call LogMedium;
 
 //--- Client Init.
-if (!isServer || local player) then {
+if (local player) then {
 	
 	"Player initialization" call LogMedium;
 	waitUntil {!isNull(player)};
@@ -33,8 +33,6 @@ serverInitComplete = false;
 gameOver = false;
 townInit = false;
 towns = [];
-
-
 
 WF_A2_Vanilla = false;
 #ifdef VANILLA
@@ -272,7 +270,9 @@ ExecVM "Common\Init\Init_Common.sqf";
 ExecVM "Common\Init\Init_Towns.sqf";
 
 if (local player) then {ExecVM "Client\Init\Init_Client.sqf"; [] execVM "limitThirdPersonView.sqf"; };
-if (isServer) then {ExecVM "Server\Init\Init_Server.sqf"};
+if (isServer  || IsClientServer) then {
+	ExecVM "Server\Init\Init_Server.sqf"
+};
 
 if (paramTrade) then {
 	execVM "Module\Market\Init_Market.sqf";

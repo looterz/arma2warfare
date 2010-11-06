@@ -1,7 +1,7 @@
 Private ['_index'];
 
 if (isNil "_this") exitWith {
-	format ["Common_GetClientIDFromTeam Exception: _this = %1", _this, _index] call LogUnexpected;
+	"Common_GetClientIDFromTeam Exception: _this = isNil" call LogUnexpected;
 	-1;
 };
 
