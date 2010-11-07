@@ -74,5 +74,5 @@ switch (true) do
 	};	
 };
 
-format ["Client_KeyButtonDown: %1: Handled: %2", _this, _keyHandled] call LogTrace;
+//format ["Client_KeyButtonDown: %1: Handled: %2", _this, _keyHandled] call LogTrace;
 _keyHandled;
