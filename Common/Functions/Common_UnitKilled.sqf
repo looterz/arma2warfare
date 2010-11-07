@@ -60,30 +60,26 @@ private['_objects', '_killed'];
 };
 
 fnUpdateSideStat = {
-private['_killedQueu', '_side', '_var', '_count', '_varName', '_lost'];
+private['_killedQueu', '_side', '_count', '_varName', '_lost', '_isMan'];
 
 	_killedQueu = _this select 0;
 	_side = _this select 1;
-	_var = _this select 2;
+	_varName = _this select 2;
+	_isMan = _this select 3;
 	
-	_count = { !(_x select 1) && ((_x select 2) == west) } count _killedQueu;
+	_count = { ((_x select 1) == _isMan) && ((_x select 2) == _side) } count _killedQueu;
 	if (_count > 0) then {
-		_varName = Format ["%1%2", west, _var];
+		_varName = Format ["%1%2", _side, _varName];
 		_lost = WF_Logic getVariable _varName;
 		WF_Logic setVariable [_varName, _lost + _count, true];
 		
 		format["UpdateSideStat:%1 +%2", _varName, _count] call LogHigh;
 	};
-
 };
 
-fnUpdateSideStatistic = {
+fnUpdateKillStatistic = {
 private['_tmpKilledQueu', '_killedList', '_x'];
 	
-	if (isNil "StateUpdateKillStatistic") then { StateUpdateKillStatistic = 0; };
-	if (StateUpdateKillStatistic == 1) exitWith {};
-	
-	StateUpdateKillStatistic = 1;	
 	sleep 10;
 	StateUpdateKillStatistic = 0;
 	
@@ -104,17 +100,22 @@ private['_tmpKilledQueu', '_killedList', '_x'];
 			{_x Spawn TrashObject } forEach _killedList;
 		};
 		
-		{	[_tmpKilledQueu, _x, "VehiclesLost" ] call fnUpdateSideStat;
-			[_tmpKilledQueu, _x, "Casualties" ] call fnUpdateSideStat;
+		{	[_tmpKilledQueu, _x, "VehiclesLost", 0 ] call fnUpdateSideStat;
+			[_tmpKilledQueu, _x, "Casualties", 1 ] call fnUpdateSideStat;
 		} 
-		forEach [west, east];
+		forEach ([west, east]);
 	};
 };
 
 if (isNil "unitKilledQueu") then { unitKilledQueu = []; };
 
-unitKilledQueu = unitKilledQueu + [ [_killed, _isMan, _sideVictim] ];
-[] spawn fnUpdateSideStatistic;
+unitKilledQueu = unitKilledQueu + [ [_killed, (if (_isMan) then {1} else {0}), _sideVictim] ];
+if (isNil "StateUpdateKillStatistic") then { StateUpdateKillStatistic = 0; };
+
+if (StateUpdateKillStatistic == 0) then {
+	StateUpdateKillStatistic = 1;
+	[] spawn fnUpdateKillStatistic;
+};
 
 _killerID = Leader _killerTeam Call GetClientID;
 _get = _objectType Call GetNamespace;

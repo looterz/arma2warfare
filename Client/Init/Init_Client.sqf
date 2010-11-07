@@ -41,7 +41,10 @@ PlayerKilled = Compile preprocessFile "Client\Client_Killed.sqf";
 ReplaceArray = Compile preprocessFile "Client\Functions\Client_ReplaceArray.sqf";
 ReplaceInventoryAmmo = Compile preprocessFile "Client\Functions\Client_ReplaceInventoryAmmo.sqf";
 
-HandleMainDisplayKeys = Compile preprocessFile "Client\Functions\Client_HandleMainDisplayKeys.sqf";
+KeyboardButtonDown = Compile preprocessFile "Client\Functions\Client_KeyboardButtonDown.sqf";
+MouseButtonDown = Compile preprocessFile "Client\Functions\Client_MouseButtonDown.sqf";
+JoystickButtonDown = Compile preprocessFile "Client\Functions\Client_JoystickButtonDown.sqf";
+
 RemoveFlares = Compile preprocessFile "Client\Functions\Client_RemoveFlares.sqf";
 Action_MissleCam = Compile preprocessFile "Module\CamMissle\action_misslecam.sqf";
 
@@ -224,7 +227,9 @@ WF_Logic setVariable ['filler','primary'];
 [] Call Compile preprocessFile "Client\Module\Skill\Skill_Init.sqf";
 
 //--- Handle Client keys: Disbale command Menu scanning, Factories Lock, etc.
-(findDisplay 46) displayAddEventHandler ["KeyDown", "_this call HandleMainDisplayKeys"];
+(findDisplay 46) displayAddEventHandler ["KeyDown", "_this call KeyboardButtonDown"];
+(findDisplay 46) displayAddEventHandler ["MouseButtonDown", "_this call MouseButtonDown"];
+//(findDisplay 46) displayAddEventHandler ["JoystickButton", "_this call JoystickButtonDown"];
 
 //--- Soldier Skill.
 if (playerType in Skills_Soldiers) then {['WFBE_MAXGROUPSIZE',('WFBE_MAXGROUPSIZE' Call GetNameSpace) + ('WFBE_MAXGZBONUSSKILL' Call GetNamespace),true] Call SetNamespace};

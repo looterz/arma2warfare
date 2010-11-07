@@ -73,4 +73,6 @@ switch (true) do
 		_keyHandled = true;
 	};	
 };
+
+format ["Client_KeyButtonDown: %1: Handled: %2", _this, _keyHandled] call LogTrace;
 _keyHandled;
