@@ -228,7 +228,7 @@ WF_Logic setVariable ['filler','primary'];
 
 //--- Handle Client keys: Disbale command Menu scanning, Factories Lock, etc.
 (findDisplay 46) displayAddEventHandler ["KeyDown", "_this call EHKeyboardButtonDown"];
-(findDisplay 46) displayAddEventHandler ["MouseButtonDown", "_this callEH_MouseButtonDown"];
+(findDisplay 46) displayAddEventHandler ["MouseButtonDown", "_this call EH_MouseButtonDown"];
 (findDisplay 46) displayAddEventHandler ["JoystickButton", "_this call EHJoystickButtonDown"];
 
 //--- Soldier Skill.
