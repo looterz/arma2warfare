@@ -27,6 +27,8 @@ if ((str _town) in TownTemplate) exitWith {
 };
 
 waitUntil {commonInitComplete};
+sleep 10;
+
 if (isNull _town) exitWith {
 	Format ["Init_Camp.sqf: Camp not initialized due parent town is removed in the towns templates."] call LogHigh;
 };
@@ -50,9 +52,6 @@ _marker setMarkerSizeLocal [0.5,0.5];
 
 Format["Init_Camp: Camp '%1' of town '%2' initialization - [Done]",str _camp,str _town] call LogHigh;
 
-waitUntil {commonInitComplete};
-
-sleep 10;
 
 if (isServer) then {
 	_supplyValue = 0;
