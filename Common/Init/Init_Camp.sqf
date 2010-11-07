@@ -26,6 +26,15 @@ if ((str _town) in TownTemplate) exitWith {
 	};
 };
 
+waitUntil {commonInitComplete};
+if (isNull _town) exitWith {
+	Format ["Init_Camp.sqf: Camp not initialized due parent town is removed in the towns templates."] call LogHigh;
+};
+
+if (isNull _camp) exitWith {
+	Format ["Init_Camp.sqf: Camp not initialized due parent town is removed in the towns templates."] call LogHigh;
+};
+
 _camps = _town getVariable "camps";
 if (isNil "_camps") then {_town setVariable ["camps",[]]};
 _camps = _town getVariable "camps";
