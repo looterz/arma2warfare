@@ -2,9 +2,13 @@ _camp = _this Select 0;
 _town = _this Select 1;
 
 waitUntil { !isNil "LogInited" };
-waitUntil {townModeSet};
+waitUntil { townModeSet };
+waitUntil { commonInitComplete };
+waitUntil { count towns == totalTowns };
 
 if (isNull _town) exitWith {
+	Format ["Init_Camp.sqf: Camp not initialized due parent town is removed in the towns templates."] call LogHigh;
+
 	if (isServer && !isNull _camp) then {
 		(getPos _camp) Spawn {
 			waitUntil {commonInitComplete};
@@ -24,13 +28,6 @@ if ((str _town) in TownTemplate) exitWith {
 		};
 		deleteVehicle _camp;
 	};
-};
-
-waitUntil {commonInitComplete};
-sleep 10;
-
-if (isNull _town) exitWith {
-	Format ["Init_Camp.sqf: Camp not initialized due parent town is removed in the towns templates."] call LogHigh;
 };
 
 if (isNull _camp) exitWith {
