@@ -1,61 +1,108 @@
-//--- Author [ICE]
-player createDiaryRecord["Diary", ["Bomba What News", "
-<br/>Most features are configurabe with game parameters;
-<br/> 
-<br/>Trading: 
-<br/>You can buy and sell various product types at market. 
-<br/>Any town has market place at cental depot;
-<br/>HQ and Factories has market place;
-<br/>You can trade between towns or factories for get extra moneys.
-<br/>Sell some products at factory can get extra features for this factory.
-<br/>
-<br/>Different vehicle has different free cargo;
-<br/>Any player can capture or stole other player transport and sell contained products.
-<br/>Note: When player die or lost transport all product stored into cargo are LOST!
-<br/>
-<br/>Buy / Sell Supplies:
-<br/>Commander can buy and sell supplies from HQ.
-<br/>HQ market can trade only supplies. Other product types are not avaible for trade.
-<br/>Any player can put supplies at any factory, but only commander can get supplies from HQ store;
-<br/>Any player can buy and sell supplies at market of any town.
-<br/>
-<br/>Upgrade Factory protection: 
-<br/>Buy stones at market of any town and sell it at factories. 
-<br/>Factory strength increased to +100% foreach 100t stones that it stored;
-<br/>Factory without any protection can be destroyed from 1-2 SMAW;
-<br/>Factory with 100t stones (+100%) can be destroyed from 2-4 SMAW;
-<br/>Factory with 200t stones (+200%) can be destroyed from 3-5 SMAW;
-<br/>
-<br/>Head Hunters:
-<br/>When player kills enemy player, player receives an extra award, which equals 5-15%+ of victim cash (depend from player score), thus the victim loses award value. The maximum award value is $5000. But, in case when victim has cash less than $1000 the award isn't paid.
-<br/>When the player kills frendly player (team kill), player loses 10% his cash, paying refund to a victim. The minimum value of refund is $500.
-<br/>Award for kill enemy commander: 75% cash of commander. Killed player lose this moneys;
-<br/>Award for destroy enemy HQ: $25000
-<br/>Award for destroy enemy factory: $5000
-<br/>
-<br/>Other Features:
-<br/>More carefull placement items from constuction menu. Now impossible build something inside another building. But can build near with minimal distance.
-<br/>Players can buy heavy vehicles, light vehicles and solidiers in central depot of any captured town (while factories are alive). A item price will increased depend how far nearest base factory. (+25% for each 1000m)
-<br/>Simple build town defenses. Players can build static defences around town, without repair truck.
-<br/>Commander can build base in a town.
-<br/>Factory builded in town give discounted prices 10-30% (depended current SV and max SV)
-<br/>
-<br/>Artillery: Player notified when target out of range or how much arty guns can hit target.
-<br/>Artillery: Shell tracing traectory and check ground collision, so fired shell sometimes cannot be reach target becouse arty gun has bad position;
-<br/>Artillery: Parameter High Ballistic Traectory. When disabled - arty max shot angle is 45 degrees, so more chance collision with mountains. So Arty operator must select good position (more high) for hit target and factories can be places at hardy targeted places 
-<br/>
-<br/>Player can buy aircrafts only in airport hangars;
-<br/>Player can refuel, rearm and repair aircrafts (only aircrafts) in airport hangars;
-<br/>AI unit cost include gear cost;
-<br/>
-<br/>Fixed:
-<br/>Artillery does not fired with latest beta patches.
-<br/>Target Lock in tank are disabled.
-<br/>Flares allowed only after upgrade.
-<br/>Disable ability restore mhq or build something in case when open construction menu is open and MHQ have been destoryed;
-<br/>Disable ability build outside build zone; 
-<br/>Fixed bug that get possible build defences and factories inside other building even when position marked as red;
+//--- Author [Bomba]
+player createDiaryRecord["Diary", ["Bomba: Fixed Bugs", "
+<br/>Fix: Do not display results at the end of the game;
+<br/>Fix: Disable the capture of target only during the motion of the tanks and the selected gun D81 and M256. 
+<br/>Fix: Bug with patrols. Patrols does not appear due script error;
 "]];
+
+player createDiaryRecord["Diary", ["Bomba: Gameplay", "
+<br/>Aircrafts:
+<br/>* The ability to buy planes only in the airport hangar;
+<br/>* Ability can refuel, rearm in the hangars of the airport;
+<br/>* Aircraft Flares are only available after upgrading.
+<br/>* Camera follow to missiles shooted from aircraft (Settings: Default Off)
+"]];
+
+player createDiaryRecord["Diary", ["Bomba: Artillery", "
+<br/>* Notification when the target is out of range or how many art weapons can hit a target.
+<br/>* Trace the flight shell, taking into account the terrain. Shell can not reach the goal if faced with the surface
+<br/>* Use either low or high ballistic trajectory of a Shell (settings).
+<br/>* When using a low ballistic artillery becomes less cheat.
+<br/>  To successfully hit a target you want to borrow and to place artillery on the heights;
+<br/>  This makes it easy to place bases in areas inaccessible or difficult accessible to artillery, for example in canyons (Takistan)
+<br/>* Fix: Artillery does not work with latest beta patch.
+"]];
+
+player createDiaryRecord["Diary", ["Bomba: Bounty Hunters", "
+<br/>* When a player kills a player's opponent (not AI), the player receives reward, which amounts to 5-15% cash 
+killed player (depending on player scored at the time), and the killed player loses paid a reward. 
+<br/>* The maximum reward is $ 5000. 
+<br/>* In case of the killed player cash less than $ 1000 - money is not paid. 
+<br/>
+<br/>* If a player kills a player, the player loses 10% of their money as compensation for killed player. Minimum compensation of $ 500. 
+<br/>
+<br/>* The reward for killing enemy commander: 75% cash commander. Killed player loses the paid reward. 
+<br/>* The reward for the destruction of the enemy's HQ: $ 25000 
+<br/>* The reward for the destruction of the enemy's factory: $ 5000
+"]];
+
+player createDiaryRecord["Diary", ["Bomba: Protecting Factories", "
+<br/>* Protection depend how much product 'Stones' hold factory stock. So player can buy product 'Stones' at city and sell it at factory.
+<br/>* The more product 'Stones' contain plant the stronger the protection of the factory. 
+<br/>* Protection applies only to factories which contains stones, not all plants side. 
+<br/>* The strength increases by 100% for every 100 tons, which are stored in a factory warehouse; 
+<br/>* When attacking factories amount of stones is reduced by the amount of damage;
+<br/>* Restrictions on the maximum level of protection not - depends on the quantity of stones in stock;
+<br/>
+<br/>- Factory without stones in stock, destroyed as usual with a 1-2 SMAW;
+<br/>- Factory with 100t of stones has increased strength by 2 times and destroyed with a 2-4 SMAW;
+<br/>- Factory with 200t of stones has increased strength by 3 times and destroyed with a 3-5 SMAW;
+"]];
+
+player createDiaryRecord["Diary", ["Bomba: Supplies Purchase / Sale", "
+<br/>* The commander can buy and sell supplies from headquarters.
+<br/>* HQ may sell only supplies. Other products are not available for trading.
+<br/>* Only the commander can unload supplies from the HQ in the truck;
+<br/>* Any player can sell supplies to any factory (amount is added to the total supply of player team)
+<br/>* Any player can buy and sell supplies to the market in any city.
+"]];
+
+player createDiaryRecord["Diary", ["Bomba: Buy Vehicles and Units", "
+<br/>* The cost of equipment depends on the availability of stock factory necessary for its production of goods.
+<br/>* Sell the goods in a warehouse can significantly reduce the price of technology.
+<br/>* Goods consumed when player buy vehicles or units at this plant.
+<br/>* The price includes the equipment cost of a unit (calculated dynamically based on current prices)
+<br/>
+<br/>* The ability to buy necessary role in the barracks:
+In the last section (where the compass, map, etc.) - to buy personal DogTags.
+Role is activated only when unit equipping a backpack and personal DogTags (scout, medic, engineer, hacker, commander).
+Units that can not carry backpacks can buy role, but can not use it, what will be warned about the absence of the required backpack.
+"]];
+
+player createDiaryRecord["Diary", ["Bomba: Towns", "
+<br/>* The commander can build a base in the city. 
+<br/>* The plant was built in the city provides discounts of 10-30% (depending on the current maximum SV and SV may be provided by city) 
+Players can buy soldiers lekuyu and heavy equipment in a central warehouse of any captured the city (with plants of the appropriate type). 
+<br/>* Cost increases depending on how far the plant (+25% for every 1000m) (the cost of transport costs for express delivery). 
+<br/>* Simple construction of the city's defense. Any player can create static capacity in the captured city without a repair truck. 
+"]];
+
+player createDiaryRecord["Diary", ["Bomba: Construction Menu", "
+<br/>* A more accurate placement of elements in the construction menu.
+<br/>* More is impossible to build something in a different building. But it is possible to construct a near minimum distance.
+<br/>* Fix: Commander can restore MHQ or build something, if the commander opened the construction menu and this time the headquarters had been destroyed;
+<br/>* Fix: Disabled opportunity to build outside the area of construction;
+<br/>* Fix: Disabled bug that made it possible to build a defense or factory buildings, at the positions marked as unavailable for stoitelstva (red or gray);
+<br/>
+<br/>If the enemy is present in the city, the menu simple construction of the city's defense blocked for 5 minutes.
+<br/>Mission parameter defined who can put a simple defense of the city: Nobody, Only the engineers, Anybody;
+<br/>Commander can put camouflage tent on top of other objects;
+"]];
+
+player createDiaryRecord["Diary", ["Bomba: Trade", "
+<br/>* Ability to buy / sell various kinds of goods on the market.
+<br/>* The market is available in the central bunker of any city, headquarters or factories;
+<br/>* All prices are different in different cities, the smaller the stock status of the higher cost of purchase / sale.
+<br/>* Each city produces some product quantities. A rate of production is arbitrary for each type of product
+for each city.
+<br/>* The price of the goods is not quite random - it depends on the price of goods in neighboring towns, and the volume of goods in the warehouse of the current city.
+<br/>
+<br/>* Vehicles can carry different amounts of load: depends on the type of transport;
+<br/>* Any player can capture the traffic of other players or the enemy and sell a product which is contained in this transport.
+<br/>* When a player dies or lost transport all the goods lost
+"]];
+
+
 player createDiaryRecord["Diary", ["Upgrades", "<br/>To be able to purchase higher levels of equipment or units, the factories need to be upgraded by the commander. The commander will need both cash and supply points to do this. He may ask for contributions from other team players to help out. Each factory has 3 levels."]];
 player createDiaryRecord["Diary", ["Supplies", "<br/>Each captured town has an Actual and Potential Value. On the map you will see this represented as 2 numbers seperated by a / for example; Zelenogorsk, once captured will start as 30/120. This means that the current supplies to each player from this town is $30 per minute. Each time a supply truck arrives at the town depot its value will increase by 10. Remember though, the supply truck must be either fully loaded from the HQ or a Supply point or, have come from a town with a higher actual value. you will also receive 4 x the actual value as cash if you or one of your squad drives the truck. Supply runs should be the responsibility of all. The best way to win Warfare is to work together capping and then supping up the town before moving to another."]];
 player createDiaryRecord["Diary", ["Building", "<br/>The commander builds a base. Each side starts with one Mobile Headqarters (MHQ). This is a vehicle the commander can use to build th headquarters (HQ) anywhere on the map. After the HQ is built, other buildings can be constructed. Only the commander can build factories and defenses around the base using the HQ. The HQ can also be packed up back as MHQ again and moved to another location."]];
