@@ -27,7 +27,7 @@ player createDiaryRecord["Diary", ["Bomba: Bounty Hunters", "
 <br/>* When a player kills a player's opponent (not AI), the player receives reward, which amounts to 5-15% cash 
 killed player (depending on player scored at the time), and the killed player loses paid a reward. 
 <br/>* The maximum reward is $ 5000. 
-<br/>* In case of the killed player cash less than $ 1000 - money is not paid. 
+<br/>* In case of the killed player cash less than $ 1000 - money is not paid.
 <br/>
 <br/>* If a player kills a player, the player loses 10% of their money as compensation for killed player. Minimum compensation of $ 500. 
 <br/>

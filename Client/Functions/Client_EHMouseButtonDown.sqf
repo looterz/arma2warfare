@@ -76,7 +76,7 @@ switch (_pressedMouseButton) do
 };
 
 
-{ if (!_return) then { _return = [_display, _x, _pressedShift, _pressedControl, _pressedAlt] call KeyboardButtonDown; };
+{ if (!_return) then { _return = [_display, _x, _pressedShift, _pressedControl, _pressedAlt] call EHKeyboardButtonDown; };
 } forEach _pressedMouseButtonArray;
 
 //format ["Client_MouseButtonDown: %1: Handled: %2", _this, _return] call LogTrace;
