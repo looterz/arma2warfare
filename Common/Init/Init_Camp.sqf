@@ -4,7 +4,7 @@ _town = _this Select 1;
 waitUntil { !isNil "LogInited" };
 waitUntil { townModeSet };
 waitUntil { commonInitComplete };
-waitUntil { count towns == totalTowns };
+waitUntil { townInit };
 
 if (isNull _town) exitWith {
 	Format ["Init_Camp.sqf: Camp not initialized due parent town is removed in the towns templates."] call LogHigh;
