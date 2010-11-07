@@ -8,7 +8,6 @@ _position = _this select 2;
 _direction = _this select 3;
 _index = _this select 4;
 
-waitUntil { initJIP };
 waitUntil { !isNil "LogInited" };
 
 _time = ((Format ["WFBE_%1STRUCTURETIMES",str _side] Call GetNamespace) select _index) / 2;

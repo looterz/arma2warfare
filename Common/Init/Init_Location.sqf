@@ -1,4 +1,3 @@
-waitUntil { initJIP };
 waitUntil { !isNil "LogInited" };
  
 _location = _this Select 0;

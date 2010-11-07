@@ -1,11 +1,10 @@
+//--- Define which 'part' of the game to run.
+#include "version.sqf"
+
+
 //--- Global Init, first file called.
 IsClientServer = if (!isMultiplayer || (isServer && local player)) then { true; } else { false };
 
-_dT = time;
-if (!isServer) then { waitUntil { _dt < time; }; };
-
-//--- Define which 'part' of the game to run.
-#include "version.sqf"
 
 WF_Debug = false;
 #ifdef WF_DEBUG

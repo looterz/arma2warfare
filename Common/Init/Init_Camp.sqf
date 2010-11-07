@@ -1,7 +1,6 @@
 _camp = _this Select 0;
 _town = _this Select 1;
 
-waitUntil { initJIP };
 waitUntil { !isNil "LogInited" };
 waitUntil {townModeSet};
 

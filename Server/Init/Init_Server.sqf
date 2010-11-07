@@ -1,11 +1,9 @@
-waitUntil { initJIP };
+waitUntil { !isNil "LogInited" };
 
 if (!isServer || time > 30) exitWith {
 	"Init_Server: The server initialization cannot be called more than once." call LogError;
 };
 
-
-waitUntil { !isNil "LogInited" };
 Format["Init_Server: Init Start"] call LogMedium;
 
 createCenter resistance; //--- Allow resistance group to be spawned without a placeholder.

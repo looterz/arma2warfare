@@ -1,4 +1,3 @@
-waitUntil { initJIP };
 waitUntil { !isNil "LogInited" };
 
 Skills_Soldiers = ['FR_R','RUS_Soldier1','US_Delta_Force_EP1','TK_Special_Forces_EP1'];
