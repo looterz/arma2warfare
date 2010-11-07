@@ -18,6 +18,6 @@ _script = _configScripts Select (Random (_total - 1));
 _params = [_location,_locationName];
 if (Count _this > 4) then {_params = _params + [_range]};
 
-waitUntil{initJIP && commonInitComplete};
+waitUntil{commonInitComplete};
 
 _params ExecVM Format["Server\Config\Config_%1.sqf",_script];

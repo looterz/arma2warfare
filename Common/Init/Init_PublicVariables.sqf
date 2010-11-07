@@ -1,6 +1,5 @@
 Private ['_count','_l'];
 
-waitUntil { initJIP };
 waitUntil { !isNil "LogInited" };
 
 _l		= ["RequestVehicleLock"];
