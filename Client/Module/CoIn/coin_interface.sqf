@@ -608,7 +608,11 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 					} else {
 					
 						_color = _colorGreen;
-						_checkPlaceZone = if (_itemclass call _IsFreePlaceClass) then { false } else { true };
+						
+						_isCommander = false;
+						if (!isNull(commanderTeam)) then {if (commanderTeam == group player) then {_isCommander = true}};
+						
+						_checkPlaceZone = if (_isCommander && (_itemclass call _IsFreePlaceClass)) then { false } else { true };
 						
 						if (_checkPlaceZone) then {
 					
