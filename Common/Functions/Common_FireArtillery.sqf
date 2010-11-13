@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_FireArtillery");
+
 Private["_magazine", "_ammo","_angle","_arcDistance","_artillery","_destination","_direction","_distance","_minRange","_maxRange","_position","_radius","_shell","_side","_type","_velocity","_weapon","_x","_y"];
 
 _artillery = _this Select 0;
@@ -246,4 +249,6 @@ if (_amount > 0) then {
 	};
 	
 	Gunner _artillery DoWatch _watchPosition;
-}
+};
+
+PROFILER_END();

@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Server_ConstructionStationaryDefense");
+
 //*****************************************************************************************
 //Description: Creates Defenses.
 //*****************************************************************************************
@@ -80,3 +83,5 @@ if (paramArtyUI) then {
 		Format["Construction_StationaryDefense: Artillery UI has been set over the %1 %2",str _side,_type] call LogInform;
 	};
 };
+
+PROFILER_END();

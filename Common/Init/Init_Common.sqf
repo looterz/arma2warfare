@@ -79,6 +79,8 @@ SetTeamMoveMode = Compile PreprocessFile "Common\Functions\Common_SetTeamMoveMod
 SetTeamMovePos = Compile PreprocessFile "Common\Functions\Common_SetTeamMovePos.sqf";
 SetTeamType = Compile PreprocessFile "Common\Functions\Common_SetTeamType.sqf";
 SpawnTurrets = Compile PreprocessFile "Common\Functions\Common_SpawnTurrets.sqf";
+
+QuickSort = Compile PreprocessFile "Common\Functions\Common_QuickSort.sqf";
 SortByDistance = Compile PreprocessFile "Common\Functions\Common_SortByDistance.sqf";
 UnitKilled = Compile PreprocessFile "Common\Functions\Common_UnitKilled.sqf";
 HeadHunters = Compile PreprocessFile "Common\Functions\Common_HeadHunters.sqf";
@@ -203,6 +205,8 @@ if (paramBoundaries) then {
 	[] Call Compile preprocessFile "Common\Init\Init_Boundaries.sqf";
 	"Init_Common: Boundaries Loading - [Done]" call LogMedium;;
 };
+
+execVM "Common\Init\Init_UnitEquipmentPrice.sqf";
 
 //--- Disable Artillery Computer.
 if (!paramArtyComputer && !WF_A2_Vanilla) then {[] Call Compile preprocessFile 'Common\Common_DisableAC.sqf'};

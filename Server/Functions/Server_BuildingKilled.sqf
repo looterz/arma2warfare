@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Server_BuildingKilled");
+
 Private ["_structure","_structures","_side","_type"];
 _structure = _this select 0;
 _killer = _this select 1;
@@ -48,3 +51,5 @@ Call Compile Format ["%1BaseStructures = %1BaseStructures - [_structure] - [objN
 sleep 10;
 
 deleteVehicle _structure;
+
+PROFILER_END();

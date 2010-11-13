@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Support_Paratroopers");
+
 Private["_args","_side"];
 
 _args = _this;
@@ -76,3 +79,5 @@ while {!_exit} do {
 deleteVehicle _pilot;
 deleteVehicle _vehicle;
 deleteGroup _grp;
+
+PROFILER_END();

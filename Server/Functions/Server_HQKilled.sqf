@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Server_HQKilled");
+
 Private ["_deployed","_dir","_hq","_HQName","_killer","_MHQ","_pos","_side","_type"];
 _hq = _this select 0;
 _killer = _this select 1;
@@ -60,3 +63,5 @@ if (mysql) then {
 if (_type == WESTHQ) then {_type = 'WFBE_WESTMHQNAME' Call GetNamespace};
 if (_type == EASTHQ) then {_type = 'WFBE_EASTMHQNAME' Call GetNamespace};
 ['Destroyed',_type,_side] Spawn SideMessage;
+
+PROFILER_END();

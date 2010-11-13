@@ -1,5 +1,9 @@
-Private ['_variable'];
+#include "profiler.h"
+PROFILER_BEGIN("Common_GetNamespace");
 
-_variable = _this;
+Private ['_value'];
 
-missionNamespace getVariable _variable
+_value = missionNamespace getVariable _this;
+
+PROFILER_END();
+if (!isNil "_value") exitWith { _value; };

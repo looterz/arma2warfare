@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Server_ConstructionMediumSite");
+
 //*****************************************************************************************
 //Description: Creates a small construction site.
 //*****************************************************************************************
@@ -58,3 +61,5 @@ if (!IsNull _site) then {
 	
 	Format["Construction_MediumSite: A %1 %2 was constructed",str _side,_type]  call LogInform;
 };
+
+PROFILER_END();

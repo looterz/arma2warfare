@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_PlaceSafe");
+
 Private["_count","_currentPosition","_direction","_object","_obstacles","_placed","_position","_radius","_vehicles"];
 ScopeName "PlaceSafe";
 
@@ -26,3 +29,5 @@ for [{_count = 0},{_count < 10 && !_placed},{_count = _count + 1}] do {
 };
 
 if (!_placed) then {_object SetPos _position};
+
+PROFILER_END();

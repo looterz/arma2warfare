@@ -1,6 +1,13 @@
-Private ['_team','_x'];
+#include "profiler.h"
+PROFILER_BEGIN("Server_AIOrders_WPRemove");
+
+Private ['_team','_u'];
 _team = _this;
 
-for [{_x = (count (waypoints _team))-1},{_x > -1},{_x = _x - 1}] do {
-	deleteWaypoint [_team, _x];
+_u = count (waypoints _team);
+while { !(_u == 0) } do {
+	_u = _u - 1;
+	deleteWaypoint [_team, _u];	
 };
+
+PROFILER_END();

@@ -7,7 +7,12 @@
 	Description:
 	  This file is called upon a player connection, the player's information are stored or retrieved before being updated.
 */
-Private ['_attempts','_funds','_get','_leader','_name','_side','_sideLeft','_slotIndex','_team','_uid'];
+#include <common.h>
+
+Private ["_profiler", '_attempts','_funds','_get','_leader','_name','_side','_sideLeft','_slotIndex','_team','_uid'];
+
+PROFILER_BEGIN("Server_PlayerConnected");
+
 _uid = _this select 0;
 _name = _this select 1;
 
@@ -28,6 +33,7 @@ while {_attempts < 12 && isNull _team} do {
 //--- Not found, exit.
 if (isNull _team) exitWith {
 	Format ["Server_PlayerConnected: Player %1 (%2) is not defined within the west and east teams.",_name,_uid] call LogNotify;
+	PROFILER_END();
 };
 _leader = leader _team;
 _side = objNull;
@@ -75,6 +81,7 @@ if (isNil '_get') exitWith {
 	[Format["WFBE_JIP_USER%1",_uid],[_uid,_slotIndex,0,_side,_side,if (mysql) then {round(time)} else {0}],true] Call SetNamespace;
 
 	Call Compile Format ["%1Funds%2 = %3; publicVariable '%1Funds%2';",str _side,_slotIndex+1,Format ["WFBE_%1STARTINGMONEY",str _side] Call GetNamespace];
+	PROFILER_END();
 };
 
 //--- Player d/c before, update info.
@@ -110,3 +117,4 @@ if (_sideLeft != _side) then {
 
 //--- Set the cash.
 Call Compile Format ["%1Funds%2 = _funds; publicVariable '%1Funds%2';",str _side,_slotIndex+1];
+PROFILER_END();

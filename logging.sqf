@@ -12,14 +12,14 @@ private['_time', '_str'];
 	_str;
 };
 
-LOGLEVEL = 7;
+LOGLEVEL = 5;
 #ifdef WF_LOGLEVEL
 	LOGLEVEL = WF_LOGLEVEL;
 #endif
 
-#ifdef WF_DEBUG
-	LOGLEVEL = 10;
-#endif
+if (WF_DEBUG) then {
+	LOGLEVEL = 6;
+};
 
 LogNotify     = {};
 LogUnexpected = {}; 

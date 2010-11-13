@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_GetTurretsMags");
+
 /* Adapted from BIS turret's function. */
 private ['_entry','_turretIndex','_turrets','_turretIndex'];
 _entry = _this select 0;
@@ -39,4 +42,5 @@ for '_i' from 0 to ((count _entry) - 1) do
 	};
 };
 
+PROFILER_END();
 _turrets

@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_GetUnitBelowHeight");
+
 Private["_belowUnits","_height","_units"];
 
 _units = _this Select 0;
@@ -7,4 +10,5 @@ _belowUnits = [];
 
 {if ((GetPos _x Select 2) < _height) then {_belowUnits = _belowUnits + [_x]};} ForEach _units;
 
-_belowUnits
+PROFILER_END();
+_belowUnits;

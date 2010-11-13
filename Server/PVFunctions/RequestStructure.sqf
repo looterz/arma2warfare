@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("RequestStructure");
+
 Private ["_side","_structure"];
 _side = _this select 0;
 _structureType = _this select 1;
@@ -9,3 +12,5 @@ if (_index != -1) then {
 	_script = (Format ["WFBE_%1STRUCTURESCRIPTS",str _side] Call GetNamespace) select _index;
 	[_structureType,_side,_pos,_dir,_index] ExecVM (Format["Server\Construction\Construction_%1.sqf",_script]);
 };
+
+PROFILER_END();

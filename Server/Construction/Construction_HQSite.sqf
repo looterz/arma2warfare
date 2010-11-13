@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Server_ConstructionHQSite");
+
 Private ["_deployed","_direction","_HQ","_position","_side","_sideText","_site","_varTH"];
 _type = _this select 0;
 _side = _this select 1;
@@ -77,3 +80,5 @@ if (!_deployed) then {
 
 /* Handle the LAG. */
 WF_Logic setVariable [_varTH,false];
+
+PROFILER_END();

@@ -1,12 +1,19 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_InitUnit");
+
 Private ["_finalNumber","_numbers","_side","_text","_unit"];
 _unit = _this select 0;
 _side = _this select 1;
 
-if (isNull _unit) exitWith {};
+if (isNull _unit) exitWith {
+	PROFILER_END();
+};
 waitUntil {commonInitComplete};
 sleep 2;
 
-if (sideJoined != _side) exitWith {};
+if (sideJoined != _side) exitWith {
+	PROFILER_END();	
+};
 
 _type = "Vehicle";
 _color = "ColorGreen";
@@ -35,3 +42,5 @@ if (_unit isKindOf "Man") then {
 };
 
 _params Spawn MarkerUpdate;
+
+PROFILER_END();

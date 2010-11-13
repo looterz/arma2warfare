@@ -4,10 +4,10 @@
 */
 
 /* DEBUG */
-//#define WF_DEBUG 1
+#define WF_DEBUG 1
 
 /* Gameplay: Change the overall camo */
-#define WF_CAMO 1
+//#define WF_CAMO 1
 
 /* Gamemode to run */
 #define COMBINEDOPS 1
@@ -16,7 +16,7 @@
 
 /* Description.ext Specific */
 #define WF_MAXPLAYERS 40
-#define WF_MISSIONNAME "[40]Warfare BE V2.065 R3 Lite CO Balanced Bomba Edition - Chernarus"
+#define WF_MISSIONNAME "[40]Warfare BE V2.065 R3 Lite CO Balanced Bomba Edition - Takistan"
 #define WF_RESPAWNDELAY 2
 
 /* MySQL Support */

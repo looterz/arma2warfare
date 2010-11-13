@@ -1,4 +1,7 @@
-Private["_funds","_index","_team"];
+#include "profiler.h"
+PROFILER_BEGIN("Common_GetTeamFunds");
+
+Private["_funds","_index","_team", "_result"];
 
 if (isNil "_this") exitWith {
 	format ["Common_GetTeamFunds Exception: _this = %1", _this] call LogUnexpected;
@@ -17,4 +20,7 @@ if (_index == -1) exitWith {
 	0;
 };
 
-Call Compile Format ["%1Funds%2",str (side _this),_index];
+_result = Call Compile Format ["%1Funds%2",str (side _this),_index];
+
+PROFILER_END();
+_result;

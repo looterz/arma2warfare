@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_GetFriendlyCamps");
+
 Private["_camp","_camps","_count","_friendlyCamps","_side","_sideID","_town"];
 
 _town = _this Select 0;
@@ -11,4 +14,5 @@ _friendlyCamps = [];
 	if ((_x getVariable "sideID") == _sideID) then {_friendlyCamps = _friendlyCamps + [_x]};	
 } forEach _camps;
 
-_friendlyCamps
+PROFILER_END();
+_friendlyCamps;

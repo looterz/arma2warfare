@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_BackpackHasSpace");
+
 Private ['_backpackHasRoom','_bp','_bpContent','_bpItem','_max','_space','_type','_u'];
 _bp = _this select 0;
 _bpContent = _this select 1;
@@ -13,4 +16,6 @@ for '_u' from 0 to count(_bpContent select 0)-1 do {
 };
 
 _backpackHasRoom = if ((ceil(getNumber(configFile >> 'CfgMagazines' >> _bpItem >> 'type') / 256)) + _space > _max) then {false} else {true};
-_backpackHasRoom
+
+PROFILER_END();
+_backpackHasRoom;

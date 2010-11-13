@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_GetCommanderFromVotes");
+
 Private["_count","_side","_teams","_total","_vote","_votes"];
 
 _side = _this Select 0;
@@ -16,4 +19,5 @@ for [{_count = 1},{_count < _total},{_count = _count + 1}] do {
 	};
 };
 
-_votes
+PROFILER_END();
+_votes;

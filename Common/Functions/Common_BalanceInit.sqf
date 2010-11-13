@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_BalanceInit");
+
 Private ["_unit"];
 _unit = _this select 0;
 
@@ -118,3 +121,4 @@ switch (typeOf _unit) do {
 };
 
 _unit Call RemoveFlares; // -- allow flares only after upgrade
+PROFILER_END();

@@ -1,4 +1,7 @@
-Private['_index'];
+#include "profiler.h"
+PROFILER_BEGIN("Common_GetTeamType");
+
+Private['_index', '_result'];
 
 if (isNil "_this") exitWith {
 	format ["Common_GetTeamType Exception: _this = %1", _this] call LogUnexpected;
@@ -11,4 +14,7 @@ if (_index == -1) exitWith {
 	-1;
 };
 
-Call Compile Format ["%1Types%2",str (side _this),_index];
+_result = Call Compile Format ["%1Types%2",str (side _this),_index];
+
+PROFILER_END();
+_result;

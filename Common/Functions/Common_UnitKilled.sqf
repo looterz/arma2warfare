@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_UnitKilled");
+
 Private ["_bounty","_get","_group","_isMan","_killed","_killer","_killerID","_killername","_killerTeam","_killertype","_killeruid","_lost","_objects","_objectType","_side","_sideVictim","_uid"];
 _killed = _this select 0;
 _killer = _this select 1;
@@ -204,3 +207,5 @@ if (!_processedUnitKillPenalty && !isNull _killerTeam && !isNil '_get' && (_side
 		};
 	};
 };
+
+PROFILER_END();

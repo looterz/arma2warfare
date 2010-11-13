@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Server_HandleSpecial");
+
 Private["_args","_side"];
 
 _args = _this;
@@ -46,3 +49,5 @@ switch (_args select 0) do {
 		[_base] Spawn NukeDammage;
 	};
 };
+
+PROFILER_END("Server_HandleSpecial");

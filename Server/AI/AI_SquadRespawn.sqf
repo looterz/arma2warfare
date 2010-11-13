@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Server_AI_SquadRespawn");
+
 Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr","_rr","_respawn","_respawnLoc","_side","_sideText","_slot","_team","_upgrades"];
 _side = _this select 0;
 _team = _this select 1;
@@ -108,3 +111,5 @@ while {!gameOver} do {
 	_pos set [2,0];
 	_leader setPos _pos;
 };
+
+PROFILER_END();

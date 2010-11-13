@@ -6,6 +6,8 @@
 	Description:
 	  This function detect whether a human commander is in command or not and if a team is in the 'main' teams.
 */
+#include "profiler.h"
+PROFILER_BEGIN("Server_CanUpdateTeam");
 
 Private ['_canUpdate','_commander','_team'];
 _team = _this;
@@ -16,4 +18,5 @@ if (((leader _team) Call GetClientID) != 0) then {
 	if !(isNull _commander) then {_canUpdate = false};
 };
 
-_canUpdate
+PROFILER_END();
+_canUpdate;

@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_RearmVehicleOA");
+
 Private['_amount','_magazines','_turrets','_vehicle'];
 
 _vehicle = _this;
@@ -30,3 +33,5 @@ if (paramEASA) then {
 		if !(isNil '_get') then {[_vehicle,0] Call EASA_Equip};
 	};
 };
+
+PROFILER_END();

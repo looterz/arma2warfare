@@ -1,6 +1,6 @@
 //--- Define which 'part' of the game to run.
 #include "version.sqf"
-
+#include "profiler.h"
 
 //--- Global Init, first file called.
 IsClientServer = if (!isMultiplayer || (isServer && local player)) then { true; } else { false };
@@ -11,8 +11,14 @@ WF_Debug = false;
 	WF_Debug = true;
 #endif
 
+execVM "profiler.sqf";
+waitUntil { !isNil "initProfiler" };
+
+PROFILER_BEGIN("initJIPCompatible");
+
 execVM "logging.sqf";
 waitUntil { !isNil "LogInited" };
+
 
 "Init JIP - [Start]" call LogMedium;
 
@@ -245,8 +251,8 @@ if (!isNil "paramsArray") then {
 if (WF_Debug) then {
 	paramUpgradesEast = false;
 	paramUpgradesWest = false;
-	paramRes = false;
-	paramOccup = false;
+	paramRes = true;
+	paramOccup = true;
 };
 
 //--- All parameters are set and ready.
@@ -268,7 +274,13 @@ maxPlayers = count (missionNamespace getVariable 'WFBE_EASTTEAMS');
 ExecVM "Common\Init\Init_Common.sqf";
 ExecVM "Common\Init\Init_Towns.sqf";
 
-if (local player) then {ExecVM "Client\Init\Init_Client.sqf"; [] execVM "limitThirdPersonView.sqf"; };
+if (local player) then { 
+	"Init JIP - ExecVM Init_Client" call LogMedium;
+
+	[] ExecVM "Client\Init\Init_Client.sqf"; 
+	[] ExecVM "limitThirdPersonView.sqf"; 
+};
+
 if (isServer  || IsClientServer) then {
 	ExecVM "Server\Init\Init_Server.sqf"
 };
@@ -276,3 +288,5 @@ if (isServer  || IsClientServer) then {
 if (paramTrade) then {
 	execVM "Module\Market\Init_Market.sqf";
 };
+
+PROFILER_END();

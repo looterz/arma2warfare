@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_GetEquipmentPrice");
+
 private['_equipmentPrice', '_unitId','_unitEquipment', '_index', '_unit'];
 
 _unit = _this;
@@ -32,4 +35,5 @@ if (_unitId == -1) then {
 	_equipmentPrice = WBE_UnitEquipmentPrice select _unitId;
 };
 
+PROFILER_END();
 _equipmentPrice;

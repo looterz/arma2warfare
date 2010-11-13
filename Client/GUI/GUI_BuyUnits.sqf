@@ -303,6 +303,10 @@ while {alive player && dialog} do {
 				_buildings1 = (sideJoinedText) Call GetSideStructures;				
 				_factories1 = [sideJoined,Format ['WFBE_%1%2TYPE',sideJoinedText,_type] Call GetNamespace,_buildings1] Call GetFactories;
 				_sorted1 = [_closest, _factories1] Call SortByDistance;
+				
+				format["F=%1", _factories1] call LogMedium;
+				format["S=%1", _sorted1] call LogMedium;
+				
 				_closestFactory = if (count _sorted1 > 0) then { _sorted1 select 0; } else { objNull; };
 			}; //-- buy in central depot
 		

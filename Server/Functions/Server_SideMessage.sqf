@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Server_SelectResTeam");
+
 Private ["_canSpeak","_extra","_side","_speaker","_special","_specialb","_topicSide"];
 _special = _this select 0;
 _specialb = _this select 1;
@@ -69,3 +72,5 @@ if (_special == "CapturedNear" || _special == "LostAt") then {
 	};
 	_speaker kbTell [_receiver, _topicSide, _special,["1","",_specialb,[_specialb]],["2","",_rlName,[_locRaw]],true];
 };
+
+PROFILER_END();

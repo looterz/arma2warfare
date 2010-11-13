@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Server_SetCampsToSide");
+
 Private["_camp","_camps","_count","_notifyAllSides","_objects","_previousSide","_side","_sideID","_startingSV","_town"];
 
 _town = _this Select 0;
@@ -28,3 +31,4 @@ publicVariable 'WFBE_AllCampsCaptured';
 if (IsClientServer) then {[nil,'CLTFNCALLCAMPSCAPTURED',[_town,_sideID,_notifyAllSides]] Spawn HandlePVF};
 
 Format["Server_SetCampsToSide: '%1' Camps have been set to %2",_town,str _side]  call LogInform;
+PROFILER_END();

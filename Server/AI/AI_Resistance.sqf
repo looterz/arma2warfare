@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Server_AI_Resistance");
+
 Private ["_action","_position","_range","_team"];
 _team = _this select 0;
 _position = _this select 1;
@@ -15,3 +18,5 @@ switch (_action) do {
 	};
 	case "CPatrol": {[_team,_position,_range] Spawn AIPatrol};
 };
+
+PROFILER_END();

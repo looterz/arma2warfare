@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_BuildingInRange");
+
 Private ['_buildingInRange','_buildings','_buildingType','_checks','_closest','_range','_side','_sorted','_unit'];
 _buildingType = _this select 0;
 _buildings = _this select 1;
@@ -14,4 +17,5 @@ if (count _checks > 0) then {
 	if (_unit distance _closest < _range) then {_buildingInRange = true} else {_buildingInRange = false};
 } else {_buildingInRange = false};
 
-[_closest,_buildingInRange]
+PROFILER_END();
+[_closest,_buildingInRange];

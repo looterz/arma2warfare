@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Server_BuildingHandleDamages");
+
 Private ['_building','_dammages','_origin','_side','_side', '_stones'];
 
 _building = _this select 0;
@@ -53,4 +56,5 @@ if (_dammages > 0) then {
 	};
 };
 
+PROFILER_END();
 _dammages;

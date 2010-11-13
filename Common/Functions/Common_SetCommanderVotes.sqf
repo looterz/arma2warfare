@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_SetCommanderVotes");
+
 Private["_count","_side","_teams","_total","_value"];
 
 _side = _this Select 0;
@@ -12,3 +15,5 @@ for [{_count = 1},{_count < _total},{_count = _count + 1}] do {
 		Call Compile Format["if (%1Team%2Vote != _value) then {%1Team%2Vote = _value;PublicVariable '%1Team%2Vote'};",str _side,_count];
 	};
 };
+
+PROFILER_END();

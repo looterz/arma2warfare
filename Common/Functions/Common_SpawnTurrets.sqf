@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_SpawnTurrets");
+
 private ["_turrets", "_path", "_vehicle", "_crew", "_team"];
 _turrets = _this select 0;
 _path = _this select 1;
@@ -20,3 +23,5 @@ while {_i < (count _turrets)} do {
 	[_turrets select (_i + 1), _thisTurret, _vehicle, _crew, _team] call SpawnTurrets;
 	_i = _i + 2;
 };
+
+PROFILER_END();

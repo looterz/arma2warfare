@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Server_HandleEmptyVehicle");
+
 Private ["_exit","_reset","_timer","_trash","_vehicle"];
 
 _vehicle = _this;
@@ -35,3 +38,5 @@ while {!_exit} do {
 };
 
 emptyQueu = emptyQueu - [_vehicle];
+
+PROFILER_END();

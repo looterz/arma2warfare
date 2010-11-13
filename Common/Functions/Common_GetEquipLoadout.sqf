@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_GetEquipLoadout");
+
 Private['_unit', '_currentWeapons', '_currentMagazines', '_dogtags', '_u', '_i', '_weaponType'];
 
 _unit = _this;
@@ -22,4 +25,5 @@ while { _u < (count _currentWeapons) && _i < (count _dogtags) } do {
 	_u = _u + 1;
 };
 
+PROFILER_END();
 [_currentWeapons, _currentMagazines];

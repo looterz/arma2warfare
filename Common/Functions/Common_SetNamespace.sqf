@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_SetNamespace");
+
 Private ['_get','_override','_variable','_value'];
 
 _variable = _this select 0;
@@ -13,3 +16,5 @@ if !(_override) then {
 } else {
 	missionNamespace setVariable [_variable,_value];
 };
+
+PROFILER_END();

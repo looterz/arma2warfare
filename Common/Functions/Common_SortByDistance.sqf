@@ -1,24 +1,32 @@
-Private["_count","_count1","_current","_nearest","_nearestDistance","_object","_objects","_sorted","_total"];
+#include "profiler.h"
+PROFILER_BEGIN("Common_SortByDistance");
+private["_u", "_object", "_objects", "_total", "_sorted", "_target"];
+    
+_object = _this select 0;
+_objects = _this select 1;
 
-_object = _this Select 0;
-_objects = +(_this Select 1);
-
+_total = count _objects;
 _sorted = [];
 
-_total = Count _objects;
-for [{_count = 0},{_count < _total},{_count = _count + 1}] do {
-	_nearest = ObjNull;
-	_nearestDistance = 100000;
+if (_total > 1) then { 
 
-	for [{_count1 = Count _objects - 1},{_count1 >= 0},{_count1 = _count1 - 1}] do {
-		_current = _objects Select _count1;
-		_distance = _current Distance _object;
-
-		if (_distance < _nearestDistance) then {_nearest = _current;_nearestDistance = _distance};
-	};
-
-	_sorted = _sorted + [_nearest];
-	_objects = _objects - [_nearest];
+	_u = _total;
+	while { !(_u == 0) } do {
+		_u = _u - 1;
+		_target = _objects select _u;
+		_sorted = _sorted + [ [(_object distance _target), _target] ];
+	};	
+	_sorted call QuickSort;
+	
+	_u = _total;
+	while { !(_u == 0) } do {
+		_u = _u - 1;
+		_target = (_sorted select _u) select 1;
+		_sorted set [_u, _target];
+	};	
+} else {
+	_sorted = [] + _objects;
 };
 
-_sorted
+PROFILER_END();
+_sorted;

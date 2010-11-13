@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Server_BuyUnit");
+
 Private ["_building","_built","_crew","_direction","_dir","_distance","_factoryType","_gbq","_id","_index","_isVehicle","_longest","_position","_queu","_queu2","_ret","_side","_sideText","_soldier","_team","_type","_unitType","_vehicle","_waitTime"];
 _id = _this select 0;
 _building = _this select 1;
@@ -156,3 +159,5 @@ if (_unitType isKindOf "Man") then {
 
 _gbq = (_team getVariable "queue") - _id;
 _team setVariable ["queue",_gbq];
+
+PROFILER_END();

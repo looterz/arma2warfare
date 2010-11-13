@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_GetTotalCampsOnSide");
+
 Private["_camps","_side","_sideID","_total","_town"];
 
 _town = _this Select 0;
@@ -10,4 +13,5 @@ _total = 0;
 
 {if ((_x getVariable "sideID") == _sideID) then {_total = _total + 1}} ForEach _camps;
 
-_total
+PROFILER_END();
+_total;

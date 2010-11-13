@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_CreateVehicle");
+
 Private ["_lock","_position","_side","_type","_vehicle"];
 _type = _this select 0;
 _position = _this select 1;
@@ -17,4 +20,5 @@ _vehicle lock _lock;
 
 Format["Common_CreateVehicle: A %1 '%2' vehicle has been created",str _side,_type] call LogInform;
 
-_vehicle
+PROFILER_END();
+_vehicle;

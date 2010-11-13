@@ -1,4 +1,7 @@
-Private ['_difficulty','_factor','_infAssign','_minInfSpawnRatio','_minVehSpawnRatio','_poolInf','_poolVeh','_ratioInfantry','_ratioVehicle','_teams','_try','_vehAssign'];
+#include "profiler.h"
+PROFILER_BEGIN("Server_SelectResTeam");
+
+Private ['_difficulty','_difficulty1', '_factor','_infAssign','_minInfSpawnRatio','_minVehSpawnRatio','_poolInf','_poolVeh','_ratioInfantry','_ratioVehicle','_teams','_try','_vehAssign'];
 
 _difficulty = _this select 0;
 
@@ -118,7 +121,13 @@ switch (_difficulty) do {
 	};
 };
 
-_try = _try * ('WFBE_TOWNRESISTANCEDIFFICULTY' Call GetNamespace);
+_difficulty1 = ('WFBE_TOWNRESISTANCEDIFFICULTY' Call GetNamespace);
+if (_difficulty1 >= 1 && diag_fps >=  5) then {_difficulty = 1};
+if (_difficulty1 >= 2 && diag_fps >= 15) then {_difficulty = 2};
+if (_difficulty1 >= 3 && diag_fps >= 25) then {_difficulty = 3};
+if (_difficulty1 >= 4 && diag_fps >= 35) then {_difficulty = 4};
+
+_try = _try * _difficulty;
 _vehAssign = round(_try * (_ratioVehicle / 100));
 _infAssign = round(_try * (_ratioInfantry / 100));
 
@@ -141,4 +150,5 @@ for [{_x = 0},{_x < _try},{_x = _x + 1}] do {
 
 if (count _teams < 1) then {_teams = ['Group']};
 
-_teams
+PROFILER_END();
+_teams;

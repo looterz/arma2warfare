@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Init_Server");
+
 waitUntil { !isNil "LogInited" };
 
 if (!isServer || time > 30) exitWith {
@@ -467,3 +470,5 @@ waitUntil {time > 0};
 
 [East] Spawn SVoteForCommander;
 [West] Spawn SVoteForCommander;
+
+PROFILER_END();

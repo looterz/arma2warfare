@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_GetCommanderFromVotes");
+
 Private["_AI","_commander","_count","_highest","_highestTeam","_side","_teams","_total","_vote","_votes"];
 
 _side = _this Select 0;
@@ -33,4 +36,5 @@ if (!_tie && _highest > _AI && _highestTeam != -1) then {
 	_commander = _teams select _highestTeam;
 };
 
-_commander
+PROFILER_END();
+_commander;

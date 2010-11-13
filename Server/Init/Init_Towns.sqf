@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Init_Towns");
+
 waitUntil { !isNil "LogInited" };
 waitUntil {townInit};
 
@@ -110,3 +113,4 @@ if (('WFBE_TOWNSTARTINGMODE' Call GetNamespace) != 1 && ('WFBE_RESSTRIKER' Call 
 };
 
 "Init_Towns (S): Towns starting mode initialization - [Done]"  call LogMedium;
+PROFILER_END();

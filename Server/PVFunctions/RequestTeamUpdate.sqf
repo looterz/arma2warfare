@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("RequestTeamUpdate");
+
 Private["_args","_properties","_team"];
 
 _args = _this;
@@ -22,3 +25,5 @@ if (typeName _team == "SIDE") then {
 	} forEach (Format["WFBE_%1TEAMS",str _team] Call GetNamespace);
 	Format["RequestTeamUpdate: The %1 Teams properties have been updated (Behavior: %2 | Combat Mode: %3 | Formation: %4 | Speed Mode: %5)",_team,(_args select 1),(_args select 2),(_args select 3),(_args select 4)] call LogInform;
 };
+
+PROFILER_END();

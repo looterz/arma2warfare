@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_AARadarMarkerUpdate");
+
 Private ["_height","_object","_markerName","_side"];
 
 waitUntil {commonInitComplete};
@@ -33,3 +36,4 @@ while {alive _object && !(isNull _object)} do {
 };
 
 deleteMarkerLocal _markerName;
+PROFILER_END();

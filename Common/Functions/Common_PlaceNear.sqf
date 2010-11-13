@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_PlaceNear");
+
 Private["_direction","_faceAway","_maxRadius","_minRadius","_object","_placeSafe","_position","_radius","_randomDirection","_safeRadius"];
 
 _object = _this Select 0;
@@ -32,3 +35,5 @@ if (_faceAway) then {
 	_destination = GetPos _object;
 	_object SetDir -((((_destination Select 1) - (_position Select 1)) atan2 ((_destination Select 0) - (_position Select 0))) - 90);
 };
+
+PROFILER_END();

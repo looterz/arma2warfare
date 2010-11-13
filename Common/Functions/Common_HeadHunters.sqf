@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_HeadHunters");
+
 Private ['_sideKiller', '_sideVictim', '_huntedProcessed', '_killerFunds', '_bounty', '_commanderId', '_commanderTeam', '_commanderKilled', '_bonusPerc', '_victim', '_killer', '_victimId', '_killerId', '_victimFunds', '_scoreSide', '_scoreVictim'];
 
 _victim = _this select 0;
@@ -6,7 +9,10 @@ _sideVictim = _this select 2;
 
 _huntedProcessed = false;
 
-if (!isPlayer(_killer)) exitWith { _huntedProcessed; };
+if (!isPlayer(_killer)) exitWith { 
+	PROFILER_END();
+	_huntedProcessed; 
+};
 
 _victimId = _victim  Call GetClientID;
 _killerId = _killer Call GetClientID;
@@ -72,7 +78,6 @@ if (WF_DEBUG || (isPlayer(_victim) && _victimId > 0 && _killerId > 0 && _victimI
 			WFBE_LocalizeMessage = [[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveBounty',_bounty, _nameVictim]];
 			publicVariable 'WFBE_LocalizeMessage';
 			if (IsClientServer) then {[[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveBounty',_bounty, _nameVictim]] Spawn HandlePVF};
-			sleep 0.1;
 			
 			WFBE_LocalizeMessage = [[_victimId, _sideVictim],'CLTFNCLOCALIZEMESSAGE',['HeadHunterSendBounty',_bounty, _nameKiller]];
 			publicVariable 'WFBE_LocalizeMessage';
@@ -100,7 +105,6 @@ if (WF_DEBUG || (isPlayer(_victim) && _victimId > 0 && _killerId > 0 && _victimI
 			WFBE_LocalizeMessage = [[_victimId, _sideVictim],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveRefund',_bounty, _nameKiller]];
 			publicVariable 'WFBE_LocalizeMessage';
 			if (IsClientServer) then {[[_victimId, _sideVictim],'CLTFNCLOCALIZEMESSAGE',['HeadHunterReceiveRefund',_bounty, _nameKiller]] Spawn HandlePVF};			
-			sleep 0.1;
 
 			WFBE_LocalizeMessage = [[_killerId, _sideKiller],'CLTFNCLOCALIZEMESSAGE',['HeadHunterSendRefund',_bounty, _nameVictim]];
 			publicVariable 'WFBE_LocalizeMessage';
@@ -111,4 +115,6 @@ if (WF_DEBUG || (isPlayer(_victim) && _victimId > 0 && _killerId > 0 && _victimI
 };
 
 format["Head Hunter Process Completed"] call LogHigh;
+
+PROFILER_END();
 _huntedProcessed;

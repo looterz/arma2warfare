@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Server_ConstructionSmallSite");
+
 //*****************************************************************************************
 //Description: Creates a small construction site.
 //*****************************************************************************************
@@ -58,4 +61,6 @@ if (!IsNull _site) then {
 if ((_type == WESTBAR || _type == EASTBAR) && paramBasePatrols) then {
 	[_site, _side] ExecFSM 'Server\FSM\basepatrol.fsm';
 	Format["Construction_SmallSite: A %1 Base Patrol Module has been launched",str _side] call LogInform;
-}
+};
+
+PROFILER_END();

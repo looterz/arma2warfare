@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_MarkerUpdate");
+
 Private ["_deathMarkerColor","_deathMarkerSize","_deathMarkerType","_delete","_deletePrevious","_markerColor","_markerName","_markerSize","_markerType","_markerText","_refreshRate","_trackDeath","_tracked","_side"];
 
 waitUntil {commonInitComplete};
@@ -39,3 +42,5 @@ if (_trackDeath) then {
 };
 
 deleteMarkerLocal _markerName;
+
+PROFILER_END();

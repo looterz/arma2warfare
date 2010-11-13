@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("RequestCommanderVote");
+
 Private["_commanderTeam","_side","_team"];
 
 _side = _this;
@@ -18,3 +21,5 @@ if ((WF_Logic getVariable Format["%1CommanderVoteTime",str _side]) <= 0) then {
 	publicVariable 'WFBE_VoteForCommander';
 	if (IsClientServer) then {[_side,'CLTFNCVOTEFORCOMMANDER'] Spawn HandlePVF};
 };
+
+PROFILER_END();

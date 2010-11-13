@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_GetTeamVehicles");
+
 Private["_canMove","_count","_crew","_ignoreOwnerConflict","_member","_ownerConflict","_range","_team","_teamVehicles","_units","_vehicle"];
 
 _team = _this select 0;
@@ -27,4 +30,5 @@ _units = units _team;
 	if (!_ignoreOwnerConflict && _ownerConflict) then {_teamVehicles = _teamVehicles - [_vehicle]};
  } forEach _units;
 
-_teamVehicles
+PROFILER_END();
+_teamVehicles;

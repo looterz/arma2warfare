@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_EquipLoadout");
+
 Private['_ammo','_unit','_weapon','_weapons', '_classType', '_dogtags', '_label', '_role'];
 
 _unit = _this select 0;
@@ -38,3 +41,5 @@ _unit setVariable ["Dogtags", _dogtags];
 
 _weapon = primaryWeapon _unit;
 if (_weapon != '') then {_unit selectWeapon _weapon};
+
+PROFILER_END();

@@ -1,4 +1,7 @@
-Private ["_alives","_buildings","_defense","_index","_side","_team","_type","_unit"];
+#include "profiler.h"
+PROFILER_BEGIN("Server_HandleDefense");
+
+Private ["_dt", "_alives","_buildings","_defense","_index","_side","_team","_type","_unit"];
 _defense = _this select 0;
 _unit = _this select 1;
 _side = _this select 2;
@@ -36,7 +39,10 @@ while {alive _defense} do {
 					Format["Server_HandleDefense: A Soldier has been dispatched to the %1 defense %2",str _side,_type]  call LogInform;
 					
 					//--- Calculate the average time in function of the distance and the speed.
-					sleep (((_soldier distance _defense)/(14*1000))*3600)+20;
+					_dt = (((_soldier distance _defense)/(14*1000))*3600)+20;
+					if (_dt > 60) then { _dt = 60; };
+					
+					sleep _dt;
 					
 					if ((vehicle _unit != _defense)&& alive _unit &&(!isNull _unit)) then {
 						if ((_defense EmptyPositions "gunner" > 0)&& alive _defense &&(!isNull _defense)) then {_unit MoveInGunner _defense} else {deleteVehicle _unit};
@@ -49,3 +55,4 @@ while {alive _defense} do {
 	};
 	sleep 420;
 };
+PROFILER_END();

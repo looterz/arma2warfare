@@ -1,11 +1,17 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_SetTeamType");
+
 private ['_content','_cpt','_data','_dataRow','_i','_tConstruct','_turretPath','_vehicle'];
 _vehicle = _this select 0;
 _data = _this select 1;
 _turretPath = if (count _this > 2) then {_this select 2} else {[]};
 _cpt = count _turretPath;
 
-for "_i" from 0 to ((count _data) - 1) do
+_i = count _data;
+while { !(_i == 0) } do
 {
+	_i = _i - 1;
+	
 	_dataRow = _data select _i;
 	
 	if (count _dataRow > 0) then {
@@ -30,3 +36,5 @@ for "_i" from 0 to ((count _data) - 1) do
 		};
 	};
 };
+
+PROFILER_END();

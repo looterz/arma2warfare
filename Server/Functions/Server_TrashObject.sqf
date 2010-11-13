@@ -7,6 +7,9 @@
 	  This function will remove an object after the defined amount of time.
 */
 
+#include "profiler.h"
+PROFILER_BEGIN("Server_TrashObject");
+
 Private ["_alive","_group","_isMan","_object"];
 _object = _this;
 
@@ -27,3 +30,5 @@ if !(isNull _object) then {
 	};
 	deleteVehicle _object;
 };
+
+#PROFILER_END();

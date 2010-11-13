@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_GetTeamArtillery");
+
 Private["_weapon", "_artyType", "_artillery","_count","_destination","_ignoreAmmo","_index","_position","_search","_team","_units","_vehicle","_x","_y"];
 
 _team = _this select 0;
@@ -27,4 +30,6 @@ _artillery = [];
 } forEach _units;
 
 //format["_artyList=%1", _artillery] call LogTrace;
-_artillery
+
+PROFILER_END();
+_artillery;

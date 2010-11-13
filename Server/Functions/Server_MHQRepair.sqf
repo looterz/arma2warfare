@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Server_MHQRepair");
+
 Private ["_hq","_HQName","_MHQ","_side","_sideText"];
 _side = _this select 0;
 _sideText = str _side;
@@ -34,3 +37,5 @@ deleteVehicle _hq;
 Call Compile Format ["%1MHQDeployed = false; publicVariable '%1MHQDeployed';",_sideText];
 
 Format["Server_MHQRepair: The %1 MHQ was repaired.",_sideText]  call LogInform;
+
+PROFILER_END();

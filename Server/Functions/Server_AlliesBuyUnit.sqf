@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Server_AlliesBuyUnit");
+
 Private ["_building","_built","_crew","_direction","_dir","_distance","_factoryType","_id","_index","_isVehicle","_longest","_position","_queu","_queu2","_ret","_side","_sideText","_soldier","_team","_type","_unitType","_vehicle","_waitTime"];
 _id = _this select 0;
 _building = _this select 1;
@@ -135,3 +138,5 @@ if (_unitType isKindOf "Man") then {
 	WF_Logic setVariable [Format["%1UnitsCreated",_sideText],_built,true];
 	if (count _turrets > 0) then {[_turrets, [], _vehicle, _crew, _team] call SpawnTurrets};
 };
+
+PROFILER_END();

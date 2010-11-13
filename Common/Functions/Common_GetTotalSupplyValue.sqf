@@ -1,15 +1,26 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_GetTotalSupplyValue");
+
 Private["_count","_held","_side","_supplyValue","_sideID","_town"];
 
 _side = _this;
 _sideID = _side Call GetSideID;
 _SV = 0;
 
-for [{_count = totalTowns - 1},{_count >= 0},{_count = _count - 1}] do {
+_count = totalTowns;
+
+while { !(_count == 0) } do {
+	_count = _count - 1;
+	
 	_town = towns Select _count;
 	if ((_town getVariable "sideID") == _sideID) then	{
 		_supplyValue = _town getVariable "supplyValue";
-		_SV = _SV + _supplyValue;
+		
+		if (!isNil "_supplyValue") then {
+			_SV = _SV + _supplyValue;
+		};
 	};
 };
 
-_SV
+PROFILER_END();
+_SV;

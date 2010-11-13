@@ -1,24 +1,10 @@
+#include "profiler.h"
+PROFILER_BEGIN("Common_GetUnitEquipmentPrice");
+
 private['_equipmentPrice', '_unitId','_unitEquipment', '_index', '_unit'];
 
 _unit = _this;
-
-if (isNil 'WBE_Equipment') then {
-
-	WBE_Equipment = (WF_Logic getVariable 'primaryClasses') + (WF_Logic getVariable 'secondaryClasses') + (WF_Logic getVariable 'sidearmClasses') + (WF_Logic getVariable 'miscClasses') + (WF_Logic getVariable 'magazineClasses');
-
-	WBE_EquipmentPrice = [];
-	
-	{
-		_get = _x Call GetNamespace;
-		_cost = (_get Select QUERYGEARCOST);
-		WBE_EquipmentPrice = WBE_EquipmentPrice + [_cost];
-		
-	} forEach WBE_Equipment;
-
-	
-	WBE_UnitEquipment = [];
-	WBE_UnitEquipmentPrice = [];
-};
+waitUntil { !isNil "initUnitEquipmentPrice" };
 
 _equipmentPrice = 0;
 _unitId = WBE_UnitEquipment find _this;
@@ -40,4 +26,5 @@ if (_unitId == -1) then {
 	_equipmentPrice = WBE_UnitEquipmentPrice select _unitId;
 };
 
+PROFILER_END();
 _equipmentPrice;

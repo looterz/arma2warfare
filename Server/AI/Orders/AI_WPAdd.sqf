@@ -11,13 +11,17 @@
 	  [_team, true, [[getPos _camp, 'MOVE', 10, 20],[[1560,2560,0], 'SAD', 50, 70]...]] Call AddWP;
 */
 
-Private ['_clear','_completionRadius','_position','_radius','_team','_type','_waypoint','_waypoints','_WPCount'];
+#include "profiler.h"
+PROFILER_BEGIN("Server_AIOrders_WPAdd");
+
+Private ['_clear','_completionRadius','_position','_radius','_team','_type','_waypoint','_waypoints','_bSetCurrentWaypoint', '_index'];
 _team = _this select 0;
 _clear = _this select 1;
 _waypoints = _this select 2;
 
 if (_clear) then {_team Call AIWPRemove};
 
+_index = count (waypoints _team);
 {
 	_position = _x select 0;
 	_type = _x select 1;
@@ -25,11 +29,14 @@ if (_clear) then {_team Call AIWPRemove};
 	_completionRadius = if (count _x > 3) then {_x select 3} else {25};
 	if (typeName _position == 'OBJECT') then {_position = getPos _position};
 	
-	_WPCount = count (waypoints _team);
-	
 	_waypoint = _team addWaypoint [_position,_radius];
-	[_team, _WPCount] setWaypointType _type;
-	[_team, _WPCount] setWaypointCompletionRadius _completionRadius;
+	[_team, _index] setWaypointType _type;
+	[_team, _index] setWaypointCompletionRadius _completionRadius;
 	
-	if (_WPCount == 0) then {_team setCurrentWaypoint [_team, _WPCount]};
+	if (_index == 0) then {
+		_team setCurrentWaypoint [_team, _index];
+	};
+	_index = _index + 1;
 } forEach _waypoints;
+
+PROFILER_END();

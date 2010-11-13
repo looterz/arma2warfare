@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Server_AIOrders_MoveTo");
+
 Private ["_destination","_formations","_mission","_radius","_team","_update"];
 _team = _this select 0;
 _destination = _this select 1;
@@ -15,3 +18,5 @@ if (_update) then {_team Call UpdateTeam};
 Format["AI_MoveTo: The %1 %2 Team is moving to %3",side _team,_team,_destination] call LogInform;
 
 [_team,true,[[_destination, _mission, _radius, 20]]] Call AIWPAdd;
+
+PROFILER_END();

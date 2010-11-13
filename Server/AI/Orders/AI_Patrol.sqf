@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Server_AIOrders_Patrol");
+
 Private ["_destination","_maxWaypoints","_pos","_radius","_team","_type","_update","_wps"];
 _team = _this select 0;
 _destination = _this select 1;
@@ -30,3 +33,5 @@ for [{_x=0},{_x<=_maxWaypoints},{_x=_x+1}] do {
 Format["AI_Patrol: The %1 %2 Team is patrolling at %3",side _team,_team,_destination] call LogInform;
 
 [_team, true, _wps] Call AIWPAdd;
+
+PROFILER_END();
