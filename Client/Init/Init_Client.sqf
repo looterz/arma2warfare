@@ -10,7 +10,7 @@ Skills_MASH = ['FR_Commander','RUS_Commander','US_Soldier_SL_EP1','TK_Soldier_SL
 if (paramArty) then {
 	ARTY_Prep = Compile preprocessFile "Client\Module\Arty\ARTY_mobileMissionPrep.sqf";
 	ARTY_Finish = Compile preprocessFile "Client\Module\Arty\ARTY_mobileMissionFinish.sqf";
-	RequestFireMission = Compile preprocessFile "Client\Functions\Client_RequestFireMission.sqf"
+	RequestFireMission = Compile preprocessFile "Client\Functions\Client_RequestFireMission.sqf";
 };
 if (paramBoundaries) then {
 	BoundariesIsOnMap = Compile preprocessFile "Client\Functions\Client_IsOnMap.sqf";

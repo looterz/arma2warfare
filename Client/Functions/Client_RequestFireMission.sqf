@@ -1,3 +1,5 @@
+private['_destination', '_index', '_type', '_units', '_reloadTime', '_burst', '_u', "_fired"];
+
 _destination = _this Select 0;
 _index = _this Select 1;
 _type = 0;
@@ -15,19 +17,23 @@ _burst = artilleryBurst select _index;
 
 {[_x] Call ARTY_Prep} forEach _units;
 
-for [{_count1 = 0},{_count1 < _burst},{_count1 = _count1 + 1}] do {
+while { !(_burst == 0) } do {
+	_burst = _burst - 1;
+	
 	_units = [Group player,_destination,false,_index] Call GetTeamArtillery;
-	if (Count _units < 1) then {BreakTo "FireMission"};
 	
+	_u = count _units;
+	if (_u < 1) then {BreakTo "FireMission"};
 	
-	for [{_count = Count _units - 1},{_count >= 0},{_count = _count - 1}] do {
-		[_units Select _count,_destination,Side player,artyRange,_index] spawn FireArtillery;
+	while { !(_u == 0) } do {
+		_u = _u - 1;
+		[_units select _u, _destination, side player, artyRange, _index] call FireArtillery;
 	};
 
 	sleep _reloadTime;
 };
 
-{ gunner _artillery DoWatch [0, 0, 0]; } forEach _units;
+{ (gunner _x) DoWatch [0, 0, 0]; } forEach _units;
 
 //Keep weapons reloaded.
 _units = [Group player,_destination,true,_index] Call GetTeamArtillery;

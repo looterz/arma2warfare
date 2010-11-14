@@ -20,6 +20,8 @@ GetEquipLoadout = Compile PreprocessFile "Common\Functions\Common_GetEquipLoadou
 GetEquipDogTags = Compile PreprocessFile "Common\Functions\Common_GetEquipDogTags.sqf";
 
 FireArtillery = Compile PreprocessFile "Common\Functions\Common_FireArtillery.sqf";
+FireArtilleryTraceTraectory = Compile PreprocessFile "Common\Functions\Common_FireArtilleryTraceTraectory.sqf";
+
 GetClientID = Compile PreprocessFile "Common\Functions\Common_GetClientID.sqf";
 GetClientIDFromTeam = Compile PreprocessFile "Common\Functions\Common_GetClientIDFromTeam.sqf";
 GetClientTeam = Compile PreprocessFile "Common\Functions\Common_GetClientTeam.sqf";

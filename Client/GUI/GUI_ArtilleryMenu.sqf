@@ -275,7 +275,7 @@ while {alive player && dialog} do {
 		_fireTime = (Format["WFBE_FIREMISSIONTIMEOUT%1",(_currentUpgrades select 10)] Call GetNamespace);
 		_status = round(_fireTime - (time - fireMissionTime));
 		
-		if (WF_DEBUG) then { _fireTime = 0; fireMissionTime = 0; };
+		if (WF_DEBUG) then { fireMissionTime = 0; _status = 0; _fireTime = 0; };
 		
 		_txt = '';
 		if (time - fireMissionTime > _fireTime) then {
