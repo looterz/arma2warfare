@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Market_UpdateProductValue");
+
 Private ['_container','_productId', '_incValue', '_items', '_storage', '_u', '_modified', '_product', '_id', '_value'  ];
 
 _container = _this select 0;
@@ -8,9 +11,10 @@ _items =  _container getVariable "marketProductStorage";
 if (isNil "_items") then { _items = []; };
 
 _storage = [];
-_u = 0;
+_u = count _items;
 _modified = false;
-while { _u < (count _items)} do {
+while { !(_u == 0) } do {
+	_u = _u - 1;
 		
 	_product = _items select _u;
 	_id = _product select 0;
@@ -22,9 +26,8 @@ while { _u < (count _items)} do {
 	};
 	
 	if (_value > 0) then {
-		_storage = _storage + [ [_id, _value] ];
+		_storage = [ [_id, _value] ] + _storage;
 	};
-	_u = _u +1;
 };
 
 if (!_modified && _incValue > 0) then {
@@ -33,3 +36,5 @@ if (!_modified && _incValue > 0) then {
 
 _container setVariable ["marketProductStorage", _storage, true];
 _container setVariable ["marketTimeStamp", format["%1", time], true];
+
+PROFILER_END();

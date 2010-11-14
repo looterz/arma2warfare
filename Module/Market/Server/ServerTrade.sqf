@@ -1,15 +1,21 @@
-_periodTownUpdate = if (WF_DEBUG) then { 5; } else { 300; };
-_periodFactoryUpdate = if (WF_DEBUG) then { 5; } else { 60; };
+private['_nearTime', '_periodTownUpdate', '_periodFactoryUpdate', '_nextTownUpdate', '_nextFactoryUpdate', '_buildings', '_market', '_products', '_stock'  ];
+
+waitUntil { serverInitComplete };
+
+
+_periodTownUpdate = if (WF_DEBUG) then { 60; } else { 300; };
+_periodFactoryUpdate = if (WF_DEBUG) then { 60; } else { 120; };
 
 _nextTownUpdate = time + _periodTownUpdate;
 _nextFactoryUpdate = time + _periodFactoryUpdate;
 while { true } do {
 
-	if (WF_DEBUG) then { sleep 5; } else { sleep 60; };
+	_nearTime = _nextTownUpdate;
+	if (_nearTime > _nextFactoryUpdate) then { _nearTime = _nextFactoryUpdate; };
+
+	waitUntil { time > _nearTime };
 
 	format["Market time=%1", time]  call LogHigh;
-	format["Market nextTownUpdate=%1", _nextTownUpdate] call LogHigh;
-	format["Market _nextFactoryUpdate=%1", _nextFactoryUpdate]  call LogHigh;
 	
 	if (_nextTownUpdate < time) then {
 		"Market updating town markets" call LogHigh;

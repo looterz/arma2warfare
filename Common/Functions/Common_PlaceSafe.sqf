@@ -14,7 +14,9 @@ _currentPosition = _position;
 _placed = false;
 _direction = 0;
 
-for [{_count = 0},{_count < 10 && !_placed},{_count = _count + 1}] do {
+_count = 10;
+while { !(_count == 0) && !_placed } do {
+	_count = _count - 1;
 	_obstacles = _currentPosition NearEntities[["Building"],15];
 	_vehicles = _currentPosition NearEntities[["Building","Car","Tank","Air"],6];
 

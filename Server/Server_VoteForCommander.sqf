@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Server_VoteForCommander");
+
 Private ['_aibase','_commanderTeam','_comVoteTime','_side','_sideText'];
 _side = _this select 0;
 
@@ -38,3 +41,5 @@ if (isNull _commanderTeam) then {
 } else {
 	Format["Server_VoteForCommander: %1 Commander = %2.",_sideText,name leader _commanderTeam] call LogMedium;
 };
+
+PROFILER_END();

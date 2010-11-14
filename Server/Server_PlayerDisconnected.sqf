@@ -7,6 +7,9 @@
 	Description:
 	  This file is called upon a player disconnection, the player's information are updated.
 */
+#include "profiler.h"
+PROFILER_BEGIN("Server_PlayerDisconnected");
+
 Private ['_buildings','_closestRespawn','_funds','_get','_hq','_name','_respawnLoc','_side','_sideText','_slotIndex','_team','_units','_uid'];
 _uid = _this select 0;
 _name = _this select 1;
@@ -81,3 +84,5 @@ if !(isNull (_cmdrTeam)) then {
 		{[_x,false] Call SetTeamAutonomous;[_x, ""] Call SetTeamRespawn} forEach (Format["WFBE_%1TEAMS",_sideText] Call GetNamespace);
 	};
 };
+
+PROFILER_END();

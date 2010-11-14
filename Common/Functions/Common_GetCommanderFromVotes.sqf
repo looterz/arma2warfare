@@ -28,7 +28,11 @@ _count = 0;
 _highest = 0;
 _highestTeam = -1;
 _tie = false;
-{if (_x == _highest && _x > 0) then {_tie = true};if (_x > _highest) then {_highestTeam = _count;_highest = _x;_tie = false};_count = _count + 1} ForEach _votes;
+{
+	if (_x == _highest && _x > 0) then { _tie = true; };
+	if (_x > _highest) then {_highestTeam = _count;_highest = _x;_tie = false};
+	_count = _count + 1;
+} ForEach _votes;
 
 _commander = ObjNull;
 

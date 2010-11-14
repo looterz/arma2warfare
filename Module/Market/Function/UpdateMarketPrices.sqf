@@ -1,4 +1,7 @@
-﻿Private ['_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', '_u', '_buyCoef', '_baseCost', '_productVolume', '_sellK','_buyCost','_sellCost', '_currentSupply', '_isCommander', '_isFactory', '_buildings', '_isTown' ];
+﻿#include "profiler.h"
+PROFILER_BEGIN("Market_UpdateMarketPrices");
+
+Private ['_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', '_u', '_buyCoef', '_baseCost', '_productVolume', '_sellK','_buyCost','_sellCost', '_currentSupply', '_isCommander', '_isFactory', '_buildings', '_isTown' ];
 
 _market = _this select 0;
 _stock = _this select 1;
@@ -14,8 +17,9 @@ _fnRoundPriceValue = {
 };
 
 _productPrices = [];
-_u = 0;
-while { (_u < (count marketProductCollection)) } do {
+_u = count marketProductCollection;
+while { !(_u == 0) } do {
+	_u = _u - 1;
 	
 	_product = marketProductCollection select _u;
 	_baseCost = _product select 2;
@@ -41,9 +45,8 @@ while { (_u < (count marketProductCollection)) } do {
 	_sellCost = _sellCost call _fnRoundPriceValue;
 	_buyCost  = _buyCost call _fnRoundPriceValue;
 	_price = [_sellCost, _buyCost];
-	_productPrices = _productPrices + [ _price ];
-	
-	_u = _u + 1;
+	_productPrices = [ _price ] + _productPrices;
 };
 
 _market setVariable ["marketProductPrice", _productPrices, true];
+PROFILER_END();

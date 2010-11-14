@@ -2,18 +2,19 @@
 PROFILER_BEGIN("Common_GetTurretsMags");
 
 /* Adapted from BIS turret's function. */
-private ['_entry','_turretIndex','_turrets','_turretIndex'];
+private ['_subEntry', '_entry','_turretIndex','_turrets','_turretIndex', '_u'];
 _entry = _this select 0;
 
 _turrets = [];
 _turretIndex = 0;
 
 //Explore all turrets and sub-turrets recursively.
-for '_i' from 0 to ((count _entry) - 1) do
+
+_u = count _entry;
+while { !(_u == 0) } do
 {
-	private ['_subEntry'];
-	_subEntry = _entry select _i;
-	
+	_u = _u - 1;
+	_subEntry = _entry select _u;
 	if (isClass _subEntry) then
 	{
 		private ['_hasGunner'];

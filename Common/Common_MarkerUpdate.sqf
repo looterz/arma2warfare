@@ -31,6 +31,8 @@ _markerName setMarkerSizeLocal _markerSize;
 
 while {alive _tracked && !(isNull _tracked)} do {
 	_markerName setMarkerPosLocal (getPos _tracked);
+	
+	
 	sleep _refreshRate;
 };
 

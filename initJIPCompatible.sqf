@@ -1,4 +1,10 @@
 //--- Define which 'part' of the game to run.
+commonInitComplete = false;
+serverInitComplete = false;
+gameOver = false;
+townInit = false;
+towns = [];
+
 #include "version.sqf"
 #include "profiler.h"
 
@@ -33,11 +39,6 @@ if (local player) then {
 
 setViewDistance 1500;
 
-commonInitComplete = false;
-serverInitComplete = false;
-gameOver = false;
-townInit = false;
-towns = [];
 
 WF_A2_Vanilla = false;
 #ifdef VANILLA

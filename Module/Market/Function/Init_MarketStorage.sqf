@@ -1,4 +1,7 @@
-﻿Private ['_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', '_u', '_isTown', '_buyCoef', '_baseCost', '_productVolume', '_sellK','_buyCost','_sellCost', '_currentSupply', '_isCommander', '_isFactory', '_buildings' ];
+﻿#include "profiler.h"
+PROFILER_BEGIN("Market_InitMarketStorage");
+
+Private ['_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', '_u', '_isTown', '_buyCoef', '_baseCost', '_productVolume', '_sellK','_buyCost','_sellCost', '_currentSupply', '_isCommander', '_isFactory', '_buildings' ];
 
 _market = _this select 0;
 _stock = [];
@@ -16,8 +19,9 @@ _fnRoundPriceValue = {
 	_this;
 };
 
-_u = 0;
-while { (_u < (count marketProductCollection)) } do {
+_u = (count marketProductCollection);
+while { !(_u == 0) } do {
+	_u = _u - 1;
 
 	_product = marketProductCollection select _u;
 	_maxProduced = (_product select 3)*0.25;
@@ -28,14 +32,13 @@ while { (_u < (count marketProductCollection)) } do {
 	
 	if (!paramSupplyExchange && _u == marketProductIdSupply) then { _value = 0; _prodvalue = 0; };
 
-	_stock = _stock + [ _value ];
+	_stock = [ _value ] + _stock;
 	
 	if (_value > 0) then {
-		_storage = _storage + [ [_u, _value ] ];
+		_storage = [ [_u, _value ] ] + _storage;
 	};
 	
-	_productivity = _productivity + [ _prodvalue ];
-	_u = _u + 1;
+	_productivity = [ _prodvalue ] + _productivity;
 };
 
 [_market, _stock] call marketUpdateMarketPrices;
@@ -43,3 +46,5 @@ while { (_u < (count marketProductCollection)) } do {
 _market setVariable ["marketProductivity", _productivity];
 _market setVariable ["marketProductStorage", _storage, true];
 _market setVariable ["marketTimeStamp", format["%1", time], true];
+
+PROFILER_END();

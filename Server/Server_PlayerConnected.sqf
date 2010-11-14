@@ -7,11 +7,10 @@
 	Description:
 	  This file is called upon a player connection, the player's information are stored or retrieved before being updated.
 */
-#include <common.h>
-
-Private ["_profiler", '_attempts','_funds','_get','_leader','_name','_side','_sideLeft','_slotIndex','_team','_uid'];
-
+#include "profiler.h"
 PROFILER_BEGIN("Server_PlayerConnected");
+
+Private ['_attempts','_funds','_get','_leader','_name','_side','_sideLeft','_slotIndex','_team','_uid'];
 
 _uid = _this select 0;
 _name = _this select 1;

@@ -1,3 +1,6 @@
+#include "profiler.h"
+PROFILER_BEGIN("Market_InitServer");
+
 Private ['_unitType','_su'];
 
 _isInited = WF_Logic getVariable "marketInitialized";
@@ -23,4 +26,6 @@ WF_Logic setVariable ["marketInitialized", 1, true];
 "Initialization Market - Done" call LogMedium;
 
 execVM "Module\Market\Server\ServerTrade.sqf";
+
+PROFILER_END();
 

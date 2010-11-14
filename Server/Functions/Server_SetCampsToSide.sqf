@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_SetCampsToSide");
 
-Private["_camp","_camps","_count","_notifyAllSides","_objects","_previousSide","_side","_sideID","_startingSV","_town"];
+Private["_camp","_camps","_u","_notifyAllSides","_objects","_previousSide","_side","_sideID","_startingSV","_town"];
 
 _town = _this Select 0;
 _side = _this Select 1;
@@ -11,12 +11,14 @@ _sideID = _side Call GetSideID;
 _camps = _town getVariable "camps";
 _startingSV = _town getVariable "supplyValue";
 
-for [{_count = Count _camps - 1},{_count >= 0},{_count = _count - 1}] do {
-	_camp = _camps Select _count;
+_u = count _camps;
+_texture = Format["WFBE_%1FLAG",str _side] Call GetNamespace;
+
+while { !(_u == 0) } do {
+	_u = _u - 1;
+	_camp = _camps Select _u;
 	_camp setVariable ["sideID",_sideID,true];
 	_camp setVariable ["supplyValue",_startingSV,true];
-
-	_texture = Format["WFBE_%1FLAG",str _side] Call GetNamespace;
 
 	_objects = _camp nearEntities[[WFFLAG],20];
 	if (count _objects > 0) then {(_objects Select 0) setFlagTexture _texture};

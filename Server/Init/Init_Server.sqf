@@ -3,6 +3,9 @@ PROFILER_BEGIN("Init_Server");
 
 waitUntil { !isNil "LogInited" };
 
+emptyQueu = [];
+trashQueu = [];
+
 if (!isServer || time > 30) exitWith {
 	"Init_Server: The server initialization cannot be called more than once." call LogError;
 };
@@ -46,8 +49,6 @@ KAT_ParaAmmo = Compile preProcessfile "Server\Support\Support_ParaAmmo.sqf";
 KAT_Paratroopers = Compile preProcessfile "Server\Support\Support_Paratroopers.sqf";
 KAT_ParaVehicles = Compile preProcessfile "Server\Support\Support_ParaVehicles.sqf";
 KAT_UAV = Compile preProcessfile "Server\Support\Support_UAV.sqf";
-
-serverInitComplete = true;
 
 "Init_Server: Functions - [Done]" call LogMedium;
 
@@ -366,9 +367,6 @@ _starterVehicle = _starterVehicle + [_vehicle];
 
 "Init_Server: Starting Vehicles - [Done]" call LogHigh;
 
-emptyQueu = [];
-trashQueu = [];
-
 {
 	emptyQueu = emptyQueu + [_x];
 	_x Spawn HandleEmptyVehicle;
@@ -467,6 +465,7 @@ if (paramAlice) then {
 
 //--- Waiting until that the game is launched.
 waitUntil {time > 0};
+serverInitComplete = true;
 
 [East] Spawn SVoteForCommander;
 [West] Spawn SVoteForCommander;

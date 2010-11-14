@@ -1,4 +1,7 @@
-﻿marketGetNearMarketList = Compile preprocessFile "Module\Market\Client\GetNearMarketList.sqf"; 
+﻿#include "profiler.h"
+PROFILER_BEGIN("Market_Init");
+
+marketGetNearMarketList = Compile preprocessFile "Module\Market\Client\GetNearMarketList.sqf"; 
 marketClearPlayerCargo = Compile preprocessFile "Module\Market\Client\ClearPlayerCargo.sqf";
 marketGetSU = Compile preprocessFile "Module\Market\Function\GetSU.sqf"; 
 
@@ -110,3 +113,5 @@ if (local player) then {
 };
 
 if (isServer) then {ExecVM "Module\Market\Init_Server.sqf"};
+
+PROFILER_END();
