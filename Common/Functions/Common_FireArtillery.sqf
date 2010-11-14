@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_FireArtillery");
 
-Private["_bWait", "_timeout", "_gunner", "_weaponDir", "_weaponDir1", "_weapon", "_magazine", "_ammo","_angle","_arcDistance","_artillery","_destination","_direction","_distance","_minRange","_maxRange","_position","_radius","_shell","_side","_type","_velocity","_weapon","_x","_y"];
+Private["_R", "_bWait", "_timeout", "_gunner", "_weaponDir", "_weaponDir1", "_weapon", "_magazine", "_ammo","_angle","_arcDistance","_artillery","_destination","_direction","_distance","_minRange","_maxRange","_position","_radius","_shell","_side","_type","_velocity","_weapon","_x","_y"];
 
 _artillery = _this Select 0;
 _destination = _this Select 1;
@@ -48,17 +48,16 @@ _gunner DoWatch _watchPosition;
 
 _weapon = (weapons _artillery) select 0;
 _weaponDir = _artillery weaponDirection _weapon;
-
 _bWait = true;
 while { _bWait } do {
-	sleep 0.25;
+	sleep 0.1;
 	_weaponDir1 = _artillery weaponDirection _weapon;
+	_R = _weaponDir distance _weaponDir1;	
 	
-	_bWait = if ( (_weaponDir distance _weaponDir1) == 0) then { false } else { true };	
+	_bWait = if (_R == 0 && ((_weaponDir1 select 2) > 0.8) ) then { false } else { true };	
 	_weaponDir = _weaponDir1;
 };
 
-sleep 0.25;
 _amount = _artillery Ammo _weapon;
 
 if (_amount > 0) then {
@@ -68,16 +67,13 @@ if (_amount > 0) then {
 	_destination = [(_destination Select 0)+((sin _radialAlpha)*_radialR),(_destination Select 1)+((cos _radialAlpha)*_radialR), 2000];
 	
 	_timeout = time + 3;
-	_bWait = true;
 	_artillery Fire _weapon;
-	while { _bWait } do {
+	_shell = nearestObject [_artillery, _ammo];
+	
+	while { (isNull _shell) && (time < _timeout) } do {
 		_shell = nearestObject [_artillery, _ammo];
-		if ( !(isNull _shell) || (time > _timeout) ) then { _bWait = false; };
 	};
 	
-	//waitUntil { !(isNull (nearestObject [_artillery, _ammo])) };
-	//_shell = nearestObject [_artillery, _ammo];
-		
 	if ( !(isNull _shell) ) then  {
 
 		format["FireArtillery: Artillery=%1", _artillery] call LogHigh;
@@ -87,11 +83,9 @@ if (_amount > 0) then {
 		
 		[_shell, _destination] spawn FireArtilleryTraceTraectory;
 	} else {
-		format["FireArtillery: Shell does not found!", _artillery] call LogUnexpected;
+		format["FireArtillery: Shell does not found near Gun!", _artillery] call LogUnexpected;
 	
 	};
-	
-	_gunner DoWatch _watchPosition;
 };
 
 _atrillery call RearmVehicle;
