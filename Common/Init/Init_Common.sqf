@@ -208,10 +208,13 @@ if (paramBoundaries) then {
 	"Init_Common: Boundaries Loading - [Done]" call LogMedium;;
 };
 
-execVM "Common\Init\Init_UnitEquipmentPrice.sqf";
-
 //--- Disable Artillery Computer.
 if (!paramArtyComputer && !WF_A2_Vanilla) then {[] Call Compile preprocessFile 'Common\Common_DisableAC.sqf'};
+
+if (!isServer || (local player)) then {
+	initUnitEquipmentPrice = false;
+	[] Call Compile PreprocessFile "Common\Init\Init_UnitEquipmentPrice.sqf";
+};
 
 "Init_Common: Init End" call LogMedium;
 commonInitComplete = true;

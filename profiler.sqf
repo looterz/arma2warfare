@@ -1,7 +1,10 @@
 // _pid = "functionName" call ProfilerBegin;
 // _pid call ProfilerEnd;
 
-enabledProfiler = false;
+enabledProfiler = true;
+if (!WF_DEBUG && (local player)) then {
+	enabledProfiler = false;
+};
 
 ProfilerData = [];
 ProfilerBegin = { objNull; };

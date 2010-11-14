@@ -5,15 +5,7 @@ private['_equipmentPrice', '_unitId','_unitEquipment', '_index', '_unit'];
 
 _unit = _this;
 
-if (isNil 'WBE_Equipment') then {
-
-	WBE_Equipment = (WF_Logic getVariable 'primaryClasses') + (WF_Logic getVariable 'secondaryClasses') + (WF_Logic getVariable 'sidearmClasses') + (WF_Logic getVariable 'miscClasses') + (WF_Logic getVariable 'magazineClasses');
-
-	WBE_EquipmentPrice = (WF_Logic getVariable 'primaryCosts') + ( WF_Logic getVariable 'secondaryCosts') + (WF_Logic getVariable 'sidearmCosts') + ( WF_Logic getVariable 'miscCosts') + (WF_Logic getVariable 'magazineCosts');
-	
-	WBE_UnitEquipment = [];
-	WBE_UnitEquipmentPrice = [];
-};
+waitUntil { commonInitComplete && initUnitEquipmentPrice };
 
 _equipmentPrice = 0;
 _unitId = WBE_UnitEquipment find _this;

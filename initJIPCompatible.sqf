@@ -11,7 +11,6 @@ towns = [];
 //--- Global Init, first file called.
 IsClientServer = if (!isMultiplayer || (isServer && local player)) then { true; } else { false };
 
-
 WF_Debug = false;
 #ifdef WF_DEBUG
 	WF_Debug = true;
@@ -30,7 +29,6 @@ waitUntil { !isNil "LogInited" };
 
 //--- Client Init.
 if (local player) then {
-	
 	"Player initialization" call LogMedium;
 	waitUntil {!isNull(player)};
 	/* Client Init Done - Begin the blackout on Layer 1 */

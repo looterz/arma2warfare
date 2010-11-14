@@ -49,3 +49,5 @@
 // -- Market module
 #include "Module\Market\Rsc\Market.hpp"
 #include "Module\CamMissle\Dialogs.hpp"
+
+//__EXEC(mergeConfigFile ["config.cpp", false]);
