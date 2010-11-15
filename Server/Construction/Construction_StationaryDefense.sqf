@@ -57,7 +57,7 @@ Call Compile Format ["_defense addEventHandler ['Killed',{[_this select 0,_this 
 
 if (_defense EmptyPositions "gunner" > 0 && paramAutoDefense) then {
 	_team = if (_side == WEST) then {WF_DefenseWestGrp} else {WF_DefenseEastGrp};
-	emptyQueu = emptyQueu + [_defense];
+
 	_defense Spawn HandleEmptyVehicle;
 	if (_manned) then {
 		_alives = (units _team) Call GetLiveUnits;

@@ -46,22 +46,6 @@ if (_sideVictim == sideEnemy) then {
 	if (_killed isKindOf eastSoldierBaseClass) then {_sideVictim = east};
 };
 
-//--- Benny's Garbage Collector.
-fnGarbageCollector = {
-private['_objects', '_killed'];
-
-	sleep 1 + random(4);
-	_killed = _this select 0;
-
-	if (!(isServer) || local player) then {
-		_objects = (WF_Logic getVariable "trash") + [_killed];
-		WF_Logic setVariable ["trash",_objects,true];
-	} else {
-		trashQueu = trashQueu + [_killed];
-		_killed Spawn TrashObject;
-	};
-};
-
 fnUpdateSideStat = {
 private['_killedQueu', '_side', '_count', '_varName', '_lost', '_isMan'];
 
@@ -99,7 +83,6 @@ private['_tmpKilledQueu', '_killedList', '_x'];
 		if (!(isServer) || local player) then {
 			WF_Logic setVariable ["trash", ((WF_Logic getVariable "trash") + _killedList), true];
 		} else {
-			trashQueu = trashQueu + _killedList;
 			{_x Spawn TrashObject } forEach _killedList;
 		};
 		

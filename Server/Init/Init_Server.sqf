@@ -3,9 +3,6 @@ PROFILER_BEGIN("Init_Server");
 
 waitUntil { !isNil "LogInited" };
 
-emptyQueu = [];
-trashQueu = [];
-
 if (!isServer || time > 30) exitWith {
 	"Init_Server: The server initialization cannot be called more than once." call LogError;
 };
@@ -367,10 +364,7 @@ _starterVehicle = _starterVehicle + [_vehicle];
 
 "Init_Server: Starting Vehicles - [Done]" call LogHigh;
 
-{
-	emptyQueu = emptyQueu + [_x];
-	_x Spawn HandleEmptyVehicle;
-} forEach _starterVehicle;
+{ _x Spawn HandleEmptyVehicle; } forEach _starterVehicle;
 
 //--- Pre-initialization of the Garbage Collector & Empty vehicle collector.
 WF_Logic setVariable ["trash",[],true];
@@ -470,4 +464,6 @@ serverInitComplete = true;
 [East] Spawn SVoteForCommander;
 [West] Spawn SVoteForCommander;
 
+execVM "Server\Functions\Server_HandleEmptyVehicleThread.sqf";
+execVM "Server\Functions\Server_TrashObjectThread.sqf";
 PROFILER_END();

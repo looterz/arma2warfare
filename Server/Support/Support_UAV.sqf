@@ -19,8 +19,25 @@ while {!_exit} do {
 	if (!isPlayer leader _playerTeam || !alive _uav) then {_exit = true};
 };
 
-if (!isNull _driver) then {if (alive _driver) then {_driver setDammage 1};if (!(_driver in trashQueu)) then {trashQueu = trashQueu + [_driver];_driver Spawn TrashObject}};
-if (!isNull _gunner) then {if (alive _gunner) then {_gunner setDammage 1};if (!(_gunner in trashQueu)) then { trashQueu = trashQueu + [_gunner];_gunner Spawn TrashObject}};
-if (!isNull _uav) then {if (alive _uav) then {_uav setDammage 1};if (!(_uav in trashQueu)) then { trashQueu = trashQueu + [_uav];_uav Spawn TrashObject}};
+if (!isNull _driver) then {
+	if (alive _driver) then {
+		_driver setDammage 1
+	};
+	_driver Spawn TrashObject;
+};
+
+if (!isNull _gunner) then {
+	if (alive _gunner) then {
+		_gunner setDammage 1
+	};
+	_gunner Spawn TrashObject;
+};
+
+if (!isNull _uav) then {
+	if (alive _uav) then {
+		_uav setDammage 1;
+	};
+	_uav Spawn TrashObject;
+};
 
 PROFILER_END();

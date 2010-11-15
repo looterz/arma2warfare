@@ -33,7 +33,7 @@ class FSM
           priority = 0.000000;
           to="Update_Garbage";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > 0.5 && !gameOver"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > 5 && !gameOver"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -44,15 +44,11 @@ class FSM
     class Update_Garbage
     {
       name = "Update_Garbage";
-      init = /*%FSM<STATEINIT""">*/"_objects = WF_Logic getVariable ""trash"";" \n
+      init = /*%FSM<STATEINIT""">*/"" \n
+	   "_objects = WF_Logic getVariable ""trash"";" \n
+       "if ((count _objects) > 0) then { WF_Logic setVariable [""trash"", [], true]; }; " \n
        "{" \n
-       "	if !(_x in trashQueu) then {" \n
-       "		_objects2 = WF_Logic getVariable ""trash"";" \n
-       "		trashQueu = trashQueu + [_x];" \n
-       "		_x Spawn TrashObject;" \n
-       "		_renewed = _objects2 - [_x] - [objNull];" \n
-       "		WF_Logic setVariable [""trash"",_renewed,true];" \n
-       "	};" \n
+       "	_x Spawn TrashObject;" \n
        "} forEach _objects;" \n
        "_lastUpdate = time;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;

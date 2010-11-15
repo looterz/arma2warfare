@@ -318,7 +318,6 @@ class FSM
        "	" \n
        "	if (count _vehicles > 0) then {" \n
        "		{" \n
-       "			emptyQueu = emptyQueu + [_x];" \n
        "			_x Spawn HandleEmptyVehicle;" \n
        "		} forEach _vehicles;" \n
        "	};" \n
@@ -433,7 +432,6 @@ class FSM
        "" \n
        "if (count _vehicles > 0) then {" \n
        "	{" \n
-       "		emptyQueu = emptyQueu + [_x];" \n
        "		_x Spawn HandleEmptyVehicle;" \n
        "	} forEach _vehicles;" \n
        "};" \n

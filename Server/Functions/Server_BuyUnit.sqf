@@ -109,7 +109,6 @@ if (_unitType isKindOf "Man") then {
 		};
 	};
 
-	emptyQueu = emptyQueu + [_vehicle];
 	_vehicle Spawn HandleEmptyVehicle;
 	if (_vehicle distance (leader _team) < 200) then {(units _team) allowGetIn true;_team addVehicle _vehicle};
 	

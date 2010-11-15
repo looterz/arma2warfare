@@ -279,5 +279,7 @@ WF_Logic setVariable [Format["%1UnitsCreated",sideJoinedText],_built,true];
 
 ["TownAddComplete"] Spawn TaskSystem;
 
+ExecVM "Client\Functions\Client_MarkerUpdateThread.sqf";
+
 /* Client Init Done - Remove the blackout */
 12452 cutText [(localize 'STR_WF_Loading')+"...","BLACK IN",5];

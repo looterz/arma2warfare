@@ -51,7 +51,6 @@ _cargo = (crew _vehicle) - [driver _vehicle, gunner _vehicle, commander _vehicle
 _cargoVehicle = [Format ["WFBE_%1PARAVEHICARGO",str _side] Call GetNamespace,[0,0,50],_side,false] Call CreateVehi;
 _cargoVehicle attachTo [_vehicle,[0,0,-3]];
 
-emptyQueu = emptyQueu + [_cargoVehicle];
 _cargoVehicle Spawn HandleEmptyVehicle;
 
 while {!_exit} do {
