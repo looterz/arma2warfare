@@ -178,9 +178,21 @@ while {alive player && dialog} do {
 				};
 			};
 			if !(_skip) then {
-				_queu = _closest getVariable 'queu';
-				_txt = parseText(Format [localize 'STR_WF_BuyEffective',_currentUnit select QUERYUNITLABEL]);
-				if (!isNil '_queu') then {if (count _queu > 0) then {_txt = parseText(Format [localize 'STR_WF_Queu',_currentUnit select QUERYUNITLABEL])}};
+			
+				_openTicketId = _closest getVariable "buyUnitOpenTicketId";
+				if (isNil "_openTicketId") then { _openTicketId = 0; };
+
+				_nextTicketId = _closest getVariable "buyUnitNextTicketId";
+				if (isNil "_nextTicketId") then { _nextTicketId = 0; };	
+
+				_countQueue = (_nextTicketId - _openTicketId);
+			
+				_txt = if (_countQueue > 0) then {
+					parseText(Format [localize 'STR_WF_Queu',_currentUnit select QUERYUNITLABEL]);
+				} else  {
+					parseText(Format [localize 'STR_WF_BuyEffective',_currentUnit select QUERYUNITLABEL]);
+				};
+				
 				hint _txt;
 				_params = if (_isInfantry) then {[_closest,_unit,[]]} else {[_closest,_unit,[_driver,_gunner,_commander,_isLocked]]};
 				_params Spawn BuildUnit;
@@ -373,9 +385,15 @@ while {alive player && dialog} do {
 	};
 	
 	//--- Display Factory Queu.
-	_queu = _closest getVariable "queu";
-	_value = if (isNil '_queu') then {0} else {count (_closest getVariable "queu")};
-	ctrlSetText[12024,Format[localize 'STR_WF_Queued',str _value]];
+	_openTicketId = _closest getVariable "buyUnitOpenTicketId";
+	if (isNil "_openTicketId") then { _openTicketId = 0; };
+
+	_nextTicketId = _closest getVariable "buyUnitNextTicketId";
+	if (isNil "_nextTicketId") then { _nextTicketId = 0; };	
+
+	_countQueue = (_nextTicketId - _openTicketId);
+				
+	ctrlSetText[12024,Format[localize 'STR_WF_Queued',str _countQueue]];
 	
 	//--- List selection changed.
 	if (_updateDetails) then {

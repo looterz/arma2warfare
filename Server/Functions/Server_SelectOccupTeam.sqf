@@ -31,18 +31,18 @@ if (_difficulty1 >= 4 && diag_fps >= 35) then {_difficulty = 4};
 if (_difficulty1 >= 5 && diag_fps >= 45) then {_difficulty = 5};
 	
 _u = _difficulty;
-while { !(_u == 0) } do {
+while { _u != 0 } do {
 	_u = _u - 1;
 	_ran1 = random 100;
 	if (_ran1 < _probaOccupation) then {
 		{
 			_ran2 = round(1 + random 2);
-			_teams = _teams + [Format ["%1%2", _u, _ran2]];
+			_teams = _teams + [Format ["%1%2", _x, _ran2]];
 		} forEach _type;
 	};
 };
 
-if (count _teams < 1) then {_teams = ["SmallTeam1"]};
+if (count _teams == 0) then {_teams = ["SmallTeam1"]};
 
 PROFILER_END();
 _teams

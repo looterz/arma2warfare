@@ -7,6 +7,7 @@ _timeoutUnitRemoveDelay = 'WFBE_UNITREMOVEDLAY' Call GetNamespace;
 
 _fnHideBody = {
 private["_object", '_group', '_get', '_alive'];
+PROFILER_BEGIN("Server_TrashObjectThread::HideBody");
 
 	_object = _this;
 	_group = group _object;
@@ -18,10 +19,13 @@ private["_object", '_group', '_get', '_alive'];
 		};
 	};
 	hideBody _object;
+	
+PROFILER_END();	
 };
 
 _fnDeleteObject = {
 private["_trashItem", '_object', '_canDelete', '_isDeleted'];
+PROFILER_BEGIN("Server_TrashObjectThread::DeleteObject");
 
 	_isDeleted = false;
 	_trashItem = _this;
@@ -49,12 +53,17 @@ private["_trashItem", '_object', '_canDelete', '_isDeleted'];
 			deleteVehicle _object;
 			_isDeleted = true;
 		};
+	} else {
+		_isDeleted = true;
 	};	
+	
+PROFILER_END();	
 	_isDeleted;
 };
 
-_fnProcessTrashItemList = {
+_fnProcessTrashItemCollection = {
 private['_isArrayDirty', '_u', '_trashItem', '_timeout'];
+PROFILER_BEGIN("Server_TrashObjectThread::ProcessTrashItemCollection");
 
 	_isArrayDirty = false;
 	_u = count WBE_TrashObjectCollection;
@@ -83,10 +92,12 @@ private['_isArrayDirty', '_u', '_trashItem', '_timeout'];
 		WBE_TrashObjectCollection = WBE_TrashObjectCollection - [ objNull ];
 		WBE_TrashObjectCollectionQueu = WBE_TrashObjectCollectionQueu - [ objNull ];
 	};
+	
+PROFILER_END();	
 };
 
 while { !gameOver } do {
 	
 	sleep 10;
-	[] call _fnProcessTrashItemList;
+	[] call _fnProcessTrashItemCollection;
 };

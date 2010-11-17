@@ -8,11 +8,11 @@ _vehicle = _this;
 if (isNil "_vehicle") exitWith { PROFILER_END(); };
 if (isNull _vehicle)  exitWith { PROFILER_END(); };
 
-waitUntil { !(isNil "WBE_HandleEmptyVehicleList") };
+waitUntil { !(isNil "WBE_HandleEmptyVehicleCollection") };
 
 if ( !(_vehicle in WBE_HandleEmptyVehicleQueu) ) then {
 	WBE_HandleEmptyVehicleQueu = WBE_HandleEmptyVehicleQueu + [ _vehicle ];
-	WBE_HandleEmptyVehicleList = WBE_HandleEmptyVehicleList + [ [_vehicle, 0] ];
+	WBE_HandleEmptyVehicleCollection = WBE_HandleEmptyVehicleCollection + [ [_vehicle, 0] ];
 };
 
 PROFILER_END();

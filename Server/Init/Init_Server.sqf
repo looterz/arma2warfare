@@ -42,6 +42,8 @@ TrashObject = Compile preprocessFile "Server\Functions\Server_TrashObject.sqf";
 UpdateTeam = Compile preprocessFile "Server\Functions\Server_UpdateTeam.sqf";
 UpdateSupplyTruck = Compile preprocessFile "Server\AI\AI_UpdateSupplyTruck.sqf";
 
+BuyUnitCreateUnit = Compile preprocessFile "Server\Functions\Server_BuyUnitCreateUnit.sqf";
+
 KAT_ParaAmmo = Compile preProcessfile "Server\Support\Support_ParaAmmo.sqf";
 KAT_Paratroopers = Compile preProcessfile "Server\Support\Support_Paratroopers.sqf";
 KAT_ParaVehicles = Compile preProcessfile "Server\Support\Support_ParaVehicles.sqf";
@@ -461,9 +463,17 @@ if (paramAlice) then {
 waitUntil {time > 0};
 serverInitComplete = true;
 
+{ 
+	if ( !(isPlayer _x) ) then {
+		Call Compile Format ["_x addEventHandler ['Killed',{[_this select 0,_this select 1,%1] spawn UnitKilled}]",side _x]; 
+	}
+} forEach allUnits;
+
 [East] Spawn SVoteForCommander;
 [West] Spawn SVoteForCommander;
 
 execVM "Server\Functions\Server_HandleEmptyVehicleThread.sqf";
 execVM "Server\Functions\Server_TrashObjectThread.sqf";
+execVM "Server\Functions\Server_BuyUnitThread.sqf";
+
 PROFILER_END();

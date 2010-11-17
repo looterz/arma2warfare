@@ -18,6 +18,12 @@ _killedname = "";
 _iskilledplayer = false;
 _iskillerplayer = false;
 
+if (isServer && (isPlayer _killed) && !IsClientServer) exitWith {
+
+	// player deaths must be handled on client machines;
+	PROFILER_END();
+};
+
 _isMan = true;
 //--- Ghost Fix (Invincible soldiers wanking around, not fighting back and not moving).
 if !(_killed isKindOf "Man") then {

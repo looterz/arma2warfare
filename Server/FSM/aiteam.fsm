@@ -906,31 +906,20 @@ class FSM
        "				};" \n
        "				if !(isNull _buyFrom) then {" \n
        "					_upgradeStatus = _upgrades select _upgradeLevel;" \n
-       "					_globalQueu = _team getVariable ""queue"";" \n
-       "					if (isNil ""_globalQueu"") then {_globalQueu = []};" \n
-       "					if ((count _globalQueu) + _size < _mbu && _funds > _price && _upgradeStatus >= _upgradeRequired) then {" \n
-       "						_ran = 2000 + random(10) + random (100) + random(1000);" \n
-       "						_globalQueu = _globalQueu + [_ran];" \n
+       "					_canBuy = _team getVariable ""canOrderUnit"";" \n
+       "					if (isNil ""_canBuy"") then { _canBuy = 1; };" \n
+       "					if ( (_canBuy == 1) &&  (_size < _mbu) && _funds > _price && _upgradeStatus >= _upgradeRequired) then {" \n
        "						_vehiSlots = [true,false,false];" \n
-       "						_IDS = [_ran];		" \n
        "						if (!(_x isKindOf ""Man"")) then {" \n
        "							if (_crews < 3 && _crews != 1) then {" \n
-       "								_ran2 = 2000 + random(10) + random (100) + random(1000);" \n
-       "								_globalQueu = _globalQueu + [_ran2];" \n
        "								_vehiSlots = [true,true,false];" \n
-       "								_IDS = _IDS + [_ran2];" \n
        "							};" \n
        "							if (_crews > 2) then {" \n
-       "								_ran2 = 2000 + random(10) + random (100) + random(1000);" \n
-       "								_ran3 = 2000 + random(10) + random (100) + random(1000);" \n
-       "								_globalQueu = _globalQueu + [_ran2,_ran3];" \n
        "								_vehiSlots = [true,true,true];" \n
-       "								_IDS = _IDS + [_ran2] + [_ran3];" \n
        "							};" \n
        "						};" \n
-       "						_chk = _team getVariable ""queue"";" \n
-       "						if (!isNil ""_chk"") then {_team setVariable [""queue"",_globalQueu]};" \n
-       "						[_IDS,_buyFrom,_x,_side,_team,_vehiSlots] Spawn AIBuyUnit;" \n
+       "						_team setVariable [""canOrderUnit"", 0];" \n
+       "						[objNull, _buyFrom, _x, _side, _team, _vehiSlots] Spawn AIBuyUnit;" \n
        "						[_team,-_price] Call ChangeTeamFunds;	" \n
        "					};" \n
        "				};" \n
