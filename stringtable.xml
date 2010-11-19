@@ -203,11 +203,34 @@
       </Key>
       <Key ID="STR_WF_Build_Complete">
         <English>&lt;t color='#F8D664'&gt;Factory Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Your &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; has arrived.</English>
-        <French>&lt;t color='#F8D664'&gt;Information Usine:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Votre &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; est arrivé.</French>
-        <German>&lt;t color='#F8D664'&gt;Fabrik-Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Ihr &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; ist angekommen.</German>
+         <French>&lt;t color='#F8D664'&gt;Information Usine:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Votre &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; est arrive.</French>
+         <German>&lt;t color='#F8D664'&gt;Fabrik-Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Ihr &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; ist angekommen.</German>
         <Russian>&lt;t color='#F8D664'&gt;Информация:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt;&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; готов.</Russian>
-        <Italian>&lt;t color='#F8D664'&gt;Informazioni fabrica:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - il Tuo &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; è arrivato.</Italian>
+        <Italian>&lt;t color='#F8D664'&gt;Informazioni fabrica:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - il Tuo &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; e arrivato.</Italian>
       </Key>
+      <Key ID="STR_WF_BuyEffective">
+        <English>&lt;t color='#F8D664'&gt;Factory Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Building &lt;t color='#85B5FA'&gt;%1&lt;/t&gt;.</English>
+         <French>&lt;t color='#F8D664'&gt;Information Usine:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; en Production.</French>
+         <German>&lt;t color='#F8D664'&gt;Fabrik-Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; wird gebaut.</German>
+        <Russian>&lt;t color='#F8D664'&gt;Информация:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt;&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; в производстве</Russian>
+        <Italian>&lt;t color='#F8D664'&gt;Informazioni Fabrica:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; In Costruzione.</Italian>
+      </Key>	  
+      <Key ID="STR_WF_Queu">
+        <English>&lt;t color='#F8D664'&gt;Factory Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; Queued.</English>
+         <French>&lt;t color='#F8D664'&gt;Information Usine:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; Mis en attente.</French>
+         <German>&lt;t color='#F8D664'&gt;Fabrik-Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; in der Warteschlange.</German>
+        <Russian>&lt;t color='#F8D664'&gt;Информация:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt;&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; на очереди.</Russian>
+        <Italian>&lt;t color='#F8D664'&gt;Factory Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; Queued.</Italian>
+      </Key>
+
+      <Key ID="STR_WF_Queued">
+        <English>Factory Queue: %1</English>
+        <French>Queu de fabrication: %1</French>
+        <German>Warteschlange: %1</German>
+        <Russian>На конвеере: %1</Russian>
+        <Italian>Coda Produzione: %1</Italian>
+      </Key>
+	  
       <Key ID="STR_WF_BuildMenu">
         <English>Open Construction Menu (MHQ)</English>
         <French>Ouvrir Menu de Construction (MHQ)</French>
@@ -222,13 +245,7 @@
         <Russian>Открыть меню строительства</Russian>
         <Italian>Apri Menu Costruzioni</Italian>
       </Key>
-      <Key ID="STR_WF_BuyEffective">
-        <English>&lt;t color='#F8D664'&gt;Factory Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Building &lt;t color='#85B5FA'&gt;%1&lt;/t&gt;.</English>
-        <French>&lt;t color='#F8D664'&gt;Information Usine:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; en Production.</French>
-        <German>&lt;t color='#F8D664'&gt;Fabrik-Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; wird gebaut.</German>
-        <Russian>&lt;t color='#F8D664'&gt;Информация:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt;&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; в производстве</Russian>
-        <Italian>&lt;t color='#F8D664'&gt;Informazioni Fabrica:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; In Costruzione.</Italian>
-      </Key>
+	    
       <Key ID="STR_WF_BuyType">
         <English>Buy Types:</English>
         <French>Type d'Achats:</French>
@@ -1391,20 +1408,6 @@
         <German>Anschieben (Fahrzeug)</German>
         <Russian>Толкнуть (Транспорт)</Russian>
         <Italian>Spingi (Veicolo)</Italian>
-      </Key>
-      <Key ID="STR_WF_Queu">
-        <English>&lt;t color='#F8D664'&gt;Factory Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; Queued.</English>
-        <French>&lt;t color='#F8D664'&gt;Information Usine:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; Mis en attente.</French>
-        <German>&lt;t color='#F8D664'&gt;Fabrik-Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; in der Warteschlange.</German>
-        <Russian>&lt;t color='#F8D664'&gt;Информация:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt;&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; на очереди.</Russian>
-        <Italian>&lt;t color='#F8D664'&gt;Factory Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; Queued.</Italian>
-      </Key>
-      <Key ID="STR_WF_Queued">
-        <English>Factory Queue: %1</English>
-        <French>Queu de fabrication: %1</French>
-        <German>Warteschlange: %1</German>
-        <Russian>На конвеере: %1</Russian>
-        <Italian>Coda Produzione: %1</Italian>
       </Key>
       <Key ID="STR_WF_Rearm">
         <English>Rearm</English>

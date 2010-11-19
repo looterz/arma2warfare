@@ -1,39 +1,38 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_AARadarMarkerUpdate");
 
-Private ["_height","_object","_markerName","_side"];
+Private ["_markerType", "_markerColor", "_markerSize", "_markerText", "_markerName", "_tracked", "_refreshRate", "_trackDeath", "_deathMarkerType", "_deathMarkerColor", "_deletePrevious", "_side", "_deathMarkerSize", "_markerInfo" ];
 
-waitUntil {commonInitComplete};
-sleep 2;
-
-_object = _this select 0;
-_side = _this select 1;
-
-if (_side == side player || isNull _object ||!(alive _object)) exitWith {};
-
-_markerName = Format ["unitMarker%1",unitMarker];
-unitMarker = unitMarker + 1;
-
-createMarkerLocal [_markerName,[0,0,0]];
-_markerName setMarkerTypeLocal "Vehicle";
-_markerName setMarkerColorLocal "ColorRed";
-_markerName setMarkerSizeLocal [5,5];
-_markerName setMarkerAlphaLocal 0;
-_height = 'WFBE_ANTIAIRRADARDETECTION' Call GetNamespace;
-
-while {alive _object && !(isNull _object)} do {
-	if (antiAirRadarInRange) then {
-		_zOffset = (getPos _object) select 2;
-		if (_zOffset > _height) then {
-			_markerName setMarkerAlphaLocal 1;
-			_markerName setMarkerPosLocal (getPos _object);
-		} else {
-			_markerName setMarkerAlphaLocal 0;
-		};
+	if (!(local player)) exitWith {
+		PROFILER_END();
 	};
-	
-	sleep 1;
-};
 
-deleteMarkerLocal _markerName;
+	_tracked 		  = _this select 0;
+	_side		      = _this select 1;
+
+	if (_side == side player || isNull _tracked || !(alive _tracked)) exitWith {
+		PROFILER_END();
+	};	
+	
+	waitUntil {commonInitComplete && !isNil "MarkerUpdateConditionAntiAir" };
+	
+	unitMarker = unitMarker + 1;
+
+	_markerType 	  = "Vehicle";
+	_markerColor 	  = "ColorRed";
+	_markerSize 	  = [5,5];
+	_markerText 	  = "";
+	_markerName 	  = Format ["unitMarker%1", unitMarker];
+	_tracked 		  = _this select 0;
+	_refreshRate 	  = 1;
+	_trackDeath 	  = false;
+	_deathMarkerType  = objNull;
+	_deathMarkerColor = objNull;
+	_deletePrevious   = false;
+	_side		      = side player; // just for compability 
+	_deathMarkerSize  = objNull;
+
+	_markerInfo = [_markerType, _markerColor, _markerSize, _markerText, _markerName, _tracked, _refreshRate, _trackDeath, _deathMarkerType, _deathMarkerColor, _deletePrevious, _side, _deathMarkerSize, MarkerUpdateConditionAntiAir];
+
+	_markerInfo call MarkerUpdate;
 PROFILER_END();

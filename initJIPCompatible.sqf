@@ -288,4 +288,5 @@ if (paramTrade) then {
 	execVM "Module\Market\Init_Market.sqf";
 };
 
+[] ExecVM "Module\BuyUnit\BuyUnit_InitService.sqf";
 PROFILER_END();

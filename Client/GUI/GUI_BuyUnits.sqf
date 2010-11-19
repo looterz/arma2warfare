@@ -179,21 +179,6 @@ while {alive player && dialog} do {
 			};
 			if !(_skip) then {
 			
-				_openTicketId = _closest getVariable "buyUnitOpenTicketId";
-				if (isNil "_openTicketId") then { _openTicketId = 0; };
-
-				_nextTicketId = _closest getVariable "buyUnitNextTicketId";
-				if (isNil "_nextTicketId") then { _nextTicketId = 0; };	
-
-				_countQueue = (_nextTicketId - _openTicketId);
-			
-				_txt = if (_countQueue > 0) then {
-					parseText(Format [localize 'STR_WF_Queu',_currentUnit select QUERYUNITLABEL]);
-				} else  {
-					parseText(Format [localize 'STR_WF_BuyEffective',_currentUnit select QUERYUNITLABEL]);
-				};
-				
-				hint _txt;
 				_params = if (_isInfantry) then {[_closest,_unit,[]]} else {[_closest,_unit,[_driver,_gunner,_commander,_isLocked]]};
 				_params Spawn BuildUnit;
 				-(_currentCost) Call ChangePlayerFunds;
@@ -385,14 +370,7 @@ while {alive player && dialog} do {
 	};
 	
 	//--- Display Factory Queu.
-	_openTicketId = _closest getVariable "buyUnitOpenTicketId";
-	if (isNil "_openTicketId") then { _openTicketId = 0; };
-
-	_nextTicketId = _closest getVariable "buyUnitNextTicketId";
-	if (isNil "_nextTicketId") then { _nextTicketId = 0; };	
-
-	_countQueue = (_nextTicketId - _openTicketId);
-				
+	_countQueue = (_closest) call BuyUnit_GetOrderQueueStatus;	
 	ctrlSetText[12024,Format[localize 'STR_WF_Queued',str _countQueue]];
 	
 	//--- List selection changed.
