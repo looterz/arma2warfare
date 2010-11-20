@@ -57,9 +57,6 @@ while { ((alive player) && dialog && (alive _missile) && (!isNull _missile)) } d
 };
 if (!dialog) exitwith  {camUseNVG false;camdestroy _cam;player cameraEffect ["terminate","back"]};
 
-format["MissleCamera EndFired: Pos=%1", _lastPos] call LogTrace;
-hint format["MissleCamera EndFired: Pos=%1", _lastPos];
-
 addCamShake [10, 1, 25];
 enableCamShake true;
 
