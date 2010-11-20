@@ -15,15 +15,12 @@
 #define ARROWHEAD 1
 
 /* Description.ext Specific */
-#define WF_MAXPLAYERS 32
-#define WF_MISSIONNAME "Warfare Benny Edition V2.065 Lite OA - Takistan"
+#define WF_MAXPLAYERS 40
+#define WF_MISSIONNAME "[40]Warfare V2.065 R3 Lite Bomba Edition - Takistan"
 #define WF_RESPAWNDELAY 2
 
 /* MySQL Support */
 //#define MYSQL 1
-
-
-
 
 
 

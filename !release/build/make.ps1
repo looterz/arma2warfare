@@ -32,19 +32,33 @@ function EntryPoint
 		$null = new-item -type directory -path $outputDir;
 	}
 	
-	$world = "CO.Takistan";
+	#-- Takistan Combined Operations
+	$world = "Takistan.CO";
 	Copy-Item "$source\!release\$world\*" "$tmpfolder" -Force
 	Write-Host "Compile $projectName.$world.pbo"
 	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$world.pbo";
  
-	
-	$world = "CO.Chernarus";
+ 	#-- Takistan Operation Arrowhead
+	$world = "Takistan.OA";
+	Copy-Item "$source\!release\$world\*" "$tmpfolder" -Force
+	Write-Host "Compile $projectName.$world.pbo"
+	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$world.pbo";
+ 
+	#-- Chernarus Combined Operations	
+	$world = "Chernarus.CO";
+	Copy-Item "$source\!release\$world\*" "$tmpfolder" -Force
+	Write-Host "Compile $projectName.$world.pbo"
+	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$world.pbo";
+
+	#-- Chernarus Vanilla	
+	$world = "Chernarus.A2";
 	Copy-Item "$source\!release\$world\*" "$tmpfolder" -Force
 	Write-Host "Compile $projectName.$world.pbo"
 	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$world.pbo";
 	
+	
 	#-- remove temporary folder
-	Remove-Item -path $tmpfolder -Recurse -Force;
+	#-- Remove-Item -path $tmpfolder -Recurse -Force;
 	
 	Write-Host "Build completed."
 }
