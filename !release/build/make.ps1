@@ -37,28 +37,28 @@ function EntryPoint
 	$version = "CO"
 	Copy-Item "$source\!release\$world.$version\*" "$tmpfolder" -Force
 	Write-Host "Compile $projectName.$version.$world.pbo"
-	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$vesion.$world.pbo";
+	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$version.$world.pbo";
  
  	#-- Takistan Operation Arrowhead
 	$world = "Takistan";
 	$version = "OA"
 	Copy-Item "$source\!release\$world.$version\*" "$tmpfolder" -Force
 	Write-Host "Compile $projectName.$version.$world.pbo"
-	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$vesion.$world.pbo";
+	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$version.$world.pbo";
 	
 	#-- Chernarus Combined Operations	
 	$world = "Chernarus";
 	$version = "CO"
 	Copy-Item "$source\!release\$world.$version\*" "$tmpfolder" -Force
 	Write-Host "Compile $projectName.$version.$world.pbo"
-	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$vesion.$world.pbo";
+	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$version.$world.pbo";
 	
 	#-- Chernarus Vanilla	
 	$world = "Chernarus";
 	$version = "A2"
 	Copy-Item "$source\!release\$world.$version\*" "$tmpfolder" -Force
 	Write-Host "Compile $projectName.$version.$world.pbo"
-	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$vesion.$world.pbo";
+	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$version.$world.pbo";
 	
 	
 	#-- remove temporary folder
