@@ -58,7 +58,7 @@ function EntryPoint
 	
 	
 	#-- remove temporary folder
-	#-- Remove-Item -path $tmpfolder -Recurse -Force;
+	Remove-Item -path $tmpfolder -Recurse -Force;
 	
 	Write-Host "Build completed."
 }
