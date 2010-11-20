@@ -33,18 +33,18 @@ function EntryPoint
 	}
 	
 	$world = "Takistan";
-	Copy-Item "$source\!release\$world\*" "$output";
+	Copy-Item "$source\!release\$world\*" "$tmpfolder" -Force
 	Write-Host "Compile $projectName.$world.pbo"
 	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$world.pbo";
  
 	
 	$world = "Chernarus";
-	Copy-Item "$source\!release\$world\*" "$output";
+	Copy-Item "$source\!release\$world\*" "$tmpfolder" -Force
 	Write-Host "Compile $projectName.$world.pbo"
 	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$world.pbo";
 	
 	#-- remove temporary folder
-	#Remove-Item -path $tmpfolder -Recurse -Force;
+	Remove-Item -path $tmpfolder -Recurse -Force;
 	
 	Write-Host "Build completed."
 }
