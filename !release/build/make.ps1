@@ -1,4 +1,4 @@
-$projectName = "WarfareBE_V2065.R3@Bomba";
+$projectName = "Warfare_V2065.R3@Bomba";
 $buildRelease = $true;
 #-- $mode = "debug";
 
