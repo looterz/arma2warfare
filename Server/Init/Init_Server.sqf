@@ -461,12 +461,6 @@ if (paramAlice) then {
 waitUntil {time > 0};
 serverInitComplete = true;
 
-{ 
-	if ( !(isPlayer _x) ) then {
-		Call Compile Format ["_x addEventHandler ['Killed',{[_this select 0,_this select 1,%1] spawn UnitKilled}]",side _x]; 
-	}
-} forEach allUnits;
-
 [East] Spawn SVoteForCommander;
 [West] Spawn SVoteForCommander;
 

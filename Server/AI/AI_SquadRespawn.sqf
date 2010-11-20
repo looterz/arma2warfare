@@ -2,37 +2,49 @@
 PROFILER_BEGIN("Server_AI_SquadRespawn");
 
 Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr","_rr","_respawn","_respawnLoc","_side","_sideText","_slot","_team","_upgrades"];
-_side = _this select 0;
-_team = _this select 1;
-_slot = _this select 2;
-_sideText = str _side;
-_deathLoc = objNull;
-_respawnLoc = objNull;
 
-_rd = 'WFBE_RESPAWNDELAY' Call GetNamespace;
-_rr = 'WFBE_RESPAWNRANGE' Call GetNamespace;
-_rmr = 'WFBE_RESPAWNMINRANGE' Call GetNamespace;
+	_team = _this;
 
-sleep (random 0.5);
+	_side = side _team;	
+	_sideText = str _side;
+	_deathLoc = objNull;
+	_respawnLoc = objNull;
 
-while {!gameOver} do {
-	if (isPlayer leader _team) exitWith {};
-	_built = WF_Logic getVariable Format ["%1UnitsCreated",_sideText];
-	_built = _built + 1;
-	WF_Logic setVariable [Format["%1UnitsCreated",_sideText],_built,true];
-	waitUntil {!alive leader _team || isPlayer leader _team};
+	_rd = 'WFBE_RESPAWNDELAY' Call GetNamespace;
+	_rr = 'WFBE_RESPAWNRANGE' Call GetNamespace;
+	_rmr = 'WFBE_RESPAWNMINRANGE' Call GetNamespace;
+	
+	if (isNil "_team") exitWith {
+		format["AI_SquadRespawn Initialized: Trying Respawn nil team", _this] call LogHigh;
+	};
+	
+	if (isNull _team) exitWith {
+		format["AI_SquadRespawn Initialized: Trying Respawn null team", _this] call LogHigh;
+	};
+
+	_leader = leader _team;
+	if (isPlayer _leader || alive (_leader)) exitWith {
+	};
+
+	format["AI_SquadRespawn Initialized: %1", _this] call LogHigh;
+	
 	_deathLoc = getPos (leader _team);
-	if (isPlayer leader _team) exitWith {};
-	waitUntil {alive leader _team || isPlayer leader _team};
-	if (isPlayer leader _team) exitWith {};
-
 	_respawn = (_team) Call GetTeamRespawn;
 	
+	_unitType = typeof _leader;
+	
+	
+	format["AI_SquadRespawn: deathLoc:%1", _deathLoc] call LogHigh;
+	format["AI_SquadRespawn: respawn:%1", _respawn] call LogHigh;
+	
 	//--- Place the AI.
-	_leader = leader _team;
+
 	_leader removeAllEventHandlers "Killed";
 	Call Compile Format ["_leader addEventHandler ['Killed',{[_this select 0,_this select 1,%1] Spawn UnitKilled}]",_side];
-	_leader setPos getMarkerPos Format["%1TempRespawnMarker",_sideText];
+	
+	if (isMultiplayer) then {
+		_leader setPos getMarkerPos Format["%1TempRespawnMarker",_sideText];
+	};
 
 	_availableSpawn = [];
 	//--- Towns.
@@ -63,17 +75,33 @@ while {!gameOver} do {
 	if (paramMobileRespawn && _respawn != "forceRespawn") then {
 		_mobileRespawns = Format ["WFBE_%1AMBULANCES",_sideText] Call GetNamespace;
 		_range = (Format["WFBE_RESPAWNMOBILERANGE%1",(_upgrades select 7)] Call GetNamespace);
+		
+		format["AI_SquadRespawn: mobileRespawns:%1", _mobileRespawns] call LogHigh;
+		format["AI_SquadRespawn: range:%1", _range] call LogHigh;
+		
 		_checks = _deathLoc nearEntities[_mobileRespawns,_range];
-		if (count _checks > 0) then {
-			{if (alive _x) then {_availableSpawn = _availableSpawn + [_x]}} forEach _checks;
-		};
+		
+		format["AI_SquadRespawn: respawnPoints:%1", _checks] call LogHigh;
+		
+		{
+			if (alive _x) then { _availableSpawn = _availableSpawn + [_x]; }
+		} forEach _checks;
+	};
+	
+	format["AI_SquadRespawn: selected respawnPoints:%1", _availableSpawn] call LogHigh;
+	format["AI_SquadRespawn: respawndelay:%1", _rd] call LogHigh;
+	
+	if (WF_DEBUG) then {
+		_rd = 5;
 	};
 	
 	sleep _rd;
-
+	
+	format["AI_SquadRespawn: begin respawn:%1", _rd] call LogHigh;
+	
 	//--- Equip the AI.
 	_ran = 1 + round(random(2));
-	[_leader,Format ["WFBE_%1LEADERWEAPONS%2%3",_sideText,_upgrades select 13,_ran] Call GetNamespace, Format ["WFBE_%1LEADERAMMO%2%3",_sideText,_upgrades select 13,_ran] Call GetNamespace] Call EquipLoadout;
+	[_leader, Format ["WFBE_%1LEADERWEAPONS%2%3",_sideText,_upgrades select 13,_ran] Call GetNamespace, Format ["WFBE_%1LEADERAMMO%2%3",_sideText,_upgrades select 13,_ran] Call GetNamespace] Call EquipLoadout;
 	_hq = (_sideText) Call GetSideHQ;
 	_buildings = (_sideText) Call GetSideStructures;
 
@@ -109,7 +137,18 @@ while {!gameOver} do {
 
 	_pos = [getPos _respawnLoc,20,30] Call GetRandomPosition;
 	_pos set [2,0];
-	_leader setPos _pos;
-};
+		
+	if ( !(isPlayer (leader _team)) ) then {
+	
+		if (!isMultiplayer) then {
+			_leader = [_unitType, _team, _pos, _side] Call CreateMan;	
+			_team selectLeader _leader;
+		};
 
+		_leader setPos _pos;		
+		_built = WF_Logic getVariable Format ["%1UnitsCreated",_sideText];
+		_built = _built + 1;
+		WF_Logic setVariable [Format["%1UnitsCreated",_sideText],_built,true];
+	};
+	
 PROFILER_END();

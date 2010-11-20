@@ -1,5 +1,5 @@
 #include "profiler.h"
-PROFILER_BEGIN("Common_GetTeamMovePos");
+PROFILER_BEGIN("Common_GetTeamRespawn");
 
 Private['_index', '_result'];
 _index = _this Call GetClientIDFromTeam;
