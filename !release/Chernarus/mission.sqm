@@ -34,7 +34,7 @@ class Mission
 	randomSeed=10034581;
 	class Intel
 	{
-		briefingName="[40]Warfare BE V2.065 R3 Lite CO Balanced Bomba Edition - Chernarus";
+		briefingName="[40]Warfare BE V2.065 R3 Lite CO Bomba Edition - Chernarus";
 		briefingDescription="Arma 2 and Arma 2: Operation ArrowHead are required";
 		resistanceWest=0;
 		startWeather=0;
