@@ -37,7 +37,7 @@ if (_veh isKindOf 'Air') then {
 	
 	if (_camMode) then {
 		"Missle webcam: add event handler Fired" call LogTrace;
-		wcam_eh = _veh addEventHandler ["Fired", {[_this select 0,_this select 4] execVM "Module\CamMissle\misslecam.sqf"}];
+		wcam_eh = _veh addEventHandler ["Fired", { _this execVM "Module\CamMissle\misslecam.sqf"}];
 	};
 	
 

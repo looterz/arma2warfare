@@ -3,6 +3,8 @@ player createDiaryRecord["Diary", ["Bomba: Fixed Bugs", "
 <br/>Fix: Do not display results at the end of the game;
 <br/>Fix: Disable the capture of target only during the motion of the tanks and the selected gun D81 and M256. 
 <br/>Fix: Bug with patrols. Patrols does not appear due script error;
+<br/>
+<br/>Many scripts was optimized to increase perfomance. Less server lags, more game fun.
 "]];
 
 player createDiaryRecord["Diary", ["Bomba: Gameplay", "

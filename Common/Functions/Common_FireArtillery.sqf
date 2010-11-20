@@ -67,27 +67,22 @@ if (_amount > 0) then {
 	_destination = [(_destination Select 0)+((sin _radialAlpha)*_radialR),(_destination Select 1)+((cos _radialAlpha)*_radialR), 2000];
 	
 	_timeout = time + 3;
-	_artillery Fire _weapon;
-	_shell = nearestObject [_artillery, _ammo];
 	
-	while { (isNull _shell) && (time < _timeout) } do {
-		_shell = nearestObject [_artillery, _ammo];
-	};
-	
-	if ( !(isNull _shell) ) then  {
-
-		format["FireArtillery: Artillery=%1", _artillery] call LogHigh;
-		format["FireArtillery: AmmoType=%1", _ammo] call  LogHigh;
-		format["FireArtillery: Destination=%1", _destination] call  LogHigh;
-		format["FireArtillery: Nearest Shell=%1", _shell] call LogHigh;
+	_ehFired = _artillery addEventHandler ["Fired", { (_this select 0) setVariable ["FireArtillery", _this select 6] } ];
 		
-		[_shell, _destination] spawn FireArtilleryTraceTraectory;
-	} else {
-		format["FireArtillery: Shell does not found near Gun!", _artillery] call LogUnexpected;
+	_artillery setVariable ["FireArtillery", objNull];
+	_artillery Fire _weapon;
 	
-	};
+	waitUntil { !(isNull (_artillery getVariable "FireArtillery")) };
+
+	_shell = _artillery getVariable "FireArtillery";
+	[_shell, _destination] spawn FireArtilleryTraceTraectory;
+
+	_artillery removeEventHandler ["Fired", _ehFired];
 };
 
-_atrillery call RearmVehicle;
+if (WF_DEBUG) then {
+	_artillery call RearmVehicle;
+};
 
 PROFILER_END();
