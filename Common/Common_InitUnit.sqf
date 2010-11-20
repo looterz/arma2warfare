@@ -41,7 +41,11 @@ Private ["_finalNumber","_numbers","_side","_text","_unit", "_deadSize", "_attem
 				_txt = toString(_ainumber);
 				
 				_attempts = _attempts - 1;
-				if ( !(_txt == "TE") ) then { _attempts = 0; };	//-- fix error with invalid marker name;
+				if ( !(_txt == "TE") ) then { 
+					_attempts = 0; 
+				} else {
+					sleep 1;
+				};
 			};
 		};
 	};

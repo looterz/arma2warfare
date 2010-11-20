@@ -73,8 +73,6 @@ function copy-files{
 	$exclude = @('*.pdb','*.config');
 	Get-ChildItem $source -Recurse -Exclude $exclude | Copy-Item -Destination {Join-Path $destination $_.FullName.Substring($source.length)};
 }
-
-
 function make-pbo {
 	param ([string]$outputPbo, [string]$missionFolder)
 
@@ -91,6 +89,5 @@ function make-pbo {
 	[Void] $process.Start();
 	$process.WaitForExit(120000);
 }
-
 
 EntryPoint;

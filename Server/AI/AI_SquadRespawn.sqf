@@ -22,6 +22,10 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 		format["AI_SquadRespawn Initialized: Trying Respawn null team", _this] call LogHigh;
 	};
 
+	if (_side != west && _side != east) exitWith {
+		format["AI_SquadRespawn Initialized: Trying Respawn guerilla team", _this] call LogHigh;
+	};	
+	
 	_leader = leader _team;
 	if (isPlayer _leader || alive (_leader)) exitWith {
 	};
@@ -99,9 +103,6 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 	
 	format["AI_SquadRespawn: begin respawn:%1", _rd] call LogHigh;
 	
-	//--- Equip the AI.
-	_ran = 1 + round(random(2));
-	[_leader, Format ["WFBE_%1LEADERWEAPONS%2%3",_sideText,_upgrades select 13,_ran] Call GetNamespace, Format ["WFBE_%1LEADERAMMO%2%3",_sideText,_upgrades select 13,_ran] Call GetNamespace] Call EquipLoadout;
 	_hq = (_sideText) Call GetSideHQ;
 	_buildings = (_sideText) Call GetSideStructures;
 
@@ -150,5 +151,9 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 		_built = _built + 1;
 		WF_Logic setVariable [Format["%1UnitsCreated",_sideText],_built,true];
 	};
+
+		//--- Equip the AI.
+	_ran = 1 + round(random(2));
+	[_leader, Format ["WFBE_%1LEADERWEAPONS%2%3",_sideText,_upgrades select 13,_ran] Call GetNamespace, Format ["WFBE_%1LEADERAMMO%2%3",_sideText,_upgrades select 13,_ran] Call GetNamespace] Call EquipLoadout;
 	
 PROFILER_END();
