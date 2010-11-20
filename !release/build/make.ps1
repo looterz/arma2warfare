@@ -33,28 +33,32 @@ function EntryPoint
 	}
 	
 	#-- Takistan Combined Operations
-	$world = "Takistan.CO";
-	Copy-Item "$source\!release\$world\*" "$tmpfolder" -Force
-	Write-Host "Compile $projectName.$world.pbo"
-	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$world.pbo";
+	$world = "Takistan";
+	$version = "CO"
+	Copy-Item "$source\!release\$world.$version\*" "$tmpfolder" -Force
+	Write-Host "Compile $projectName.$version.$world.pbo"
+	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$vesion.$world.pbo";
  
  	#-- Takistan Operation Arrowhead
-	$world = "Takistan.OA";
-	Copy-Item "$source\!release\$world\*" "$tmpfolder" -Force
-	Write-Host "Compile $projectName.$world.pbo"
-	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$world.pbo";
- 
+	$world = "Takistan";
+	$version = "OA"
+	Copy-Item "$source\!release\$world.$version\*" "$tmpfolder" -Force
+	Write-Host "Compile $projectName.$version.$world.pbo"
+	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$vesion.$world.pbo";
+	
 	#-- Chernarus Combined Operations	
-	$world = "Chernarus.CO";
-	Copy-Item "$source\!release\$world\*" "$tmpfolder" -Force
-	Write-Host "Compile $projectName.$world.pbo"
-	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$world.pbo";
-
+	$world = "Chernarus";
+	$version = "CO"
+	Copy-Item "$source\!release\$world.$version\*" "$tmpfolder" -Force
+	Write-Host "Compile $projectName.$version.$world.pbo"
+	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$vesion.$world.pbo";
+	
 	#-- Chernarus Vanilla	
-	$world = "Chernarus.A2";
-	Copy-Item "$source\!release\$world\*" "$tmpfolder" -Force
-	Write-Host "Compile $projectName.$world.pbo"
-	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$world.pbo";
+	$world = "Chernarus";
+	$version = "A2"
+	Copy-Item "$source\!release\$world.$version\*" "$tmpfolder" -Force
+	Write-Host "Compile $projectName.$version.$world.pbo"
+	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$vesion.$world.pbo";
 	
 	
 	#-- remove temporary folder

@@ -27,7 +27,7 @@ class Mission
 	class Intel
 	{
 		briefingName="[40]Warfare V2.065 R3 Lite Bomba Edition - Chernarus";
-		briefingDescription="Arma 2 and Arma 2: Operation ArrowHead are required";
+		briefingDescription="Arma 2 are required";
 		resistanceWest=0;
 		startWeather=0;
 		forecastWeather=0;
