@@ -1,27 +1,7 @@
 #include "profiler.h"
-Private ["_period","_timeoutAbadonVehicle"];
+PROFILER_BEGIN("Server_EmptyVehProc");
 
-waitUntil {commonInitComplete};
-
-WBE_HandleEmptyVehicleCollection = [];
-WBE_HandleEmptyVehicleQueu = [];
-_timeoutAbadonVehicle = 'WFBE_ABANDONVEHICLETIMER' Call GetNamespace;
-
-_fnIsVehicleEmpty = {
-private['_vehicle', '_empty'];
-PROFILER_BEGIN("Server_HandleEmptyVehicle::IsVehicleEmpty");
-
-	_vehicle = _this;
-	_empty = true;
-	{ if (alive _x) then { _empty = false; } } forEach Crew _vehicle;
-	
-PROFILER_END();	
-	_empty;
-};
-
-_fnProcessEmptyVehicleCollection = {
 private['_dirty', '_u', '_vehicleInfo', '_vehicle', '_timeout'];
-PROFILER_BEGIN("Server_HandleEmptyVehicle::ProcessEmptyVehicleCollection");
 
 	_dirty = false;
 	_u = count WBE_HandleEmptyVehicleCollection;
@@ -36,8 +16,8 @@ PROFILER_BEGIN("Server_HandleEmptyVehicle::ProcessEmptyVehicleCollection");
 			
 			if (alive _vehicle) then {
 				
-				if ( _timeout == 0 || !(_vehicle call _fnIsVehicleEmpty) ) then {
-					_timeout = time + _timeoutAbadonVehicle;
+				if ( _timeout == 0 || !(_vehicle call EmptyVehicleIsEmpty) ) then {
+					_timeout = time + WFBE_EMPTYVEHICLETIMER;
 					_vehicleInfo set [1, _timeout];
 				};
 			} else {
@@ -66,11 +46,4 @@ PROFILER_BEGIN("Server_HandleEmptyVehicle::ProcessEmptyVehicleCollection");
 		WBE_HandleEmptyVehicleCollection = WBE_HandleEmptyVehicleCollection - [ objNull ];
 		WBE_HandleEmptyVehicleQueu = WBE_HandleEmptyVehicleQueu - [ objNull ];
 	};
-PROFILER_END();	
-};
-
-_period = 10;
-while { !gameOver } do {
-	sleep _period;
-	[] call _fnProcessEmptyVehicleCollection;
-};
+PROFILER_END();

@@ -15,7 +15,7 @@ resistance setFriend [east,0];
 
 if (paramAI) then {
 	AIBuyUnit = Compile preprocessFile "Server\Functions\Server_BuyUnit.sqf";
-	AISquadRespawn = Compile preprocessFile "Server\AI\AI_SquadRespawn.sqf";
+
 };
 AIMoveTo = Compile preprocessFile "Server\AI\Orders\AI_MoveTo.sqf";
 AIPatrol = Compile preprocessFile "Server\AI\Orders\AI_Patrol.sqf";
@@ -29,7 +29,7 @@ if (paramHandleFF) then {BuildingHandleDamages = Compile preprocessFile "Server\
 BuildingKilled = Compile preprocessFile "Server\Functions\Server_BuildingKilled.sqf";
 CanUpdateTeam = Compile preprocessFile "Server\Functions\Server_CanUpdateTeam.sqf";
 HandleDefense = Compile preprocessFile "Server\Functions\Server_HandleDefense.sqf";
-HandleEmptyVehicle = Compile preprocessFile "Server\Functions\Server_HandleEmptyVehicle.sqf";
+
 HandleSPVF = Compile preprocessFile "Server\Functions\Server_HandleSPVF.sqf";
 HandleSpecial = Compile preprocessFile "Server\Functions\Server_HandleSpecial.sqf";
 HQKilled = Compile preprocessFile "Server\Functions\Server_HQKilled.sqf";
@@ -48,6 +48,8 @@ KAT_ParaVehicles = Compile preProcessfile "Server\Support\Support_ParaVehicles.s
 KAT_UAV = Compile preProcessfile "Server\Support\Support_UAV.sqf";
 
 "Init_Server: Functions - [Done]" call LogMedium;
+
+[] call compile preProcessfile "Server\Services\Server_Services.sqf";
 
 if (mysql) then {
 	WF_Logic setVariable ["WF_MYSQL_CLIENT",[],true];
@@ -457,14 +459,13 @@ if (paramAlice) then {
 
 "Init_Server: Init Server [Done]" call LogMedium;
 
+
+
 //--- Waiting until that the game is launched.
 waitUntil {time > 0};
 serverInitComplete = true;
 
 [East] Spawn SVoteForCommander;
 [West] Spawn SVoteForCommander;
-
-execVM "Server\Functions\Server_HandleEmptyVehicleThread.sqf";
-execVM "Server\Functions\Server_TrashObjectThread.sqf";
 
 PROFILER_END();
