@@ -1,4 +1,4 @@
-$projectName = "WarfareBE_V2065.R3@CO@Bomba";
+$projectName = "WarfareBE_V2065.R3@Bomba";
 $buildRelease = $true;
 #-- $mode = "debug";
 
@@ -32,13 +32,13 @@ function EntryPoint
 		$null = new-item -type directory -path $outputDir;
 	}
 	
-	$world = "Takistan";
+	$world = "CO.Takistan";
 	Copy-Item "$source\!release\$world\*" "$tmpfolder" -Force
 	Write-Host "Compile $projectName.$world.pbo"
 	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$world.pbo";
  
 	
-	$world = "Chernarus";
+	$world = "CO.Chernarus";
 	Copy-Item "$source\!release\$world\*" "$tmpfolder" -Force
 	Write-Host "Compile $projectName.$world.pbo"
 	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$world.pbo";
