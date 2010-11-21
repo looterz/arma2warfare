@@ -2,7 +2,9 @@
 
 = Introduction =
 
-This page describe main features of Warfare Bomba Edition
+This page describe main features of Warfare Bomba Edition.
+
+_Also read [Introduction Introduction to Classic Warfare]_
 
 === Gameplay: Aircrafts ===
  * The ability to buy planes only in the airport hangar;
