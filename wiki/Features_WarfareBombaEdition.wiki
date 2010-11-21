@@ -101,3 +101,45 @@ This page describe main features of Warfare Bomba Edition
  * Fix: Disable the capture of target only during the motion of the tanks and the selected gun D81 and M256. 
  * Fix: Bug with patrols. Patrols does not appear due script error;
  * Many scripts was optimized to increase perfomance. Less server lags, more game fun.
+
+
+== Weapon Balance ==
+
+*Light Factory Balance*
+---------------------------------------
+|| *Side/Unit*    ||  *Cost* || *UpgradeLevel* || *ChangedLoadout* ||  
+|| OPFOR   ||       ||              ||                ||
+|| BLUEFOR ||       ||              ||                ||
+|| Avenger || 1200  || 2            ||                ||
+|| Stryker_M2 || 1650 ||1 ||  ||
+|| Stryker_Mk19 || 1950 ||1 ||  ||
+
+*Heavy Factory Balance*
+---------------------------------------
+|| *Side/Unit* || *Cost* || *UpgradeLevel* || *ChangedLoadout* ||
+|| OPFOR || || || || 
+|| BLUEFOR || || || ||
+|| M6_Linebacker || 6200 || 2 || -8Stingers +8Sidewinders ||
+|| Stryker_TOW || 2650 || 0 || ||
+|| Stryker_MGS || 2950 || 0 || ||
+
+*Air Facoty Balance*
+---------------------------------------
+_ALL COMBAT JET AVAILABLE ONLY ON 3 LEVEL_
+
+|| *Side/Unit* || *Cost* || *UpgradeLevel* || *ChangedLoadout* ||
+||OPFOR || || || ||
+|| Ka52     || 29000 || 2 || -8 vikhr, +8 ataka ||
+|| Ka52Black|| 32000 || 3 || -8 vikhr, +8 ataka, +2 R73 ||
+|| Su34     || 45000 || 3 || ||
+|| Su39     || 42400 || 3 || ||
+|| L39      || 27700 || 3 || ||
+|| su25takistan || 42400  || 3 || ||
+|| An-2     ||  7200 || 1 || +4 FAB-250 +60 Flares ||
+|| || || || ||
+|| BLUEFOR || || || ||
+|| AH1Z     || 33000 || 2 || ||
+|| AH64D    || 30000 || 2 || ||
+|| F35      || 41500 || 2 || -2GBU +2Mavericks ||
+|| A-10     || 42500 || 3 || ||
+|| AH1 Apache BAF  || 28500 || 2 || ||
