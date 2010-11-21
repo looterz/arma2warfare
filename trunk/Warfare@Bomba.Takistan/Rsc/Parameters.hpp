@@ -23,7 +23,7 @@ class Params {
 		title = "$STR_WF_Gameplay_AI";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 0;
+		default = 1;
 	};
 	class artilleryCalls {
 		title = "$STR_WF_Gameplay_Arty";
@@ -55,7 +55,7 @@ class Params {
 		title = "$STR_WF_Gameplay_AICommander";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 0;
+		default = 1;
 	};
 	//--- OA has no suitable allies for both side (yet).
 	#ifndef ARROWHEAD

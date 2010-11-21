@@ -12,11 +12,11 @@
 /* Gamemode to run */
 #define COMBINEDOPS 1
 //#define VANILLA 1
-#define ARROWHEAD 1
+//#define ARROWHEAD 1
 
 /* Description.ext Specific */
 #define WF_MAXPLAYERS 40
-#define WF_MISSIONNAME "[40]Warfare V2.065 R3 Lite CO Bomba Edition - Takistan"
+#define WF_MISSIONNAME "$MISSIONNAME"
 #define WF_RESPAWNDELAY 2
 
 /* MySQL Support */
