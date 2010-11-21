@@ -1,4 +1,4 @@
-#summary This page describe main features of Warfare Bomba Edition
+#summary Key features of Warfare Bomba Edition
 
 = Introduction =
 
