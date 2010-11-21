@@ -2,7 +2,7 @@
 
 = Introduction =
 
-This page describe main features of Warfare Bomba Edition.
+This page describe main features Warfare Bomba Edition.
 
 _Also read [Introduction Introduction to Classic Warfare]_
 
