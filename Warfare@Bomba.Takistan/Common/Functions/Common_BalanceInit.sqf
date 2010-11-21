@@ -47,7 +47,7 @@ switch (typeOf _unit) do {
 		};
 	};
 	case "F35B": {
-		_if ( (WF_A2_Arrowhead || WF_A2_CombinedOps) ) then {
+		if ( (WF_A2_Arrowhead || WF_A2_CombinedOps) ) then {
 			unit removeWeapon "BombLauncherF35";
 			_unit addMagazine "2Rnd_Maverick_A10";
 			_unit addWeapon "MaverickLauncher";

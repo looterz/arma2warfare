@@ -1698,11 +1698,6 @@ if (WF_A2_CombinedOps) then {
 			_w = _w + ['DogtagsSaboteur'];
 			_w = _w + ['DogtagsEngineer'];
 			_w = _w + ['DogtagsCommander'];
-			_w = _w + ['DogtagsLockpick'];
-			_w = _w + ['DogtagsMedic'];
-			_w = _w + ['DogtagsSaboteur'];
-			_w = _w + ['DogtagsEngineer'];
-			_w = _w + ['DogtagsCommander'];
 
 			WF_Logic setVariable ['miscClasses',_w];
 
