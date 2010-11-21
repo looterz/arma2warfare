@@ -36,8 +36,8 @@ class Mission
 	randomSeed=6848509;
 	class Intel
 	{
-		briefingName="[40]Warfare BE V2.065 R3 Lite CO Bomba Edition - Takistan";
-		briefingDescription="Arma 2 and Arma 2: Operation ArrowHead are required";
+		briefingName="$MISSIONNAME";
+		briefingDescription="$MISSIONDESCRIPTION";
 		resistanceWest=0;
 		startWeather=0;
 		forecastWeather=0;
