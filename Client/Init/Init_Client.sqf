@@ -5,7 +5,7 @@ Skills_Engineers = ['USMC_SoldierS_Engineer','MVD_Soldier_TL','US_Soldier_Engine
 Skills_Lockpick = ['FR_TL','RUS_Soldier_TL','US_Delta_Force_TL_EP1','TK_Special_Forces_TL_EP1'];
 Skills_Spot = ['USMC_SoldierS_Sniper','RU_Soldier_Sniper','US_Soldier_Sniper_EP1','TK_Soldier_Sniper_EP1'];
 Skills_MASH = ['FR_Commander','RUS_Commander','US_Soldier_SL_EP1','TK_Soldier_SL_EP1'];
-
+Skills_Medic = ['RU_Soldier_Medic', 'USMC_Soldier_Medic', 'US_Delta_Force_Medic_EP1'];
 
 if (paramArty) then {
 	ARTY_Prep = Compile preprocessFile "Client\Module\Arty\ARTY_mobileMissionPrep.sqf";

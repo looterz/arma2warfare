@@ -19,8 +19,6 @@ if (isNil "lastUseSkill") then {
 };
 
 playerType = typeof player;
-Skills_Medic = ['US_Delta_Force_Medic_EP1'];
-	
 	
 _dogTags = player call GetEquipDogTags;
 _dogTagCondition = "";
@@ -34,7 +32,12 @@ if (count _dogTags > 0) then {
 	if (_dogTag == "DogtagsMedic"    ) then { playerType = (Skills_Medic select 0); };
 	if (_dogTag == "DogtagsCommander") then { playerType = (Skills_MASH select 0) };
 	
-	_dogTagCondition = "(!(isNull (unitBackpack player))) && (count (player call GetEquipDogTags) > 0)";
+	if ( (WF_A2_Arrowhead || WF_A2_CombinedOps) ) then {
+		_dogTagCondition = "(!(isNull (unitBackpack player))) && (count (player call GetEquipDogTags) > 0)";
+	} else {
+		_dogTagCondition = "(count (player call GetEquipDogTags) > 0)";
+	};
+	
 };
 
 

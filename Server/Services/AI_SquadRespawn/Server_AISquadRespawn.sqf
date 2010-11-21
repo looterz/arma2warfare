@@ -60,7 +60,6 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 	};
 	
 	_squad = [_team, _deathLoc, _unitType];
-
 	WBE_AISQUAD_RESPAWN = WBE_AISQUAD_RESPAWN + [ [_squad, time + _rd] ];
 	
 PROFILER_END();
