@@ -1,6 +1,6 @@
 #include "profiler.h"
 
-private["_trashItem", '_object', '_canDelete', '_isDeleted'];
+private["_trashItem", '_object', '_canDelete', '_isDeleted', '_canRemove'];
 PROFILER_BEGIN("Server_TrashDeleteObject");
 
 	_isDeleted = false;
@@ -25,7 +25,8 @@ PROFILER_BEGIN("Server_TrashDeleteObject");
 		if (_canDelete == 1) then {
 		
 			WBE_TrashObjectCollectionQueu = WBE_TrashObjectCollectionQueu - [_object];
-			"Server_TrashDeleteObject: Delete Body" call LogHigh;
+			format["Server_TrashDeleteObject: Delete Body" call LogHigh;
+			
 			deleteVehicle _object;
 			_isDeleted = true;
 		};

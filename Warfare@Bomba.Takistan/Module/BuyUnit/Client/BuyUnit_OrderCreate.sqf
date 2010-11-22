@@ -26,9 +26,12 @@ PROFILER_BEGIN("BuyUnit_OrderCreate");
 		if (_unitType isKindOf "Man") then { unitQueu = unitQueu + 1; };	//-- buy soldier
 	};
 	
-	WBE_BUYUNIT_REQUEST = _order;
-	publicVariable "WBE_BUYUNIT_REQUEST";
-	if (isServer || IsClientServer) then { WBE_BUYUNIT_REQUEST spawn BuyUnit_OrderRegister; };
+	if (isServer) then { 
+		_order spawn BuyUnit_OrderRegister;
+	} else {
+		WBE_BUYUNIT_REQUEST = _order;
+		publicVariable "WBE_BUYUNIT_REQUEST";
+	};
 	
 	Format["BuyUnit_OrderCreate: Team %1 create order to '%2': %3", _team, _unitType, _order] call LogInform;
 

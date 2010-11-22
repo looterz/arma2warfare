@@ -24,12 +24,16 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 
 	if (_side != west && _side != east) exitWith {
 		format["Server_SquadRespawnWork: Trying Respawn guerilla team", _this] call LogHigh;
+		WBE_AISQUAD_RESPAWN_QUEUE = WBE_AISQUAD_RESPAWN_QUEUE - [ _team ];
 	};	
 	
 	_leader = leader _team;
-	if (isPlayer _leader || alive (_leader) || (_team in AISQUAD_RESPAWN)) exitWith {
+	if (isPlayer _leader) exitWith {
+	
+		WBE_AISQUAD_RESPAWN_QUEUE = WBE_AISQUAD_RESPAWN_QUEUE - [ _team ];
 	};
 
+	format["AI_SquadRespawnWork: Unit: %1 alive:%2", leader _team, alive(leader _team)] call LogHigh;
 	_respawn = (_team) Call GetTeamRespawn;
 
 	_availableSpawn = [];
@@ -107,14 +111,19 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 
 	_pos = [getPos _respawnLoc,20,30] Call GetRandomPosition;
 	_pos set [2,0];
-		
-	if ( !(isPlayer (leader _team)) && !(alive (leader _team)) ) then {
+	format["AI_SquadRespawnWork: Unit: %1 Respawn Location:", leader _team, _pos] call LogHigh;
+
 	
-		if (!isMultiplayer) then {
+	if ( !(isPlayer (leader _team)) ) then {
+	
+		_leader = leader _team;
+		if (!isMultiplayer && !(alive (leader _team)) ) then {
+		
+			"AI_SquadRespawnWork: SP mode, and teamLeader is died, create TeamLeader" call LogHigh;
 			_leader = [_unitType, _team, _pos, _side] Call CreateMan;	
-			_team selectLeader _leader;
 		};
 
+		format["AI_SquadRespawnWork: TeamLeader %1 SetPos=%2", leader _team, _pos] call LogHigh;
 		_leader setPos _pos;		
 		_built = WF_Logic getVariable Format ["%1UnitsCreated",_sideText];
 		_built = _built + 1;
