@@ -1,4 +1,4 @@
-$projectVer = "V2.065 R3"
+$projectVer = "V2.065 R3.1Beta"
 $currentDirectory = [string](Get-Location);
 
 function EntryPoint
@@ -37,6 +37,8 @@ function EntryPoint
 	
 	#-- remove temporary folder
 	Remove-Item -path $tmpfolder -Recurse -Force;
+
+	Zip-Compress -zipFileName "c:\package.zip" -folderName $outputDir
 	
 	Write-Host "Build completed."
 }
@@ -56,17 +58,17 @@ function build-version {
 	
 	$patMissioName = [System.Text.RegularExpressions.Regex]::Escape("`$MISSIONNAME");
 	$patMissioDesc = [System.Text.RegularExpressions.Regex]::Escape("`$MISSIONDESCRIPTION");
-	repace-pattern -pattern $patMissioName -replaceTo $mission -fileName "$tmpfolder\version.sqf";
+	replace-pattern -pattern $patMissioName -replaceTo $mission -fileName "$tmpfolder\version.sqf";
 	
-	repace-pattern -pattern $patMissioName -replaceTo $mission -fileName "$tmpfolder\mission.sqm";
-	repace-pattern -pattern $patMissioDesc -replaceTo $desc -fileName "$tmpfolder\mission.sqm";
+	replace-pattern -pattern $patMissioName -replaceTo $mission -fileName "$tmpfolder\mission.sqm";
+	replace-pattern -pattern $patMissioDesc -replaceTo $desc -fileName "$tmpfolder\mission.sqm";
 	
 	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.pbo";	
 	
 	Write-Host " - [done]";	
 };
 
-function repace-pattern {
+function replace-pattern {
 	param ([string]$fileName, [string]$pattern, [string]$replaceTo)
 
 	$fileInfo = Get-ChildItem -Path $fileName;
@@ -84,6 +86,7 @@ function copy-files{
 	$exclude = @('*.pdb','*.config');
 	Get-ChildItem $source -Recurse -Exclude $exclude | Copy-Item -Destination {Join-Path $destination $_.FullName.Substring($source.length)};
 }
+
 function make-pbo {
 	param ([string]$outputPbo, [string]$missionFolder)
 
