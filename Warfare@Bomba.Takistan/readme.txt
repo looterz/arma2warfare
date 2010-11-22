@@ -20,3 +20,19 @@ WIKI:
  
 CONTACT:
  - eaz@nm.ru
+ 
+----------------------------------------------------------------------------- 
+ 
+based on Warfare Benny Edition 2.065
+
+DOWNLOADS:
+ - http://dev-heaven.net/projects/warfare-be/files
+
+CHANGELOG:
+ - http://dev-heaven.net/projects/show/warfare-be
+ 
+WIKI:
+ - http://dev-heaven.net/projects/warfare-be/wiki
+ 
+CONTACT:
+ - benny_boy66@hotmail.fr 
