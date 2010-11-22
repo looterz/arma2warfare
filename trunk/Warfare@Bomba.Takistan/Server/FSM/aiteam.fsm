@@ -16,7 +16,7 @@ item11[] = {"Handle_AI_Mode",2,250,34.021767,145.371872,124.021767,195.371826,0.
 item12[] = {"Handle_Towns",2,250,645.149963,260.576935,735.150269,310.576996,0.000000,"Handle Towns"};
 item13[] = {"Auto_Move",4,218,156.132660,127.149292,246.132660,177.149307,1.000000,"Auto Move"};
 item14[] = {"Ind_Move",4,218,151.292526,60.816727,241.292587,110.816818,0.000000,"Ind Move"};
-item15[] = {"Handle_Movement",2,4346,259.692505,65.755508,349.692505,115.755600,0.000000,"Handle" \n "Movement"};
+item15[] = {"Handle_Movement",2,250,259.692505,65.755508,349.692505,115.755600,0.000000,"Handle" \n "Movement"};
 item16[] = {"Default",4,218,425.459656,321.132813,515.459595,371.132843,0.000000,"Default"};
 item17[] = {"",7,210,783.690674,11.963443,791.690674,19.963448,0.000000,""};
 item18[] = {"Nil",2,250,742.437622,319.804504,832.437622,369.804535,0.000000,"Nil"};
@@ -48,7 +48,7 @@ item43[] = {"",7,210,-160.345612,430.631622,-152.345581,438.631622,0.000000,""};
 item44[] = {"Handle_Cargo__Towns",2,250,581.673889,579.887573,671.674194,629.887512,0.000000,"Handle Cargo" \n "(Towns)"};
 item45[] = {"Cargos",4,218,485.412598,684.877686,575.412659,734.877686,0.000000,"Cargos"};
 item46[] = {"No_Cargos",4,218,432.480316,501.057556,522.480469,551.057739,0.000000,"No Cargos"};
-item47[] = {"Handle_Purchase",2,250,72.976715,609.960266,162.976746,659.960266,0.000000,"Handle" \n "Purchase"};
+item47[] = {"Handle_Purchase",2,4346,72.976715,609.960266,162.976746,659.960266,0.000000,"Handle" \n "Purchase"};
 item48[] = {"_",8,218,-166.701218,623.231323,-139.133789,643.141235,0.000000,""};
 item49[] = {"Update_Cargo",2,250,266.066559,698.973145,356.066254,748.973145,0.000000,"Update Cargo"};
 item50[] = {"_",8,218,329.720856,587.514343,363.115631,617.388000,0.000000,""};
@@ -149,8 +149,8 @@ link68[] = {59,60};
 link69[] = {60,62};
 link70[] = {61,62};
 link71[] = {62,28};
-globals[] = {0.000000,0,0,0,0,640,480,1,93,6316128,1,-33.877708,966.406250,724.825439,-332.581360,561,833,1};
-window[] = {2,-1,-1,-1,-1,837,100,1392,100,3,579};
+globals[] = {0.000000,0,0,0,0,640,480,1,93,6316128,1,19.600317,488.512268,1178.743530,308.651398,450,835,1};
+window[] = {2,-1,-1,-1,-1,812,75,1367,75,3,468};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -892,6 +892,8 @@ class FSM
        "	_lastBuyType = _buyType;" \n
        "};" \n
        "" \n
+       "format[""AITEAM.FSM: Team %1 Handle Purchase, purchaseTime:%2"", _team, _purchaseTime] call LogHigh;" \n
+       "format[""AITEAM.FSM: Team %1 Handle Purchase, dT:%2"", _team, (time - _purchaseTime)] call LogHigh;" \n
        "if (time - _purchaseTime > 60) then {" \n
        "	_purchaseTime = time;" \n
        "	_needs = [];" \n
@@ -899,14 +901,23 @@ class FSM
        "	if (_teamRequire select 1) then {_needs = _needs + [_lightInRange]};" \n
        "	if (_teamRequire select 2) then {_needs = _needs + [_heavyInRange]};" \n
        "	if (_teamRequire select 3) then {_needs = _needs + [_airInRange]};" \n
+       "	" \n
+       "	format[""AITEAM.FSM: Team %1 Handle Purchase, Factories Required: %2"", _team, _needs] call LogHigh;" \n
+       "	" \n
        "	_canBuy = true;" \n
        "	{if (!_x) then {_canBuy = false}} forEach _needs;" \n
+       "	" \n
+       "	format[""AITEAM.FSM: Team %1 Handle Purchase, CanBuy: %2"", _team, _canBuy] call LogHigh;" \n
        "" \n
        "	if (_canBuy) then {" \n
        "		_upgrades = (_sideText) Call GetSideUpgrades;" \n
        "		{" \n
+       "			format[""AITEAM.FSM: Team %1 Handle Purchase, teamType: %2"", _team, _x] call LogHigh;" \n
+       "		" \n
        "			_buyFrom = objNull;" \n
        "			_kindDetail = _x Call GetNamespace;" \n
+       "			format[""AITEAM.FSM: Team %1 Handle Purchase, kindDetail: %2"", _team, _kindDetail] call LogHigh;			" \n
+       "			" \n
        "			if !(isNil '_kindDetail') then {" \n
        "				_crews = _kindDetail select QUERYUNITCREW;" \n
        "				_price = _kindDetail select QUERYUNITPRICE;" \n
@@ -930,10 +941,18 @@ class FSM
        "						_upgradeLevel = 2;" \n
        "					};" \n
        "				};" \n
+       "				" \n
+       "				format[""AITEAM.FSM: Team %1 Handle Purchase, _buyFrom: %2"", _team, _buyFrom] call LogHigh;							" \n
        "				if !(isNull _buyFrom) then {" \n
        "					_upgradeStatus = _upgrades select _upgradeLevel;" \n
        "					_canBuy = _team getVariable ""canOrderUnit"";" \n
        "					if (isNil ""_canBuy"") then { _canBuy = 1; };" \n
+       "					" \n
+       "					format[""AITEAM.FSM: Team %1 Handle Purchase, canBuy: %2"", _team, _canBuy] call LogHigh;							" \n
+       "					format[""AITEAM.FSM: Team %1 Handle Purchase, size: %2 < mbu:%3"", _team, _size, _mbu] call LogHigh;							" \n
+       "					format[""AITEAM.FSM: Team %1 Handle Purchase, funds: %2 > price:%3"", _team, _funds, _price] call LogHigh;							" \n
+       "					format[""AITEAM.FSM: Team %1 Handle Purchase, upgradeStatus: %2 > upgradeRequired:%3"", _team, _upgradeStatus, _upgradeRequired] call LogHigh;							" \n
+       "					" \n
        "					if ( (_canBuy == 1) &&  (_size < _mbu) && _funds > _price && _upgradeStatus >= _upgradeRequired) then {" \n
        "						_vehiSlots = [true,false,false];" \n
        "						if (!(_x isKindOf ""Man"")) then {" \n
@@ -945,7 +964,11 @@ class FSM
        "							};" \n
        "						};" \n
        "						_team setVariable [""canOrderUnit"", 0];" \n
-       "						[objNull, _buyFrom, _x, _side, _team, _vehiSlots] Spawn AIBuyUnit;" \n
+       "" \n
+       "						_buyRequest = [objNull, _buyFrom, _x, _side, _team, _vehiSlots];" \n
+       "						format[""AITEAM.FSM: Team %1 Handle Purchase, AIBuyUnit: %2"", _team, _buyRequest] call LogHigh;							" \n
+       "						" \n
+       "						_buyRequest Spawn AIBuyUnit;" \n
        "						[_team,-_price] Call ChangeTeamFunds;	" \n
        "					};" \n
        "				};" \n
