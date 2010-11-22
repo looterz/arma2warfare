@@ -1,5 +1,5 @@
 _fnUpdateALiveMarkers = {
-private['_u', '_visible', '_timeout', '_marker', '_tracked', '_markerName', '_dirty', '_trackDeath', '_deathMarkerType', '_deathMarkerColor', '_deathMarkerSize' ];
+private['_u', '_mygroup', '_text', '_amount', '_val', '_val2', '_ainumber', '_visible', '_timeout', '_marker', '_tracked', '_markerName', '_dirty', '_trackDeath', '_deathMarkerType', '_deathMarkerColor', '_deathMarkerSize' ];
 
 	//--- _markerType 	    = _marker select 0;
 	//--- _markerColor 	    = _marker select 1;
@@ -16,7 +16,7 @@ private['_u', '_visible', '_timeout', '_marker', '_tracked', '_markerName', '_di
 	//--- _deathMarkerSize  = _marker select 12;
 	//--- _condition        = _marker select 13;
 
-
+	_mygroup = group player;
 	_dirty = false;
 	_u = count WBE_TrackedMarkerList;
 	while { !(_u == 0) } do {
@@ -36,6 +36,22 @@ private['_u', '_visible', '_timeout', '_marker', '_tracked', '_markerName', '_di
 					_markerName setMarkerAlphaLocal 1;
 					_markerName setMarkerPosLocal (getPos _tracked);
 				
+					if (group _tracked == _mygroup && (_tracked isKindOf "Man")) then {
+					
+						_markerText = _marker select 3;
+						if (_markerText == "" || _markerText == "TE") then {
+							
+							_markerText = toArray(str _tracked);
+							_amount = count _markerText;
+							_val = _markerText select (_amount-2);
+							_val2 = _markerText select (_amount-1);
+							_ainumber = if (_val == 58) then {[_val2]} else {[_val, _val2]};
+							_markerText = toString(_ainumber);
+							
+							_marker set[3, _markerText];
+							_markerName setMarkerTextLocal _markerText;							
+						};
+					};		
 				} else {
 					_markerName setMarkerAlphaLocal 0;
 				};
