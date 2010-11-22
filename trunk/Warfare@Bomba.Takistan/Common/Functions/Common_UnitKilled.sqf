@@ -18,14 +18,14 @@ _killedname = "";
 _iskilledplayer = false;
 _iskillerplayer = false;
 
-if (isServer && (isPlayer _killed) && !IsClientServer) exitWith {
+if ((local player) && !IsClientServer) exitWith {
 
 	// player deaths must be handled on client machines;
 	PROFILER_END();
 };
 
 _leader = leader _group;
-if ( !(isPlayer (_leader)) && !(alive (_leader))) then {
+if ( !(isPlayer (_leader)) && _killed == _leader ) then {
 	_group spawn AISquadRespawn;
 };
 
@@ -89,14 +89,7 @@ private['_tmpKilledQueu', '_killedList', '_x'];
 		
 		format["UpdateSideStatistic:%1", _tmpKilledQueu] call LogHigh;
 		
-		_killedList = [];
-		{  _killedList = _killedList + [ _x select 0];  } forEach _tmpKilledQueu;
-		
-		if (!(isServer) || local player) then {
-			WF_Logic setVariable ["trash", ((WF_Logic getVariable "trash") + _killedList), true];
-		} else {
-			{_x Spawn TrashObject } forEach _killedList;
-		};
+		{  (_x select 0) call TrashObject  } forEach _tmpKilledQueu;
 		
 		{	[_tmpKilledQueu, _x, "VehiclesLost", 0 ] call fnUpdateSideStat;
 			[_tmpKilledQueu, _x, "Casualties", 1 ] call fnUpdateSideStat;

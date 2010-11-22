@@ -9,7 +9,6 @@ Private ["_finalNumber","_numbers","_side","_text","_unit", "_deadSize", "_attem
 		PROFILER_END();
 	};
 	waitUntil {commonInitComplete};
-	sleep 2;
 
 	_type = "Vehicle";
 	_color = "ColorGreen";
@@ -19,7 +18,9 @@ Private ["_finalNumber","_numbers","_side","_text","_unit", "_deadSize", "_attem
 	if ((typeOf _unit) in (Format['WFBE_%1REPAIRTRUCKS',str _side] Call GetNamespace)) then {_type = "RepairVehicle"};
 	_markerName = Format ["unitMarker%1",unitMarker];
 	unitMarker = unitMarker + 1;
-	if (local _unit && isMultiplayer) then {_color = "ColorOrange"};
+	if ( (group _unit == group player) ) then {
+		_color = "ColorOrange";
+	};
 
 	_deadSize = [2,2];
 
@@ -30,9 +31,10 @@ Private ["_finalNumber","_numbers","_side","_text","_unit", "_deadSize", "_attem
 		_deadSize = [1,1];
 		if (group _unit == group player) then {
 		
-			_color = "ColorOrange";
 			_attempts = 5;
 			while { _attempts != 0 } do {
+				_attempts = _attempts - 1;
+				
 				_text = toArray(str _unit);
 				_amount = count _text;
 				_val = _text select (_amount-2);
@@ -40,7 +42,6 @@ Private ["_finalNumber","_numbers","_side","_text","_unit", "_deadSize", "_attem
 				_ainumber = if (_val == 58) then {[_val2]} else {[_val, _val2]};
 				_txt = toString(_ainumber);
 				
-				_attempts = _attempts - 1;
 				if ( !(_txt == "TE") ) then { 
 					_attempts = 0; 
 				} else {
