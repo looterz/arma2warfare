@@ -499,7 +499,7 @@ class Mission
 					position[]={7476.5552,269.28915,49.973999};
 					id=24;
 					side="EAST";
-					vehicle="TK_Soldier_Engineer_EP1";
+					vehicle="TK_Soldier_EP1";
 					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
@@ -519,7 +519,7 @@ class Mission
 					position[]={7479.5415,269.13727,49.995483};
 					id=25;
 					side="EAST";
-					vehicle="TK_Soldier_Engineer_EP1";
+					vehicle="TK_Soldier_EP1";
 					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
