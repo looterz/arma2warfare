@@ -20,13 +20,15 @@ function EntryPoint
 
 	copy-files -source $source -destination $tmpfolder;
 	
-	#-- copy common files relative builded version
-	copy-files -source "$versionDir\.any" -destination $tmpfolder;
+	#-- remove debug viles
+	dir -Path $tmpfolder -Recurse | Where {$_.Name -eq "profiler.h"} | Foreach-Object { Remove-Item $_.FullName };
+	Remove-Item $tmpfolder\logging.sqf
+	Remove-Item $tmpfolder\profiler.sqf
 	
-	#-- copy required headers to all folders
-	$dirs = dir -Path $tmpfolder -Recurse | Where {$_.psIsContainer -eq $true};
-	foreach($x in $dirs) {
-		Copy-Item "$tmpfolder\profiler.h" $x.FullName
+	#-- preprocess files, remove debug scripts
+	$files = dir -Path $tmpfolder -Recurse | Where {$_.psIsContainer -eq $false};
+	foreach($x in $files) {
+		preprocess-file -fileName $x.FullName;
 	}
 	
 	build-version -world "Takistan" -gamever "CO" 	 -desc "Takistan Combined Operations"
@@ -36,12 +38,62 @@ function EntryPoint
 	build-version -world "Chernarus" -gamever "A2"   -desc "Chernarus Vanilla"		
 	
 	#-- remove temporary folder
-	Remove-Item -path $tmpfolder -Recurse -Force;
-
-	Zip-Compress -zipFileName "c:\package.zip" -folderName $outputDir
+	#Remove-Item -path $tmpfolder -Recurse -Force;
 	
 	Write-Host "Build completed."
 }
+
+function preprocess-file {
+	param ([string]$fileName)
+
+	Write-Host "Preprocess-file: $fileName";
+	
+	$fileInfo = Get-ChildItem -Path $fileName;
+    if( $fileInfo.GetType().Name -eq 'FileInfo')
+    {
+		$prevEmpty = $true;
+		(Get-Content $fileInfo.FullName) | 
+			Foreach-Object { return (preprocess-fileline -fileLine $_); } |
+			where { 
+			
+				$ppEmpty = $prevEmpty;
+				if ($_.Trim().Length -eq 0) { $prevEmpty = $true; } else { $prevEmpty = $false; };
+				if ($ppEmpty -eq $true -and $prevEmpty -eq $true) { return $false; }
+				return ($_ -ne "@PREPROCESS-EXCLUDE"); 
+			} |
+			Set-Content $fileInfo.FullName;
+	}	
+}
+
+function preprocess-fileline {
+	param ([string]$fileLine)
+	
+	if ($fileLine -match "PROFILER_BEGIN" -or 
+	    $fileLine -match "PROFILER_END" -or
+		$fileLine -match "!isNil ""LogInited""" -or
+		
+		$fileLine -match "logging.sqf" -or
+		$fileLine -match "profiler.sqf" -or
+		$fileLine -match "profiler.h" -or
+		$fileLine -match "!isNil ""initProfiler"""
+		)
+	{	
+		$fileLine = "@PREPROCESS-EXCLUDE"; 
+	}		
+	
+	#-- remove all logger references
+	if ($fileLine -match "call Log") {
+		
+		$fileLine = $fileLine -replace "format.*\[.*call Log.+?;", "";
+		
+		$fileLine = $fileLine -replace "`"`"[^`"].*call Log.+?;", ""; #-- logger in fsm
+		$fileLine = $fileLine -replace "`".*`".*call Log.+?;", "";
+		$fileLine = $fileLine -replace "'.*'.*call Log.+?;", "";
+	}
+	
+	return $fileLine;	
+	
+};
 
 function build-version {
 	param ([string]$world, [string]$gamever, [string]$desc)
