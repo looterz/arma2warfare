@@ -26,7 +26,7 @@ function EntryPoint
 	Remove-Item $tmpfolder\profiler.sqf
 	
 	#-- preprocess files, remove debug scripts
-	$files = dir -Path $tmpfolder -Recurse | Where {$_.psIsContainer -eq $false};
+	$files = dir -Path $tmpfolder -Recurse -Include "*.sqf *.fsm" | Where {$_.psIsContainer -eq $false};
 	foreach($x in $files) {
 		preprocess-file -fileName $x.FullName;
 	}
