@@ -1,4 +1,4 @@
-$projectVer = "V2.065 R3.1Beta"
+$projectVer = "V2.065 R3.1beta"
 $currentDirectory = [string](Get-Location);
 
 function EntryPoint
@@ -18,27 +18,33 @@ function EntryPoint
 	Remove-Item -path $tmpfolder -Recurse -Force -ErrorAction SilentlyContinue;
 	$null = new-item -type directory -path $tmpfolder;
 
+	#-- copy source files to build folder
 	copy-files -source $source -destination $tmpfolder;
 	
-	#-- remove debug viles
+	#-- remove debug files
 	dir -Path $tmpfolder -Recurse | Where {$_.Name -eq "profiler.h"} | Foreach-Object { Remove-Item $_.FullName };
 	Remove-Item $tmpfolder\logging.sqf
 	Remove-Item $tmpfolder\profiler.sqf
 	
 	#-- preprocess files, remove debug scripts
-	$files = dir -Path $tmpfolder -Recurse -Include "*.sqf *.fsm" | Where {$_.psIsContainer -eq $false};
+	$files = dir -Path $tmpfolder -Recurse -Include "*.sqf", "*.fsm" | Where {$_.psIsContainer -eq $false};
 	foreach($x in $files) {
 		preprocess-file -fileName $x.FullName;
 	}
-	
-	build-version -world "Takistan" -gamever "CO" 	 -desc "Takistan Combined Operations"
-	build-version -world "Takistan" -gamever "OA"	 -desc "Takistan Operation Arrowhead"
 
-	build-version -world "Chernarus" -gamever "CO"   -desc "Chernarus Combined Operations"
-	build-version -world "Chernarus" -gamever "A2"   -desc "Chernarus Vanilla"		
+	$numplayers = @( 40, 64 );
+	
+	foreach($numplayer in $numplayers)
+	{
+		build-version -world "Takistan" -gamever "CO"  -numplayers $numplayer  -desc "Takistan Combined Operations"
+		build-version -world "Takistan" -gamever "OA"  -numplayers $numplayer  -desc "Takistan Operation Arrowhead"
+
+		build-version -world "Chernarus" -gamever "CO" -numplayers $numplayer  -desc "Chernarus Combined Operations"
+		build-version -world "Chernarus" -gamever "A2" -numplayers $numplayer  -desc "Chernarus Vanilla"		
+	}
 	
 	#-- remove temporary folder
-	#Remove-Item -path $tmpfolder -Recurse -Force;
+	Remove-Item -path $tmpfolder -Recurse -Force;
 	
 	Write-Host "Build completed."
 }
@@ -96,17 +102,17 @@ function preprocess-fileline {
 };
 
 function build-version {
-	param ([string]$world, [string]$gamever, [string]$desc)
+	param ([string]$world, [string]$gamever, [int]$numplayers, [string]$desc)
 	
-	$projectName =  "Warfare$projectVer@$gamever.Bomba.Edition.$world" -replace " ", ".";	
+	$projectName =  "Warfare$projectVer@$gamever.$numplayers.Bomba.Edition.$world" -replace " ", ".";	
 	
-	Copy-Item "$versionDir\$world.$gamever\*" "$tmpfolder" -Force
+	Copy-Item "$versionDir\$gamever@$numplayers.$world\*" "$tmpfolder" -Force
 	Write-Host "Compile $projectName.pbo" -NoNewline
 	
 	$tmpver = $gamever;
 	if ($tmpver.length -gt 0) { $tmpver = $tmpver + " "; }
 	
-	$mission = "Warfare $projectVer Lite " + $tmpver + "Bomba Edition - $world"
+	$mission = "Warfare $projectVer Lite $tmpver@$numplayers Bomba Edition - $world"
 	
 	$patMissioName = [System.Text.RegularExpressions.Regex]::Escape("`$MISSIONNAME");
 	$patMissioDesc = [System.Text.RegularExpressions.Regex]::Escape("`$MISSIONDESCRIPTION");
