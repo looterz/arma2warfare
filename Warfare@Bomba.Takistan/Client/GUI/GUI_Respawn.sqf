@@ -12,8 +12,6 @@ if (leader(group player) != player) then {(group player) selectLeader player};
 
 Options = player addAction ["<t color='#F8D664'>" + (localize "STR_WF_Options") + "</t>","Client\Action\Action_Menu.sqf", "", 1, false, true, "", ""];
 [] ExecFSM "Client\FSM\updateactions.fsm";
-//--- Skill Module.
-[] Call Compile PreprocessFile "Client\Module\Skill\Skill_Init.sqf";
 
 if (!isNull commanderTeam) then {
 	_hq = (sideJoinedText) Call GetSideHQ;
@@ -186,6 +184,9 @@ if (_loadDefault) then {
 	_defaultAmmo = Format ["WFBE_%1DEFAULTAMMO",sideJoinedText] Call GetNamespace;
 	[player,_defaultWeap,_defaultAmmo] Call EquipLoadout;
 };
+
+//--- Skill Module.
+[] Call Compile PreprocessFile "Client\Module\Skill\Skill_Init.sqf";
 
 {deleteMarkerLocal _x} forEach _markers;
 if (!isNil "DeathCamera") then {
