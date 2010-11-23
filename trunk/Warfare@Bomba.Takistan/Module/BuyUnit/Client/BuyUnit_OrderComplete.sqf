@@ -34,6 +34,8 @@ Private ["_order", "_vehicle", "_unitType", "_side", "_vehInfo", "_upgrades", "_
 	
 		PROFILER_END();
 	};
+	
+	if ( (count _vehInfo) > 3 ) then {  if (_vehInfo select 3) then {  _vehicle lock (_vehInfo select 3)  }; };	//-- lock vehicle;
 
 	_upgrades = (_side) Call GetSideUpgrades;
 	clientTeam reveal _vehicle;

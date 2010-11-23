@@ -17,7 +17,10 @@ Private ["_lock","_position","_side","_type","_vehicle"];
 		//--- Note To be optimized, 1.03 BIS BUG, cannot add resistance side via call compile format.
 		_vehicle addEventHandler ["Killed",{[_this select 0,_this select 1,resistance] Spawn UnitKilled}];
 	};
-	_vehicle lock _lock;
+	
+	if (_lock) then {
+		_vehicle lock _lock;
+	};
 
 	Format["Common_CreateVehicle: A %1 '%2' vehicle has been created",str _side,_type] call LogInform;
 
