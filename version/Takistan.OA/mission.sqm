@@ -34,8 +34,8 @@ class Mission
 	randomSeed=6848509;
 	class Intel
 	{
-		briefingName="[40]Warfare V2.065 R3 Lite Bomba Edition - Takistan";
-		briefingDescription="Arma 2: Operation ArrowHead";
+		briefingName="$MISSIONNAME";
+		briefingDescription="$MISSIONDESCRIPTION";
 		resistanceWest=0;
 		startWeather=0;
 		forecastWeather=0;
