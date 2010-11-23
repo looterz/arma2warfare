@@ -1,4 +1,11 @@
-CONTACT:
+DOWNLOADS:
+ - http://code.google.com/p/arma2warfare/downloads/list
+CHANGELOG:
+ - http://code.google.com/p/arma2warfare/issues/list
+WIKI:
+ - http://code.google.com/p/arma2warfare/w/list
+
+ CONTACT:
  - eaz@nm.ru
 
 V2.065 R3

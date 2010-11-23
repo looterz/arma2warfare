@@ -1,70 +1,81 @@
-$projectName = "Warfare_V2065.R3@Bomba";
-$buildRelease = $true;
-#-- $mode = "debug";
-
+$projectVer = "V2.065 R3"
 $currentDirectory = [string](Get-Location);
 
 function EntryPoint
 {
 	cls
-	$source = [System.IO.Path]::GetFullPath($currentDirectory + "\..\..\");
+	$root = [System.IO.Path]::GetFullPath($currentDirectory + "\..");
+	
+	$source = "$root\Warfare@Bomba.Takistan\";
+	$versionDir = "$root\version\";
 	$tmpfolder = [System.IO.Path]::GetTempPath() + "buildwarfare";
+
+	$outputDir = "$currentDirectory\release";
+	if ([System.IO.Directory]::Exists($outputDir) -eq $false) {
+		$null = new-item -type directory -path $outputDir;
+	}
 
 	Remove-Item -path $tmpfolder -Recurse -Force -ErrorAction SilentlyContinue;
 	$null = new-item -type directory -path $tmpfolder;
 
 	copy-files -source $source -destination $tmpfolder;
-	Remove-Item -path "$tmpfolder\!release" -Recurse -Force;
 	
-	Copy-Item "$source\!release\profiler.h" "$tmpfolder\profiler.h";
-	Copy-Item "$source\!release\profiler.sqf" "$tmpfolder\profiler.sqf";
-
+	#-- copy common files relative builded version
+	copy-files -source "$versionDir\.any" -destination $tmpfolder;
+	
+	#-- copy required headers to all folders
 	$dirs = dir -Path $tmpfolder -Recurse | Where {$_.psIsContainer -eq $true};
-	foreach($x in $dirs)
-	{
+	foreach($x in $dirs) {
 		Copy-Item "$tmpfolder\profiler.h" $x.FullName
 	}
 	
-	#-- Begin compile pbo
-	#--
-	$outputDir = "$currentDirectory\release";
-	if ([System.IO.Directory]::Exists($outputDir) -eq $false) {
-		$null = new-item -type directory -path $outputDir;
-	}
-	
-	#-- Takistan Combined Operations
-	$world = "Takistan";
-	$version = "CO"
-	Copy-Item "$source\!release\$world.$version\*" "$tmpfolder" -Force
-	Write-Host "Compile $projectName.$version.$world.pbo"
-	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$version.$world.pbo";
- 
- 	#-- Takistan Operation Arrowhead
-	$world = "Takistan";
-	$version = "OA"
-	Copy-Item "$source\!release\$world.$version\*" "$tmpfolder" -Force
-	Write-Host "Compile $projectName.$version.$world.pbo"
-	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$version.$world.pbo";
-	
-	#-- Chernarus Combined Operations	
-	$world = "Chernarus";
-	$version = "CO"
-	Copy-Item "$source\!release\$world.$version\*" "$tmpfolder" -Force
-	Write-Host "Compile $projectName.$version.$world.pbo"
-	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$version.$world.pbo";
-	
-	#-- Chernarus Vanilla	
-	$world = "Chernarus";
-	$version = "A2"
-	Copy-Item "$source\!release\$world.$version\*" "$tmpfolder" -Force
-	Write-Host "Compile $projectName.$version.$world.pbo"
-	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.$version.$world.pbo";
-	
+	build-version -world "Takistan" -gamever "CO" 	 -desc "Takistan Combined Operations"
+	build-version -world "Takistan" -gamever "OA"	 -desc "Takistan Operation Arrowhead"
+
+	build-version -world "Chernarus" -gamever "CO"   -desc "Chernarus Combined Operations"
+	build-version -world "Chernarus" -gamever "A2"   -desc "Chernarus Vanilla"		
 	
 	#-- remove temporary folder
 	Remove-Item -path $tmpfolder -Recurse -Force;
 	
 	Write-Host "Build completed."
+}
+
+function build-version {
+	param ([string]$world, [string]$gamever, [string]$desc)
+	
+	$projectName =  "Warfare$projectVer@$gamever.Bomba.Edition.$world" -replace " ", ".";	
+	
+	Copy-Item "$versionDir\$world.$gamever\*" "$tmpfolder" -Force
+	Write-Host "Compile $projectName.pbo" -NoNewline
+	
+	$tmpver = $gamever;
+	if ($tmpver.length -gt 0) { $tmpver = $tmpver + " "; }
+	
+	$mission = "Warfare $projectVer Lite " + $tmpver + "Bomba Edition - $world"
+	
+	$patMissioName = [System.Text.RegularExpressions.Regex]::Escape("`$MISSIONNAME");
+	$patMissioDesc = [System.Text.RegularExpressions.Regex]::Escape("`$MISSIONDESCRIPTION");
+	repace-pattern -pattern $patMissioName -replaceTo $mission -fileName "$tmpfolder\version.sqf";
+	
+	repace-pattern -pattern $patMissioName -replaceTo $mission -fileName "$tmpfolder\mission.sqm";
+	repace-pattern -pattern $patMissioDesc -replaceTo $desc -fileName "$tmpfolder\mission.sqm";
+	
+	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.pbo";	
+	
+	Write-Host " - [done]";	
+};
+
+function repace-pattern {
+	param ([string]$fileName, [string]$pattern, [string]$replaceTo)
+
+	$fileInfo = Get-ChildItem -Path $fileName;
+    if( $fileInfo.GetType().Name -eq 'FileInfo')
+    {
+		(Get-Content $fileInfo.FullName) | 
+			Foreach-Object {$_ -replace $pattern, $replaceTo} | 
+			Set-Content $fileInfo.FullName;
+	}
 }
 
 function copy-files{
@@ -87,7 +98,7 @@ function make-pbo {
 	$process.StartInfo = $info;
 
 	[Void] $process.Start();
-	$process.WaitForExit(120000);
+	[Void] $process.WaitForExit(120000);
 }
 
 EntryPoint;

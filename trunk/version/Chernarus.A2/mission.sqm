@@ -26,8 +26,8 @@ class Mission
 	randomSeed=10034581;
 	class Intel
 	{
-		briefingName="[40]Warfare V2.065 R3 Lite Bomba Edition - Chernarus";
-		briefingDescription="Arma 2 are required";
+		briefingName="$MISSIONNAME";
+		briefingDescription="$MISSIONDESCRIPTION";
 		resistanceWest=0;
 		startWeather=0;
 		forecastWeather=0;
