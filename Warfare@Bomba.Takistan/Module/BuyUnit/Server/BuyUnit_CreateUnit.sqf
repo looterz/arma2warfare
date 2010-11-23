@@ -61,6 +61,9 @@ Private ["_clientId", "_building", "_unitType", "_side", "_team", "_vehInfo", "_
 		if ( (count _vehInfo) > 2 ) then {  _comander = _vehInfo select 2; };
 		if ( (count _vehInfo) > 3 ) then {  _locked   = _vehInfo select 3; };
 
+		if ( !(_clientId == "AI") ) then { _locked = false; };	// just fix unable unlock vehicle then we have lagged server
+																// vehicle will locked after client receive information about build complete
+		
 		_unitCreated = [_unitType, _position, _side, _locked] Call CreateVehi;
 		
 		_vehicle = _unitCreated;
