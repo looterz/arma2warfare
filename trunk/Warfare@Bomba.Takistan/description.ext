@@ -27,9 +27,6 @@
 //--- Define which 'part' of the game to run.
 #include "version.sqf"
 
-//--- Declare profile macros
-#include "profiler.h"
-
 //--- Header contains the mission tite.
 #include "Rsc\Header.hpp"
 //--- Parameters contains the mission parameters.
