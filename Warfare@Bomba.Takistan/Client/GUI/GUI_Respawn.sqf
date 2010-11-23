@@ -167,13 +167,15 @@ if !(isNil "respawnWeapons") then {
 		};
 
 		if !(_skip) then {
-	_temp = +(respawnWeapons);
-	_listbp = 'WFBE_BACKPACKS' Call GetNamespace;
+			_temp = +(respawnWeapons);
+			_listbp = 'WFBE_BACKPACKS' Call GetNamespace;
 			{if (_x in _listbp) then {_temp = _temp - [_x]}} forEach respawnWeapons;
-	_weaps = _temp;
+			_weaps = _temp;
 	
-	[player,_weaps,respawnAmmo] Call EquipLoadout;
-			if !(WF_A2_Vanilla) then {[] Spawn RespawningBag};
+			if !(WF_A2_Vanilla) then {
+				[] call RespawningBag
+			};
+			[player,_weaps,respawnAmmo] Call EquipLoadout;
 			_loadDefault = false;
 		};
 	};
