@@ -7,6 +7,7 @@ _unit = _this select 0;
 _weapons = _this select 1;
 _ammo = _this select 2;
 
+{_unit removeMagazine _x} forEach magazines _unit;	// remove all magazines prior add ammo to unit
 removeAllWeapons _unit;
 removeAllItems _unit;
 
