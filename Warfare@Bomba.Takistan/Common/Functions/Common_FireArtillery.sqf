@@ -49,7 +49,9 @@ _gunner DoWatch _watchPosition;
 _weapon = (weapons _artillery) select 0;
 _weaponDir = _artillery weaponDirection _weapon;
 _bWait = true;
-while { _bWait } do {
+
+_timeout = time + 10;
+while { _bWait && _timeout < time  } do {
 	sleep 0.1;
 	_weaponDir1 = _artillery weaponDirection _weapon;
 	_R = _weaponDir distance _weaponDir1;	
@@ -66,17 +68,19 @@ if (_amount > 0) then {
 	_radialAlpha = Random 360;
 	_destination = [(_destination Select 0)+((sin _radialAlpha)*_radialR),(_destination Select 1)+((cos _radialAlpha)*_radialR), 2000];
 	
-	_timeout = time + 3;
-	
 	_ehFired = _artillery addEventHandler ["Fired", { (_this select 0) setVariable ["FireArtillery", _this select 6] } ];
 		
 	_artillery setVariable ["FireArtillery", objNull];
 	_artillery Fire _weapon;
 	
-	waitUntil { !(isNull (_artillery getVariable "FireArtillery")) };
+	_timeout = time + 5;
+	waitUntil { !(isNull (_artillery getVariable "FireArtillery")) || _timeout < time };
 
+	
 	_shell = _artillery getVariable "FireArtillery";
-	[_shell, _destination] spawn FireArtilleryTraceTraectory;
+	if ( !(isNull _shell) ) then {
+		[_artillery, _shell, _destination] spawn FireArtilleryTraceTraectory;
+	};
 
 	_artillery removeEventHandler ["Fired", _ehFired];
 };
