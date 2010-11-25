@@ -25,7 +25,7 @@ PROFILER_BEGIN("Server_TrashDeleteObject");
 		if (_canDelete == 1) then {
 		
 			WBE_TrashObjectCollectionQueu = WBE_TrashObjectCollectionQueu - [_object];
-			format["Server_TrashDeleteObject: Delete Body" call LogHigh;
+			"Server_TrashDeleteObject: Delete Body" call LogHigh;
 			
 			deleteVehicle _object;
 			_isDeleted = true;
