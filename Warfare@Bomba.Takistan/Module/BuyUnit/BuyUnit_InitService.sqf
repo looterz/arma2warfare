@@ -5,21 +5,12 @@ BUYUNIT_RESPONSE_BUILDBEGIN     = 2;
 BUYUNIT_RESPONSE_ORDERCOMPLETED = 3;
 BUYUNIT_RESPONSE_ORDERCANCEL    = 4;
 
-WBE_BUYUNIT_REQUEST  = objNull;
-WBE_BUYUNIT_RESPONSE = objNull;
-
 	BuyUnit_GetOrderQueueStatus = Compile preprocessFile "Module\BuyUnit\Client\BuyUnit_GetOrderQueueStatus.sqf";
 
 	BuyUnit_OrderCreate   = Compile preprocessFile "Module\BuyUnit\Client\BuyUnit_OrderCreate.sqf";
 	BuyUnit_OrderComplete = Compile preprocessFile "Module\BuyUnit\Client\BuyUnit_OrderComplete.sqf";
 	BuyUnit_OrderCancel   = Compile preprocessFile "Module\BuyUnit\Client\BuyUnit_OrderCancel.sqf";
-	
 	BuyUnit_OrderResponseHandle = Compile preprocessFile "Module\BuyUnit\Client\BuyUnit_OrderResponseHandle.sqf";
-
-	if (local player) then {	
-		BuyUnit_ClientId = getPlayerUID player;
-		"WBE_BUYUNIT_RESPONSE" addPublicVariableEventHandler {(_this select 1) spawn BuyUnit_OrderResponseHandle; };
-	};
 
 	if (isServer) then {
 		WBE_BuyUnit_OrderQueue = [];
@@ -34,8 +25,6 @@ WBE_BUYUNIT_RESPONSE = objNull;
 		BuyUnit_CreateUnit = Compile preprocessFile "Module\BuyUnit\Server\BuyUnit_CreateUnit.sqf";
 		
 		BuyUnit_UpdateOrderQueueStatus = Compile preprocessFile "Module\BuyUnit\Server\BuyUnit_UpdateOrderQueueStatus.sqf";
-		
-		"WBE_BUYUNIT_REQUEST" addPublicVariableEventHandler {(_this select 1) spawn BuyUnit_OrderRegister; };	
 		
 		// start service thread
 		ExecVM "Module\BuyUnit\Server\BuyUnit_Service.sqf";

@@ -250,8 +250,8 @@ if (!isNil "paramsArray") then {
 if (WF_Debug) then {
 	paramUpgradesEast = false;
 	paramUpgradesWest = false;
-	paramRes = true;
-	paramOccup = true;
+	paramRes = false;
+	paramOccup = false;
 };
 
 //--- All parameters are set and ready.
@@ -284,9 +284,5 @@ if (isServer  || IsClientServer) then {
 	ExecVM "Server\Init\Init_Server.sqf"
 };
 
-if (paramTrade) then {
-	execVM "Module\Market\Init_Market.sqf";
-};
-
-[] ExecVM "Module\BuyUnit\BuyUnit_InitService.sqf";
+[] spawn compile preprocessFile "Module\Init_Modules.sqf";
 PROFILER_END();

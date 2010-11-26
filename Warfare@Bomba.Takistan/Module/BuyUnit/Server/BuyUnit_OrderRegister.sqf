@@ -13,10 +13,14 @@ private['_order', '_clientId', '_building', '_orderId', '_orderInfo'];
 	//--- _side		= _order select 3; 
 	//--- _team     = _order select 4; 
 	//--- _vehInfo  = _order select 5;
+	
+	format["BuyUnit_OrderRegister: this=%1", _this] call LogHigh;
 
-	_order = _this;
+	_clientId = _this select 0;
+	//_msgId   = _this select 1;
+	_order = _this select 2;	
 
-	_clientId = _order select 0;
+	//_clientId = _order select 0;
 	_building = _order select 1;
 
 	waitUntil { !(isNil "WBE_BuyUnit_OrderQueue") };

@@ -1,3 +1,4 @@
+#include "netsend.h"
 #include "profiler.h"
 PROFILER_BEGIN("BuyUnit_OrderCreate");
 	private['_unitType', '_team', '_order', '_clientId', '_vehInfo' ];
@@ -15,10 +16,10 @@ PROFILER_BEGIN("BuyUnit_OrderCreate");
 	_team     = _order select 4;
 	_vehInfo  = _order select 5;
 	
-	_clientId = if (isPlayer(leader _team)) then { getPlayerUID (leader _team) } else { 'AI' };
+	_clientId = if (isPlayer(leader _team)) then { getPlayerUID (leader _team) } else { NETSEND_CLIENTID_AI };
 	_order set [0, _clientId];
 	
-	if (!(_clientId == "AI")) then {
+	if (!(_clientId == NETSEND_CLIENTID_AI)) then {
 		
 		if ( (count _vehInfo) > 0 ) then {  if (_vehInfo select 0) then { unitQueu = unitQueu + 1; }; };	//-- buy crew driver
 		if ( (count _vehInfo) > 1 ) then {  if (_vehInfo select 1) then { unitQueu = unitQueu + 1; }; };	//-- buy crew gunner
@@ -26,13 +27,7 @@ PROFILER_BEGIN("BuyUnit_OrderCreate");
 		if (_unitType isKindOf "Man") then { unitQueu = unitQueu + 1; };	//-- buy soldier
 	};
 	
-	if (isServer) then { 
-		_order spawn BuyUnit_OrderRegister;
-	} else {
-		WBE_BUYUNIT_REQUEST = _order;
-		publicVariable "WBE_BUYUNIT_REQUEST";
-	};
-	
+	[_clientId, NETSEND_MSGID_BUYUNIT, _order] call NetSend_ToServer;	
 	Format["BuyUnit_OrderCreate: Team %1 create order to '%2': %3", _team, _unitType, _order] call LogInform;
 
 PROFILER_END();

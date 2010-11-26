@@ -36,7 +36,7 @@ private[ "_orderInfo", "_order", "_building", "_completed", "_orderId", "_team",
 				_orderInfo set[1, _productionTime];
 				
 				_clientId = _order select 0; 
-				if (_productionTime != -1 && !(_clientId == "AI") ) then {	// if production will produced so notify player about this
+				if ( _productionTime != -1 ) then {	// if production will produced so notify player about this
 					
 					[_clientId, BUYUNIT_RESPONSE_BUILDBEGIN, [_order] ] spawn BuyUnit_OrderResponse;
 				};

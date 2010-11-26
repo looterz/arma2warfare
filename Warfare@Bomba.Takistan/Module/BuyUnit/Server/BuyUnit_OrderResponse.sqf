@@ -1,19 +1,17 @@
+#include "netsend.h"
 #include "profiler.h"
 PROFILER_BEGIN("BuyUnit_OrderResponse");
 
-private['_clientId', '_responseType', '_responseData'];
+private['_clientId'];
 
-	_clientId      = _this select 0; 
-	_responseType  = _this select 1; 
-	_responseData  = _this select 2;	
+	_clientId     = _this select 0;	
+	format["BuyUnit_OrderResponseA: %1", _this] call LogHigh;
 	
-	if (_clientId == "AI") exitWith {
-		
+	if (_clientId == WBE_NETSEND_CLIENTID_AI) exitWith {		
 		PROFILER_END();	
 	};
 	
-	WBE_BUYUNIT_RESPONSE = [_clientId, _responseType, _responseData];
-	publicVariable "WBE_BUYUNIT_RESPONSE";
-	if (IsClientServer) then { (WBE_BUYUNIT_RESPONSE) spawn BuyUnit_OrderResponseHandle;  };				
+	format["BuyUnit_OrderResponseB: %1", _this] call LogHigh;
+	[_clientId, NETSEND_MSGID_BUYUNIT, _this] call NetSend_ToClient;
 	
 PROFILER_END();

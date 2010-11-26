@@ -25,7 +25,7 @@ private['_order', "_clientId", "_building", "_unitType", "_team", "_productionTi
 	
 	if ( (alive _building) && !(isNull _building) ) then {
 
-		_clientId2 = if (isPlayer(leader _team)) then { getPlayerUID (leader _team) } else { 'AI' };
+		_clientId2 = if (isPlayer(leader _team)) then { getPlayerUID (leader _team) } else { WBE_NETSEND_CLIENTID_AI };
 		if (_clientId == _clientId2) then {
 
 			_buildTime = (_unitType Call GetNamespace) select QUERYUNITTIME;
