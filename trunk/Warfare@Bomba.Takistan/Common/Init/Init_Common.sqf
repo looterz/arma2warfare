@@ -18,6 +18,7 @@ CreateVehi = Compile PreprocessFile "Common\Functions\Common_CreateVehicle.sqf";
 EquipLoadout = Compile PreprocessFile "Common\Functions\Common_EquipLoadout.sqf";
 GetEquipLoadout = Compile PreprocessFile "Common\Functions\Common_GetEquipLoadout.sqf";
 GetEquipDogTags = Compile PreprocessFile "Common\Functions\Common_GetEquipDogTags.sqf";
+GetIsFlatPosition = Compile PreprocessFile "Common\Functions\Common_GetIsFlatPosition.sqf";
 
 FireArtillery = Compile PreprocessFile "Common\Functions\Common_FireArtillery.sqf";
 FireArtilleryTraceTraectory = Compile PreprocessFile "Common\Functions\Common_FireArtilleryTraceTraectory.sqf";

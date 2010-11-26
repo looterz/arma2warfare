@@ -616,17 +616,9 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 						
 						if (_checkPlaceZone) then {
 					
-							_list = position _preview nearObjects 50;						
-							{	
-								if (_color != _colorRed && _x != _preview) then {
-									_positionBuilding = position _x;
-									
-									_sizeBuilding = (sizeof typeof _x)/2.35;
-									_meters = _preview distance _positionBuilding;
-									
-									if (_meters < _sizeBuilding) then { _color = _colorRed;	};						
-								};
-							} forEach _list;
+							if ( !([position _preview, 50, true, _preview] call GetIsFlatPosition) ) then {
+								_color = _colorRed;
+							};
 						};
 					};
 				};
