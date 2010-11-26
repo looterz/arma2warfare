@@ -310,7 +310,7 @@ class FSM
        "				_HQDriver MoveInDriver _hq;" \n
        "				_HQDriver AssignAsDriver _hq;" \n
        "				[_HQDriver] OrderGetIn true;" \n
-       "				_HQDriver doMove ([GetPos _destination,10,20] Call GetRandomPosition);" \n
+       "				_HQDriver doMove ([_destination,10,20] Call GetRandomPositionEx);" \n
        "				_lastMove = time;" \n
        "			};" \n
        "		};" \n
@@ -388,7 +388,7 @@ class FSM
        "			_built = _built + 1;" \n
        "			WF_Logic setVariable [Format[""%1UnitsCreated"",_sideText],_built,true];" \n
        "			" \n
-       "			_driver doMove ([GetPos _hq,10,20] Call GetRandomPosition);" \n
+       "			_driver doMove ([_hq, 10, 20] Call GetRandomPositionEx);" \n
        "		};" \n
        "		" \n
        "		//--- Repair truck is in repair range." \n

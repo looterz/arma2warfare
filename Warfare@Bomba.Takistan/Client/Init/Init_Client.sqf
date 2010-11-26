@@ -181,7 +181,7 @@ if (time < 30) then {
 	};
 };
 
-player setPos ([getPos _base,20,30] Call GetRandomPosition);
+player setPos ([_base,20,30] Call GetRandomPositionEx);
 
 //--- Building Init.
 waitUntil {!isNil Format ["%1MHQDeployed",sideJoinedText]};

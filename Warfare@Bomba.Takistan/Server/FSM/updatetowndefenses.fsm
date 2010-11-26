@@ -288,7 +288,7 @@ class FSM
        "	_resistanceActive = true;" \n
        "	_unitTypes = Format[""WFBE_RES%1UNITS"",_resistanceTeamTypes select _teamCount] Call GetNamespace;" \n
        "	_leaderName = _unitTypes select 0;" \n
-       "	_position = ([getPos _location,_tusr,_patrolRange] Call GetRandomPosition);" \n
+       "	_position = ([_location,_tusr,_patrolRange] Call GetRandomPositionEx);" \n
        "	_team = createGroup Resistance;" \n
        "	_leader = [_leaderName,_team,_position,resistance] Call CreateMan;" \n
        "	[_leader,_position,50] Call PlaceSafe;" \n
@@ -377,12 +377,12 @@ class FSM
       init = /*%FSM<STATEINIT""">*/"_lastReinf = time;" \n
        "_unitTypes = Format[""WFBE_RES%1UNITS"",_resistanceTeamTypes select round (random ((count _resistanceTeamTypes)-1))] Call GetNamespace;" \n
        "_leaderName = _unitTypes select 0;" \n
-       "_position = ([getPos _location,_tusr + 150,_patrolRange] Call GetRandomPosition);" \n
+       "_position = ([_location,_tusr + 150,_patrolRange] Call GetRandomPositionEx);" \n
        "_near = _position nearEntities 75;" \n
        "_ctx = (east countSide _near) + (west countSide _near);" \n
        "_i = 0;" \n
        "while {_ctx > 0 && _i < 400} do {" \n
-       "	_position = ([getPos _location,_tusr + 150,_patrolRange] Call GetRandomPosition);" \n
+       "	_position = ([_location,_tusr + 150,_patrolRange] Call GetRandomPositionEx);" \n
        "	_near = _position nearEntities 75;" \n
        "	_ctx = (east countSide _near) + (west countSide _near);" \n
        "	_i = _i + 1;" \n

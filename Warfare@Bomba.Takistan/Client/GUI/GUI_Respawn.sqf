@@ -142,7 +142,7 @@ if (isNull _spawn) then {
 	_hq = (sideJoinedText) Call GetSideHQ;
 	_spawn = _hq;
 };
-player setPos ([GetPos _spawn,10,20] Call GetRandomPosition);
+player setPos ([_spawn, 10, 20] Call GetRandomPositionEx);
 
 _loadDefault = true;
 if !(isNil "respawnWeapons") then {

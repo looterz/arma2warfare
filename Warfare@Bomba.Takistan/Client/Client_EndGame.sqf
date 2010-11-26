@@ -13,7 +13,7 @@ _position = getPos _base;
 _HQ = (sideJoinedText) Call GetSideHQ;
 _vehi = vehicle player;
 if (_vehi != player) then {player action ["EJECT", _vehi];_vehi = player};
-_vehi setPos ([getPos _HQ,20,30] Call GetRandomPosition);
+_vehi setPos ([_HQ,20,30] Call GetRandomPositionEx);
 
 if (!isNil "DeathCamera") then {
 	DeathCamera cameraEffect["TERMINATE","BACK"];

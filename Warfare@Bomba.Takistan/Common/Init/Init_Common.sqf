@@ -18,10 +18,16 @@ CreateVehi = Compile PreprocessFile "Common\Functions\Common_CreateVehicle.sqf";
 EquipLoadout = Compile PreprocessFile "Common\Functions\Common_EquipLoadout.sqf";
 GetEquipLoadout = Compile PreprocessFile "Common\Functions\Common_GetEquipLoadout.sqf";
 GetEquipDogTags = Compile PreprocessFile "Common\Functions\Common_GetEquipDogTags.sqf";
+
 GetIsFlatPosition = Compile PreprocessFile "Common\Functions\Common_GetIsFlatPosition.sqf";
+GetGridPosition = Compile PreprocessFile "Common\Functions\Common_GetGridPosition.sqf";
 
 FireArtillery = Compile PreprocessFile "Common\Functions\Common_FireArtillery.sqf";
 FireArtilleryTraceTraectory = Compile PreprocessFile "Common\Functions\Common_FireArtilleryTraceTraectory.sqf";
+
+GetRandomPosition = Compile PreprocessFile "Common\Functions\Common_GetRandomPosition.sqf";
+GetRandomPositionEx = Compile PreprocessFile "Common\Functions\Common_GetRandomPositionEx.sqf";
+GetGridTarget  = Compile PreprocessFile "Common\Functions\Common_GetGridTarget.sqf";
 
 GetClientID = Compile PreprocessFile "Common\Functions\Common_GetClientID.sqf";
 GetClientIDFromTeam = Compile PreprocessFile "Common\Functions\Common_GetClientIDFromTeam.sqf";
@@ -37,7 +43,6 @@ GetFriendlyCamps = Compile PreprocessFile "Common\Functions\Common_GetFriendlyCa
 GetLiveUnits = Compile PreprocessFile "Common\Functions\Common_GetLiveUnits.sqf";
 GetNamespace = Compile PreprocessFile "Common\Functions\Common_GetNamespace.sqf";
 GetPositionFrom = Compile PreprocessFile "Common\Functions\Common_GetPositionFrom.sqf";
-GetRandomPosition = Compile PreprocessFile "Common\Functions\Common_GetRandomPosition.sqf";
 GetSideFromID = Compile PreprocessFile "Common\Functions\Common_GetSideFromID.sqf";
 GetSideHQ = Compile PreprocessFile "Common\Functions\Common_GetSideHQ.sqf";
 GetSideHQDeployed = Compile PreprocessFile "Common\Functions\Common_GetSideHQDeployed.sqf";
