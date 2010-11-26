@@ -2,7 +2,7 @@ Private ['_count','_l'];
 
 waitUntil { !isNil "LogInited" };
 
-_l		= ["RequestVehicleLock"];
+_l		= [];
 _l = _l + ["RequestCommanderVote"];
 _l = _l + ["RequestStructure"];
 _l = _l + ["RequestDefense"];

@@ -9,26 +9,29 @@ if (!isServer || time > 30) exitWith {
 
 Format["Init_Server: Init Start"] call LogMedium;
 
-createCenter resistance; //--- Allow resistance group to be spawned without a placeholder.
-resistance setFriend [west,0];
-resistance setFriend [east,0];
+	createCenter resistance; //--- Allow resistance group to be spawned without a placeholder.
+	resistance setFriend [west,0];
+	resistance setFriend [east,0];
 
-if (paramAI) then {
-	AIBuyUnit = Compile preprocessFile "Server\Functions\Server_BuyUnit.sqf";
+	if (paramAI) then {
+		AIBuyUnit = Compile preprocessFile "Server\Functions\Server_BuyUnit.sqf";
+	};
+	
+	AIMoveTo = Compile preprocessFile "Server\AI\Orders\AI_MoveTo.sqf";
+	AIPatrol = Compile preprocessFile "Server\AI\Orders\AI_Patrol.sqf";
+	AITownPatrol = Compile preprocessFile "Server\AI\Orders\AI_TownPatrol.sqf";
+	AITownResitance = Compile preprocessFile "Server\AI\AI_Resistance.sqf";
+	AIWPAdd = Compile preprocessFile "Server\AI\Orders\AI_WPAdd.sqf";
+	AIWPRemove = Compile preprocessFile "Server\AI\Orders\AI_WPRemove.sqf";
+	if (paramAllies) then {AlliesBuyUnit = Compile preprocessFile "Server\Functions\Server_AlliesBuyUnit.sqf"};
+	BuildingDamaged = Compile preprocessFile "Server\Functions\Server_BuildingDamaged.sqf";
+	if (paramHandleFF) then {BuildingHandleDamages = Compile preprocessFile "Server\Functions\Server_BuildingHandleDamages.sqf"};
 
-};
-AIMoveTo = Compile preprocessFile "Server\AI\Orders\AI_MoveTo.sqf";
-AIPatrol = Compile preprocessFile "Server\AI\Orders\AI_Patrol.sqf";
-AITownPatrol = Compile preprocessFile "Server\AI\Orders\AI_TownPatrol.sqf";
-AITownResitance = Compile preprocessFile "Server\AI\AI_Resistance.sqf";
-AIWPAdd = Compile preprocessFile "Server\AI\Orders\AI_WPAdd.sqf";
-AIWPRemove = Compile preprocessFile "Server\AI\Orders\AI_WPRemove.sqf";
-if (paramAllies) then {AlliesBuyUnit = Compile preprocessFile "Server\Functions\Server_AlliesBuyUnit.sqf"};
-BuildingDamaged = Compile preprocessFile "Server\Functions\Server_BuildingDamaged.sqf";
-if (paramHandleFF) then {BuildingHandleDamages = Compile preprocessFile "Server\Functions\Server_BuildingHandleDamages.sqf"};
-BuildingKilled = Compile preprocessFile "Server\Functions\Server_BuildingKilled.sqf";
-CanUpdateTeam = Compile preprocessFile "Server\Functions\Server_CanUpdateTeam.sqf";
-HandleDefense = Compile preprocessFile "Server\Functions\Server_HandleDefense.sqf";
+	BuildingKilled = Compile preprocessFile "Server\Functions\Server_BuildingKilled.sqf";
+	CanUpdateTeam = Compile preprocessFile "Server\Functions\Server_CanUpdateTeam.sqf";
+	HandleDefense = Compile preprocessFile "Server\Functions\Server_HandleDefense.sqf";
+	
+	HandleRequest_LockVehicle = Compile preprocessFile "Server\Request\HandleRequest_LockVehicle.sqf";
 
 HandleSPVF = Compile preprocessFile "Server\Functions\Server_HandleSPVF.sqf";
 HandleSpecial = Compile preprocessFile "Server\Functions\Server_HandleSpecial.sqf";

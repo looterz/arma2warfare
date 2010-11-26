@@ -241,7 +241,7 @@ if (_voteTime > 0) then {createDialog "RscDisplayWFVoting"};
 
 //--- Debug
 if (WF_Debug) then {
-	onMapSingleClick "vehicle player setpos _pos"; //--- Teleport
+	onMapSingleClick "if (_alt) then { vehicle player setpos _pos };"; //--- Teleport
 	//player addEventHandler ["HandleDamage", {false}];
 	player addEventHandler ["HandleDamage", {false;if (player != (_this select 3)) then {(_this select 3) setDammage 1}}]; //--- God-Slayer mode.
 } else {

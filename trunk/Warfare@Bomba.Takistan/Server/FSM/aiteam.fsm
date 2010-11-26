@@ -163,7 +163,7 @@ class FSM
       name = "Init";
       init = /*%FSM<STATEINIT""">*/"_team = _this select 0;" \n
        "_lastPos = position (leader _team);" \n
-       "format[""AITEAM.FSM: Team %1 Init"", _team] call LogHigh;"/*%FSM</STATEINIT""">*/;
+       "format[""AITEAM.FSM: Team %1 Init"", _team] call LogInform;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -172,7 +172,7 @@ class FSM
         {
           priority = 1.000000;
           to="End";
-          precondition = /*%FSM<CONDPRECONDITION""">*/"format[""AITEAM.FSM: Team %1 IsPlayer"", _team] call LogHigh;"/*%FSM</CONDPRECONDITION""">*/;
+          precondition = /*%FSM<CONDPRECONDITION""">*/"format[""AITEAM.FSM: Team %1 IsPlayer"", _team] call LogInform;"/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/"isPlayer leader _team || isNull _team || gameOver"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
@@ -182,7 +182,7 @@ class FSM
         {
           priority = 0.000000;
           to="Advanced_Init";
-          precondition = /*%FSM<CONDPRECONDITION""">*/"format[""AITEAM.FSM: Team %1 IsAI"", _team] call LogHigh;"/*%FSM</CONDPRECONDITION""">*/;
+          precondition = /*%FSM<CONDPRECONDITION""">*/"format[""AITEAM.FSM: Team %1 IsAI"", _team] call LogInform;"/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/"!(isPlayer Leader _team)"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
@@ -194,7 +194,7 @@ class FSM
     class End
     {
       name = "End";
-      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: EndFSM team:%1"", _team] call LogHigh;"/*%FSM</STATEINIT""">*/;
+      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: EndFSM team:%1"", _team] call LogInform;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -205,7 +205,7 @@ class FSM
     class Advanced_Init
     {
       name = "Advanced_Init";
-      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 AdvancedInit"", _team] call LogHigh;" \n
+      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 AdvancedInit"", _team] call LogInform;" \n
        "" \n
        "_side = side _team;" \n
        "_sideText = str _side;" \n
@@ -268,7 +268,7 @@ class FSM
     class Check
     {
       name = "Check";
-      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Check"", _team] call LogHigh;" \n
+      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Check"", _team] call LogInform;" \n
        "_lastCheck = time;" \n
        ""/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
@@ -279,7 +279,7 @@ class FSM
         {
           priority = 1.000000;
           to="End";
-          precondition = /*%FSM<CONDPRECONDITION""">*/"format[""AITEAM.FSM: Team %1 IsPlayer"", _team] call LogHigh;"/*%FSM</CONDPRECONDITION""">*/;
+          precondition = /*%FSM<CONDPRECONDITION""">*/"format[""AITEAM.FSM: Team %1 IsPlayer"", _team] call LogInform;"/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/"isPlayer leader _team || isNull _team || gameOver"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
@@ -303,7 +303,7 @@ class FSM
       name = "Handle_AI_Mode";
       init = /*%FSM<STATEINIT""">*/"_commandMode = _team Call GetTeamAutonomous;" \n
        "" \n
-       "format[""AITEAM.FSM: Team %1 Handle AIMode:%2"", _team, _commandMode] call LogHigh;"/*%FSM</STATEINIT""">*/;
+       "format[""AITEAM.FSM: Team %1 Handle AIMode:%2"", _team, _commandMode] call LogInform;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -388,7 +388,7 @@ class FSM
     {
       name = "Handle_Movement";
       init = /*%FSM<STATEINIT""">*/"_moveMode = _team Call GetTeamMoveMode;" \n
-       "format[""AITEAM.FSM: Team %1 Handle movement %2"", _team, _moveMode] call LogHigh;" \n
+       "format[""AITEAM.FSM: Team %1 Handle movement %2"", _team, _moveMode] call LogInform;" \n
        "" \n
        "if (  ((leader _team) distance _lastPos) < 1) then {" \n
        "	_moveAtRunning = false;		// fix units stayed at base after respawn" \n
@@ -479,7 +479,7 @@ class FSM
        "_moveAtLast = objNull;" \n
        "_moveAtRunning = false;" \n
        "" \n
-       "format[""AITEAM.FSM: Team %1 Independant move"", _team] call LogHigh;"/*%FSM</STATEINIT""">*/;
+       "format[""AITEAM.FSM: Team %1 Independant move"", _team] call LogInform;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -500,7 +500,7 @@ class FSM
     class Handle_Buildings
     {
       name = "Handle_Buildings";
-      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Handle Buildings"", _team] call LogHigh;"/*%FSM</STATEINIT""">*/;
+      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Handle Buildings"", _team] call LogInform;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -608,7 +608,7 @@ class FSM
     class Handle_Vehicles
     {
       name = "Handle_Vehicles";
-      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Handle Vehicles"", _team] call LogHigh;"/*%FSM</STATEINIT""">*/;
+      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Handle Vehicles"", _team] call LogInform;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -715,7 +715,7 @@ class FSM
     class Handle_Purchases
     {
       name = "Handle_Purchases";
-      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Handle Purchases"", _team] call LogHigh;" \n
+      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Handle Purchases"", _team] call LogInform;" \n
        "" \n
        "_size = Count ((units  _team) Call GetLiveUnits);"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
@@ -769,7 +769,7 @@ class FSM
     class Handle_Env
     {
       name = "Handle_Env";
-      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Handle Env"", _team] call LogHigh;" \n
+      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Handle Env"", _team] call LogInform;" \n
        "" \n
        "_buyType = (_team) Call GetTeamType;" \n
        "" \n
@@ -829,7 +829,7 @@ class FSM
     class Done
     {
       name = "Done";
-      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Done"", _team] call LogHigh;"/*%FSM</STATEINIT""">*/;
+      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Done"", _team] call LogInform;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -850,7 +850,7 @@ class FSM
     class Handle_Cargo__Towns
     {
       name = "Handle_Cargo__Towns";
-      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Handle Carge"", _team] call LogHigh;"/*%FSM</STATEINIT""">*/;
+      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Handle Carge"", _team] call LogInform;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -881,7 +881,7 @@ class FSM
     class Handle_Purchase
     {
       name = "Handle_Purchase";
-      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Handle Purchase"", _team] call LogHigh;" \n
+      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Handle Purchase"", _team] call LogInform;" \n
        "" \n
        "_buyType = (_team) Call GetTeamType;" \n
        "if (_lastBuyType != _buyType) then {" \n
@@ -892,8 +892,8 @@ class FSM
        "	_lastBuyType = _buyType;" \n
        "};" \n
        "" \n
-       "format[""AITEAM.FSM: Team %1 Handle Purchase, purchaseTime:%2"", _team, _purchaseTime] call LogHigh;" \n
-       "format[""AITEAM.FSM: Team %1 Handle Purchase, dT:%2"", _team, (time - _purchaseTime)] call LogHigh;" \n
+       "format[""AITEAM.FSM: Team %1 Handle Purchase, purchaseTime:%2"", _team, _purchaseTime] call LogInform;" \n
+       "format[""AITEAM.FSM: Team %1 Handle Purchase, dT:%2"", _team, (time - _purchaseTime)] call LogInform;" \n
        "if (time - _purchaseTime > 60) then {" \n
        "	_purchaseTime = time;" \n
        "	_needs = [];" \n
@@ -902,21 +902,21 @@ class FSM
        "	if (_teamRequire select 2) then {_needs = _needs + [_heavyInRange]};" \n
        "	if (_teamRequire select 3) then {_needs = _needs + [_airInRange]};" \n
        "	" \n
-       "	format[""AITEAM.FSM: Team %1 Handle Purchase, Factories Required: %2"", _team, _needs] call LogHigh;" \n
+       "	format[""AITEAM.FSM: Team %1 Handle Purchase, Factories Required: %2"", _team, _needs] call LogInform;" \n
        "	" \n
        "	_canBuy = true;" \n
        "	{if (!_x) then {_canBuy = false}} forEach _needs;" \n
        "	" \n
-       "	format[""AITEAM.FSM: Team %1 Handle Purchase, CanBuy: %2"", _team, _canBuy] call LogHigh;" \n
+       "	format[""AITEAM.FSM: Team %1 Handle Purchase, CanBuy: %2"", _team, _canBuy] call LogInform;" \n
        "" \n
        "	if (_canBuy) then {" \n
        "		_upgrades = (_sideText) Call GetSideUpgrades;" \n
        "		{" \n
-       "			format[""AITEAM.FSM: Team %1 Handle Purchase, teamType: %2"", _team, _x] call LogHigh;" \n
+       "			format[""AITEAM.FSM: Team %1 Handle Purchase, teamType: %2"", _team, _x] call LogInform;" \n
        "		" \n
        "			_buyFrom = objNull;" \n
        "			_kindDetail = _x Call GetNamespace;" \n
-       "			format[""AITEAM.FSM: Team %1 Handle Purchase, kindDetail: %2"", _team, _kindDetail] call LogHigh;			" \n
+       "			format[""AITEAM.FSM: Team %1 Handle Purchase, kindDetail: %2"", _team, _kindDetail] call LogInform;			" \n
        "			" \n
        "			if !(isNil '_kindDetail') then {" \n
        "				_crews = _kindDetail select QUERYUNITCREW;" \n
@@ -942,16 +942,16 @@ class FSM
        "					};" \n
        "				};" \n
        "				" \n
-       "				format[""AITEAM.FSM: Team %1 Handle Purchase, _buyFrom: %2"", _team, _buyFrom] call LogHigh;							" \n
+       "				format[""AITEAM.FSM: Team %1 Handle Purchase, _buyFrom: %2"", _team, _buyFrom] call LogInform;							" \n
        "				if !(isNull _buyFrom) then {" \n
        "					_upgradeStatus = _upgrades select _upgradeLevel;" \n
        "					_canBuy = _team getVariable ""canOrderUnit"";" \n
        "					if (isNil ""_canBuy"") then { _canBuy = 1; };" \n
        "					" \n
-       "					format[""AITEAM.FSM: Team %1 Handle Purchase, canBuy: %2"", _team, _canBuy] call LogHigh;							" \n
-       "					format[""AITEAM.FSM: Team %1 Handle Purchase, size: %2 < mbu:%3"", _team, _size, _mbu] call LogHigh;							" \n
-       "					format[""AITEAM.FSM: Team %1 Handle Purchase, funds: %2 > price:%3"", _team, _funds, _price] call LogHigh;							" \n
-       "					format[""AITEAM.FSM: Team %1 Handle Purchase, upgradeStatus: %2 > upgradeRequired:%3"", _team, _upgradeStatus, _upgradeRequired] call LogHigh;							" \n
+       "					format[""AITEAM.FSM: Team %1 Handle Purchase, canBuy: %2"", _team, _canBuy] call LogInform;							" \n
+       "					format[""AITEAM.FSM: Team %1 Handle Purchase, size: %2 < mbu:%3"", _team, _size, _mbu] call LogInform;							" \n
+       "					format[""AITEAM.FSM: Team %1 Handle Purchase, funds: %2 > price:%3"", _team, _funds, _price] call LogInform;							" \n
+       "					format[""AITEAM.FSM: Team %1 Handle Purchase, upgradeStatus: %2 > upgradeRequired:%3"", _team, _upgradeStatus, _upgradeRequired] call LogInform;							" \n
        "					" \n
        "					if ( (_canBuy == 1) &&  (_size < _mbu) && _funds > _price && _upgradeStatus >= _upgradeRequired) then {" \n
        "						_vehiSlots = [true,false,false];" \n
@@ -966,7 +966,7 @@ class FSM
        "						_team setVariable [""canOrderUnit"", 0];" \n
        "" \n
        "						_buyRequest = [objNull, _buyFrom, _x, _side, _team, _vehiSlots];" \n
-       "						format[""AITEAM.FSM: Team %1 Handle Purchase, AIBuyUnit: %2"", _team, _buyRequest] call LogHigh;							" \n
+       "						format[""AITEAM.FSM: Team %1 Handle Purchase, AIBuyUnit: %2"", _team, _buyRequest] call LogInform;							" \n
        "						" \n
        "						_buyRequest Spawn AIBuyUnit;" \n
        "						[_team,-_price] Call ChangeTeamFunds;	" \n
@@ -1139,7 +1139,7 @@ class FSM
     class Handle_Injured
     {
       name = "Handle_Injured";
-      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Handle Injured"", _team] call LogHigh;"/*%FSM</STATEINIT""">*/;
+      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Handle Injured"", _team] call LogInform;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
