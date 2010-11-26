@@ -360,7 +360,7 @@ class FSM
        "};" \n
        "" \n
        "if (!isNull _moveAt && !_moveAtRunning) then {" \n
-       "	_rPos = [getPos _moveAt, 100, 350] Call GetRandomPosition;" \n
+       "	_rPos = [_moveAt, 100, 350] Call GetRandomPositionEx;" \n
        "	_update = (_team) Call CanUpdateTeam;" \n
        "	if (_update) then {_team Call UpdateTeam};" \n
        "	[_team,true,[[_rPos, 'MOVE', 40, 20]]] Call AIWPAdd;" \n

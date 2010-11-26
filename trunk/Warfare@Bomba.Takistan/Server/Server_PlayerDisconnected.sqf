@@ -58,7 +58,7 @@ if (count _buildings > 0) then {
 	_closestRespawn = [leader _team,_buildings] Call SortByDistance;
 	_respawnLoc = _closestRespawn select 0;
 };
-(leader _team) setPos ([getPos _respawnLoc,20,30] Call GetRandomPosition);
+(leader _team) setPos ([_respawnLoc, 20, 30] Call GetRandomPositionEx);
 
 //--- Is AI Enabled? if so we update the squads.
 if (paramAI) then {[_team] ExecFSM "Server\FSM\aiteam.fsm"};

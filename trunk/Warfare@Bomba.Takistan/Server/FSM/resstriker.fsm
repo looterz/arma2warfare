@@ -169,7 +169,7 @@ class FSM
       init = /*%FSM<STATEINIT""">*/"_team = createGroup resistance;" \n
        "_unit = objNull;" \n
        "_vehicles = [];" \n
-       "_position = [getPos _location,100,300] Call GetRandomPosition;" \n
+       "_position = [_location,100,300] Call GetRandomPositionEx;" \n
        "" \n
        "//--- Select a team." \n
        "_types = Format [""WFBE_RESSTRIKERTYPE1%1"",round(random 3)] Call GetNamespace;" \n

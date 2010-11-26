@@ -256,7 +256,7 @@ if (paramAI) then {
 		if !(isNil "_x") then {
 			if (!isPlayer (leader _x) && alive (leader _x)) then {
 				_ran = 1 + round(random(2));
-				(leader _x) setPos ([getPos _eastLocation,20,30] Call GetRandomPosition);
+				(leader _x) setPos ([_eastLocation, 20, 30] Call GetRandomPositionEx);
 				[(leader _x),Format ["WFBE_EASTLEADERWEAPONS0%1",_ran] Call GetNamespace,Format ["WFBE_EASTLEADERAMMO0%1",_ran] Call GetNamespace] Call EquipLoadout;
 			};
 			_x setVariable ["queue",[]];
@@ -276,7 +276,7 @@ if (paramAI) then {
 		if !(isNil "_x") then {
 			if (!isPlayer (leader _x) && alive (leader _x)) then {
 				_ran = 1 + round(random(2));
-				(leader _x) setPos ([getPos _westLocation,20,30] Call GetRandomPosition);
+				(leader _x) setPos ([_westLocation, 20, 30] Call GetRandomPositionEx);
 				[(leader _x),Format ["WFBE_WESTLEADERWEAPONS0%1",_ran] Call GetNamespace,Format ["WFBE_WESTLEADERAMMO0%1",_ran] Call GetNamespace] Call EquipLoadout;
 			};
 			_x setVariable ["queue",[]];

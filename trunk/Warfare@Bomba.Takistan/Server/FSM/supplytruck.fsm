@@ -205,7 +205,7 @@ class FSM
        "	};" \n
        "};" \n
        "" \n
-       "driver _vehicle doMove ([GetPos _closest,10,20] Call GetRandomPosition);"/*%FSM</STATEINIT""">*/;
+       "driver _vehicle doMove ([_closest,10,20] Call GetRandomPositionEx);"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {

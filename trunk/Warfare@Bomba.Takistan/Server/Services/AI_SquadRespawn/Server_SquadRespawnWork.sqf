@@ -109,7 +109,7 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 		_respawnLoc = _availableSpawn select (round(random((count _availableSpawn)-1)));
 	};
 
-	_pos = [getPos _respawnLoc,20,30] Call GetRandomPosition;
+	_pos = [_respawnLoc,20,30] Call GetRandomPositionEx;
 	_pos set [2,0];
 	format["AI_SquadRespawnWork: Unit: %1 Respawn Location:", leader _team, _pos] call LogHigh;
 

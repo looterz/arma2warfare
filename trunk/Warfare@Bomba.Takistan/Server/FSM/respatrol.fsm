@@ -195,7 +195,7 @@ class FSM
       init = /*%FSM<STATEINIT""">*/"_team = createGroup resistance;" \n
        "_unit = objNull;" \n
        "_vehicles = [];" \n
-       "_position = [getPos _location,100,300] Call GetRandomPosition;" \n
+       "_position = [_location, 100, 300] Call GetRandomPositionEx;" \n
        "" \n
        "{" \n
        "	if (_x isKindOf ""Man"") then {" \n
