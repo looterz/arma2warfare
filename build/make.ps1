@@ -1,14 +1,16 @@
 $projectVer = "V2.065 R3.2beta"
 $currentDirectory = [string](Get-Location);
+$revisionNumber = "";
 
 function EntryPoint
 {
 	cls
 	$root = [System.IO.Path]::GetFullPath($currentDirectory + "\..");
 	
-	$source = "$root\Warfare@Bomba.Takistan\";
+	$source = "$root\Warfare.Bomba.Takistan";
 	$versionDir = "$root\version\";
 	$tmpfolder = [System.IO.Path]::GetTempPath() + "buildwarfare";
+	
 
 	$outputDir = "$currentDirectory\release";
 	if ([System.IO.Directory]::Exists($outputDir) -eq $false) {
@@ -21,6 +23,9 @@ function EntryPoint
 	#-- copy source files to build folder
 	copy-files -source $source -destination $tmpfolder;
 
+	#-- set build version in description
+	$revisionNumber = SVN-GetRevision -svnToolsPath "$currentDirectory\svn" -repositoryFolder $source
+
 	#-- remove debug files
 	dir -Path $tmpfolder -Recurse | Where {$_.Name -eq "profiler.h"} | Foreach-Object { Remove-Item $_.FullName };
 	Remove-Item $tmpfolder\logging.sqf
@@ -31,16 +36,15 @@ function EntryPoint
 	foreach($x in $files) {
 		preprocess-file -fileName $x.FullName;
 	}
-
-	$numplayers = @( 40, 64 );
 	
+	$numplayers = @( 40, 64 );
 	foreach($numplayer in $numplayers)
 	{
-		build-version -world "Takistan" -gamever "CO"  -numplayers $numplayer  -desc "Takistan Combined Operations"
-		build-version -world "Takistan" -gamever "OA"  -numplayers $numplayer  -desc "Takistan Operation Arrowhead"
+		compile-version -world "Takistan" -gamever "CO"  -numplayers $numplayer  -desc "Combined Operations - Takistan"
+		compile-version -world "Takistan" -gamever "OA"  -numplayers $numplayer  -desc "Operation Arrowhead - Takistan"
 
-		build-version -world "Chernarus" -gamever "CO" -numplayers $numplayer  -desc "Chernarus Combined Operations"
-		build-version -world "Chernarus" -gamever "A2" -numplayers $numplayer  -desc "Chernarus Vanilla"		
+		compile-version -world "Chernarus" -gamever "CO" -numplayers $numplayer  -desc "Combined Operations - Chernarus"
+		compile-version -world "Chernarus" -gamever "A2" -numplayers $numplayer  -desc "ArmA2 Vanilla - Chernarus"		
 	}
 	
 	#-- remove temporary folder
@@ -161,22 +165,31 @@ function obfuscate-fileline {
 	
 };
 
-function build-version {
+function compile-version {
 	param ([string]$world, [string]$gamever, [int]$numplayers, [string]$desc)
 	
 	$projectName =  "Warfare$projectVer@$gamever.$numplayers.Bomba.Edition.$world" -replace " ", ".";	
 	
+	Copy-Item "$source\briefing.sqf" "$tmpfolder" -Force
+	
 	Copy-Item "$versionDir\$gamever@$numplayers.$world\*" "$tmpfolder" -Force
 	Write-Host "Compile $projectName.pbo" -NoNewline
 	
-	$mission = "Warfare $projectVer Lite $gamever@$numplayers Bomba Edition - $world"
+	$mission = "Warfare $projectVer Bomba Edition $desc"
 	
 	$patMissioName = [System.Text.RegularExpressions.Regex]::Escape("`$MISSIONNAME");
 	$patMissioDesc = [System.Text.RegularExpressions.Regex]::Escape("`$MISSIONDESCRIPTION");
+	$patBuildVersion = [System.Text.RegularExpressions.Regex]::Escape("`$BUILDVERSION");
+	
 	replace-pattern -pattern $patMissioName -replaceTo $mission -fileName "$tmpfolder\version.sqf";
 	
 	replace-pattern -pattern $patMissioName -replaceTo $mission -fileName "$tmpfolder\mission.sqm";
 	replace-pattern -pattern $patMissioDesc -replaceTo $desc -fileName "$tmpfolder\mission.sqm";
+
+	replace-pattern -pattern $patMissioName -replaceTo $mission -fileName "$tmpfolder\briefing.sqf";
+	replace-pattern -pattern $patMissioDesc -replaceTo $desc -fileName "$tmpfolder\briefing.sqf";
+	replace-pattern -pattern $patBuildVersion -replaceTo $revisionNumber -fileName "$tmpfolder\briefing.sqf";	
+	
 	
 	make-pbo -missionFolder $tmpfolder -outputPbo "$outputDir\$projectName.pbo";	
 	
@@ -217,6 +230,25 @@ function make-pbo {
 
 	[Void] $process.Start();
 	[Void] $process.WaitForExit(120000);
+}
+
+function SVN-GetRevision {
+	param ([string]$svnToolsPath, [string]$repositoryFolder)
+
+    $psi = New-Object System.Diagnostics.ProcessStartInfo($svnToolsPath + "\\svn.exe");
+    $psi.WorkingDirectory = $svnToolsPath;
+    $psi.Arguments = "info --revision BASE --xml `"$repositoryFolder`"";
+    $psi.RedirectStandardOutput = $true;
+    $psi.StandardOutputEncoding = [System.Text.Encoding].Default;
+    $psi.UseShellExecute = $false;
+	$psi.WindowStyle = [System.Diagnostics.ProcessWindowStyle]::Hidden;
+	
+    $process = [System.Diagnostics.Process]::Start($psi);
+	$doc = New-Object System.Xml.XmlDocument;
+    $doc.Load($process.StandardOutput);
+	$process.Dispose();
+
+    return $doc.SelectSingleNode("/info/entry/commit").revision;
 }
 
 EntryPoint;
