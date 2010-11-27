@@ -9,12 +9,12 @@ Build 221
  * Common Network messaging module NetSend
 
 === Fixed ===
- * В случае покупки рюкзака и жетона всё оружие вываливается на землю при респе. 
- * Проблема с открытием техники.
- * Боты на карте отображаются в виде букв "ТЕ" (внутри техники)
+ * In the case of buying a backpack and a machine gun, after respawn of all weapons  falls out on the ground.
+ * The problem with the opening of owned vehicles.
+ * AI on a map displayed like "TE" (inside vehicle)
  * AI does not buy vehicles in MP
  * Respawned AI stay near respawn point
  * After respawn - Player Role specific options - are not available in menu
  * Artillery firing accuracy
- * Artillery shooting indefinitely without reloading
+ * Artillery shooting without reloading
  * Log Errors about clientId not found for respawned team
