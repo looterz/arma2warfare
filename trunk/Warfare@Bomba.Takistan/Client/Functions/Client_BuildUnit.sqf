@@ -1,4 +1,4 @@
-Private [];
+Private ["_building", "_unitType", "_vehInfo", "_cpt", "_isMan", "_driver", "_gunner", "_commander", "_clientId"];
 _building = _this select 0;
 _unitType = _this select 1;
 _vehInfo = _this select 2;
@@ -21,5 +21,4 @@ if (_unit isKindOf "Man") then {
 
 unitQueu = unitQueu + _cpt;
 
-_clientId = if (isPlayer(leader _team)) then { getPlayerUID (leader _team) } else { 'AI' };
-[_clientId, _building, _unitType, (side player), (group player), _vehInfo] spawn BuyUnit_OrderCreate;
+[WBE_NETSEND_CLIENTID, _building, _unitType, (side player), (group player), _vehInfo] spawn BuyUnit_OrderCreate;
