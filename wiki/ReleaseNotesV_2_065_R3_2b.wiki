@@ -1,0 +1,21 @@
+#summary Warfare V2.065 R3.2b Bomba Edition
+#labels Featured,ReleaseNotes
+
+= Warfare V2.065 R3.2b Bomba Edition =
+
+=== New ===
+ * Optimise script Common_GetRandomPosition.sqf
+ * Common Network messaging module NetSend
+
+=== Fixed ===
+ * В случае покупки рюкзака и жетона всё оружие вываливается на землю при респе. 
+ * Проблема с открытием техники.
+ * Боты на карте отображаются в виде букв "ТЕ" (внутри техники)
+ * AI does not buy vehicles in MP
+ * Respawned AI stay near respawn point
+ * After respawn - Player Role specific options - are not available in menu
+ * Artillery firing accuracy
+ * Artillery shooting indefinitely without reloading
+ * Log Errors about clientId not found for respawned team
+
+
