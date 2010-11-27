@@ -8,7 +8,7 @@ PROFILER_BEGIN("NetSend_ToClient");
 	//--- _msgData  = _this select 2;
 	Format["NetSend_ToClientA: %1", _this] call LogHigh;
 	
-	if (IsClientServer) then { 
+	if (isServer) then { 
 		_this call NetSend_HandleClientMessage;
 	} else {
 		WBE_NETSEND_CLIENT = _this;

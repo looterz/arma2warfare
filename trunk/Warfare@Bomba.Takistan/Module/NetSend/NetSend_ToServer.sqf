@@ -6,7 +6,7 @@ PROFILER_BEGIN("NetSend_ToServer");
 	//--- _msgId     = _this select 1;
 	//--- _msgData   = _this select 2;
 	
-	if (IsClientServer) then { 
+	if (isServer) then { 
 		_this spawn NetSend_HandleServerMessage;
 	} else {
 		WBE_NETSEND_SERVER = _this;
