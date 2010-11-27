@@ -10,7 +10,7 @@ Private["_pos","_maxRadius","_minRadius", "_grid", "_dt", "_x", "_y", "_pos1"  ]
 	_grid = [];
 
 	_dt = (2 * _maxRadius) / 30;
-	if (_dt < 5) then { _dt = 5; };
+	if (_dt < 10) then { _dt = 10; };
 
 	for [ {_x = -_maxRadius}, { _x <= _maxRadius}, { _x = _x + _dt}] do {
 		if ( _x <= -_minRadius || _x >= _minRadius ) then {
