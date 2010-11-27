@@ -3,7 +3,7 @@
 // -- function Function Notification = LogInform
 // waitUntil { !isNil "LogInited" };
 
-LOGLEVEL = 6;
+LOGLEVEL = 5;
 #ifdef WF_LOGLEVEL
 	LOGLEVEL = WF_LOGLEVEL;
 #endif
