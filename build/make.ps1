@@ -1,4 +1,4 @@
-$projectVer = "V2.065 R3.2beta"
+$projectVer = "V2.065 R3.2b"
 $currentDirectory = [string](Get-Location);
 $revisionNumber = "";
 
@@ -168,14 +168,14 @@ function obfuscate-fileline {
 function compile-version {
 	param ([string]$world, [string]$gamever, [int]$numplayers, [string]$desc)
 	
-	$projectName =  "Warfare$projectVer@$gamever.$numplayers.Bomba.Edition.$world" -replace " ", ".";	
+	$projectName =  "Warfare$projectVer@$numplayers$gamever.Bomba.Edition.$world" -replace " ", ".";	
 	
 	Copy-Item "$source\briefing.sqf" "$tmpfolder" -Force
 	
 	Copy-Item "$versionDir\$gamever@$numplayers.$world\*" "$tmpfolder" -Force
 	Write-Host "Compile $projectName.pbo" -NoNewline
 	
-	$mission = "Warfare $projectVer Bomba Edition $desc"
+	$mission = "[$numplayers]Warfare $projectVer Bomba Edition $desc"
 	
 	$patMissioName = [System.Text.RegularExpressions.Regex]::Escape("`$MISSIONNAME");
 	$patMissioDesc = [System.Text.RegularExpressions.Regex]::Escape("`$MISSIONDESCRIPTION");
