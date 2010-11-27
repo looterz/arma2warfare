@@ -28,6 +28,11 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 		PROFILER_END();
 	};	
 	
+	if ( (_team call GetClientIDFromTeam) == -1) exitWith {
+		format["Server_SquadRespawn: Trying Respawn non-playable team", _this] call LogHigh;
+		PROFILER_END();
+	};
+	
 	if (_team in WBE_AISQUAD_RESPAWN_QUEUE) exitWith {
 		PROFILER_END();
 	};
