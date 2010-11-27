@@ -1,1 +1,0 @@
-sideJoined Call GetTotalSupplyValue;
