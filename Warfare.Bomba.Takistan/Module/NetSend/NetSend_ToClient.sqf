@@ -6,11 +6,12 @@ PROFILER_BEGIN("NetSend_ToClient");
 	//--- _clientId = _this select 0;
 	//--- _msgId    = _this select 1;
 	//--- _msgData  = _this select 2;
-	Format["NetSend_ToClientA: %1", _this] call LogHigh;
 	
-	if (isServer) then { 
+	if (IsClientServer) then { 
+		Format["NetSend_ToClient Server-Server Mode: %1", _this] call LogHigh;
 		_this call NetSend_HandleClientMessage;
 	} else {
+		Format["NetSend_ToClient Server-Client Mode: %1", _this] call LogHigh;
 		WBE_NETSEND_CLIENT = _this;
 		publicVariable "WBE_NETSEND_CLIENT";
 	};
