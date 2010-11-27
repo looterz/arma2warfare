@@ -1,4 +1,7 @@
 //--- Define which 'part' of the game to run.
+	[]call compile preprocessFile "logging.sqf";
+	"Init JIP - [Start]" call LogMedium;
+
 	commonInitComplete = false;
 	serverInitComplete = false;
 	gameOver = false;
@@ -20,10 +23,6 @@
 	[]call compile preprocessFile "profiler.sqf";
 	initProfiler = true;
 	PROFILER_BEGIN("initJIPCompatible");
-
-	[]call compile preprocessFile "logging.sqf";
-
-	"Init JIP - [Start]" call LogMedium;
 
 	//--- Client Init.
 	if (local player) then {
