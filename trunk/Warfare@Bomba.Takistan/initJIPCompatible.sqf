@@ -22,10 +22,8 @@
 	PROFILER_BEGIN("initJIPCompatible");
 
 	[]call compile preprocessFile "logging.sqf";
-	LogInited = true;
 
 	"Init JIP - [Start]" call LogMedium;
-	initBasicJIP = true;	
 
 	//--- Client Init.
 	if (local player) then {
