@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Init_Server");
 
-waitUntil { !isNil "LogInited" };
+waitUntil { !isNil "initJIP" };
 
 if (!isServer || time > 30) exitWith {
 	"Init_Server: The server initialization cannot be called more than once." call LogError;

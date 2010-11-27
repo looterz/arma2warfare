@@ -1,4 +1,4 @@
-waitUntil { !isNil "LogInited" };
+waitUntil { !isNil "initJIP" };
  
 Format["Init_Common: Init Start at %1",time] call LogMedium;
 

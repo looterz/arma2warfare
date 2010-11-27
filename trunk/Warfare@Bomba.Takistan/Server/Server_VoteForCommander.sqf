@@ -4,7 +4,7 @@ PROFILER_BEGIN("Server_VoteForCommander");
 Private ['_aibase','_commanderTeam','_comVoteTime','_side','_sideText'];
 _side = _this select 0;
 
-waitUntil { !isNil "LogInited" };
+waitUntil { !isNil "initJIP" };
 
 _sideText = _side;
 _comVoteTime = 'WFBE_VOTETIME' Call GetNamespace;

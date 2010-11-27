@@ -1,6 +1,6 @@
 Private ['_count','_l'];
 
-waitUntil { !isNil "LogInited" };
+waitUntil { !isNil "initJIP" };
 
 _l		= [];
 _l = _l + ["RequestCommanderVote"];

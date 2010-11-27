@@ -14,7 +14,7 @@ Private ['_buildings','_closestRespawn','_funds','_get','_hq','_name','_respawnL
 _uid = _this select 0;
 _name = _this select 1;
 
-waitUntil { !isNil "LogInited" };
+waitUntil { !isNil "initJIP" };
 Format["Server_PlayerDisconnected: Player %1 (%2) has left the game",_name,_uid] call LogNotify;
 
 //--- Grab the player info (if they exist).

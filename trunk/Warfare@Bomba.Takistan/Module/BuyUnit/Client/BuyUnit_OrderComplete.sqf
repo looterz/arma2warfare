@@ -3,7 +3,7 @@ PROFILER_BEGIN("BuyUnit_OrderComplete");
 
 Private ["_order", "_vehicle", "_unitType", "_side", "_vehInfo", "_upgrades", "_init"];
 
-	waitUntil { !isNil "LogInited" };
+	waitUntil { !isNil "initJIP" };
 
 	//--- _clientId = _order select 0;
 	//--- _building = _order select 1;
