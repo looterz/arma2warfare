@@ -6,7 +6,7 @@ _building = _data select 0;
 _unitType = _data select 1;
 _vehi = _data select 2;
 
-waitUntil { !isNil "LogInited" };
+waitUntil { !isNil "initJIP" };
 
 _cpt = 0;
 _isMan = false;

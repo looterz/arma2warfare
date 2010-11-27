@@ -1,4 +1,4 @@
-waitUntil { !isNil "LogInited" };
+waitUntil { !isNil "initJIP" };
 
 /* DO NOT CHANGE! */
 EASTID = 128;

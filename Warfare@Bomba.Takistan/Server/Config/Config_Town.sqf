@@ -1,29 +1,31 @@
-_location = _this Select 0;
-_locationName = _this Select 1;
-_configScripts = _this Select 2;
+waitUntil { !isNil "initJIP" };
 
-if (isNull _location) exitWith {
-	Format ["Config_Town.sqf: (A) Town '%1' was removed by server side from TownTemplates or not initialized over JIP", _locationName] call LogMedium;
-};
+	_location = _this Select 0;
+	_locationName = _this Select 1;
+	_configScripts = _this Select 2;
 
-waitUntil {townModeSet};
-if ((str _location) in TownTemplate) exitWith {
-	Format ["Config_Town.sqf: Removing town %1 (%2) since the town is removed in the towns templates.",_location,_locationName] call LogHigh;
-	if (isServer) then {deleteVehicle _location};
-};
+	if (isNull _location) exitWith {
+		Format ["Config_Town.sqf: (A) Town '%1' was removed by server side from TownTemplates or not initialized over JIP", _locationName] call LogMedium;
+	};
 
-waitUntil{commonInitComplete};
+	waitUntil {townModeSet};
+	if ((str _location) in TownTemplate) exitWith {
+		Format ["Config_Town.sqf: Removing town %1 (%2) since the town is removed in the towns templates.",_location,_locationName] call LogHigh;
+		if (isServer) then {deleteVehicle _location};
+	};
 
-if (isNull _location) exitWith {
-	Format ["Config_Town.sqf: (B) Town '%1' was removed by server side from TownTemplates or not initialized over JIP", _locationName] call LogMedium;
-};
+	waitUntil{commonInitComplete};
 
-_range = 600;
-if (Count _this > 4) then {_range = _this Select 4};
+	if (isNull _location) exitWith {
+		Format ["Config_Town.sqf: (B) Town '%1' was removed by server side from TownTemplates or not initialized over JIP", _locationName] call LogMedium;
+	};
 
-_total = Count _configScripts;
-_script = _configScripts Select (Random (_total - 1));
-_params = [_location,_locationName];
-if (Count _this > 4) then {_params = _params + [_range]};
+	_range = 600;
+	if (Count _this > 4) then {_range = _this Select 4};
 
-_params ExecVM Format["Server\Config\Config_%1.sqf",_script];
+	_total = Count _configScripts;
+	_script = _configScripts Select (Random (_total - 1));
+	_params = [_location,_locationName];
+	if (Count _this > 4) then {_params = _params + [_range]};
+
+	_params ExecVM Format["Server\Config\Config_%1.sqf",_script];

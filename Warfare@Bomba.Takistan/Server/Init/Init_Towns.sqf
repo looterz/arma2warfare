@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Init_Towns");
 
-waitUntil { !isNil "LogInited" };
+waitUntil { !isNil "initJIP" };
 waitUntil {townInit};
 
 //--- Special Towns mode.

@@ -15,12 +15,12 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 	_rmr = 'WFBE_RESPAWNMINRANGE' Call GetNamespace;
 	
 	if (isNil "_team") exitWith {
-		format["Server_SquadRespawn: Trying Respawn nil team", _this] call LogHigh;
+		format["Server_SquadRespawn: Trying Respawn nil team: %1", _this] call LogHigh;
 		PROFILER_END();
 	};
 	
 	if (isNull _team) exitWith {
-		format["Server_SquadRespawn: Trying Respawn null team", _this] call LogHigh;
+		format["Server_SquadRespawn: Trying Respawn null team: %1", _this] call LogHigh;
 		PROFILER_END();
 	};
 
@@ -29,7 +29,7 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 	};	
 	
 	if ( (_team call GetClientIDFromTeam) == -1) exitWith {
-		format["Server_SquadRespawn: Trying Respawn non-playable team", _this] call LogHigh;
+		format["Server_SquadRespawn: Trying Respawn non-playable team: %1", _this] call LogHigh;
 		PROFILER_END();
 	};
 	

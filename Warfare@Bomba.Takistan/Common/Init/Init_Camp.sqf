@@ -1,9 +1,8 @@
 _camp = _this Select 0;
 _town = _this Select 1;
 
-waitUntil { !isNil "LogInited" };
+waitUntil { !isNil "initJIP" };
 waitUntil { townModeSet };
-waitUntil { commonInitComplete };
 waitUntil { townInit };
 
 if (isNull _town) exitWith {

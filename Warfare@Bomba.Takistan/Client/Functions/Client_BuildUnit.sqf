@@ -3,7 +3,7 @@ _building = _this select 0;
 _unitType = _this select 1;
 _vehInfo = _this select 2;
 
-waitUntil { !isNil "LogInited" };
+waitUntil { !isNil "initJIP" };
 
 _cpt = 0;
 _isMan = false;

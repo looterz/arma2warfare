@@ -4,7 +4,7 @@
 		Custom templates can be added bellow.
 */
 
-waitUntil { !isNil "LogInited" };
+waitUntil { !isNil "initJIP" };
 
 _index = 0;
 for [{_i = 0},{_i < (count (missionConfigFile/"Params"))},{_i = _i + 1}]  do {

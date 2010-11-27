@@ -3,7 +3,7 @@ PROFILER_BEGIN("BuyUnit_OrderCancel");
 
 Private ["_building","_built","_cpt","_commander","_crew","_currentUnit","_description","_direction","_distance","_driver","_factoryType","_group","_gunner","_index","_isMan","_locked","_longest","_position","_queu","_queu2","_ret","_soldier","_waitTime","_type","_unique","_unitType","_vehi","_vehicle","_vehicles"];
 
-	waitUntil { !isNil "LogInited" };
+	waitUntil { !isNil "initJIP" };
 
 	//--- _clientId = _order select 0;
 	//--- _building = _order select 1;
