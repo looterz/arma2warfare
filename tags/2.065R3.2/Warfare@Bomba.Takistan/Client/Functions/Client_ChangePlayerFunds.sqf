@@ -1,0 +1,1 @@
+Call Compile Format ["%1Funds%2 = %1Funds%2 + _this; publicVariable '%1Funds%2';",SideJoinedText,clientID];
