@@ -1,4 +1,4 @@
-$projectVer = "V2.065 R3.1beta"
+$projectVer = "V2.065 R3.2beta"
 $currentDirectory = [string](Get-Location);
 
 function EntryPoint
@@ -14,13 +14,13 @@ function EntryPoint
 	if ([System.IO.Directory]::Exists($outputDir) -eq $false) {
 		$null = new-item -type directory -path $outputDir;
 	}
-
+	
 	Remove-Item -path $tmpfolder -Recurse -Force -ErrorAction SilentlyContinue;
 	$null = new-item -type directory -path $tmpfolder;
 
 	#-- copy source files to build folder
 	copy-files -source $source -destination $tmpfolder;
-	
+
 	#-- remove debug files
 	dir -Path $tmpfolder -Recurse | Where {$_.Name -eq "profiler.h"} | Foreach-Object { Remove-Item $_.FullName };
 	Remove-Item $tmpfolder\logging.sqf
@@ -44,7 +44,7 @@ function EntryPoint
 	}
 	
 	#-- remove temporary folder
-	Remove-Item -path $tmpfolder -Recurse -Force;
+	#-- Remove-Item -path $tmpfolder -Recurse -Force;
 	
 	Write-Host "Build completed."
 }
@@ -58,16 +58,47 @@ function preprocess-file {
     if( $fileInfo.GetType().Name -eq 'FileInfo')
     {
 		$prevEmpty = $true;
-		(Get-Content $fileInfo.FullName) | 
+		$lines = (Get-Content $fileInfo.FullName) | 
 			Foreach-Object { return (preprocess-fileline -fileLine $_); } |
 			where { 
-			
 				$ppEmpty = $prevEmpty;
-				if ($_.Trim().Length -eq 0) { $prevEmpty = $true; } else { $prevEmpty = $false; };
-				if ($ppEmpty -eq $true -and $prevEmpty -eq $true) { return $false; }
+				if ($_.Trim().Length -eq 0) { return $false; };
 				return ($_ -ne "@PREPROCESS-EXCLUDE"); 
-			} |
-			Set-Content $fileInfo.FullName;
+		};
+
+		#if ( ($fileName -match ".*\.fsm") -eq $false) 
+		if ($false)
+		{
+			$mergedLines = @();
+			$textLine = "";
+			foreach($line in $lines) {
+				
+				$processed = $false;
+				if ($line -match "#ifdef" -or
+					$line -match "#endif" -or
+					$line -match "#include" -or
+					$line -match "#define")
+					{
+						$textLine = $textLine.Trim();
+						if ($textLine.Length -ne 0) {
+							$mergedLines += $textLine;
+						}
+						$mergedLines += $line;
+						$textLine = "";
+						$processed = $true;
+				}
+				
+				if ($processed -eq $false)
+				{
+					$textLine = $textLine + $line;
+				}			
+			}
+			$mergedLines += $textLine;
+			$lines = $mergedLines;
+			$lines = $lines | Foreach-Object { return (obfuscate-fileline -fileLine $_); };
+		}		
+
+		$lines | Set-Content $fileInfo.FullName;
 	}	
 }
 
@@ -90,12 +121,41 @@ function preprocess-fileline {
 	#-- remove all logger references
 	if ($fileLine -match "call Log") {
 		
-		$fileLine = $fileLine -replace "format.*\[.*call Log.+?;", "";
+		$fileLine = $fileLine -replace "format\s*\[.*\]\s*call\s\s*Log.+?;", "";	#-- format [] call Log*;
 		
-		$fileLine = $fileLine -replace "`"`"[^`"].*call Log.+?;", ""; #-- logger in fsm
-		$fileLine = $fileLine -replace "`".*`".*call Log.+?;", "";
-		$fileLine = $fileLine -replace "'.*'.*call Log.+?;", "";
+		$fileLine = $fileLine -replace "`"`".+?`"`"\s*call\s\s*Log.+?;", ""; #-- logger in fsm
+		$fileLine = $fileLine -replace "`".+?`"\s*call\s\s*Log.+?;", "";
+		$fileLine = $fileLine -replace "'.+?'\s*call\s\s*Log.+?;", "";
 	}
+	
+	#$fileLine = $fileLine -replace "\/\/\s.*", "";	#-- remove comments
+	#$fileLine = $fileLine -replace "\/\/-.*", "";	#-- remove comments
+	#$fileLine = $fileLine -replace "\/\*.+?\*/", "";	#-- remove comments
+	
+	
+	return $fileLine;	
+};	
+
+
+function obfuscate-fileline {
+	param ([string]$fileLine)	
+	
+	$syschars = @( "=", "(", ")", "[", "]", "{", "}", "==", "!=", "||", "&&", "+", "-", "/", "*", ",", ";", ":", ">", "<", "<=", ">=" );
+	
+	foreach($ch in $syschars) {
+	
+		$regex = "\s*" + [System.Text.RegularExpressions.Regex]::Escape($ch) + "\s*";
+		$fileLine = $fileLine -replace $regex, $ch;
+	}
+	
+	$fileLine = $fileLine -replace ";\s*;", ";";
+	
+	$fileLine = $fileLine -replace ",\s*}", "}";
+	$fileLine = $fileLine -replace ",\s*]", "]";
+	$fileLine = $fileLine -replace "\/\*.+?\*/", "";	#-- remove comments
+
+	$fileLine = $fileLine -replace "`"\s*\\n\s*`"", "";		#-- "   \n   "
+	$fileLine = $fileLine.Trim();
 	
 	return $fileLine;	
 	
@@ -109,10 +169,7 @@ function build-version {
 	Copy-Item "$versionDir\$gamever@$numplayers.$world\*" "$tmpfolder" -Force
 	Write-Host "Compile $projectName.pbo" -NoNewline
 	
-	$tmpver = $gamever;
-	if ($tmpver.length -gt 0) { $tmpver = $tmpver + " "; }
-	
-	$mission = "Warfare $projectVer Lite $tmpver@$numplayers Bomba Edition - $world"
+	$mission = "Warfare $projectVer Lite $gamever@$numplayers Bomba Edition - $world"
 	
 	$patMissioName = [System.Text.RegularExpressions.Regex]::Escape("`$MISSIONNAME");
 	$patMissioDesc = [System.Text.RegularExpressions.Regex]::Escape("`$MISSIONDESCRIPTION");
