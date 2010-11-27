@@ -159,9 +159,6 @@ for each city.
 "]];
 
 player createDiaryRecord["Diary", ["Warfare Bomba Edition Summary", "
-<br/>$MISSIONNAME 
-<br/>build $BUILDVERSION
-<br/>
 <br/>Warfare is a blend of a team-based multiplayer mission and realtime strategy, where BLUFOR and OPFOR fight for the island control. Key objectives are to capture towns, defend your base and destroy the base of enemy. Both sides are lead by a commander, who influences his side's strategy. There are two kinds of resources: Supply points are used by the commander for building factories. Money is used to purchase weapons, units and vehicles.
 <br/>
 <br/>Home: http://code.google.com/p/arma2warfare
