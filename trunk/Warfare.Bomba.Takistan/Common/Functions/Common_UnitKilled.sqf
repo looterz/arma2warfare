@@ -24,12 +24,6 @@ if ((local player) && !IsClientServer) exitWith {
 	PROFILER_END();
 };
 
-_leader = leader _group;
-if ( !(isPlayer (_leader)) && _killed == _leader ) then {
-	_group spawn AISquadRespawn;
-};
-
-
 _isMan = true;
 //--- Ghost Fix (Invincible soldiers wanking around, not fighting back and not moving).
 if !(_killed isKindOf "Man") then {
