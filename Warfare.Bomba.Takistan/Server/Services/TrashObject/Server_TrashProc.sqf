@@ -1,7 +1,7 @@
 #include "profiler.h"
 
 private['_isArrayDirty', '_u', '_trashItem', '_timeout'];
-PROFILER_BEGIN("Server_TrashObjectThread::ProcessTrashItemCollection");
+PROFILER_BEGIN("Server_TrashProc");
 
 	_isArrayDirty = false;
 	_u = count WBE_TrashObjectCollection;
