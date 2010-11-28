@@ -2,9 +2,6 @@
 // _pid call ProfilerEnd;
 
 enabledProfiler = true;
-if (!WF_DEBUG && (local player)) then {
-	enabledProfiler = false;
-};
 
 ProfilerData = [];
 ProfilerBegin = { objNull; };
@@ -82,11 +79,8 @@ private['_data', '_u'];
 	};	
 };
 
-[] spawn {
-	while { enabledProfiler } do {
+while { enabledProfiler } do {
 
-		sleep (60);
-		[] call ProfilerLogStats;
-	};
+	sleep (60);
+	[] call ProfilerLogStats;
 };
-

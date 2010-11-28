@@ -20,8 +20,8 @@
 		WF_Debug = true;
 	#endif
 
-	[]call compile preprocessFile "profiler.sqf";
-	initProfiler = true;
+	[] ExecVM "profiler.sqf";
+	waitUntil { !isNil "initProfiler" };
 	PROFILER_BEGIN("initJIPCompatible");
 
 	//--- Client Init.
@@ -247,8 +247,8 @@
 	if (WF_Debug) then {
 		paramUpgradesEast = false;
 		paramUpgradesWest = false;
-		paramRes = false;
-		paramOccup = false;
+		paramRes = true;
+		paramOccup = true;
 	};
 
 	//--- Advanced squads
@@ -264,6 +264,7 @@
 	if (fastTime) then {weather = false};
 	
 	//--- All parameters are set and ready.
+	waitUntil { time > 0 };
 	initJIP = true;
 	"Init JIP - [Done]" call LogMedium;
 
@@ -281,6 +282,6 @@
 		ExecVM "Server\Init\Init_Server.sqf"
 	};
 
-	[] spawn compile preprocessFile "Module\Init_Modules.sqf";
+	[] ExecVM "Module\Init_Modules.sqf";
 
 PROFILER_END();

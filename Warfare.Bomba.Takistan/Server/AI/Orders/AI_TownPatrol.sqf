@@ -14,7 +14,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_AIOrders_TownPatrol");
 
-Private ["_wppos", "_u", "_wpid", "_type", "_target",  "_patrolTargetNext", "_waypointGridData", "_waypointGridDataNodeCount",  "_team", "_town", "_radius", "_camps", "_partolTargets", "_partolTargetsCount", "_maxWaypoints", "_wps", "_patrolTargetNextStep", "_wpradius", "_wpcompletionRadius", "_patrolTarget"];
+Private ["_wppos", "_pos", "_u", "_wpid", "_type", "_target",  "_patrolTargetNext", "_waypointGridData", "_waypointGridDataNodeCount",  "_team", "_town", "_radius", "_camps", "_partolTargets", "_partolTargetsCount", "_maxWaypoints", "_wps", "_patrolTargetNextStep", "_wpradius", "_wpcompletionRadius", "_patrolTarget"];
 _team = _this select 0;
 _town = _this select 1;
 _radius = if (count _this > 2) then {_this select 2} else {30};
@@ -49,8 +49,7 @@ _u = _maxWaypoints;
 _patrolTarget = objNull;
 _patrolTargetNext = _maxWaypoints - _patrolTargetNextStep;
 
-_waypointGridData = [_town, 10, _radius] call GetGridTarget;
-_waypointGridDataNodeCount = count _waypointGridData;
+_pos = getPos _town;
 
 while { _u != 0 } do {
 	_u = _u - 1;
@@ -71,9 +70,8 @@ while { _u != 0 } do {
 		
 	} else {
 	
-		
 		_wpid = floor( random( _waypointGridDataNodeCount) );
-		_wppos = _waypointGridData select _wpid;
+		_wppos = [_pos, 10, _radius] call GetRandomPosition;
 		
 		_wpradius = 32;
 		_wpcompletionRadius = 44;

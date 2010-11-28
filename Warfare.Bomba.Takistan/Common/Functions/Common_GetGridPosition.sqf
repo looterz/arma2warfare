@@ -6,6 +6,7 @@ Private["_pos","_maxRadius","_minRadius", "_grid", "_dt", "_x", "_y", "_pos1"  ]
 	_pos = _this select 0;
 	_minRadius = _this select 1;
 	_maxRadius = _this select 2;
+	format["GetGridPosition: %1 Rmin=%2 Rmax=%3", _pos, _minRadius, _maxRadius] call LogHigh;
 
 	_grid = [];
 
@@ -17,7 +18,6 @@ Private["_pos","_maxRadius","_minRadius", "_grid", "_dt", "_x", "_y", "_pos1"  ]
 		};
 	};
 	
-
 	for [ {_x = -_maxRadius}, { _x <= _maxRadius}, { _x = _x + _dt}] do {
 		if ( _x < -_minRadius || _x > _minRadius ) then {
 			for [ {_y = -_maxRadius}, { _y <= _maxRadius}, { _y = _y + _dt}] do {
