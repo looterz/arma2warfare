@@ -3,6 +3,8 @@ PROFILER_BEGIN("Server_AI_SquadRespawn");
 
 Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr","_rr","_respawn","_respawnLoc","_side","_sideText","_slot","_team","_upgrades"];
 
+	format["AI_SquadRespawn Initialized: %1", _this] call LogHigh;
+	
 	_team = _this;
 
 	_side = side _team;	
@@ -61,7 +63,7 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 		if ( !(isPlayer(leader _team) ) ) then {
 		
 			_leader removeAllEventHandlers "Killed";
-			call compile Format ["_leader addEventHandler ['Killed',{[_this select 0,_this select 1,%1] Spawn UnitKilled}]",_side];
+ 	        call Compile Format ["(leader _team) addEventHandler ['Killed',{[_this select 0,_this select 1,%1] Spawn UnitKilled; (group (_this select 0)) spawn AISquadRespawn;}]",_side];
 			
 			_pos = getMarkerPos Format["%1TempRespawnMarker",_sideText];
 			_leader setPos [ _pos select 0, _pos select 1, -0.25];
