@@ -47,7 +47,7 @@ _wppos = [];
 _u = _maxWaypoints;
 
 _patrolTarget = objNull;
-_patrolTargetNext = _patrolTargetNextStep;
+_patrolTargetNext = _maxWaypoints - _patrolTargetNextStep;
 
 _waypointGridData = [_town, 10, _radius] call GetGridTarget;
 _waypointGridDataNodeCount = count _waypointGridData;
