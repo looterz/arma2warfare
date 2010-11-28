@@ -6,6 +6,7 @@ _id = getPlayerUID (_this select 0);
 			disableUserInput true;
 			waitUntil { !isNil "NetSend_ToServer" };
 			[0, 30, [ player, "darky" ]] call NetSend_ToServer;
+			sleep(10 + random(10));
 			failMission "END1"; 			
 		};
 		false;		
