@@ -16,7 +16,7 @@ private['_clientId', '_unitData', '_response', '_order', '_data', '_unitType', '
 	_msgData = _this select 2;
 
 	switch (_msgId) do {
-		case NETSEND_MSGID_BUYUNIT: { _msgData call BuyUnit_OrderResponseHandle; };
+		case NETSEND_MSGID_BUYUNIT: { _msgData spawn BuyUnit_OrderResponseHandle; };
 		
 		default {
 			format["NetSend_ClientMessageHandle: Unknown messageId. msgId=%1, data=%2", _msgId, _msgData] call LogError;
