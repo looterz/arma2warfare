@@ -1,7 +1,7 @@
 #include "profiler.h"
 
 private['_isArrayDirty', '_u', '_trashItem', '_timeout'];
-PROFILER_BEGIN("Server_TrashObjectThread::ProcessTrashItemCollection");
+PROFILER_BEGIN("Server_TrashExecute");
 
 	_isArrayDirty = false;
 	_u = count WBE_TrashObjectCollection;
@@ -15,13 +15,14 @@ PROFILER_BEGIN("Server_TrashObjectThread::ProcessTrashItemCollection");
 		if (_timeout == 0) then {
 			_timeout = time + WFBE_UNITREMOVEDLAY;
 			_trashItem set [1, _timeout];			
-		};		
-		
-		if (_timeout < time) then {
+		} else {	
 
-			if ( (_trashItem call TrashDeleteObject) ) then {
-				WBE_TrashObjectCollection set[ _u, objNull ];
-				_isArrayDirty = true;
+			if (_timeout < time) then {
+
+				if ( (_trashItem call TrashDeleteObject) ) then {
+					WBE_TrashObjectCollection set[ _u, objNull ];
+					_isArrayDirty = true;
+				};
 			};
 		};
 	};

@@ -7,19 +7,18 @@ PROFILER_BEGIN("Server_TrashDeleteObject");
 	_trashItem = _this;
 
 	_object  = _trashItem select 0;
-	_canDelete = _trashItem select 2;
+	_canDelete = 1;
 	
 	if (!(isNull _object)) then {
 		if ( (_object isKindOf "Man") ) then {
 			
+			_canDelete = _trashItem select 2;
 			if (_canDelete == 0) then {
 				"Server_TrashDeleteObject: Hide Body" call LogHigh;
 				_object call TrashHideBody;							
 				_trashItem set [1, time + 6];	// add time for hide body;
 				_trashItem set [2, 1];			// set flag that now we can delete body							
 			};						
-		} else {
-			_canDelete = 1;
 		};
 		
 		if (_canDelete == 1) then {

@@ -10,18 +10,17 @@ private['_dirty', '_u', '_vehicleInfo', '_vehicle', '_timeout'];
 		
 		_vehicleInfo = WBE_HandleEmptyVehicleCollection select _u;
 		_vehicle = _vehicleInfo select 0;
-		_timeout = _vehicleInfo select 1;
+		_timeout = 0;
 		
 		if (!(isNull _vehicle)) then {
 			
 			if (alive _vehicle) then {
+				_timeout = _vehicleInfo select 1;				
 				
 				if ( _timeout == 0 || !(_vehicle call EmptyVehicleIsEmpty) ) then {
 					_timeout = time + WFBE_EMPTYVEHICLETIMER;
 					_vehicleInfo set [1, _timeout];
 				};
-			} else {
-				_timeout = 0;
 			};
 			
 			if (_timeout < time) then {

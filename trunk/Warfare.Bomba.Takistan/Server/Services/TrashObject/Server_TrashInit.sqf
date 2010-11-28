@@ -1,3 +1,5 @@
+waitUntil { commonInitComplete };
+
 WBE_TrashObjectCollection = [];
 WBE_TrashObjectCollectionQueu = [];
 WFBE_UNITREMOVEDLAY = 'WFBE_UNITREMOVEDLAY' Call GetNamespace;
