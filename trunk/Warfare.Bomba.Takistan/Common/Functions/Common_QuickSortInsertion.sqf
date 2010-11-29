@@ -1,3 +1,4 @@
+#include "profiler.h"
 private['_a', '_lo', '_hi', '_i', '_j', '_v', '_vv', '_bCycle'];
 
 	_a = _this select 0;
