@@ -15,7 +15,7 @@ PROFILER_BEGIN("Server_TrashDeleteObject");
 			_canDelete = _trashItem select 2;
 			if (_canDelete == 0) then {
 				"Server_TrashDeleteObject: Hide Body" call LogHigh;
-				_object call TrashHideBody;							
+				_object spawn TrashHideBody;							
 				_trashItem set [1, time + 6];	// add time for hide body;
 				_trashItem set [2, 1];			// set flag that now we can delete body							
 			};						
