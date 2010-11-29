@@ -11,7 +11,7 @@ _sorted = [];
 if (_total > 1) then { 
 
 	_u = _total;
-	while { !(_u == 0) } do {
+	while { _u != 0 } do {
 		_u = _u - 1;
 		_target = _objects select _u;
 		_sorted = _sorted + [ [(_object distance _target), _target] ];
@@ -19,13 +19,13 @@ if (_total > 1) then {
 	_sorted call QuickSort;
 	
 	_u = _total;
-	while { !(_u == 0) } do {
+	while { _u != 0 } do {
 		_u = _u - 1;
 		_target = (_sorted select _u) select 1;
 		_sorted set [_u, _target];
 	};	
 } else {
-	_sorted = [] + _objects;
+	_sorted = _objects;
 };
 
 PROFILER_END();
