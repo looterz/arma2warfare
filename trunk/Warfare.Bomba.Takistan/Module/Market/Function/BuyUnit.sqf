@@ -20,7 +20,7 @@ _unitData = objNull;
 _u = count marketBuildUnitProductRequire;
 
 format["Get Required Product List for %1", _unit] call LogHigh;
-while { !(_u == 0) && !_found } do {
+while { _u != 0 } do {
 	_u = _u - 1;
 
 	_unitData1 = marketBuildUnitProductRequire select _u;
@@ -30,6 +30,7 @@ while { !(_u == 0) && !_found } do {
 	if (_unit isKindOf _type) then {
 		_unitData = _unitData1;
 		_found = true;
+		_u = 0;
 	};	
 };
 	
@@ -39,7 +40,7 @@ if (!_found) exitWith {
 	_unitPrice; 
 };
 
-_products = [_factory] call marketGetMarketProducts;
+_products = _factory call marketGetMarketProducts;
 _marketStock = _products select 0;
 _marketPrices = _products select 1;
 
@@ -70,7 +71,7 @@ while { !(_u == 1)  } do {
 	
 	_unitPrice = _unitPrice + _cost;
 	if (WF_DEBUG) then {
-		_name = (marketProductCollection select _reqProductId) select 0;
+		_name = marketProductNameCollection select _reqProductId;
 		format["Product %1: Required=%2 StockValue=%3 Cost=%4 --> UnitPrice=%5", _name, _reqProductValue, _stockValue, _cost, _unitPrice ] call LogHigh;
 	};
 };

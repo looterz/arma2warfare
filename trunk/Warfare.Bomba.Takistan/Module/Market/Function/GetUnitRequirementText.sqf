@@ -24,7 +24,7 @@ if (isNil '_unitData') exitWith {
 	_requirementText; 
 };
 
-_products = [_factory] call marketGetMarketProducts;
+_products = _factory call marketGetMarketProducts;
 _marketStock = _products select 0;
 _marketPrices = _products select 1;
 
@@ -32,7 +32,7 @@ format['_unitData=%1', _unitData] call LogHigh;
 
 _found = 0;
 _u = count _unitData;
-while { !(_u == 1)  } do {
+while { _u != 1 } do {
 	_u = _u - 1;
 
 	_reqProduct = _unitData select _u;
@@ -42,8 +42,8 @@ while { !(_u == 1)  } do {
 
 	
 	if (_stockValue < _reqProductValue) then {
-		_name = (marketProductCollection select _reqProductId) select 0;
-		_unit = (marketProductCollection select _reqProductId) select 1;
+		_name = marketProductNameCollection select _reqProductId;
+		_unit = marketProductUnitCollection select _reqProductId;
 		
 		if (_found > 0) then { _requirementText = _requirementText + ", "; };
 		

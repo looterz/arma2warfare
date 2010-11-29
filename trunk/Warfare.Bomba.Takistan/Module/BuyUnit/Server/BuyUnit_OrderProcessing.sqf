@@ -33,6 +33,11 @@ private[ "_orderInfo", "_order", "_building", "_completed", "_orderId", "_team",
 			if (_productionTime == 0) then {
 			
 				_productionTime = (_order) call BuyUnit_GetProductionTime;
+				
+				if (WF_DEBUG) then {
+					_productionTime = 5;
+				};
+				
 				_orderInfo set[1, _productionTime];
 				
 				_clientId = _order select 0; 

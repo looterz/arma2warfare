@@ -25,7 +25,7 @@ _marketStock = _products select 0;
 _marketPrices = _products select 1;
 
 _u = count _unitData;
-while { !(_u == 1)  } do {
+while { _u != 1  } do {
 	_u = _u - 1;
 
 	_reqProduct = _unitData select _u;
