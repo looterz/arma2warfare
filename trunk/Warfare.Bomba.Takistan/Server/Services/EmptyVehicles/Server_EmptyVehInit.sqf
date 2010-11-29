@@ -1,7 +1,7 @@
 waitUntil {commonInitComplete};
 
 WBE_HandleEmptyVehicleCollection = [];
-WBE_HandleEmptyVehicleQueu = [];
+WBE_HandleEmptyVehicleOperation = [];
 WFBE_EMPTYVEHICLETIMER = 'WFBE_ABANDONVEHICLETIMER' Call GetNamespace;
 
 HandleEmptyVehicle = Compile preprocessFile "Server\Services\EmptyVehicles\Server_HandleEmptyVehicle.sqf";
