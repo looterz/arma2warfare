@@ -3,19 +3,8 @@ PROFILER_BEGIN("Server_AI_SquadRespawn");
 
 Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr","_rr","_respawn","_respawnLoc","_side","_sideText","_slot","_team","_upgrades"];
 
-	format["AI_SquadRespawn Initialized: %1", _this] call LogHigh;
-	
 	_team = _this;
 
-	_side = side _team;	
-	_sideText = str _side;
-	_deathLoc = objNull;
-	_respawnLoc = objNull;
-
-	_rd = 'WFBE_RESPAWNDELAY' Call GetNamespace;
-	_rr = 'WFBE_RESPAWNRANGE' Call GetNamespace;
-	_rmr = 'WFBE_RESPAWNMINRANGE' Call GetNamespace;
-	
 	if (isNil "_team") exitWith {
 		format["Server_SquadRespawn: Trying Respawn nil team: %1", _this] call LogHigh;
 		PROFILER_END();
@@ -26,10 +15,6 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 		PROFILER_END();
 	};
 
-	if (_side != west && _side != east) exitWith {
-		PROFILER_END();
-	};	
-	
 	if ( (_team call GetClientIDFromTeam) == -1) exitWith {
 		format["Server_SquadRespawn: Trying Respawn non-playable team: %1", _this] call LogHigh;
 		PROFILER_END();
@@ -39,17 +24,26 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 		PROFILER_END();
 	};
 	WBE_AISQUAD_RESPAWN_QUEUE = WBE_AISQUAD_RESPAWN_QUEUE + [ _team ];
-	
+
 	_leader = leader _team;
 	if (isNil "_leader") then { _leader = objNull; };
 
 	if ( (!(isNull _leader)) && (isPlayer _leader || alive (_leader)) ) exitWith {
 		PROFILER_END();
 	};
+
+	_side = side _team;	
+	_sideText = str _side;
+	_deathLoc = objNull;
+	_respawnLoc = objNull;
+
+	_rd = 'WFBE_RESPAWNDELAY' Call GetNamespace;
+	_rr = 'WFBE_RESPAWNRANGE' Call GetNamespace;
+	_rmr = 'WFBE_RESPAWNMINRANGE' Call GetNamespace;
 	
 	format["AI_SquadRespawn Initialized: %1", _this] call LogHigh;
 	
-	_deathLoc = getPos (leader _team);
+	_deathLoc = getPos _leader;
 	_unitType = typeof _leader;
 	
 	if (isMultiplayer) then {
