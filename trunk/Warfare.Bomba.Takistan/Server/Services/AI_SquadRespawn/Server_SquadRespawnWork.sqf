@@ -120,7 +120,11 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 		if (!isMultiplayer && !(alive (leader _team)) ) then {
 		
 			"AI_SquadRespawnWork: SP mode, and teamLeader is died, create TeamLeader" call LogHigh;
-			_leader = [_unitType, _team, _pos, _side] Call CreateMan;	
+			_leader = [_unitType, _team, _pos, _side] Call CreateMan;
+
+			_leader removeAllEventHandlers "killed";
+			call Compile Format ["_leader addEventHandler ['Killed',{[_this select 0,_this select 1,%1] Spawn UnitKilled; (group (_this select 0)) spawn AISquadRespawn;}];",_side];
+			
 		};
 
 		format["AI_SquadRespawnWork: TeamLeader %1 SetPos=%2", leader _team, _pos] call LogHigh;
