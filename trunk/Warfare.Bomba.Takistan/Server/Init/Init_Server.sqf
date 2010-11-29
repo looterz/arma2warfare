@@ -42,7 +42,7 @@ SelectOccupTeam = Compile preprocessFile "Server\Functions\Server_SelectOccupTea
 SetCampsToSide = Compile preprocessFile "Server\Functions\Server_SetCampsToSide.sqf";
 SideMessage = Compile preprocessFile "Server\Functions\Server_SideMessage.sqf";
 SVoteForCommander = Compile preprocessFile "Server\Server_VoteForCommander.sqf";
-TrashObject = Compile preprocessFile "Server\Functions\Server_TrashObject.sqf";
+
 UpdateTeam = Compile preprocessFile "Server\Functions\Server_UpdateTeam.sqf";
 UpdateSupplyTruck = Compile preprocessFile "Server\AI\AI_UpdateSupplyTruck.sqf";
 
