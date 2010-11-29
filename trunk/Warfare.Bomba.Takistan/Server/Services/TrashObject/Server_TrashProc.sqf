@@ -21,12 +21,10 @@ PROFILER_BEGIN("Server_TrashProc");
 				WBE_TrashObjectCollection set[ _i, objNull ];
 				_isArrayDirty = true;
 			};
+			_i = _i + 1;
 		} else {
-		
 			_u = 0;		// if we reach point where unit still wait respawn, no need lookup more
 		};
-		
-		_i = _i + 1;		
 	};
 	
 	if (_isArrayDirty) then {
