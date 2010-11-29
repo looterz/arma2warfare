@@ -953,7 +953,9 @@ class FSM
        "					format[""AITEAM.FSM: Team %1 Handle Purchase, funds: %2 > price:%3"", _team, _funds, _price] call LogInform;							" \n
        "					format[""AITEAM.FSM: Team %1 Handle Purchase, upgradeStatus: %2 > upgradeRequired:%3"", _team, _upgradeStatus, _upgradeRequired] call LogInform;							" \n
        "					" \n
-       "					if ( (_canBuy == 1) &&  (_size < _mbu) && _funds > _price && _upgradeStatus >= _upgradeRequired) then {" \n
+       "					_mbu1 = if (WF_DEBUG) then { _mbu*100 } else { _mbu };" \n
+       "					if (WF_DEBUG) then { _canBuy = 1; };" \n
+       "					if ( (_canBuy == 1) &&  (_size < _mbu1) && _funds > _price && _upgradeStatus >= _upgradeRequired) then {" \n
        "						_vehiSlots = [true,false,false];" \n
        "						if (!(_x isKindOf ""Man"")) then {" \n
        "							if (_crews < 3 && _crews != 1) then {" \n
@@ -969,6 +971,7 @@ class FSM
        "						format[""AITEAM.FSM: Team %1 Handle Purchase, AIBuyUnit: %2"", _team, _buyRequest] call LogInform;							" \n
        "						" \n
        "						_buyRequest Spawn AIBuyUnit;" \n
+       "						if (WF_DEBUG) then { price = 0; };" \n	   
        "						[_team,-_price] Call ChangeTeamFunds;	" \n
        "					};" \n
        "				};" \n
