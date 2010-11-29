@@ -8,11 +8,8 @@ Private ["_exit","_reset","_timer","_trash","_vehicle"];
 	if (isNil "_vehicle") exitWith { PROFILER_END(); };
 	if (isNull _vehicle)  exitWith { PROFILER_END(); };
 
-	waitUntil { !(isNil "WBE_HandleEmptyVehicleCollection") };
+	waitUntil { !(isNil "WBE_HandleEmptyVehicleOperation") };
 
-	if ( !(_vehicle in WBE_HandleEmptyVehicleQueu) ) then {
-		WBE_HandleEmptyVehicleQueu = WBE_HandleEmptyVehicleQueu + [ _vehicle ];
-		WBE_HandleEmptyVehicleCollection = WBE_HandleEmptyVehicleCollection + [ [_vehicle, 0] ];
-	};
+	WBE_HandleEmptyVehicleOperation =WBE_HandleEmptyVehicleOperation + [ [_vehicle, time + WFBE_EMPTYVEHICLETIMER] ];
 
 PROFILER_END();
