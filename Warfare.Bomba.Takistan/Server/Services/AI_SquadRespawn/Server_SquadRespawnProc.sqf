@@ -4,7 +4,7 @@ PROFILER_BEGIN("Server_SquadRespawnProc");
 
 	_dirty = false;
 	_u = count WBE_AISQUAD_RESPAWN;
-	format["Server_SquadRespawnProc WBE_AISQUAD_RESPAWN=%1", _u] call LogHigh;
+	format["Server_SquadRespawnProc: respawn queue=%1", _u] call LogHigh;
 	while { _u != 0 } do {
 		_u = _u - 1;
 		
