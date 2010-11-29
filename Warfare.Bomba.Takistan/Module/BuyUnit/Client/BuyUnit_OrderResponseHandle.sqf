@@ -45,7 +45,7 @@ private['_clientId', '_unitData', '_response', '_order', '_data', '_unitType', '
 	if (_response == BUYUNIT_RESPONSE_ORDERCOMPLETED) exitWith {
 		
 		_vehicle = _data select 1;
-		[_order, _vehicle] call BuyUnit_OrderComplete;
+		[_order, _vehicle] spawn BuyUnit_OrderComplete;
 		
 		_txt = parseText(Format [localize "STR_WF_Build_Complete",_description]);
 		hint _txt;		

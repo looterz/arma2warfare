@@ -17,8 +17,7 @@ waitUntil {townInit};
 
 {
 	format["Market town initialization: %1", _x]  call LogHigh;
-	[_x] call marketInitMarketStorage;
-	_x setVariable ["marketInited", 1, true];
+	_x call marketInitMarketStorage;
 
 } forEach towns;
 

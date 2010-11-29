@@ -17,7 +17,7 @@ PROFILER_BEGIN("BuyUnit_OrderQueueProcessing");
 	_dirty = false;
 	_u = count WBE_BuyUnit_OrderQueue;
 
-	format["BuyUnit::QueueProcessing WBE_BuyUnit_OrderQueue Length=%1", _u] call LogHigh;	
+	format["BuyUnit_OrderQueueProcessing: Order queue=%1", _u] call LogHigh;	
 	
 	_i = 0;
 	while { _u != 0 } do {

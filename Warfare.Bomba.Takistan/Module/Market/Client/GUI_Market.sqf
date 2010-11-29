@@ -63,9 +63,10 @@ private['_crew','_u', '_count', '_crewman', '_hq', '_found', '_vehType', '_type'
 	_cargoMaxWeight = 0;
 	_cargoUnitType = "kg";
 
-	_u = 0;
+	_u = (count marketTransportVehicleTypes);
 	_found = false;
-	while { _u < count marketTransportVehicleTypes && !_found } do {
+	while { _u != 0 } do {
+		_u = _u - 1;
 
 		_vehType = marketTransportVehicleTypes select _u;
 		
@@ -74,18 +75,17 @@ private['_crew','_u', '_count', '_crewman', '_hq', '_found', '_vehType', '_type'
 		
 			_cargoMaxWeight = _vehType select 1;
 			_cargoUnitType   = _vehType select 2;
-			_found = true;
+			_u = 0;
 		};	
-		_u = _u+1;
 	};
 
-	_cargoSU    = [_cargoUnitType] call marketGetSU;
-	_cargoItems = [_cargo] call marketGetContainerItems;
+	_cargoSU    = (_cargoUnitType) call marketGetSU;
+	_cargoItems = (_cargo) call marketGetContainerItems;
 };
 _procReadStockData = {
 
 	_market = if (_selectedMarketId >= 0) then { _nearMarkets select _selectedMarketId } else { objNull };
-	_products = [_market] call marketGetMarketProducts;
+	_products = _market call marketGetMarketProducts;
 		
 	_marketStock = _products select 0;
 	_marketPrices = _products select 1;
@@ -219,7 +219,7 @@ private['_cargo', '_stockValue', '_price', '_sell', '_buy', '_txtSell', '_txtBuy
 		_productUnit = _x select 1;
 		_productCost = _x select 2;
 		
-		_productSU = [_productUnit] call marketGetSU;
+		_productSU = (_productUnit) call marketGetSU;
 		
 		_cargo = _cargoItems select _i;
 		_stockValue = floor(_marketStock select _i);
@@ -285,7 +285,7 @@ while {alive player && dialog} do {
 	_price = _marketPrices select _productId;
 	
 	_productUnit = _product select 1;
-	_productSU = [_productUnit] call marketGetSU;
+	_productSU = (_productUnit) call marketGetSU;
 	
 	_cargoValue = _cargoItems select _productId;
 	_stockValue = _marketStock select _productId;
@@ -304,7 +304,7 @@ while {alive player && dialog} do {
 	_u = 0;
 	{ 
 		_pid = (marketProductCollection select _u) select 1;
-		_su =  [_pid] call marketGetSU;
+		_su =  (_pid) call marketGetSU;
 		_cargoFreeSU = _cargoFreeSU - (_x * _su); 
 		_u = _u+1;
 	} forEach _cargoItems;

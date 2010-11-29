@@ -107,10 +107,41 @@ if (paramVehicleComponents) then {
 	marketBuildUnitProductRequire = [];
 };
 
+marketTotalProductCount = count marketProductCollection;
+
+marketEmptyContainer = [];
+marketEmptyPriceList = [];
+_u = marketTotalProductCount;
+while { !(_u == 0) } do {
+	_u = _u - 1;
+	marketEmptyContainer = marketEmptyContainer + [0];
+	marketEmptyPriceList = marketEmptyPriceList + [[-1, -1]];
+};
+
 
 if (local player) then {
 	player addEventHandler ['Killed', { [] call marketClearPlayerCargo; } ];
 };
+
+//------------------
+// rebuild array to separate array list for increase perfomance
+marketProductNameCollection = [] + marketEmptyContainer;
+marketProductUnitCollection = [] + marketEmptyContainer;
+marketProductBasePriceCollection = [] + marketEmptyContainer;
+marketProductMaxProduceVolumeCollection = [] + marketEmptyContainer;
+marketProductMaxProduceSpeedCollection = [] + marketEmptyContainer;
+
+_u = marketTotalProductCount;
+while { _u != 0 } do {
+	_u = _u - 1;
+	_productInfo = marketProductCollection select _u; 
+	marketProductNameCollection set[_u, _productInfo select 0];
+	marketProductUnitCollection set[_u, _productInfo select 1];
+	marketProductBasePriceCollection set[_u, _productInfo select 2];
+	marketProductMaxProduceVolumeCollection set[_u, _productInfo select 3];
+	marketProductMaxProduceSpeedCollection set[_u, _productInfo select 4];
+};
+
 
 if (isServer) then {ExecVM "Module\Market\Init_Server.sqf"};
 

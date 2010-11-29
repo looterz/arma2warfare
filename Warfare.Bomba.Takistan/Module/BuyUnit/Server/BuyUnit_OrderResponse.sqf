@@ -10,8 +10,6 @@ private['_clientId'];
 	if (_clientId == WBE_NETSEND_CLIENTID_AI) exitWith {		
 		PROFILER_END();	
 	};
-	
-	format["BuyUnit_OrderResponseB: %1", _this] call LogHigh;
-	[_clientId, NETSEND_MSGID_BUYUNIT, _this] call NetSend_ToClient;
-	
+
+	[_clientId, NETSEND_MSGID_BUYUNIT, _this] spawn NetSend_ToClient;
 PROFILER_END();

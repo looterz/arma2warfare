@@ -89,6 +89,10 @@ SetTeamType = Compile PreprocessFile "Common\Functions\Common_SetTeamType.sqf";
 SpawnTurrets = Compile PreprocessFile "Common\Functions\Common_SpawnTurrets.sqf";
 
 QuickSort = Compile PreprocessFile "Common\Functions\Common_QuickSort.sqf";
+QuickSortSwap = Compile PreprocessFile "Common\Functions\Common_QuickSortSwap.sqf";
+QuickSortIterator = Compile PreprocessFile "Common\Functions\Common_QuickSortIterator.sqf";
+QuickSortInsertion = Compile PreprocessFile "Common\Functions\Common_QuickSortInsertion.sqf";
+
 SortByDistance = Compile PreprocessFile "Common\Functions\Common_SortByDistance.sqf";
 UnitKilled = Compile PreprocessFile "Common\Functions\Common_UnitKilled.sqf";
 HeadHunters = Compile PreprocessFile "Common\Functions\Common_HeadHunters.sqf";

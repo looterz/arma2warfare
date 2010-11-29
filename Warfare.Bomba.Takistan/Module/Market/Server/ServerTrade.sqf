@@ -20,8 +20,8 @@ while { true } do {
 	if (_nextTownUpdate < time) then {
 		"Market updating town markets" call LogHigh;
 
-		{ [_x] call marketUpdateProducedProduct; } forEach towns;
-		{ [_x] call marketNormalizePrices; } forEach towns;
+		{ _x call marketUpdateProducedProduct; } forEach towns;
+		{ _x call marketNormalizePrices; } forEach towns;
 		
 		_nextTownUpdate = time + _periodTownUpdate;
 	};
@@ -37,10 +37,10 @@ while { true } do {
 		
 		{
 			_market = _x;
-			_products = [_market] call marketGetMarketProducts;
+			_products = _market call marketGetMarketProducts;
 			_stock = _products select 0;		
 			[_market, _stock] call marketUpdateMarketPrices;
-			[_market] call marketNormalizePrices;
+			_market call marketNormalizePrices;
 		
 		} forEach _buildings;
 		_nextFactoryUpdate = time + _periodFactoryUpdate;
