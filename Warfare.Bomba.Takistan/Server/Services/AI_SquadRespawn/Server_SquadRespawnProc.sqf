@@ -5,16 +5,16 @@ PROFILER_BEGIN("Server_SquadRespawnProc");
 	_dirty = false;
 	_u = count WBE_AISQUAD_RESPAWN;
 	format["Server_SquadRespawnProc WBE_AISQUAD_RESPAWN=%1", _u] call LogHigh;
-	while { !(_u == 0) } do {
+	while { _u != 0 } do {
 		_u = _u - 1;
 		
 		_respawnSquad = WBE_AISQUAD_RESPAWN select _u;
 		_timeout = _respawnSquad select 1;
 		
-		format["Server_SquadRespawnProc Squad:=%1", _respawnSquad] call LogHigh;
 		
 		if (_timeout < time) then {
 		
+			format["Server_SquadRespawnProc Squad:=%1", _respawnSquad] call LogHigh;
 			_squad   = _respawnSquad select 0;
 			_squad spawn SquadRespawnWork;
 		
