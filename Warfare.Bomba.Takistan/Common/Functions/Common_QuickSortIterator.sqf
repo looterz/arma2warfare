@@ -1,3 +1,4 @@
+#include "profiler.h"
 private['_bCycle', '_bCycleA', '_a', '_l', '_r', '_M', '_i', '_j', '_v', '_vv'];
 
 	_a = _this select 0;
@@ -6,7 +7,9 @@ private['_bCycle', '_bCycleA', '_a', '_l', '_r', '_M', '_i', '_j', '_v', '_vv'];
 	
 	_M = 4;
 	
-	if ((_r - _l) <= _M) exitWith {};
+	if ((_r - _l) <= _M) exitWith {
+		PROFILER_END();
+	};
 	
 	_i = floor((_r + _l) / 2);
 	
