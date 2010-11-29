@@ -1,7 +1,7 @@
 waitUntil { commonInitComplete };
 
 WBE_TrashObjectCollection = [];
-WBE_TrashObjectCollectionQueu = [];
+WBE_TrashObjectOperation = [];
 WFBE_UNITREMOVEDLAY = 'WFBE_UNITREMOVEDLAY' Call GetNamespace;
 
 TrashDeleteObject = Compile preprocessFile "Server\Services\TrashObject\Server_TrashDeleteObject.sqf";

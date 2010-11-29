@@ -5,13 +5,13 @@ PROFILER_BEGIN("Server_TrashDeleteObject");
 
 	_isDeleted = false;
 	_trashItem = _this;
-
 	_object  = _trashItem select 0;
-	_canDelete = 1;
 	
 	if (!(isNull _object)) then {
+		
+		_canDelete = 1;
 		if ( (_object isKindOf "Man") ) then {
-			
+				
 			_canDelete = _trashItem select 2;
 			if (_canDelete == 0) then {
 				"Server_TrashDeleteObject: Hide Body" call LogHigh;

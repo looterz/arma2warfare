@@ -4,6 +4,13 @@ private['_isArrayDirty', '_u', '_trashItem', '_timeout', '_i'];
 PROFILER_BEGIN("Server_TrashProc");
 
 	_isArrayDirty = false;
+	
+	if (count WBE_TrashObjectOperation != 0) then {		//-- copy from operation buffer to processing
+		_tmp = WBE_TrashObjectOperation;
+		WBE_TrashObjectOperation = _tmp;
+		WBE_TrashObjectCollection = WBE_TrashObjectCollection + WBE_TrashObjectOperation;
+	};
+	
 	_u = count WBE_TrashObjectCollection;
 	
 	format["Server_TrashProc: trash queue=%1", _u] call LogHigh;

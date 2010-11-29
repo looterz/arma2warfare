@@ -16,8 +16,8 @@ _object = _this;
 	if (isNil "_object") exitWith { PROFILER_END(); };
 	if (isNull _object)  exitWith { PROFILER_END(); };
 
-	waitUntil { !(isNil "WBE_TrashObjectCollection") };
+	waitUntil { !(isNil "WBE_TrashObjectOperation") };
 
-	WBE_TrashObjectCollection = WBE_TrashObjectCollection + [ [_object, (time + WFBE_UNITREMOVEDLAY), 0] ];
+	WBE_TrashObjectOperation = WBE_TrashObjectOperation + [ [_object, (time + WFBE_UNITREMOVEDLAY), 0] ];
 
 PROFILER_END();
