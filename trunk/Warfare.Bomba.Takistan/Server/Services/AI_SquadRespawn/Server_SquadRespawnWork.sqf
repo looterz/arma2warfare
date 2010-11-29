@@ -124,7 +124,6 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 
 			_leader removeAllEventHandlers "killed";
 			call Compile Format ["_leader addEventHandler ['Killed',{[_this select 0,_this select 1,%1] Spawn UnitKilled; (group (_this select 0)) spawn AISquadRespawn;}];",_side];
-			
 		};
 
 		format["AI_SquadRespawnWork: TeamLeader %1 SetPos=%2", leader _team, _pos] call LogHigh;
@@ -136,9 +135,6 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 		//--- Equip the AI.
 		_ran = 1 + round(random(2));
 		[_leader, Format ["WFBE_%1LEADERWEAPONS%2%3",_sideText,_upgrades select 13,_ran] Call GetNamespace, Format ["WFBE_%1LEADERAMMO%2%3",_sideText,_upgrades select 13,_ran] Call GetNamespace] Call EquipLoadout;
-
-		_leader removeAllEventHandlers "Killed";
-		Call Compile Format ["_leader addEventHandler ['Killed',{[_this select 0,_this select 1,%1] Spawn UnitKilled}]",_side];
 	};
 
 	WBE_AISQUAD_RESPAWN_QUEUE = WBE_AISQUAD_RESPAWN_QUEUE - [ _team ];	
