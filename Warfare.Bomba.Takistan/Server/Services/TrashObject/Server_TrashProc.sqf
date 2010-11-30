@@ -7,8 +7,8 @@ PROFILER_BEGIN("Server_TrashProc");
 	
 	if (count WBE_TrashObjectOperation != 0) then {		//-- copy from operation buffer to processing
 		_tmp = WBE_TrashObjectOperation;
-		WBE_TrashObjectOperation = _tmp;
-		WBE_TrashObjectCollection = WBE_TrashObjectCollection + WBE_TrashObjectOperation;
+		WBE_TrashObjectOperation = [];
+		WBE_TrashObjectCollection = WBE_TrashObjectCollection + _tmp;
 	};
 	
 	_u = count WBE_TrashObjectCollection;
