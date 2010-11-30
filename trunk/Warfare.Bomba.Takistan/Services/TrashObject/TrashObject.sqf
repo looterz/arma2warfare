@@ -1,14 +1,5 @@
-/* 
-	Author: Benny
-	Name: Server_TrashObject.sqf
-	Parameters:
-	  0 - Object
-	Description:
-	  This function will remove an object after the defined amount of time.
-*/
-
 #include "profiler.h"
-PROFILER_BEGIN("Server_TrashObject");
+PROFILER_BEGIN("Service_TrashObject");
 
 Private ["_alive","_group","_isMan","_object"];
 _object = _this;

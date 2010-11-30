@@ -4,10 +4,10 @@ WBE_TrashObjectCollection = [];
 WBE_TrashObjectOperation = [];
 WFBE_UNITREMOVEDLAY = 'WFBE_UNITREMOVEDLAY' Call GetNamespace;
 
-TrashDeleteObject = Compile preprocessFile "Server\Services\TrashObject\Server_TrashDeleteObject.sqf";
-TrashHideBody = Compile preprocessFile "Server\Services\TrashObject\Server_TrashHideBody.sqf";
-TrashProc = Compile preprocessFile "Server\Services\TrashObject\Server_TrashProc.sqf";
+TrashDeleteObject = Compile preprocessFile "Services\TrashObject\TrashDeleteObject.sqf";
+TrashHideBody = Compile preprocessFile "Services\TrashObject\TrashHideBody.sqf";
+TrashProc = Compile preprocessFile "Services\TrashObject\TrashProc.sqf";
 
-TrashObject = Compile preprocessFile "Server\Services\TrashObject\Server_TrashObject.sqf";
+TrashObject = Compile preprocessFile "Services\TrashObject\TrashObject.sqf";
 
 [TrashProc, 10];
