@@ -34,5 +34,6 @@ Private ["_markerType", "_markerColor", "_markerSize", "_markerText", "_markerNa
 
 	_markerInfo = [_markerType, _markerColor, _markerSize, _markerText, _markerName, _tracked, _refreshRate, _trackDeath, _deathMarkerType, _deathMarkerColor, _deletePrevious, _side, _deathMarkerSize, MarkerUpdateConditionAntiAir];
 
-	_markerInfo call MarkerUpdate;
+	waitUntil { !isNil "TrackMapMarkerAdd" };
+	_markerInfo call TrackMapMarkerAdd;
 PROFILER_END();
