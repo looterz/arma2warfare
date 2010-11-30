@@ -1,22 +1,22 @@
 #include "profiler.h"
-PROFILER_BEGIN("Server_AI_SquadRespawn");
+PROFILER_BEGIN("Service_AI_SquadRespawn");
 
 Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr","_rr","_respawn","_respawnLoc","_side","_sideText","_slot","_team","_upgrades"];
 
 	_team = _this;
 
 	if (isNil "_team") exitWith {
-		format["Server_SquadRespawn: Trying Respawn nil team: %1", _this] call LogHigh;
+		format["Service_SquadRespawn: Trying Respawn nil team: %1", _this] call LogHigh;
 		PROFILER_END();
 	};
 	
 	if (isNull _team) exitWith {
-		format["Server_SquadRespawn: Trying Respawn null team: %1", _this] call LogHigh;
+		format["Service_SquadRespawn: Trying Respawn null team: %1", _this] call LogHigh;
 		PROFILER_END();
 	};
 
 	if ( (_team call GetClientIDFromTeam) == -1) exitWith {
-		format["Server_SquadRespawn: Trying Respawn non-playable team: %1", _this] call LogHigh;
+		format["Service_SquadRespawn: Trying Respawn non-playable team: %1", _this] call LogHigh;
 		PROFILER_END();
 	};
 	

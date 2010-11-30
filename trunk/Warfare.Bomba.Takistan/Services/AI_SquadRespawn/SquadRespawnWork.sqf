@@ -1,5 +1,5 @@
 #include "profiler.h"
-PROFILER_BEGIN("Server_AI_SquadRespawn");
+PROFILER_BEGIN("Service_AI_SquadRespawn");
 
 Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr","_rr","_respawn","_respawnLoc","_side","_sideText","_slot","_team","_upgrades"];
 
@@ -15,15 +15,15 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 	_rmr = 'WFBE_RESPAWNMINRANGE' Call GetNamespace;
 	
 	if (isNil "_team") exitWith {
-		format["Server_SquadRespawnWork: Trying Respawn nil team", _this] call LogHigh;
+		format["Service_SquadRespawnWork: Trying Respawn nil team", _this] call LogHigh;
 	};
 	
 	if (isNull _team) exitWith {
-		format["Server_SquadRespawnWork: Trying Respawn null team", _this] call LogHigh;
+		format["Service_SquadRespawnWork: Trying Respawn null team", _this] call LogHigh;
 	};
 
 	if (_side != west && _side != east) exitWith {
-		format["Server_SquadRespawnWork: Trying Respawn guerilla team", _this] call LogHigh;
+		format["Service_SquadRespawnWork: Trying Respawn guerilla team", _this] call LogHigh;
 		WBE_AISQUAD_RESPAWN_QUEUE = WBE_AISQUAD_RESPAWN_QUEUE - [ _team ];
 	};	
 	
