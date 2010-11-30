@@ -1,4 +1,3 @@
-_fnUpdateALiveMarkers = {
 private['_u', '_mygroup', '_text', '_amount', '_val', '_val2', '_ainumber', '_visible', '_timeout', '_marker', '_tracked', '_markerName', '_dirty', '_trackDeath', '_deathMarkerType', '_deathMarkerColor', '_deathMarkerSize' ];
 
 	//--- _markerType 	    = _marker select 0;
@@ -81,56 +80,4 @@ private['_u', '_mygroup', '_text', '_amount', '_val', '_val2', '_ainumber', '_vi
 	
 	if (_dirty) then {
 		WBE_TrackedMarkerList = WBE_TrackedMarkerList - [ objNull ];
-	};
-};
-
-_fnUpdateDeadMarkers = {
-private['_dirty', '_u', '_deadMarker', '_timeout', '_markerName'];
-	_dirty = false;
-	_u = count WBE_TrackDeadMarkers;
-	while { !(_u == 0) } do {
-		_u = _u - 1;
-		
-		_deadMarker = WBE_TrackDeadMarkers select _u;
-		_timeout = _deadMarker select 1;
-		if (_timeout < time) then {
-			
-			_markerName = _deadMarker select 0;
-			deleteMarkerLocal _markerName;
-			
-			WBE_TrackDeadMarkers set [_u, objNull];
-			_dirty = true;
-		};
-	};
-	
-	if (_dirty) then {
-		WBE_TrackDeadMarkers = WBE_TrackDeadMarkers - [ objNull ];
-	};
-};
-
-Private ["_nextMarkerUpdate"];
-
-	if (!(local player)) exitWith {
-		"Client_MarkerUpdateThread Ended with reason: Execute on dedicated server does not required." call LogMedium;
-	};
-
-	WFBE_ANTIAIRRADARDETECTION = 'WFBE_ANTIAIRRADARDETECTION' Call GetNamespace;
-	MarkerUpdateConditionAntiAir = { antiAirRadarInRange && (((getPos _this) select 2) > WFBE_ANTIAIRRADARDETECTION) };
-	MarkerUpdateConditionCommon  = { true };
-	
-	waitUntil {commonInitComplete};
-
-	WBE_TrackDeadMarkers = [];
-	WBE_TrackedMarkerList = [];
-
-	_nextMarkerUpdate = 0;
-	while { !gameOver } do {
-		
-		sleep 2.5;
-		if (visibleMap || _nextMarkerUpdate < time) then {
-			[] call _fnUpdateALiveMarkers;
-			[] call _fnUpdateDeadMarkers;
-			
-			_nextMarkerUpdate = time + 60;
-		};
 	};
