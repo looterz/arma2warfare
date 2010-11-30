@@ -1,5 +1,5 @@
 #include "profiler.h"
-PROFILER_BEGIN("Server_EmptyVehIsEmpty");
+PROFILER_BEGIN("Service_EmptyVehIsEmpty");
 
 private['_vehicle', '_empty'];
 

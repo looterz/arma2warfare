@@ -1,5 +1,5 @@
 #include "profiler.h"
-PROFILER_BEGIN("Server_HandleEmptyVehicle");
+PROFILER_BEGIN("Service_HandleEmptyVehicle");
 
 Private ["_exit","_reset","_timer","_trash","_vehicle"];
 
