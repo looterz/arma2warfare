@@ -9,6 +9,8 @@ if (isServer) then {
 	if (paramAI) then {
 		RegisterService("Services\AI_SquadRespawn\SquadRespawnInit.sqf");
 	};
+	
+	waitUntil { serverInitComplete };
 };
 
 [] spawn compile preprocessFile "Services\ServicesThread.sqf";
