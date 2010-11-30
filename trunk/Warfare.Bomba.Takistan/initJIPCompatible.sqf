@@ -285,5 +285,6 @@
 	};
 
 	[] ExecVM "Module\Init_Modules.sqf";
+	[] ExecVM "Services\Services.sqf";
 
 PROFILER_END();
