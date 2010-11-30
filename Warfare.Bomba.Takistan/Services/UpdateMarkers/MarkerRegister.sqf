@@ -1,5 +1,5 @@
 #include "profiler.h"
-PROFILER_BEGIN("Common_MarkerUpdate");
+PROFILER_BEGIN("Service_MarkerRegister");
 
 Private ["_countArgs", "_markerType", "_markerColor", "_markerSize", "_markerText", "_markerName", "_tracked", "_refreshRate", "_trackDeath", "_deathMarkerType", "_deathMarkerColor", "_deletePrevious", "_side", "_deathMarkerSize", "_condition", "_markerInfo" ];
 
