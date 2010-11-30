@@ -1,26 +1,22 @@
-Private ["_nextMarkerUpdate"];
+#include "profiler.h"
+PROFILER_BEGIN("Service_TrackMapMarkerProc");
 
-	if (!(local player)) exitWith {
-		"Client_MarkerUpdateThread Ended with reason: Execute on dedicated server does not required." call LogMedium;
+Private ["_nextMarkerUpdate", "_tmp"];
+
+	if (count WBE_TrackedMarkerListOperate > 0) then {
+		_tmp = WBE_TrackedMarkerListOperate;
+		WBE_TrackedMarkerListOperate = [];
+		WBE_TrackedMarkerList = WBE_TrackedMarkerList + _tmp;
 	};
 
-	WFBE_ANTIAIRRADARDETECTION = 'WFBE_ANTIAIRRADARDETECTION' Call GetNamespace;
-	MarkerUpdateConditionAntiAir = { antiAirRadarInRange && (((getPos _this) select 2) > WFBE_ANTIAIRRADARDETECTION) };
-	MarkerUpdateConditionCommon  = { true };
-	
-	waitUntil {commonInitComplete};
-
-	WBE_TrackDeadMarkers = [];
-	WBE_TrackedMarkerList = [];
-
-	_nextMarkerUpdate = 0;
-	while { !gameOver } do {
+	if (visibleMap || trackMapMarkerNext < time) then {
 		
-		sleep 2.5;
-		if (visibleMap || _nextMarkerUpdate < time) then {
-			[] call _fnUpdateALiveMarkers;
-			[] call _fnUpdateDeadMarkers;
+		format["Service_TrackMapMarkerProc: markers queue=%1", (count WBE_TrackedMarkerList)] call LogHigh;
+		
+		[] call TrackMapMarkerUpdateAlive;
+		[] call TrackMapMarkerUpdateDead;
 			
-			_nextMarkerUpdate = time + 60;
-		};
+		trackMapMarkerNext = time + 60;
 	};
+	
+PROFILER_END();
