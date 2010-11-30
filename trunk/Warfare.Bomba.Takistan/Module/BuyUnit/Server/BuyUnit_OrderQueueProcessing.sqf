@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("BuyUnit_OrderQueueProcessing");
 
-	private['_dirty', '_u', '_i', '_orderInfo', "_order", "_team" ];
+	private['_dirty', '_u', '_i', '_orderInfo', "_order", "_team", "_tmp" ];
 
 	//--- _orderId		  = _orderInfo select 0;
 	//--- _productionTime = _orderInfo select 1;
@@ -13,6 +13,13 @@ PROFILER_BEGIN("BuyUnit_OrderQueueProcessing");
 	//--- _side		= _order select 3; 
 	//--- _team     = _order select 4; 
 	//--- _vehInfo  = _order select 5;	
+	
+	if (count WBE_BuyUnit_OrderQueueOperation != 0) then {	// copy from operation buffer
+		_tmp = WBE_BuyUnit_OrderQueueOperation;
+		WBE_BuyUnit_OrderQueueOperation = [];
+		
+		WBE_BuyUnit_OrderQueue = WBE_BuyUnit_OrderQueue + _tmp;	
+	};
 	
 	_dirty = false;
 	_u = count WBE_BuyUnit_OrderQueue;

@@ -23,7 +23,7 @@ private['_order', '_clientId', '_building', '_orderId', '_orderInfo'];
 	//_clientId = _order select 0;
 	_building = _order select 1;
 
-	waitUntil { !(isNil "WBE_BuyUnit_OrderQueue") };
+	waitUntil { !(isNil "WBE_BuyUnit_OrderQueueOperation") };
 
 	// initialize current orderId
 	_orderId = _building getVariable "orderId";
@@ -39,7 +39,7 @@ private['_order', '_clientId', '_building', '_orderId', '_orderInfo'];
 	(_building) spawn BuyUnit_UpdateOrderQueueStatus;
 	
 	_orderInfo = [_orderId, 0, _order];
-	WBE_BuyUnit_OrderQueue = WBE_BuyUnit_OrderQueue + [ _orderInfo ];
+	WBE_BuyUnit_OrderQueueOperation = WBE_BuyUnit_OrderQueueOperation + [ _orderInfo ];
 
 	[_clientId, BUYUNIT_RESPONSE_ORDERACCEPTED, [_order] ] spawn BuyUnit_OrderResponse;
 	format["BuyUnit_OrderRegister: Order#%1, %2", _orderId, _order] call LogHigh;
