@@ -53,8 +53,6 @@ KAT_UAV = Compile preProcessfile "Server\Support\Support_UAV.sqf";
 
 "Init_Server: Functions - [Done]" call LogMedium;
 
-[] call compile preProcessfile "Server\Services\Server_Services.sqf";
-
 if (mysql) then {
 	WF_Logic setVariable ["WF_MYSQL_CLIENT",[],true];
 	WF_Logic setVariable ["WF_MYSQL_SERVER",[Format ["MYSQLDATA§WFBE_Insert_Island§%1§%2",worldName,getText (configFile >> "CfgWorlds" >> worldName >> "description")]]];
