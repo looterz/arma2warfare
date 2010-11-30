@@ -14,6 +14,7 @@ BUYUNIT_RESPONSE_ORDERCANCEL    = 4;
 
 	if (isServer) then {
 		WBE_BuyUnit_OrderQueue = [];
+		WBE_BuyUnit_OrderQueueOperation = [];
 		
 		BuyUnit_OrderQueueProcessing = Compile preprocessFile "Module\BuyUnit\Server\BuyUnit_OrderQueueProcessing.sqf";
 		BuyUnit_OrderProcessing = Compile preprocessFile "Module\BuyUnit\Server\BuyUnit_OrderProcessing.sqf";
