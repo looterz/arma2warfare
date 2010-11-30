@@ -1,7 +1,7 @@
 #include "profiler.h"
 
 private["_object", '_group', '_get', '_alive', '_units', '_unit', '_liveUnits', '_u'];
-PROFILER_BEGIN("Server_TrashHideBody");
+PROFILER_BEGIN("Service_TrashHideBody");
 
 	_object = _this;
 	_group = group _object;

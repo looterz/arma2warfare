@@ -1,7 +1,7 @@
 #include "profiler.h"
 
 private["_trashItem", '_object', '_canDelete', '_isDeleted', '_canRemove'];
-PROFILER_BEGIN("Server_TrashDeleteObject");
+PROFILER_BEGIN("Service_TrashDeleteObject");
 
 	_isDeleted = false;
 	_trashItem = _this;
@@ -14,7 +14,7 @@ PROFILER_BEGIN("Server_TrashDeleteObject");
 				
 			_canDelete = _trashItem select 2;
 			if (_canDelete == 0) then {
-				"Server_TrashDeleteObject: Hide Body" call LogHigh;
+				"Service_TrashDeleteObject: Hide Body" call LogHigh;
 				_object spawn TrashHideBody;							
 				_trashItem set [1, time + 6];	// add time for hide body;
 				_trashItem set [2, 1];			// set flag that now we can delete body							
@@ -22,7 +22,7 @@ PROFILER_BEGIN("Server_TrashDeleteObject");
 		};
 		
 		if (_canDelete == 1) then {
-			"Server_TrashDeleteObject: Delete Body" call LogHigh;
+			"Service_TrashDeleteObject: Delete Body" call LogHigh;
 			deleteVehicle _object;
 			_isDeleted = true;
 		};

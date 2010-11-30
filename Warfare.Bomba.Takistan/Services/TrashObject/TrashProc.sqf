@@ -1,7 +1,7 @@
 #include "profiler.h"
 
 private['_isArrayDirty', '_u', '_trashItem', '_timeout', '_i'];
-PROFILER_BEGIN("Server_TrashProc");
+PROFILER_BEGIN("Service_TrashProc");
 
 	_isArrayDirty = false;
 	
@@ -13,7 +13,7 @@ PROFILER_BEGIN("Server_TrashProc");
 	
 	_u = count WBE_TrashObjectCollection;
 	
-	format["Server_TrashProc: trash queue=%1", _u] call LogHigh;
+	format["Service_TrashProc: trash queue=%1", _u] call LogHigh;
 	
 	_i = 0;
 	while { _u != 0 } do {
