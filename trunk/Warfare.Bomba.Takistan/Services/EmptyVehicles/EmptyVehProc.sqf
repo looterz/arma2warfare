@@ -1,5 +1,5 @@
 #include "profiler.h"
-PROFILER_BEGIN("Server_EmptyVehProc");
+PROFILER_BEGIN("Service_EmptyVehProc");
 
 private['_dirty', '_u', '_vehicleInfo', '_vehicle', '_timeout', '_tmp'];
 
@@ -12,7 +12,7 @@ private['_dirty', '_u', '_vehicleInfo', '_vehicle', '_timeout', '_tmp'];
 	};
 	
 	_u = count WBE_HandleEmptyVehicleCollection;
-	format["Server_EmptyVehProc: registered vehicle queue=%1", _u] call LogHigh;
+	format["Service_EmptyVehProc: registered vehicle queue=%1", _u] call LogHigh;
 	
 	while { _u != 0 } do {
 		_u = _u - 1;
