@@ -1,19 +1,19 @@
-#define RegisterService(file) ServerServices = ServerServices + [ [(call compile preprocessFile ##file), 0] ]
+#define RegisterService(file, name) ServerServices = ServerServices + [ [(call compile preprocessFile ##file), 0, nil, ##name] ]
 
 ServerServices = [];
 
 if (isServer) then {
-	RegisterService("Services\TrashObject\TrashInit.sqf");
-	RegisterService("Services\EmptyVehicles\EmptyVehInit.sqf");
+	RegisterService("Services\TrashObject\TrashInit.sqf", "Trash");
+	RegisterService("Services\EmptyVehicles\EmptyVehInit.sqf", "EmptyVeh");
 
 	if (paramAI) then {
-		RegisterService("Services\AI_SquadRespawn\SquadRespawnInit.sqf");
+		RegisterService("Services\AI_SquadRespawn\SquadRespawnInit.sqf", "AIRespawn");
 	};
 	
 	waitUntil { serverInitComplete };
 };
 
-RegisterService("Services\TrackMapMarker\TrackMapMarkerInit.sqf");
+RegisterService("Services\TrackMapMarker\TrackMapMarkerInit.sqf", "TrackMarkers");
 
-[] spawn compile preprocessFile "Services\ServicesThread.sqf";
+[] ExecVM "Services\ServicesThread.sqf";
 
