@@ -1,24 +1,18 @@
 	
+	TrackMapMarkerAdd = Compile preprocessFile "Services\TrackMapMarker\TrackMapMarkerAdd.sqf";
+	TrackMapMarkerProc = Compile preprocessFile "Services\TrackMapMarker\TrackMapMarkerProc.sqf";
+	TrackMapMarkerUpdateAlive = Compile preprocessFile "Services\TrackMapMarker\TrackMapMarkerUpdateAlive.sqf";
+	TrackMapMarkerUpdateDead = Compile preprocessFile "Services\TrackMapMarker\TrackMapMarkerUpdateDead.sqf";
 	
-	waitUntil { commonInitComplete };
-
+	trackMapMarkerNext = time;
+	
 	WFBE_ANTIAIRRADARDETECTION = 'WFBE_ANTIAIRRADARDETECTION' Call GetNamespace;
 	MarkerUpdateConditionAntiAir = { antiAirRadarInRange && (((getPos _this) select 2) > WFBE_ANTIAIRRADARDETECTION) };
 	MarkerUpdateConditionCommon  = { true };
 	
-	waitUntil {commonInitComplete};
-
-	WBE_TrackDeadMarkers = [];
+	waitUntil { commonInitComplete };
 	WBE_TrackedMarkerList = [];
+	WBE_TrackedMarkerListOperate = [];
+	WBE_TrackDeadMarkers = [];
 
-WBE_TrashObjectCollection = [];
-WBE_TrashObjectOperation = [];
-WFBE_UNITREMOVEDLAY = 'WFBE_UNITREMOVEDLAY' Call GetNamespace;
-
-TrashDeleteObject = Compile preprocessFile "Services\TrashObject\TrashDeleteObject.sqf";
-TrashHideBody = Compile preprocessFile "Services\TrashObject\TrashHideBody.sqf";
-TrashProc = Compile preprocessFile "Services\TrashObject\TrashProc.sqf";
-
-TrashObject = Compile preprocessFile "Services\TrashObject\TrashObject.sqf";
-
-[TrashProc, 10];
+[TrackMapMarkerProc, 2.5];

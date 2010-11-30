@@ -13,5 +13,7 @@ if (isServer) then {
 	waitUntil { serverInitComplete };
 };
 
+RegisterService("Services\TrackMapMarker\TrackMapMarkerInit.sqf");
+
 [] spawn compile preprocessFile "Services\ServicesThread.sqf";
 

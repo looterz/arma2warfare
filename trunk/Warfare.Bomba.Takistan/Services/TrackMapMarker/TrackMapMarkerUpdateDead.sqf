@@ -1,7 +1,11 @@
-private['_dirty', '_u', '_deadMarker', '_timeout', '_markerName'];
+#include "profiler.h"
+PROFILER_BEGIN("Service_TrackMapMarkerUpdateDead");
+
+	private['_dirty', '_u', '_deadMarker', '_timeout', '_markerName'];
+	
 	_dirty = false;
 	_u = count WBE_TrackDeadMarkers;
-	while { !(_u == 0) } do {
+	while { _u != 0 } do {
 		_u = _u - 1;
 		
 		_deadMarker = WBE_TrackDeadMarkers select _u;
@@ -19,3 +23,5 @@ private['_dirty', '_u', '_deadMarker', '_timeout', '_markerName'];
 	if (_dirty) then {
 		WBE_TrackDeadMarkers = WBE_TrackDeadMarkers - [ objNull ];
 	};
+	
+PROFILER_END();
