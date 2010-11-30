@@ -3,13 +3,13 @@
 ServerServices = [];
 
 if (isServer) then {
-	RegisterService("Server\TrashObject\Server_TrashInit.sqf");
-	RegisterService("Server\EmptyVehicles\Server_EmptyVehInit.sqf");
+	RegisterService("Services\TrashObject\TrashInit.sqf");
+	RegisterService("Services\EmptyVehicles\EmptyVehInit.sqf");
 
 	if (paramAI) then {
-		RegisterService("Server\AI_SquadRespawn\Server_SquadRespawnInit.sqf");
+		RegisterService("Services\AI_SquadRespawn\SquadRespawnInit.sqf");
 	};
 };
 
-[] spawn compile preprocessFile "Server\Services\ServicesThread.sqf";
+[] spawn compile preprocessFile "Services\ServicesThread.sqf";
 

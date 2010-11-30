@@ -1,10 +1,10 @@
 #include "profiler.h"
 private['_dirty', '_u', '_respawnSquad', '_squad', '_timeout'];
-PROFILER_BEGIN("Server_SquadRespawnProc");
+PROFILER_BEGIN("Service_SquadRespawnProc");
 
 	_dirty = false;
 	_u = count WBE_AISQUAD_RESPAWN;
-	format["Server_SquadRespawnProc: respawn queue=%1", _u] call LogHigh;
+	format["Service_SquadRespawnProc: respawn queue=%1", _u] call LogHigh;
 	while { _u != 0 } do {
 		_u = _u - 1;
 		
@@ -14,7 +14,7 @@ PROFILER_BEGIN("Server_SquadRespawnProc");
 		
 		if (_timeout < time) then {
 		
-			format["Server_SquadRespawnProc Squad:=%1", _respawnSquad] call LogHigh;
+			format["Service_SquadRespawnProc Squad:=%1", _respawnSquad] call LogHigh;
 			_squad   = _respawnSquad select 0;
 			_squad spawn SquadRespawnWork;
 		
