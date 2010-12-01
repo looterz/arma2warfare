@@ -4,7 +4,6 @@ PROFILER_BEGIN("Market_UseResourcesToBuyUnit");
 private['_factory', '_unit', '_unitPrice', '_u', '_found', '_unitData', '_unitData1', '_type', '_products', '_marketStock', '_marketPrices', '_reqProduct', '_reqProductId', '_reqProductValue', '_stockValue', '_cost', '_buyValue', '_price', '_buy', '_name'];
 
 	_unit = _this select 1;
-
 	_unitData = _unit call marketGetUnitRequiredProducts;
 		
 	if (isNil '_unitData') exitWith { 

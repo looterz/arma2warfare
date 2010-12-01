@@ -33,9 +33,7 @@ private['_factory', '_unit', '_unitPrice', '_u', '_found', '_unitData', '_unitDa
 		
 		_stockValue = _marketStock select _reqProductId;
 		
-		_marketStock set [_reqProductId, (_stockValue - _reqProductValue)];
 		_cost = 0;
-		
 		if (_stockValue < _reqProductValue) then {
 		
 			_marketStock set [_reqProductId, 0];

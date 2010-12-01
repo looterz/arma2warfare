@@ -6,16 +6,6 @@ Private ['_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', 
 	_market = _this select 0;
 	_stock = _this select 1;
 
-	_fnRoundPriceValue = {
-
-		if (_this > 10000) exitWith { floor(_this/1000)*1000; };
-		if (_this > 1000) exitWith { floor(_this/100)*100; };
-		if (_this > 100) exitWith { floor(_this/10)*10; };
-		if (_this > 10) exitWith { floor(_this); };
-		
-		_this;
-	};
-
 	_productPrices = [] + marketEmptyPriceList;
 	_u = marketTotalProductCount;
 	while { _u != 0 } do {
@@ -41,8 +31,8 @@ Private ['_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', 
 		if (_sellCost < 5) then { _sellCost = 5; };
 		if (_sellCost > _buyCost) then { _buyCost = _sellCost; };
 		
-		_sellCost = _sellCost call _fnRoundPriceValue;
-		_buyCost  = _buyCost call _fnRoundPriceValue;
+		_sellCost = _sellCost call marketRoundValue;
+		_buyCost  = _buyCost call marketRoundValue;
 		_price = [_sellCost, _buyCost];
 		_productPrices set [_u, _price];
 	};
