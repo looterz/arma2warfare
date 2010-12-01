@@ -7,6 +7,7 @@ marketGetSU = Compile preprocessFile "Module\Market\Function\GetSU.sqf";
 
 marketGetContainerItems = Compile preprocessFile "Module\Market\Function\GetContainerItems.sqf";
 marketGetMarketProducts = Compile preprocessFile "Module\Market\Function\GetMarketProducts.sqf"; 
+marketGetMarketPrices = Compile preprocessFile "Module\Market\Function\GetMarketPrices.sqf"; 
 
 marketGetProductValue = Compile preprocessFile "Module\Market\Function\GetProductValue.sqf"; 
 marketUpdateProductValue = Compile preprocessFile "Module\Market\Function\UpdateProductValue.sqf"; 

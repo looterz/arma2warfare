@@ -87,8 +87,11 @@ _fillList = {
 		};
 	};
 	
+	_unitPriceData = objNull;
 	if (paramTrade && paramVehicleComponents) then {
-		_products = [_closestFactory] call marketGetMarketProducts;
+		_products = _closestFactory call marketGetMarketProducts;
+		_prices = _closestFactory call marketGetMarketPrices;
+		_unitPriceData = [_products, _prices, objNull, objNull];
 	};
 	
 	_tmplistUnits = [];
@@ -103,7 +106,9 @@ _fillList = {
 			_basePrice = if (_x isKindOf "Man") then { _x call GetUnitEquipmentPrice; } else { _c select QUERYUNITPRICE; };
 			
 			if (paramTrade && paramVehicleComponents) then {
-				_basePrice = [_products, _x, _basePrice] call marketGetUnitPriceEx;
+				_unitPriceData set [2, _x];
+				_unitPriceData set [3, _basePrice];
+				_basePrice = _unitPriceData call marketGetUnitPriceEx;
 			};
 			
 			_cost = _basePrice;

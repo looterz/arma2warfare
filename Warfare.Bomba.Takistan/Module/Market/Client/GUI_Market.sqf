@@ -85,10 +85,9 @@ private['_crew','_u', '_count', '_crewman', '_hq', '_found', '_vehType', '_type'
 _procReadStockData = {
 
 	_market = if (_selectedMarketId >= 0) then { _nearMarkets select _selectedMarketId } else { objNull };
-	_products = _market call marketGetMarketProducts;
 		
-	_marketStock = _products select 0;
-	_marketPrices = _products select 1;
+	_marketStock = _market call marketGetMarketProducts;
+	_marketPrices = _market call marketGetMarketPrices;
 
 	_isTown = if (_market in towns) then { true } else { false };
 	_isMHQ = if (((sideJoinedText) Call GetSideHQ) == _market) then { true } else { false };

@@ -40,9 +40,8 @@ if (!_found) exitWith {
 	_unitPrice; 
 };
 
-_products = _factory call marketGetMarketProducts;
-_marketStock = _products select 0;
-_marketPrices = _products select 1;
+_marketStock = _factory call marketGetMarketProducts;
+_marketPrices = _factory call marketGetMarketPrices;
 
 _u = count _unitData;
 while { !(_u == 1)  } do {
