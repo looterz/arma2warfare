@@ -3,16 +3,6 @@ PROFILER_BEGIN("Market_InitMarketStorage");
 
 Private ['_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', '_u', '_isTown', '_buyCoef', '_baseCost', '_productVolume', '_sellK','_buyCost','_sellCost', '_currentSupply', '_isCommander', '_isFactory', '_buildings' ];
 
-	_fnRoundPriceValue = {
-
-		if (_this > 10000) exitWith { floor(_this/1000)*1000; };
-		if (_this > 1000) exitWith { floor(_this/100)*100; };
-		if (_this > 100) exitWith { floor(_this/10)*10; };
-		if (_this > 10) exitWith { floor(_this); };
-		
-		_this;
-	};
-
 	_market = _this;
 	_isTown = (_market in towns);
 

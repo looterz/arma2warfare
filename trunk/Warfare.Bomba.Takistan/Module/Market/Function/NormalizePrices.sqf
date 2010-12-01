@@ -5,16 +5,6 @@ Private ['_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', 
 
 	_market = _this;
 
-	_fnRoundPriceValue = {
-
-		if (_this > 10000) exitWith { floor(_this/1000)*1000; };
-		if (_this > 1000) exitWith { floor(_this/100)*100; };
-		if (_this > 100) exitWith { floor(_this/10)*10; };
-		if (_this > 10) exitWith { floor(_this); };
-		
-		_this;
-	};
-
 	// - we need reread for get updated prices
 	_marketStock = _market call marketGetMarketProducts;
 	_marketPrices = _market call marketGetMarketPrices;
@@ -62,8 +52,8 @@ Private ['_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', 
 			_marketSellCost = _marketPrice select 0;
 			//_marketBuyCost = _marketPrice select 1;
 			
-			_townBuyCost  = _townBuyCost call _fnRoundPriceValue;
-			//_townSellCost = _townSellCost call _fnRoundPriceValue;
+			_townBuyCost  = _townBuyCost call marketRoundValue;
+			//_townSellCost = _townSellCost call marketRoundValue;
 			
 			// // check if we have sell price less then we have at nearest town
 			if (_townBuyCost > 0 && _townBuyCost < _marketSellCost ) then {	

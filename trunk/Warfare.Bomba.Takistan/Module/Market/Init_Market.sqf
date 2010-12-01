@@ -22,6 +22,8 @@ marketUseResourcesToBuyUnit = Compile preprocessFile "Module\Market\Function\Use
 marketGetUnitRequiredProducts = Compile preprocessFile "Module\Market\Function\GetUnitRequiredProducts.sqf";
 marketGetUnitRequirementText = Compile preprocessFile "Module\Market\Function\GetUnitRequirementText.sqf";
 
+marketRoundValue = Compile preprocessFile "Module\Market\Function\RoundValue.sqf";
+
 marketProductIdSupply = 0;
 marketProductIdStones = 2;
 
