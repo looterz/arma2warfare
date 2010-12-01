@@ -38,9 +38,8 @@ while { true } do {
 		{
 			_market = _x;
 			_products = _market call marketGetMarketProducts;
-			_stock = _products select 0;		
-			[_market, _stock] call marketUpdateMarketPrices;
-			_market call marketNormalizePrices;
+			[_market, _products] call marketUpdateMarketPrices;
+			_market spawn marketNormalizePrices;
 		
 		} forEach _buildings;
 		_nextFactoryUpdate = time + _periodFactoryUpdate;

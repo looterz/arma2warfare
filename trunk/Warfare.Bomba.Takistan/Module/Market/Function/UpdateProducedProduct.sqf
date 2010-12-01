@@ -4,8 +4,6 @@ PROFILER_BEGIN("Market_UpdateProducedProduct");
 Private ['_market','_products', '_productivity', '_lastProduceProduct', '_dT', '_stock', '_prices', '_incCoef', '_supplyValue', '_maxSV', '_u', '_updated', '_value', '_inc', '_product', '_maxProduced' ];
 
 	_market = _this;
-	_products = _market call marketGetMarketProducts;
-	_productivity = _market getVariable "marketProductivity";
 
 	_lastProduceProduct = _market getVariable "marketLastProduceProduct";
 	if (isNil '_lastProduceProduct') then { _lastProduceProduct = time; };
@@ -17,8 +15,9 @@ Private ['_market','_products', '_productivity', '_lastProduceProduct', '_dT', '
 		_dT = (_dT / 60); // we has productivity in minutes
 	};
 
-	_stock = _products select 0;
-	_prices = _products select 1;
+	_stock = _market call marketGetMarketProducts;
+	_prices = _market call marketGetMarketPrices;
+	_productivity = _market getVariable "marketProductivity";
 
 	_incCoef = 1;
 	if (_market in towns) then {
@@ -30,7 +29,7 @@ Private ['_market','_products', '_productivity', '_lastProduceProduct', '_dT', '
 	_u = count _stock;
 	_updated = false;
 
-	while { !(_u == 0) } do {
+	while { _u != 0 } do {
 		_u = _u - 1;
 		
 		_value = _stock select _u;

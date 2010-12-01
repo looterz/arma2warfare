@@ -16,9 +16,8 @@ Private ['_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', 
 	};
 
 	// - we need reread for get updated prices
-	_products = _market call marketGetMarketProducts;
-	_marketStock = _products select 0;
-	_marketPrices = _products select 1;
+	_marketStock = _market call marketGetMarketProducts;
+	_marketPrices = _market call marketGetMarketPrices;
 		
 	_markets = [] + towns;
 	_markets = _markets + (("WEST") Call GetSideStructures);
