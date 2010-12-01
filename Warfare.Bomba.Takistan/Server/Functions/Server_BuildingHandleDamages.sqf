@@ -18,7 +18,7 @@ if (side _origin == sideEnemy) then {
 
 if (baseFrendlyFire && (_sideBuilding == _side)) then { _dammages = 0 }; 
 
-if (_dammages > 0) then {
+if (paramTrade && _dammages > 0) then {
 
 	_lastDamageTime = _building getVariable '_lastDamageTime';
 	if (isNil "_totalDamage") then {_totalDamage = 0};
@@ -32,7 +32,7 @@ if (_dammages > 0) then {
 
 	_stones = [_building, marketProductIdStones] call marketGetProductValue;
 	
-	if (_stones > 0) then {
+	if (_stones != 0) then {
 	
 		_dammages  = _dammages * 100;
 		_currentStones = _stones;
