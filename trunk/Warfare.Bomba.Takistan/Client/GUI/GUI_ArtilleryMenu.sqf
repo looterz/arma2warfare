@@ -54,7 +54,7 @@ while {alive player && dialog} do {
 	
 	if (paramFastTravel) then {
 		_currentLevel = _currentUpgrades select 12;
-		if (time - _lastUpdate > 15 && _currentLevel > 0) then {
+		if (time - _lastUpdate > 15 && _currentLevel != 0) then {
 			{deleteMarkerLocal _x} forEach _markers;
 			_markers = [];
 			_FTLocations = [];
@@ -75,7 +75,7 @@ while {alive player && dialog} do {
 				if (_sideID == sideID && player distance _closest < _ftr && (count _camps == count _allCamps)) then {_canFT = true;_startPoint = _closest} else {
 					_buildings = (sideJoinedText) Call GetSideStructures;
 					_checks = [sideJoined,Format ["WFBE_%1COMMANDCENTERTYPE",sideJoinedText] Call GetNamespace,_buildings] Call GetFactories;
-					if (count _checks > 0) then {
+					if (count _checks != 0) then {
 						_sorted = [player,_checks] Call SortByDistance;
 						_closest = _sorted select 0;
 						if (player distance _closest < _ftr) then {
@@ -130,22 +130,22 @@ while {alive player && dialog} do {
 			if (commanderTeam == group player) then {_commander = true};
 		};
 		_currentLevel = _currentUpgrades select 11;
-		_enable = if (_currentLevel > 0 && _commander && _funds >= 150000) then {true} else {false};
+		_enable = if (_currentLevel != 0 && _commander && _funds >= 150000) then {true} else {false};
 		ctrlEnable [17015,_enable];
 	};
 	_currentLevel = _currentUpgrades select 4;
-	_enable = if (_funds >= 7800 && _currentLevel > 0 && time - lastParaCall > _pard) then {true} else {false};
+	_enable = if (_funds >= 7800 && _currentLevel != 0 && time - lastParaCall > _pard) then {true} else {false};
 	ctrlEnable [17010,commandInRange];
 	ctrlEnable [17011,_enable];
 	_currentLevel = _currentUpgrades select 5;
-	_enable = if (_funds >= 12500 && _currentLevel > 0) then {true} else {false};
+	_enable = if (_funds >= 12500 && _currentLevel != 0) then {true} else {false};
 	if !(isNull playerUAV) then {if (alive playerUAV) then {_enable = true}};
 	ctrlEnable [17012,_enable];
 	ctrlEnable [17013,_enable];
 	_currentLevel = _currentUpgrades select 16;
-	_enable = if (_funds >= 3500 && _currentLevel > 0 && time - lastSupplyCall > _pard) then {true} else {false};
+	_enable = if (_funds >= 3500 && _currentLevel != 0 && time - lastSupplyCall > _pard) then {true} else {false};
 	ctrlEnable [17017,_enable];
-	_enable = if (_funds >= 9500 && _currentLevel > 0 && time - lastSupplyCall > _pard) then {true} else {false};
+	_enable = if (_funds >= 9500 && _currentLevel != 0 && time - lastSupplyCall > _pard) then {true} else {false};
 	ctrlEnable [17018,_enable];
 	
 	if (mouseButtonUp == 0) then {
@@ -317,7 +317,7 @@ while {alive player && dialog} do {
 		_txt = Format['%1: %2', localize 'STR_WF_Status', _txt]; 
 		
 		(_display displayCtrl 17016) ctrlSetStructuredText (parseText _txt);
-		_enable = if (_status > 0) then {false} else {true};
+		_enable = if (_status != 0) then {false} else {true};
 		ctrlEnable [17007,_enable];
 	};
 	
@@ -325,7 +325,7 @@ while {alive player && dialog} do {
 	if (MenuAction == 2) then {
 		MenuAction = -1;
 		_units = [Group player,GetPos player,false,lbCurSel(17008)] Call GetTeamArtillery;
-		if (Count _units > 0) then {
+		if (Count _units != 0) then {
 			fireMissionTime = time;
 			[GetMarkerPos "artilleryMarker",lbCurSel(17008)] Spawn RequestFireMission		
 		} else {

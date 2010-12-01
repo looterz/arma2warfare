@@ -92,7 +92,7 @@ while {alive player && dialog} do {
 		};
 		if (player == _vehicle) then {
 			_objects = player NearEntities[["Car","Motorcycle","Tank"],10];
-			if (count _objects > 0) then {
+			if (count _objects != 0) then {
 				{_x setPos [getPos _x select 0,getpos _x select 1,0.5];_x setVelocity [0,0,-1]} forEach _objects;
 			};
 		};

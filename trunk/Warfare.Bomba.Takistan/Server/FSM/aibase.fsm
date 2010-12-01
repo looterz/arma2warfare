@@ -358,7 +358,7 @@ class FSM
        "		_buildings = (_sideText) Call GetSideStructures;" \n
        "		_checks = [_side,Format [""WFBE_%1LIGHTTYPE"",_sideText] Call GetNamespace,_buildings] Call GetFactories;" \n
        "		_light = objNull;" \n
-       "		if (count _checks > 0) then {" \n
+       "		if (count _checks != 0) then {" \n
        "			_sorted = [_hq,_checks] Call SortByDistance;" \n
        "			_light = _sorted select 0;" \n
        "		};" \n
@@ -529,22 +529,22 @@ class FSM
        "{" \n
        "	if !(isNil '_x') then {" \n
        "		_skip = false;" \n
-       "		if (_infAssign > 0) then {" \n
+       "		if (_infAssign != 0) then {" \n
        "			_type = _infTemplates select (round(random((count _infTemplates)-1)));" \n
        "			_infAssign = _infAssign - 1;" \n
        "			_skip = true;" \n
        "		};" \n
-       "		if (_lightAssign > 0 && !_skip) then {" \n
+       "		if (_lightAssign != 0 && !_skip) then {" \n
        "			_type = _lightTemplates select (round(random((count _lightTemplates)-1)));" \n
        "			_lightAssign = _lightAssign - 1;" \n
        "			_skip = true;" \n
        "		};" \n
-       "		if (_heavyAssign > 0 && !_skip) then {" \n
+       "		if (_heavyAssign != 0 && !_skip) then {" \n
        "			_type = _heavyTemplates select (round(random((count _heavyTemplates)-1)));" \n
        "			_heavyAssign = _heavyAssign - 1;" \n
        "			_skip = true;" \n
        "		};" \n
-       "		if (_airAssign > 0 && !_skip) then {" \n
+       "		if (_airAssign != 0 && !_skip) then {" \n
        "			_type = _airTemplates select (round(random((count _airTemplates)-1)));" \n
        "			_airAssign = _airAssign - 1;" \n
        "			_skip = true;" \n
@@ -578,7 +578,7 @@ class FSM
        "_isDeployed = (_sideText) Call GetSideHQDeployed;" \n
        "_buildings = (_sideText) Call GetSideStructures;" \n
        "_checks = [_side,Format [""WFBE_%1COMMANDCENTERTYPE"",_sideText] Call GetNamespace,_buildings] Call GetFactories;" \n
-       "if (_isDeployed && (count _checks > 0) && !(Format[""WFBE_%1_Upgrading"",_sideText] Call GetNamespace)) then {" \n
+       "if (_isDeployed && (count _checks != 0) && !(Format[""WFBE_%1_Upgrading"",_sideText] Call GetNamespace)) then {" \n
        "	_upgrades = (_sideText) Call GetSideUpgrades;" \n
        "	_supply = WF_Logic getVariable _sideSupply;" \n
        "	_break = false;" \n

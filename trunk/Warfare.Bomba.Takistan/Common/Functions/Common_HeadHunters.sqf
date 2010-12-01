@@ -49,9 +49,9 @@ if (WF_DEBUG || (isPlayer(_victim) && _victimId > 0 && _killerId > 0 && _victimI
 			_scoreVictim = score _victim;
 			
 			_bonusPerc = 0.1;
-			if (_scoreSide > 0) then {
+			if (_scoreSide != 0) then {
 			
-				_scoreVictim = if (_scoreVictim > 0) then { _scoreVictim; } else { 0; };
+				_scoreVictim = if (_scoreVictim != 0) then { _scoreVictim; } else { 0; };
 				_bonusPerc = 0.05 + (0.1 * _scoreVictim / (_scoreSide / (WF_MAXPLAYERS/2)));				
 			};
 			

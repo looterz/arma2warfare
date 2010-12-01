@@ -126,7 +126,7 @@ class FSM
        "		_MHQ RemoveAction 3;" \n
        "	};" \n
        "	if (!isNil ""HQAction"") then {player removeAction HQAction};" \n
-       "	if (count (hcAllGroups player) > 0) then {HCRemoveAllGroups player};" \n
+       "	if (count (hcAllGroups player) != 0) then {HCRemoveAllGroups player};" \n
        "	{[_x,false] Call SetTeamAutonomous} forEach clientTeams;" \n
        "};" \n
        "		" \n
@@ -147,7 +147,7 @@ class FSM
        "		[Localize ""STR_WF_PlayerCommander""] Call TitleTextMessage;" \n
        "	} else {" \n
        "		if (!isNil ""HQAction"") then {player removeAction HQAction};" \n
-       "		if (count (hcAllGroups player) > 0 && paramHighCommand) then {HCRemoveAllGroups player};" \n
+       "		if (count (hcAllGroups player) != 0 && paramHighCommand) then {HCRemoveAllGroups player};" \n
        "	};" \n
        "};"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;

@@ -28,7 +28,7 @@ if (BIS_uav_lastID == 0) then {
 _buildings = (sideJoinedText) Call GetSideStructures;
 _checks = [sideJoined,Format ["WFBE_%1COMMANDCENTERTYPE",sideJoinedText] Call GetNamespace,_buildings] Call GetFactories;
 _closest = objNull;
-if (count _checks > 0) then {
+if (count _checks != 0) then {
 	_sorted = [player,_checks] Call SortByDistance;
 	_closest = _sorted select 0;
 };

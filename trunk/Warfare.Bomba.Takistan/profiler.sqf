@@ -1,7 +1,7 @@
 // _pid = "functionName" call ProfilerBegin;
 // _pid call ProfilerEnd;
 
-enabledProfiler = false;
+enabledProfiler = true;
 
 ProfilerData = [];
 ProfilerBegin = { objNull; };
@@ -26,8 +26,8 @@ private['_pid'];
 profilerRegisterProcedureCall = {
 private['_funcName', '_dT', '_data', '_u', '_bFound', '_tmp'];	
 	
-	_dT  = time;
-	waitUntil { (_this select 2)== 1 || (time - _dT) > 15 };
+	_dT  = diag_tickTime;
+	waitUntil { (_this select 2)== 1 || (diag_tickTime - _dT) > 15 };
 	
 	if ((_this select 2)== 0) then {
 		format["Profiler Detect Long Executing method: %1", (_this select 0)] call LogMedium;

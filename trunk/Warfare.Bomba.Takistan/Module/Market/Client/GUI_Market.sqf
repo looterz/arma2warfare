@@ -54,7 +54,7 @@ private['_crew','_u', '_count', '_crewman', '_hq', '_found', '_vehType', '_type'
 			_u = _u +1;		
 		};
 		
-		if (_count > 0) then { _cargo = player; };	
+		if (_count != 0) then { _cargo = player; };	
 	};
 
 	_hq = (sideJoinedText) Call GetSideHQ;
@@ -231,7 +231,7 @@ private['_cargo', '_stockValue', '_price', '_sell', '_buy', '_txtSell', '_txtBuy
 		_txtBuy  = '--';
 		
 		if (_sell != -1) then { _txtSell = format["$%1", _sell] };
-		if (_buy  != -1 && _stockValue > 0) then { _txtBuy  = format["$%1", _buy]  };		
+		if (_buy  != -1 && _stockValue != 0) then { _txtBuy  = format["$%1", _buy]  };		
 		                               
 		lnbAddRow  [_uiProductList, [_productName, _productUnit, _txtSell, _txtBuy, format["%1%2", _cargo, _productUnit] , format["%1%2", _stockValue, _productUnit]   ] ];
 		
@@ -243,16 +243,13 @@ private['_cargo', '_stockValue', '_price', '_sell', '_buy', '_txtSell', '_txtBuy
 		};
 		
 		lnbSetColor [_uiProductList, [_i, 1], _grayColor];
-
-		
-		if (_cargo > 0) then { [0.0, 1.0, 0.0, 1] } else { };
 		
 		if (_sell == -1 && _buy == -1) then { 
 			lnbSetColor [_uiProductList, [_i, 4], _grayColor];
 			lnbSetColor [_uiProductList, [_i, 5], _grayColor];
 		};
 		
-		lnbSetColor [_uiProductList, [_i, 4], (if (_cargo > 0) then { _greenColor } else {_grayColor}) ];
+		lnbSetColor [_uiProductList, [_i, 4], (if (_cargo != 0) then { _greenColor } else {_grayColor}) ];
 		_i = _i+1;
 	} forEach marketProductCollection;
 	
@@ -331,10 +328,10 @@ while {alive player && dialog} do {
 		_lastSelectedProductId = _productId;
 	};
 	
-	ctrlEnable [_uiBuyVolumeButton, (_stockValue > 0 && (_currentFunds + _currentCost) >= 0 && _maxBuyValue > 0 && _costBuy != -1)];
-	ctrlEnable [_uiBuyVolumeSlider, (_stockValue > 0 && _maxBuyValue > 0 && _costBuy != -1)];
-	ctrlEnable [_uiSellVolumeButton, (_cargoValue > 0 && _costSell != -1)];
-	ctrlEnable [_uiSellVolumeSlider, (_cargoValue > 0 && _costSell != -1)];	
+	ctrlEnable [_uiBuyVolumeButton, (_stockValue != 0 && (_currentFunds + _currentCost) >= 0 && _maxBuyValue != 0 && _costBuy != -1)];
+	ctrlEnable [_uiBuyVolumeSlider, (_stockValue != 0 && _maxBuyValue != 0 && _costBuy != -1)];
+	ctrlEnable [_uiSellVolumeButton, (_cargoValue != 0 && _costSell != -1)];
+	ctrlEnable [_uiSellVolumeSlider, (_cargoValue != 0 && _costSell != -1)];	
 	
 	ctrlSetText [_uiCostText, format ["Cost: $%1", _currentCost]];	
 	ctrlSetText [_uiCashText, format ["Cash: $%1", _currentFunds]];	

@@ -34,10 +34,10 @@ while {true} do {
 		mouseButtonUp = -1;
 		_near = _map PosScreenToWorld[mouseX,mouseY];
 		_list = _near nearEntities [["Man","Car","Motorcycle","Ship","Tank","Air"],200];
-		if (count _list > 0) then {
+		if (count _list != 0) then {
 			_objects = [];
 			{if (!(_x isKindOf "Man") && side _x != sideJoined) then {if (count (crew _x) == 0) then {_objects = _objects - [_x]}};if (side _x == sideJoined) then {_objects = _objects + [_x]}} forEach _list;
-			if (count _objects > 0) then {
+			if (count _objects != 0) then {
 				_units = [_near,_objects] Call SortByDistance;
 				_currentUnit = (_units select 0) Call GetUnitVehicle;
 				_cameraSwap = true;

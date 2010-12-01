@@ -172,7 +172,7 @@ if (time < 30) then {
 	if !(alive _base) then {
 		waitUntil {!isNil Format["%1BaseStructures",sideJoinedText]};
 		_buildings = (sideJoinedText) Call GetSideStructures;
-		if (count _buildings > 0) then {
+		if (count _buildings != 0) then {
 			_base = _buildings select 0;
 		} else {
 			waitUntil {!isNil Format ["%1StartingLocation",sideJoinedText]};
@@ -237,7 +237,7 @@ if (playerType in Skills_Soldiers) then {['WFBE_MAXGROUPSIZE',('WFBE_MAXGROUPSIZ
 _voteTime = 0;
 _lo = false;
 while {!_lo} do {sleep 0.1;_voteTime = WF_Logic getVariable Format ["%1CommanderVoteTime",sideJoinedText];if !(isNil '_voteTime') then {_lo = true}};
-if (_voteTime > 0) then {createDialog "RscDisplayWFVoting"};
+if (_voteTime != 0) then {createDialog "RscDisplayWFVoting"};
 
 //--- Debug
 if (WF_Debug) then {
@@ -247,7 +247,7 @@ if (WF_Debug) then {
 } else {
 };
 
-if (paramBuildDefencesInTown > 0) then {
+if (paramBuildDefencesInTown != 0) then {
 	player addAction [localize 'STR_WF_BuildMenu_Repair','Client\Action\Action_BuildRepair.sqf', [], 99, false, true, '', 'townDefenceRange'];
 };
 

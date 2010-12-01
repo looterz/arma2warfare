@@ -55,7 +55,7 @@ if (_type == 'Sign_Danger') exitWith {
 
 Call Compile Format ["_defense addEventHandler ['Killed',{[_this select 0,_this select 1,%1] Spawn UnitKilled}]",_side];
 
-if (_defense EmptyPositions "gunner" > 0 && paramAutoDefense) then {
+if (_defense EmptyPositions "gunner" != 0 && paramAutoDefense) then {
 	_team = if (_side == WEST) then {WF_DefenseWestGrp} else {WF_DefenseEastGrp};
 
 	_defense Spawn HandleEmptyVehicle;

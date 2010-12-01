@@ -141,10 +141,10 @@ class FSM
        "_supply = _town getVariable ""supplyValue"";" \n
        "_timeToCapture = _camp getVariable ""supplyValue"";" \n
        "_force = (_east + _west) * _delay;" \n
-       "if (_sideID == EASTID && _east > 0) then {_timeToCapture = _timeToCapture + _east};" \n
-       "if (_sideID == EASTID && _west > 0) then {_timeToCapture = _timeToCapture - _west};" \n
-       "if (_sideID == WESTID && _west > 0) then {_timeToCapture = _timeToCapture + _west};" \n
-       "if (_sideID == WESTID && _east > 0) then {_timeToCapture = _timeToCapture - _east};" \n
+       "if (_sideID == EASTID && _east != 0) then {_timeToCapture = _timeToCapture + _east};" \n
+       "if (_sideID == EASTID && _west != 0) then {_timeToCapture = _timeToCapture - _west};" \n
+       "if (_sideID == WESTID && _west != 0) then {_timeToCapture = _timeToCapture + _west};" \n
+       "if (_sideID == WESTID && _east != 0) then {_timeToCapture = _timeToCapture - _east};" \n
        "if (_sideID != EASTID && _sideID != WESTID) then {_timeToCapture = _timeToCapture - _force};" \n
        "if (_timeToCapture > _supply) then {_timeToCapture = _supply};" \n
        "if (_timeToCapture <= 0) then {_skip = true;_capture = true};" \n
@@ -207,7 +207,7 @@ class FSM
     {
       name = "Capture";
       init = /*%FSM<STATEINIT""">*/"_captureSideID = WESTID;" \n
-       "if (_sideID == WESTID || (_sideID == RESISTANCEID && _east > 0)) then {_captureSideID = EASTID};" \n
+       "if (_sideID == WESTID || (_sideID == RESISTANCEID && _east != 0)) then {_captureSideID = EASTID};" \n
        "_side = _sideID Call GetSideFromID;" \n
        "if (_sideID == WESTID || _sideID == EASTID) then {[""LostAt"",""Strongpoint"",_side,_town] Spawn SideMessage};" \n
        "_camp setVariable [""sideID"",_captureSideID,true];" \n

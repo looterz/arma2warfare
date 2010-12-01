@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("BuyUnit_CreateUnit");
 
-Private ["_clientId", "_building", "_unitType", "_side", "_team", "_vehInfo", "_isAITeam", "_sideTeam", "_vehicleCreated", "_unitsCreated", "_unitCreated", "_distance", "_direction", "_type", "_index", "_position", "_driver", "_gunner", "_comander", "_locked", "_factoryPosition", "_crew", "_crewUnit", "_config", "_turrets" ];	
+Private ["_args", "_clientId", "_building", "_unitType", "_side", "_team", "_vehInfo", "_isAITeam", "_sideTeam", "_vehicleCreated", "_unitsCreated", "_unitCreated", "_distance", "_direction", "_type", "_index", "_position", "_driver", "_gunner", "_comander", "_locked", "_factoryPosition", "_crew", "_crewUnit", "_config", "_turrets" ];	
 
 	_clientId = _this select 0;
 	_building = _this select 1;
@@ -56,10 +56,11 @@ Private ["_clientId", "_building", "_unitType", "_side", "_team", "_vehInfo", "_
 		_comander = false;
 		_locked   = true;
 	
-		if ( (count _vehInfo) > 0 ) then {  _driver   = _vehInfo select 0; };
-		if ( (count _vehInfo) > 1 ) then {  _gunner   = _vehInfo select 1; };
-		if ( (count _vehInfo) > 2 ) then {  _comander = _vehInfo select 2; };
-		if ( (count _vehInfo) > 3 ) then {  _locked   = _vehInfo select 3; };
+		_args = (count _vehInfo);
+		if ( _args > 0 ) then {  _driver   = _vehInfo select 0;  };
+		if ( _args > 1 ) then {  _gunner   = _vehInfo select 1;  };
+		if ( _args > 2 ) then {  _comander = _vehInfo select 2;  };
+		if ( _args > 3 ) then {  _locked   = _vehInfo select 3;  };
 
 		_unitCreated = [_unitType, _position, _side, _locked] Call CreateVehi;
 		
@@ -141,7 +142,7 @@ Private ["_clientId", "_building", "_unitType", "_side", "_team", "_vehInfo", "_
 			
 			_config = configFile >> "CfgVehicles" >> _unitType >> "Turrets";
 			_turrets = [_config] call BIS_fnc_returnVehicleTurrets;
-			if (count _turrets > 0) then {
+			if (count _turrets != 0) then {
 				[_turrets, [], _vehicle, _crew, _team] call SpawnTurrets;
 			};
 		};

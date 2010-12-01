@@ -15,7 +15,7 @@ _sorted = [player,_locations] Call SortByDistance;
 {_names = _names + [_x getVariable "name"]} forEach _sorted;
 
 {lbAdd[19005,_x]} forEach _names;
-if (count _sorted > 0) then {
+if (count _sorted != 0) then {
 	lbSetCurSel[19005,0];
 	_map CtrlMapAnimAdd [2,.140,GetPos (_sorted select 0)];
 	CtrlMapAnimCommit _map;

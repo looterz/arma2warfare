@@ -159,7 +159,7 @@ class FSM
           priority = 0.000000;
           to="Check__Locations";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"count _destinations > 0 && !_isDelivering"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"count _destinations != 0 && !_isDelivering"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -196,7 +196,7 @@ class FSM
        "	if (_possibleLoc == _hq) then {" \n
        "		_buildings = (str _side) Call GetSideStructures;" \n
        "		_checks = [_side,_spt,_buildings] Call GetFactories;" \n
-       "		if (count _checks > 0) then {" \n
+       "		if (count _checks != 0) then {" \n
        "			_sorted = [_vehicle,_checks] Call SortByDistance;" \n
        "			_nearest = _sorted select 0;" \n
        "			_deployed = (str _side) Call GetSideHQDeployed;" \n

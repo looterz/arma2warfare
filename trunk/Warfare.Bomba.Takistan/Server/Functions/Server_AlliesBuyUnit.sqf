@@ -37,7 +37,7 @@ _longest = Format ["WFBE_LONGEST%1BUILDTIME",_factoryType] Call GetNamespace;
 _ret = 0;
 _queu2 = [0];
 
-if (count _queu > 0) then {
+if (count _queu != 0) then {
 	_queu2 = _building getVariable "queu";
 };
 
@@ -55,7 +55,7 @@ while {_id select 0 != _queu select 0} do {
 	
 	if (_queu select 0 == _queu2 select 0) then {
 		if (_ret > _longest) then {
-			if (count _queu > 0) then {
+			if (count _queu != 0) then {
 				_queu = _building getVariable "queu";
 				_queu = _queu - [_queu select 0];
 				_building setVariable ["queu",_queu];
@@ -135,7 +135,7 @@ if (_unitType isKindOf "Man") then {
 	_config = configFile >> "CfgVehicles" >> _unitType >> "Turrets";
 	_turrets = [_config] call BIS_fnc_returnVehicleTurrets;
 	WF_Logic setVariable [Format["%1UnitsCreated",_sideText],_built,true];
-	if (count _turrets > 0) then {[_turrets, [], _vehicle, _crew, _team] call SpawnTurrets};
+	if (count _turrets != 0) then {[_turrets, [], _vehicle, _crew, _team] call SpawnTurrets};
 };
 
 PROFILER_END();

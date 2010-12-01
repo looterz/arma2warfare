@@ -18,7 +18,7 @@ _limit = if (_newMagIsSide) then {8} else {12};
 	_cmag = _x;
 	_ct = {_x == _cmag} count _oldMags;
 	
-	if (_ct > 0) then {
+	if (_ct != 0) then {
 		_get = _cmag Call GetNamespace;
 		_presentMags = _presentMags + [_cmag];
 		_spaceToReduce = _spaceToReduce + (_get select QUERYGEARSPACE);

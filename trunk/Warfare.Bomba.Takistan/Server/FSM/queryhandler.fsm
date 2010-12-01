@@ -55,14 +55,14 @@ class FSM
        "" \n
        "_query = """";" \n
        "" \n
-       "if (count _cobjects > 0) then {" \n
+       "if (count _cobjects != 0) then {" \n
        "	_query = _cobjects select 0;" \n
        "	_cobjects set [0,""nil""];" \n
        "	_cobjects = _cobjects - [""nil""];" \n
        "	WF_Logic setVariable [""WF_MYSQL_CLIENT"",_cobjects,true];" \n
        "};" \n
        "" \n
-       "if (count _sobjects > 0 && _query == """") then {" \n
+       "if (count _sobjects != 0 && _query == """") then {" \n
        "	_query = _sobjects select 0;" \n
        "	_sobjects set [0,""nil""];" \n
        "	_sobjects = _sobjects - [""nil""];" \n

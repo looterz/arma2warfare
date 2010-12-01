@@ -46,7 +46,7 @@ class FSM
       name = "Update_Empty_Veh";
       init = /*%FSM<STATEINIT""">*/"" \n
 	   "_vehicles = WF_Logic getVariable ""emptyVehicles"";" \n
-       "if ((count _vehicles) > 0) then { WF_Logic setVariable [""emptyVehicles"",[], true]; }; " \n
+       "if ((count _vehicles) != 0) then { WF_Logic setVariable [""emptyVehicles"",[], true]; }; " \n
        "{" \n
        "	_x Spawn HandleEmptyVehicle;" \n
        "} forEach _vehicles;" \n

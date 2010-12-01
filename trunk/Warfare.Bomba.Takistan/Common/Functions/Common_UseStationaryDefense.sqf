@@ -17,7 +17,7 @@ _defenses = (leader group (_units select 0)) nearEntities[_defenseTypes,_range];
 
 _emptyDefenses = [];
 
-{if (_x EmptyPositions "gunner" > 0) then {_emptyDefenses = _emptyDefenses + [_x]}} forEach _defenses;
+{if (_x EmptyPositions "gunner" != 0) then {_emptyDefenses = _emptyDefenses + [_x]}} forEach _defenses;
 
 _count = _total;
 while { !(_count == 0) } do
@@ -27,7 +27,9 @@ while { !(_count == 0) } do
 	_unit = _units select _count;
 
 	_totalDefenses = count _emptyDefenses;
-	if (_totalDefenses < 1) exitWith {};
+	if (_totalDefenses == 0) exitWith {
+		PROFILER_END();
+	};
 
 	//If not in a vehicle then check for available defense.
 	if (alive _unit && _unit == vehicle _unit) then

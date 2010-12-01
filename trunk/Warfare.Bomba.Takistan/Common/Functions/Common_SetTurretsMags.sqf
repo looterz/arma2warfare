@@ -8,13 +8,11 @@ _turretPath = if (count _this > 2) then {_this select 2} else {[]};
 _cpt = count _turretPath;
 
 _i = count _data;
-while { !(_i == 0) } do
-{
+while { _i != 0 } do {
 	_i = _i - 1;
 	
-	_dataRow = _data select _i;
-	
-	if (count _dataRow > 0) then {
+	_dataRow = _data select _i;	
+	if (count _dataRow != 0) then {
 		if (typeName _dataRow == 'ARRAY') then {
 			_content = _dataRow select 0;
 			//--- root.

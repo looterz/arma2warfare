@@ -20,7 +20,7 @@ if !(isNil 'respawnBag') then {
 	clearMagazineCargo (unitBackpack player);
 	
 	/* We add the player's backpack content inside the new one */
-	if (count (respawnBagContent select 0) > 0) then {
+	if (count (respawnBagContent select 0) != 0) then {
 		for '_u' from 0 to count(respawnBagContent select 0)-1 do {
 			(unitBackpack player) addMagazineCargo [(respawnBagContent select 0) select _u, (respawnBagContent select 1) select _u];
 		};

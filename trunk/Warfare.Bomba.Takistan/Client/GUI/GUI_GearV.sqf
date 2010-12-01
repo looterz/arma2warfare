@@ -117,7 +117,7 @@ _buildings = (sideJoinedText) Call GetSideStructures;
 	_inRange = _check select 1;
 	if (!_inRange) then {
 		_nObjects = nearestObjects [_x, WFCAMP, 20];
-		_nObject = if (count _nObjects > 0) then {_nObjects select 0} else {objNull};
+		_nObject = if (count _nObjects != 0) then {_nObjects select 0} else {objNull};
 		if !(isNull _nObject) then {
 			_sideID = _nObject getVariable "sideID";
 			if !(isNil "_sideID") then {
@@ -137,7 +137,7 @@ _buildings = (sideJoinedText) Call GetSideStructures;
 		lbAdd [3854,Format["[%1] %2 (%3)",_txt,name _x,_type]];
 	};
 } forEach units(group player);
-if (count _unitList > 0) then {lbSetCurSel[3854,0]};
+if (count _unitList != 0) then {lbSetCurSel[3854,0]};
 _currentUnit = player;
 
 while {alive player && dialog} do {
@@ -193,7 +193,7 @@ while {alive player && dialog} do {
 			if !(isNil '_get') then {
 				_currentMags = _get select QUERYGEARMAGAZINES;
 				if (typeName _currentMags != 'SCALAR') then {
-					if (count _currentMags > 0) then {
+					if (count _currentMags != 0) then {
 						[_currentMags,'magazine',_lbm] Call UIGearFillList;
 					};
 				};
@@ -291,9 +291,9 @@ while {alive player && dialog} do {
 							_get = _x Call GetNamespace;
 						};
 						
-						if (({_x == _cwep} count _primary) > 0) then {_currentWeapons = _currentWeapons + [_x];_currentPrimary = _x;_currentPrimaryCost = _get select QUERYGEARCOST;ctrlSetText[_primaryIDC,_get select QUERYGEARPICTURE]} else {
-							if (({_x == _cwep} count _secondary) > 0) then {_currentWeapons = _currentWeapons + [_x];_currentSecondary = _x;_currentSecondaryCost = _get select QUERYGEARCOST;ctrlSetText[_secondaryIDC,_get select QUERYGEARPICTURE]} else {
-								if (({_x == _cwep} count _sidearm) > 0) then {_currentWeapons = _currentWeapons + [_x];_currentSidearm = _x;_currentSidearmCost = _get select QUERYGEARCOST;ctrlSetText[_sidearmIDC,_get select QUERYGEARPICTURE]};
+						if (({_x == _cwep} count _primary) != 0) then {_currentWeapons = _currentWeapons + [_x];_currentPrimary = _x;_currentPrimaryCost = _get select QUERYGEARCOST;ctrlSetText[_primaryIDC,_get select QUERYGEARPICTURE]} else {
+							if (({_x == _cwep} count _secondary) != 0) then {_currentWeapons = _currentWeapons + [_x];_currentSecondary = _x;_currentSecondaryCost = _get select QUERYGEARCOST;ctrlSetText[_secondaryIDC,_get select QUERYGEARPICTURE]} else {
+								if (({_x == _cwep} count _sidearm) != 0) then {_currentWeapons = _currentWeapons + [_x];_currentSidearm = _x;_currentSidearmCost = _get select QUERYGEARCOST;ctrlSetText[_sidearmIDC,_get select QUERYGEARPICTURE]};
 							};
 						};
 					} forEach _tempWeapons;
@@ -332,7 +332,7 @@ while {alive player && dialog} do {
 
 	if (_unitSwap) then {
 		WF_Logic setVariable ['WF_GEAR_Swap',false];
-		if (count _unitList > 0) then {_currentUnit = _unitList select (lbCurSel 3854)} else {_currentUnit = player};
+		if (count _unitList != 0) then {_currentUnit = _unitList select (lbCurSel 3854)} else {_currentUnit = player};
 		_updateUnit = true;
 	};
 	
@@ -376,16 +376,16 @@ while {alive player && dialog} do {
 			if !(isNil '_get') then {
 				_found = false;
 				_index = {_x == _cwep} count _primary;
-				if (_index > 0) then {_currentPrimary = _cwep;_currentPrimaryCost = _get select QUERYGEARCOST;ctrlSetText[_primaryIDC,_get select QUERYGEARPICTURE];_found = true};
+				if (_index != 0) then {_currentPrimary = _cwep;_currentPrimaryCost = _get select QUERYGEARCOST;ctrlSetText[_primaryIDC,_get select QUERYGEARPICTURE];_found = true};
 				if !(_found) then {
 					_index = {_x == _cwep} count _secondary;
-					if (_index > 0) then {_currentSecondary = _cwep;_currentSecondaryCost = _get select QUERYGEARCOST;ctrlSetText[_secondaryIDC,_get select QUERYGEARPICTURE];_found = true};
+					if (_index != 0) then {_currentSecondary = _cwep;_currentSecondaryCost = _get select QUERYGEARCOST;ctrlSetText[_secondaryIDC,_get select QUERYGEARPICTURE];_found = true};
 					if !(_found) then {
 						_index = {_x == _cwep} count _sidearm;
-						if (_index > 0) then {_currentSidearm = _cwep;_currentSidearmCost = _get select QUERYGEARCOST;ctrlSetText[_sidearmIDC,_get select QUERYGEARPICTURE];_found = true};
+						if (_index != 0) then {_currentSidearm = _cwep;_currentSidearmCost = _get select QUERYGEARCOST;ctrlSetText[_sidearmIDC,_get select QUERYGEARPICTURE];_found = true};
 						if !(_found) then {
 							_index = {_x == _cwep} count _misc;
-							if (_index > 0) then {
+							if (_index != 0) then {
 								switch (_get select QUERYGEARTYPE) do {
 									case 'Special': {
 										_currentSpecials = _currentSpecials + [_x];
@@ -487,13 +487,13 @@ while {alive player && dialog} do {
 						
 						if !(isNil '_get') then {
 							_index = {_x == _cwep} count _primary;
-							if (_index > 0) then {_currentWeapons = _currentWeapons + [_x];_currentPrimary = _x;_currentPrimaryCost = _get select QUERYGEARCOST;ctrlSetText[_primaryIDC,_get select QUERYGEARPICTURE]} else {
+							if (_index != 0) then {_currentWeapons = _currentWeapons + [_x];_currentPrimary = _x;_currentPrimaryCost = _get select QUERYGEARCOST;ctrlSetText[_primaryIDC,_get select QUERYGEARPICTURE]} else {
 								_index = {_x == _cwep} count _secondary;
-								if (_index > 0) then {_currentWeapons = _currentWeapons + [_x];_currentSecondary = _x;_currentSecondaryCost = _get select QUERYGEARCOST;ctrlSetText[_secondaryIDC,_get select QUERYGEARPICTURE]} else {
+								if (_index != 0) then {_currentWeapons = _currentWeapons + [_x];_currentSecondary = _x;_currentSecondaryCost = _get select QUERYGEARCOST;ctrlSetText[_secondaryIDC,_get select QUERYGEARPICTURE]} else {
 									_index = {_x == _cwep} count _sidearm;
-									if (_index > 0) then {_currentWeapons = _currentWeapons + [_x];_currentSidearm = _x;_currentSidearmCost = _get select QUERYGEARCOST;ctrlSetText[_sidearmIDC,_get select QUERYGEARPICTURE]} else {
+									if (_index != 0) then {_currentWeapons = _currentWeapons + [_x];_currentSidearm = _x;_currentSidearmCost = _get select QUERYGEARCOST;ctrlSetText[_sidearmIDC,_get select QUERYGEARPICTURE]} else {
 										_index = {_x == _cwep} count _misc;
-										if (_index > 0) then {
+										if (_index != 0) then {
 											switch (_get select QUERYGEARTYPE) do {
 												case 'Special': {
 													_currentSpecials = _currentSpecials + [_x];
