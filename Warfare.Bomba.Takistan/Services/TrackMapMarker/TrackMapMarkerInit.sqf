@@ -3,6 +3,7 @@
 	TrackMapMarkerProc = Compile preprocessFile "Services\TrackMapMarker\TrackMapMarkerProc.sqf";
 	TrackMapMarkerUpdateAlive = Compile preprocessFile "Services\TrackMapMarker\TrackMapMarkerUpdateAlive.sqf";
 	TrackMapMarkerUpdateDead = Compile preprocessFile "Services\TrackMapMarker\TrackMapMarkerUpdateDead.sqf";
+	TrackMapMarkerSetName = Compile preprocessFile "Services\TrackMapMarker\TrackMapMarkerSetName.sqf";
 	
 	trackMapMarkerNext = time;
 	
