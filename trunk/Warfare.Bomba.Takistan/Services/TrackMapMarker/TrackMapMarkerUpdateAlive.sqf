@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Service_TrackMapMarkerUpdateAlive");
 
-private['_u', '_mygroup', '_text', '_amount', '_val', '_val2', '_ainumber', '_visible', '_timeout', '_marker', '_tracked', '_markerName', '_dirty', '_trackDeath', '_deathMarkerType', '_deathMarkerColor', '_deathMarkerSize' ];
+private['_u', '_mygroup', '_newDeadMarkers', '_text', '_amount', '_val', '_val2', '_ainumber', '_visible', '_timeout', '_marker', '_tracked', '_markerName', '_dirty', '_trackDeath', '_deathMarkerType', '_deathMarkerColor', '_deathMarkerSize' ];
 
 	//--- _markerType 	    = _marker select 0;
 	//--- _markerColor 	    = _marker select 1;
@@ -18,6 +18,7 @@ private['_u', '_mygroup', '_text', '_amount', '_val', '_val2', '_ainumber', '_vi
 	//--- _deathMarkerSize  = _marker select 12;
 	//--- _condition        = _marker select 13;
 
+	_newDeadMarkers = [];
 	_mygroup = group player;
 	_dirty = false;
 	_u = count WBE_TrackedMarkerList;
@@ -38,20 +39,9 @@ private['_u', '_mygroup', '_text', '_amount', '_val', '_val2', '_ainumber', '_vi
 				_markerName setMarkerAlphaLocal 1;
 				_markerName setMarkerPosLocal (getPos _tracked);
 			
-				if (group _tracked == _mygroup && (_tracked isKindOf "Man")) then {
-				
-					_markerText = _marker select 3;
-					if (_markerText == "" || _markerText == "TE") then {
-						
-						_markerText = toArray(str _tracked);
-						_amount = count _markerText;
-						_val = _markerText select (_amount-2);
-						_val2 = _markerText select (_amount-1);
-						_ainumber = if (_val == 58) then {[_val2]} else {[_val, _val2]};
-						_markerText = toString(_ainumber);
-						
-						_marker set[3, _markerText];
-						_markerName setMarkerTextLocal _markerText;							
+				if (group _tracked == _mygroup) then {
+					if (_tracked isKindOf "Man") then {
+						_marker spawn TrackMapMarkerSetName;
 					};
 				};		
 			} else {
@@ -74,11 +64,15 @@ private['_u', '_mygroup', '_text', '_amount', '_val', '_val2', '_ainumber', '_vi
 				_markerName setMarkerSizeLocal _deathMarkerSize;
 				
 				_timeout = time + ('WFBE_MARKERDEADDELAY' Call GetNamespace);
-				WBE_TrackDeadMarkers = WBE_TrackDeadMarkers + [ [_markerName, _timeout] ];
+				_newDeadMarkers = _newDeadMarkers + [ [_markerName, _timeout] ];
 			} else {
-				WBE_TrackDeadMarkers = WBE_TrackDeadMarkers + [ [_markerName, 0] ];
+				deleteMarkerLocal _markerName;
 			};
 		};
+	};
+	
+	if (count _newDeadMarkers != 0) then {
+		WBE_TrackDeadMarkers = WBE_TrackDeadMarkers + _newDeadMarkers;
 	};
 	
 	if (_dirty) then {
