@@ -8,7 +8,7 @@ _deltaRate = 5;
 
 _townDepotNear = 0;
 _nearestTownDepots = nearestObjects [player, WFDEPOT,('WFBE_TOWNPURCHASERANGE' Call GetNamespace)];
-_nearTown = if (count _nearestTownDepots > 0) then {_nearestTownDepots select 0} else {objNull};
+_nearTown = if (count _nearestTownDepots != 0) then {_nearestTownDepots select 0} else {objNull};
 if (!isNull _nearTown) then {
 	_sideID = _nearTown getVariable "sideID";
 	if !(isNil "_sideID") then {

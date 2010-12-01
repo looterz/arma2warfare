@@ -113,7 +113,7 @@ _locationLogics = [];
 if (paramSpawnRestriction) then {
 	{
 		_nearLogics = _x nearEntities[["LocationLogic"],2000];
-		if (count _nearLogics > 0) then {{if !(_x in _locationLogics) then {_locationLogics = _locationLogics + [_x]}} forEach _nearLogics};
+		if (count _nearLogics != 0) then {{if !(_x in _locationLogics) then {_locationLogics = _locationLogics + [_x]}} forEach _nearLogics};
 	} forEach towns;
 	if (count _locationLogics < 3) then {{if !(_x in _locationLogics) then {_locationLogics = _locationLogics + [_x]}} forEach [StartingLocation0,StartingLocation1]};
 	"Init_Server: Spawn Restriction - [Done]"  call LogMedium;
@@ -345,7 +345,7 @@ createMarkerLocal ["Respawn_west",getPos WestMHQ];
 "Init_Server: Respawn Markers - [Done]" call LogHigh;
 
 //--- Town starting mode.
-if (('WFBE_TOWNSTARTINGMODE' Call GetNamespace) != 0 || ('WFBE_RESPATROL' Call GetNamespace) > 0 || ('WFBE_RESSTRIKER' Call GetNamespace) > 0) then {[] Call Compile preprocessFile "Server\Init\Init_Towns.sqf"};
+if (('WFBE_TOWNSTARTINGMODE' Call GetNamespace) != 0 || ('WFBE_RESPATROL' Call GetNamespace) != 0 || ('WFBE_RESSTRIKER' Call GetNamespace) != 0) then {[] Call Compile preprocessFile "Server\Init\Init_Towns.sqf"};
 
 //--- Starter Vehicles:
 _starterVehicle = [];
@@ -464,7 +464,7 @@ if (paramAlice) then {
 
 
 //--- Waiting until that the game is launched.
-waitUntil {time > 0};
+waitUntil {time != 0};
 serverInitComplete = true;
 
 [East] Spawn SVoteForCommander;

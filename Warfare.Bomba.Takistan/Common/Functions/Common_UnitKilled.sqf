@@ -29,7 +29,7 @@ _isMan = true;
 if !(_killed isKindOf "Man") then {
 	_crew = crew _killed;
 	_isMan = false;
-	if (count _crew > 0) then {{_x setPos [(getPos _killed select 0)-random(2)+random(4),(getPos _killed select 1)-random(2)+random(4),getPos _killed select 2]} forEach _crew};
+	if (count _crew != 0) then {{_x setPos [(getPos _killed select 0)-random(2)+random(4),(getPos _killed select 1)-random(2)+random(4),getPos _killed select 2]} forEach _crew};
 };
 
 if (mysql) then {
@@ -61,7 +61,7 @@ private['_killedQueu', '_side', '_count', '_varName', '_lost', '_isMan'];
 	_isMan = _this select 3;
 	
 	_count = { ((_x select 1) == _isMan) && ((_x select 2) == _side) } count _killedQueu;
-	if (_count > 0) then {
+	if (_count != 0) then {
 		_varName = Format ["%1%2", _side, _varName];
 		_lost = WF_Logic getVariable _varName;
 		WF_Logic setVariable [_varName, _lost + _count, true];
@@ -76,7 +76,7 @@ private['_tmpKilledQueu', '_killedList', '_x'];
 	sleep 10;
 	StateUpdateKillStatistic = 0;
 	
-	if (count unitKilledQueu > 0) then {
+	if (count unitKilledQueu != 0) then {
 
 		_tmpKilledQueu = [] + unitKilledQueu;
 		unitKilledQueu = [];

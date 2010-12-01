@@ -16,7 +16,7 @@ switch ('WFBE_TOWNSTARTINGMODE' Call GetNamespace) do {
 		_nearTownsE = [];
 		
 		_near = [_wStart,towns] Call SortByDistance;
-		if (count _near > 0) then {
+		if (count _near != 0) then {
 			for [{_x = 0},{_x < _half},{_x = _x + 1}] do {_nearTownsW = _nearTownsW + [_near select _x]};
 		};
 		
@@ -44,12 +44,12 @@ switch ('WFBE_TOWNSTARTINGMODE' Call GetNamespace) do {
 		_nearTownsE = [];
 		
 		_near = [_wStart,towns] Call SortByDistance;
-		if (count _near > 0) then {
+		if (count _near != 0) then {
 			for [{_x = 0},{_x < _limit},{_x = _x + 1}] do {_nearTownsW = _nearTownsW + [_near select _x]};
 		};
 		
 		_near = [_eStart,(towns - _nearTownsW)] Call SortByDistance;
-		if (count _near > 0) then {
+		if (count _near != 0) then {
 			for [{_x = 0},{_x < _limit},{_x = _x + 1}] do {_nearTownsE = _nearTownsE + [_near select _x]};
 		};
 		
@@ -71,7 +71,7 @@ switch ('WFBE_TOWNSTARTINGMODE' Call GetNamespace) do {
 };
 
 //--- Resistance Patrols.
-if (('WFBE_TOWNSTARTINGMODE' Call GetNamespace) != 1 && ('WFBE_RESPATROL' Call GetNamespace > 0)) then {
+if (('WFBE_TOWNSTARTINGMODE' Call GetNamespace) != 1 && ('WFBE_RESPATROL' Call GetNamespace != 0)) then {
 	_require = if (('WFBE_RESPATROL' Call GetNamespace) > count towns) then {count towns} else {'WFBE_RESPATROL' Call GetNamespace};
 	_initied = 0;
 	_towns = towns;
@@ -92,7 +92,7 @@ if (('WFBE_TOWNSTARTINGMODE' Call GetNamespace) != 1 && ('WFBE_RESPATROL' Call G
 };
 
 //--- Resistance Strikers.
-if (('WFBE_TOWNSTARTINGMODE' Call GetNamespace) != 1 && ('WFBE_RESSTRIKER' Call GetNamespace) > 0) then {
+if (('WFBE_TOWNSTARTINGMODE' Call GetNamespace) != 1 && ('WFBE_RESSTRIKER' Call GetNamespace) != 0) then {
 	_require = if (('WFBE_RESSTRIKER' Call GetNamespace) > count towns) then {count towns} else {'WFBE_RESSTRIKER' Call GetNamespace};
 	_initied = 0;
 	_towns = towns;

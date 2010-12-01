@@ -150,7 +150,7 @@ class FSM
        "if (_SV != 1000) then {" \n
        "	_buildings = (sideJoinedText) Call GetSideStructures;" \n
        "	_checks = [sideJoined,Format [""WFBE_%1SERVICEPOINTTYPE"",sideJoinedText] Call GetNamespace,_buildings] Call GetFactories;" \n
-       "	if (count _checks > 0) then {" \n
+       "	if (count _checks != 0) then {" \n
        "		_sorted = [_vehicle,_checks] Call SortByDistance;" \n
        "		_nearest = _sorted select 0;" \n
        "		if (_vehicle distance _nearest < 70) then {_SV = 1000;_vehicle setFuel 1;_lastDestination = _nearest;if (_playerInVehicle) then {hint (localize ""STR_WF_Supply_Full"")}};" \n

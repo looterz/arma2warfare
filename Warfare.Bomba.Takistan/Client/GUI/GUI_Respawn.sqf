@@ -18,7 +18,7 @@ if (!isNull commanderTeam) then {
 	if (commanderTeam == group player) then {HQAction = player addAction [localize "STR_WF_BuildMenu","Client\Action\Action_Build.sqf", [_hq], 100, false, true, "", "hqInRange && canBuildWHQ"]};
 };
 
-if (paramBuildDefencesInTown > 0) then {
+if (paramBuildDefencesInTown != 0) then {
 	player addAction [localize 'STR_WF_BuildMenu_Repair','Client\Action\Action_BuildRepair.sqf', [], 99, false, true, '', 'townDefenceRange'];
 };
 
@@ -31,17 +31,17 @@ _hq = (sideJoinedText) Call GetSideHQ;
 _availableSpawn = [_hq];
 _buildings = (sideJoinedText) Call GetSideStructures;
 _checks = [sideJoined,Format ["WFBE_%1BARRACKSTYPE",sideJoinedText] Call GetNamespace,_buildings] Call GetFactories;
-if (count _checks > 0) then {_availableSpawn = _availableSpawn + _checks};
+if (count _checks != 0) then {_availableSpawn = _availableSpawn + _checks};
 _checks = [sideJoined,Format ["WFBE_%1LIGHTTYPE",sideJoinedText] Call GetNamespace,_buildings] Call GetFactories;
-if (count _checks > 0) then {_availableSpawn = _availableSpawn + _checks};
+if (count _checks != 0) then {_availableSpawn = _availableSpawn + _checks};
 _checks = [sideJoined,Format ["WFBE_%1COMMANDCENTERTYPE",sideJoinedText] Call GetNamespace,_buildings] Call GetFactories;
-if (count _checks > 0) then {_availableSpawn = _availableSpawn + _checks};
+if (count _checks != 0) then {_availableSpawn = _availableSpawn + _checks};
 _checks = [sideJoined,Format ["WFBE_%1HEAVYTYPE",sideJoinedText] Call GetNamespace,_buildings] Call GetFactories;
-if (count _checks > 0) then {_availableSpawn = _availableSpawn + _checks};
+if (count _checks != 0) then {_availableSpawn = _availableSpawn + _checks};
 _checks = [sideJoined,Format ["WFBE_%1AIRCRAFTTYPE",sideJoinedText] Call GetNamespace,_buildings] Call GetFactories;
-if (count _checks > 0) then {_availableSpawn = _availableSpawn + _checks};
+if (count _checks != 0) then {_availableSpawn = _availableSpawn + _checks};
 _checks = [sideJoined,Format ["WFBE_%1SERVICEPOINTTYPE",sideJoinedText] Call GetNamespace,_buildings] Call GetFactories;
-if (count _checks > 0) then {_availableSpawn = _availableSpawn + _checks};
+if (count _checks != 0) then {_availableSpawn = _availableSpawn + _checks};
 
 //--- HQ is dead, but we can spawn at other buildings.
 if (!alive _hq && count _availableSpawn > 1) then {_availableSpawn = _availableSpawn - [_hq]};
@@ -52,7 +52,7 @@ if (paramMobileRespawn) then {
 	_upgrades = (sideJoinedText) Call GetSideUpgrades;
 	_range = (Format["WFBE_RESPAWNMOBILERANGE%1",(_upgrades select 7)] Call GetNamespace);
 	_checks = deathLocation nearEntities[_mobileRespawns,_range];
-	if (count _checks > 0) then {
+	if (count _checks != 0) then {
 		{if (alive _x) then {_availableSpawn = _availableSpawn + [_x]}} forEach _checks;
 	};
 };
@@ -63,7 +63,7 @@ if (paramRespawnMASH) then {
 	_upgrades = (sideJoinedText) Call GetSideUpgrades;
 	_range = (Format["WFBE_RESPAWNMOBILERANGE%1",(_upgrades select 7)] Call GetNamespace);
 	_checks = nearestObjects [deathLocation, [_farps], _range];
-	if (count _checks > 0) then {
+	if (count _checks != 0) then {
 		{if (alive _x) then {_availableSpawn = _availableSpawn + [_x]}} forEach _checks;
 	};
 };
@@ -74,7 +74,7 @@ if (paramCampRespawn) then {
 	if (!isNull _town) then {
 		if (_town distance deathLocation  < ('WFBE_RESPAWNRANGE' Call GetNamespace)) then {
 			_camps = [_town,sideJoined] Call GetFriendlyCamps;
-			if (count _camps > 0) then {
+			if (count _camps != 0) then {
 				if (paramCampRespawnRule) then {
 					_closestCamps = [deathLocation,_camps] Call SortByDistance;
 					_closestCamp = _closestCamps select 0;
@@ -82,7 +82,7 @@ if (paramCampRespawn) then {
 					_objs = _objects;
 					{if (!(_x isKindOf "Man")) then {if (count (crew _x) == 0) then {_objects = _objects - [_x]}}} forEach _objs;
 					_hostiles = if (sideJoined == West) then {East countSide _objects} else {West countSide _objects};
-					if (deathLocation distance _closestCamp < ('WFBE_RESPAWNMINRANGE' Call GetNamespace) && _hostiles > 0) then {_camps = _camps - [_closestCamp]};
+					if (deathLocation distance _closestCamp < ('WFBE_RESPAWNMINRANGE' Call GetNamespace) && _hostiles != 0) then {_camps = _camps - [_closestCamp]};
 				};
 				_availableSpawn = _availableSpawn + _camps;
 			};

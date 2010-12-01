@@ -132,7 +132,7 @@ _fillList = {
 	
 	_tmplistUnits = nil;
 	
-	if (_i > 0) then {lnbSetCurSelRow [_listBox,0]} else {lnbSetCurSelRow [_listBox,-1]};
+	if (_i != 0) then {lnbSetCurSelRow [_listBox,0]} else {lnbSetCurSelRow [_listBox,-1]};
 };
 
 _changeFactionCombo = {
@@ -242,7 +242,7 @@ while {alive player && dialog} do {
 			//--- Specials.
 			case 'Depot': {
 				_nObjects = nearestObjects [player, WFDEPOT,('WFBE_TOWNPURCHASERANGE' Call GetNamespace)];
-				_closest = if (count _nObjects > 0) then {_nObjects select 0} else {objNull};
+				_closest = if (count _nObjects != 0) then {_nObjects select 0} else {objNull};
 				_sorted = [_closest];
 			};
 			case 'Airport': {
@@ -259,10 +259,10 @@ while {alive player && dialog} do {
 				_sorted = [player,_factories] Call SortByDistance;
 				_closest = _sorted select 0;
 			
-				if (paramBuyVehiclesInTown && _countAlive > 0 && depotInRange && _type != 'Aircraft') then {
+				if (paramBuyVehiclesInTown && _countAlive != 0 && depotInRange && _type != 'Aircraft') then {
 					
 					_nearDepotList = nearestObjects [player, WFDEPOT,('WFBE_TOWNPURCHASERANGE' Call GetNamespace)];
-					if (count _nearDepotList > 0) then {
+					if (count _nearDepotList != 0) then {
 						
 						_nearDepot = _nearDepotList select 0;
 						if (_closest distance _nearDepot >  0.8*('WFBE_DEFENSEMANRANGE' Call GetNamespace)) then {
@@ -309,7 +309,7 @@ while {alive player && dialog} do {
 				format["F=%1", _factories1] call LogMedium;
 				format["S=%1", _sorted1] call LogMedium;
 				
-				_closestFactory = if (count _sorted1 > 0) then { _sorted1 select 0; } else { objNull; };
+				_closestFactory = if (count _sorted1 != 0) then { _sorted1 select 0; } else { objNull; };
 			}; //-- buy in central depot
 		
 			if (!(isNull _closestFactory)) then {
@@ -319,7 +319,7 @@ while {alive player && dialog} do {
 				_range = _range * 0.8;
 				
 				_depotNearFactory = nearestObjects [_closestFactory, WFDEPOT, _range];
-				_nearTown = if (count _depotNearFactory > 0) then {_depotNearFactory select 0} else {objNull; };
+				_nearTown = if (count _depotNearFactory != 0) then {_depotNearFactory select 0} else {objNull; };
 				if (!isNull _nearTown) then {
 				
 					_sideID = _nearTown getVariable "sideID";

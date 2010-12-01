@@ -3,7 +3,7 @@ PROFILER_BEGIN("Service_TrackMapMarkerProc");
 
 Private ["_nextMarkerUpdate", "_tmp"];
 
-	if (count WBE_TrackedMarkerListOperate > 0) then {
+	if (count WBE_TrackedMarkerListOperate != 0) then {
 		_tmp = WBE_TrackedMarkerListOperate;
 		WBE_TrackedMarkerListOperate = [];
 		WBE_TrackedMarkerList = WBE_TrackedMarkerList + _tmp;

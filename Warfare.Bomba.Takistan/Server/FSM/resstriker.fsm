@@ -96,7 +96,7 @@ class FSM
           priority = 1.000000;
           to="Actions";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"!gameOver && _isActive && _alives > 0"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!gameOver && _isActive && _alives != 0"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -183,14 +183,14 @@ class FSM
        "		_vehicles = _vehicles + [_vehicle];" \n
        "		_unit = [_type,_team,_position,resistance] Call CreateMan;" \n
        "		_unit moveInDriver _vehicle;" \n
-       "		if (_vehicle emptyPositions ""gunner"" > 0) then {_unit = [_type,_team,_position,resistance] Call CreateMan;_unit moveInGunner _vehicle};" \n
-       "		if (_vehicle emptyPositions ""commander"" > 0) then {_unit = [_type,_team,_position,resistance] Call CreateMan;_unit moveInCommander _vehicle};" \n
+       "		if (_vehicle emptyPositions ""gunner"" != 0) then {_unit = [_type,_team,_position,resistance] Call CreateMan;_unit moveInGunner _vehicle};" \n
+       "		if (_vehicle emptyPositions ""commander"" != 0) then {_unit = [_type,_team,_position,resistance] Call CreateMan;_unit moveInCommander _vehicle};" \n
        "	};" \n
        "} forEach _types;" \n
        "" \n
        "{_team addVehicle _x} forEach _vehicles;" \n
        "" \n
-       "if (count _vehicles > 0) then {" \n
+       "if (count _vehicles != 0) then {" \n
        "	{" \n
        "		_x Spawn HandleEmptyVehicle;" \n
        "	} forEach _vehicles;" \n

@@ -42,7 +42,7 @@ Private ["_order", "_vehicle", "_unitType", "_side", "_vehInfo", "_upgrades", "_
 	
 	//--- Vehicles Init Start.
 	if (_unitType in Zeta_Lifter) then {
-		if (_upgrades select 8 > 0) then {
+		if (_upgrades select 8 != 0) then {
 			_vehicle addAction [localize "STR_WF_Lift","Client\Module\ZetaCargo\Zeta_Hook.sqf"]
 		};
 	};
@@ -75,7 +75,7 @@ Private ["_order", "_vehicle", "_unitType", "_side", "_vehInfo", "_upgrades", "_
 	if (_unitType isKindOf "Air") then {
 		_init = "";
 		if (paramCounterMeasures) then {
-			if (_upgrades select 9 > 0) then {_init = "nullReturn = [this] ExecVM 'Client\Module\CM\CM_Init.sqf';this addEventHandler ['incomingMissile',{_this Spawn CM_Countermeasures}];"};
+			if ((_upgrades select 9) != 0) then {_init = "nullReturn = [this] ExecVM 'Client\Module\CM\CM_Init.sqf';this addEventHandler ['incomingMissile',{_this Spawn CM_Countermeasures}];"};
 		};
 		
 		if (paramAARadar) then {

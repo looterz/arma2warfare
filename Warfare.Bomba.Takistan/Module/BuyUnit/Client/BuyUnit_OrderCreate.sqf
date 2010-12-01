@@ -1,7 +1,7 @@
 #include "netsend.h"
 #include "profiler.h"
 PROFILER_BEGIN("BuyUnit_OrderCreate");
-	private['_unitType', '_team', '_order', '_clientId', '_vehInfo' ];
+	private['_unitType', '_team', '_order', '_clientId', '_vehInfo', '_args' ];
 	
 	//--- _clientId = _order select 0;
 	//--- _building = _order select 1;
@@ -21,9 +21,10 @@ PROFILER_BEGIN("BuyUnit_OrderCreate");
 	
 	if (!(_clientId == NETSEND_CLIENTID_AI)) then {
 		
-		if ( (count _vehInfo) > 0 ) then {  if (_vehInfo select 0) then { unitQueu = unitQueu + 1; }; };	//-- buy crew driver
-		if ( (count _vehInfo) > 1 ) then {  if (_vehInfo select 1) then { unitQueu = unitQueu + 1; }; };	//-- buy crew gunner
-		if ( (count _vehInfo) > 2 ) then {  if (_vehInfo select 2) then { unitQueu = unitQueu + 1; }; };	//-- buy crew commander;
+		_args = count _vehInfo;
+		if ( _args > 0 ) then {  if (_vehInfo select 0) then { unitQueu = unitQueu + 1; }; };	//-- buy crew driver
+		if ( _args > 1 ) then {  if (_vehInfo select 1) then { unitQueu = unitQueu + 1; }; };	//-- buy crew gunner
+		if ( _args > 2 ) then {  if (_vehInfo select 2) then { unitQueu = unitQueu + 1; }; };	//-- buy crew commander;
 		if (_unitType isKindOf "Man") then { unitQueu = unitQueu + 1; };	//-- buy soldier
 	};
 	

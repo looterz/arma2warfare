@@ -21,7 +21,7 @@ while { !(_u == 0) } do {
 	_camp setVariable ["supplyValue",_startingSV,true];
 
 	_objects = _camp nearEntities[[WFFLAG],20];
-	if (count _objects > 0) then {(_objects Select 0) setFlagTexture _texture};
+	if (count _objects != 0) then {(_objects Select 0) setFlagTexture _texture};
 };
 
 sleep 0.5;

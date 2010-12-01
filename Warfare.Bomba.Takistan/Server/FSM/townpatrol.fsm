@@ -87,7 +87,7 @@ class FSM
        "" \n
        "if ((paramResReinf) && _sideID == RESISTANCEID) then {" \n
        "	_reinf = _location getVariable ""reinforcements"";" \n
-       "	if (count _reinf > 0) then {" \n
+       "	if (count _reinf != 0) then {" \n
        "		_location setVariable [""reinforcements"",[]];" \n
        "		_added = _added + _reinf;" \n
        "		_teams = _teams + _reinf;" \n
@@ -105,7 +105,7 @@ class FSM
        "" \n
        "if (paramOccReinf && _sideID != RESISTANCEID) then {" \n
        "	_reinf = _location getVariable ""reinforcements_occ"";" \n
-       "	if (count _reinf > 0) then {" \n
+       "	if (count _reinf != 0) then {" \n
        "		_location setVariable [""reinforcements_occ"",[]];" \n
        "		_added = _added + _reinf;" \n
        "		_teams = _teams + _reinf;" \n

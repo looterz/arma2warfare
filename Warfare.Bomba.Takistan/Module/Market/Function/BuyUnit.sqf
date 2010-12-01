@@ -44,7 +44,7 @@ _marketStock = _factory call marketGetMarketProducts;
 _marketPrices = _factory call marketGetMarketPrices;
 
 _u = count _unitData;
-while { !(_u == 1)  } do {
+while { _u != 1  } do {
 	_u = _u - 1;
 	
 	_reqProduct = _unitData select _u;

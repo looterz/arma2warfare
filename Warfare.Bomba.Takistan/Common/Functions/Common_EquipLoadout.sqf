@@ -29,7 +29,7 @@ Private['_ammo','_unit','_weapon','_weapons', '_classType', '_dogtags', '_label'
 	} forEach _weapons;
 
 
-	if ((count _dogtags) > 0) then {
+	if ((count _dogtags) != 0) then {
 		if (isNull (unitBackpack _unit)) then {
 
 			_role = _dogtags select ((count _dogtags)-1);	

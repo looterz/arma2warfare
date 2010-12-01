@@ -43,7 +43,7 @@ private['_factory', '_unit', '_requirementText', '_u', '_found', '_unitData', '_
 			_name = marketProductNameCollection select _reqProductId;
 			_unit = marketProductUnitCollection select _reqProductId;
 			
-			if (_found > 0) then { _requirementText = _requirementText + ", "; };
+			if (_found != 0) then { _requirementText = _requirementText + ", "; };
 			
 			_text = format["%1: %3%2", _name, _unit, _reqProductValue, _stockValue];
 			_requirementText = _requirementText + _text;	
@@ -51,7 +51,7 @@ private['_factory', '_unit', '_requirementText', '_u', '_found', '_unitData', '_
 		};
 	};
 
-	if (_found > 0) then {
+	if (_found != 0) then {
 		_requirementText = "Factory required follow product for build this unit:<br/>" + _requirementText + "<br/><br/>";
 	};
 

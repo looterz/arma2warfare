@@ -20,7 +20,7 @@ while { !(_count == 0) && !_placed } do {
 	_obstacles = _currentPosition NearEntities[["Building"],15];
 	_vehicles = _currentPosition NearEntities[["Building","Car","Tank","Air"],6];
 
-	if (Count _obstacles > 0 || Count _vehicles > 0 || SurfaceIsWater _currentPosition) then {
+	if (Count _obstacles != 0 || Count _vehicles != 0 || SurfaceIsWater _currentPosition) then {
 		_currentPosition = [(_position Select 0)+((sin _direction)*_radius),(_position Select 1)+((cos _direction)*_radius),0];
 		_direction = _direction + 36;
 	} else {
