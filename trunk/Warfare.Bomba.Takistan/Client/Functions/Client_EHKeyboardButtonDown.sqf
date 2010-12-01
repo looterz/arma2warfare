@@ -37,40 +37,47 @@ private['_weapon','_types','_status'];
 switch (true) do
 {
 	// disable command mode scanning
-	case (!paramSpacebar && ({_x in _pressedButtonArray} count (actionKeys "ForceCommandingMode")) > 0):
+	case (!paramSpacebar): 
 	{
-		_keyHandled = true;
+		if (({_x in _pressedButtonArray} count (actionKeys "ForceCommandingMode")) != 0) then {
+			_keyHandled = true;
+		};
 	};
 	// disable radar lock
-	case (!paramTabLock && ({_x in _pressedButtonArray} count (actionKeys "LockTargets")) > 0):
+	case (!paramTabLock):
 	{
-		if (call _IsSelectedFactoryLockWeapon) then
-		{
-			_keyHandled = true;
+		if (({_x in _pressedButtonArray} count (actionKeys "LockTargets")) != 0) then {
+			if (call _IsSelectedFactoryLockWeapon) then {
+				_keyHandled = true;
+			};
 		};
 	};
 	
 	// disable infantry direct lock
-	case (!paramTabLock && ({_x in _pressedButtonArray} count (actionKeys "LockTarget")) > 0):
+	case (!paramTabLock):
 	{
-		if (call _IsSelectedFactoryLockWeapon) then
-		{
-			_keyHandled = true;
+		if (({_x in _pressedButtonArray} count (actionKeys "LockTarget")) != 0) then {
+			if (call _IsSelectedFactoryLockWeapon) then {
+				_keyHandled = true;
+			};
 		};
 	};
 	// disable vehicle direct lock
-	case (!paramTabLock && ({_x in _pressedButtonArray} count (actionKeys "VehLockTargets")) > 0):
+	case (!paramTabLock):
 	{
-		if (call _IsSelectedFactoryLockWeapon) then
-		{
-			_keyHandled = true;
+		if (({_x in _pressedButtonArray} count (actionKeys "VehLockTargets")) != 0) then {
+			if (call _IsSelectedFactoryLockWeapon) then {
+				_keyHandled = true;
+			};
 		};
 	};
 
 	// disable tactical view
-	case (!paramTacView && ({_x in _pressedButtonArray} count (actionKeys "TacticalView")) > 0):
+	case (!paramTacView):
 	{
-		_keyHandled = true;
+		if (({_x in _pressedButtonArray} count (actionKeys "TacticalView")) != 0) then {
+			_keyHandled = true;
+		};
 	};	
 };
 
