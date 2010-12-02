@@ -38,10 +38,9 @@ private['_order', '_clientId', '_building', '_orderId', '_orderInfo'];
 	_building setVariable["nextOrderId", _orderId + 1];
 	(_building) spawn BuyUnit_UpdateOrderQueueStatus;
 	
-	_orderInfo = [_orderId, 0, _order];
-	WBE_BuyUnit_OrderQueueOperation = WBE_BuyUnit_OrderQueueOperation + [ _orderInfo ];
+	WBE_BuyUnit_OrderQueueOperation = WBE_BuyUnit_OrderQueueOperation + [ [_orderId, 0, _order] ];
 
-	[_clientId, BUYUNIT_RESPONSE_ORDERACCEPTED, [_order] ] spawn BuyUnit_OrderResponse;
+	[_clientId, BUYUNIT_RESPONSE_ORDERACCEPTED, (_order select 2) ] spawn BuyUnit_OrderResponse;
 	format["BuyUnit_OrderRegister: Order#%1, %2", _orderId, _order] call LogHigh;
 	
 PROFILER_END();
