@@ -12,26 +12,26 @@ if (!enabledProfiler) exitWith {};
 
 ProfilerBegin = {
 private['_pid'];
-	_pid = [_this, diag_tickTime, 0];
+	_pid = [_this, time, 0];
 	_pid spawn profilerRegisterProcedureCall;
 	_pid;
 };
 
 ProfilerEnd = {
 private['_pid'];
-	_this set [1, (diag_tickTime - (_this select 1))];
+	_this set [1, (time - (_this select 1))];
 	_this set [2, 1];
 };
 
 profilerRegisterProcedureCall = {
 private['_funcName', '_dT', '_data', '_u', '_bFound', '_tmp'];	
 	
-	_dT  = diag_tickTime;
-	waitUntil { (_this select 2)== 1 || (diag_tickTime - _dT) > 15 };
+	_dT  = time;
+	waitUntil { (_this select 2)== 1 || (time - _dT) > 15 };
 	
 	if ((_this select 2)== 0) then {
+		_this set [1, (time - (_this select 1))];
 		format["Profiler Detect Long Executing method: %1", (_this select 0)] call LogMedium;
-		_this set [1, (diag_tickTime - (_this select 1))];
 	};
 	
 	_funcName = _this select 0;
@@ -40,7 +40,7 @@ private['_funcName', '_dT', '_data', '_u', '_bFound', '_tmp'];
 	_data = objNull;
 	_u = (count ProfilerData);
 	_bFound = false;
-	while { !(_u == 0) && !_bFound } do {
+	while { _u != 0 && !_bFound } do {
 		
 		_u = _u - 1;
 		_tmp = ProfilerData select _u;
@@ -57,7 +57,10 @@ private['_funcName', '_dT', '_data', '_u', '_bFound', '_tmp'];
 	};
 	
 	_data set [1, (_data select 1) + 1  ];
-	_data set [2, (_data select 2) + _dt];
+	
+	if (_dT != 0) then {
+		_data set [2, (_data select 2) + _dT];
+	};
 	
 	//ProfilerData set [_u, _data];
 };
