@@ -5,7 +5,7 @@ PROFILER_BEGIN("Common_MarkerUpdate");
 		PROFILER_END();
 	};
 
-	waitUntil { !isNil "TrackMapMarkerAdd" };
+	waitUntil { commonInitComplete && !isNil "TrackMapMarkerAdd" };
 	_this call TrackMapMarkerAdd;
 
 PROFILER_END();
