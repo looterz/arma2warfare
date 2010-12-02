@@ -9,12 +9,14 @@ Private ["_markerType", "_markerColor", "_markerSize", "_markerText", "_markerNa
 
 	_tracked 		  = _this select 0;
 	_side		      = _this select 1;
-
+	
+	waitUntil {commonInitComplete && !isNil "MarkerUpdateConditionAntiAir" };
+	
 	if (_side == side player || isNull _tracked || !(alive _tracked)) exitWith {
 		PROFILER_END();
 	};	
 	
-	waitUntil {commonInitComplete && !isNil "MarkerUpdateConditionAntiAir" };
+
 	
 	unitMarker = unitMarker + 1;
 
