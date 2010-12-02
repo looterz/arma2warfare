@@ -266,7 +266,10 @@
 	if (fastTime) then {weather = false};
 	
 	//--- All parameters are set and ready.
-	waitUntil { time != 0 };
+	_time = time;
+	if (!isServer) then {
+		waitUntil { time != _time };
+	};
 	initJIP = true;
 	"Init JIP - [Done]" call LogMedium;
 
