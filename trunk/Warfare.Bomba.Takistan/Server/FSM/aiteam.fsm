@@ -149,8 +149,8 @@ link68[] = {59,60};
 link69[] = {60,62};
 link70[] = {61,62};
 link71[] = {62,28};
-globals[] = {0.000000,0,0,0,0,640,480,1,93,6316128,1,19.600317,488.512268,1178.743530,308.651398,450,835,1};
-window[] = {2,-1,-1,-1,-1,812,75,1367,75,3,468};
+globals[] = {0.000000,0,0,0,0,640,480,1,93,6316128,1,-163.319061,671.431091,913.405579,138.942886,648,835,1};
+window[] = {2,-1,-1,-1,-1,812,75,1367,75,3,666};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -953,8 +953,9 @@ class FSM
        "					format[""AITEAM.FSM: Team %1 Handle Purchase, funds: %2 > price:%3"", _team, _funds, _price] call LogInform;							" \n
        "					format[""AITEAM.FSM: Team %1 Handle Purchase, upgradeStatus: %2 > upgradeRequired:%3"", _team, _upgradeStatus, _upgradeRequired] call LogInform;							" \n
        "					" \n
-       "					_mbu1 = if (WF_DEBUG) then { _mbu*100 } else { _mbu };" \n
-       "					if (WF_DEBUG) then { _canBuy = 1; };" \n
+       "					_mbu1 = _mbu;" \n
+       "					//_mbu1 = if (WF_DEBUG) then { _mbu*100 } else { _mbu };" \n
+       "					//if (WF_DEBUG) then { _canBuy = 1; };" \n
        "					if ( (_canBuy == 1) &&  (_size < _mbu1) && _funds > _price && _upgradeStatus >= _upgradeRequired) then {" \n
        "						_vehiSlots = [true,false,false];" \n
        "						if (!(_x isKindOf ""Man"")) then {" \n
@@ -971,7 +972,7 @@ class FSM
        "						format[""AITEAM.FSM: Team %1 Handle Purchase, AIBuyUnit: %2"", _team, _buyRequest] call LogInform;							" \n
        "						" \n
        "						_buyRequest Spawn AIBuyUnit;" \n
-       "						if (WF_DEBUG) then { price = 0; };" \n	   
+       "						if (WF_DEBUG) then { price = 0; };" \n
        "						[_team,-_price] Call ChangeTeamFunds;	" \n
        "					};" \n
        "				};" \n
