@@ -10,6 +10,7 @@ Private ["_countArgs", "_markerType", "_markerColor", "_markerSize", "_markerTex
 	_tracked 		  = _this select 5;
 	_side			  = if (_countArgs >= 11) then { _this select 11 } else { "ANY" };
 
+	waitUntil { !isNil "initJIP" };
 	if (_side != side player || isNull _tracked || !(alive _tracked)) exitWith {
 		PROFILER_END();
 	};
