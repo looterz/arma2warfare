@@ -21,8 +21,7 @@ if (_total > 1) then {
 	_u = _total;
 	while { _u != 0 } do {
 		_u = _u - 1;
-		_target = (_sorted select _u) select 1;
-		_sorted set [_u, _target];
+		_sorted set [_u, ((_sorted select _u) select 1)];
 	};	
 } else {
 	_sorted = _objects;
