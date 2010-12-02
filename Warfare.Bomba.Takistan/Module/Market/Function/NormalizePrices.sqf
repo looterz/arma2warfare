@@ -27,7 +27,7 @@ Private ['_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', 
 		_tax = (0.05*_dist/500);		
 
 		_townProducts = _nearest call marketGetMarketProducts;
-		_townPrices = _townProducts select 1;
+		_townPrices = _nearest call marketGetMarketPrices;
 		
 		_u = marketTotalProductCount;
 		while { _u != 0  } do {
