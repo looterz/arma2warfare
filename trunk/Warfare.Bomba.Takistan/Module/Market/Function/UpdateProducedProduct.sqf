@@ -50,9 +50,9 @@ Private ['_market','_products', '_productivity', '_lastProduceProduct', '_dT', '
 
 	if (_updated) then {
 		_market setVariable ["marketProductStorage", _stock, true];
+		
+		[_market, _stock] call marketUpdateMarketPrices;	
+		_market setVariable ["marketTimeStamp", format["%1", time], true];
 	};
-
-	[_market, _stock] call marketUpdateMarketPrices;	
-	_market setVariable ["marketTimeStamp", format["%1", time], true];
 
 PROFILER_END();	

@@ -7,7 +7,8 @@ Private ['_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', 
 	_isTown = (_market in towns);
 
 	_storage = [] + marketEmptyContainer;
-	_productivity = [] + marketEmptyPriceList;
+	_productivity = [] + marketEmptyContainer;
+	_prices = [] + marketEmptyPriceList;
 
 	_u = marketTotalProductCount;
 	while { _u != 0 } do {
@@ -25,12 +26,13 @@ Private ['_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', 
 		_productivity set [_u, _prodvalue ];
 	};
 
-	
-	[_market, _storage] call marketUpdateMarketPrices;
-
 	_market setVariable ["marketProductivity", _productivity];
 	_market setVariable ["marketProductStorage", _storage, true];
 	_market setVariable ["marketTimeStamp", format["%1", time], true];
+	_market setVariable ["marketProductPrice", _prices];
 	_market setVariable ["marketInited", 1, true];
+	
+	[_market, _storage] call marketUpdateMarketPrices;
+
 
 PROFILER_END();
