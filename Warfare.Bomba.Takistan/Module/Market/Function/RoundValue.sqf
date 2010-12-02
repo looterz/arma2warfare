@@ -1,27 +1,20 @@
 #include "profiler.h"
 PROFILER_BEGIN("Market_RoundValue");
-private['_result'];
 
-	if (_this > 10000) exitWith { 
-		_result = floor(_this / 1000)*1000; 
-		PROFILER_END();
-		_result;
-	};
-	if (_this > 1000) exitWith { 
-		_result = floor(_this / 100)*100; 
-		PROFILER_END();
-		_result;
-	};
-	if (_this > 100) exitWith { 
-		_result = floor(_this / 10)*10; 
-		PROFILER_END();
-		_result;
-	};
-	if (_this > 10) exitWith { 
-		_result = floor(_this); 
-		PROFILER_END();
-		_result;
+	if (_this < 10) exitWith { 
+		PROFILER_END();				// i knew that this is bad, for profiling
+		floor(_this);
 	};
 
-PROFILER_END();	
-_this;
+	if (_this < 100) exitWith { 
+		PROFILER_END();
+		floor(_this / 10) * 10;
+	};
+
+	if (_this < 10000) exitWith { 
+		PROFILER_END();
+		floor(_this / 100)*100; 
+	};
+
+PROFILER_END();
+floor(_this / 1000)*1000; 
