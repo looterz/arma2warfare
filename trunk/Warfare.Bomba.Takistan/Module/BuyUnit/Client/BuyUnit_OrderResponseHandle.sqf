@@ -24,11 +24,10 @@ private['_clientId', '_unitData', '_response', '_order', '_data', '_unitType', '
 	_response  = _this select 1;
 	_data      = _this select 2;
 
-	_order = _data select 0;
-	_unitType = _order select 2;
-	_description = (_unitType Call GetNamespace) select QUERYUNITLABEL;	
-	
 	if (_response == BUYUNIT_RESPONSE_ORDERACCEPTED) exitWith {
+		
+		_unitType = this select 2;
+		_description = (_unitType Call GetNamespace) select QUERYUNITLABEL;	
 		
 		_txt = parseText(Format [localize "STR_WF_Queu",_description]);
 		hint _txt;
@@ -37,6 +36,9 @@ private['_clientId', '_unitData', '_response', '_order', '_data', '_unitType', '
 	
 	if (_response == BUYUNIT_RESPONSE_BUILDBEGIN) exitWith {
 	
+		_unitType = this select 2;
+		_description = (_unitType Call GetNamespace) select QUERYUNITLABEL;	
+
 		_txt = parseText(Format [localize "STR_WF_BuyEffective",_description]);
 		hint _txt;
 		PROFILER_END();	
@@ -44,7 +46,12 @@ private['_clientId', '_unitData', '_response', '_order', '_data', '_unitType', '
 
 	if (_response == BUYUNIT_RESPONSE_ORDERCOMPLETED) exitWith {
 		
+		_order = _data select 0;
+		
 		_vehicle = _data select 1;
+		_unitType = _order select 2;
+		_description = (_unitType Call GetNamespace) select QUERYUNITLABEL;
+		
 		[_order, _vehicle] spawn BuyUnit_OrderComplete;
 		
 		_txt = parseText(Format [localize "STR_WF_Build_Complete",_description]);
