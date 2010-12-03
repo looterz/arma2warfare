@@ -1,6 +1,6 @@
 #include "profiler.h"
 
-private['_isArrayDirty', '_u', '_trashItem', '_timeout', '_i', '_body'];
+private['_isArrayDirty', '_u', '_trashItem', '_timeout', '_i', '_body', '_force'];
 PROFILER_BEGIN("Service_TrashProc");
 
 	_isArrayDirty = false;
