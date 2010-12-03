@@ -13,7 +13,9 @@ if (isServer) then {
 	waitUntil { serverInitComplete };
 };
 
-RegisterService("Services\TrackMapMarker\TrackMapMarkerInit.sqf", "TrackMarkers");
+if (local player) then {
+	RegisterService("Services\TrackMapMarker\TrackMapMarkerInit.sqf", "TrackMarkers");
+};
 
 [] ExecVM "Services\ServicesThread.sqf";
 
