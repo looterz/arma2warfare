@@ -1,6 +1,6 @@
 #include "profiler.h"
 
-private['_isArrayDirty', '_u', '_trashItem', '_timeout', '_i'];
+private['_isArrayDirty', '_u', '_trashItem', '_timeout', '_i', '_body'];
 PROFILER_BEGIN("Service_TrashProc");
 
 	_isArrayDirty = false;
@@ -13,9 +13,9 @@ PROFILER_BEGIN("Service_TrashProc");
 	
 	_u = count WBE_TrashObjectCollection;
 	
-	if (_u > 200) then {
+	if ( ((count allUnits) + _u) > 500) then {
 	
-		format["Service_TrashProc: trash queue=%1 that is overquota - force delete dead vehicles and bodies", _u] call LogHigh;
+		format["Service_TrashProc: trash queue=%1 that is overquota live and dead units %2 > 500 - force delete dead vehicles and bodies", _u, ((count allUnits) + _u)] call LogHigh;
 		_i = _u / 2;
 		while { _i != 0 } do {
 			_i = _i - 1;
