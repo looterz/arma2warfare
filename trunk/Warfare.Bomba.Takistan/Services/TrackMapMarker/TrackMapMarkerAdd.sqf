@@ -7,15 +7,14 @@ Private ["_countArgs", "_markerType", "_markerColor", "_markerSize", "_markerTex
 		PROFILER_END();
 	};
 
+	_countArgs		  = count _this;
 	_tracked 		  = _this select 5;
-	_side			  = if (_countArgs >= 11) then { _this select 11 } else { "ANY" };
+	_side			  = if (_countArgs >= 11) then { _this select 11 } else { side _tracked };
 
-	waitUntil { commonInitComplete &&  && !isNil "initJIP" };
 	if (_side != side player || isNull _tracked || !(alive _tracked)) exitWith {
 		PROFILER_END();
 	};
 
-	_countArgs		  = count _this;
 	_markerType 	  = _this select 0;
 	_markerColor 	  = _this select 1;
 	_markerSize 	  = _this select 2;
