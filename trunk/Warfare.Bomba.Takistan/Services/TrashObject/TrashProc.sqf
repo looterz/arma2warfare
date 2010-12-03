@@ -13,6 +13,23 @@ PROFILER_BEGIN("Service_TrashProc");
 	
 	_u = count WBE_TrashObjectCollection;
 	
+	if (_u > 200) then {
+	
+		format["Service_TrashProc: trash queue=%1 that is overquota - force delete dead vehicles and bodies", _u] call LogHigh;
+		_i = _u / 2;
+		while { _i != 0 } do {
+			_i = _i - 1;
+			_trashItem = WBE_TrashObjectCollection select _i;
+			_body  = _trashItem select 0;
+			if (!isNull _body) then {
+				deleteVehicle _body;
+			};
+			WBE_TrashObjectCollection set[ _i, objNull ];
+		};
+		WBE_TrashObjectCollection = WBE_TrashObjectCollection - [ objNull ];
+		_u = count WBE_TrashObjectCollection;
+	};
+	
 	format["Service_TrashProc: trash queue=%1", _u] call LogHigh;
 	
 	_i = 0;
