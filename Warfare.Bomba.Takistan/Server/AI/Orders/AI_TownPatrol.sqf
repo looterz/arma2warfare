@@ -28,7 +28,7 @@ _camps = _town getVariable 'camps';
 
 _partolTargets = [_town] + _camps;
 _partolTargetsCount = count _partolTargets;
-_maxWaypoints = _countPatrolTargets + ('WFBE_TOWNPATROLHOPS' Call GetNamespace);
+_maxWaypoints = _partolTargetsCount + ('WFBE_TOWNPATROLHOPS' Call GetNamespace);
 
 _wps = [];
 
@@ -70,9 +70,7 @@ while { _u != 0 } do {
 		
 	} else {
 	
-		_wpid = floor( random( _waypointGridDataNodeCount) );
-		_wppos = [_pos, 10, _radius] call GetRandomPosition;
-		
+		_wppos = [_pos, 10, _radius] call GetRandomPosition;		
 		_wpradius = 32;
 		_wpcompletionRadius = 44;
 	};
@@ -81,6 +79,6 @@ while { _u != 0 } do {
 	_wps = _wps + [[_wppos,_type,_wpradius,_wpcompletionRadius]];
 };
 
-Format["AI_TownPatrol: The %1 %2 Team is patrolling the %3 town",side _team, _team, _town] call LogInform;
 [_team, true, _wps] spawn AIWPAdd;
+Format["AI_TownPatrol: The %1 %2 Team is patrolling the %3 town",side _team, _team, _town] call LogHigh;
 PROFILER_END();
