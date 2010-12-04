@@ -119,14 +119,14 @@ _fillList = {
 		_pic = if (_isVehicle) then {[typeOf _unit, 'picture'] Call GetConfigInfo} else {[typeOf _unit, 'portrait'] Call GetConfigInfo};
 		lnbSetPicture [_listBox,[_i,1],_pic];
 
-		if (count _color != 0) then {
+		if (count _color > 0) then {
 			lnbSetColor [_listBox,[_i,0],_color];
 			lnbSetColor [_listBox,[_i,1],_color];
 		};
 		_i = _i + 1;
 	} forEach _listContent;
 	
-	if (_i != 0) then {lnbSetCurSelRow [_listBox,0]} else {lnbSetCurSelRow [_listBox,-1]};
+	if (_i > 0) then {lnbSetCurSelRow [_listBox,0]} else {lnbSetCurSelRow [_listBox,-1]};
 };
 
 while {alive player && dialog} do {
@@ -203,7 +203,7 @@ while {alive player && dialog} do {
 		_index = (_team) Call GetTeamType;
 		_currentCoord = (_team) Call GetTeamMovePos;
 		_currentMission = (_team) Call GetTeamMoveMode;
-		if (count _currentCoord != 0) then {
+		if (count _currentCoord > 0) then {
 			_position = _currentCoord;
 			if (_currentMission == "move") then {["TempAnim",_position,"selector_selectedMission",1,"ColorOrange"] Spawn MarkerAnim};
 			if (_currentMission == "patrol") then {["TempAnim",_position,"selector_selectedMission",1,"ColorYellow","areaPatrol"] Spawn MarkerAnim};
@@ -300,7 +300,7 @@ while {alive player && dialog} do {
 			_position = _map posScreenToWorld[mouseX,mouseY];
 			_structures = (sideJoinedText) Call GetSideStructures;
 			_existingStruct = [_position,_structures] Call SortByDistance;
-			if (count _existingStruct != 0) then {
+			if (count _existingStruct > 0) then {
 				_closest = _existingStruct select 0;
 				if (_closest distance _position < 100) then {//--- 100 meters close only.
 					_type = typeOf _closest;

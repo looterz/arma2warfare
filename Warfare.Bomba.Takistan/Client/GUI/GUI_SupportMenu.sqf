@@ -25,7 +25,7 @@ _buildings = (sideJoinedText) Call GetSideStructures;
 //--- Service Point.
 _csp = objNull;
 _sp = [sideJoined, Format ["WFBE_%1SERVICEPOINTTYPE",sideJoinedText] Call GetNamespace,_buildings] Call GetFactories;
-if (count _sp != 0) then {
+if (count _sp > 0) then {
 	_sorted = [player,_sp] Call SortByDistance;
 	_csp = _sorted select 0;
 };
@@ -34,7 +34,7 @@ if (paramEASA) then {
 	_enable = false;
 	_currentUpgrades = (sideJoinedText) Call GetSideUpgrades;
 	_easaLevel = _currentUpgrades select 15;
-	if (!(isNull _csp) && _easaLevel != 0) then {
+	if (!(isNull _csp) && _easaLevel > 0) then {
 		if (player distance _csp < ('WFBE_SUPPORTRANGE' Call GetNamespace)) then {
 			if (typeOf(vehicle player) in ('WFBE_EASA_Vehicles' Call GetNamespace)) then {
 				if (driver (vehicle player) == player) then {_enable = true};
@@ -50,14 +50,14 @@ _effective = [];
 {
 	_closestSP = objNull;
 	_add = false;
-	if (count _sp != 0) then {
+	if (count _sp > 0) then {
 		_sorted = [_x,_sp] Call SortByDistance;
 		_closestSP = _sorted select 0;
 	};
 	if !(isNull _closestSP) then {if (_x distance _closestSP < ('WFBE_SUPPORTRANGE' Call GetNamespace)) then {_add = true}};
 	if !(_add) then {
 		_nObjects = nearestObjects [_x, WFDEPOT,('WFBE_SUPPORTRANGE' Call GetNamespace)];
-		_nObject = if (count _nObjects != 0) then {_nObjects select 0} else {objNull};
+		_nObject = if (count _nObjects > 0) then {_nObjects select 0} else {objNull};
 		if !(isNull _nObject) then {
 			_sideID = _nObject getVariable "sideID";
 			if !(isNil "_sideID") then {
@@ -66,13 +66,13 @@ _effective = [];
 		};
 		if !(_add) then {
 			_checks = (getPos _x) nearEntities[_typeRepair,'WFBE_REPAIRTRUCKRANGE' Call GetNamespace];
-			if (count _checks != 0) then {_add = true};
+			if (count _checks > 0) then {_add = true};
 		};
 		
 		if (!_add && _x isKindOf 'Air') then {
 			_pura = ('WFBE_SUPPORTRANGE' Call GetNamespace);
 			_sorted = [_x, Airfields] Call SortByDistance;
-			if (count _sorted != 0) then {
+			if (count _sorted > 0) then {
 				if ((_sorted select 0) distance _x < _pura && alive(_sorted select 0)) then { _add = true; };
 			};
 		};		
@@ -97,7 +97,7 @@ _effective = [];
 } forEach _vehi;
 
 _checks = (getPos player) nearEntities[_typeRepair,'WFBE_REPAIRTRUCKRANGE' Call GetNamespace];
-if (count _checks != 0) then {
+if (count _checks > 0) then {
 	_repair = _checks select 0;
 	_vehi = (getPos _repair) nearEntities[["Car","Motorcycle","Tank","Air","Ship","StaticWeapon"],100];
 	{
@@ -109,7 +109,7 @@ if (count _checks != 0) then {
 	} forEach _vehi;
 };
 
-if (count _effective != 0) then {lbSetCurSel[20002,0]};
+if (count _effective > 0) then {lbSetCurSel[20002,0]};
 
 while {true} do {
 	sleep 0.1;
@@ -228,7 +228,7 @@ while {true} do {
 			-_healPrice Call ChangePlayerFunds;
 			if (_veh isKindOf "Man") then {_veh setDammage 0} else {
 				_crews = crew _veh;
-				if (count _crews != 0) then {{_x setDammage 0} forEach _crews};
+				if (count _crews > 0) then {{_x setDammage 0} forEach _crews};
 			};
 			hint (localize "STR_WF_Healing");
 		};

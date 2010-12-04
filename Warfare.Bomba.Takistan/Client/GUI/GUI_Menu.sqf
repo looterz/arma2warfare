@@ -57,7 +57,7 @@ while {alive player && dialog} do {
 		publicVariable 'WFBE_RequestCommanderVote';
 		if (IsClientServer) then {['SRVFNCREQUESTCOMMANDERVOTE',sideJoined] Spawn HandleSPVF};
 		voted = true;
-		waitUntil {((WF_Logic getVariable Format ["%1CommanderVoteTime",sideJoinedText]) != 0 ) || !dialog || !alive player};
+		waitUntil {((WF_Logic getVariable Format ["%1CommanderVoteTime",sideJoinedText])>0) || !dialog || !alive player};
 		if (!alive player || !dialog) exitWith {};
 		CloseDialog 0;
 		CreateDialog "RscDisplayWFVoting";

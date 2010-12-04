@@ -133,7 +133,7 @@ class FSM
        "gearInRange = (['BARRACKSTYPE',_buildings,_pgr,sideJoined,player] Call BuildingInRange) select 1;" \n
        "if !(gearInRange) then {" \n
        "	_nObjects = nearestObjects [player, WFCAMP, 5];" \n
-       "	_nObject = if (count _nObjects != 0) then {_nObjects select 0} else {objNull};" \n
+       "	_nObject = if (count _nObjects > 0) then {_nObjects select 0} else {objNull};" \n
        "	if !(isNull _nObject) then {" \n
        "		_sideID = _nObject getVariable ""sideID"";" \n
        "		if !(isNil '_sideID') then {" \n
@@ -153,17 +153,17 @@ class FSM
        "" \n
        "if !(serviceInRange) then {" \n
        "	_checks = (getPos player) nearEntities[_typeRepair,_rptr];" \n
-       "	if (count _checks != 0) then {serviceInRange = true};" \n
+       "	if (count _checks > 0) then {serviceInRange = true};" \n
        "};" \n
        "" \n
        "if (paramAARadar) then {" \n
        "	_checks = [sideJoined, Format [""WFBE_%1AARADARTYPE"",sideJoinedText] Call GetNamespace,_buildings] Call GetFactories;" \n
-       "	if (count _checks != 0) then {antiAirRadarInRange = true} else {antiAirRadarInRange = false};" \n
+       "	if (count _checks > 0) then {antiAirRadarInRange = true} else {antiAirRadarInRange = false};" \n
        "};" \n
        "" \n
        "//--- Town Depot." \n
        "_nObjects = nearestObjects [player, WFDEPOT,('WFBE_TOWNPURCHASERANGE' Call GetNamespace)];" \n
-       "_nObject = if (count _nObjects != 0) then {_nObjects select 0} else {objNull};" \n
+       "_nObject = if (count _nObjects > 0) then {_nObjects select 0} else {objNull};" \n
        "if (!isNull _nObject) then {" \n
        "	_sideID = _nObject getVariable ""sideID"";" \n
        "	if !(isNil ""_sideID"") then {" \n
@@ -174,7 +174,7 @@ class FSM
        "_townDefenceRange = false;" \n
        "if (paramBuildDefencesInTown == 2 || (paramBuildDefencesInTown == 1 && (playerType in Skills_Engineers))) then {" \n
        "     _nObjects = nearestObjects [player, WFDEPOT,('WFBE_DEFENSEMANRANGE' Call GetNamespace)];" \n
-       "     _townDepot = if (count _nObjects != 0) then {_nObjects select 0} else {objNull};" \n
+       "     _townDepot = if (count _nObjects > 0) then {_nObjects select 0} else {objNull};" \n
        "     if (!isNull _townDepot) then {" \n
        "     	_sideID = _townDepot getVariable ""sideID"";" \n
        "	     if !(isNil ""_sideID"") then {" \n
@@ -188,7 +188,7 @@ class FSM
        "					{if (!(_x isKindOf ""Man"")) then {if (count (crew _x) == 0) then {_nObjects = _nObjects - [_x]}}} forEach _objs;	" \n
        "					_hostiles = if (sideJoined == West) then {East countSide _nObjects} else {West countSide _nObjects};	" \n
        "							" \n
-       " 					if (_hostiles != 0) then { _townDepot setVariable [""timeoutBuildDefencesInTown"", (time + 300), false]; }; " \n
+       " 					if (_hostiles > 0) then { _townDepot setVariable [""timeoutBuildDefencesInTown"", (time + 300), false]; }; " \n
        "					_townDefenceRange = if (_hostiles == 0) then { true } else { false };	" \n
        "				};" \n
        "			 };	" \n
@@ -204,7 +204,7 @@ class FSM
        "//--- Airport." \n
        "if (paramHangars) then {" \n
        "	_sorted = [player,Airfields] Call SortByDistance;" \n
-       "	if (count _sorted != 0) then {" \n
+       "	if (count _sorted > 0) then {" \n
        "		if ((_sorted select 0) distance player < _pura && alive(_sorted select 0)) then {hangarInRange = true} else {hangarInRange = false};" \n
        "	} else {hangarInRange = false};" \n
        "};" \n

@@ -135,7 +135,7 @@ class FSM
        "_maxSV = _nearest getVariable ""maxSupplyValue"";" \n
        "_txt = """";" \n
        "_nObjects = nearestObjects [player, WFCAMP, 10];" \n
-       "_nObject = if (count _nObjects != 0) then {_nObjects select 0} else {objNull};" \n
+       "_nObject = if (count _nObjects > 0) then {_nObjects select 0} else {objNull};" \n
        "if !(isNull _nObject) then {" \n
        "	_sideID = _nObject getVariable ""sideID"";" \n
        "	if !(isNil '_sideID') then {" \n

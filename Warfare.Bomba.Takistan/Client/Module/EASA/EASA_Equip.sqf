@@ -35,7 +35,7 @@ if (_type != -1) then {
 	for [{_j = 2},{_j < count(_data)},{_j = _j + 1}] do {
 		_x = _data select _j;
 		for [{_i = count(_x)-1},{_i >= 0},{_i = _i - 1}] do {
-			if (_i != 0) then {
+			if (_i > 0) then {
 				_vehicle addMagazine (_x select _i);
 			} else {
 				_vehicle addWeapon (_x select _i);

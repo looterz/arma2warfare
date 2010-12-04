@@ -14,7 +14,7 @@ if (IsClientServer) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('W
 _i = _time;
 if (WF_DEBUG) then { _i = 1; };
 
-while {_i != 0} do {
+while {_i > 0} do {
 	_i = _i - 1;
 	upgradingTime = _i;
 	sleep 1;

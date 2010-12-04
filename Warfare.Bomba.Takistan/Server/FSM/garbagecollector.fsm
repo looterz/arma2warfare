@@ -46,7 +46,7 @@ class FSM
       name = "Update_Garbage";
       init = /*%FSM<STATEINIT""">*/"" \n
 	   "_objects = WF_Logic getVariable ""trash"";" \n
-       "if ((count _objects) != 0) then { WF_Logic setVariable [""trash"", [], true]; }; " \n
+       "if ((count _objects) > 0) then { WF_Logic setVariable [""trash"", [], true]; }; " \n
        "{" \n
        "	_x Spawn TrashObject;" \n
        "} forEach _objects;" \n

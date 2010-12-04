@@ -188,7 +188,7 @@ class FSM
           priority = 0.000000;
           to="Update";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"_enemies != 0"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_enemies > 0"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -275,7 +275,7 @@ class FSM
        "_totalTeams = count _resistanceTeamTypes;" \n
        "_emptyDefenses = [];" \n
        "" \n
-       "{if ((_x EmptyPositions ""gunner"" != 0)&&(getDammage _x < 1)) then {_emptyDefenses = _emptyDefenses + [_x]}} forEach _defenses;" \n
+       "{if ((_x EmptyPositions ""gunner"" > 0)&&(getDammage _x < 1)) then {_emptyDefenses = _emptyDefenses + [_x]}} forEach _defenses;" \n
        "{" \n
        "	_unit = ['WFBE_GUERSOLDIER' Call GetNamespace,WF_ResistanceDefenseTeam,(getPos _x),resistance] Call CreateMan;" \n
        "	[_unit] allowGetIn true;" \n
@@ -308,13 +308,13 @@ class FSM
        "				if (vehicle _leader == _leader) then {_leader moveInDriver _vehicle;_continue = false};" \n
        "				_type = if (typeOf _vehicle == ""Tank"") then {'WFBE_GUERCREW' Call GetNamespace} else {'WFBE_GUERSOLDIER' Call GetNamespace};" \n
        "				if (_continue) then {_driver = [_type,_team,_position,resistance] Call CreateMan;_driver moveInDriver _vehicle};" \n
-       "				if (_vehicle emptyPositions ""gunner"" != 0) then {_gunner = [_type,_team,_position,resistance] Call CreateMan;_gunner moveInGunner _vehicle};" \n
-       "				if (_vehicle emptyPositions ""commander"" != 0) then {_commander = [_type,_team,_position,resistance] Call CreateMan;_commander moveInCommander _vehicle};" \n
+       "				if (_vehicle emptyPositions ""gunner"" > 0) then {_gunner = [_type,_team,_position,resistance] Call CreateMan;_gunner moveInGunner _vehicle};" \n
+       "				if (_vehicle emptyPositions ""commander"" > 0) then {_commander = [_type,_team,_position,resistance] Call CreateMan;_commander moveInCommander _vehicle};" \n
        "			};" \n
        "		};" \n
        "		_count = _count + 1;" \n
        "	};" \n
-       "	if (count _vehicles != 0) then {" \n
+       "	if (count _vehicles > 0) then {" \n
        "		{" \n
        "			_x Spawn HandleEmptyVehicle;" \n
        "		} forEach _vehicles;" \n
@@ -381,7 +381,7 @@ class FSM
        "_near = _position nearEntities 75;" \n
        "_ctx = (east countSide _near) + (west countSide _near);" \n
        "_i = 0;" \n
-       "while {_ctx != 0 && _i < 400} do {" \n
+       "while {_ctx > 0 && _i < 400} do {" \n
        "	_position = ([_location,_tusr + 150,_patrolRange] Call GetRandomPositionEx);" \n
        "	_near = _position nearEntities 75;" \n
        "	_ctx = (east countSide _near) + (west countSide _near);" \n
@@ -407,13 +407,13 @@ class FSM
        "			if (vehicle _leader == _leader) then {_leader moveInDriver _vehicle;_continue = false};" \n
        "			_type = if (typeOf _vehicle == ""Tank"") then {'WFBE_GUERCREW' Call GetNamespace} else {'WFBE_GUERSOLDIER' Call GetNamespace};" \n
        "			if (_continue) then {_driver = [_type,_team,_position,resistance] Call CreateMan;_driver moveInDriver _vehicle};" \n
-       "			if (_vehicle emptyPositions ""gunner"" != 0) then {_gunner = [_type,_team,_position,resistance] Call CreateMan;_gunner moveInGunner _vehicle};" \n
-       "			if (_vehicle emptyPositions ""commander"" != 0) then {_commander = [_type,_team,_position,resistance] Call CreateMan;_commander moveInCommander _vehicle};" \n
+       "			if (_vehicle emptyPositions ""gunner"" > 0) then {_gunner = [_type,_team,_position,resistance] Call CreateMan;_gunner moveInGunner _vehicle};" \n
+       "			if (_vehicle emptyPositions ""commander"" > 0) then {_commander = [_type,_team,_position,resistance] Call CreateMan;_commander moveInCommander _vehicle};" \n
        "		};" \n
        "	};" \n
        "	_count = _count + 1;" \n
        "};" \n
-       "if (count _reinforcementVehicles != 0) then {" \n
+       "if (count _reinforcementVehicles > 0) then {" \n
        "		{" \n
        "			_x Spawn HandleEmptyVehicle;" \n
        "		} forEach _reinforcementVehicles;" \n

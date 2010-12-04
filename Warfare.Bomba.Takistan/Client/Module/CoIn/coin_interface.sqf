@@ -214,7 +214,7 @@ BIS_CONTROL_CAM_Handler = {
 		};
 		
 		//--- Last Built Defense (Ctrl + L).
-		if (_key == 38 && _ctrl && count lastBuilt != 0) then {
+		if (_key == 38 && _ctrl && count lastBuilt > 0) then {
 			_currentCash = Call GetPlayerFunds;
 			if (_currentCash > (lastBuilt select 2) select 1) then {
 				showCommandingMenu '';
@@ -236,7 +236,7 @@ BIS_CONTROL_CAM_Handler = {
 				if (isNil "_preview") then {//--- Proceed when there is no preview.
 					_targeting = screenToWorld [0.5,0.5];
 					_near = nearestObjects [_targeting,Format["WFBE_%1DEFENSENAMES",sideJoinedText] Call GetNamespace,25];
-					if (count _near != 0) then {
+					if (count _near > 0) then {
 						_closest = _near select 0;
 						_closestType = typeOf (_closest);
 						_get = _closestType Call GetNamespace;
@@ -431,7 +431,7 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 		_tooltip = "empty";
 		_tooltipType = "empty";
 		_selected = objNull;
-		if (count _params != 0) then {
+		if (count _params > 0) then {
 			//--- Basic colors
 			_colorGreen = "#(argb,8,8,3)color(0,1,0,0.3,ca)";
 			_colorRed = "#(argb,8,8,3)color(1,0,0,0.3,ca)";
@@ -645,7 +645,7 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 			};
 			
 			//--- Place
-			if (_canBuild && !isnull _preview && ((BIS_CONTROL_CAM_LMB && 65536 in (actionKeys "DefaultAction")) || {_x in (actionKeys "DefaultAction")} count BIS_CONTROL_CAM_keys != 0)) then {
+			if (_canBuild && !isnull _preview && ((BIS_CONTROL_CAM_LMB && 65536 in (actionKeys "DefaultAction")) || {_x in (actionKeys "DefaultAction")} count BIS_CONTROL_CAM_keys > 0)) then {
 				_pos = position _preview;
 				_dir = direction _preview;
 				deleteVehicle _preview;
@@ -769,10 +769,10 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 				_textPicture = format ["<t align='left' size='2.8' shadow='0'><img image='%1'/></t> ",_filePicture];
 			};
 
-			_text1 = if (count _params != 0) then {localize "str_coin_rotate" + "<t align='right'>" + call compile (keyname 29) + "</t><br />"} else {"<br />"};
+			_text1 = if (count _params > 0) then {localize "str_coin_rotate" + "<t align='right'>" + call compile (keyname 29) + "</t><br />"} else {"<br />"};
 			
 			_status = if (manningDefense) then {"Enabled"} else {"Disabled"};
-			_text2 = if (count _params != 0) then {localize "str_coin_build" + "<t align='right'>" + call compile (actionKeysNames ["DefaultAction",1]) + "</t><br />"} else {localize "STR_WF_Gameplay_AutoDefense" + ":<t align='right'>" + _status + "</t><br />"};
+			_text2 = if (count _params > 0) then {localize "str_coin_build" + "<t align='right'>" + call compile (actionKeysNames ["DefaultAction",1]) + "</t><br />"} else {localize "STR_WF_Gameplay_AutoDefense" + ":<t align='right'>" + _status + "</t><br />"};
 
 			_text3 = if (commandingMenu != "#USER:BIS_Coin_categories_0") then {
 				//--- Back hint

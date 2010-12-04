@@ -11,7 +11,7 @@ _placeAtA = objNull;
 _near = ((getPos _injured) nearEntities ["Man",10]) - [_healer,_injured];
 _nearA = 0;
 _nearB = 0;
-if (count _near != 0) then {
+if (count _near > 0) then {
 	_canBePlaceAt = objNull;
 	{
 		_nearA = if (_x distance _relPosA < 1) then {1 + _nearA} else {0 + _nearA};
@@ -19,14 +19,14 @@ if (count _near != 0) then {
 	} forEach _near;
 };
 
-if (_nearA != 0 && _nearB != 0) exitWith {};
+if (_nearA > 0 && _nearB > 0) exitWith {};
 
 _placeAtA = objNull;
 if (_nearA == 0 && _nearB == 0) then {
 	_placeAtA = if (_healer distance _relPosA < _healer distance _relPosB) then {true} else {false};
 } else {
-	if (_nearA != 0 && _nearB == 0) then {_placeAtA = false} else {true};
-	if (_nearB != 0 && _nearA == 0) then {_placeAtA = true} else {false};
+	if (_nearA > 0 && _nearB == 0) then {_placeAtA = false} else {true};
+	if (_nearB > 0 && _nearA == 0) then {_placeAtA = true} else {false};
 };
 
 _fPos = if (_placeAtA) then {_posA} else {_posB};
