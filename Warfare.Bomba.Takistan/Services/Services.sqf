@@ -13,7 +13,7 @@ if (isServer) then {
 	waitUntil { serverInitComplete };
 };
 
-if (local player) then {
+if (!isServer) then {
 	RegisterService("Services\TrackMapMarker\TrackMapMarkerInit.sqf", "TrackMarkers");
 };
 
