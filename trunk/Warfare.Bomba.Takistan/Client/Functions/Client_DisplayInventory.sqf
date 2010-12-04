@@ -48,7 +48,7 @@ _sidearm = _sidearm + _misca;
 			_cost = _cost + (_get select QUERYGEARCOST);
 		_slot = _slot + 1;
 			_inventorySlots = _inventorySlots + [_x];
-			for [{_count = _get Select QUERYGEARSPACE },{_count != 0},{_count = _count - 1}] do {
+			for [{_count = (_get Select QUERYGEARSPACE) - 1},{_count > 0},{_count = _count - 1}] do {
 				ctrlSetText[_inventoryGUI + _slot,""];
 				_slot = _slot + 1;
 				_inventorySlots = _inventorySlots + [""];
@@ -68,7 +68,7 @@ _slot = 0;
 			_cost = _cost + (_get select QUERYGEARCOST);
 		_slot = _slot + 1;
 			_sidearmInventorySlots = _sidearmInventorySlots + [_x];
-			for [{_count = _get Select QUERYGEARSPACE},{_count != 0},{_count = _count - 1}] do {
+			for [{_count = (_get Select QUERYGEARSPACE) - 1},{_count > 0},{_count = _count - 1}] do {
 				ctrlSetText[_sidearmInvGUI + _slot,""];
 				_slot = _slot + 1;
 				_sidearmInventorySlots = _sidearmInventorySlots + [""];
@@ -87,7 +87,7 @@ _slot = 0;
 	_slot = _slot + 1;
 		_miscItemSlots = _miscItemSlots + [_x];
 		_cost = _cost + (_get select QUERYGEARCOST);
-		for [{_count = _get Select QUERYGEARSPACE},{_count != 0},{_count = _count - 1}] do {
+		for [{_count = (_get Select QUERYGEARSPACE) - 1},{_count > 0},{_count = _count - 1}] do {
 			ctrlSetText[_miscInvGUI + _slot,""];
 			_slot = _slot + 1;
 			_miscItemSlots = _miscItemSlots + [""];
