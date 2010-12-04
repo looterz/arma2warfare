@@ -100,13 +100,13 @@ _c = _c + ['BAF_ATV_W'];
 _i = _i + [['','',175,12,1,0,1,0,'British (Woodland)']];
 
 _c = _c + ['BAF_Offroad_W'];
-_i = _i + [['','',275,13,1,0,1,0,'British (Woodland)']];
+_i = _i + [['','',375,13,1,0,1,0,'British (Woodland)']];
 
 _c = _c + ['BAF_Jackal2_GMG_W'];
-_i = _i + [['','',465,20,3,0,1,0,'British (Woodland)']];
+_i = _i + [['','',525,20,3,1,1,0,'British (Woodland)']];
 
 _c = _c + ['BAF_Jackal2_L2A1_W'];
-_i = _i + [['','',525,21,3,1,1,0,'British (Woodland)']];
+_i = _i + [['','',465,21,3,0,1,0,'British (Woodland)']];
 
 /* Heavy Vehicles */
 _c = _c + ['BAF_FV510_W'];

@@ -122,16 +122,16 @@ _u = _u + ['Igla'];
 _i = _i + [['','','CfgMagazines','secondary',110,2,false,false,0,0]];
 
 _u = _u + ['OG7'];
-_i = _i + [['','','CfgMagazines','secondary',95,1,false,false,0,0]];
+_i = _i + [['','','CfgMagazines','secondary',95,2,false,false,0,0]];
 
 _u = _u + ['PG7V'];
 _i = _i + [['','','CfgMagazines','secondary',50,0,true,false,0,0]];
 
 _u = _u + ['PG7VR'];
-_i = _i + [['','','CfgMagazines','secondary',100,0,false,false,0,0]];
+_i = _i + [['','','CfgMagazines','secondary',100,2,false,false,0,0]];
 
 _u = _u + ['PG7VL'];
-_i = _i + [['','','CfgMagazines','secondary',70,0,true,false,0,0]];
+_i = _i + [['','','CfgMagazines','secondary',70,1,true,false,0,0]];
 
 _u = _u + ['RPG18'];
 _i = _i + [['','','CfgMagazines','secondary',40,0,true,false,0,0]];
@@ -150,7 +150,7 @@ _u = _u + ['DMR'];
 _i = _i + [['','','CfgWeapons','',270,2,false,false,0,0]];
 
 _u = _u + ['G36a'];
-_i = _i + [['','','CfgWeapons','',225,1,false,false,0,0]];
+_i = _i + [['','','CfgWeapons','',225,2,false,false,0,0]];
 
 _u = _u + ['G36C'];
 _i = _i + [['','','CfgWeapons','',195,0,true,false,0,0]];
@@ -159,7 +159,7 @@ _u = _u + ['G36_C_SD_eotech'];
 _i = _i + [['','','CfgWeapons','',210,2,false,false,0,0]];
 
 _u = _u + ['G36K'];
-_i = _i + [['','','CfgWeapons','',205,1,false,false,0,0]];
+_i = _i + [['','','CfgWeapons','',205,2,false,false,0,0]];
 
 _u = _u + ['M16A2'];
 _i = _i + [['','','CfgWeapons','',60,0,true,false,0,0]];
@@ -171,10 +171,10 @@ _u = _u + ['m16a4'];
 _i = _i + [['','','CfgWeapons','',75,0,true,false,0,0]];
 
 _u = _u + ['m16a4_acg'];
-_i = _i + [['','','CfgWeapons','',85,1,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',85,2,true,false,0,0]];
 
 _u = _u + ['M16A4_ACG_GL'];
-_i = _i + [['','','CfgWeapons','',95,1,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',95,2,true,false,0,0]];
 
 _u = _u + ['M16A4_GL'];
 _i = _i + [['','','CfgWeapons','',90,0,true,false,0,0]];
@@ -189,7 +189,7 @@ _u = _u + ['M240'];
 _i = _i + [['','','CfgWeapons','',150,0,true,false,0,0]];
 
 _u = _u + ['M249'];
-_i = _i + [['','','CfgWeapons','',185,2,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',185,0,true,false,0,0]];
 
 _u = _u + ['M4A1'];
 _i = _i + [['','','CfgWeapons','',95,0,true,false,0,0]];
@@ -249,7 +249,7 @@ _u = _u + ['MP5SD'];
 _i = _i + [['','','CfgWeapons','',90,1,true,false,0,0]];
 
 _u = _u + ['MG36'];
-_i = _i + [['','','CfgWeapons','',240,2,false,false,0,0]];
+_i = _i + [['','','CfgWeapons','',240,1,false,false,0,0]];
 
 /* Primary weapons - East */
 _u = _u + ['AK_47_M'];
@@ -268,19 +268,19 @@ _u = _u + ['AK_107_kobra'];
 _i = _i + [['','','CfgWeapons','',110,0,true,false,0,0]];
 
 _u = _u + ['AK_107_GL_kobra'];
-_i = _i + [['','','CfgWeapons','',120,0,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',120,1,true,false,0,0]];
 
 _u = _u + ['AK_107_pso'];
-_i = _i + [['','','CfgWeapons','',125,1,false,false,0,0]];
+_i = _i + [['','','CfgWeapons','',125,2,false,false,0,0]];
 
 _u = _u + ['AK_107_GL_pso'];
-_i = _i + [['','','CfgWeapons','',135,1,false,false,0,0]];
+_i = _i + [['','','CfgWeapons','',135,2,false,false,0,0]];
 
 _u = _u + ['AKS_74_kobra'];
 _i = _i + [['','','CfgWeapons','',90,0,true,false,0,0]];
 
 _u = _u + ['AKS_74_pso'];
-_i = _i + [['','','CfgWeapons','',105,1,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',105,2,true,false,0,0]];
 
 _u = _u + ['AKS_74_U'];
 _i = _i + [['','','CfgWeapons','',115,0,true,false,0,0]];
@@ -292,10 +292,10 @@ _u = _u + ['AKS_GOLD'];
 _i = _i + [['','','CfgWeapons','',350,2,true,false,0,0]];
 
 _u = _u + ['bizon'];
-_i = _i + [['','','CfgWeapons','',155,1,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',155,0,true,false,0,0]];
 
 _u = _u + ['bizon_silenced'];
-_i = _i + [['','','CfgWeapons','',175,2,false,false,0,0]];
+_i = _i + [['','','CfgWeapons','',175,0,false,false,0,0]];
 
 _u = _u + ['PK'];
 _i = _i + [['','','CfgWeapons','',190,0,true,false,0,0]];
@@ -304,13 +304,13 @@ _u = _u + ['Pecheneg'];
 _i = _i + [['','','CfgWeapons','',225,2,false,false,0,0]];
 
 _u = _u + ['RPK_74'];
-_i = _i + [['','','CfgWeapons','',185,1,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',185,0,true,false,0,0]];
 
 _u = _u + ['huntingrifle'];
 _i = _i + [['','','CfgWeapons','',120,0,true,false,0,0]];
 
 _u = _u + ['SVD'];
-_i = _i + [['','','CfgWeapons','',160,0,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',160,2,true,false,0,0]];
 
 _u = _u + ['SVD_CAMO'];
 _i = _i + [['','','CfgWeapons','',180,2,false,false,0,0]];
@@ -322,7 +322,7 @@ _u = _u + ['ksvk'];
 _i = _i + [['','','CfgWeapons','',255,3,false,false,0,0]];
 
 _u = _u + ['VSS_vintorez'];
-_i = _i + [['','','CfgWeapons','',220,2,false,false,0,0]];
+_i = _i + [['','','CfgWeapons','',220,3,false,false,0,0]];
 
 /* Secondary weapons - West */
 _u = _u + ['Javelin'];

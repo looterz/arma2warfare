@@ -120,6 +120,9 @@ _i = _i + [['','',30,0,0,0,'Fortification',0,'Civilians']];
 _c = _c + ['Land_fort_artillery_nest'];
 _i = _i + [['','',65,0,0,0,'Fortification',0,'Civilians']];
 
+_c = _c + ['Land_Ind_IlluminantTower'];
+_i = _i + [['','',850,0,0,0,'Fortification',0,'Civilians']];
+
 _c = _c + ['Sign_Danger'];
 _i = _i + [[localize 'STR_WF_Minefield','',1200,0,0,0,'Strategic',0,'Civilians']];
 

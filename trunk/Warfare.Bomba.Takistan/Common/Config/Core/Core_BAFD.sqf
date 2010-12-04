@@ -85,13 +85,13 @@ _c = _c + ['BAF_ATV_D'];
 _i = _i + [['','',175,12,1,0,1,0,'British (Desert)']];
 
 _c = _c + ['BAF_Offroad_D'];
-_i = _i + [['','',275,13,1,0,1,0,'British (Desert)']];
+_i = _i + [['','',375,13,1,0,1,0,'British (Desert)']];
 
 _c = _c + ['BAF_Jackal2_GMG_D'];
-_i = _i + [['','',465,20,3,0,1,0,'British (Desert)']];
+_i = _i + [['','',525,20,3,1,1,0,'British (Desert)']];
 
 _c = _c + ['BAF_Jackal2_L2A1_D'];
-_i = _i + [['','',525,21,3,1,1,0,'British (Desert)']];
+_i = _i + [['','',465,21,3,0,1,0,'British (Desert)']];
 
 /* Heavy Vehicles */
 _c = _c + ['BAF_FV510_D'];

@@ -69,6 +69,9 @@ _i = _i + [['','',95,0,0,0,'Fortification',0,'Takistani Civilians']];
 _c = _c + ['Hedgehog_EP1'];
 _i = _i + [['','',5,0,0,0,'Fortification',0,'Takistani Civilians']];
 
+_c = _c + ['Concrete_Wall_EP1'];
+_i = _i + [['','',40,0,0,0,'Fortification',0,'Takistani Civilians']];
+
 _c = _c + ['HeliH'];
 _i = _i + [['','',15,0,0,0,'Strategic',0,'Takistani Civilians']];
 

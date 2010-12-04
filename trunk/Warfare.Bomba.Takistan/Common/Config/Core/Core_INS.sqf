@@ -55,13 +55,13 @@ _c = _c + ['TT650_Ins'];
 _i = _i + [['','',150,15,1,0,1,0,'Insurgents']];
 
 _c = _c + ['UAZ_INS'];
-_i = _i + [['','',150,15,1,0,1,0,'Insurgents']];
+_i = _i + [['','',260,15,1,0,1,0,'Insurgents']];
 
 _c = _c + ['UAZ_MG_INS'];
-_i = _i + [['','',310,17,2,0,1,0,'Insurgents']];
+_i = _i + [['','',460,17,2,0,1,0,'Insurgents']];
 
 _c = _c + ['UAZ_AGS30_INS'];
-_i = _i + [['','',475,25,2,1,1,0,'Insurgents']];
+_i = _i + [['','',585,25,2,1,1,0,'Insurgents']];
 
 _c = _c + ['UAZ_SPG9_INS'];
 _i = _i + [['','',650,20,2,2,1,0,'Insurgents']];
@@ -70,36 +70,36 @@ _c = _c + ['Ural_INS'];
 _i = _i + [['','',300,20,1,0,1,0,'Insurgents']];
 
 _c = _c + ['BRDM2_INS'];
-_i = _i + [['','',900,25,2,2,1,0,'Insurgents']];
+_i = _i + [['','',1100,25,2,2,1,0,'Insurgents']];
 
 _c = _c + ['BRDM2_ATGM_INS'];
-_i = _i + [['','',1550,25,2,3,1,0,'Insurgents']];
+_i = _i + [['','',1650,25,2,3,1,0,'Insurgents']];
 
 _c = _c + ['Ural_ZU23_INS'];
-_i = _i + [['','',1600,20,2,2,1,0,'Insurgents']];
+_i = _i + [['','',1750,20,2,2,1,0,'Insurgents']];
 
 _c = _c + ['GRAD_INS'];
-_i = _i + [['','',3900,35,2,2,1,0,'Insurgents']];
+_i = _i + [['','',4200,35,2,2,1,0,'Insurgents']];
 
 /* Heavy Vehicles */
 _c = _c + ['BMP2_Ambul_INS'];
-_i = _i + [['','',850,20,1,1,2,0,'Insurgents']];
+_i = _i + [['','',950,20,1,1,2,0,'Insurgents']];
 
 _c = _c + ['BMP2_INS'];
-_i = _i + [['','',2400,30,3,1,2,0,'Insurgents']];
+_i = _i + [['','',2600,30,3,0,2,0,'Insurgents']];
 
 _c = _c + ['ZSU_INS'];
-_i = _i + [['','',2800,35,3,2,2,0,'Insurgents']];
+_i = _i + [['','',3400,35,3,2,2,0,'Insurgents']];
 
 _c = _c + ['T72_INS'];
-_i = _i + [['','',3900,35,3,2,2,0,'Insurgents']];
+_i = _i + [['','',5850,35,3,2,2,0,'Insurgents']];
 
 /* Air Vehicles */
 _c = _c + ['Mi17_Ins'];
-_i = _i + [['','',5000,35,2,0,3,0,'Insurgents']];
+_i = _i + [['','',7000,35,2,0,3,0,'Insurgents']];
 
 _c = _c + ['Su25_Ins'];
-_i = _i + [['','',41750,55,1,3,3,0,'Insurgents']];
+_i = _i + [['','',63600,55,1,3,3,0,'Insurgents']];
 
 /* Static Defenses */
 _c = _c + ['SPG9_Ins'];

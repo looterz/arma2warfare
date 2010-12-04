@@ -106,7 +106,7 @@ if (WF_A2_CombinedOps) then {
 	_u = _u		+ ["S1203_TK_CIV_EP1"];
 	_u = _u		+ ["Ural_TK_CIV_EP1"];
 	if (paramPurchaseInfDepot) then {
-		_u = _u		+ ["RU_Soldier"];
+		_u = _u		+ ["TK_Soldier_EP1"];
 	};
 };
 
