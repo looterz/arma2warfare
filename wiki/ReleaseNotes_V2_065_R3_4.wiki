@@ -19,4 +19,4 @@ Helicopters:
 Ka60, Ka60_GL, Ka137, Ka137_MG
 
 Weapons:
-Mines: PMD EID - Added East
+Mines: EID
