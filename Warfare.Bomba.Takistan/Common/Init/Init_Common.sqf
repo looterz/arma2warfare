@@ -29,6 +29,9 @@ GetRandomPosition = Compile PreprocessFile "Common\Functions\Common_GetRandomPos
 GetRandomPositionEx = Compile PreprocessFile "Common\Functions\Common_GetRandomPositionEx.sqf";
 GetGridTarget  = Compile PreprocessFile "Common\Functions\Common_GetGridTarget.sqf";
 
+GetTeamVariable = Compile PreprocessFile "Common\Functions\Common_GetTeamVariable.sqf";
+SetTeamVariable = Compile PreprocessFile "Common\Functions\Common_SetTeamVariable.sqf";
+
 GetClientID = Compile PreprocessFile "Common\Functions\Common_GetClientID.sqf";
 GetClientIDFromTeam = Compile PreprocessFile "Common\Functions\Common_GetClientIDFromTeam.sqf";
 GetClientTeam = Compile PreprocessFile "Common\Functions\Common_GetClientTeam.sqf";

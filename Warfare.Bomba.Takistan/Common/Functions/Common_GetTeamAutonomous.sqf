@@ -1,10 +1,10 @@
 #include "profiler.h"
-PROFILER_BEGIN("Common_GetSideUpgrades");
+PROFILER_BEGIN("Common_GetTeamAutonomous");
 
-Private['_index','_result'];
+Private['_result', '_team'];
 
-_index = _this Call GetClientIDFromTeam;
-_result = Call Compile Format ["%1Autonomous%2",str (side _this),_index];
+	_team = _this;
+	_result = [_team, "TeamAutonomous"] call GetTeamVariable;
 
 PROFILER_END();
 _result;

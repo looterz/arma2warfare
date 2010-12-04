@@ -3,10 +3,9 @@ PROFILER_BEGIN("Common_SetTeamAutonomous");
 
 Private['_status','_team'];
 
-_team = _this select 0;
-_status = _this select 1;
+	_team = _this select 0;
+	_status = _this select 1;
 
-_index = _team Call GetClientIDFromTeam;
+	[_team, "TeamAutonomous", _status] call SetTeamVariable;
 
-Call Compile Format ["%1Autonomous%2 = _status; publicVariable '%1Autonomous%2';",str (side _team),_index];
 PROFILER_END();
