@@ -57,6 +57,10 @@ if (WF_A2_Arrowhead) then {
 		_u = _u		+ ['BAF_Offroad_D'];
 		_u = _u		+ ['BAF_Jackal2_GMG_D'];
 		_u = _u		+ ['BAF_Jackal2_L2A1_D'];
+		
+		_u = _u		+ ['SUV_PMC'];
+		_u = _u		+ ['SUV_PMC_BAF'];
+		_u = _u		+ ['ArmoredSUV_PMC'];
 	};
 };
 
@@ -112,6 +116,10 @@ if (WF_A2_CombinedOps) then {
 		_u = _u		+ ['BAF_Offroad_D'];
 		_u = _u		+ ['BAF_Jackal2_GMG_D'];
 		_u = _u		+ ['BAF_Jackal2_L2A1_D'];
+		
+		_u = _u		+ ['SUV_PMC'];
+		_u = _u		+ ['SUV_PMC_BAF'];
+		_u = _u		+ ['ArmoredSUV_PMC'];		
 	};
 };
 

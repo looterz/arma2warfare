@@ -161,6 +161,7 @@ if (WF_A2_Arrowhead) then {
 	/* Gear Core */
 	[] Call Compile PreProcessFile 'Common\Config\Core_Gear\Core_Arrowhead_G.sqf';
 	[] Call Compile PreProcessFile 'Common\Config\Core_Gear\Core_BAF_G.sqf';
+	[] Call Compile PreProcessFile 'Common\Config\Core_Gear\Core_PMC_G.sqf';
 	/* Units Core */
 	[] Call Compile PreProcessFile 'Common\Config\Core\Core_BAF.sqf';
 	[] Call Compile PreProcessFile 'Common\Config\Core\Core_BAFD.sqf';
@@ -171,12 +172,14 @@ if (WF_A2_Arrowhead) then {
 	[] Call Compile PreProcessFile 'Common\Config\Core\Core_TKGUE.sqf';
 	[] Call Compile PreProcessFile 'Common\Config\Core\Core_TKSF.sqf';
 	[] Call Compile PreProcessFile 'Common\Config\Core\Core_US.sqf';
+	[] Call Compile PreProcessFile 'Common\Config\Core\Core_PMC.sqf';
 };
 if (WF_A2_CombinedOps) then {
 	/* Gear Core */
 	[] Call Compile PreProcessFile 'Common\Config\Core_Gear\Core_Vanilla_G.sqf';
 	[] Call Compile PreProcessFile 'Common\Config\Core_Gear\Core_Arrowhead_G.sqf';
 	[] Call Compile PreProcessFile 'Common\Config\Core_Gear\Core_BAF_G.sqf';
+	[] Call Compile PreProcessFile 'Common\Config\Core_Gear\Core_PMC_G.sqf';
 	/* Units Core */
 	[] Call Compile PreProcessFile 'Common\Config\Core\Core_BAF.sqf';
 	[] Call Compile PreProcessFile 'Common\Config\Core\Core_BAFD.sqf';
@@ -196,6 +199,7 @@ if (WF_A2_CombinedOps) then {
 	[] Call Compile PreProcessFile 'Common\Config\Core\Core_TKSF.sqf';
 	[] Call Compile PreProcessFile 'Common\Config\Core\Core_US.sqf';
 	[] Call Compile PreProcessFile 'Common\Config\Core\Core_USMC.sqf';
+	[] Call Compile PreProcessFile 'Common\Config\Core\Core_PMC.sqf';
 };
 /* CORE SYSTEM - End */
 
