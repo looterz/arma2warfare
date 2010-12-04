@@ -106,6 +106,7 @@ if (paramAllies) then {
 if (WF_A2_Vanilla) then {
 	_u 			= ['Mi17_Ins'];
 	_u = _u		+ ['Mi17_medevac_RU'];
+	
 	if (_r == 0 ||_r == 1) then {
 		_u = _u		+ ['Mi17_rockets_RU'];
 		_u = _u		+ ['Mi24_V'];
@@ -133,6 +134,13 @@ if (WF_A2_Arrowhead) then {
 		_u = _u		+ ['L39_TK_EP1'];
 		_u = _u		+ ['Su25_TK_EP1'];
 	};
+	
+	if (paramDLCBAF) then {
+		_u = _u		+ ['Ka60_PMC'];
+		_u = _u		+ ['Ka60_GL_PMC'];
+		_u = _u		+ ['Ka137_PMC'];
+		_u = _u		+ ['Ka137_MG_PMC'];
+	};	
 };
 
 if (WF_A2_CombinedOps) then {
@@ -157,6 +165,13 @@ if (WF_A2_CombinedOps) then {
 		_u = _u		+ ['Su25_Ins'];
 		_u = _u		+ ['Su39'];
 	};
+	
+	if (paramDLCBAF) then {
+		_u = _u		+ ['Ka60_PMC'];
+		_u = _u		+ ['Ka60_GL_PMC'];
+		_u = _u		+ ['Ka137_PMC'];
+		_u = _u		+ ['Ka137_MG_PMC'];
+	};	
 };
 
 ['WFBE_EASTAIRCRAFTUNITS',_u,true] Call SetNamespace;
