@@ -3,9 +3,7 @@ PROFILER_BEGIN("Common_GetTeamMoveMode");
 
 Private['_index', '_result'];
 
-_index = _this Call GetClientIDFromTeam;
-
-_result = Call Compile Format ["%1MoveMode%2",str (side _this),_index];
+	_result = [_this, "TeamMoveMode"] call GetTeamVariable;
 
 PROFILER_END();
 _result;
