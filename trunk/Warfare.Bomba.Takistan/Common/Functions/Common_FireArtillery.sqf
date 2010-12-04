@@ -62,7 +62,7 @@ while { _bWait && _timeout < time  } do {
 
 _amount = _artillery Ammo _weapon;
 
-if (_amount != 0) then {
+if (_amount > 0) then {
 
 	_radialR = Random (_distance / _maxRange * 100) + Random _radius;
 	_radialAlpha = Random 360;

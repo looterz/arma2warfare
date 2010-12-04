@@ -54,7 +54,7 @@ _get set [2,_funds];
 //--- SetPos the AI.
 _buildings = (_sideText) Call GetSideStructures;
 _respawnLoc = _hq;
-if (count _buildings != 0) then {
+if (count _buildings > 0) then {
 	_closestRespawn = [leader _team,_buildings] Call SortByDistance;
 	_respawnLoc = _closestRespawn select 0;
 };
@@ -78,7 +78,7 @@ if !(isNull (_cmdrTeam)) then {
 		publicVariable 'WFBE_LocalizeMessage';
 		
 		//--- High Command (Remove).
-		if (paramHighCommand && count (hcAllGroups (leader _team)) != 0) then {HCRemoveAllGroups (leader _team)};
+		if (paramHighCommand && count (hcAllGroups (leader _team)) > 0) then {HCRemoveAllGroups (leader _team)};
 		
 		//--- AI Can move freely now & respawn at the default location.
 		{[_x,false] Call SetTeamAutonomous;[_x, ""] Call SetTeamRespawn} forEach (Format["WFBE_%1TEAMS",_sideText] Call GetNamespace);

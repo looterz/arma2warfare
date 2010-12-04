@@ -38,7 +38,7 @@ if (!_deployed) then {
 		_update = true;
 		_areas = WF_Logic getVariable Format['%1Area',_sideText];
 		_near = [_position,_areas] Call SortByDistance;
-		if (count _near != 0) then {
+		if (count _near > 0) then {
 			if ((_near select 0) distance _position < (('WFBE_BASEAREARANGE' Call GetNamespace) + ('WFBE_MHQBUILDINGRANGE' Call GetNamespace))) then {_update = false};
 		};
 		if (_update) then {

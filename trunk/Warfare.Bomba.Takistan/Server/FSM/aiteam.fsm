@@ -604,7 +604,7 @@ class FSM
        "			if !(_x in _cargos) then {_team addVehicle _x; (units _team) allowGetIn true;(units _team) orderGetIn true};" \n
        "		};" \n
        "		_cargo = (crew _x) - [driver _x, gunner _x, commander _x];" \n
-       "		if ((_x emptyPositions 'cargo' != 0 || count _cargo != 0) && !(_x in _cargos)) then {" \n
+       "		if ((_x emptyPositions 'cargo' > 0 || count _cargo > 0) && !(_x in _cargos)) then {" \n
        "			_cargos = _cargos + [_x];" \n
        "		};" \n
        "		if (leader _team == vehicle leader _team && _x distance (leader _team) < 150 && _x emptyPositions 'cargo' == 0) then {" \n
@@ -779,7 +779,7 @@ class FSM
           priority = 0.000000;
           to="Update_Cargo";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"count _cargos != 0 && _moveMode == 'towns'"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"count _cargos > 0 && _moveMode == 'towns'"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/

@@ -22,7 +22,7 @@ switch (_type) do {
 		_locations = [];
 		{_sideID = _x getVariable "sideID";if (_sideID != sideID) then {_locations = _locations + [_x]}} forEach towns;
 		_sorted = [player,_locations] Call SortByDistance;
-		if (count _sorted != 0) then {
+		if (count _sorted > 0) then {
 			currentMission = _sorted select 0;
 			["TownAdd",currentMission] Spawn TaskSystem;
 			["TownHintNew",currentMission] Spawn TaskSystem;

@@ -45,7 +45,7 @@ while {alive _defense} do {
 					sleep _dt;
 					
 					if ((vehicle _unit != _defense)&& alive _unit &&(!isNull _unit)) then {
-						if ((_defense EmptyPositions "gunner" != 0)&& alive _defense &&(!isNull _defense)) then {_unit MoveInGunner _defense} else {deleteVehicle _unit};
+						if ((_defense EmptyPositions "gunner" > 0)&& alive _defense &&(!isNull _defense)) then {_unit MoveInGunner _defense} else {deleteVehicle _unit};
 					};
 				} else {
 					"Server_HandleDefense.sqf: Canceled auto manning, the barracks is destroyed."  call LogInform;

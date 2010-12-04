@@ -23,7 +23,7 @@ for [{_i = 0},{_i < count(_data)},{_i = _i + 1}] do {
 	};
 };
 
-if (count _listPrice != 0) then {lnbSetCurSelRow [_listBox,0]} else {lnbSetCurSelRow [_listBox,-1]};
+if (count _listPrice > 0) then {lnbSetCurSelRow [_listBox,0]} else {lnbSetCurSelRow [_listBox,-1]};
 
 while {alive player && dialog} do {
 	sleep 0.1;

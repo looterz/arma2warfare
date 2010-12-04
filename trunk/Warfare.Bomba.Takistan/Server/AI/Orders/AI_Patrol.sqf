@@ -19,29 +19,19 @@ _maxWaypoints = 8;
 _wps = [];
 
 _u = _maxWayPoints;
-_x = 0;
-
 _radius2 = _radius * 2;
 _pos = [];
 
 while { !(_u == 0) } do {
 	_u = _u - 1;
-
-	_isSufracePos = false;
-	while { !_isSufracePos } do {
-		_rand1 = (random (_radius2)) - _radius;
-		_rand2 = (random (_radius2)) - _radius;
-		_pos = [(_townPos select 0)+_rand1, (_townPos select 1)+_rand2, 0];	
-		
-		_isSufracePos = if (surfaceIsWater _pos) then { false } else { true };			
-	};
-	_type = if (_u == 0) then {'MOVE'} else {'CYCLE'};
-	_wps = _wps + [[_pos,_type,35,40]];
 	
-	_x = _x + 1;
+	_pos = [_townPos, 5, _radius] call GetRandomPosition;
+
+	_type = if (_u != 0) then {'MOVE'} else {'CYCLE'};
+	_wps = _wps + [[_pos,_type,35,40]];
 };
 
-Format["AI_Patrol: The %1 %2 Team is patrolling at %3",side _team,_team,_destination] call LogInform;
+Format["AI_Patrol: The %1 %2 Team is patrolling at %3",side _team,_team,_destination] call LogHigh;
 
 [_team, true, _wps] Call AIWPAdd;
 

@@ -106,7 +106,7 @@ class FSM
       init = /*%FSM<STATEINIT""">*/"_timeStart = time;" \n
        "" \n
        "_alives = (units _team) Call GetLiveUnits;" \n
-       "_end = if (count _alives != 0) then {false} else {true};" \n
+       "_end = if (count _alives > 0) then {false} else {true};" \n
        "" \n
        "if ((leader _team) distance _destination < 30) then {" \n
        "	_locationSide = (_destination getVariable ""sideID"") Call GetSideFromID;" \n
@@ -121,7 +121,7 @@ class FSM
        "		_locationSide = (_x getVariable ""sideID"") Call GetSideFromID;" \n
        "		if (_locationSide != _side) then {_destinations = _destinations + [_x]};" \n
        "	} forEach towns;" \n
-       "	if (count _destinations != 0) then {" \n
+       "	if (count _destinations > 0) then {" \n
        "		_orderComplete = false;" \n
        "		_loc = [leader _team,_destinations] Call SortByDistance;" \n
        "		_destination = _loc select 0;" \n

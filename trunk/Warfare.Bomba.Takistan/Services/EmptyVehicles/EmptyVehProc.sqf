@@ -5,7 +5,7 @@ private['_dirty', '_u', '_vehicleInfo', '_vehicle', '_timeout', '_tmp'];
 
 	_dirty = false;
 	
-	if (count WBE_HandleEmptyVehicleOperation != 0) then {	// copy vehicles from operation buffer to processing buffer
+	if (count WBE_HandleEmptyVehicleOperation > 0) then {	// copy vehicles from operation buffer to processing buffer
 		_tmp = WBE_HandleEmptyVehicleOperation;
 		WBE_HandleEmptyVehicleOperation = [];
 		WBE_HandleEmptyVehicleCollection = WBE_HandleEmptyVehicleCollection + _tmp;

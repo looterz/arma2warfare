@@ -21,7 +21,7 @@ _position = Zeta_DefaultPos;
 _index = Zeta_Special find _type;
 if (_index != -1) then {_position = Zeta_SpecialPosition select _index};
 
-if (count crew(_vehicle) != 0) exitWith {hint (localize 'STR_WF_Hook_Manned')};
+if (count crew(_vehicle) > 0) exitWith {hint (localize 'STR_WF_Hook_Manned')};
 
 _vehicle attachTo [_lifter,_position];
 _lifter setVariable ["Attached",true,false];

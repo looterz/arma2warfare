@@ -120,7 +120,7 @@ class FSM
        "_sorted = [_posBuilding, _buildings] Call SortByDistance;" \n
        "" \n
        "_nearby = false;" \n
-       "if (count _sorted != 0) then {" \n
+       "if (count _sorted > 0) then {" \n
        "	if ((_sorted select 0) distance _posBuilding < 400) then {_nearby = true};" \n
        "};"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
@@ -267,7 +267,7 @@ class FSM
        "		};" \n
        "	} forEach _units;" \n
        "	" \n
-       "	if (_created != 0) then {" \n
+       "	if (_created > 0) then {" \n
        "		_built = WF_Logic getVariable Format [""%1UnitsCreated"",str _side];" \n
        "		_built = _built + 1;" \n
        "		WF_Logic setVariable [Format[""%1UnitsCreated"",str _side],_built,true];" \n

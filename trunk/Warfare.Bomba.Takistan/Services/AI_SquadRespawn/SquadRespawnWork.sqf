@@ -43,7 +43,7 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 		if (!isNull _town) then {
 			if (_town distance _deathLoc  < _rr) then {
 				_camps = [_town,_side] Call GetFriendlyCamps;
-				if (count _camps != 0) then {
+				if (count _camps > 0) then {
 					if (paramCampRespawnRule) then {
 						_closestCamps = [_deathLoc,_camps] Call SortByDistance;
 						_closestCamp = _closestCamps select 0;
@@ -51,7 +51,7 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 						_objs = _objects;
 						{if (!(_x isKindOf "Man")) then {if (count (crew _x) == 0) then {_objects = _objects - [_x]}}} forEach _objs;
 						_hostiles = if (_side == west) then {East countSide _objects} else {West countSide _objects};
-						if (_deathLoc distance _closestCamp < _rmr && _hostiles != 0) then {_camps = _camps - [_closestCamp]};
+						if (_deathLoc distance _closestCamp < _rmr && _hostiles > 0) then {_camps = _camps - [_closestCamp]};
 					};
 					_availableSpawn = _availableSpawn + _camps;
 				};
@@ -98,14 +98,14 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 	//--- Default respawn.
 	if (_update) then {
 		_respawnLoc = _hq;
-		if (count _buildings != 0) then {
+		if (count _buildings > 0) then {
 			_closestRespawn = [_hq,_buildings] Call SortByDistance;
 			_respawnLoc = _closestRespawn select 0;
 		};
 	};
 	
 	//--- Alternative spawn location.
-	if (count _availableSpawn != 0) then {
+	if (count _availableSpawn > 0) then {
 		_respawnLoc = _availableSpawn select (round(random((count _availableSpawn)-1)));
 	};
 

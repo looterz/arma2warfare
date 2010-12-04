@@ -44,7 +44,7 @@ while {alive player && dialog} do {
 		_condition = _upgrcond select _u;
 		if (_level == _maxLevel) then {_x ctrlSetTextColor [0, 1, 0, 1]};
 		if (!_condition) then {_x ctrlSetTextColor [1, 0, 0, 1]};
-		if (count _dependencie != 0 && _level != _maxLevel && _condition) then {
+		if (count _dependencie > 0 && _level != _maxLevel && _condition) then {
 			if (_upgrades select (_dependencie select 0) < (_dependencie select 1)) then {
 				_x ctrlSetTextColor [1, 0, 0, 1];
 			} else {
@@ -89,7 +89,7 @@ while {alive player && dialog} do {
 
 		_enabled = true;
 		if (!_condition) then {_enabled = false};
-		if (count _dependencie != 0 && _enabled) then {
+		if (count _dependencie > 0 && _enabled) then {
 			if (_upgrades select (_dependencie select 0) < (_dependencie select 1)) then {
 				_dependent = true;
 			} else {_dependent = false};

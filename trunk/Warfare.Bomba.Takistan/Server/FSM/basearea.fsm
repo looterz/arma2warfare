@@ -72,7 +72,7 @@ class FSM
        "	_logic = _x;" \n
        "	_structures = [_logic,_buildingsWest] Call SortByDistance;" \n
        "	_update = false;" \n
-       "	if (count _structures != 0) then {" \n
+       "	if (count _structures > 0) then {" \n
        "		if ((_structures select 0) distance _logic > (_brr + _mbr)) then {_update = true};" \n
        "		if (_update) then {" \n
        "			_newWest = _newWest - [_logic] - [objNull];" \n
@@ -91,7 +91,7 @@ class FSM
        "	_logic = _x;" \n
        "	_structures = [_logic,_buildingsEast] Call SortByDistance;" \n
        "	_update = false;" \n
-       "	if (count _structures != 0) then {" \n
+       "	if (count _structures > 0) then {" \n
        "		if ((_structures select 0) distance _logic > (_brr + _mbr)) then {_update = true};" \n
        "		if (_update) then {" \n
        "			_newEast = _newEast - [_logic] - [objNull];" \n

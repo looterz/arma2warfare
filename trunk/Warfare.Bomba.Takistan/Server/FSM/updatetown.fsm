@@ -160,7 +160,7 @@ class FSM
           priority = 0.000000;
           to="Town_Advanced";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"count _objects != 0"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"count _objects > 0"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -246,19 +246,19 @@ class FSM
        "_skip = false;" \n
        "_protected = false;" \n
        "_captured = false;" \n
-       "if (_sideID == RESISTANCEID && _resistance != 0) then {_force = _resistance;_protected = true;_skip = true};" \n
-       "if (_sideID == EASTID && _east != 0) then {_force = _east;_protected = true;_skip = true};" \n
-       "if (_sideID == WESTID && _west != 0) then {_force = _west;_protected = true;_skip = true};" \n
-       "if (_east != 0 && _west != 0) then {_skip = true};" \n
-       "if (_west != 0 && _resistance != 0) then {_skip = true};" \n
-       "if (_resistance != 0 && _east != 0) then {_skip = true};" \n
+       "if (_sideID == RESISTANCEID && _resistance > 0) then {_force = _resistance;_protected = true;_skip = true};" \n
+       "if (_sideID == EASTID && _east > 0) then {_force = _east;_protected = true;_skip = true};" \n
+       "if (_sideID == WESTID && _west > 0) then {_force = _west;_protected = true;_skip = true};" \n
+       "if (_east > 0 && _west > 0) then {_skip = true};" \n
+       "if (_west > 0 && _resistance > 0) then {_skip = true};" \n
+       "if (_resistance > 0 && _east > 0) then {_skip = true};" \n
        "if !(_skip) then {" \n
        "	_rate = _tcrate;" \n
-       "	if (_east != 0) then {_rate = _tcrate * ([_location,East] Call GetTotalCampsOnSide) / (_location Call GetTotalCamps) * _mccr};" \n
-       "	if (_west != 0) then {_rate = _tcrate * ([_location,West] Call GetTotalCampsOnSide) / (_location Call GetTotalCamps) * _mccr};" \n
+       "	if (_east > 0) then {_rate = _tcrate * ([_location,East] Call GetTotalCampsOnSide) / (_location Call GetTotalCamps) * _mccr};" \n
+       "	if (_west > 0) then {_rate = _tcrate * ([_location,West] Call GetTotalCampsOnSide) / (_location Call GetTotalCamps) * _mccr};" \n
        "	if (_rate <= 1) then {_rate = 1.0};" \n
-       "	if (_sideID == EASTID && (_west != 0 || _resistance != 0) && time - _timeAttacked > 60) then {_timeAttacked = time;[""IsUnderAttack"",_location,East,_name] Spawn SideMessage};" \n
-       "	if (_sideID == WESTID && (_east != 0 || _resistance != 0) && time - _timeAttacked > 60) then {_timeAttacked = time;[""IsUnderAttack"",_location,West,_name] Spawn SideMessage};" \n
+       "	if (_sideID == EASTID && (_west > 0 || _resistance > 0) && time - _timeAttacked > 60) then {_timeAttacked = time;[""IsUnderAttack"",_location,East,_name] Spawn SideMessage};" \n
+       "	if (_sideID == WESTID && (_east > 0 || _resistance > 0) && time - _timeAttacked > 60) then {_timeAttacked = time;[""IsUnderAttack"",_location,West,_name] Spawn SideMessage};" \n
        "	_supplyValue = _location getVariable ""supplyValue"";" \n
        "	_supplyValue = round(_supplyValue - (_resistance + _east + _west) * _rate);" \n
        "	_location setVariable [""supplyValue"",_supplyValue,true];" \n
@@ -304,8 +304,8 @@ class FSM
       name = "Captured";
       init = /*%FSM<STATEINIT""">*/"_location setVariable [""supplyValue"",_startingSupplyValue,true];" \n
        "_side = ""R"";" \n
-       "if (_west != 0) then {_side = ""W""};" \n
-       "if (_east != 0) then {_side = ""E""};" \n
+       "if (_west > 0) then {_side = ""W""};" \n
+       "if (_east > 0) then {_side = ""E""};" \n
        "switch (_side) do {" \n
        "	case 'R': {" \n
        "		if (_sideID == WESTID) then {" \n
