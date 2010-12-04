@@ -7,16 +7,20 @@ Build 305
 === New ===
  * Support weapons Private Military Company: Activated with the BAF
 
-=== West ===
-Light Vehicles
-SUV, SUV_Armored,
+-----
+*WEST*
 
-Rifles and grenade launchers:
+*Light Vehicles:*
+SUV, SUV_Armored
+
+*Rifles and grenade launchers:*
 AA12, AS50_scoped, AS50_TWS, XM8 TWS, XM8 TWS SD, XM8 HOLO SD, XM8 Compact, XM8 Carabine
 
-=== East ===
-Helicopters: 
+-----
+*EAST*
+
+*Helicopters:*
 Ka60, Ka60_GL, Ka137, Ka137_MG
 
-Weapons:
-Mines: EID
+*Mines:*
+EID
