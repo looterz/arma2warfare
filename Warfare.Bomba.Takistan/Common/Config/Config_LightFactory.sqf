@@ -66,6 +66,12 @@ if (WF_A2_CombinedOps) then {
 	_u = _u		+ ['M1030_US_DES_EP1'];
 	_u = _u		+ ['ATV_US_EP1'];
 	_u = _u		+ ['Zodiac'];
+	_u = _u		+ ['M1126_ICV_M2_EP1'];
+	_u = _u		+ ['M1126_ICV_mk19_EP1'];
+	_u = _u		+ ['M1129_MC_EP1'];
+	_u = _u		+ ['M1135_ATGMV_EP1'];
+	_u = _u		+ ['M1128_MGS_EP1'];
+	_u = _u		+ ['M1133_MEV_EP1'];
 	_u = _u		+ ['HMMWV_DES_EP1'];
 	_u = _u		+ ['HMMWV_M1035_DES_EP1'];
 	_u = _u		+ ['HMMWV_Terminal_EP1'];
@@ -84,11 +90,7 @@ if (WF_A2_CombinedOps) then {
 	_u = _u		+ ['HMMWV_TOW'];
 	_u = _u		+ ['HMMWV_Avenger'];
 	_u = _u		+ ['HMMWV_Ambulance'];
-	_u = _u		+ ['M1126_ICV_M2_EP1'];
-	_u = _u		+ ['M1126_ICV_mk19_EP1'];
-	_u = _u		+ ['M1129_MC_EP1'];
 	_u = _u		+ ['MTVR_DES_EP1'];
-	_u = _u		+ ['M1128_MGS_EP1'];
 	_u = _u		+ ['MtvrRepair_DES_EP1'];
 	_u = _u		+ ['MtvrReammo_DES_EP1'];
 	_u = _u		+ ['MtvrRefuel_DES_EP1'];
@@ -203,6 +205,8 @@ if (WF_A2_CombinedOps) then {
 	_u = _u		+ ['UAZ_MG_INS'];
 	_u = _u		+ ['UAZ_AGS30_RU'];
 	_u = _u		+ ['UAZ_SPG9_INS'];
+	_u = _u		+ ['BTR40_TK_INS_EP1'];
+	_u = _u		+ ['BTR40_MG_TK_INS_EP1'];
 	_u = _u		+ ['LandRover_MG_TK_EP1'];
 	_u = _u		+ ['LandRover_SPG9_TK_EP1'];
 	_u = _u		+ ['SUV_TK_EP1'];

@@ -20,7 +20,6 @@ switch (typeOf _unit) do {
 		_unit addWeapon "SidewinderLaucher_AH1Z";
 	};
 	case "AH1Z": {
-		
 		if ( (WF_A2_Arrowhead || WF_A2_CombinedOps) ) then {
 			_unit removeMagazine "2Rnd_Sidewinder_AH1Z";
 			_unit removeWeapon "SidewinderLaucher_AH1Z";		
@@ -55,9 +54,8 @@ switch (typeOf _unit) do {
 	};
 	case "M6_EP1": {
 		_unit removeWeapon "StingerLaucher_4x";
-		_unit addMagazine "4Rnd_Sidewinder_AV8B";
-		_unit addMagazine "4Rnd_Sidewinder_AV8B";
-		_unit addWeapon "SidewinderLaucher";
+		_unit addMagazine "8Rnd_9M311";
+		_unit addWeapon "9M311Laucher";
 	};
 	//EAST
 	case "Ka52": {

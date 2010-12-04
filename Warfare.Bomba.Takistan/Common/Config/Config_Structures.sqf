@@ -844,6 +844,8 @@ if (WF_A2_CombinedOps) then {
 	_n = _n		+ ["US_WarfareBBarrier5x_EP1"];
 	_n = _n		+ ["US_WarfareBBarrier10x_EP1"];
 	_n = _n		+ ["US_WarfareBBarrier10xTall_EP1"];
+	_n = _n		+ ["Concrete_Wall_EP1"];
+	_n = _n		+ ["Land_Ind_IlluminantTower"];
 	_n = _n		+ ["MASH_EP1"];
 	_n = _n		+ ["Land_fort_bagfence_long"];
 	_n = _n		+ ["Land_fort_bagfence_corner"];
@@ -1007,6 +1009,8 @@ if (WF_A2_CombinedOps) then {
 	_n = _n		+ ["TK_WarfareBBarrier5x_EP1"];
 	_n = _n		+ ["TK_WarfareBBarrier10x_EP1"];
 	_n = _n		+ ["TK_WarfareBBarrier10xTall_EP1"];
+	_n = _n		+ ["Concrete_Wall_EP1"];
+	_n = _n		+ ["Land_Ind_IlluminantTower"];
 	_n = _n		+ ["MASH_EP1"];
 	_n = _n		+ ["Land_fort_bagfence_long"];
 	_n = _n		+ ["Land_fort_bagfence_corner"];

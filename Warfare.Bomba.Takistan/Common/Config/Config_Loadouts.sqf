@@ -1500,6 +1500,8 @@ if (WF_A2_CombinedOps) then {
 			_m = _m + ["6Rnd_SmokeGreen_M203"];
 			_m = _m + ["6Rnd_SmokeYellow_M203"];
 			_m = _m + ["M136"];
+			_m = _m + ["SMAW_HEAA"];
+			_m = _m + ["SMAW_HEDP"];
 			_m = _m + ["MAAWS_HEAT"];
 			_m = _m + ["MAAWS_HEDP"];
 			_m = _m + ["Javelin"];
@@ -1610,6 +1612,7 @@ if (WF_A2_CombinedOps) then {
 			/* Secondary. */
 
 			_w = ['M136'];
+			_w = _w + ['SMAW'];
 			_w = _w + ['MAAWS'];
 			if (paramDLCBAF) then {
 				_w = _w + ['BAF_NLAW_Launcher'];
@@ -1850,9 +1853,9 @@ if (WF_A2_CombinedOps) then {
 			_l = _l + [1];
 			_b = _b + [true];
 
-			_d = _d + [getText(configFile >> 'CfgWeapons' >> 'm240_scoped_EP1' >> 'displayName') + '/' + getText(configFile >> 'CfgWeapons' >> 'Colt1911' >> 'displayName')];
+			_d = _d + [getText(configFile >> 'CfgWeapons' >> 'm240' >> 'displayName') + '/' + getText(configFile >> 'CfgWeapons' >> 'Colt1911' >> 'displayName')];
 			_p = _p + [getText(configFile >> 'CfgWeapons' >> 'm240_scoped_EP1' >> 'picture')];
-			_t = _t + [['m240_scoped_EP1','Colt1911']];
+			_t = _t + [['m240','Colt1911']];
 			_m = _m + [['100Rnd_762x51_M240','100Rnd_762x51_M240','100Rnd_762x51_M240','100Rnd_762x51_M240','100Rnd_762x51_M240','SmokeShellRed','SmokeShellRed','7Rnd_45ACP_1911',
 				'7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911','7Rnd_45ACP_1911']];
 			_s = _s + [['Binocular']];
@@ -2246,7 +2249,7 @@ if (WF_A2_CombinedOps) then {
 				'8Rnd_9x18_MakarovSD','8Rnd_9x18_MakarovSD','8Rnd_9x18_MakarovSD']];
 			_s = _s + [['Binocular']];
 			_i = _i + [_items];
-			_l = _l + [0];
+			_l = _l + [2];
 			_b = _b + [true];
 
 			_d = _d + [getText(configFile >> 'CfgWeapons' >> 'VSS_vintorez' >> 'displayName') + '/' + getText(configFile >> 'CfgWeapons' >> 'Laserdesignator' >> 'displayName') + '/' + getText(configFile >> 'CfgWeapons' >> 'MakarovSD' >> 'displayName')];

@@ -64,31 +64,37 @@ _c = _c + ['TT650_TK_EP1'];
 _i = _i + [['','',150,15,1,0,1,0,'Takistani']];
 
 _c = _c + ['UAZ_Unarmed_TK_EP1'];
-_i = _i + [['','',200,15,1,0,1,0,'Takistani']];
+_i = _i + [['','',260,15,1,0,1,0,'Takistani']];
 
 _c = _c + ['SUV_TK_EP1'];
-_i = _i + [['','',300,15,1,0,1,0,'Takistani']];
+_i = _i + [['','',290,15,1,0,1,0,'Takistani']];
 
 _c = _c + ['UAZ_MG_TK_EP1'];
-_i = _i + [['','',360,15,2,0,1,0,'Takistani']];
+_i = _i + [['','',460,15,2,0,1,0,'Takistani']];
 
 _c = _c + ['UAZ_AGS30_TK_EP1'];
-_i = _i + [['','',425,15,2,1,1,0,'Takistani']];
+_i = _i + [['','',585,15,2,1,1,0,'Takistani']];
 
 _c = _c + ['LandRover_MG_TK_EP1'];
-_i = _i + [['','',500,17,2,0,1,0,'Takistani']];
+_i = _i + [['','',550,17,2,0,1,0,'Takistani']];
 
 _c = _c + ['LandRover_SPG9_TK_EP1'];
 _i = _i + [['','',750,17,2,2,1,0,'Takistani']];
 
+_c = _c + ['BTR40_TK_INS_EP1'];
+_i = _i + [['','',450,25,2,0,1,0,'Takistani Guerilla']];
+
+_c = _c + ['BTR40_MG_TK_INS_EP1'];
+_i = _i + [['','',600,25,2,0,1,0,'Takistani Guerilla']];
+
 _c = _c + ['V3S_TK_EP1'];
-_i = _i + [['','',250,20,1,0,1,0,'Takistani']];
+_i = _i + [['','',275,20,1,0,1,0,'Takistani']];
 
 _c = _c + ['V3S_Open_TK_EP1'];
 _i = _i + [['','',250,20,1,0,1,0,'Takistani']];
 
 _c = _c + ['UralRepair_TK_EP1'];
-_i = _i + [['','',425,21,1,0,1,0,'Takistani']];
+_i = _i + [['','',425,21,1,1,1,0,'Takistani']];
 
 _c = _c + ['UralReammo_TK_EP1'];
 _i = _i + [['','',450,21,1,1,1,0,'Takistani']];
@@ -100,60 +106,60 @@ _c = _c + ['UralSupply_TK_EP1'];
 _i = _i + [['','',450,21,1,0,1,0,'Takistani']];
 
 _c = _c + ['M113Ambul_TK_EP1'];
-_i = _i + [['','',650,25,1,1,1,0,'Takistani']];
+_i = _i + [['','',750,25,1,1,1,0,'Takistani']];
 
 _c = _c + ['BRDM2_TK_EP1'];
-_i = _i + [['','',900,22,2,1,1,0,'Takistani']];
+_i = _i + [['','',1100,22,2,1,1,0,'Takistani']];
 
 _c = _c + ['BRDM2_ATGM_TK_EP1'];
-_i = _i + [['','',1250,22,2,2,1,0,'Takistani']];
+_i = _i + [['','',1650,22,2,2,1,0,'Takistani']];
 
 _c = _c + ['BTR60_TK_EP1'];
-_i = _i + [['','',1300,25,3,2,1,0,'Takistani']];
+_i = _i + [['','',1425,25,3,2,1,0,'Takistani']];
 
 _c = _c + ['Ural_ZU23_TK_EP1'];
-_i = _i + [['','',1600,25,2,2,1,0,'Takistani']];
+_i = _i + [['','',1750,25,2,2,1,0,'Takistani']];
 
-//_c = _c + ['GRAD_TK_EP1'];
-//_i = _i + [['','',3900,25,2,3,1,0,'Takistani']];
+_c = _c + ['GRAD_TK_EP1'];
+_i = _i + [['','',4200,25,2,3,1,0,'Takistani']];
 
 /* Heavy Vehicles */
 _c = _c + ['M113_TK_EP1'];
-_i = _i + [['','',900,22,2,0,2,0,'Takistani']];
+_i = _i + [['','',1100,22,2,0,2,0,'Takistani']];
 
 _c = _c + ['BMP2_TK_EP1'];
-_i = _i + [['','',1900,25,3,1,2,0,'Takistani']];
+_i = _i + [['','',2600,25,3,0,2,0,'Takistani']];
 
 _c = _c + ['ZSU_TK_EP1'];
-_i = _i + [['','',2800,25,3,2,2,0,'Takistani']];
+_i = _i + [['','',3400,25,3,2,2,0,'Takistani']];
 
 _c = _c + ['T34_TK_EP1'];
 _i = _i + [['','',2900,25,3,0,2,0,'Takistani']];
 
 _c = _c + ['T55_TK_EP1'];
-_i = _i + [['','',3500,27,3,1,2,0,'Takistani']];
+_i = _i + [['','',4500,27,3,1,2,0,'Takistani']];
 
 _c = _c + ['T72_TK_EP1'];
-_i = _i + [['','',3900,30,3,2,2,0,'Takistani']];
+_i = _i + [['','',5850,30,3,2,2,0,'Takistani']];
 
 /* Air Vehicles */
 _c = _c + ['An2_TK_EP1'];
-_i = _i + [['','',7200,35,1,1,3,0,'Takistani']];
+_i = _i + [['','',15800,35,1,1,3,0,'Takistani']];
 
 _c = _c + ['Mi17_TK_EP1'];
-_i = _i + [['','',5000,35,2,0,3,0,'Takistani']];
+_i = _i + [['','',8250,35,2,0,3,0,'Takistani']];
 
 _c = _c + ['UH1H_TK_EP1'];
-_i = _i + [['','',5500,35,2,0,3,0,'Takistani']];
+_i = _i + [['','',7500,35,2,0,3,0,'Takistani']];
 
 _c = _c + ['Mi24_D_TK_EP1'];
-_i = _i + [['','',25800,40,2,1,3,0,'Takistani']];
+_i = _i + [['','',28700,40,2,2,3,0,'Takistani']];
 
 _c = _c + ['L39_TK_EP1'];
 _i = _i + [['','',27700,50,1,2,3,0,'Takistani']];
 
 _c = _c + ['Su25_TK_EP1'];
-_i = _i + [['','',42400,55,1,3,3,0,'Takistani']];
+_i = _i + [['','',63600,55,1,3,3,0,'Takistani']];
 
 /* Static Defenses */
 _c = _c + ['WarfareBMGNest_PK_TK_EP1'];

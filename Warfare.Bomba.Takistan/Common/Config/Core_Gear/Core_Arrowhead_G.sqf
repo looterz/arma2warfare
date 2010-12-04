@@ -149,16 +149,16 @@ _u = _u + ['Igla'];
 _i = _i + [['','','CfgMagazines','secondary',110,2,false,false,0,0]];
 
 _u = _u + ['OG7'];
-_i = _i + [['','','CfgMagazines','secondary',95,1,false,false,0,0]];
+_i = _i + [['','','CfgMagazines','secondary',95,2,false,false,0,0]];
 
 _u = _u + ['PG7V'];
 _i = _i + [['','','CfgMagazines','secondary',50,0,true,false,0,0]];
 
 _u = _u + ['PG7VR'];
-_i = _i + [['','','CfgMagazines','secondary',100,0,false,false,0,0]];
+_i = _i + [['','','CfgMagazines','secondary',100,2,false,false,0,0]];
 
 _u = _u + ['PG7VL'];
-_i = _i + [['','','CfgMagazines','secondary',70,0,true,false,0,0]];
+_i = _i + [['','','CfgMagazines','secondary',70,1,true,false,0,0]];
 
 _u = _u + ['RPG18'];
 _i = _i + [['','','CfgMagazines','secondary',40,0,true,false,0,0]];
@@ -189,7 +189,7 @@ _i = _i + [['','','CfgMagazines','sidearm',6,0,true,true,0,0]];
 
 /* Primary weapons - West */
 _u = _u + ['G36A_camo'];
-_i = _i + [['','','CfgWeapons','',225,1,false,false,0,0]];
+_i = _i + [['','','CfgWeapons','',225,2,false,false,0,0]];
 
 _u = _u + ['G36C_camo'];
 _i = _i + [['','','CfgWeapons','',195,0,true,false,0,0]];
@@ -210,13 +210,13 @@ _u = _u + ['M24_des_EP1'];
 _i = _i + [['','','CfgWeapons','',140,0,true,false,0,0]];
 
 _u = _u + ['M60A4_EP1'];
-_i = _i + [['','','CfgWeapons','',170,0,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',170,1,true,false,0,0]];
 
 _u = _u + ['m240_scoped_EP1'];
-_i = _i + [['','','CfgWeapons','',165,0,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',165,2,true,false,0,0]];
 
 _u = _u + ['M249_EP1'];
-_i = _i + [['','','CfgWeapons','',185,2,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',185,0,true,false,0,0]];
 
 _u = _u + ['M249_m145_EP1'];
 _i = _i + [['','','CfgWeapons','',210,2,true,false,0,0]];
@@ -228,34 +228,34 @@ _u = _u + ['M4A1'];
 _i = _i + [['','','CfgWeapons','',95,0,true,false,0,0]];
 
 _u = _u + ['M4A3_CCO_EP1'];
-_i = _i + [['','','CfgWeapons','',115,0,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',115,1,true,false,0,0]];
 
 _u = _u + ['M4A3_RCO_GL_EP1'];
-_i = _i + [['','','CfgWeapons','',125,1,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',125,2,true,false,0,0]];
 
 _u = _u + ['m107'];
-_i = _i + [['','','CfgWeapons','',310,3,false,false,0,0]];
+_i = _i + [['','','CfgWeapons','',310,2,false,false,0,0]];
 
 _u = _u + ['m107_TWS_EP1'];
 _i = _i + [['','','CfgWeapons','',410,3,false,false,0,0]];
 
 _u = _u + ['Mk_48_DES_EP1'];
-_i = _i + [['','','CfgWeapons','',220,3,false,false,0,0]];
+_i = _i + [['','','CfgWeapons','',220,2,false,false,0,0]];
 
 _u = _u + ['MG36_camo'];
 _i = _i + [['','','CfgWeapons','',240,2,false,false,0,0]];
 
 _u = _u + ['M32_EP1'];
-_i = _i + [['','','CfgWeapons','',210,2,false,false,0,0]];
+_i = _i + [['','','CfgWeapons','',210,1,false,false,0,0]];
 
 _u = _u + ['M79_EP1'];
 _i = _i + [['','','CfgWeapons','',80,0,true,false,0,0]];
 
 _u = _u + ['Mk13_EP1'];
-_i = _i + [['','','CfgWeapons','',110,0,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',110,1,true,false,0,0]];
 
 _u = _u + ['M14_EP1'];
-_i = _i + [['','','CfgWeapons','',190,0,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',190,1,true,false,0,0]];
 
 _u = _u + ['M110_TWS_EP1'];
 _i = _i + [['','','CfgWeapons','',350,3,false,false,0,0]];
@@ -273,7 +273,7 @@ _u = _u + ['SCAR_L_STD_Mk4CQT'];
 _i = _i + [['','','CfgWeapons','',215,2,true,false,0,0]];
 
 _u = _u + ['SCAR_L_STD_EGLM_RCO'];
-_i = _i + [['','','CfgWeapons','',230,1,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',230,2,true,false,0,0]];
 
 _u = _u + ['SCAR_L_CQC_EGLM_Holo'];
 _i = _i + [['','','CfgWeapons','',245,1,true,false,0,0]];
@@ -316,31 +316,31 @@ _u = _u + ['AK_74_GL'];
 _i = _i + [['','','CfgWeapons','',70,0,true,false,0,0]];
 
 _u = _u + ['AK_74_GL_kobra'];
-_i = _i + [['','','CfgWeapons','',85,0,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',85,1,true,false,0,0]];
 
 _u = _u + ['AKS_74'];
 _i = _i + [['','','CfgWeapons','',80,0,true,false,0,0]];
 
 _u = _u + ['AKS_74_GOSHAWK'];
-_i = _i + [['','','CfgWeapons','',180,2,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',180,3,true,false,0,0]];
 
 _u = _u + ['AKS_74_kobra'];
 _i = _i + [['','','CfgWeapons','',90,0,true,false,0,0]];
 
 _u = _u + ['AKS_74_NSPU'];
-_i = _i + [['','','CfgWeapons','',145,1,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',145,2,true,false,0,0]];
 
 _u = _u + ['AKS_74_pso'];
-_i = _i + [['','','CfgWeapons','',105,1,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',105,2,true,false,0,0]];
 
 _u = _u + ['AKS_74_U'];
 _i = _i + [['','','CfgWeapons','',115,0,true,false,0,0]];
 
 _u = _u + ['FN_FAL'];
-_i = _i + [['','','CfgWeapons','',110,0,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',110,1,true,false,0,0]];
 
 _u = _u + ['FN_FAL_ANPVS4'];
-_i = _i + [['','','CfgWeapons','',140,1,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',140,2,true,false,0,0]];
 
 _u = _u + ['LeeEnfield'];
 _i = _i + [['','','CfgWeapons','',25,0,true,false,0,0]];
@@ -349,7 +349,7 @@ _u = _u + ['PK'];
 _i = _i + [['','','CfgWeapons','',190,0,true,false,0,0]];
 
 _u = _u + ['RPK_74'];
-_i = _i + [['','','CfgWeapons','',185,1,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',185,0,true,false,0,0]];
 
 _u = _u + ['Sa58P_EP1'];
 _i = _i + [['','','CfgWeapons','',110,0,true,false,0,0]];
@@ -358,13 +358,13 @@ _u = _u + ['Sa58V_EP1'];
 _i = _i + [['','','CfgWeapons','',120,0,true,false,0,0]];
 
 _u = _u + ['Sa58V_RCO_EP1'];
-_i = _i + [['','','CfgWeapons','',155,1,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',155,2,true,false,0,0]];
 
 _u = _u + ['Sa58V_CCO_EP1'];
-_i = _i + [['','','CfgWeapons','',145,1,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',145,0,true,false,0,0]];
 
 _u = _u + ['SVD'];
-_i = _i + [['','','CfgWeapons','',160,0,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',160,2,true,false,0,0]];
 
 _u = _u + ['SVD_des_EP1'];
 _i = _i + [['','','CfgWeapons','',180,2,false,false,0,0]];

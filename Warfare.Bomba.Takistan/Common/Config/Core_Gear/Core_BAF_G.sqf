@@ -38,19 +38,19 @@ _u = _u + ['BAF_L85A2_UGL_Holo'];
 _i = _i + [['','','CfgWeapons','',225,2,true,false,0,0]];
 
 _u = _u + ['BAF_L85A2_RIS_SUSAT'];
-_i = _i + [['','','CfgWeapons','',240,1,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',240,0,true,false,0,0]];
 
 _u = _u + ['BAF_L85A2_UGL_SUSAT'];
 _i = _i + [['','','CfgWeapons','',250,2,true,false,0,0]];
 
 _u = _u + ['BAF_L85A2_RIS_ACOG'];
-_i = _i + [['','','CfgWeapons','',260,1,true,false,0,0]];
+_i = _i + [['','','CfgWeapons','',260,2,true,false,0,0]];
 
 _u = _u + ['BAF_L85A2_UGL_ACOG'];
 _i = _i + [['','','CfgWeapons','',280,2,true,false,0,0]];
 
 _u = _u + ['BAF_L85A2_RIS_CWS'];
-_i = _i + [['','','CfgWeapons','',360,3,false,false,0,0]];
+_i = _i + [['','','CfgWeapons','',360,2,false,false,0,0]];
 
 _u = _u + ['BAF_L86A2_ACOG'];
 _i = _i + [['','','CfgWeapons','',290,2,true,false,0,0]];
