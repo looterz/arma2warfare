@@ -12,5 +12,6 @@ Build 332
  * Fix: Arty different types does not work (work only one arty type).For sample GRAD_RU and GRAD_TK_EP1 - with different camufludge - work only GRAD-RU
  * Fix: Disable autoreload arty
  * Fix: FireArtillery effective Theta now can be not less then 15 degress. This for fix Theta=0, and arty shoot to youself
- * Fix: town patrol: AI units dont patrolled town, stayed at respawn place
- * Fix: magazines setted to two slots in Buy Gear Menu
+ * Fix: Town patrol: AI units dont patrolled town, stayed at respawn place
+ * Fix: Magazines setted to two slots in Buy Gear Menu
+ * Fix: On Chernarus world, playable units replaced to takistan units, which can use backpacks.
