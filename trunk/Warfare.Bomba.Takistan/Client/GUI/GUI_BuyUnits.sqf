@@ -34,7 +34,7 @@ _updateDetails = true;
 _updateList = true;
 _updateMap = true;
 _val = 0;
-_costCoefficient = 1;
+
 _mbu = 'WFBE_MAXGROUPSIZE' Call GetNamespace;
 _currentUnit = objNull;
 
@@ -94,6 +94,7 @@ _fillList = {
 		_unitPriceData = [_products, _prices, objNull, objNull];
 	};
 	
+	_costDiscount = [_type, _closest] call _getDiscountCoef;
 	_tmplistUnits = [];
 	{
 		_addin = true;
@@ -112,7 +113,7 @@ _fillList = {
 			};
 			
 			_cost = _basePrice;
-			_cost = (ceil(_basePrice*_costCoefficient / 5))*5;		
+			_cost = (ceil(_basePrice * _costDiscount / 5))*5;		
 			if (_cost < 5) then { _cost = 5; };
 			
 			_tmplistUnits = _tmplistUnits + [ [ ('$'+str (_cost)), (_c select QUERYUNITLABEL), _filler, _u] ];
@@ -133,6 +134,74 @@ _fillList = {
 	_tmplistUnits = nil;
 	
 	if (_i > 0) then {lnbSetCurSelRow [_listBox,0]} else {lnbSetCurSelRow [_listBox,-1]};
+};
+
+_getDiscountCoef = {
+private['_costCoefficient', '_closestFactory', '_type', '_closest', '_discount', '_buildings1', '_factories1', '_sorted1', '_range', '_depotNearFactory', '_nearTown', '_sideID', '_supplyValue', '_maxSV', '_dist', '_k'  ];		
+
+		_type = _this select 0;
+		_closest = _this select 1;
+		
+		_costCoefficient = 1;
+		if (_type == "Depot" || _type == "Airport" || isNull _closest) exitWith {
+			_costCoefficient;
+		};
+
+		_discount = 0;
+		_closestFactory = _closest;
+		if ((typeOf _closest) in WFDEPOT) then 
+		{ 
+			_buildings1 = (sideJoinedText) Call GetSideStructures;				
+			_factories1 = [sideJoined,Format ['WFBE_%1%2TYPE',sideJoinedText,_type] Call GetNamespace,_buildings1] Call GetFactories;
+			_sorted1 = [_closest, _factories1] Call SortByDistance;
+			
+			_closestFactory = if (count _sorted1 > 0) then { _sorted1 select 0; } else { objNull; };
+		}; //-- buy in central depot
+		
+		if (isNull _closestFactory) exitWith {
+			_costCoefficient;
+		};
+		
+		_range = 'WFBE_DEFENSEMANRANGE' Call GetNamespace;
+		if (isNil '_range') then { _range = 300; };
+		_range = _range * 0.8;
+		
+		_depotNearFactory = nearestObjects [_closestFactory, WFDEPOT, _range];
+		_nearTown = if (count _depotNearFactory > 0) then {_depotNearFactory select 0} else {objNull; };
+		
+		if (isNull _nearTown) exitWith {
+			_costCoefficient;
+		};
+		
+		_sideID = _nearTown getVariable "sideID";
+		if (isNil "_sideID") exitWith {
+			_costCoefficient;
+		};
+
+		if ( !(_sideID == sideID)) exitWith {
+			_costCoefficient;
+		};
+		
+		_supplyValue = _nearTown getVariable "supplyValue";
+		_maxSV = _nearTown getVariable "maxSupplyValue";
+		
+		_discount = 0.1 + 0.2*(_maxSV / 120) * (_supplyValue / _maxSV);
+
+		_costCoefficient = _costCoefficient - _discount;		
+		if ((typeOf _closest) in WFDEPOT) then {
+			_dist = _closest distance _closestFactory;
+			_costCoefficient = _costCoefficient + (_dist / 4000); // -- increase price for delivery to 25% for each 1000m
+			
+			_supplyValue = _closest getVariable "supplyValue";
+			_maxSV = _closest getVariable "maxSupplyValue";
+			
+			_k = (0.3 -  (0.6*_supplyValue / 120) ); 
+			if (_k > 0.3)  then { _k = 0.3;  };
+			if (_k < -0.3) then { _k = -0.3; };
+			
+			_costCoefficient = _costCoefficient + _k;
+		};
+		_costCoefficient;
 };
 
 _changeFactionCombo = {
@@ -292,70 +361,8 @@ while {alive player && dialog} do {
 	
 	//--- Update tabs.
 	if (_update) then {
-
-		_costCoefficient = 1;
-		_closestFactory = _closest;
-		
-		if (_type != "Depot" && _type != "Airport" && !(isNull _closest)) then {
-
-			_discount = 0;
-			_closestFactory = _closest;
-			if ((typeOf _closest) in WFDEPOT) then 
-			{ 
-				_buildings1 = (sideJoinedText) Call GetSideStructures;				
-				_factories1 = [sideJoined,Format ['WFBE_%1%2TYPE',sideJoinedText,_type] Call GetNamespace,_buildings1] Call GetFactories;
-				_sorted1 = [_closest, _factories1] Call SortByDistance;
-				
-				format["F=%1", _factories1] call LogMedium;
-				format["S=%1", _sorted1] call LogMedium;
-				
-				_closestFactory = if (count _sorted1 > 0) then { _sorted1 select 0; } else { objNull; };
-			}; //-- buy in central depot
-		
-			if (!(isNull _closestFactory)) then {
-
-				_range = 'WFBE_DEFENSEMANRANGE' Call GetNamespace;
-				if (isNil '_range') then { _range = 300; };
-				_range = _range * 0.8;
-				
-				_depotNearFactory = nearestObjects [_closestFactory, WFDEPOT, _range];
-				_nearTown = if (count _depotNearFactory > 0) then {_depotNearFactory select 0} else {objNull; };
-				if (!isNull _nearTown) then {
-				
-					_sideID = _nearTown getVariable "sideID";
-					if !(isNil "_sideID") then {
-					
-						_supplyValue = _nearTown getVariable "supplyValue";
-						_maxSV = _nearTown getVariable "maxSupplyValue";
-					
-						if (_sideID == sideID) then {
-							_discount = 0.1 + 0.2*(_maxSV / 120) * (_supplyValue / _maxSV);
-						};
-					};
-				};
-
-				_costCoefficient = _costCoefficient - _discount;		
-				if ((typeOf _closest) in WFDEPOT) then {
-					_dist = _closest distance _closestFactory;
-					_costCoefficient = _costCoefficient + (_dist / 4000); // -- increase price for delivery to 25% for each 1000m
-					
-					_supplyValue = _closest getVariable "supplyValue";
-					_maxSV = _closest getVariable "maxSupplyValue";
-					
-					_k = (0.3 -  (0.6*_supplyValue / 120) ); 
-					if (_k > 0.3)  then { _k = 0.3;  };
-					if (_k < -0.3) then { _k = -0.3; };
-					
-					_costCoefficient = _costCoefficient + _k;
-				};
-			};
-		};
-		
 		_listUnits = Format ['WFBE_%1%2UNITS',sideJoinedText,_type] Call GetNamespace;
 
-		CF_COEF = _costCoefficient;
-		CF_ClosestFactory = _closestFactory;
-		CF_FACT = _closest;
 		[_comboFaction,_type] Call _changeFactionCombo;
 		[_listUnits,_type,_listBox,_val] Call _fillList;
 		
@@ -481,7 +488,8 @@ while {alive player && dialog} do {
 			
 			(_display displayCtrl 12022) ctrlSetStructuredText (parseText _txt);
 			
-			_currentCost = (ceil(_currentCost * _costCoefficient / 5))*5;		
+			_costDiscount = [_type, _closest] call _getDiscountCoef;
+			_currentCost = (ceil(_currentCost * _costDiscount / 5))*5;		
 			if (_currentCost < 5) then { _currentCost = 5; };				
 			
 			ctrlSetText [12010,Format [localize 'STR_WF_Price',_currentCost]];
