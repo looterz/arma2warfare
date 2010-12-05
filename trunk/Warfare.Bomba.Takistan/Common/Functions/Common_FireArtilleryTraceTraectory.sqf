@@ -14,18 +14,25 @@ private['_tetha', '_velocity', '_time', '_H'];
 };
 
 _procCalculateTheta = {
-private['_velocity', '_dH1', '_H', '_dH', '_tetha', '_step', '_height', '_distance'];
+private['_velocity', '_dH1', '_H', '_dH1', '_dH2', '_dH', '_tetha', '_step', '_height', '_distance'];
 	_velocity = (_this select 0);
 	_distance = (_this select 1);
 	_height   = (_this select 2);
 	
 	format["CalcTheta: V=%1 Dist=%2 Height=%3", _velocity, _distance, _height ] call LogHigh;
 	
-	_step = if (paramArtilleryHighBallistic) then { 15 } else { -15 };
+	_step = -15;
 	_tetha = 45;
 	
 	_H = [_tetha, _velocity, _distance] call _procGetEndHeight;
 	_dH = _height - _H;
+	
+	if (paramArtilleryHighBallistic) then {
+		_dH1 = ([_tetha + 15, _velocity, _distance] call _procGetEndHeight) - _H;
+		_dH2 = ([_tetha - 15, _velocity, _distance] call _procGetEndHeight) - _H;
+		
+		_step = if ( abs(_dH1) < abs(_dH2) ) then { 15 } else { -15 };
+	};
 	
 	while {  abs(_dH) > 5 && _tetha > 0 && _tetha <= 90 && (abs(_step) > 0.0005) } do {
 		
@@ -38,6 +45,10 @@ private['_velocity', '_dH1', '_H', '_dH', '_tetha', '_step', '_height', '_distan
 			_tetha = _tetha + _step;
 			_dH = _dH1;
 		};
+	};
+	
+	if (_tetha < 20) then {
+		_tetha = 20;	
 	};
 
 	format["Theta: V=%1 Dist=%2 Height=%3 --> tetha=%4 dH=%5", _velocity, _distance, _height, _tetha, _dH ] call LogHigh;
@@ -115,9 +126,15 @@ format["FireArtillery: _timeFlight=%1 _vel=%2 _R=%3", _timeFlight, _vel, _R] cal
 _velXY = _R / _timeFlight;
 _velZ = (_H + (0.5 * _gravityConst * _timeFlight * _timeFlight)) / _timeFlight;
 
+if (atan(_velZ / _velXY) < 15) then {
+	_velZ = tan(15) * _velXY;
+};
 
 format["FireArtillery: Theta=%1, Velocity=%2 FlightTime=%3", _theta, _vel, _timeFlight] call LogHigh;
 format["FireArtillery: Effective Theta theta=%1 Vxy=%2 Vz=%3", atan(_velZ / _velXY), _velXY, _velZ] call LogHigh;
+
+
+
 
 _fireTarget = "FireSectorTarget" createVehicleLocal (position _arty);	//need create target and set vector
 _fireTarget setVectorDir [_vx, _vy, 0];
