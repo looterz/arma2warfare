@@ -36,7 +36,7 @@ while { !(_burst == 0) } do {
 { (gunner _x) DoWatch [0, 0, 0]; } forEach _units;
 
 //Keep weapons reloaded.
-_units = [Group player,_destination,true,_index] Call GetTeamArtillery;
-{if (!someAmmo _x) then {_x Call RearmVehicle}} ForEach _units;
+//_units = [Group player,_destination,true,_index] Call GetTeamArtillery;
+//{if (!someAmmo _x) then {_x Call RearmVehicle}} ForEach _units;
 
 {[_x] Call ARTY_Finish} forEach _units;
