@@ -1,9 +1,9 @@
 // _pid = "functionName" call ProfilerBegin;
 // _pid call ProfilerEnd;
 
-enabledProfiler = false;
+enabledProfiler = true;
 
-ProfilerData = [];
+PROFILER_FUNC_NAMES = [];
 ProfilerBegin = { objNull; };
 ProfilerEnd = {};
 
@@ -37,48 +37,37 @@ private['_funcName', '_dT', '_data', '_u', '_bFound', '_tmp'];
 	_funcName = _this select 0;
 	_dT = _this select 1;
 	
-	_data = objNull;
-	_u = (count ProfilerData);
-	_bFound = false;
-	while { _u != 0 && !_bFound } do {
-		
-		_u = _u - 1;
-		_tmp = ProfilerData select _u;
-		if ((_tmp select 0) == _funcName) then { 
-			_data = _tmp;
-			_bFound = true;
-		};
+	call compile format["_data = PERF_FN_%1", _funcName];
+	if (isNil "_data") then {
+		_data = [0, 0];
+		call compile format["PERF_FN_%1 = _data;", _funcName];	
+		PROFILER_FUNC_NAMES = PROFILER_FUNC_NAMES + [_funcName];
 	};
 	
-	if (!_bFound) then {
-		_data = [_funcName, 0, 0];
-		ProfilerData = ProfilerData + [_data];
-		_u = (count ProfilerData) - 1;
-	};
-	
-	_data set [1, (_data select 1) + 1  ];
+	_data set [0, (_data select 0) + 1  ];
 	
 	if (_dT != 0) then {
-		_data set [2, (_data select 2) + _dT];
+		_data set [1, (_data select 1) + _dT];
 	};
 	
-	//ProfilerData set [_u, _data];
+	//PROFILER_FUNC_NAMES set [_u, _data];
 };
 
 
 ProfilerLogStats = {
-private['_data', '_u'];
+private['_data', '_u', '_fnName', '_data'];
 
 	diag_log "--------------------------------------------------";
-	diag_log format["ProfilerLogStats | Total entries = %1", count ProfilerData];
+	diag_log format["ProfilerLogStats | Total entries = %1", count PROFILER_FUNC_NAMES];
 	diag_log format["TimeLeft | %1", time];
 	diag_log "ProfilerLogStats | Name  | Count Calls | TotalTime";
 	diag_log "--------------------------------------------------";
-	_u = (count ProfilerData);
-	while { !(_u == 0)  } do {
+	_u = (count PROFILER_FUNC_NAMES);
+	while { _u != 0 } do {
 		_u = _u - 1;			
-		_data = ProfilerData select _u;
-		diag_log format["ProfilerLogStats | %1 | %2 | %3", (_data select 0), (_data select 1), (_data select 2)];		
+		_fnName = PROFILER_FUNC_NAMES select _u;
+		call compile format["_data = PERF_FN_%1", _fnName];
+		diag_log format["ProfilerLogStats | %1 | %2 | %3", _fnName, (_data select 0), (_data select 1)];		
 	};	
 };
 
