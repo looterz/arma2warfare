@@ -189,12 +189,6 @@ class FSM
        "" \n
        "{_team addVehicle _x} forEach _vehicles;" \n
        "" \n
-       "if (count _vehicles != 0) then {" \n
-       "	{" \n
-       "		_x Spawn HandleEmptyVehicle;" \n
-       "	} forEach _vehicles;" \n
-       "};" \n
-       "" \n
        "_location setVariable [""activePatrol"",true];"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links

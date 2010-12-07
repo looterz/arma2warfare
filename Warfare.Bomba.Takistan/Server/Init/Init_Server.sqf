@@ -368,8 +368,6 @@ _starterVehicle = _starterVehicle + [_vehicle];
 
 "Init_Server: Starting Vehicles - [Done]" call LogHigh;
 
-{ _x Spawn HandleEmptyVehicle; } forEach _starterVehicle;
-
 //--- Pre-initialization of the Garbage Collector & Empty vehicle collector.
 WF_Logic setVariable ["trash",[],true];
 WF_Logic setVariable ["emptyVehicles",[],true];
@@ -388,10 +386,10 @@ WF_Logic setVariable ["emptyVehicles",[],true];
 	[] ExecFSM "Server\FSM\updateresources.fsm";
 	"Init_Server (Delayed): Ressources Module - [Done]" call LogHigh;
 };
-[] ExecFSM "Server\FSM\garbagecollector.fsm";
-"Init_Server: Garbage Collector Module - [Done]" call LogHigh;
-[] ExecFSM "Server\FSM\emptyvehiclescollector.fsm";
-"Init_Server: Empty Vehicles Collector - [Done]" call LogHigh;
+//--- [] ExecFSM "Server\FSM\garbagecollector.fsm";
+//--- "Init_Server: Garbage Collector Module - [Done]" call LogHigh;
+//--- [] ExecFSM "Server\FSM\emptyvehiclescollector.fsm";
+//--- "Init_Server: Empty Vehicles Collector - [Done]" call LogHigh;
 
 //--- Network System Part 2.
 EastMHQDeployed = false; publicVariable 'EastMHQDeployed';
