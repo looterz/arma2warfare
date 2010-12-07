@@ -105,7 +105,6 @@ if (_unitType isKindOf "Man") then {
 	clearWeaponCargo _vehicle;
 	clearMagazineCargo _vehicle;
 	
-	_vehicle Spawn HandleEmptyVehicle;
 	_soldier = [_crew,_team,_position,_side] Call CreateMan;
 	[_soldier] allowGetIn true;
 	[_soldier] orderGetIn true;
