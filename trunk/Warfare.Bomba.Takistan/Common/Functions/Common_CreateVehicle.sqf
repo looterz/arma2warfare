@@ -21,7 +21,7 @@ Private ["_lock","_position","_side","_type","_vehicle"];
 	if (_lock) then {
 		_vehicle lock _lock;
 	};
-
+	
 	Format["Common_CreateVehicle: A %1 '%2' vehicle has been created",str _side,_type] call LogInform;
 
 PROFILER_END();

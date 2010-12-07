@@ -316,11 +316,6 @@ class FSM
        "		_count = _count + 1;" \n
        "	};" \n
        "	" \n
-       "	if (count _vehicles > 0) then {" \n
-       "		{" \n
-       "			_x Spawn HandleEmptyVehicle;" \n
-       "		} forEach _vehicles;" \n
-       "	};" \n
        "	[_team,_location,_tupd] Spawn AITownPatrol;" \n
        "	WF_Logic setVariable [Format[""%1UnitsCreated"",str _side],_built,true];" \n
        "	if (_updateVehi) then {WF_Logic setVariable [Format[""%1VehiclesCreated"",str _side],_vehiBuilt,true]};" \n
@@ -430,11 +425,6 @@ class FSM
        "	_count = _count + 1;" \n
        "};" \n
        "" \n
-       "if (count _vehicles > 0) then {" \n
-       "	{" \n
-       "		_x Spawn HandleEmptyVehicle;" \n
-       "	} forEach _vehicles;" \n
-       "};" \n
        "WF_Logic setVariable [Format[""%1UnitsCreated"",str _side],_built,true];" \n
        "if (_updateVehi) then {WF_Logic setVariable [Format[""%1VehiclesCreated"",str _side],_vehiBuilt,true]};" \n
        "" \n
