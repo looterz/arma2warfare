@@ -2,11 +2,10 @@
 PROFILER_BEGIN("NetSend_ServerToServer");
 	private['_msgId', '_msgData', '_netmessage'];
 	
-	//--- _clientId  = _this select 0;
-	//--- _msgId     = _this select 1;
-	//--- _msgData   = _this select 2;
+	//--- _msgId     = _this select 0;
+	//--- _msgData   = _this select 1;
 	
 	Format["NetSend_ToServerServer: %1", _this] call LogHigh;
-	_this spawn NetSend_HandleServerMessage;
+	_this spawn NetSend_HandleMessage;
 
 PROFILER_END();

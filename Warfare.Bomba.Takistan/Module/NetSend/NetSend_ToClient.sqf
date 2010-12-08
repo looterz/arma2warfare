@@ -11,8 +11,8 @@ PROFILER_BEGIN("NetSend_ToClient");
 	NetSend_ToClientLock = 1;	
 	
 	Format["NetSend_ToClient: %1", _this] call LogHigh;
-	WBE_NETSEND_CLIENT = _this;
-	publicVariable "WBE_NETSEND_CLIENT";
+	
+	call compile format["NETSEND_MSG%1=[_this select 0, _this select 1]; publicVariable 'NETSEND_MSG%1';", _this select 0];
 
 	//To prevent overwrites.  Lock the command for a little while before can send it again.
 	sleep 0.1;

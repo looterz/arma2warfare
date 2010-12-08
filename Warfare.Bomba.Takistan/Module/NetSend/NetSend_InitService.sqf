@@ -1,15 +1,15 @@
 #include "profiler.h"
 #include "netsend.h"
 
-WBE_NETSEND_SERVER = objNull;
-WBE_NETSEND_CLIENT = objNull;
-
+WBE_NETSEND_SERVERID = "0";
 WBE_NETSEND_CLIENTID = NETSEND_CLIENTID_AI;
 WBE_NETSEND_CLIENTID_AI = NETSEND_CLIENTID_AI;
 
-	NetSend_ToServerLock = 0;
-	NetSend_ToClientLock = 0;
-	NetSend_HandleClientMessage  = Compile preprocessFile "Module\NetSend\NetSend_HandleClientMessage.sqf";
+	NetSend_ToClientLock  = 0;
+	NetSend_BroadcastLock = 0;	
+	
+	NetSend_HandleMessage  = compile preprocessFile "Module\NetSend\NetSend_HandleMessage.sqf";	
+	NetSend_Broadcast = compile preprocessFile "Module\NetSend\NetSend_Broadcast.sqf";
 	
 	if (isServer) then {
 		NetSend_ToServer  = Compile preprocessFile "Module\NetSend\NetSend_ToServerServer.sqf";
@@ -17,10 +17,11 @@ WBE_NETSEND_CLIENTID_AI = NETSEND_CLIENTID_AI;
 		NetSend_ToServer  = Compile preprocessFile "Module\NetSend\NetSend_ToServer.sqf";
 	};
 
-	if (local player) then {	
-		WBE_NETSEND_CLIENTID = getPlayerUID player;
-		"WBE_NETSEND_CLIENT" addPublicVariableEventHandler {(_this select 1) spawn NetSend_HandleClientMessage; };
-	};
+	WBE_NETSEND_CLIENTID = if (local player) then { getPlayerUID player } else { "0" };
+	
+	_varName = format["NETSEND_MSG%1", WBE_NETSEND_CLIENTID];
+	_varName addPublicVariableEventHandler {(_this select 1) spawn NetSend_HandleMessage; };
+	"NETSEND_BROADCAST" addPublicVariableEventHandler {(_this select 1) spawn NetSend_HandleMessage; };
 
 	if (isServer) then {
 
@@ -29,9 +30,6 @@ WBE_NETSEND_CLIENTID_AI = NETSEND_CLIENTID_AI;
 		} else {
 			NetSend_ToClient  = Compile preprocessFile "Module\NetSend\NetSend_ToClient.sqf";			
 		};
-
-		NetSend_HandleServerMessage = Compile preprocessFile "Module\NetSend\NetSend_HandleServerMessage.sqf";
-		"WBE_NETSEND_SERVER" addPublicVariableEventHandler {(_this select 1) spawn NetSend_HandleServerMessage; };
 	};
 
 "NetSend_InitService - [Done]" call LogMedium;
