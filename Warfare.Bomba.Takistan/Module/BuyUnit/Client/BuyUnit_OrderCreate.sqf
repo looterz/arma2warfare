@@ -27,7 +27,7 @@ PROFILER_BEGIN("BuyUnit_OrderCreate");
 		if (_unitType isKindOf "Man") then { unitQueu = unitQueu + 1; };	//-- buy soldier
 	};
 	
-	[NETSEND_MSGID_BUYUNIT, _order] spawn NetSend_ToServer;	
+	[NETSEND_MSGID_BUYUNIT, [BUYUNIT_MSGID_ORDERREGISTER, _order] ] spawn NetSend_ToServer;	
 	Format["BuyUnit_OrderCreate: Team %1 create order to '%2': %3", _team, _unitType, _order] call LogInform;
 
 PROFILER_END();

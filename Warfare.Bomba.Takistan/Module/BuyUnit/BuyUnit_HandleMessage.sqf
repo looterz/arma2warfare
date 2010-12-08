@@ -1,5 +1,5 @@
 #include "profiler.h"
-PROFILER_BEGIN("BuyUnit_OrderResponseHandle");
+PROFILER_BEGIN("BuyUnit_HandleMessage");
 
 private['_clientId', '_unitData', '_response', '_order', '_data', '_unitType', '_description', '_txt', '_vehicle' ];
 	
@@ -17,43 +17,53 @@ private['_clientId', '_unitData', '_response', '_order', '_data', '_unitType', '
 	_response  = _this select 0;
 	_data  	   = _this select 1;
 		
-	if (_response == BUYUNIT_RESPONSE_ORDERACCEPTED) exitWith {
-		
-		_unitType = _data;
-		_description = (_unitType Call GetNamespace) select QUERYUNITLABEL;	
-		
-		_txt = parseText(Format [localize "STR_WF_Queu",_description]);
-		hint _txt;
-		PROFILER_END();	
-	};	
+	switch (_response) do {
 	
-	if (_response == BUYUNIT_RESPONSE_BUILDBEGIN) exitWith {
-	
-		_unitType = _data;
-		_description = (_unitType Call GetNamespace) select QUERYUNITLABEL;	
+		case BUYUNIT_MSGID_ORDERREGISTER: 		
+		{ 
+			_data spawn BuyUnit_OrderRegister; 
+		};
+		case BUYUNIT_MSGID_ORDERACCEPTED: 	
+		{ 
+			_unitType = _data;
+			_description = (_unitType Call GetNamespace) select QUERYUNITLABEL;	
+			
+			_txt = parseText(Format [localize "STR_WF_Queu",_description]);
+			hint _txt;
+		};
 
-		_txt = parseText(Format [localize "STR_WF_BuyEffective",_description]);
-		hint _txt;
-		PROFILER_END();	
+		case BUYUNIT_MSGID_BUILDBEGIN:
+		{
+			_unitType = _data;
+			_description = (_unitType Call GetNamespace) select QUERYUNITLABEL;	
+
+			_txt = parseText(Format [localize "STR_WF_BuyEffective",_description]);
+			hint _txt;
+			PROFILER_END();	
+		};
+		
+		case BUYUNIT_MSGID_ORDERCOMPLETED:
+		{
+			_order = _data select 0;
+			_vehicle = _data select 1;
+			
+			_unitType = _order select 2;
+			_description = (_unitType Call GetNamespace) select QUERYUNITLABEL;
+			
+			[_order, _vehicle] spawn BuyUnit_OrderComplete;
+			
+			_txt = parseText(Format [localize "STR_WF_Build_Complete",_description]);
+			hint _txt;		
+		};
+		
+		case BUYUNIT_MSGID_ORDERCANCEL:
+		{
+			//TODO: Actions on cancel order;
+		};
+		
+		default {
+			format["BuyUnit_HandleMessage: Unknown msgId. %1", _this] call LogError;
+		};
 	};
-
-	if (_response == BUYUNIT_RESPONSE_ORDERCOMPLETED) exitWith {
-		
-
-		_order = _data select 0;
-		
-		_vehicle = _data select 1;
-		_unitType = _order select 2;
-		_description = (_unitType Call GetNamespace) select QUERYUNITLABEL;
-		
-		[_order, _vehicle] spawn BuyUnit_OrderComplete;
-		
-		_txt = parseText(Format [localize "STR_WF_Build_Complete",_description]);
-		hint _txt;		
-		PROFILER_END();	
-	};	
-	
-	format["BuyUnit_OrderResponseHandle: Unknown response code. Data=%1", _this] call LogError;
-
 	
 PROFILER_END();
