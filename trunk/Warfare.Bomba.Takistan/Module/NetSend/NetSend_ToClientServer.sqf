@@ -8,6 +8,6 @@ PROFILER_BEGIN("NetSend_ToClientServer");
 	//--- _msgData  = _this select 2;
 	
 	Format["NetSend_ToClientServer: %1", _this] call LogHigh;
-	_this spawn NetSend_HandleClientMessage;
+	[(_this select 1), (_this select 2)] spawn NetSend_HandleMessage;
 
 PROFILER_END();
