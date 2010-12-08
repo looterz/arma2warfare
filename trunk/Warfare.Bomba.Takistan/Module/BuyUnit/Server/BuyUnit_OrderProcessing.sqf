@@ -35,7 +35,7 @@ private[ "_orderInfo", "_order", "_building", "_completed", "_orderId", "_team",
 				_productionTime = (_order) call BuyUnit_GetProductionTime;
 				
 				_clientId = _order select 0;
-				if (WF_DEBUG && !(_clientId == WBE_NETSEND_CLIENTID_AI)) then {
+				if (WF_DEBUG && _clientId != CLIENTID_AI) then {
 					_productionTime = time + 5;
 				};
 				

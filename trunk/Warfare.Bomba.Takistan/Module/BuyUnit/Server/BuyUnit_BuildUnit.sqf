@@ -22,9 +22,9 @@ private['_orderInfo', '_order', '_team', '_unitData', '_productionTime', '_clien
 	_clientId = _order select 0;
 	_team     = _order select 4;
 	
-	_teamClientId = if (isPlayer(leader _team)) then { getPlayerUID (leader _team) } else { WBE_NETSEND_CLIENTID_AI };
+	_teamClientId = if (isPlayer(leader _team)) then { getPlayerUID (leader _team) } else { CLIENTID_AI };
 	
-	if ( !(_clientId == _teamClientId) ) exitWith {
+	if ( _clientId != _teamClientId ) exitWith {
 		format["BuyUnit_BuildUnit cancelled: Different clientId '%1' -neq '%2'", _clientId, _teamClientId] call LogHigh;
 		PROFILER_END();
 	};

@@ -3,9 +3,8 @@ PROFILER_BEGIN("BuyUnit_OrderResponseHandle");
 
 private['_clientId', '_unitData', '_response', '_order', '_data', '_unitType', '_description', '_txt', '_vehicle' ];
 	
-	//--- _clientId     = _this select 0;
-	//--- _responseType = _this select 1;
-	//--- _responseData = _this select 2;
+	//--- _responseType = _this select 0;
+	//--- _responseData = _this select 1;
 	
 	//--- _clientId = _order select 0;
 	//--- _building = _order select 1;
@@ -14,18 +13,13 @@ private['_clientId', '_unitData', '_response', '_order', '_data', '_unitType', '
 	//--- _team     = _order select 4; 
 	//--- _vehInfo  = _order select 5; 	
 	
-	_clientId = _this select 0;
-	
-	if ( !(_clientId == BuyUnit_ClientId) ) exitWith {
-		PROFILER_END();	
-	};
-
-	_response  = _this select 1;
-
-
+	//_clientId = _this select 0;
+	_response  = _this select 0;
+	_data  	   = _this select 1;
+		
 	if (_response == BUYUNIT_RESPONSE_ORDERACCEPTED) exitWith {
 		
-		_unitType = _this select 2;
+		_unitType = _data;
 		_description = (_unitType Call GetNamespace) select QUERYUNITLABEL;	
 		
 		_txt = parseText(Format [localize "STR_WF_Queu",_description]);
@@ -35,7 +29,7 @@ private['_clientId', '_unitData', '_response', '_order', '_data', '_unitType', '
 	
 	if (_response == BUYUNIT_RESPONSE_BUILDBEGIN) exitWith {
 	
-		_unitType = _this select 2;
+		_unitType = _data;
 		_description = (_unitType Call GetNamespace) select QUERYUNITLABEL;	
 
 		_txt = parseText(Format [localize "STR_WF_BuyEffective",_description]);
@@ -45,7 +39,7 @@ private['_clientId', '_unitData', '_response', '_order', '_data', '_unitType', '
 
 	if (_response == BUYUNIT_RESPONSE_ORDERCOMPLETED) exitWith {
 		
-		_data  = _this select 2;
+
 		_order = _data select 0;
 		
 		_vehicle = _data select 1;
