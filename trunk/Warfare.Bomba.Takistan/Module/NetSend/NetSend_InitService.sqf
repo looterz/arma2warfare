@@ -7,6 +7,8 @@ WBE_NETSEND_CLIENT = objNull;
 WBE_NETSEND_CLIENTID = NETSEND_CLIENTID_AI;
 WBE_NETSEND_CLIENTID_AI = NETSEND_CLIENTID_AI;
 
+	NetSend_ToServerLock = 0;
+	NetSend_ToClientLock = 0;
 	NetSend_HandleClientMessage  = Compile preprocessFile "Module\NetSend\NetSend_HandleClientMessage.sqf";
 	
 	if (isServer) then {
