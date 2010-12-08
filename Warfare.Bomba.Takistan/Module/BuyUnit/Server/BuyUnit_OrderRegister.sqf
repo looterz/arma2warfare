@@ -16,11 +16,9 @@ private['_order', '_clientId', '_building', '_orderId', '_orderInfo'];
 	
 	format["BuyUnit_OrderRegister: this=%1", _this] call LogHigh;
 
-	_clientId = _this select 0;
-	//_msgId   = _this select 1;
-	_order = _this select 2;	
-
-	//_clientId = _order select 0;
+	_order = _this;	
+	
+	_clientId = _order select 0;
 	_building = _order select 1;
 
 	waitUntil { !(isNil "WBE_BuyUnit_OrderQueueOperation") };
