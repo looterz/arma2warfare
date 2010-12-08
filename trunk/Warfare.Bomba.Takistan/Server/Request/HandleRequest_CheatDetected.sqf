@@ -1,6 +1,6 @@
 private['_order', '_vehicle', '_lock', '_cmdAllowed', '_banned', '_id', '_uid', '_name'];
 		
-	_msgData = _this select 2;
+	_msgData = _this;
 	_player = _msgData select 0;
 	_info = _msgData select 1;
 	_id = _player Call GetClientID;	
