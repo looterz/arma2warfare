@@ -122,15 +122,16 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 			"AI_SquadRespawnWork: SP mode, and teamLeader is died, create TeamLeader" call LogHigh;
 			_leader = [_unitType, _team, _pos, _side] Call CreateMan;
 
-			_leader removeAllEventHandlers "killed";
-			call Compile Format ["_leader addEventHandler ['Killed',{[_this select 0,_this select 1,%1] Spawn UnitKilled; (group (_this select 0)) spawn AISquadRespawn;}];",_side];
+			[_leader, _side] spawn SetAITeamKilledEventHandler;
 		};
 
 		format["AI_SquadRespawnWork: TeamLeader %1 SetPos=%2", leader _team, _pos] call LogHigh;
-		_leader setPos _pos;		
-		_built = WF_Logic getVariable Format ["%1UnitsCreated",_sideText];
-		_built = _built + 1;
-		WF_Logic setVariable [Format["%1UnitsCreated",_sideText],_built,true];
+		_leader setPos _pos;	
+
+		if (isMultiplayer) then {
+			_built = WF_Logic getVariable Format ["%1UnitsCreated",_sideText];
+			WF_Logic setVariable [Format["%1UnitsCreated",_sideText],_built + 1];
+		};
 
 		//--- Equip the AI.
 		_ran = 1 + round(random(2));

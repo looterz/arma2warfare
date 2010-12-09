@@ -56,9 +56,8 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 		
 		if ( !(isPlayer(leader _team) ) ) then {
 		
-			_leader removeAllEventHandlers "Killed";
- 	        call Compile Format ["(leader _team) addEventHandler ['Killed',{[_this select 0,_this select 1,%1] Spawn UnitKilled; (group (_this select 0)) spawn AISquadRespawn;}]",_side];
-			
+			[_leader, _side] spawn SetAITeamKilledEventHandler;
+		
 			_pos = getMarkerPos Format["%1TempRespawnMarker",_sideText];
 			_leader setPos [ _pos select 0, _pos select 1, -0.25];
 			

@@ -35,27 +35,20 @@ if (count _checks > 0) then {
 
 if (isNull _closest) exitWith {};
 
-_uav = createVehicle [Format ["WFBE_%1UAV",sideJoinedText] Call GetNamespace,getPos _closest, [], 0, "FLY"];
+_uavSetup = [Format ["WFBE_%1UAV",sideJoinedText] Call GetNamespace, getPos _closest, sideJoined, true, [], 0, "FLY" ];
+_uav = _uavSetup call CreateVehi;
+
 playerUAV = _uav;
-Call Compile Format ["_uav addEventHandler ['Killed',{[_this select 0,_this select 1,%1] Spawn UnitKilled}]",sideJoined];
-_uav SetVehicleInit Format["[this,%1] ExecVM 'Common\Common_InitUnit.sqf';",sideJoined];
-processInitCommands;
 
 _group = createGroup sideJoined;
 _driver = [Format ["WFBE_%1SOLDIER",sideJoinedText] Call GetNamespace,_group,getPos _uav,sideJoined] Call CreateMan;
 _driver MoveInDriver _uav;
-_built = WF_Logic getVariable Format ["%1UnitsCreated",sideJoinedText];
-_built = _built + 1;
+
 //--- OPFOR Uav has no gunner slot.
 if (sideJoined == west) then {
 	_gunner = [Format ["WFBE_%1SOLDIER",sideJoinedText] Call GetNamespace,_group,getPos _uav,sideJoined] Call CreateMan;
 	_gunner MoveInGunner _uav;
-	_built = _built + 1;
 };
-WF_Logic setVariable [Format["%1UnitsCreated",sideJoinedText],_built,true];
-_built = WF_Logic getVariable Format ["%1VehiclesCreated",sideJoinedText];
-_built = _built + 1;
-WF_Logic setVariable [Format["%1VehiclesCreated",sideJoinedText],_built,true];
 
 -12500 Call ChangePlayerFunds;
 
