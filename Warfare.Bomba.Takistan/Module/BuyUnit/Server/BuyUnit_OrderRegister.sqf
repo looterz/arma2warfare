@@ -38,7 +38,7 @@ private['_order', '_clientId', '_building', '_orderId', '_orderInfo'];
 	
 	WBE_BuyUnit_OrderQueueOperation = WBE_BuyUnit_OrderQueueOperation + [ [_orderId, 0, _order] ];
 
-	[_clientId, BUYUNIT_MSGID_ORDERACCEPTED, (_order select 2) ] spawn BuyUnit_OrderResponse;
+	[_clientId, [BUYUNIT_MSGID_ORDERACCEPTED, (_order select 2)] ] spawn BuyUnit_OrderResponse;
 	format["BuyUnit_OrderRegister: Order#%1, %2", _orderId, _order] call LogHigh;
 	
 PROFILER_END();
