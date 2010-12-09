@@ -14,6 +14,34 @@ private['_dirty', '_u', '_vehicleInfo', '_vehicle', '_timeout', '_tmp'];
 	_u = count WBE_HandleEmptyVehicleCollection;
 	format["Service_EmptyVehProc: registered vehicle queue=%1", _u] call LogHigh;
 	
+	//-- -------------------------------------------------
+	_created = WF_Logic getVariable "WESTVehiclesCreated";
+	_lost    = WF_Logic getVariable "WESTVehiclesLost";
+	format["Service_EmptyVehProc: WEST Veh =%1 (%2 - %3)", _created - _lost, _created, _lost] call LogHigh;
+
+	_created = WF_Logic getVariable "WESTUnitsCreated";
+	_lost    = WF_Logic getVariable "WESTCasualties";
+	format["Service_EmptyVehProc: WEST Units =%1 (%2 - %3)", _created - _lost, _created, _lost] call LogHigh;
+
+	//-- -------------------------------------------------
+	_created = WF_Logic getVariable "EASTVehiclesCreated";
+	_lost    = WF_Logic getVariable "EASTVehiclesLost";
+	format["Service_EmptyVehProc: EAST Veh =%1 (%2 - %3)", _created - _lost, _created, _lost] call LogHigh;
+
+	_created = WF_Logic getVariable "EASTUnitsCreated";
+	_lost    = WF_Logic getVariable "EASTCasualties";
+	format["Service_EmptyVehProc: EAST Units =%1 (%2 - %3)", _created - _lost, _created, _lost] call LogHigh;
+
+	//-- -------------------------------------------------
+	_created = WF_Logic getVariable "GUERVehiclesCreated";
+	_lost    = WF_Logic getVariable "GUERVehiclesLost";
+	format["Service_EmptyVehProc: GUER Veh =%1 (%2 - %3)", _created - _lost, _created, _lost] call LogHigh;
+
+	_created = WF_Logic getVariable "GUERUnitsCreated";
+	_lost    = WF_Logic getVariable "GUERCasualties";
+	format["Service_EmptyVehProc: GUER Units =%1 (%2 - %3)", _created - _lost, _created, _lost] call LogHigh;
+
+	
 	while { _u != 0 } do {
 		_u = _u - 1;
 		

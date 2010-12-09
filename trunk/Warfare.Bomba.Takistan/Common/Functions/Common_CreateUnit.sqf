@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_CreateUnit");
 
-Private ["_get", "_built", "_position","_side","_skill","_team","_type","_unit"];
+Private ["_get", "_built", "_position","_side","_skill","_team","_type","_unit", "_eventHandler"];
 
 	_type = _this select 0;
 	_team = _this select 1;
@@ -11,11 +11,15 @@ Private ["_get", "_built", "_position","_side","_skill","_team","_type","_unit"]
 	_get = _type Call GetNamespace;
 	_skill = if !(isNil '_get') then {_get select QUERYUNITSKILL} else {'WFBE_AISKILL' Call GetNamespace};
 	_unit = _team createUnit [_type,_position,[],_skill,"FORM"];
+	
+	_built = WF_Logic getVariable Format ["%1UnitsCreated", _side];
+	if (isNil "_built") then {
+		_built = 0;
+	};	
+	WF_Logic setVariable [Format["%1UnitsCreated", str _side], _built + 1];	
+	
 	if (_side != resistance) then {
 
-		_built = WF_Logic getVariable Format ["%1UnitsCreated",str _side];
-		WF_Logic setVariable [Format["%1UnitsCreated", str _side],_built + 1,true];	
-		
 		_unit setSkill _skill;
 		if (paramTrackAI) then {
 			_unit setVehicleInit Format["[this,%1] ExecVM 'Common\Common_InitUnit.sqf';",_side];
@@ -23,12 +27,10 @@ Private ["_get", "_built", "_position","_side","_skill","_team","_type","_unit"]
 		} else {
 			if (isPlayer leader _team) then {[_unit,_side] ExecVM 'Common\Common_InitUnit.sqf'};
 		};
-		Call Compile Format ["_unit addEventHandler ['Killed',{[_this select 0,_this select 1,%1] Spawn UnitKilled}];",_side];
-	} else {
-		//--- Note To be optimized, 1.03 BIS BUG, cannot add resistance side via call compile format.
-		_unit addEventHandler ['Killed',{[_this select 0,_this select 1,resistance] Spawn UnitKilled}];
 	};
 
+	[_unit, _side] spawn SetKilledEventHandler;
+	
 	if (paramISIS) then {_unit addEventHandler['handleDamage',{_this Call ISIS_Wound}]};
 
 	

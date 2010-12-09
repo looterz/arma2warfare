@@ -32,10 +32,6 @@ while {alive _defense} do {
 					_soldier assignAsGunner _defense;
 					[_soldier] orderGetIn true;
 					
-					_built = WF_Logic getVariable Format ["%1UnitsCreated",str _side];
-					_built = _built + 1;
-					WF_Logic setVariable [Format["%1UnitsCreated",str _side],_built,true];
-					
 					Format["Server_HandleDefense: A Soldier has been dispatched to the %1 defense %2",str _side,_type]  call LogInform;
 					
 					//--- Calculate the average time in function of the distance and the speed.

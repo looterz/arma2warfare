@@ -99,7 +99,7 @@ class FSM
        "_location setVariable [""reinforcements_alive"",0];" \n
        "" \n
        "_defenses = _location NearEntities['WFBE_RESISTANCEDEFENSENAMES' Call GetNamespace,_detectionRange];" \n
-       "{_x addEventHandler [""Killed"",{[_this select 0,_this select 1,resistance] Spawn UnitKilled}]} forEach _defenses;"/*%FSM</STATEINIT""">*/;
+       "{ [_x, resistance] spawn SetKilledEventHandler } forEach _defenses;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {

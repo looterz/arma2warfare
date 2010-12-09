@@ -249,8 +249,7 @@ class FSM
        "	[_team,_index] Call SetTeamType;" \n
        "};" \n
        "" \n
-       "(leader _team) removeAllEventHandlers ""killed"";" \n
-       "Call Compile Format [""(leader _team) addEventHandler ['Killed',{[_this select 0,_this select 1,%1] Spawn UnitKilled; (group (_this select 0)) spawn AISquadRespawn;}]"",_side];" \n
+       "[(leader _team), _side] spawn SetAITeamKilledEventHandler;" \n
        ""/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links

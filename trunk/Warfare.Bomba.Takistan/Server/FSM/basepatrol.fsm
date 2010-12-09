@@ -268,9 +268,6 @@ class FSM
        "	} forEach _units;" \n
        "	" \n
        "	if (_created > 0) then {" \n
-       "		_built = WF_Logic getVariable Format [""%1UnitsCreated"",str _side];" \n
-       "		_built = _built + 1;" \n
-       "		WF_Logic setVariable [Format[""%1UnitsCreated"",str _side],_built,true];" \n
        "		[_group,_site,'WFBE_PATROLRANGE' Call GetNamespace] Spawn AIPatrol;" \n
        "	};" \n
        "};" \n

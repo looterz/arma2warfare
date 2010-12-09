@@ -106,6 +106,8 @@ if (paramICBM) then {
 	NukeRadiation = Compile PreprocessFile "Client\Module\Nuke\radzone.sqf";
 };
 
+call compile preprocessFile "Common\Functions\Common_SetKilledEventHandler.sqf";
+
 "Init_Common: Functions - [Done]" call LogMedium;
 
 executed = 0;
