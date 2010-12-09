@@ -32,12 +32,12 @@ private['_orderInfo', '_order', '_team', '_unitData', '_productionTime', '_clien
 	if (_productionTime == -1) exitWith {
 	
 		format["BuyUnit_BuildUnit cancelled: Timeout=-1"] call LogHigh;
-		[_clientId, BUYUNIT_MSGID_ORDERCANCEL, [_order] ] spawn BuyUnit_OrderResponse;				
+		[_clientId, [BUYUNIT_MSGID_ORDERCANCEL, _order] ] spawn BuyUnit_OrderResponse;				
 		PROFILER_END();
 	};
 		
 	_unitCreated = _order call BuyUnit_CreateUnit;
 	_responseData = [_order, _unitCreated ];
-	[_clientId, BUYUNIT_MSGID_ORDERCOMPLETED, _responseData] spawn BuyUnit_OrderResponse;
+	[_clientId, [BUYUNIT_MSGID_ORDERCOMPLETED, _responseData] ] spawn BuyUnit_OrderResponse;
 	
 PROFILER_END();

@@ -11,7 +11,7 @@ BUYUNIT_MSGID_ORDERCANCEL    = 4;
 	BuyUnit_OrderCreate   = Compile preprocessFile "Module\BuyUnit\Client\BuyUnit_OrderCreate.sqf";
 	BuyUnit_OrderComplete = Compile preprocessFile "Module\BuyUnit\Client\BuyUnit_OrderComplete.sqf";
 	BuyUnit_OrderCancel   = Compile preprocessFile "Module\BuyUnit\Client\BuyUnit_OrderCancel.sqf";
-	BuyUnit_OrderResponseHandle = Compile preprocessFile "Module\BuyUnit\Client\BuyUnit_OrderResponseHandle.sqf";
+	BuyUnit_HandleMessage = Compile preprocessFile "Module\BuyUnit\BuyUnit_HandleMessage.sqf";
 
 	if (isServer) then {
 		WBE_BuyUnit_OrderQueue = [];

@@ -1,4 +1,3 @@
-#include "netsend.h"
 #include "profiler.h"
 PROFILER_BEGIN("NetSend_ToClient");
 	private['_clientId', '_msgId', '_msgData', '_clientId', '_vehInfo' ];
@@ -7,6 +6,8 @@ PROFILER_BEGIN("NetSend_ToClient");
 	
 	_msgId    = _this select 1;
 	_msgData  = _this select 2;
+		
+	format["NetSend_ToClient: %1: %2", WBE_NETSEND_CLIENTID, _this] call LogHigh;
 		
 	if ( _clientId == WBE_NETSEND_CLIENTID ) then {
 		[_msgId, _msgData] spawn NetSend_HandleMessage;
