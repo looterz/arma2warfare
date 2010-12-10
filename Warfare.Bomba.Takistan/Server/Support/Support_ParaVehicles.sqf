@@ -66,7 +66,9 @@ detach _cargoVehicle;
 	_chute setPos [getPos _vehicle select 0, getPos _vehicle select 1, (getPos _vehicle select 2) - 11];
 	_chute setDir (getDir _vehicle);
 	_vehicle attachTo [_chute,[0,0,0]];
-	waitUntil {getPos _vehicle select 2 < 10 || !alive _vehicle};
+	while {getPos _vehicle select 2 > 10 && alive _vehicle} do {
+		sleep 0.5;
+	};
 	detach _vehicle;
 	sleep 10;
 	deleteVehicle _chute;

@@ -78,7 +78,9 @@ while {!_exit} do {
 			
 			_ammo setPos getPos _chute;
 			_ammo attachTo [_chute,[0,0,0]];
-			waitUntil {getPos _ammo select 2 < 3};
+			while {getPos _ammo select 2 > 3} do {
+				sleep 0.1;
+			};
 			detach _ammo;
 			
 			_type = typeOf _ammo;

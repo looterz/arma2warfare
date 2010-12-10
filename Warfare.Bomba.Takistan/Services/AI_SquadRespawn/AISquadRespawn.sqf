@@ -49,7 +49,9 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 	if (isMultiplayer) then {
 	
 		format["AI_SquadRespawn: Multiplayer wait respawn Unit: %1 alive:%2", leader _team, alive(leader _team)] call LogHigh;
-		waitUntil { alive (leader _team) };	// waitUntil unit respawn;
+		while { !alive (leader _team) } do {
+			sleep 0.1;
+		};	// waitUntil unit respawn;
 		
 		_leader = leader _team;
 		format["AI_SquadRespawn: Multiplayer respawned Unit: %1 alive:%2", leader _team, alive(leader _team)] call LogHigh;

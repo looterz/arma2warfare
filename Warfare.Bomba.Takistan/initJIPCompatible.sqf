@@ -27,7 +27,9 @@
 	//--- Client Init.
 	if (local player) then {
 		"Player initialization" call LogMedium;
-		waitUntil {!isNull(player)};
+		while { isNull(player) } do {
+			sleep 1;
+		};
 		/* Client Init Done - Begin the blackout on Layer 1 */
 		12452 cutText [(localize 'STR_WF_Loading')+"...","BLACK FADED",0];
 	};

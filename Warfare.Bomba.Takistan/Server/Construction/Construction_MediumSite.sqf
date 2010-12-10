@@ -25,22 +25,27 @@ if (WF_A2_Vanilla || WF_A2_CombinedOps) then {_objects = [[_siteName,[0,0,0.0024
 _construct = Compile PreprocessFile "ca\modules\dyno\data\scripts\objectMapper.sqf";
 _constructed = ([_position,_direction,_objects] Call _construct);
 
-waitUntil {time >= _timeNextUpdate};
+while {time < _timeNextUpdate} do {
+	sleep 1;
+};
 _timeNextUpdate = _startTime + _time * 2;
 
 if (WF_A2_Arrowhead) then {_objects = [[_siteName,[2.52539,-0.0065918,-0.000685692],359.928,1,0],["Land_WoodenRamp",[-2.27954,-0.582764,0.377601],270,1,0],["Land_WoodenRamp",[0.94751,-4.2085,0.388518],179.986,1,0],[_siteName1,[2.60547,6.20386,-0.000685692],359.928,1,0],["Land_Dirthump01_EP1",[-8.63159,8.021,-0.00167847],29.985,1,0]]};
 if (WF_A2_Vanilla || WF_A2_CombinedOps) then {_objects = [[_siteName,[2.52539,-0.0065918,-0.000685692],359.928,1,0],["Land_WoodenRamp",[-2.27954,-0.582764,0.377601],270,1,0],["Land_WoodenRamp",[0.94751,-4.2085,0.388518],179.986,1,0],[_siteName1,[2.60547,6.20386,-0.000685692],359.928,1,0],["Land_Dirthump01",[-8.63159,8.021,-0.00167847],29.985,1,0]]};
 _constructed = _constructed + ([_position,_direction,_objects] Call _construct);
 
-waitUntil {time >= _timeNextUpdate};
+while {time < _timeNextUpdate} do {
+	sleep 1;
+};
 _timeNextUpdate = _startTime + _time * 3;
 
 if (WF_A2_Arrowhead) then {_objects = [["Land_Misc_Scaffolding",[5.67456,2.39307,0.0763969],179.92,1,0],["Land_Dirthump02_EP1",[-8.63159,8.021,0.000141144],29.9958,1,0],["Barrels",[11.4519,12.5623,0.00311279],359.877,1,0],["RoadCone",[-12.1465,-13.7354,0.000406265],359.958,1,0]]};
 if (WF_A2_Vanilla || WF_A2_CombinedOps) then {_objects = [["Land_Misc_Scaffolding",[5.67456,2.39307,0.0763969],179.92,1,0],["Land_Ind_Timbers",[10.0811,4.63477,-0.127748],359.961,1,0],["Land_Dirthump02",[-8.63159,8.021,0.000141144],29.9958,1,0],["Land_Ind_BoardsPack1",[13.3027,-7.63159,0.00639725],359.838,1,0],["Land_Ind_BoardsPack1",[-9.70117,-12.4263,0.00152397],324.976,1,0],["Land_Ind_BoardsPack1",[-7.78491,-14.7693,0.00152779],49.9774,1,0],["Barrels",[11.4519,12.5623,0.00311279],359.877,1,0],["Land_Ind_BoardsPack1",[13.4668,-11.5061,0.00515175],359.942,1,0],["RoadCone",[-12.1465,-13.7354,0.000406265],359.958,1,0]]};
 _constructed = _constructed + ([_position,_direction,_objects] Call _construct);
 
-waitUntil {time >= _timeNextUpdate};
-
+while {time < _timeNextUpdate} do {
+	sleep 1;
+};
 {if (!IsNull _x) then {deleteVehicle _x}} forEach _constructed;
 
 _site = _type createVehicle _position;
