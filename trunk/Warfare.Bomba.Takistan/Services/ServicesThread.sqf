@@ -31,5 +31,7 @@ while { !gameOver } do {
 		};
 	} forEach ServerServices;
 	
-	waitUntil { _nearActionTime < time };
+	_dT = _nearActionTime - time;
+	if (_dT < 1) then { _dT = 1; };
+	sleep _dT;
 };

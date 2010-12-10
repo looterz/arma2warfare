@@ -1,4 +1,4 @@
-private['_nearTime', '_periodTownUpdate', '_periodFactoryUpdate', '_nextTownUpdate', '_nextFactoryUpdate', '_buildings', '_market', '_products', '_stock'  ];
+private['_nearTime', '_dT', '_periodTownUpdate', '_periodFactoryUpdate', '_nextTownUpdate', '_nextFactoryUpdate', '_buildings', '_market', '_products', '_stock'  ];
 
 waitUntil { serverInitComplete };
 
@@ -13,7 +13,9 @@ while { true } do {
 	_nearTime = _nextTownUpdate;
 	if (_nearTime > _nextFactoryUpdate) then { _nearTime = _nextFactoryUpdate; };
 
-	waitUntil { time > _nearTime };
+	_dT = _nearTime - time;
+	if (_dT < 1) then { _dT = 1; };
+        sleep _dT;
 
 	format["Market time=%1", time]  call LogHigh;
 	

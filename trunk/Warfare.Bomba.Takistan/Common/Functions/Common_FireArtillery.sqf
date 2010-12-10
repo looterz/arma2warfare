@@ -74,10 +74,12 @@ if (_amount > 0) then {
 	_artillery Fire _weapon;
 	
 	_timeout = time + 5;
-	waitUntil { !(isNull (_artillery getVariable "FireArtillery")) || _timeout < time };
-
-	
 	_shell = _artillery getVariable "FireArtillery";
+	while { isNull _shell && time < _timeout } do {
+		sleep 0.1;
+		_shell = _artillery getVariable "FireArtillery";
+	};
+
 	if ( !(isNull _shell) ) then {
 		[_artillery, _shell, _destination] spawn FireArtilleryTraceTraectory;
 	};
