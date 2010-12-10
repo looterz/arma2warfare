@@ -273,10 +273,6 @@ sleep 3;
 //--- Repair Truck builds.
 ['WFBE_AREAREPAIRTRUCK' Call GetNamespace,false,RCoin,"REPAIR"] Call Compile preprocessFile "Client\Init\Init_Coin.sqf";
 
-_built = WF_Logic getVariable Format ["%1UnitsCreated",sideJoinedText];
-_built = _built + 1;
-WF_Logic setVariable [Format["%1UnitsCreated",sideJoinedText],_built,true];
-
 ["TownAddComplete"] Spawn TaskSystem;
 
 /* Client Init Done - Remove the blackout */

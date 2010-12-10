@@ -380,13 +380,6 @@ class FSM
        "			[_driver] AllowGetIn true;" \n
        "			_driver MoveInDriver _vehicle;" \n
        "			_repairAlive = true;" \n
-       "" \n
-       "			_built = WF_Logic getVariable Format [""%1VehiclesCreated"",_sideText];" \n
-       "			_built = _built + 1;" \n
-       "			WF_Logic setVariable [Format[""%1VehiclesCreated"",_sideText],_built,true];" \n
-       "			_built = WF_Logic getVariable Format [""%1UnitsCreated"",_sideText];" \n
-       "			_built = _built + 1;" \n
-       "			WF_Logic setVariable [Format[""%1UnitsCreated"",_sideText],_built,true];" \n
        "			" \n
        "			_driver doMove ([_hq, 10, 20] Call GetRandomPositionEx);" \n
        "		};" \n

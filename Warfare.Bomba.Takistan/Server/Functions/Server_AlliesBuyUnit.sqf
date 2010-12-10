@@ -80,9 +80,6 @@ if ((!alive _building)||(isNull _building)) exitWith {
 
 if (_unitType isKindOf "Man") then {
 	_soldier = [_unitType,_team,_position,_side] Call CreateMan;
-	_built = WF_Logic getVariable Format ["%1UnitsCreated",_sideText];
-	_built = _built + 1;
-	WF_Logic setVariable [Format["%1UnitsCreated",_sideText],_built,true];
 	
 	//--- Infantry can use the team vehicles as cargo.
 	_vehi = [_team,true] Call GetTeamVehicles;
@@ -110,18 +107,13 @@ if (_unitType isKindOf "Man") then {
 	[_soldier] orderGetIn true;
 	_soldier assignAsDriver _vehicle;
 	_soldier moveInDriver _vehicle;
-	_built = WF_Logic getVariable Format ["%1VehiclesCreated",_sideText];
-	_built = _built + 1;
-	WF_Logic setVariable [Format["%1VehiclesCreated",_sideText],_built,true];
-	_built = WF_Logic getVariable Format ["%1UnitsCreated",_sideText];
-	_built = _built + 1;
+
 	if (_isVehicle select 1) then {
 		_soldier = [_crew,_team,_position,_side] Call CreateMan;
 		[_soldier] allowGetIn true;
 		[_soldier] orderGetIn true;
 		_soldier assignAsGunner _vehicle;
 		_soldier moveInGunner _vehicle;
-		_built = _built + 1;
 	};
 	if (_isVehicle select 2) then {
 		_soldier = [_crew,_team,_position,_side] Call CreateMan;
@@ -129,11 +121,10 @@ if (_unitType isKindOf "Man") then {
 		[_soldier] orderGetIn true;
 		_soldier assignAsCommander _vehicle;
 		_soldier moveInCommander _vehicle;
-		_built = _built + 1;
 	};
 	_config = configFile >> "CfgVehicles" >> _unitType >> "Turrets";
 	_turrets = [_config] call BIS_fnc_returnVehicleTurrets;
-	WF_Logic setVariable [Format["%1UnitsCreated",_sideText],_built,true];
+
 	if (count _turrets > 0) then {[_turrets, [], _vehicle, _crew, _team] call SpawnTurrets};
 };
 
