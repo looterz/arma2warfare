@@ -55,12 +55,6 @@ class FSM
        "[Format[""WFBE_%1_AISupplyTrucks"",_sideText],(Format[""WFBE_%1_AISupplyTrucks"",_sideText] Call GetNamespace) + [_vehicle],true] Call SetNamespace;" \n
        "[_vehicle,GetPos _hq,30,50,true,false,true] Call PlaceNear;" \n
        "" \n
-       "_built = WF_Logic getVariable Format [""%1VehiclesCreated"",_sideText];" \n
-       "_built = _built + 1;" \n
-       "WF_Logic setVariable [Format[""%1VehiclesCreated"",_sideText],_built,true];" \n
-       "_built = WF_Logic getVariable Format [""%1UnitsCreated"",_sideText];" \n
-       "_built = _built + 1;" \n
-       "WF_Logic setVariable [Format[""%1UnitsCreated"",_sideText],_built,true];" \n
        "_spt = Format[""WFBE_%1SERVICEPOINTTYPE"",_sideText] Call GetNamespace;" \n
        "" \n
        "_SV = 1000;" \n

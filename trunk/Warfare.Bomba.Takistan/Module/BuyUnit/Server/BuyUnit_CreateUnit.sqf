@@ -12,10 +12,6 @@ Private ["_args", "_clientId", "_building", "_unitType", "_side", "_team", "_veh
 
 	_isAITeam = if (isPlayer(leader _team)) then { false } else { true };
 	_sideText = str _side;
-
-	_vehicleCreated = 0;
-	_unitsCreated = 0;
-	
 	
 	_unitCreated = objNull;	
 	//-- --------------------------
@@ -45,9 +41,7 @@ Private ["_args", "_clientId", "_building", "_unitType", "_side", "_team", "_veh
 
 		_unitCreated = [_unitType,_team,_position,_side] Call CreateMan;
 		[_unitCreated] allowGetIn true;
-		[_unitCreated] orderGetIn true;		
-		
-		_unitsCreated = _unitsCreated + 1;
+		[_unitCreated] orderGetIn true;
 		
 	} else {
 
@@ -63,7 +57,6 @@ Private ["_args", "_clientId", "_building", "_unitType", "_side", "_team", "_veh
 		if ( _args > 3 ) then {  _locked   = _vehInfo select 3;  };
 
 		_vehicle = [_unitType, _position, _side, _locked] Call CreateVehi;
-		_vehicleCreated = _vehicleCreated + 1;	
 		
 		if (_unitType in ('WFBE_BALANCEDUNITS' Call GetNamespace) && paramBalancing) then {
 			[_vehicle] spawn BalanceInit;
@@ -88,8 +81,7 @@ Private ["_args", "_clientId", "_building", "_unitType", "_side", "_team", "_veh
 			[_crewUnit] allowGetIn true;
 			[_crewUnit] orderGetIn true;
 			_crewUnit assignAsDriver _vehicle;
-			_crewUnit moveInDriver _vehicle;		
-			_unitsCreated = _unitsCreated + 1;
+			_crewUnit moveInDriver _vehicle;
 		};
 		
 		if (_gunner) then {
@@ -98,7 +90,6 @@ Private ["_args", "_clientId", "_building", "_unitType", "_side", "_team", "_veh
 			[_crewUnit] orderGetIn true;
 			_crewUnit assignAsGunner _vehicle;
 			_crewUnit moveInGunner _vehicle;
-			_unitsCreated = _unitsCreated + 1;
 		};
 		
 		if (_isAITeam && (_vehicle distance (leader _team) < 200) ) then {
@@ -110,7 +101,6 @@ Private ["_args", "_clientId", "_building", "_unitType", "_side", "_team", "_veh
 				[leader _team] orderGetIn true;
 				(leader _team) assignAsCommander _vehicle;
 				(leader _team) moveInCommander _vehicle;
-
 				_comander = false;
 			};
 		};
@@ -122,7 +112,6 @@ Private ["_args", "_clientId", "_building", "_unitType", "_side", "_team", "_veh
 			[_crewUnit] orderGetIn true;
 			_crewUnit assignAsCommander _vehicle;
 			_crewUnit moveInCommander _vehicle;
-			_unitsCreated = _unitsCreated + 1;		
 		};
 		
 		//-- Init AI Specific 
@@ -143,18 +132,6 @@ Private ["_args", "_clientId", "_building", "_unitType", "_side", "_team", "_veh
 				[_turrets, [], _vehicle, _crew, _team] call SpawnTurrets;
 			};
 		};
-	};
-
-	//-- Update Side Stats
-	//
-	if (_unitsCreated != 0) then {
-		_unitsCreated = _unitsCreated + (WF_Logic getVariable Format ["%1UnitsCreated",_sideText]);
-		WF_Logic setVariable [Format["%1UnitsCreated",_sideText], _unitsCreated, true];
-	};
-
-	if (_vehicleCreated != 0) then {
-		_vehicleCreated = _vehicleCreated + (WF_Logic getVariable Format ["%1VehiclesCreated",_sideText]);
-		WF_Logic setVariable [Format ["%1VehiclesCreated",_sideText], _vehicleCreated, true];
 	};
 
 PROFILER_END();

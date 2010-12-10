@@ -23,8 +23,7 @@ if (paramBuildDefencesInTown > 0) then {
 };
 
 _built = WF_Logic getVariable Format ["%1UnitsCreated",sideJoinedText];
-_built = _built + 1;
-WF_Logic setVariable [Format["%1UnitsCreated",sideJoinedText],_built,true];
+WF_Logic setVariable [Format["%1UnitsCreated",sideJoinedText], _built+1, true];
 
 //--- Base.
 _hq = (sideJoinedText) Call GetSideHQ;

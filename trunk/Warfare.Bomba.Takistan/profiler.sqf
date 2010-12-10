@@ -1,10 +1,10 @@
 // _pid = "functionName" call ProfilerBegin;
 // _pid call ProfilerEnd;
 
-enabledProfiler = true;
+enabledProfiler = false;
 
 PROFILER_FUNC_NAMES = [];
-ProfilerBegin = { objNull; };
+ProfilerBegin = {objNull};
 ProfilerEnd = {};
 
 initProfiler = true;

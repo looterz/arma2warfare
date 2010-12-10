@@ -289,36 +289,27 @@ class FSM
        "	_teams = _teams + [_team];" \n
        "	_count = 1;" \n
        "	_total = count _unitTypes;" \n
-       "	_built = WF_Logic getVariable Format [""%1UnitsCreated"",str _side];" \n
-       "	_built = _built + 1;" \n
-       "	_vehiBuilt = WF_Logic getVariable Format [""%1VehiclesCreated"",str _side];" \n
-       "	_updateVehi = false;" \n
        "	while {_count < _total} do {" \n
        "		_unitName = _unitTypes select _count;" \n
        "		if (random(100) < _probaOccupation) then {" \n
        "			if (_unitName isKindOf ""Man"") then {" \n
        "				_unit = [_unitName,_team,_position,_side] Call CreateMan;" \n
-       "				_built = _built + 1;" \n
        "			} else {" \n
        "				_vehicle = [_unitName,_position,_side,true] Call CreateVehi;" \n
        "				_vehicles = _vehicles + [_vehicle];" \n
-       "				_vehiBuilt = _vehiBuilt + 1;" \n
-       "				_updateVehi = true;" \n
        "				_continue = true;" \n
        "				if (vehicle _leader == _leader) then {_leader MoveInDriver _vehicle;_continue = false};" \n
        "				_type = Format [""WFBE_%1SOLDIER"",str _side] Call GetNamespace;" \n
        "				if (typeOf _vehicle == ""Tank"") then {_type = Format [""WFBE_%1CREW"",str _side] Call GetNamespace};" \n
-       "				if (_continue) then {_driver = [_type,_team,_position,_side] Call CreateMan;_driver moveInDriver _vehicle;_built = _built + 1;};" \n
-       "				if (_vehicle emptyPositions ""gunner"" > 0) then {_gunner = [_type,_team,_position,_side] Call CreateMan;_gunner moveInGunner _vehicle;_built = _built + 1;};" \n
-       "				if (_vehicle emptyPositions ""commander"" > 0) then {_commander = [_type,_team,_position,_side] Call CreateMan;_commander moveInCommander _vehicle;_built = _built + 1;};" \n
+       "				if (_continue) then {_driver = [_type,_team,_position,_side] Call CreateMan;_driver moveInDriver _vehicle;};" \n
+       "				if (_vehicle emptyPositions ""gunner"" > 0) then {_gunner = [_type,_team,_position,_side] Call CreateMan;_gunner moveInGunner _vehicle;};" \n
+       "				if (_vehicle emptyPositions ""commander"" > 0) then {_commander = [_type,_team,_position,_side] Call CreateMan;_commander moveInCommander _vehicle;};" \n
        "			};" \n
        "		};" \n
        "		_count = _count + 1;" \n
        "	};" \n
        "	" \n
        "	[_team,_location,_tupd] Spawn AITownPatrol;" \n
-       "	WF_Logic setVariable [Format[""%1UnitsCreated"",str _side],_built,true];" \n
-       "	if (_updateVehi) then {WF_Logic setVariable [Format[""%1VehiclesCreated"",str _side],_vehiBuilt,true]};" \n
        "	_teamCount = _teamCount + 1;" \n
        "};" \n
        "[_location,_teams,_sideID] ExecFSM ""Server\FSM\townpatrol.fsm"";"/*%FSM</STATEINIT""">*/;
@@ -398,35 +389,25 @@ class FSM
        "[_team,_location,_tupd+250] Spawn AITownPatrol;" \n
        "_count = 1;" \n
        "_total = count _unitTypes;" \n
-       "_built = WF_Logic getVariable Format [""%1UnitsCreated"",str _side];" \n
-       "_built = _built + 1;" \n
-       "_vehiBuilt = WF_Logic getVariable Format [""%1VehiclesCreated"",str _side];" \n
-       "_updateVehi = false;" \n
        "while {_count < _total} do {" \n
        "	_unitName = _unitTypes select _count;" \n
        "	if (random(100) < _probaOccupation) then {" \n
        "		if (_unitName isKindOf ""Man"") then {" \n
        "			_unit = [_unitName,_team,_position,_side] Call CreateMan;" \n
-       "			_built = _built + 1;" \n
        "		} else {" \n
        "			_vehicle = [_unitName,_position,_side,true] Call CreateVehi;" \n
        "			_vehicles = _vehicles + [_vehicle];" \n
-       "			_vehiBuilt = _vehiBuilt + 1;" \n
-       "			_updateVehi = true;" \n
        "			_continue = true;" \n
        "			if (vehicle _leader == _leader) then {_leader MoveInDriver _vehicle;_continue = false};" \n
        "			_type = Format [""WFBE_%1SOLDIER"",str _side] Call GetNamespace;" \n
        "			if (typeOf _vehicle == ""Tank"") then {_type = Format [""WFBE_%1CREW"",str _side] Call GetNamespace};" \n
-       "			if (_continue) then {_driver = [_type,_team,_position,_side] Call CreateMan;_driver moveInDriver _vehicle;_built = _built + 1;};" \n
-       "			if (_vehicle emptyPositions ""gunner"" > 0) then {_gunner = [_type,_team,_position,_side] Call CreateMan;_gunner moveInGunner _vehicle;_built = _built + 1;};" \n
-       "			if (_vehicle emptyPositions ""commander"" > 0) then {_commander = [_type,_team,_position,_side] Call CreateMan;_commander moveInCommander _vehicle;_built = _built + 1;};" \n
+       "			if (_continue) then {_driver = [_type,_team,_position,_side] Call CreateMan;_driver moveInDriver _vehicle;};" \n
+       "			if (_vehicle emptyPositions ""gunner"" > 0) then {_gunner = [_type,_team,_position,_side] Call CreateMan;_gunner moveInGunner _vehicle;};" \n
+       "			if (_vehicle emptyPositions ""commander"" > 0) then {_commander = [_type,_team,_position,_side] Call CreateMan;_commander moveInCommander _vehicle;};" \n
        "		};" \n
        "	};" \n
        "	_count = _count + 1;" \n
        "};" \n
-       "" \n
-       "WF_Logic setVariable [Format[""%1UnitsCreated"",str _side],_built,true];" \n
-       "if (_updateVehi) then {WF_Logic setVariable [Format[""%1VehiclesCreated"",str _side],_vehiBuilt,true]};" \n
        "" \n
        "_existing = _location getVariable ""reinforcements_occ"";" \n
        "_location setVariable [""reinforcements_occ"",_existing + [_team]];" \n
