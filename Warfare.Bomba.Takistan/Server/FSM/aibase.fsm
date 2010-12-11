@@ -103,7 +103,7 @@ class FSM
     class Advanced__Init
     {
       name = "Advanced__Init";
-      init = /*%FSM<STATEINIT""">*/"""AIBase.FSM: AdvancedInit"" call LogHigh;" \n
+      init = /*%FSM<STATEINIT""">*/"""AIBase.FSM: AdvancedInit"" call LogInform;" \n
        "" \n
        "[Format[""WFBE_%1_AIBase"",_sideText],true,true] Call SetNamespace;" \n
        "" \n
@@ -222,7 +222,7 @@ class FSM
     class Global_Checks
     {
       name = "Global_Checks";
-      init = /*%FSM<STATEINIT""">*/"""AIBase.FSM: Global Checks"" call LogHigh;" \n
+      init = /*%FSM<STATEINIT""">*/"""AIBase.FSM: Global Checks"" call LogInform;" \n
        "" \n
        "//--- EXPERIMENTAL ENHANCED AI COMMANDER HANDLING --- Benny - 08/09/2009." \n
        "_commander = (_side) Call GetCommanderTeam;" \n
@@ -467,7 +467,7 @@ class FSM
     class Update_Teams
     {
       name = "Update_Teams";
-      init = /*%FSM<STATEINIT""">*/"""AIBase.FSM: Update Teams"" call LogHigh;" \n
+      init = /*%FSM<STATEINIT""">*/"""AIBase.FSM: Update Teams"" call LogInform;" \n
        "" \n
        "_lastTeamAssignements = time;" \n
        "_templates = Format [""WFBE_%1AITEAMTEMPLATES"",_sideText] Call GetNamespace;" \n
@@ -573,7 +573,7 @@ class FSM
     class Do_Upgrades
     {
       name = "Do_Upgrades";
-      init = /*%FSM<STATEINIT""">*/"""AIBase.FSM: Upgrades"" call LogHigh;" \n
+      init = /*%FSM<STATEINIT""">*/"""AIBase.FSM: Upgrades"" call LogInform;" \n
        "" \n
        "_lastUpgradeCheck = time;" \n
        "" \n

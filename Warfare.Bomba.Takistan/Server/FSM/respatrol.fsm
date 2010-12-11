@@ -2,8 +2,8 @@
 /*%FSM<HEAD>*/
 /*
 item0[] = {"Init_Patrol",0,250,-33.598793,-372.349548,56.401207,-322.349518,0.000000,"Init Patrol"};
-item1[] = {"Wait",4,4314,-37.311089,-156.971085,52.688904,-106.971123,0.000000,"Wait"};
-item2[] = {"IsTown_Activated",2,250,338.603699,34.992409,428.603699,84.992500,0.000000,"IsTown" \n "Activated?"};
+item1[] = {"Wait",4,218,-37.311089,-156.971085,52.688904,-106.971123,0.000000,"Wait"};
+item2[] = {"IsTown_Activated",2,4346,338.603699,34.992409,428.603699,84.992500,0.000000,"IsTown" \n "Activated?"};
 item3[] = {"No",4,218,635.745911,189.417572,696.234558,238.282562,1.000000,"No"};
 item4[] = {"No",4,218,457.973541,754.309814,508.401733,792.964417,10.000000,"No"};
 item5[] = {"Activate_Town",2,250,561.992737,749.319336,651.992737,799.319397,0.000000,"Activate Town"};
@@ -95,7 +95,7 @@ link47[] = {40,41};
 link48[] = {41,1};
 link49[] = {42,39};
 globals[] = {0.000000,0,0,0,0,640,480,1,87,6316128,1,-125.529770,793.053223,503.880646,-410.528046,660,657,1};
-window[] = {0,-1,-1,-1,-1,923,125,1417,125,1,678};
+window[] = {0,-1,-1,-1,-1,848,50,1342,50,1,678};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -111,7 +111,7 @@ class FSM
        "" \n
        "_rpi = 'WFBE_RESPATROLINTERVAL' Call GetNamespace;" \n
        "" \n
-       "format [""ResPatrol.FSM: Init - %1"", _location] call LogHigh;"/*%FSM</STATEINIT""">*/;
+       "format [""ResPatrol.FSM: Init - %1"", _location] call LogInform;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -132,7 +132,7 @@ class FSM
     class IsTown_Activated
     {
       name = "IsTown_Activated";
-      init = /*%FSM<STATEINIT""">*/"format [""ResPatrol.FSM: TownActivated? - %1"", _location] call LogHigh;" \n
+      init = /*%FSM<STATEINIT""">*/"format [""ResPatrol.FSM: TownActivated? - %1"", _location] call LogInform;" \n
        "" \n
        "_sideID = _location getVariable ""sideID"";" \n
        "_isActive = _location getVariable ""activePatrol"";" \n
@@ -243,7 +243,7 @@ class FSM
     class Advanced_Init
     {
       name = "Advanced_Init";
-      init = /*%FSM<STATEINIT""">*/"format [""ResPatrol.FSM: AdvInit - %1"", _location] call LogHigh;" \n
+      init = /*%FSM<STATEINIT""">*/"format [""ResPatrol.FSM: AdvInit - %1"", _location] call LogInform;" \n
        "" \n
        "_nextCheck = 0;" \n
        "_lastDestination = _location;" \n
