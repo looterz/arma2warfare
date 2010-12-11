@@ -64,7 +64,7 @@ class FSM
        "" \n
        "_isDefending = false;" \n
        "" \n
-       "format [""TownPatrol.FSM: Init - %1"", _location] call LogHigh;"/*%FSM</STATEINIT""">*/;
+       "format [""TownPatrol.FSM: Init - %1"", _location] call LogInform;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -85,7 +85,7 @@ class FSM
     class Global_Checks
     {
       name = "Global_Checks";
-      init = /*%FSM<STATEINIT""">*/"format [""TownPatrol.FSM: GlobalChecks - %1"", _location] call LogHigh;" \n
+      init = /*%FSM<STATEINIT""">*/"format [""TownPatrol.FSM: GlobalChecks - %1"", _location] call LogInform;" \n
        "" \n
        "_currentSV = _location getVariable ""supplyValue"";" \n
        "" \n
@@ -178,7 +178,7 @@ class FSM
     class End_Patrol
     {
       name = "End_Patrol";
-      init = /*%FSM<STATEINIT""">*/"format [""TownPatrol.FSM: End  - %1"", _location] call LogHigh;"/*%FSM</STATEINIT""">*/;
+      init = /*%FSM<STATEINIT""">*/"format [""TownPatrol.FSM: End  - %1"", _location] call LogInform;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -189,7 +189,7 @@ class FSM
     class Move
     {
       name = "Move";
-      init = /*%FSM<STATEINIT""">*/"format [""TownPatrol.FSM: Move - %1"", _location] call LogHigh;" \n
+      init = /*%FSM<STATEINIT""">*/"format [""TownPatrol.FSM: Move - %1"", _location] call LogInform;" \n
        "" \n
        "if (_enemy == 1) then {" \n
        "	{[_x,getPos _location,_tudd,""Defend""] Spawn AITownResitance} forEach _teams;" \n
