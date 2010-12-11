@@ -54,12 +54,7 @@ if (_sideVictim == sideEnemy) then {
 
 _killed spawn TrashObject;
 
-_varName = if (_isMan) then { format ["%1Casualties", _sideVictim] } else { format ["%1VehiclesLost", _sideVictim] };
-_lost = WF_Logic getVariable _varName;
-if (isNil "_lost") then {
-	_lost = 0;
-};
-WF_Logic setVariable [_varName, _lost + 1, true];
+[objNull, NETSEND_MSGID_UPDATESTATS, [_killed, _sideVictim, -1]] spawn NetSend_ToServer;
 
 _killerID = Leader _killerTeam Call GetClientID;
 _get = _objectType Call GetNamespace;

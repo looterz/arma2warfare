@@ -16,6 +16,10 @@ private['_clientId', '_unitData', '_response', '_order', '_data', '_unitType', '
 		case NETSEND_MSGID_LOCKVEHICLE: 	{ _data spawn HandleRequest_LockVehicle; };
 		case NETSEND_MSGID_CHEATDETECT: 	{ _data spawn HandleRequest_CheatDetected; };
 		
+		case NETSEND_MSGID_UPDATESTATS: 	{ _data spawn HandleRequest_UpdateStats; };
+		
+		
+		
 		default {
 			format["NetSend_ServerMessageHandle: Unknown msgId. %1", _this] call LogError;
 		};

@@ -125,8 +125,8 @@
 	missionNamespace setVariable ['WFBE_EASTSTARTINGMONEY',200000];
 	missionNamespace setVariable ['WFBE_WESTSTARTINGMONEY',200000];
 	missionNamespace setVariable ['WFBE_SUPPLYSYSTEM', 1]; // time
-	missionNamespace setVariable ['WFBE_RESPATROL', 40];
-	missionNamespace setVariable ['WFBE_TOWNRESISTANCEDIFFICULTY', 4];
+	//missionNamespace setVariable ['WFBE_RESPATROL', 40];
+	//missionNamespace setVariable ['WFBE_TOWNRESISTANCEDIFFICULTY', 4];
 	EastSupplies = 100000;
 	WestSupplies = 100000;
 
