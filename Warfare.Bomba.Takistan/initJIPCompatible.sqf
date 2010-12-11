@@ -249,8 +249,8 @@
 	if (WF_Debug) then {
 		paramUpgradesEast = false;
 		paramUpgradesWest = false;
-		paramRes = false;
-		paramOccup = false;
+		paramRes = true;
+		paramOccup = true;
 	};
 
 	//--- Advanced squads
