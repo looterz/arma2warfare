@@ -2,50 +2,54 @@
 /*%FSM<HEAD>*/
 /*
 item0[] = {"Init",0,250,-63.537106,-304.001923,26.462904,-254.002228,0.000000,"Init"};
-item1[] = {"End",1,250,-61.408298,377.918549,28.591755,427.918518,0.000000,"End"};
-item2[] = {"Gameover",4,218,-61.690380,273.676788,28.309599,323.676727,0.000000,"Gameover"};
+item1[] = {"End",1,250,-71.764908,273.178223,18.235218,323.178162,0.000000,"End"};
+item2[] = {"Gameover",4,218,-72.046967,168.936310,17.953068,218.936325,0.000000,"Gameover"};
 item3[] = {"_",8,218,-34.448154,-230.434799,-2.642141,-207.859543,0.000000,""};
-item4[] = {"Town_Core",2,250,-64.565445,-92.234825,25.434578,-42.234825,0.000000,"Town Core"};
-item5[] = {"Time_Supply",4,218,141.708405,-91.782959,231.708420,-41.782967,0.000000,"Time" \n "Supply"};
-item6[] = {"No",4,218,333.116791,403.549225,423.116974,453.549225,0.000000,"No"};
-item7[] = {"Yes",4,218,456.509674,100.703773,546.509644,150.703705,0.000000,"Yes"};
-item8[] = {"Normal_Supply",4,218,32.519249,100.802170,122.519119,150.802109,0.000000,"Normal" \n "Supply"};
-item9[] = {"Is_Units_Near_",2,250,332.911713,101.647873,422.911591,151.647919,0.000000,"Is Units" \n "Near?"};
-item10[] = {"Time_Supply",2,250,331.522217,-91.990379,421.522278,-41.990364,0.000000,"Time Supply"};
-item11[] = {"_",8,218,360.219482,3.747292,392.025513,26.322563,0.000000,""};
-item12[] = {"NoAction",2,250,625.938782,403.389679,715.938904,453.389618,0.000000,"NoAction"};
-item13[] = {"Town_Advanced_Is",2,250,615.243958,98.905594,721.487549,152.386200,0.000000,"Town Advanced" \n "Is Town Captured?"};
-item14[] = {"Yes",4,218,792.981934,102.155792,882.982056,152.155670,0.000000,"Yes"};
-item15[] = {"No",4,218,624.619141,248.936859,714.619263,298.936859,0.000000,"No"};
-item16[] = {"Captured",2,250,912.521729,104.391151,1002.521912,154.391129,0.000000,"Captured"};
-item17[] = {"",7,210,1067.133057,-226.023758,1075.133179,-218.023758,0.000000,""};
-item18[] = {"",7,210,1067.610352,125.779556,1075.610352,133.779572,0.000000,""};
-item19[] = {"",7,210,1067.857422,424.165222,1075.857422,432.165222,0.000000,""};
+item4[] = {"Town_Core",2,250,-70.261162,-90.336258,19.738863,-40.336258,0.000000,"Town Core"};
+item5[] = {"Time_Supply",4,218,183.900146,-89.942642,273.900055,-39.942654,0.000000,"Time" \n "Supply"};
+item6[] = {"No",4,218,357.040771,405.389526,447.040955,455.389526,0.000000,"No"};
+item7[] = {"Yes",4,218,480.433655,102.544083,570.433594,152.544006,0.000000,"Yes"};
+item8[] = {"Normal_Supply",4,218,187.339172,103.591766,277.339081,153.591736,0.000000,"Normal" \n "Supply"};
+item9[] = {"Is_Units_Near_",2,250,356.835693,103.488190,446.835571,153.488220,0.000000,"Is Units" \n "Near?"};
+item10[] = {"Time_Supply",2,250,355.446198,-90.150070,445.446259,-40.150059,0.000000,"Time Supply"};
+item11[] = {"_",8,218,384.143463,5.587597,415.949493,28.162868,0.000000,""};
+item12[] = {"NoAction",2,250,649.862732,405.229980,739.862854,455.229919,0.000000,"NoAction"};
+item13[] = {"Town_Advanced_Is",2,250,639.167908,100.745911,745.411499,154.226501,0.000000,"Town Advanced" \n "Is Town Captured?"};
+item14[] = {"Yes",4,218,771.292114,103.996109,861.292236,153.995972,0.000000,"Yes"};
+item15[] = {"No",4,218,648.543091,250.777161,738.543213,300.777161,0.000000,"No"};
+item16[] = {"Captured",2,250,890.831909,106.231461,980.832153,156.231445,0.000000,"Captured"};
+item17[] = {"",7,210,1045.443359,-224.183441,1053.443604,-216.183441,0.000000,""};
+item18[] = {"",7,210,1045.920654,127.619873,1053.920654,135.619873,0.000000,""};
+item19[] = {"",7,210,1046.167725,426.005524,1054.167725,434.005524,0.000000,""};
+item20[] = {"Next_Update",4,218,58.363075,-88.993393,148.363190,-38.993374,0.000000,"Next" \n "Update"};
+item21[] = {"SupplyType",2,250,57.742722,25.400248,147.742767,75.400269,0.000000,"SupplyType"};
 link0[] = {0,3};
 link1[] = {2,1};
 link2[] = {3,4};
 link3[] = {4,2};
-link4[] = {4,5};
-link5[] = {4,8};
-link6[] = {5,10};
-link7[] = {6,12};
-link8[] = {7,13};
-link9[] = {8,9};
-link10[] = {9,6};
-link11[] = {9,7};
-link12[] = {10,11};
-link13[] = {11,9};
-link14[] = {12,19};
-link15[] = {13,14};
-link16[] = {13,15};
-link17[] = {14,16};
-link18[] = {15,12};
-link19[] = {16,18};
-link20[] = {17,3};
-link21[] = {18,17};
-link22[] = {19,18};
-globals[] = {0.000000,0,0,0,0,640,480,1,56,6316128,1,-272.822449,1288.891968,613.328979,-429.747742,1220,899,1};
-window[] = {2,-1,-1,-1,-1,944,175,1435,175,3,1238};
+link4[] = {4,20};
+link5[] = {5,10};
+link6[] = {6,12};
+link7[] = {7,13};
+link8[] = {8,9};
+link9[] = {9,6};
+link10[] = {9,7};
+link11[] = {10,11};
+link12[] = {11,9};
+link13[] = {12,19};
+link14[] = {13,14};
+link15[] = {13,15};
+link16[] = {14,16};
+link17[] = {15,12};
+link18[] = {16,18};
+link19[] = {17,3};
+link20[] = {18,17};
+link21[] = {19,18};
+link22[] = {20,21};
+link23[] = {21,5};
+link24[] = {21,8};
+globals[] = {0.000000,0,0,0,0,640,480,1,58,6316128,1,-169.505829,1095.056396,823.068481,-529.152710,779,833,1};
+window[] = {2,-1,-1,-1,-1,794,25,1285,25,3,797};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -108,30 +112,18 @@ class FSM
     class Town_Core
     {
       name = "Town_Core";
-      init = /*%FSM<STATEINIT""">*/"_lastUpdate = time;" \n
-       "" \n
-       "_sideID = _location getVariable ""sideID"";" \n
-       "_objects = _location NearEntities[[eastSoldierBaseClass,westSoldierBaseClass,resistanceSoldierBaseClass,""Car"",""Motorcycle"",""Tank"",""Air""],_tcr];"/*%FSM</STATEINIT""">*/;
+      init = /*%FSM<STATEINIT""">*/"_nextUpdate = time + 5;" \n
+       ""/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
-        /*%FSM<LINK "Time_Supply">*/
-        class Time_Supply
+        /*%FSM<LINK "Next_Update">*/
+        class Next_Update
         {
           priority = 0.000000;
-          to="Time_Supply";
+          to="SupplyType";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"_timeSupply && !gameOver && time - _lastUpdate > 5"/*%FSM</CONDITION""">*/;
-          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
-        };
-        /*%FSM</LINK>*/
-        /*%FSM<LINK "Normal_Supply">*/
-        class Normal_Supply
-        {
-          priority = 0.000000;
-          to="Is_Units_Near_";
-          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"!_timeSupply && !gameOver && time - _lastUpdate > (5+random 0.2)"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!gameOver && _nextUpdate < time"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -152,7 +144,7 @@ class FSM
     class Is_Units_Near_
     {
       name = "Is_Units_Near_";
-      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      init = /*%FSM<STATEINIT""">*/"_objects = _location NearEntities[[eastSoldierBaseClass,westSoldierBaseClass,resistanceSoldierBaseClass,""Car"",""Motorcycle"",""Tank"",""Air""],_tcr];"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -374,6 +366,38 @@ class FSM
           to="Town_Core";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "SupplyType">*/
+    class SupplyType
+    {
+      name = "SupplyType";
+      init = /*%FSM<STATEINIT""">*/"_sideID = _location getVariable ""sideID"";" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Normal_Supply">*/
+        class Normal_Supply
+        {
+          priority = 0.000000;
+          to="Is_Units_Near_";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!_timeSupply"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Time_Supply">*/
+        class Time_Supply
+        {
+          priority = 0.000000;
+          to="Time_Supply";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_timeSupply"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/

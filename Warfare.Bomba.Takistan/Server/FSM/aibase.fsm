@@ -1,19 +1,20 @@
-/*%FSM<COMPILE "D:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, aibase">*/
+/*%FSM<COMPILE "scriptedFSM.cfg, aibase">*/
 /*%FSM<HEAD>*/
 /*
 item0[] = {"AI_BASE_Init",0,250,-15.348785,-34.504990,74.651321,15.495049,0.000000,"AI BASE" \n "Init"};
-item1[] = {"AI_BASE_End",1,250,121.421707,50.708939,211.421722,100.708939,0.000000,"AI BASE" \n "End"};
-item2[] = {"AI_Base_Running",4,218,122.273567,-35.331635,212.273392,14.668474,0.000000,"AI Base" \n "Running"};
-item3[] = {"AI_Base_Not_Runn",4,218,-15.582159,46.154228,74.417801,96.154228,0.000000,"AI Base" \n "Not Running"};
-item4[] = {"Advanced__Init",2,250,-16.452499,124.902863,73.547501,174.902863,0.000000,"Advanced " \n "Init"};
-item5[] = {"Loop",8,218,-16.586647,206.297379,73.413300,256.297363,0.000000,"Loop"};
-item6[] = {"Global_Checks",2,250,-16.758400,279.866577,73.241608,329.866577,0.000000,"Global Checks"};
-item7[] = {"Player_Commander",4,218,121.742462,280.140930,211.742416,330.140930,10.000000,"Player" \n "Commander?"};
-item8[] = {"Teams_Type",4,218,-164.034988,280.176239,-74.035011,330.176270,1.000000,"Teams Type"};
-item9[] = {"Update_Teams",2,250,-163.247650,207.771179,-73.247955,257.771149,0.000000,"Update Teams"};
-item10[] = {"Upgrades",4,218,-267.920502,327.396942,-177.920532,377.396942,0.000000,"Upgrades"};
-item11[] = {"Do_Upgrades",2,4346,-267.724365,207.955505,-177.724365,257.955505,0.000000,"Do Upgrades"};
-item12[] = {"",7,210,-169.994583,128.282928,-161.994583,136.282974,0.000000,""};
+item1[] = {"AI_BASE_End",1,250,-17.260908,493.396362,72.739075,543.396362,0.000000,"AI BASE" \n "End"};
+item2[] = {"AI_Base_Running",4,218,-15.194590,363.800049,74.805260,413.800171,0.000000,"AI Base" \n "Running"};
+item3[] = {"AI_Base_Not_Runn",4,218,151.275726,57.530907,241.275681,107.530907,0.000000,"AI Base" \n "Not Running"};
+item4[] = {"Advanced__Init",2,250,150.405396,136.279541,240.405380,186.279541,0.000000,"Advanced " \n "Init"};
+item5[] = {"Loop",8,218,150.271240,217.674042,240.271164,267.674011,0.000000,"Loop"};
+item6[] = {"Global_Checks",2,250,150.099487,291.243225,240.099472,341.243225,0.000000,"Global Checks"};
+item7[] = {"Player_Commander",4,218,149.917725,386.323242,239.917709,436.323242,10.000000,"Player" \n "Commander?"};
+item8[] = {"Teams_Type",4,218,297.038849,341.597961,387.038666,391.597961,1.000000,"Teams Type"};
+item9[] = {"Update_Teams",2,4346,424.533905,341.838654,514.532959,391.838623,0.000000,"Update Teams"};
+item10[] = {"Upgrades",4,218,297.898315,262.110931,387.898254,312.110931,0.000000,"Upgrades"};
+item11[] = {"Do_Upgrades",2,250,420.578613,267.687836,499.596924,307.551178,0.000000,"Do Upgrades"};
+item12[] = {"",7,210,565.612610,283.468384,573.612610,291.468414,0.000000,""};
+item13[] = {"",7,210,565.782654,239.294510,573.782654,247.294525,0.000000,""};
 link0[] = {0,2};
 link1[] = {0,3};
 link2[] = {2,1};
@@ -29,9 +30,10 @@ link11[] = {8,9};
 link12[] = {9,12};
 link13[] = {10,11};
 link14[] = {11,12};
-link15[] = {12,5};
-globals[] = {0.000000,0,0,0,0,640,480,1,19,6316128,1,-340.606110,214.050446,413.526428,-75.043388,705,621,1};
-window[] = {0,-1,-1,-1,-1,766,25,1370,25,1,723};
+link15[] = {12,13};
+link16[] = {13,5};
+globals[] = {0.000000,0,0,0,0,640,480,1,20,6316128,1,-85.718567,630.601990,614.970581,-88.679611,848,833,1};
+window[] = {2,-1,-1,-1,-1,866,125,1417,125,3,866};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -101,7 +103,9 @@ class FSM
     class Advanced__Init
     {
       name = "Advanced__Init";
-      init = /*%FSM<STATEINIT""">*/"[Format[""WFBE_%1_AIBase"",_sideText],true,true] Call SetNamespace;" \n
+      init = /*%FSM<STATEINIT""">*/"""AIBase.FSM: AdvancedInit"" call LogHigh;" \n
+       "" \n
+       "[Format[""WFBE_%1_AIBase"",_sideText],true,true] Call SetNamespace;" \n
        "" \n
        "_hq = (_sideText) Call GetSideHQ;" \n
        "_isDeployed = (_sideText) Call GetSideHQDeployed;" \n
@@ -218,7 +222,9 @@ class FSM
     class Global_Checks
     {
       name = "Global_Checks";
-      init = /*%FSM<STATEINIT""">*/"//--- EXPERIMENTAL ENHANCED AI COMMANDER HANDLING --- Benny - 08/09/2009." \n
+      init = /*%FSM<STATEINIT""">*/"""AIBase.FSM: Global Checks"" call LogHigh;" \n
+       "" \n
+       "//--- EXPERIMENTAL ENHANCED AI COMMANDER HANDLING --- Benny - 08/09/2009." \n
        "_commander = (_side) Call GetCommanderTeam;" \n
        "" \n
        "_lastCheck = time;" \n
@@ -461,7 +467,9 @@ class FSM
     class Update_Teams
     {
       name = "Update_Teams";
-      init = /*%FSM<STATEINIT""">*/"_lastTeamAssignements = time;" \n
+      init = /*%FSM<STATEINIT""">*/"""AIBase.FSM: Update Teams"" call LogHigh;" \n
+       "" \n
+       "_lastTeamAssignements = time;" \n
        "_templates = Format [""WFBE_%1AITEAMTEMPLATES"",_sideText] Call GetNamespace;" \n
        "_teamTypes = Format [""WFBE_%1AITEAMTYPES"",_sideText] Call GetNamespace;" \n
        "_currentConfig = [];" \n
@@ -472,10 +480,10 @@ class FSM
        "		_teamIndex = (_x) Call GetTeamType;" \n
        "		_totalFunds = _totalFunds + ((_x) Call GetTeamFunds);" \n
        "		if (_teamIndex == -1) then {_teamIndex = 0};" \n
-	   "		_teamType = _teamTypes select _teamIndex;" \n
-	   "		if ( !(isNil ""_teamType"") ) then {" \n
-	   "			_currentConfig = _currentConfig + [_teamTypes select _teamIndex];" \n
-	   "		};" \n
+       "		_teamType = _teamTypes select _teamIndex;" \n
+       "		if ( !(isNil ""_teamType"") ) then {" \n
+       "			_currentConfig = _currentConfig + [_teamTypes select _teamIndex];" \n
+       "		};" \n
        "	};" \n
        "} forEach _teams;" \n
        "" \n
@@ -565,7 +573,9 @@ class FSM
     class Do_Upgrades
     {
       name = "Do_Upgrades";
-      init = /*%FSM<STATEINIT""">*/"_lastUpgradeCheck = time;" \n
+      init = /*%FSM<STATEINIT""">*/"""AIBase.FSM: Upgrades"" call LogHigh;" \n
+       "" \n
+       "_lastUpgradeCheck = time;" \n
        "" \n
        "//--- Command center is needed for upgrades. AI won't upgrade if he's moving around. Don't bother with money atm, only supply." \n
        "_isDeployed = (_sideText) Call GetSideHQDeployed;" \n

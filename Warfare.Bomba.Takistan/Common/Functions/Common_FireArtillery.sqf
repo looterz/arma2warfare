@@ -79,7 +79,7 @@ if (_amount > 0) then {
 		sleep 0.1;
 		_shell = _artillery getVariable "FireArtillery";
 	};
-
+	
 	if ( !(isNull _shell) ) then {
 		[_artillery, _shell, _destination] spawn FireArtilleryTraceTraectory;
 	};

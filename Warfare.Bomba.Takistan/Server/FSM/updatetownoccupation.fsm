@@ -1,4 +1,4 @@
-/*%FSM<COMPILE "D:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, updatetownoccupation">*/
+/*%FSM<COMPILE "scriptedFSM.cfg, updatetownoccupation">*/
 /*%FSM<HEAD>*/
 /*
 item0[] = {"Init",0,250,-62.289883,-330.373718,27.710114,-280.374084,0.000000,"Init"};
@@ -6,63 +6,67 @@ item1[] = {"End",1,250,-182.368073,-113.480629,-92.368042,-63.480659,0.000000,"E
 item2[] = {"Gameover",4,218,-182.650177,-187.482422,-92.650192,-137.482452,0.000000,"Gameover"};
 item3[] = {"_",8,218,-33.398170,-257.734375,-1.592157,-235.159103,0.000000,""};
 item4[] = {"Defense_Core",2,250,-63.405182,-187.376434,26.594841,-137.376434,0.000000,"Defense Core"};
-item5[] = {"Resistance",4,4314,-63.096802,-113.322952,26.903198,-63.322945,0.000000,"Resistance"};
-item6[] = {"Skip",4,218,51.723022,-187.995987,141.723053,-137.995987,0.000000,"Skip"};
-item7[] = {"_",8,218,454.014679,-194.135712,485.820709,-171.560425,0.000000,""};
-item8[] = {"Advanced_Defense",2,250,-63.899727,-37.846992,26.100292,12.153011,0.000000,"Advanced" \n "Defense"};
-item9[] = {"Skip",4,218,52.047401,-37.929413,142.047272,12.070588,0.000000,"Skip"};
-item10[] = {"Enemies",4,218,-63.950096,42.576328,26.049911,92.576347,0.000000,"Enemies"};
-item11[] = {"Active",4,218,49.450504,118.698433,139.450470,168.698425,0.000000,"Active"};
-item12[] = {"Update",2,250,-63.949944,119.619461,26.049990,169.619431,0.000000,"Update"};
+item5[] = {"No",4,218,-64.364449,59.373619,25.635551,109.373627,0.000000,"No"};
+item6[] = {"Yes",4,218,60.875946,-11.475222,150.875946,38.524776,0.000000,"Yes"};
+item7[] = {"_",8,218,455.362091,-102.507973,487.168121,-79.932686,0.000000,""};
+item8[] = {"Advanced_Defense",2,250,-62.552238,153.155426,27.447773,203.155411,0.000000,"Advanced" \n "Defense"};
+item9[] = {"Skip",4,218,53.394890,153.072998,143.394699,203.072983,0.000000,"Skip"};
+item10[] = {"Enemies",4,218,-62.602608,233.578766,27.397388,283.578918,0.000000,"Enemies"};
+item11[] = {"Active",4,218,50.797997,309.700989,140.797897,359.700989,0.000000,"Active"};
+item12[] = {"Update",2,250,-62.602455,310.622070,27.397472,360.622009,0.000000,"Update"};
 item13[] = {"_",2,250,343.767365,-272.715424,433.767212,-222.715424,0.000000,""};
-item14[] = {"Inactive",4,218,-63.968323,202.808212,26.031679,252.808212,0.000000,"Inactive"};
-item15[] = {"Spawn",2,250,423.409485,203.132462,513.409180,253.132462,0.000000,"Spawn"};
-item16[] = {"__1",2,250,206.142822,118.306442,296.142761,168.306290,0.000000,""};
-item17[] = {"no_Reinf_occ",4,218,207.156647,9.823240,297.156616,59.823257,0.000000,"no Reinf" \n "occ"};
-item18[] = {"Reinf_occ",4,218,351.125031,117.292572,441.125031,167.292572,0.000000,"Reinf" \n "occ"};
-item19[] = {"Reinforce",2,250,351.125000,7.795517,441.125000,57.795517,0.000000,"Reinforce"};
+item14[] = {"Inactive",4,218,-62.620842,393.810791,27.379162,443.810852,0.000000,"Inactive"};
+item15[] = {"Spawn",2,250,424.756897,394.135071,514.756531,444.135132,0.000000,"Spawn"};
+item16[] = {"__1",2,250,207.490250,309.309021,297.490173,359.308838,0.000000,""};
+item17[] = {"no_Reinf_occ",4,218,208.504074,200.825638,298.504028,250.825836,0.000000,"no Reinf" \n "occ"};
+item18[] = {"Reinf_occ",4,218,352.472412,308.295166,442.472412,358.295105,0.000000,"Reinf" \n "occ"};
+item19[] = {"Reinforce",2,250,352.472412,198.797928,442.472412,248.798065,0.000000,"Reinforce"};
 item20[] = {"Passive",4,218,198.960342,-272.279114,288.960266,-222.279129,0.000000,"Passive"};
 item21[] = {"Active",4,218,342.808105,-345.778107,432.808105,-295.778107,0.000000,"Active"};
 item22[] = {"__2",2,250,55.112442,-272.279236,145.112457,-222.279205,0.000000,""};
 item23[] = {"__3",2,250,341.757874,-423.476776,431.757904,-373.476776,0.000000,""};
-item24[] = {"Time___1",4,218,206.309998,-422.426788,296.310181,-372.426788,0.000000,"Time >"};
+item24[] = {"Time___1",4,4314,206.309998,-422.426788,296.310181,-372.426788,0.000000,"Time >"};
 item25[] = {"Time__",4,218,200.010101,-342.628052,290.010254,-292.628052,0.000000,"Time <"};
 item26[] = {"Delete",2,250,76.112068,-422.426819,166.112030,-372.426819,0.000000,"Delete"};
+item27[] = {"IsResistance",2,250,-61.563362,-12.368974,28.436653,37.631008,0.000000,"IsResistance"};
+item28[] = {"Next_Update",4,218,-60.157993,-109.218384,29.842003,-59.218384,0.000000,"Next" \n "Update"};
 link0[] = {0,3};
 link1[] = {2,1};
 link2[] = {3,4};
 link3[] = {4,2};
-link4[] = {4,5};
-link5[] = {4,6};
-link6[] = {5,8};
-link7[] = {6,13};
-link8[] = {7,13};
-link9[] = {8,9};
-link10[] = {8,10};
-link11[] = {9,13};
-link12[] = {10,12};
-link13[] = {11,16};
-link14[] = {12,11};
-link15[] = {12,14};
-link16[] = {13,20};
-link17[] = {13,21};
-link18[] = {14,15};
-link19[] = {15,7};
-link20[] = {16,17};
-link21[] = {16,18};
-link22[] = {17,13};
-link23[] = {18,19};
-link24[] = {19,7};
-link25[] = {20,22};
-link26[] = {21,23};
-link27[] = {22,3};
-link28[] = {23,24};
-link29[] = {23,25};
-link30[] = {24,26};
-link31[] = {25,22};
-link32[] = {26,3};
-globals[] = {0.000000,0,0,0,0,640,480,1,81,6316128,1,-310.611420,734.482544,261.767883,-627.178406,763,654,1};
-window[] = {0,-1,-1,-1,-1,869,100,1552,100,1,781};
+link4[] = {4,28};
+link5[] = {5,8};
+link6[] = {6,13};
+link7[] = {7,13};
+link8[] = {8,9};
+link9[] = {8,10};
+link10[] = {9,13};
+link11[] = {10,12};
+link12[] = {11,16};
+link13[] = {12,11};
+link14[] = {12,14};
+link15[] = {13,20};
+link16[] = {13,21};
+link17[] = {14,15};
+link18[] = {15,7};
+link19[] = {16,17};
+link20[] = {16,18};
+link21[] = {17,13};
+link22[] = {18,19};
+link23[] = {19,7};
+link24[] = {20,22};
+link25[] = {21,23};
+link26[] = {22,3};
+link27[] = {23,24};
+link28[] = {23,25};
+link29[] = {24,26};
+link30[] = {25,22};
+link31[] = {26,3};
+link32[] = {27,5};
+link33[] = {27,6};
+link34[] = {28,27};
+globals[] = {0.000000,0,0,0,0,640,480,1,83,6316128,1,-139.333862,665.430969,461.875641,-440.619263,667,748,1};
+window[] = {0,-1,-1,-1,-1,939,146,1438,50,1,685};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -128,29 +132,17 @@ class FSM
     class Defense_Core
     {
       name = "Defense_Core";
-      init = /*%FSM<STATEINIT""">*/"_lastUpdate = time;" \n
-       "" \n
-       "_sideID = _location getVariable ""sideID"";"/*%FSM</STATEINIT""">*/;
+      init = /*%FSM<STATEINIT""">*/"_nextUpdate = time + 10;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
-        /*%FSM<LINK "Resistance">*/
-        class Resistance
+        /*%FSM<LINK "Next_Update">*/
+        class Next_Update
         {
           priority = 0.000000;
-          to="Advanced_Defense";
+          to="IsResistance";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"!gameOver && time - _lastUpdate > (10+random 0.2) && (_sideID == EASTID || _sideID == WESTID)"/*%FSM</CONDITION""">*/;
-          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
-        };
-        /*%FSM</LINK>*/
-        /*%FSM<LINK "Skip">*/
-        class Skip
-        {
-          priority = 0.000000;
-          to="_";
-          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"!gameOver && time - _lastUpdate > 10 && _sideID == RESISTANCEID"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!gameOver &&  _nextUpdate < time"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -511,6 +503,37 @@ class FSM
           to="Defense_Core";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "IsResistance">*/
+    class IsResistance
+    {
+      name = "IsResistance";
+      init = /*%FSM<STATEINIT""">*/"_sideID = _location getVariable ""sideID"";"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Yes">*/
+        class Yes
+        {
+          priority = 0.000000;
+          to="_";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_sideID == RESISTANCEID"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "No">*/
+        class No
+        {
+          priority = 0.000000;
+          to="Advanced_Defense";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_sideID != RESISTANCEID"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/

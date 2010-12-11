@@ -12,7 +12,7 @@ link2[] = {1,4};
 link3[] = {3,1};
 link4[] = {4,2};
 globals[] = {0.000000,0,0,0,0,640,480,1,25,6316128,1,-395.307037,395.306915,93.428192,-337.575409,744,493,1};
-window[] = {0,-1,-1,-1,-1,684,50,1342,50,1,762};
+window[] = {0,-1,-1,-1,-1,659,25,1317,25,1,762};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -23,7 +23,7 @@ class FSM
     class Init
     {
       name = "Init";
-      init = /*%FSM<STATEINIT""">*/"_lastUpdate = time;" \n
+      init = /*%FSM<STATEINIT""">*/"_nextUpdate = 0;" \n
        "_lastSV = [];" \n
        "" \n
        "_tcarm = 'WFBE_TOWNCAPTUREASSISTRANGEMODIFIER' Call GetNamespace;"/*%FSM</STATEINIT""">*/;
@@ -36,8 +36,8 @@ class FSM
           priority = 0.000000;
           to="Check_Towns";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > 5 && !gameOver"/*%FSM</CONDITION""">*/;
-          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_nextUpdate < time && !gameOver"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_nextUpdate = time + 5;"/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
       };
@@ -66,7 +66,7 @@ class FSM
        "	_lastSV set [_count,_SV];" \n
        "};" \n
        "" \n
-       "_lastUpdate = time;"/*%FSM</STATEINIT""">*/;
+       "_lastUpdate = time + 5;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -86,8 +86,8 @@ class FSM
           priority = 0.000000;
           to="Check_Towns";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > 5 && !gameOver"/*%FSM</CONDITION""">*/;
-          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_nextUpdate < time && !gameOver"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_nextUpdate = time + 5;"/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
       };

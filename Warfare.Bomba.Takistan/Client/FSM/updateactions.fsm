@@ -1,4 +1,4 @@
-/*%FSM<COMPILE "D:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, updateactions">*/
+/*%FSM<COMPILE "scriptedFSM.cfg, updateactions">*/
 /*%FSM<HEAD>*/
 /*
 item0[] = {"Init",0,250,-64.944939,-176.579712,25.055046,-126.579880,0.000000,"Init"};
@@ -18,8 +18,8 @@ link5[] = {4,2};
 link6[] = {5,3};
 link7[] = {6,5};
 link8[] = {7,1};
-globals[] = {0.000000,0,0,0,0,640,480,1,29,6316128,1,-395.307037,395.306915,167.465607,-285.572937,407,514,1};
-window[] = {0,-1,-1,-1,-1,834,200,1460,200,1,425};
+globals[] = {0.000000,0,0,0,0,640,480,1,29,6316128,1,-185.248779,281.600861,329.188721,-236.307190,407,493,1};
+window[] = {0,-1,-1,-1,-1,809,175,1435,175,1,425};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -56,7 +56,7 @@ class FSM
       name = "Check_Player";
       init = /*%FSM<STATEINIT""">*/"if (Vehicle player != _lastVehicle) then {_UpdateActions = true};" \n
        "" \n
-       "_lastUpdate = time;"/*%FSM</STATEINIT""">*/;
+       "_nextUpdate = time + 2.5;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -86,7 +86,7 @@ class FSM
           priority = 0.000000;
           to="Check_Player";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > 0.5 && !gameOver && alive player && !_UpdateActions"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_nextUpdate < time && !gameOver && alive player && !_UpdateActions"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -121,7 +121,7 @@ class FSM
           priority = 0.000000;
           to="Check_Player";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > 0.5 && !gameOver && alive player && !_UpdateActions"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_nextUpdate < time && !gameOver && alive player && !_UpdateActions"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
