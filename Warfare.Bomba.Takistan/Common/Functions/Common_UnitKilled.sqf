@@ -54,7 +54,7 @@ if (_sideVictim == sideEnemy) then {
 
 _killed spawn TrashObject;
 
-[objNull, NETSEND_MSGID_UPDATESTATS, [_killed, _sideVictim, -1]] spawn NetSend_ToServer;
+[NETSEND_MSGID_UPDATESTATS, [_killed, _sideVictim, -1]] spawn NetSend_ToServer;
 
 _killerID = Leader _killerTeam Call GetClientID;
 _get = _objectType Call GetNamespace;
