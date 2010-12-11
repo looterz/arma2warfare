@@ -129,8 +129,7 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 		_leader setPos _pos;	
 
 		if (isMultiplayer) then {
-			_built = WF_Logic getVariable Format ["%1UnitsCreated",_sideText];
-			WF_Logic setVariable [Format["%1UnitsCreated",_sideText],_built + 1];
+			[objNull, NETSEND_MSGID_UPDATESTATS, [_leader, _side, 1]] spawn NetSend_ToServer;
 		};
 
 		//--- Equip the AI.

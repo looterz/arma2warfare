@@ -18,14 +18,8 @@ Private ["_lock","_position","_side","_type","_vehicle"];
 		_vehicle = _type createVehicle _position;
 	};
 	
-	_built = WF_Logic getVariable Format ["%1VehiclesCreated", _side];
-	if (isNil "_built") then {
-		_built = 0;
-	};
-	WF_Logic setVariable [Format["%1VehiclesCreated", _side],_built + 1];		
-	
+	[objNull, NETSEND_MSGID_UPDATESTATS, [_vehicle, _side, 1]] spawn NetSend_ToServer;
 	if (_side != resistance) then {
-	
 		_vehicle SetVehicleInit Format["[this,%1] ExecVM 'Common\Common_InitUnit.sqf';",_side];
 		ProcessInitCommands;
 	};

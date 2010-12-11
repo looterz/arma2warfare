@@ -12,10 +12,7 @@ Private ["_dT", "_get", "_built", "_position","_side","_skill","_team","_type","
 	_skill = if !(isNil '_get') then {_get select QUERYUNITSKILL} else {'WFBE_AISKILL' Call GetNamespace};
 	_unit = _team createUnit [_type,_position,[],_skill,"FORM"];
 	
-	_varName = format ["%1UnitsCreated", _side];
-	_built = WF_Logic getVariable _varName;
-	if (isNil "_built") then { _built = 0 };	
-	WF_Logic setVariable [_varName, _built + 1];	
+	[objNull, NETSEND_MSGID_UPDATESTATS, [_unit, _side, 1]] spawn NetSend_ToServer;
 	
 	if (_side != resistance) then {
 
