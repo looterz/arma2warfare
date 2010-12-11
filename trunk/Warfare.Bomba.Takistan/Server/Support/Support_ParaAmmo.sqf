@@ -79,7 +79,7 @@ while {!_exit} do {
 			_ammo setPos getPos _chute;
 			_ammo attachTo [_chute,[0,0,0]];
 			while {getPos _ammo select 2 > 3} do {
-				sleep 0.1;
+				sleep 0.5;
 			};
 			detach _ammo;
 			

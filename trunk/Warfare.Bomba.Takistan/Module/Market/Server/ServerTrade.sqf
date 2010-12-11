@@ -3,7 +3,7 @@ private['_nearTime', '_dT', '_periodTownUpdate', '_periodFactoryUpdate', '_nextT
 waitUntil { serverInitComplete };
 
 
-_periodTownUpdate = if (WF_DEBUG) then { 60; } else { 300; };
+_periodTownUpdate = if (WF_DEBUG) then { 60; } else { 600; };
 _periodFactoryUpdate = if (WF_DEBUG) then { 60; } else { 120; };
 
 _nextTownUpdate = time + _periodTownUpdate;
@@ -15,7 +15,7 @@ while { true } do {
 
 	_dT = _nearTime - time;
 	if (_dT < 1) then { _dT = 1; };
-        sleep _dT;
+	sleep _dT;
 
 	format["Market time=%1", time]  call LogHigh;
 	

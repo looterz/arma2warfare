@@ -1,8 +1,8 @@
-/*%FSM<COMPILE "D:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, resstriker">*/
+/*%FSM<COMPILE "scriptedFSM.cfg, resstriker">*/
 /*%FSM<HEAD>*/
 /*
 item0[] = {"Init_Patrol",0,250,-37.336731,-245.259415,52.663269,-195.259415,0.000000,"Init Patrol"};
-item1[] = {"Wait",4,218,-35.585495,-60.933670,54.414505,-10.933670,0.000000,"Wait"};
+item1[] = {"Wait",4,4314,-35.585495,-60.933670,54.414505,-10.933670,0.000000,"Wait"};
 item2[] = {"Activity",2,250,-38.403221,10.450424,51.596794,60.450424,0.000000,"Activity"};
 item3[] = {"is_Active",4,218,101.439552,11.111540,191.439560,61.111511,1.000000,"is Active"};
 item4[] = {"Actions",2,250,100.520218,-64.953995,190.520096,-14.954021,0.000000,"Actions"};
@@ -36,8 +36,8 @@ link15[] = {12,13};
 link16[] = {13,1};
 link17[] = {14,15};
 link18[] = {15,1};
-globals[] = {0.000000,0,0,0,0,640,480,1,40,6316128,1,-358.298737,441.757324,317.624573,-294.183075,680,515,1};
-window[] = {0,-1,-1,-1,-1,735,100,1399,100,1,698};
+globals[] = {0.000000,0,0,0,0,640,480,1,40,6316128,1,-179.198883,293.226257,122.174026,-221.028839,680,494,1};
+window[] = {0,-1,-1,-1,-1,660,25,1317,25,1,698};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -72,8 +72,7 @@ class FSM
     class Activity
     {
       name = "Activity";
-      init = /*%FSM<STATEINIT""">*/"_lastUpdate = time;" \n
-       "_sideID = _location getVariable ""sideID"";" \n
+      init = /*%FSM<STATEINIT""">*/"_sideID = _location getVariable ""sideID"";" \n
        "_isActive = _location getVariable ""activeStriker"";" \n
        "" \n
        "_alives = if (!isNil ""_team"") then {Count ((Units  _team) Call GetLiveUnits)} else {1};"/*%FSM</STATEINIT""">*/;
@@ -155,8 +154,8 @@ class FSM
           priority = 0.000000;
           to="Activity";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > (40+random 2)"/*%FSM</CONDITION""">*/;
-          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_nextUpdate < time"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_nextUpdate = time + 40;"/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
       };
@@ -200,8 +199,8 @@ class FSM
           priority = 0.000000;
           to="Activity";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > (40+random 2)"/*%FSM</CONDITION""">*/;
-          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_nextUpdate < time"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_nextUpdate = time + 40;"/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
       };
@@ -243,7 +242,8 @@ class FSM
     class Advanced_Init
     {
       name = "Advanced_Init";
-      init = /*%FSM<STATEINIT""">*/"_lastUpdate = 0;" \n
+      init = /*%FSM<STATEINIT""">*/"_nextUpdate = 0;" \n
+       "" \n
        "_team = nil;" \n
        "_travelTime = time;" \n
        "" \n
@@ -257,8 +257,8 @@ class FSM
           priority = 0.000000;
           to="Activity";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > (40+random 2)"/*%FSM</CONDITION""">*/;
-          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_nextUpdate < time"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_nextUpdate = time + 40;"/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
       };
@@ -278,8 +278,8 @@ class FSM
           priority = 0.000000;
           to="Activity";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > (40+random 2)"/*%FSM</CONDITION""">*/;
-          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_nextUpdate < time"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_nextUpdate = time + 40;"/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
       };

@@ -2,7 +2,7 @@
 /*%FSM<HEAD>*/
 /*
 item0[] = {"Init_Patrol",0,250,-33.598793,-372.349548,56.401207,-322.349518,0.000000,"Init Patrol"};
-item1[] = {"Wait",4,218,-37.311089,-156.971085,52.688904,-106.971123,0.000000,"Wait"};
+item1[] = {"Wait",4,4314,-37.311089,-156.971085,52.688904,-106.971123,0.000000,"Wait"};
 item2[] = {"IsTown_Activated",2,250,338.603699,34.992409,428.603699,84.992500,0.000000,"IsTown" \n "Activated?"};
 item3[] = {"No",4,218,635.745911,189.417572,696.234558,238.282562,1.000000,"No"};
 item4[] = {"No",4,218,457.973541,754.309814,508.401733,792.964417,10.000000,"No"};
@@ -30,7 +30,7 @@ item25[] = {"Yes",4,218,868.896912,189.012054,958.896912,239.012054,0.000000,"Ye
 item26[] = {"No",4,218,733.094055,300.764008,823.094055,350.763947,0.000000,"No"};
 item27[] = {"Team_Leader_Near",2,250,1130.114380,302.724091,1220.114624,352.724030,0.000000,"Team Leader" \n "Near?"};
 item28[] = {"Yes",4,218,1251.126343,302.308563,1341.126831,352.308502,0.000000,"Yes"};
-item29[] = {"Resistance__Occuped",2,4346,860.176208,303.133270,945.605774,351.990631,0.000000,"Resistance " \n "Occuped?"};
+item29[] = {"Resistance__Occuped",2,250,860.176208,303.133270,945.605774,351.990631,0.000000,"Resistance " \n "Occuped?"};
 item30[] = {"Yes",4,218,988.872253,302.873383,1078.872192,352.873322,0.000000,"Yes"};
 item31[] = {"No",4,218,857.135437,523.179443,947.135437,573.179443,0.000000,"No"};
 item32[] = {"No",4,218,1131.303101,414.292877,1221.303345,464.292816,0.000000,"No"};
@@ -94,8 +94,8 @@ link46[] = {39,40};
 link47[] = {40,41};
 link48[] = {41,1};
 link49[] = {42,39};
-globals[] = {0.000000,0,0,0,0,640,480,1,87,6316128,1,313.719086,1386.966553,852.285522,-216.083572,660,657,1};
-window[] = {0,-1,-1,-1,-1,823,25,1317,25,1,678};
+globals[] = {0.000000,0,0,0,0,640,480,1,87,6316128,1,-253.574966,665.008057,502.488861,-411.919830,660,657,1};
+window[] = {0,-1,-1,-1,-1,1023,225,1517,225,1,678};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -109,7 +109,9 @@ class FSM
       init = /*%FSM<STATEINIT""">*/"_location = _this select 0;" \n
        "_startSV = _location getVariable ""startingSupplyValue"";" \n
        "" \n
-       "_rpi = 'WFBE_RESPATROLINTERVAL' Call GetNamespace;"/*%FSM</STATEINIT""">*/;
+       "_rpi = 'WFBE_RESPATROLINTERVAL' Call GetNamespace;" \n
+       "" \n
+       "format [""ResPatrol.FSM: Init - %1"", _location] call LogHigh;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -130,12 +132,11 @@ class FSM
     class IsTown_Activated
     {
       name = "IsTown_Activated";
-      init = /*%FSM<STATEINIT""">*/"_lastUpdate = time;" \n
+      init = /*%FSM<STATEINIT""">*/"format [""ResPatrol.FSM: TownActivated? - %1"", _location] call LogHigh;" \n
+       "" \n
        "_sideID = _location getVariable ""sideID"";" \n
        "_isActive = _location getVariable ""activePatrol"";" \n
        "_SV =_location getVariable ""supplyValue"";" \n
-       "" \n
-       "_alives = if (!isNil ""_team"") then {Count ((Units  _team) Call GetLiveUnits)} else {1};" \n
        "" \n
        "if (time - _travelTime > 1200) then {_lastMission = """"};"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
@@ -199,8 +200,8 @@ class FSM
           priority = 0.000000;
           to="IsGameOver_";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > (30+random 1)"/*%FSM</CONDITION""">*/;
-          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time < _nextCheck"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_nextCheck = time + 30"/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
       };
@@ -242,7 +243,9 @@ class FSM
     class Advanced_Init
     {
       name = "Advanced_Init";
-      init = /*%FSM<STATEINIT""">*/"_lastUpdate = 0;" \n
+      init = /*%FSM<STATEINIT""">*/"format [""ResPatrol.FSM: AdvInit - %1"", _location] call LogHigh;" \n
+       "" \n
+       "_nextCheck = 0;" \n
        "_lastDestination = _location;" \n
        "_curMission = """";" \n
        "_lastMission = """";" \n
@@ -267,8 +270,8 @@ class FSM
           priority = 0.000000;
           to="IsGameOver_";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > (30+random 1)"/*%FSM</CONDITION""">*/;
-          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time < _nextCheck"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_nextCheck = time + 30"/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
       };
@@ -288,8 +291,8 @@ class FSM
           priority = 0.000000;
           to="IsGameOver_";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > (30+random 1)"/*%FSM</CONDITION""">*/;
-          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time < _nextCheck"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_nextCheck = time + 30"/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
       };
@@ -330,7 +333,9 @@ class FSM
     class All_Units_Dead_
     {
       name = "All_Units_Dead_";
-      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      init = /*%FSM<STATEINIT""">*/"_alives = if (!isNil ""_team"") then {Count ((Units  _team) Call GetLiveUnits)} else {1};" \n
+       "" \n
+       ""/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -545,8 +550,8 @@ class FSM
           priority = 0.000000;
           to="IsGameOver_";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > (30+random 1)"/*%FSM</CONDITION""">*/;
-          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time < _nextCheck"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_nextCheck = time + 30"/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
       };
@@ -567,8 +572,8 @@ class FSM
           priority = 0.000000;
           to="IsGameOver_";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > (30+random 1)"/*%FSM</CONDITION""">*/;
-          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time < _nextCheck"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_nextCheck = time + 30"/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
       };
@@ -588,8 +593,8 @@ class FSM
           priority = 0.000000;
           to="IsGameOver_";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > (30+random 1)"/*%FSM</CONDITION""">*/;
-          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time < _nextCheck"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_nextCheck = time + 30"/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
       };

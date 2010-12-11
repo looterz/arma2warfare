@@ -1,18 +1,22 @@
-/*%FSM<COMPILE "D:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, updateavailableactions">*/
+/*%FSM<COMPILE "scriptedFSM.cfg, updateavailableactions">*/
 /*%FSM<HEAD>*/
 /*
-item0[] = {"Init",0,4346,64.986191,-133.045959,154.986206,-83.046036,0.000000,"Init"};
-item1[] = {"Update_Client_Ac",2,250,-66.836029,-56.267544,23.163887,-6.267582,0.000000,"Update Client" \n "Actions"};
-item2[] = {"End",1,250,-218.006683,15.304325,-128.006653,65.304314,0.000000,"End"};
-item3[] = {"Loop",4,218,65.605347,-56.267605,155.605377,-6.267574,0.000000,"Loop"};
-item4[] = {"Gameover",4,218,-216.668854,-56.267559,-126.668869,-6.267574,0.000000,"Gameover"};
+item0[] = {"Init",0,250,-72.826981,-294.278442,17.173058,-244.278427,0.000000,"Init"};
+item1[] = {"Update_Client_Ac",2,4346,-66.836029,-81.488297,23.163887,-31.488293,0.000000,"Update Client" \n "Actions"};
+item2[] = {"End",1,250,-66.682404,127.896767,23.317612,177.896774,0.000000,"End"};
+item3[] = {"Loop",4,218,-65.902634,-171.562241,24.097393,-121.562248,0.000000,"Loop"};
+item4[] = {"Gameover",4,218,-66.245369,32.004925,23.754650,82.004898,0.000000,"Gameover"};
+item5[] = {"",7,210,89.769073,-59.793179,97.769073,-51.793179,0.000000,""};
+item6[] = {"",7,210,90.235756,-151.385666,98.235756,-143.385666,0.000000,""};
 link0[] = {0,3};
-link1[] = {1,3};
-link2[] = {1,4};
+link1[] = {1,4};
+link2[] = {1,5};
 link3[] = {3,1};
 link4[] = {4,2};
-globals[] = {0.000000,0,0,0,0,640,480,1,26,6316128,1,-317.581665,500.648590,347.741577,-554.233704,596,657,1};
-window[] = {0,-1,-1,-1,-1,952,175,1435,175,1,614};
+link5[] = {5,6};
+link6[] = {6,3};
+globals[] = {0.000000,0,0,0,0,640,480,1,28,6316128,1,-282.273407,254.567413,223.719162,-349.151337,596,636,1};
+window[] = {0,-1,-1,-1,-1,852,75,1335,75,1,614};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -71,7 +75,9 @@ class FSM
        """\ca\ui\data\icon_wf_support_uav_ca.paa""   //UAV" \n
        "];" \n
        "" \n
-       "_buildings = (sideJoinedText) Call GetSideStructures;"/*%FSM</STATEINIT""">*/;
+       "_buildings = (sideJoinedText) Call GetSideStructures;" \n
+       "" \n
+       "_nextUpdate = 0;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -81,7 +87,7 @@ class FSM
           priority = 0.000000;
           to="Update_Client_Ac";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > 5 && !gameOver"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_nextUpdate < time && !gameOver"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -195,7 +201,7 @@ class FSM
        "     	};" \n
        "     };" \n
        "};" \n
-	   "townDefenceRange = _townDefenceRange;" \n
+       "townDefenceRange = _townDefenceRange;" \n
        "" \n
        "_checks = ['COMMANDCENTERTYPE',_buildings,_ccr,sideJoined,player] Call BuildingInRange;" \n
        "_commandCenter = _checks select 0;" \n
@@ -237,10 +243,20 @@ class FSM
        "	_c = _c + 1;" \n
        "}forEach _usable;" \n
        "" \n
-       "_lastUpdate = time;"/*%FSM</STATEINIT""">*/;
+       "_nextUpdate = time + 2.5;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
+        /*%FSM<LINK "Loop">*/
+        class Loop
+        {
+          priority = 0.000000;
+          to="Update_Client_Ac";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_nextUpdate < time && !gameOver"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
         /*%FSM<LINK "Gameover">*/
         class Gameover
         {
@@ -248,16 +264,6 @@ class FSM
           to="End";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/"gameOver"/*%FSM</CONDITION""">*/;
-          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
-        };
-        /*%FSM</LINK>*/
-        /*%FSM<LINK "Loop">*/
-        class Loop
-        {
-          priority = 0.000000;
-          to="Update_Client_Ac";
-          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > 5 && !gameOver"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/

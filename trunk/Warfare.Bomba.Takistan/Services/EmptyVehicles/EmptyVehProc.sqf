@@ -14,7 +14,7 @@ private['_dirty', '_u', '_vehicleInfo', '_vehicle', '_timeout', '_tmp'];
 	_u = count WBE_HandleEmptyVehicleCollection;
 	format["Service_EmptyVehProc: registered vehicle queue=%1", _u] call LogHigh;
 	format["Service_EmptyVehProc: FPS=%1", diag_fps] call LogHigh;
-
+	
 #define LOG_STAT(side) _created = WF_Logic getVariable format["%1VehiclesCreated", ##side]; \
 					   _lost    = WF_Logic getVariable format["%1VehiclesLost", ##side]; \
 						if (isNil "_created") then { _created = 0; }; \
@@ -25,7 +25,7 @@ private['_dirty', '_u', '_vehicleInfo', '_vehicle', '_timeout', '_tmp'];
 						if (isNil "_created") then { _created = 0; }; \
 					    if (isNil "_lost") then { _lost = 0; }; \
 						format["Service_EmptyVehProc: %1 Units =%2 (%3 - %4)", ##side, _created - _lost, _created, _lost] call LogHigh;
-	
+
 	LOG_STAT("WEST");
 	LOG_STAT("EAST");
 	LOG_STAT("GUER");

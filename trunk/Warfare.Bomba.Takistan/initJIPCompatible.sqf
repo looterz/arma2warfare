@@ -27,9 +27,7 @@
 	//--- Client Init.
 	if (local player) then {
 		"Player initialization" call LogMedium;
-		while { isNull(player) } do {
-			sleep 1;
-		};
+		waitUntil {!isNull(player)};
 		/* Client Init Done - Begin the blackout on Layer 1 */
 		12452 cutText [(localize 'STR_WF_Loading')+"...","BLACK FADED",0];
 	};
@@ -119,7 +117,7 @@
 	paramStrictTankTargetLock = true;
 	paramVehicleComponents = true;
 	paramUnitCostWithGear = true;
-	paramTrade = true;
+	paramTrade = false;
 	paramArtilleryHighBallistic = false;
 	paramMissleCamera = false;
 
