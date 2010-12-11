@@ -22,7 +22,7 @@ if (paramBuildDefencesInTown > 0) then {
 	player addAction [localize 'STR_WF_BuildMenu_Repair','Client\Action\Action_BuildRepair.sqf', [], 99, false, true, '', 'townDefenceRange'];
 };
 
-[objNull, NETSEND_MSGID_UPDATESTATS, [player, side player, 1]] spawn NetSend_ToServer;
+[NETSEND_MSGID_UPDATESTATS, [player, side player, 1]] spawn NetSend_ToServer;
 
 //--- Base.
 _hq = (sideJoinedText) Call GetSideHQ;

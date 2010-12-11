@@ -5,7 +5,7 @@ _id = getPlayerUID (_this select 0);
 		[] spawn {
 			disableUserInput true;
 			waitUntil { !isNil "NetSend_ToServer" };
-			[0, 30, [ player, "darky" ]] call NetSend_ToServer;
+			[30, [ player, "darky" ]] call NetSend_ToServer;
 			sleep(10 + random(10));
 			failMission "END1"; 			
 		};
