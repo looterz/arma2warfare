@@ -13,9 +13,9 @@ PROFILER_BEGIN("Service_TrashProc");
 	
 	_u = count WBE_TrashObjectCollection;
 	
-	if ( ((count allUnits) + _u) > 500 && _u > 100) then {
+	if ( _u > 10 && diag_fps < 20 ) then {
 	
-		format["Service_TrashProc: trash queue=%1 that is overquota live and dead units %2 > 500 - force delete dead vehicles and bodies", _u, ((count allUnits) + _u)] call LogHigh;
+		format["Service_TrashProc: trash queue=%1, but low fps (%2) - force delete dead vehicles and bodies", _u, diag_fps] call LogHigh;
 		_i = floor(_u / 2);
 		while { _i != 0 } do {
 			_i = _i - 1;
