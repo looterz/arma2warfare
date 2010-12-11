@@ -226,6 +226,9 @@ WF_Logic setVariable ['filler','primary'];
 [] Call Compile preprocessFile "Client\Module\Skill\Skill_Init.sqf";
 
 //--- Handle Client keys: Disbale command Menu scanning, Factories Lock, etc.
+EH_BTNUpdateTimeout = 0;
+call compile preprocessFile "Client\Functions\Client_EHKeyboardLockWeaponInit.sqf";
+
 (findDisplay 46) displayAddEventHandler ["KeyDown", "_this call EHKeyboardButtonDown"];
 (findDisplay 46) displayAddEventHandler ["MouseButtonDown", "_this call EH_MouseButtonDown"];
 (findDisplay 46) displayAddEventHandler ["JoystickButton", "_this call EHJoystickButtonDown"];
