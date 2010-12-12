@@ -13,8 +13,8 @@ Private ["_nextMarkerUpdate", "_tmp"];
 		
 		format["Service_TrackMapMarkerProc: markers queue=%1", (count WBE_TrackedMarkerList)] call LogHigh;
 		
-		[] spawn TrackMapMarkerUpdateAlive;
-		[] spawn TrackMapMarkerUpdateDead;
+		[] call TrackMapMarkerUpdateAlive;
+		[] call TrackMapMarkerUpdateDead;
 			
 		trackMapMarkerNext = time + 60;
 	};
