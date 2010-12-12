@@ -117,7 +117,7 @@
 	paramStrictTankTargetLock = true;
 	paramVehicleComponents = true;
 	paramUnitCostWithGear = true;
-	paramTrade = false;
+	paramTrade = true;
 	paramArtilleryHighBallistic = false;
 	paramMissleCamera = false;
 

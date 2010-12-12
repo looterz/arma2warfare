@@ -5,11 +5,11 @@ NETSEND_MSGID_LOCKVEHICLE  = 20;
 NETSEND_MSGID_CHEATDETECT  = 30;
 NETSEND_MSGID_UPDATESTATS  = 40;
 
-WBE_NETSEND_SERVERID = objNull;
-WBE_NETSEND_CLIENTID = WBE_NETSEND_SERVERID;
+//WBE_NETSEND_SERVERID = "SRV";
+WBE_NETSEND_CLIENTID = "SRV";
 
 	if (!isServer) then {
-		waitUntil { !(isNull WBE_NETSEND_SERVERID) };
+		waitUntil { !isNil "WBE_NETSEND_SERVERID" };
 	};
 
 	NetSend_ToClientLock  = 0;
@@ -38,7 +38,6 @@ WBE_NETSEND_CLIENTID = WBE_NETSEND_SERVERID;
 	};
 	
 	"NETSEND_BROADCAST" addPublicVariableEventHandler {(_this select 1) spawn NetSend_HandleMessage; };
-	
 
 "NetSend_InitService - [Done]" call LogMedium;
 

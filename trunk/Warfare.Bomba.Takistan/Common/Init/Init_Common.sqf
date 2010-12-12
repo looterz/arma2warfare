@@ -230,7 +230,7 @@ if (paramBoundaries) then {
 //--- Disable Artillery Computer.
 if (!paramArtyComputer && !WF_A2_Vanilla) then {[] Call Compile preprocessFile 'Common\Common_DisableAC.sqf'};
 
-if (!isServer || (local player)) then {
+if (local player) then {
 	initUnitEquipmentPrice = false;
 	[] Call Compile PreprocessFile "Common\Init\Init_UnitEquipmentPrice.sqf";
 };
