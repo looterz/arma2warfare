@@ -4,7 +4,6 @@ PROFILER_BEGIN("Common_GetUnitEquipmentPrice");
 private['_equipmentPrice', '_unitId','_unitEquipment', '_index', '_unit'];
 
 _unit = _this;
-waitUntil { !isNil "initUnitEquipmentPrice" };
 
 _equipmentPrice = 0;
 _unitId = WBE_UnitEquipment find _this;
