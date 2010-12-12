@@ -2,7 +2,7 @@
 PROFILER_BEGIN("Service_ServerMonitorProc");
 
 	diag_log format["----------------------------------------"];
-	diag_log format["%1", diag_tickTime];
+	diag_log format["ServerMonitor: Time %1", time];
 	diag_log format["ServerMonitor: FPS=%1", diag_fps];
 	diag_log format["ServerMonitor: Managed Units: %1", (count ManagedUnitList)];
 	diag_log format["ServerMonitor: Managed EmptyVehicles: %1", (count WBE_HandleEmptyVehicleCollection)];
