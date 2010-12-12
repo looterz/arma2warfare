@@ -100,6 +100,8 @@ SortByDistance = Compile PreprocessFile "Common\Functions\Common_SortByDistance.
 UnitKilled = Compile PreprocessFile "Common\Functions\Common_UnitKilled.sqf";
 HeadHunters = Compile PreprocessFile "Common\Functions\Common_HeadHunters.sqf";
 
+UpdateSideStats = Compile PreprocessFile "Common\Functions\Common_UpdateSideStats.sqf";
+
 UseStationaryDefense = Compile PreprocessFile "Common\Functions\Common_UseStationaryDefense.sqf";
 if (paramICBM) then {
 	NukeDammage = Compile PreprocessFile "Client\Module\Nuke\damage.sqf";

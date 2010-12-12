@@ -32,8 +32,7 @@ Format["Init_Server: Init Start"] call LogMedium;
 	HandleDefense = Compile preprocessFile "Server\Functions\Server_HandleDefense.sqf";
 	
 	HandleRequest_LockVehicle = Compile preprocessFile "Server\Request\HandleRequest_LockVehicle.sqf";
-	HandleRequest_CheatDetected = Compile preprocessFile "Server\Request\HandleRequest_CheatDetected.sqf";	
-	HandleRequest_UpdateStats = Compile preprocessFile "Server\Request\HandleRequest_UpdateStats.sqf";	
+	HandleRequest_CheatDetected = Compile preprocessFile "Server\Request\HandleRequest_CheatDetected.sqf";
 
 HandleSPVF = Compile preprocessFile "Server\Functions\Server_HandleSPVF.sqf";
 HandleSpecial = Compile preprocessFile "Server\Functions\Server_HandleSpecial.sqf";

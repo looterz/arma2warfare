@@ -49,6 +49,7 @@ PROFILER_BEGIN("Service_TrashProc");
 		} else {
 			_u = 0;		// if we reach point where unit still wait respawn, no need lookup more
 		};
+		sleep 0.005;
 	};
 	
 	if (_isArrayDirty) then {

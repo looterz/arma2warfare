@@ -276,6 +276,8 @@
 	ExecVM "Common\Init\Init_Common.sqf";
 	ExecVM "Common\Init\Init_Towns.sqf";
 
+	[] ExecVM "Services\Services.sqf";
+	
 	if (local player) then { 
 		"Init JIP - ExecVM Init_Client" call LogMedium;
 
@@ -283,11 +285,10 @@
 		[] ExecVM "limitThirdPersonView.sqf"; 
 	};
 
-	if (isServer  || IsClientServer) then {
+	if (isServer) then {
 		ExecVM "Server\Init\Init_Server.sqf"
 	};
 
 	[] ExecVM "Module\Init_Modules.sqf";
-	[] ExecVM "Services\Services.sqf";
 
 PROFILER_END();

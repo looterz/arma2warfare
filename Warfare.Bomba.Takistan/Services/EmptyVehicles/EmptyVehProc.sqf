@@ -48,10 +48,8 @@ private['_dirty', '_u', '_vehicleInfo', '_vehicle', '_timeout', '_tmp'];
 	
 						// destroy vehicle
 						if (someAmmo _vehicle) then {_vehicle setVehicleAmmo 0};
-						_vehicle setDammage 1;				
-
-						// register in trash dead vehicle
-						_vehicle spawn TrashObject;
+						_vehicle setDammage 1;
+						
 						WBE_HandleEmptyVehicleCollection set [_u, objNull ];
 						_dirty = true;						
 					};
@@ -61,8 +59,6 @@ private['_dirty', '_u', '_vehicleInfo', '_vehicle', '_timeout', '_tmp'];
 					_vehicleInfo set [1, _timeout];
 				};
 			} else {
-			
-				_vehicle spawn TrashObject;		// register in trash dead vehicle
 				WBE_HandleEmptyVehicleCollection set [_u, objNull ];			
 				_dirty = true;						
 			};
@@ -70,6 +66,7 @@ private['_dirty', '_u', '_vehicleInfo', '_vehicle', '_timeout', '_tmp'];
 			WBE_HandleEmptyVehicleCollection set [_u, objNull ];
 			_dirty = true;
 		};
+		sleep 0.005;
 	};
 	
 	if (_dirty) then {

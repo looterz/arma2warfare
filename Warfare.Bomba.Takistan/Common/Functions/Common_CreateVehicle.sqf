@@ -18,14 +18,14 @@ Private ["_lock","_position","_side","_type","_vehicle"];
 		_vehicle = _type createVehicle _position;
 	};
 	
-	[NETSEND_MSGID_UPDATESTATS, [_vehicle, _side, 1]] spawn NetSend_ToServer;
+	[_vehicle, _side, 1] spawn UpdateSideStats;
 	if (_side != resistance) then {
 		_vehicle SetVehicleInit Format["[this,%1] ExecVM 'Common\Common_InitUnit.sqf';",_side];
 		ProcessInitCommands;
 	};
 	
 	[_vehicle, _side] spawn SetKilledEventHandler;
-	_vehicle spawn HandleEmptyVehicle;
+	_vehicle spawn ManagedUnitAdd;
 	
 	if (_lock) then {
 		_vehicle lock _lock;

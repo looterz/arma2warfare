@@ -12,7 +12,7 @@ Private ["_dT", "_get", "_built", "_position","_side","_skill","_team","_type","
 	_skill = if !(isNil '_get') then {_get select QUERYUNITSKILL} else {'WFBE_AISKILL' Call GetNamespace};
 	_unit = _team createUnit [_type,_position,[],_skill,"FORM"];
 	
-	[NETSEND_MSGID_UPDATESTATS, [_unit, _side, 1]] spawn NetSend_ToServer;
+	[_unit, _side, 1] spawn UpdateSideStats;
 	
 	if (_side != resistance) then {
 
@@ -25,6 +25,7 @@ Private ["_dT", "_get", "_built", "_position","_side","_skill","_team","_type","
 		};
 	};
 
+	_unit spawn ManagedUnitAdd;
 	[_unit, _side] spawn SetKilledEventHandler;
 	
 	if (paramISIS) then {_unit addEventHandler['handleDamage',{_this Call ISIS_Wound}]};
