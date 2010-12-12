@@ -31,7 +31,8 @@ WBE_NETSEND_CLIENTID = "SRV";
 		WBE_NETSEND_SERVERID = if (IsClientServer) then { WBE_NETSEND_CLIENTID } else { "SRV" };
 		publicVariable "WBE_NETSEND_SERVERID";
 	
-		if (WBE_NETSEND_SERVERID != WBE_NETSEND_CLIENTID) then {
+		if (WBE_NETSEND_SERVERID != WBE_NETSEND_CLIENTID ||
+		    WBE_NETSEND_CLIENTID == "SRV") then {
 			_varName = format["NETSEND_MSG%1", WBE_NETSEND_SERVERID];
 			_varName addPublicVariableEventHandler {(_this select 1) spawn NetSend_HandleMessage; };	
 		};
