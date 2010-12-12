@@ -17,7 +17,7 @@ item12[] = {"Annihilation_Mod",4,218,-29.758976,-79.050690,60.241161,-29.050682,
 item13[] = {"Assassination_Mo",4,218,75.371758,-79.448219,165.371948,-29.448202,0.000000,"Assassination" \n "Mode"};
 item14[] = {"Supremacy_Mode",4,218,179.647034,-80.413742,269.647278,-30.413717,0.000000,"Supremacy" \n "Mode"};
 item15[] = {"Town_Mode",4,218,286.818878,-80.413765,376.819183,-30.413717,0.000000,"Town" \n "Mode"};
-item16[] = {"Init_1",2,250,-202.669357,-190.961136,-150.324265,-157.374817,0.000000,"Init"};
+item16[] = {"Init_1",2,4346,-202.669357,-190.961136,-150.324265,-157.374817,0.000000,"Init"};
 item17[] = {"Check_3",2,250,-19.120544,18.014534,49.638260,55.463001,0.000000,"Check"};
 item18[] = {"EAST_WIN",2,250,38.186752,405.124878,128.186829,455.125092,0.000000,"EAST" \n "WIN"};
 item19[] = {"WEST__WIN",2,250,195.100998,401.482330,285.100952,451.482483,0.000000,"WEST " \n "WIN"};
@@ -53,8 +53,8 @@ link24[] = {20,18};
 link25[] = {21,19};
 link26[] = {22,16};
 link27[] = {23,10};
-globals[] = {0.000000,0,0,0,0,640,480,1,43,6316128,1,-296.336151,653.427612,883.984314,-189.493591,629,833,1};
-window[] = {2,-1,-1,-1,-1,709,75,1335,75,3,647};
+globals[] = {0.000000,0,0,0,0,640,480,1,43,6316128,1,-356.117249,346.659119,555.294312,-331.694336,698,833,1};
+window[] = {2,-1,-1,-1,-1,859,225,1485,225,3,716};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -103,7 +103,7 @@ class FSM
     class IsSide_Win
     {
       name = "IsSide_Win";
-      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      init = /*%FSM<STATEINIT""">*/"format[""UPDATESERVER.FSM - Is SideWin WEST:%1 EAST:%2"", _WESTWin, _EASTWin] call LogInform;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -156,7 +156,8 @@ class FSM
     class Select_Mode
     {
       name = "Select_Mode";
-      init = /*%FSM<STATEINIT""">*/"_vc = 'WFBE_VICTORYCONDITION' Call GetNamespace;"/*%FSM</STATEINIT""">*/;
+      init = /*%FSM<STATEINIT""">*/"""UPDATESERVER.FSM - Select Victory Condition"" call LogInform;" \n
+       "_vc = 'WFBE_VICTORYCONDITION' Call GetNamespace;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -176,7 +177,7 @@ class FSM
           priority = 0.000000;
           to="Check_1";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"_vc == 1"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_vc == 2"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -186,7 +187,7 @@ class FSM
           priority = 0.000000;
           to="Check_2";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"_vc == 1"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_vc == 3"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -207,7 +208,9 @@ class FSM
     class Check
     {
       name = "Check";
-      init = /*%FSM<STATEINIT""">*/"_westMHQ = WestMHQ;" \n
+      init = /*%FSM<STATEINIT""">*/"""UPDATESERVER.FSM - Assassination Mode"" call LogInform;" \n
+       "" \n
+       "_westMHQ = WestMHQ;" \n
        "_eastMHQ = EastMHQ;" \n
        "_westBuildings = WestBaseStructures;" \n
        "_eastBuildings = EastBaseStructures;" \n
@@ -250,7 +253,9 @@ class FSM
     class Check_1
     {
       name = "Check_1";
-      init = /*%FSM<STATEINIT""">*/"_westMHQ = WestMHQ;" \n
+      init = /*%FSM<STATEINIT""">*/"""UPDATESERVER.FSM - Supremacy Mode"" call LogInform;" \n
+       "" \n
+       "_westMHQ = WestMHQ;" \n
        "_eastMHQ = EastMHQ;" \n
        "_westBuildings = WestBaseStructures;" \n
        "_eastBuildings = EastBaseStructures;" \n
@@ -302,7 +307,9 @@ class FSM
     class Check_2
     {
       name = "Check_2";
-      init = /*%FSM<STATEINIT""">*/"_westTowns = 0;" \n
+      init = /*%FSM<STATEINIT""">*/"""UPDATESERVER.FSM - Town Mode"" call LogInform;" \n
+       "" \n
+       "_westTowns = 0;" \n
        "_eastTowns = 0;" \n
        "{_sideID = _x getVariable ""sideID"";if (_sideID == WESTID) then {_westTowns = _westTowns + 1};if (_sideID == EASTID) then {_eastTowns = _eastTowns + 1}} ForEach towns;" \n
        "" \n
@@ -314,9 +321,7 @@ class FSM
        "//--- West Win." \n
        "if (_westTowns == _total && !gameOver) then {" \n
        "    _WESTWin = true;" \n
-       "};" \n
-       "" \n
-       "_lastUpdate = time;"/*%FSM</STATEINIT""">*/;
+       "};"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -337,7 +342,8 @@ class FSM
     class Init_1
     {
       name = "Init_1";
-      init = /*%FSM<STATEINIT""">*/"_nextUpdate = time + 20;" \n
+      init = /*%FSM<STATEINIT""">*/"""UPDATESERVER.FSM - Init"" call LogInform;" \n
+       "_nextUpdate = time + 30;" \n
        "" \n
        ""/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
@@ -360,7 +366,9 @@ class FSM
     class Check_3
     {
       name = "Check_3";
-      init = /*%FSM<STATEINIT""">*/"_westMHQ = WestMHQ;" \n
+      init = /*%FSM<STATEINIT""">*/"""UPDATESERVER.FSM - Annihillation Mode"" call LogInform;" \n
+       "" \n
+       "_westMHQ = WestMHQ;" \n
        "_eastMHQ = EastMHQ;" \n
        "_westBuildings = WestBaseStructures;" \n
        "_eastBuildings = EastBaseStructures;" \n
@@ -397,7 +405,9 @@ class FSM
     class EAST_WIN
     {
       name = "EAST_WIN";
-      init = /*%FSM<STATEINIT""">*/"_winnerID = EASTID;" \n
+      init = /*%FSM<STATEINIT""">*/"""UPDATESERVER.FSM - EAST WIN"" call LogInform;" \n
+       "" \n
+       "_winnerID = EASTID;" \n
        "_winnerBuildings = _eastBuildings;" \n
        "_winnerSide = east;" \n
        "" \n
@@ -427,7 +437,9 @@ class FSM
     class WEST__WIN
     {
       name = "WEST__WIN";
-      init = /*%FSM<STATEINIT""">*/"_winnerID = WESTID;" \n
+      init = /*%FSM<STATEINIT""">*/"""UPDATESERVER.FSM - WEST WIN"" call LogInform;" \n
+       "" \n
+       "_winnerID = WESTID;" \n
        "_winnerBuildings = _westBuildings;" \n
        "_winnerSide = west;" \n
        "" \n
@@ -457,10 +469,12 @@ class FSM
     class Game_Over
     {
       name = "Game_Over";
-      init = /*%FSM<STATEINIT""">*/"//-- -------------------------------------------------------------" \n
+      init = /*%FSM<STATEINIT""">*/"""UPDATESERVER.FSM - GAME OVER"" call LogInform;" \n
+       "" \n
+       "//-- -------------------------------------------------------------" \n
        "// PUBLISH SIDE STATS" \n
        "//" \n
-       "_value = WF_Logic getVariable ""WESTVehiclesCreated"";" \n
+       "_created = WF_Logic getVariable ""WESTVehiclesCreated"";" \n
        "_lost  = WF_Logic getVariable ""WESTVehiclesLost"";" \n
        "" \n
        "if (isNil ""_created"") then { _created = 0; };" \n
@@ -468,8 +482,18 @@ class FSM
        "" \n
        "WF_Logic setVariable [""WESTVehiclesCreated"", _created, true];" \n
        "WF_Logic setVariable [""WESTVehiclesLost"", _lost, true];" \n
+       "" \n
+       "_created = WF_Logic getVariable ""WESTUnitsCreated"";" \n
+       "_lost  = WF_Logic getVariable ""WESTCasualties"";" \n
+       "" \n
+       "if (isNil ""_created"") then { _created = 0; };" \n
+       "if (isNil ""_lost"") then { _lost = 0; };" \n
+       "" \n
+       "WF_Logic setVariable [""WESTUnitsCreated"", _created, true];" \n
+       "WF_Logic setVariable [""WESTCasualties"", _lost, true];" \n
+       "" \n
        "//--- -------------------------------------------------------" \n
-       "_value = WF_Logic getVariable ""EASTVehiclesCreated"";" \n
+       "_created = WF_Logic getVariable ""EASTVehiclesCreated"";" \n
        "_lost  = WF_Logic getVariable ""EASTVehiclesLost"";" \n
        "" \n
        "if (isNil ""_created"") then { _created = 0; };" \n
@@ -477,7 +501,18 @@ class FSM
        "" \n
        "WF_Logic setVariable [""EASTVehiclesCreated"", _created, true];" \n
        "WF_Logic setVariable [""EASTVehiclesLost"", _lost, true];" \n
-       "//--- -------------------------------------------------------" \n
+       "" \n
+       "" \n
+       "_created = WF_Logic getVariable ""EASTUnitsCreated"";" \n
+       "_lost  = WF_Logic getVariable ""EASTCasualties"";" \n
+       "" \n
+       "if (isNil ""_created"") then { _created = 0; };" \n
+       "if (isNil ""_lost"") then { _lost = 0; };" \n
+       "" \n
+       "WF_Logic setVariable [""EASTUnitsCreated"", _created, true];" \n
+       "WF_Logic setVariable [""EASTCasualties"", _lost, true];" \n
+       "" \n
+       "//--- -------------------------------------------------------	" \n
        "" \n
        "WFBE_EndGame = [nil,'CLTFNCENDGAME',[_winnerID,_winnerBuildings]];" \n
        "publicVariable 'WFBE_EndGame';" \n
@@ -485,7 +520,9 @@ class FSM
        "WF_Logic setVariable [""WF_Winner"",_winnerSide];" \n
        "" \n
        "_winTime = time;" \n
-       "gameOver = true;"/*%FSM</STATEINIT""">*/;
+       "gameOver = true;" \n
+       "" \n
+       ""/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {

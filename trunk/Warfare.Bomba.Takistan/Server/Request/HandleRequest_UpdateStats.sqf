@@ -3,6 +3,8 @@ private['_varName', '_unit', '_side', '_alive'];
 	_side  = _this select 1;
 	_alive = _this select 2;
 
+	format["Request_UpdateStats: %1", _this] call LogHigh;
+	
 	if (_alive > 0) then {
 		_varName = if (_unit isKindOf "Man") then { format ["%1UnitsCreated", _side]; } else { format ["%1VehiclesCreated", _side]; };
 	} else {
