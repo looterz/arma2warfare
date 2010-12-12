@@ -1,5 +1,5 @@
 #include "profiler.h"
-PROFILER_BEGIN("NetSend_ServerMessageHandle");
+PROFILER_BEGIN("NetSend_HandleMessage");
 
 private['_clientId', '_unitData', '_response', '_order', '_data', '_unitType', '_description', '_txt', '_vehicle' ];
 	
@@ -9,6 +9,8 @@ private['_clientId', '_unitData', '_response', '_order', '_data', '_unitType', '
 	
 	_msgId   = _this select 0;
 	_data = _this select 1;
+	
+	format["NetSend_HandleMessage: %1", _this] call LogHigh;
 
 	switch (_msgId) do {
 	
@@ -21,7 +23,7 @@ private['_clientId', '_unitData', '_response', '_order', '_data', '_unitType', '
 		case NETSEND_MSGID_MANAGEDUNITADD:	{ _data spawn ManagedUnitAdd; };
 		
 		default {
-			format["NetSend_ServerMessageHandle: Unknown msgId. %1", _this] call LogError;
+			format["NetSend_HandleMessage: Unknown msgId. %1", _msgId] call LogError;
 		};
 	};
 

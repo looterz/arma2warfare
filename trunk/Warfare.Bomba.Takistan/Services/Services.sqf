@@ -7,6 +7,7 @@ if (isServer) then {
 	RegisterService("Services\TrashObject\TrashInit.sqf", "Trash");
 	RegisterService("Services\EmptyVehicles\EmptyVehInit.sqf", "EmptyVeh");
 	RegisterService("Services\ManagedUnit\ManagedUnitInit.sqf", "ManagedUnit");
+	RegisterService("Services\ServerMonitor\ServerMonitorInit.sqf", "Monitor");
 
 	if (paramAI) then {
 		RegisterService("Services\AI_SquadRespawn\SquadRespawnInit.sqf", "AIRespawn");
