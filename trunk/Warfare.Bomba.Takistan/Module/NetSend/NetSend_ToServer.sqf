@@ -4,9 +4,6 @@ PROFILER_BEGIN("NetSend_ToServer");
 	
 	//--- _msgId     = _this select 0;
 	//--- _msgData   = _this select 1;
-	
-	[WBE_NETSEND_SERVERID, _this select 0, _this select 1] spawn NetSend_ToClient;
-	
 	format["NetSend_ToServer: From %1 Msg: %2", WBE_NETSEND_CLIENTID, _this] call LogHigh;
 	
 	if (NetSend_IsClientServer) then 
