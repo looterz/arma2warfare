@@ -4,6 +4,7 @@ NETSEND_MSGID_BUYUNIT 	   = 10;
 NETSEND_MSGID_LOCKVEHICLE  = 20;
 NETSEND_MSGID_CHEATDETECT  = 30;
 NETSEND_MSGID_UPDATESTATS  = 40;
+NETSEND_MSGID_ADDTRASH     = 50;
 
 //WBE_NETSEND_SERVERID = "SRV";
 WBE_NETSEND_CLIENTID = "SRV";
@@ -37,6 +38,7 @@ WBE_NETSEND_CLIENTID = "SRV";
 			_varName addPublicVariableEventHandler {(_this select 1) spawn NetSend_HandleMessage; };	
 		};
 	};
+	NetSend_IsClientServer = if (WBE_NETSEND_CLIENTID == WBE_NETSEND_SERVERID) then { true } else { false };
 	
 	"NETSEND_BROADCAST" addPublicVariableEventHandler {(_this select 1) spawn NetSend_HandleMessage; };
 

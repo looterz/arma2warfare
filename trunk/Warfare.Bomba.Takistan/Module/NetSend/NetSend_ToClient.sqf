@@ -2,14 +2,12 @@
 PROFILER_BEGIN("NetSend_ToClient");
 	private['_msgId', '_msgData', '_msgTo', '_vehInfo' ];
 	
-	_msgTo = _this select 0;
-	
+	_msgTo    = _this select 0;
 	_msgId    = _this select 1;
 	_msgData  = _this select 2;
 		
 	format["NetSend_ToClient: From %1 Msg: %2", WBE_NETSEND_CLIENTID, _this] call LogHigh;
 	
-	_localMsg = false;
 	if ((_msgTo == WBE_NETSEND_CLIENTID)) then 
 	{
 		[_msgId, _msgData] spawn NetSend_HandleMessage;

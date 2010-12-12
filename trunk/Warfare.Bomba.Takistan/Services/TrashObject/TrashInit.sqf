@@ -8,6 +8,4 @@ TrashDeleteObject = Compile preprocessFile "Services\TrashObject\TrashDeleteObje
 TrashHideBody = Compile preprocessFile "Services\TrashObject\TrashHideBody.sqf";
 TrashProc = Compile preprocessFile "Services\TrashObject\TrashProc.sqf";
 
-TrashObject = Compile preprocessFile "Services\TrashObject\TrashObject.sqf";
-
 [TrashProc, 10];
