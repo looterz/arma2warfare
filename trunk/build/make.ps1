@@ -1,6 +1,7 @@
-$projectVer = "V2.065 R3.2b"
+$projectVer = "V2.065 R3.6b"
 $currentDirectory = [string](Get-Location);
 $revisionNumber = "";
+$prevBuildRevision = 332;
 
 function EntryPoint
 {
@@ -25,6 +26,8 @@ function EntryPoint
 
 	#-- set build version in description
 	$revisionNumber = SVN-GetRevision -svnToolsPath "$currentDirectory\svn" -repositoryFolder $source
+	SVN-GetHistory -svnToolsPath "$currentDirectory\svn" -repositoryFolder $source -baseRevision "$prevBuildRevision" -headRevision $revisionNumber
+	Write-Host "Revision: $revisionNumber";
 
 	#-- remove debug files
 	dir -Path $tmpfolder -Recurse | Where {$_.Name -eq "profiler.h"} | Foreach-Object { Remove-Item $_.FullName };
@@ -239,7 +242,7 @@ function SVN-GetRevision {
     $psi.WorkingDirectory = $svnToolsPath;
     $psi.Arguments = "info --revision BASE --xml `"$repositoryFolder`"";
     $psi.RedirectStandardOutput = $true;
-    $psi.StandardOutputEncoding = [System.Text.Encoding].Default;
+    $psi.StandardOutputEncoding = [System.Text.Encoding].UTF8;
     $psi.UseShellExecute = $false;
 	$psi.WindowStyle = [System.Diagnostics.ProcessWindowStyle]::Hidden;
 	
@@ -249,6 +252,29 @@ function SVN-GetRevision {
 	$process.Dispose();
 
     return $doc.SelectSingleNode("/info/entry/commit").revision;
+}
+
+function SVN-GetHistory {
+	param ([string]$svnToolsPath, [string]$repositoryFolder, [string]$baseRevision, [string]$headRevision)
+	
+	$psi = New-Object System.Diagnostics.ProcessStartInfo($svnToolsPath + "\\svn.exe");
+    $psi.WorkingDirectory = $svnToolsPath;
+    $psi.Arguments = "log --xml --revision $headRevision`:$baseRevision `"$repositoryFolder`"";
+    $psi.RedirectStandardOutput = $true;
+    $psi.StandardOutputEncoding = [System.Text.Encoding].UTF8;
+    $psi.UseShellExecute = $false;
+	$psi.WindowStyle = [System.Diagnostics.ProcessWindowStyle]::Hidden;
+		
+    $process = [System.Diagnostics.Process]::Start($psi);
+	$doc = New-Object System.Xml.XmlDocument;
+    $doc.Load($process.StandardOutput);
+	$process.Dispose();
+	
+	$lines = $doc.DocumentElement.logentry | Foreach-Object { 
+		return $_.msg; 
+	};
+	
+	$lines | Set-Content "$outputDir\history.txt";
 }
 
 EntryPoint;
