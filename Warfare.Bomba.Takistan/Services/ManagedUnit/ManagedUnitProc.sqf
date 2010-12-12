@@ -9,8 +9,6 @@ Private ["_tmp", "_dirt", "_u", "_unit"];
 		ManagedUnitList = ManagedUnitList + _tmp;
 	};
 	
-	ManagedUnitList = ManagedUnitList - [objNull];
-	
 	_dirt = false;
 	_u = count ManagedUnitList;
 	
@@ -25,8 +23,13 @@ Private ["_tmp", "_dirt", "_u", "_unit"];
 			format["ManagedUnitProc: %1 is dead", _unit] call LogHigh;
 			_unit spawn TrashObject;
 			ManagedUnitList set [_u, objNull];
+			_dirt = true;
 		};
 		sleep 0.005;
+	};
+	
+	if (_dirt) then {
+		ManagedUnitList = ManagedUnitList - [objNull];
 	};
 	
 PROFILER_END();
