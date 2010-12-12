@@ -129,7 +129,8 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 		_leader setPos _pos;	
 
 		if (isMultiplayer) then {
-			[NETSEND_MSGID_UPDATESTATS, [_leader, _side, 1]] spawn NetSend_ToServer;
+			[_leader, _side, 1] spawn UpdateSideStats;
+			_leader spawn ManagedUnitAdd;
 		};
 
 		//--- Equip the AI.

@@ -11,7 +11,6 @@ PROFILER_BEGIN("Service_SquadRespawnProc");
 		_respawnSquad = WBE_AISQUAD_RESPAWN select _u;
 		_timeout = _respawnSquad select 1;
 		
-		
 		if (_timeout < time) then {
 		
 			format["Service_SquadRespawnProc Squad:=%1", _respawnSquad] call LogHigh;
@@ -21,6 +20,7 @@ PROFILER_BEGIN("Service_SquadRespawnProc");
 			WBE_AISQUAD_RESPAWN set [_u, objNull ];	
 			_dirty = true;
 		};
+		sleep 0.005;
 	};
 	
 	if (_dirty) then {
