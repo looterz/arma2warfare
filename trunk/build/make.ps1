@@ -130,7 +130,10 @@ function preprocess-fileline {
 		
 		$fileLine = $fileLine -replace "format\s*\[.*\]\s*call\s\s*Log.+?;", "";	#-- format [] call Log*;
 		
+		$fileLine = $fileLine -replace "`"`"`">\*/`"", "@FSMSYS@"; #-- logger in fsm
 		$fileLine = $fileLine -replace "`"`".+?`"`"\s*call\s\s*Log.+?;", ""; #-- logger in fsm
+		$fileLine = $fileLine -replace "@FSMSYS@", "`"`"`">\*/`""; #-- logger in fsm
+		
 		$fileLine = $fileLine -replace "`".+?`"\s*call\s\s*Log.+?;", "";
 		$fileLine = $fileLine -replace "'.+?'\s*call\s\s*Log.+?;", "";
 	}
