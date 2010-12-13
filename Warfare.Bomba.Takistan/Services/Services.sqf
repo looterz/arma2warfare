@@ -14,7 +14,7 @@ if (isServer) then {
 	};
 };
 
-if (local player) then {
+if (!isServer || IsClientServer) then {
 	RegisterService("Services\TrackMapMarker\TrackMapMarkerInit.sqf", "TrackMarkers");
 };
 
