@@ -57,6 +57,7 @@ Private ["_args", "_clientId", "_building", "_unitType", "_side", "_team", "_veh
 		if ( _args > 3 ) then {  _locked   = _vehInfo select 3;  };
 
 		_vehicle = [_unitType, _position, _side, _locked] Call CreateVehi;
+		_unitCreated = _vehicle;
 		
 		if (_unitType in ('WFBE_BALANCEDUNITS' Call GetNamespace) && paramBalancing) then {
 			[_vehicle] spawn BalanceInit;
