@@ -15,15 +15,15 @@ Private ["_lock","_position","_side","_type","_vehicle"];
 		_special = _this select 6;		
 		_vehicle = createVehicle [_type, _position, _markers, _placement, _special];
 	} else {
-		_vehicle = _type createVehicle _position;
+		_vehicle = createVehicle [_type, _position, [], 0, ""];
 	};
 	
-	[_vehicle, _side, 1] spawn UpdateSideStats;
 	if (_side != resistance) then {
 		_vehicle SetVehicleInit Format["[this,%1] ExecVM 'Common\Common_InitUnit.sqf';",_side];
 		ProcessInitCommands;
 	};
 	
+	[_vehicle, _side, 1] spawn UpdateSideStats;
 	[_vehicle, _side] spawn SetKilledEventHandler;
 	_vehicle spawn ManagedUnitAdd;
 	
