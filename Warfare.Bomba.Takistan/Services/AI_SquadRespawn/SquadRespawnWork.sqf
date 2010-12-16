@@ -129,8 +129,7 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 		_leader setPos _pos;	
 
 		if (isMultiplayer) then {
-			[_leader, _side, 1] spawn UpdateSideStats;
-			_leader spawn ManagedUnitAdd;
+			[_leader, _side] spawn ManagedUnitAdd;
 		};
 
 		//--- Equip the AI.

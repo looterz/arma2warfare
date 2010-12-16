@@ -7,7 +7,7 @@ _map = _display DisplayCtrl 15001;
 
 waitUntil {alive player};
 
-player spawn ManagedUnitAdd;
+[player, side player] spawn ManagedUnitAdd;
 
 player setPos ([getMarkerPos Format["%1TempRespawnMarker",sideJoinedText],1,10] Call GetRandomPosition);
 if (leader(group player) != player) then {(group player) selectLeader player};
@@ -23,8 +23,6 @@ if (!isNull commanderTeam) then {
 if (paramBuildDefencesInTown > 0) then {
 	player addAction [localize 'STR_WF_BuildMenu_Repair','Client\Action\Action_BuildRepair.sqf', [], 99, false, true, '', 'townDefenceRange'];
 };
-
-[player, side player, 1] spawn UpdateSideStats;
 
 //--- Base.
 _hq = (sideJoinedText) Call GetSideHQ;

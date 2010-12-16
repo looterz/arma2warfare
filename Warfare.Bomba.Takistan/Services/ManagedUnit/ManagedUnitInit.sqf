@@ -3,6 +3,7 @@
 	
 	waitUntil { commonInitComplete };
 	ManagedUnitList = [];
+	ManagedUnitDataList = [];
 	ManagedUnitListOperate = [];
 
 [ManagedUnitProc, 10];
