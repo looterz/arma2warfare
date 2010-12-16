@@ -46,8 +46,6 @@ if (_sideVictim == sideEnemy) then {
 	if (_killed isKindOf eastSoldierBaseClass) then {_sideVictim = east};
 };
 
-[_killed, _sideVictim, -1] spawn UpdateSideStats;
-
 _killerID = Leader _killerTeam Call GetClientID;
 _get = _objectType Call GetNamespace;
 

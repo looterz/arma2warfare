@@ -1,19 +1,25 @@
 #include "profiler.h"
 PROFILER_BEGIN("Service_ManagedUnitAdd");
 
-Private ["_countArgs", "_markerType", "_markerColor", "_markerSize", "_markerText", "_markerName", "_tracked", "_refreshRate", "_trackDeath", "_deathMarkerType", "_deathMarkerColor", "_deletePrevious", "_side", "_deathMarkerSize", "_condition", "_markerInfo" ];
+Private ["_unit", "_side", "_man"];
 
 	if (!isServer) exitWith {
 		[NETSEND_MSGID_MANAGEDUNITADD, _this] spawn NetSend_ToServer;
 		PROFILER_END();
 	};
+	
+	_unit = _this select 0;
+	_side = _this select 1;
 
-	if (!(_this isKindOf "Man")) then {
-		_this spawn HandleEmptyVehicle;		// register track empty vehicles
+	_man = if (_unit isKindOf "Man") then { true } else { false };
+	
+	if (!_man) then {
+		_unit spawn HandleEmptyVehicle;		// register track empty vehicles
 	};
-
+	[_unit, _side, 1] spawn UpdateSideStats;	
+	
 	waitUntil { !isNil "ManagedUnitListOperate" };
-	ManagedUnitListOperate = ManagedUnitListOperate + [ _this ];
+	ManagedUnitListOperate = ManagedUnitListOperate + [ [_unit, [_side, _man] ] ];
 	
 	format["ManagedUnitAdd: %1", _this] call LogHigh;
 	

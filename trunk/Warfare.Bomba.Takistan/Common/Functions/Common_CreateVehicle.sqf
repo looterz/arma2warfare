@@ -23,9 +23,8 @@ Private ["_lock","_position","_side","_type","_vehicle"];
 		ProcessInitCommands;
 	};
 	
-	[_vehicle, _side, 1] spawn UpdateSideStats;
 	[_vehicle, _side] spawn SetKilledEventHandler;
-	_vehicle spawn ManagedUnitAdd;
+	[_vehicle, _side] spawn ManagedUnitAdd;
 	
 	if (_lock) then {
 		_vehicle lock _lock;

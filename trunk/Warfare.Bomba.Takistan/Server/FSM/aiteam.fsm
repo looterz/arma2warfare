@@ -247,8 +247,7 @@ class FSM
        "};" \n
        "" \n
        "[(leader _team), _side] spawn SetAITeamKilledEventHandler;" \n
-       "(leader _team) spawn ManagedUnitAdd;" \n
-       "[(leader _team), _side, 1] spawn UpdateSideStats;"/*%FSM</STATEINIT""">*/;
+       "[(leader _team), _side] spawn ManagedUnitAdd;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {

@@ -12,8 +12,6 @@ Private ["_dT", "_get", "_built", "_position","_side","_skill","_team","_type","
 	_skill = if !(isNil '_get') then {_get select QUERYUNITSKILL} else {'WFBE_AISKILL' Call GetNamespace};
 	_unit = _team createUnit [_type,_position,[],_skill,"FORM"];
 	
-	[_unit, _side, 1] spawn UpdateSideStats;
-	
 	if (_side != resistance) then {
 
 		_unit setSkill _skill;
@@ -25,8 +23,8 @@ Private ["_dT", "_get", "_built", "_position","_side","_skill","_team","_type","
 		};
 	};
 
-	_unit spawn ManagedUnitAdd;
 	[_unit, _side] spawn SetKilledEventHandler;
+	[_unit, _side] spawn ManagedUnitAdd;
 	
 	if (paramISIS) then {_unit addEventHandler['handleDamage',{_this Call ISIS_Wound}]};
 	Format["Common_CreateUnit: A '%1' unit was created and has joined the %2 %3 Team",_type,str _side,_team] call LogHigh;
