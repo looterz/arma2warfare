@@ -76,7 +76,7 @@ class FSM
           priority = 0.000000;
           to="Global__Checks";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastCheck > 15;"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastCheck > 15"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -209,7 +209,7 @@ class FSM
           priority = 0.000000;
           to="Global__Checks";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastCheck > 15;"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastCheck > 15"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -246,7 +246,7 @@ class FSM
           priority = 0.000000;
           to="Global__Checks";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastCheck > 15;"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastCheck > 15"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -267,7 +267,7 @@ class FSM
           priority = 0.000000;
           to="Global__Checks";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastCheck > 15;"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastCheck > 15"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/

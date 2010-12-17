@@ -1,12 +1,8 @@
 /* Important, use +array if you plan to use Setters */
 _primary = +(WF_Logic getVariable 'primaryClasses');
-
 _secondary = +(WF_Logic getVariable 'secondaryClasses');
-
 _sidearm = +(WF_Logic getVariable 'sidearmClasses');
-
 _misc = +(WF_Logic getVariable 'miscClasses');
-
 _magazine = +(WF_Logic getVariable 'magazineClasses');
 
 _template = +(WF_Logic getVariable 'templateClasses');
@@ -20,6 +16,7 @@ _templateUpgrades = +(WF_Logic getVariable 'templateUpgrades');
 _templateAllowed = +(WF_Logic getVariable 'templateAllowed');
 
 _currentUnit = player;
+_secondarySlotIDC = 3501;
 
 _returnProperBag = {
 	Private ['_bag'];
@@ -258,6 +255,7 @@ while {alive player && dialog} do {
 		switch (_mainAction) do {
 			case 'addWeapon': {
 				_skip = true;
+				_sskip = false;
 				_get = [];
 				
 				if (_filler != 'template') then {
@@ -282,6 +280,39 @@ while {alive player && dialog} do {
 									};
 								};
 							};
+							
+							/* Handle the realistic Gear system if enabled */
+							_isSecoAllowTwo = true;
+							_isPrimAllowTwo = true;
+							if (paramGearNoRambo && (_tfil == 'primary' || _tfil == 'secondary' || _tfil == 'all')) then {
+								_getpp = [];
+								_getss = [];
+								
+								_query = if (_currentData == 'primary') then {_currentItem} else {_currentPrimary};
+								if (_query != '') then {
+									_getpp = (_query+"_W") Call GetNamespace;
+									if (isNil '_getpp') then {
+										_getpp = _query Call GetNamespace;
+									};
+								};
+								if (_query != '') then {_isPrimAllowTwo = _getpp select QUERYGEARALLOWTWO};
+								
+								_query = if (_currentData == 'secondary') then {_currentItem} else {_currentSecondary};
+								if (_query != '') then {
+									_getss = (_query+"_W") Call GetNamespace;
+									if (isNil '_getss') then {
+										_getss = _query Call GetNamespace;
+									};
+								};
+								if (_query != '') then {_isSecoAllowTwo = _getss select QUERYGEARALLOWTWO};
+
+								if (!_isSecoAllowTwo && !_isPrimAllowTwo) then {
+									_sskip = true;
+									hint parseText (localize 'STR_WF_Gear_AllowTwo');
+								};
+							};
+							
+							if !(_sskip) then {
 							if (_currentData == 'secondary') then {
 								if (_currentItem in _listbp) then {
 									_unitBP = _currentItem;
@@ -304,9 +335,12 @@ while {alive player && dialog} do {
 								};
 							};
 						};
+						};
+						if (!_sskip) then {
 						_currentWeapons = _currentWeapons + [_currentItem];
 						_displayInv = true;
 					};
+				};
 				};
 				if (_tfil == 'backpack') then {
 					_currentBPRow = lnbCurSelRow _lb;
@@ -467,10 +501,7 @@ while {alive player && dialog} do {
 	};
 	
 	if (_updateUnit) then {
-		
-		_loadout = (_currentUnit call GetEquipLoadout);
-		_currentWeapons = _loadout select 0;
-		
+		_currentWeapons = weapons _currentUnit;
 		_currentCost = 0;
 		_unitBP = "";
 		if !(isNull(unitBackpack _currentUnit)) then {
@@ -838,6 +869,7 @@ while {alive player && dialog} do {
 				} forEach _weaps;
 				_weaps = _temp;
 			};
+			[_currentUnit,(_weaps + _currentSpecials + _currentItems),_currentMagazines] Call EquipLoadout;
 			
 			/* Equip backpack if needed */
 			if !(WF_A2_Vanilla) then {				
@@ -855,8 +887,6 @@ while {alive player && dialog} do {
 					[unitBackpack _currentUnit,[_currentBackpackLoadout,_currentBackpackLoadoutAmount]] Call EquipBackpack;
 				};
 			};
-
-			[_currentUnit,(_weaps + _currentSpecials + _currentItems),_currentMagazines] Call EquipLoadout;
 			_data = [_currentMagazines,_currentItems] Call DisplayInventory;
 			_inventorySlots = _data select 0;
 			_sidearmInventorySlots = _data select 1;
@@ -868,8 +898,7 @@ while {alive player && dialog} do {
 				respawnGearCost = respawnGearCost - ((_x call GetNamespace) select QUERYGEARCOST); 
 			} forEach (_currentUnit call GetEquipDogTags);
 			
-			
-			execVM "Client\Module\Skill\Skill_Init.sqf";			
+			spawn WFBE_SK_FNC_Apply;			
 			_cost = 0;
 		} else {
 			hint parseText(Format [localize "STR_WF_Funds_Missing_Gear",_cost - _funds]);
@@ -925,6 +954,8 @@ while {alive player && dialog} do {
 			_temp = [];
 			_cAllow = true;
 			_upgr = 0;
+			_pallow = true;
+			_sallow = true;
 
 			if (_currentPrimary != '') then {
 				_get = _currentPrimary Call GetNamespace;
@@ -933,6 +964,7 @@ while {alive player && dialog} do {
 				_pict = (_get select QUERYGEARPICTURE);
 				if !(_get select QUERYGEARALLOWED) then {_cAllow = false};
 				_upgr = _get select QUERYGEARUPGRADE;
+				_pallow = _get select QUERYGEARALLOWTWO;
 			};
 			if (_currentSecondary != '') then {
 				_get = (_currentSecondary+"_W") Call GetNamespace;
@@ -946,6 +978,7 @@ while {alive player && dialog} do {
 				if (_pict == '') then {_pict = _get select QUERYGEARPICTURE};
 				if (_cAllow) then {if !(_get select QUERYGEARALLOWED) then {_cAllow = false}};
 				if ((_get select QUERYGEARUPGRADE) > _upgr) then {_upgr = (_get select QUERYGEARUPGRADE)};
+				_sallow = _get select QUERYGEARALLOWTWO;
 			};
 			if (_currentSidearm != '') then {
 				_get = _currentSidearm Call GetNamespace;
@@ -962,6 +995,7 @@ while {alive player && dialog} do {
 			if (_unitBP != '') then {
 				_addin = [_currentBackpackLoadout,_currentBackpackLoadoutAmount];
 			};
+			if (_pallow || _sallow) then {
 			_template = _template + [_temp];
 			WF_Logic setVariable["templateClasses",_template];
 			_templateCosts = _templateCosts + [(_cost + _currentCost)];
@@ -981,6 +1015,9 @@ while {alive player && dialog} do {
 			_templateAllowed = _templateAllowed + [_cAllow];
 			WF_Logic setVariable["templateAllowed",_templateAllowed];
 			_updateFiller = true;
+			} else {
+				hint parseText (localize 'STR_WF_Gear_AllowTwo');
+			};
 		};
 	};
 	

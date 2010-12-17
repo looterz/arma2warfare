@@ -63,6 +63,11 @@ Private ["_args", "_clientId", "_building", "_unitType", "_side", "_team", "_veh
 			[_vehicle] spawn BalanceInit;
 		};
 		
+		/* Fucked up vehicles handling */
+		if (_unit in ('WFBE_VEHIGUNNERISCMDER' Call GetNamespace)) then {
+			if (_gunner) then {_gunner = false;_commander = true};
+		};
+		
 		//-- Clear the vehicle
 		clearWeaponCargo _vehicle;
 		clearMagazineCargo _vehicle;	

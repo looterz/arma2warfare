@@ -206,6 +206,7 @@ while {alive player && dialog} do {
 		switch (_mainAction) do {
 			case 'addWeapon': {
 				_skip = true;
+				_sskip = false;
 				_get = [];
 				
 				if (_filler != 'template') then {
@@ -228,6 +229,39 @@ while {alive player && dialog} do {
 									};
 								};
 							};
+							
+							/* Handle the realistic Gear system if enabled */
+							_isSecoAllowTwo = true;
+							_isPrimAllowTwo = true;
+							if (paramGearNoRambo && (_tfil == 'primary' || _tfil == 'secondary' || _tfil == 'all')) then {
+								_getpp = [];
+								_getss = [];
+								
+								_query = if (_currentData == 'primary') then {_currentItem} else {_currentPrimary};
+								if (_query != '') then {
+									_getpp = (_query+"_W") Call GetNamespace;
+									if (isNil '_getpp') then {
+										_getpp = _query Call GetNamespace;
+									};
+								};
+								if (_query != '') then {_isPrimAllowTwo = _getpp select QUERYGEARALLOWTWO};
+								
+								_query = if (_currentData == 'secondary') then {_currentItem} else {_currentSecondary};
+								if (_query != '') then {
+									_getss = (_query+"_W") Call GetNamespace;
+									if (isNil '_getss') then {
+										_getss = _query Call GetNamespace;
+									};
+								};
+								if (_query != '') then {_isSecoAllowTwo = _getss select QUERYGEARALLOWTWO};
+
+								if (!_isSecoAllowTwo && !_isPrimAllowTwo) then {
+									_sskip = true;
+									hint parseText (localize 'STR_WF_Gear_AllowTwo');
+								};
+							};
+							
+							if (!_sskip) then {
 							Call Compile Format ['_old = _current%1;_currentWeapons = _currentWeapons - [_current%1]; _current%1Cost = %2; _current%1 = "%3";ctrlSetText[_%1IDC,"%4"]',_currentData,_get select QUERYGEARCOST,_currentItem,_get select QUERYGEARPICTURE];
 							//--- New Magazines.
 							_currentMags = _get select QUERYGEARMAGAZINES;
@@ -241,9 +275,12 @@ while {alive player && dialog} do {
 								_currentMagazines = [_currentMags select 0,_oldMags,_currentMagazines] Call ReplaceInventoryAmmo;
 							};
 						};
+						};
+						if (!_sskip) then {
 						_currentWeapons = _currentWeapons + [_currentItem];
 						_displayInv = true;
 					};
+				};
 				};
 				if (_filler == 'misc' || !_skip) then {
 					_type = _get select QUERYGEARTYPE;
@@ -641,6 +678,8 @@ while {alive player && dialog} do {
 			_temp = [];
 			_cAllow = true;
 			_upgr = 0;
+			_pallow = true;
+			_sallow = true;
 
 			if (_currentPrimary != '') then {
 				_get = _currentPrimary Call GetNamespace;
@@ -649,6 +688,7 @@ while {alive player && dialog} do {
 				_pict = (_get select QUERYGEARPICTURE);
 				if !(_get select QUERYGEARALLOWED) then {_cAllow = false};
 				_upgr = _get select QUERYGEARUPGRADE;
+				_pallow = _get select QUERYGEARALLOWTWO;
 			};
 			if (_currentSecondary != '') then {
 				_get = (_currentSecondary+"_W") Call GetNamespace;
@@ -662,6 +702,7 @@ while {alive player && dialog} do {
 				if (_pict == '') then {_pict = _get select QUERYGEARPICTURE};
 				if (_cAllow) then {if !(_get select QUERYGEARALLOWED) then {_cAllow = false}};
 				if ((_get select QUERYGEARUPGRADE) > _upgr) then {_upgr = (_get select QUERYGEARUPGRADE)};
+				_sallow = _get select QUERYGEARALLOWTWO;
 			};
 			if (_currentSidearm != '') then {
 				_get = _currentSidearm Call GetNamespace;
@@ -673,6 +714,7 @@ while {alive player && dialog} do {
 				if (_cAllow) then {if !(_get select QUERYGEARALLOWED) then {_cAllow = false}};
 				if ((_get select QUERYGEARUPGRADE) > _upgr) then {_upgr = (_get select QUERYGEARUPGRADE)};
 			};
+			if (_pallow || _sallow) then {
 			_template = _template + [_temp];
 			WF_Logic setVariable["templateClasses",_template];
 			_templateCosts = _templateCosts + [(_cost + _currentCost)];
@@ -692,6 +734,9 @@ while {alive player && dialog} do {
 			_templateAllowed = _templateAllowed + [_cAllow];
 			WF_Logic setVariable["templateAllowed",_templateAllowed];
 			_updateFiller = true;
+			} else {
+				hint parseText (localize 'STR_WF_Gear_AllowTwo');
+			};
 		};
 	};
 	

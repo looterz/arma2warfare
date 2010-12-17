@@ -13,7 +13,7 @@ if (WF_A2_Vanilla || _resType == 0) then {
 	_u = _u + ["GUE_Soldier_Medic"];
 	[Format["WFBE_RES%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
 
-	_n		= ["GroupAssault"];
+	_n = _n + ["GroupAssault"];
 	_u		= ["GUE_Soldier_CO"];
 	_u = _u + ["GUE_Soldier_GL"];
 	_u = _u + ["GUE_Soldier_AT"];
@@ -24,7 +24,7 @@ if (WF_A2_Vanilla || _resType == 0) then {
 	_u = _u + ["GUE_Soldier_Medic"];
 	[Format["WFBE_RES%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
 
-	_n		= ["GroupWeapons"];
+	_n = _n + ["GroupWeapons"];
 	_u		= ["GUE_Soldier_2"];
 	_u = _u + ["GUE_Soldier_MG"];
 	_u = _u + ["GUE_Soldier_AT"];
@@ -32,7 +32,7 @@ if (WF_A2_Vanilla || _resType == 0) then {
 	_u = _u + ["GUE_Soldier_Sab"];
 	[Format["WFBE_RES%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
 
-	_n		= ["Patrol1"];
+	_n = _n + ["Patrol1"];
 	_u		= ["GUE_Soldier_2"];
 	_u = _u + ["GUE_Soldier_MG"];
 	_u = _u + ["GUE_Soldier_AT"];
@@ -147,7 +147,7 @@ if (WF_A2_Arrowhead || _resType == 1) then {
 	_u = _u + ["TK_GUE_Bonesetter_EP1"];
 	[Format["WFBE_RES%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
 
-	_n		= ["GroupAssault"];
+	_n = _n + ["GroupAssault"];
 	_u		= ["TK_GUE_Warlord_EP1"];
 	_u = _u + ["TK_GUE_Soldier_4_EP1"];
 	_u = _u + ["TK_GUE_Soldier_AT_EP1"];
@@ -158,7 +158,7 @@ if (WF_A2_Arrowhead || _resType == 1) then {
 	_u = _u + ["TK_GUE_Bonesetter_EP1"];
 	[Format["WFBE_RES%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
 
-	_n		= ["GroupWeapons"];
+	_n = _n + ["GroupWeapons"];
 	_u		= ["TK_GUE_Soldier_5_EP1"];
 	_u = _u + ["TK_GUE_Soldier_MG_EP1"];
 	_u = _u + ["TK_GUE_Soldier_AT_EP1"];
@@ -166,7 +166,7 @@ if (WF_A2_Arrowhead || _resType == 1) then {
 	_u = _u + ["TK_GUE_Soldier_AT_EP1"];
 	[Format["WFBE_RES%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
 
-	_n		= ["Patrol1"];
+	_n = _n + ["Patrol1"];
 	_u		= ["TK_GUE_Soldier_5_EP1"];
 	_u = _u + ["TK_GUE_Soldier_MG_EP1"];
 	_u = _u + ["TK_GUE_Soldier_AT_EP1"];

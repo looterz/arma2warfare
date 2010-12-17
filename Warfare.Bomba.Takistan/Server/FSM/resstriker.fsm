@@ -75,7 +75,7 @@ class FSM
       init = /*%FSM<STATEINIT""">*/"_sideID = _location getVariable ""sideID"";" \n
        "_isActive = _location getVariable ""activeStriker"";" \n
        "" \n
-       "_alives = if (!isNil ""_team"") then {Count ((Units  _team) Call GetLiveUnits)} else {1};"/*%FSM</STATEINIT""">*/;
+       "_alives = if (!isNil ""_team"") then {Count ((Units  _team) Call GetLiveUnits)} else {0};"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {

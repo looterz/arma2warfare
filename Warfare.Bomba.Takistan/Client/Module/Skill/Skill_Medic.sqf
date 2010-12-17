@@ -15,7 +15,7 @@ _dammages = getDammage _unit;
 format["Heal Unit: %1, HasDammages=%2", _unit, _dammages] call LogTrace;
 if (_dammages <= 0) exitWith {};
 
-lastUseSkill set [3, time];
+WFBE_SK_V_LastUse_Medic = time;
 
 _skip = false;
 for [{_x = 0},{_x < 2},{_x = _x + 1}] do {

@@ -1,12 +1,5 @@
 waitUntil { !isNil "initJIP" };
 
-Skills_Soldiers = ['FR_R','RUS_Soldier1','US_Delta_Force_EP1','TK_Special_Forces_EP1'];
-Skills_Engineers = ['USMC_SoldierS_Engineer','MVD_Soldier_TL','US_Soldier_Engineer_EP1','TK_Soldier_Engineer_EP1'];
-Skills_Lockpick = ['FR_TL','RUS_Soldier_TL','US_Delta_Force_TL_EP1','TK_Special_Forces_TL_EP1'];
-Skills_Spot = ['USMC_SoldierS_Sniper','RU_Soldier_Sniper','US_Soldier_Sniper_EP1','TK_Soldier_Sniper_EP1'];
-Skills_MASH = ['FR_Commander','RUS_Commander','US_Soldier_SL_EP1','TK_Soldier_SL_EP1'];
-Skills_Medic = ['RU_Soldier_Medic', 'USMC_Soldier_Medic', 'US_Delta_Force_Medic_EP1'];
-
 if (paramArty) then {
 	ARTY_Prep = Compile preprocessFile "Client\Module\Arty\ARTY_mobileMissionPrep.sqf";
 	ARTY_Finish = Compile preprocessFile "Client\Module\Arty\ARTY_mobileMissionFinish.sqf";
@@ -53,6 +46,7 @@ if !(WF_A2_Vanilla) then {
 } else {
 	RespawningBag = {};
 };
+ReturnArraySortAsc = Compile preprocessFile "Client\Functions\Client_ReturnArraySortAsc.sqf";
 TaskSystem = Compile preprocessFile "Client\Functions\Client_TaskSystem.sqf";
 TitleTextMessage = Compile preprocessFile "Client\Functions\Client_TitleTextMessage.sqf";
 UIAddItem = Compile preprocessFile "Client\Functions\Client_UIAddItem.sqf";
@@ -88,7 +82,7 @@ if (_weat == 3) then {
 if (paramVolumClouds) then {[] Exec "CA\Modules\clouds\data\scripts\bis_cloudsystem.sqs"};
 
 _idbl = [player] Call Compile preprocessFile "Client\Init\Init_Blacklist.sqf";
-if (_idbl) exitWith {[] Spawn {_txt = "INFORMATION:\n\n You are currently blacklisted.";_txt Call DebugHint;sleep 5; disableUserInput true; sleep 60; failMission "END1"}};
+if (_idbl) exitWith {[] Spawn {_txt = "INFORMATION:\n\n You are currently blacklisted.";_txt Call DebugHint;sleep 5; disableUserInput true; sleep 60; disableUserInput false; failMission "END1"}};
 
 //--- Global Client Variables.
 sideJoined = side player;
@@ -107,7 +101,6 @@ upgradingTime = -1;
 buildingMarker = 0;
 gearCost = 0;
 currentTG = 25;
-currentMission = objNull;
 lastBuilt = [];
 unitQueu = 0;
 fireMissionTime = -1000;
@@ -119,7 +112,6 @@ voted = false;
 votePopUp = true;
 manningDefense = true;
 currentFX = 0;
-lastSkillUse = -1200;
 lastRepair = -200;
 lastRearm = -200;
 lastHeal = -200;
@@ -141,27 +133,32 @@ antiAirRadarInRange = false;
 hangarInRange = false;
 townDefenceRange = false;
 
+/* Airfields Init */
 if (isNil "Airfields") then {Airfields = []};
 
-//--- Exec SQF|FSM Misc stuff.
+/* Exec SQF|FSM Misc stuff. */
 if (paramTrackPlayer) then {[] ExecFSM "Client\FSM\updateteamsmarkers.fsm"};
 [] ExecFSM "Client\FSM\updateactions.fsm";
-//--- Don't pause the client initialization process.
+/* Don't pause the client initialization process. */
 [] Spawn {
 	waitUntil {townInit};
+	/* Handle the capture GUI */
 	[] ExecFSM "Client\FSM\updatecapture.fsm";
+	/* Handle the map town markers */
 	[] ExecFSM "Client\FSM\updatetownmarkers.fsm";
 	waitUntil {!isNil Format["%1BaseStructures",sideJoinedText]};
+	/* Handle the client actions */
 	[] ExecFSM "Client\FSM\updateavailableactions.fsm";
 };
 [] Spawn {
 	_lo = false;
 	while {!_lo} do {sleep 0.1;_commanderTeam = (sideJoined) Call GetCommanderTeam;if (!isNil '_commanderTeam') then {_lo = true}};
+	/* Commander Handling */
 	[] ExecFSM "Client\FSM\updateclient.fsm";
 };
 [] Call Compile preprocessFile "briefing.sqf";
 
-//--- Init Pos.
+/* Position the player */
 _base = objNull;
 if (time < 30) then {
 	waitUntil {!isNil Format ["%1StartingLocation",sideJoinedText]};
@@ -183,7 +180,7 @@ if (time < 30) then {
 
 player setPos ([_base,20,30] Call GetRandomPositionEx);
 
-//--- Building Init.
+/* HQ Building Init. */
 waitUntil {!isNil Format ["%1MHQDeployed",sideJoinedText]};
 _isDeployed = (sideJoinedText) Call GetSideHQDeployed;
 if (_isDeployed) then {
@@ -192,38 +189,35 @@ if (_isDeployed) then {
 	['WFBE_AREAHQUNDEPLOYED' Call GetNamespace,false,MCoin] Call Compile preprocessFile "Client\Init\Init_Coin.sqf";
 };
 
-//--- Options menu.
+/* Options menu. */
 Options = player addAction ["<t color='#F8D664'>" + (localize "STR_WF_Options") + "</t>","Client\Action\Action_Menu.sqf", "", 1, false, true, "", ""];
 
-//--- Voice system.
+/* HQ Radio system. */
 waitUntil {!isNil Format ["BIS_WF_HQ%1",sideJoinedText]};
 _HQRadio = Call Compile Format ["BIS_WF_HQ%1",sideJoinedText];
 waitUntil {!isNil Format ["BIS_WF_HQ%1_TI",sideJoinedText]};
-_topicIdentity = Call Compile Format ["BIS_WF_HQ%1_TI",sideJoinedText];
-_HQRadio setIdentity _topicIdentity;
+WFBE_V_HQTopicSide = Call Compile Format ["BIS_WF_HQ%1_TI",sideJoinedText];
+_HQRadio setIdentity WFBE_V_HQTopicSide;
 _HQRadio setRank "COLONEL";
 _HQRadio setGroupId ["HQ"]; 
-_HQRadio kbAddTopic [_topicIdentity,"Client\kb\hq.bikb","Client\kb\hq.fsm",{call compile preprocessFileLineNumbers "Client\kb\hq.sqf"}];
-player kbAddTopic [_topicIdentity,"Client\kb\hq.bikb","Client\kb\hq.fsm",{call compile preprocessFileLineNumbers "Client\kb\hq.sqf"}];
+_HQRadio kbAddTopic [WFBE_V_HQTopicSide,"Client\kb\hq.bikb","Client\kb\hq.fsm",{call compile preprocessFileLineNumbers "Client\kb\hq.sqf"}];
+player kbAddTopic [WFBE_V_HQTopicSide,"Client\kb\hq.bikb","Client\kb\hq.fsm",{call compile preprocessFileLineNumbers "Client\kb\hq.sqf"}];
 sideHQ = _HQRadio;
 
-//--- Define vehicles types that will have an 'Cargo Eject' function.
-cargoHolder = ["MH60S","UH1Y","MV22","C130J","Mi17_Ins","Mi17_medevac_RU","Mi17_rockets_RU","Mi24_V","Mi24_P","MH6J_EP1",
-"UH60M_EP1","UH60M_MEV_EP1","CH_47F_EP1","C130J_US_EP1","Mi17_TK_EP1","UH1H_TK_EP1","An2_TK_EP1","Mi24_D_TK_EP1","BAF_Merlin_HC3_D","CH_47F_BAF"];
-//--- Zeta Cargo Lifter.
+/* Zeta Cargo Lifter. */
 [] Call Compile preprocessFile "Client\Module\ZetaCargo\Zeta_Init.sqf";
-//--- Groups ID.
+/* Set Groups ID. */
 [] Call Compile preprocessFile "Client\Functions\Client_SetGroupsID.sqf";
 
 sleep 1;
 
-//--- Override player's Gear.
+/* Override player's Gear.*/
 [player,Format ["WFBE_%1DEFAULTWEAPONS",sideJoinedText] Call GetNamespace,Format ["WFBE_%1DEFAULTAMMO",sideJoinedText] Call GetNamespace] Call EquipLoadout;
-//--- Default gear menu filler.
+/* Default gear menu filler. */
 WF_Logic setVariable ['filler','primary'];
 
-//--- Skill Module.
-[] Call Compile preprocessFile "Client\Module\Skill\Skill_Init.sqf";
+/* Skill Module. */
+[] Call WFBE_SK_FNC_Apply;
 
 //--- Handle Client keys: Disbale command Menu scanning, Factories Lock, etc.
 EH_BTNUpdateTimeout = 0;
@@ -236,15 +230,15 @@ call compile preprocessFile "Client\Functions\Client_EHKeyboardLockWeaponInit.sq
 //--- Soldier Skill.
 if (playerType in Skills_Soldiers) then {['WFBE_MAXGROUPSIZE',('WFBE_MAXGROUPSIZE' Call GetNameSpace) + ('WFBE_MAXGZBONUSSKILL' Call GetNamespace),true] Call SetNamespace};
 
-//--- Init vote.
+/* Vote */
 _voteTime = 0;
 _lo = false;
 while {!_lo} do {sleep 0.1;_voteTime = WF_Logic getVariable Format ["%1CommanderVoteTime",sideJoinedText];if !(isNil '_voteTime') then {_lo = true}};
 if (_voteTime > 0) then {createDialog "RscDisplayWFVoting"};
 
-//--- Debug
+/* Debug */
 if (WF_Debug) then {
-	onMapSingleClick "if (_alt) then { vehicle player setpos _pos };"; //--- Teleport
+	onMapSingleClick "if (_alt) then { vehicle player setpos _pos;(vehicle player) setVelocity [0,0,-0.1] };"; //--- Teleport
 	//player addEventHandler ["HandleDamage", {false}];
 	player addEventHandler ["HandleDamage", {false;if (player != (_this select 3)) then {(_this select 3) setDammage 1}}]; //--- God-Slayer mode.
 };
@@ -256,15 +250,16 @@ if (paramBuildDefencesInTown > 0) then {
 Call Compile Format ["player addEventHandler ['Killed',{[_this select 0,_this select 1] Spawn PlayerKilled;[_this select 0,_this select 1,%1,false] Spawn UnitKilled}]",sideJoined];
 [player, side player] spawn ManagedUnitAdd;
 
+/* ISIS Module */
 if (paramISIS) then {player addEventHandler['handleDamage',{_this Call ISIS_Wound}]};
 
-//--- Artillery UI.
+/* Artillery UI */
 if (paramArtyUI) then {[] ExecVM "ca\modules\ARTY\data\scripts\init.sqf"};
 
-//--- EASA.
+/* EASA */
 if (paramEASA) then {[] Call Compile preProcessFile "Client\Module\EASA\EASA_Init.sqf"};
 
-//--- JIP.
+/* JIP Handler */
 waitUntil {townInit};
 
 sleep 3;
@@ -273,7 +268,7 @@ sleep 3;
 	[] ExecVM "Client\Functions\Client_InitTownsAndCamps.sqf";
 };
 
-//--- Repair Truck builds.
+/* Repair Truck CoIn Handling. */
 ['WFBE_AREAREPAIRTRUCK' Call GetNamespace,false,RCoin,"REPAIR"] Call Compile preprocessFile "Client\Init\Init_Coin.sqf";
 
 ["TownAddComplete"] Spawn TaskSystem;

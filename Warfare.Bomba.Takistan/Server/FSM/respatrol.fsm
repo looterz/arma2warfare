@@ -333,7 +333,7 @@ class FSM
     class All_Units_Dead_
     {
       name = "All_Units_Dead_";
-      init = /*%FSM<STATEINIT""">*/"_alives = if (!isNil ""_team"") then {Count ((Units  _team) Call GetLiveUnits)} else {1};" \n
+      init = /*%FSM<STATEINIT""">*/"_alives = if (!isNil ""_team"") then {Count ((Units  _team) Call GetLiveUnits)} else {0};" \n
        "" \n
        ""/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;

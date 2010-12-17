@@ -12,7 +12,7 @@ link2[] = {1,4};
 link3[] = {3,1};
 link4[] = {4,2};
 globals[] = {0.000000,0,0,0,0,640,480,1,19,6316128,1,-421.780701,421.779755,226.237854,-325.234192,748,519,1};
-window[] = {0,-1,-1,-1,-1,837,154,1414,203,1,766};
+window[] = {0,-1,-1,-1,-1,665,49,1309,31,1,766};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -33,7 +33,7 @@ class FSM
           priority = 0.000000;
           to="Update_Garbage";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > 5 && !gameOver"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastUpdate > 0.5 && !gameOver"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/

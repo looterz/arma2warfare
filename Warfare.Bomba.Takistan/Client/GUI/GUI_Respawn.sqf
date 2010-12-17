@@ -3,7 +3,7 @@ disableSerialization;
 MenuAction = -1;
 mouseButtonUp = -1;
 _display = _this select 0;
-_map = _display DisplayCtrl 15001;
+_map = _display displayCtrl 15001;
 
 waitUntil {alive player};
 
@@ -66,26 +66,8 @@ if (paramRespawnMASH) then {
 	};
 };
 
-//--- Camps.
-if (paramCampRespawn) then {
-	_town = [deathLocation,sideJoined] Call GetClosestLocation;
-	if (!isNull _town) then {
-		if (_town distance deathLocation  < ('WFBE_RESPAWNRANGE' Call GetNamespace)) then {
-			_camps = [_town,sideJoined] Call GetFriendlyCamps;
-			if (count _camps > 0) then {
-				if (paramCampRespawnRule) then {
-					_closestCamps = [deathLocation,_camps] Call SortByDistance;
-					_closestCamp = _closestCamps select 0;
-					_objects = _closestCamp nearEntities[[eastSoldierBaseClass,westSoldierBaseClass,"Car","Motorcycle","Tank","Air"],('WFBE_RESPAWNMINRANGE' Call GetNamespace)];
-					_objs = _objects;
-					{if (!(_x isKindOf "Man")) then {if (count (crew _x) == 0) then {_objects = _objects - [_x]}}} forEach _objs;
-					_hostiles = if (sideJoined == West) then {East countSide _objects} else {West countSide _objects};
-					if (deathLocation distance _closestCamp < ('WFBE_RESPAWNMINRANGE' Call GetNamespace) && _hostiles > 0) then {_camps = _camps - [_closestCamp]};
-				};
-				_availableSpawn = _availableSpawn + _camps;
-			};
-		};
-	};
+if (('WFBE_RESPAWNCAMPSMODE' Call GetNamespace) > 0) then {
+	_availableSpawn = _availableSpawn + ([deathLocation, sideJoined] Call GetRespawnCamps);
 };
 
 _markers = [];
@@ -93,7 +75,7 @@ _markerIndex = 0;
 {
 	_markerName = Format ["respawnMarker%1",_markerIndex];
 	_markers = _markers + [_markerName];
-	CreateMarkerLocal [_markerName,getPos _x];
+	createMarkerLocal [_markerName,getPos _x];
 	_markerName setMarkerTypeLocal "selector_selectedFriendly";
 	_markerName setMarkerColorLocal "ColorYellow";
 	_markerName setMarkerSizeLocal [1,1];
@@ -169,7 +151,7 @@ if !(isNil "respawnWeapons") then {
 			_weaps = _temp;
 	
 			if !(WF_A2_Vanilla) then {
-				[] call RespawningBag
+			    call RespawningBag;
 			};
 			[player,_weaps,respawnAmmo] Call EquipLoadout;
 			_loadDefault = false;
@@ -184,7 +166,7 @@ if (_loadDefault) then {
 };
 
 //--- Skill Module.
-[] Call Compile PreprocessFile "Client\Module\Skill\Skill_Init.sqf";
+spawn WFBE_SK_FNC_Apply;
 
 {deleteMarkerLocal _x} forEach _markers;
 if (!isNil "DeathCamera") then {

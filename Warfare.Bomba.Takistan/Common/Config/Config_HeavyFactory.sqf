@@ -1,128 +1,34 @@
 Private['_c','_u'];
 
-_u = [];
-
-//WEST
-if (WF_A2_Vanilla) then {
-	_u 			= ['AAV'];
-	_u = _u		+ ['M1A1'];
-	_u = _u		+ ['MLRS'];
-	_u = _u		+ ['M1A2_TUSK_MG'];
-};
-
-if (WF_A2_Arrowhead) then {
-	_u 			= ['M1126_ICV_M2_EP1'];
-	_u = _u		+ ['M1126_ICV_mk19_EP1'];
-	_u = _u		+ ['M1129_MC_EP1'];
-	_u = _u		+ ['M1135_ATGMV_EP1'];
-	_u = _u		+ ['M1128_MGS_EP1'];
-	_u = _u		+ ['M1133_MEV_EP1'];
-	_u = _u		+ ['M2A2_EP1'];
-	_u = _u		+ ['M2A3_EP1'];
-	_u = _u		+ ['M1A1_US_DES_EP1'];
-	_u = _u		+ ['MLRS_DES_EP1'];
-	_u = _u		+ ['M1A2_US_TUSK_MG_EP1'];
-	_u = _u		+ ['M6_EP1'];
-	if (paramDLCBAF) then {
-		_u = _u		+ ['BAF_FV510_W'];
-		_u = _u		+ ['BAF_FV510_D'];
-	};
-};
-
-if (WF_A2_CombinedOps) then {
-	_u 			= ['AAV'];
-	_u = _u		+ ['M2A2_EP1'];
-	_u = _u		+ ['M2A3_EP1'];
-	_u = _u		+ ['M1A1'];
-	_u = _u		+ ['M1A1_US_DES_EP1'];
-	_u = _u		+ ['MLRS'];
-	_u = _u		+ ['MLRS_DES_EP1'];
-	_u = _u		+ ['M1A2_TUSK_MG'];
-	_u = _u		+ ['M1A2_US_TUSK_MG_EP1'];
-	_u = _u		+ ['M6_EP1'];
-	if (paramDLCBAF) then {
-		_u = _u		+ ['BAF_FV510_W'];
-		_u = _u		+ ['BAF_FV510_D'];
-	};
-};
-
+/* WEST - Heavy */
+_u = Call Compile preprocessFile (WFBE_V_UnitsRoot + WFBE_V_UnitsRootVersion + 'Units_Heavy_' + WFBE_V_West_Faction + '.sqf');
 ['WFBE_WESTHEAVYUNITS',_u,true] Call SetNamespace;
 if (local player) then {['HEAVY','WEST',_u] Call Compile preProcessFile 'Client\Init\Init_Faction.sqf'};
 
+/* EAST - Heavy */
+_u = Call Compile preprocessFile (WFBE_V_UnitsRoot + WFBE_V_UnitsRootVersion + 'Units_Heavy_' + WFBE_V_East_Faction + '.sqf');
+['WFBE_EASTHEAVYUNITS',_u,true] Call SetNamespace;
+if (local player) then {['HEAVY','EAST',_u] Call Compile preProcessFile 'Client\Init\Init_Faction.sqf'};
+
+/* RESISTANCE - Heavy */
+_u = Call Compile preprocessFile (WFBE_V_UnitsRoot + WFBE_V_UnitsRootVersion + 'Units_Heavy_' + WFBE_V_Resistance_Faction + '.sqf');
+['WFBE_GUERHEAVYUNITS',_u,true] Call SetNamespace;
+
+/* Allies */
 if (paramAllies) then {
 	//--- CDF Allies.
-	_u			= ['BMP2_Ambul_CDF'];
-	_u = _u		+ ['ZSU_CDF'];
-	_u = _u		+ ['BMP2_CDF'];
-	_u = _u		+ ['T72_CDF'];
-
+	_u = Call Compile preprocessFile (WFBE_V_UnitsRoot + 'Vanilla\Units_Heavy_CDF.sqf');
 	['WFBE_WESTALLIESHEAVYUNITS',_u,true] Call SetNamespace;
 	['WFBE_WESTALLIESCREW','CDF_Soldier_Crew',true] Call SetNamespace;
 	
 	//--- Insurgent Allies.
-	_u			= ['BMP2_Ambul_INS'];
-	_u = _u		+ ['ZSU_INS'];
-	_u = _u		+ ['BMP2_INS'];
-	_u = _u		+ ['T72_INS'];
-
+	_u = Call Compile preprocessFile (WFBE_V_UnitsRoot + 'Vanilla\Units_Heavy_INS.sqf');
 	['WFBE_EASTALLIESHEAVYUNITS',_u,true] Call SetNamespace;
 	['WFBE_EASTALLIESCREW','Ins_Soldier_Crew',true] Call SetNamespace;
 } else {
 	['WFBE_WESTALLIESHEAVYUNITS',[],true] Call SetNamespace;
 	['WFBE_EASTALLIESHEAVYUNITS',[],true] Call SetNamespace;
 };
-
-_u = [];
-
-//EAST
-if (WF_A2_Vanilla) then {
-	_u 			= ['BMP2_INS'];
-	_u = _u		+ ['BMP3'];
-	_u = _u		+ ['ZSU_INS'];
-	_u = _u		+ ['T72_RU'];
-	_u = _u		+ ['T90'];
-	_u = _u		+ ['2S6M_Tunguska'];
-};
-
-if (WF_A2_Arrowhead) then {
-	_u 			= ['M113_TK_EP1'];
-	_u = _u		+ ['BMP2_TK_EP1'];
-	_u = _u		+ ['ZSU_TK_EP1'];
-	_u = _u		+ ['T34_TK_EP1'];
-	_u = _u		+ ['T55_TK_EP1'];
-	_u = _u		+ ['T72_TK_EP1'];
-};
-
-if (WF_A2_CombinedOps) then {
-	_u 			= ['M113_TK_EP1'];
-	_u = _u		+ ['BMP2_INS'];
-	_u = _u		+ ['BMP2_TK_EP1'];
-	_u = _u		+ ['BMP3'];
-	_u = _u		+ ['ZSU_INS'];
-	_u = _u		+ ['ZSU_TK_EP1'];
-	_u = _u		+ ['T34_TK_EP1'];
-	_u = _u		+ ['T55_TK_EP1'];
-	_u = _u		+ ['T72_RU'];
-	_u = _u		+ ['T72_TK_EP1'];
-	_u = _u		+ ['T90'];
-	_u = _u		+ ['2S6M_Tunguska'];
-};
-
-['WFBE_EASTHEAVYUNITS',_u,true] Call SetNamespace;
-if (local player) then {['HEAVY','EAST',_u] Call Compile preProcessFile 'Client\Init\Init_Faction.sqf'};
-
-//RESISTANCE
-if (WF_A2_Vanilla || WF_A2_CombinedOps) then {
-	_u 			= ['BMP2_Gue'];
-	_u = _u		+ ['T72_Gue'];
-};
-
-if (WF_A2_Arrowhead || WF_A2_CombinedOps) then {
-	_u 			= ['T34_TK_GUE_EP1'];
-	_u = _u		+ ['T55_TK_GUE_EP1'];
-};
-
-['WFBE_GUERHEAVYUNITS',_u,true] Call SetNamespace;
 
 if (WF_A2_Vanilla) then {
 	['WFBE_WESTCREW','USMC_Soldier_Crew',true] Call SetNamespace;

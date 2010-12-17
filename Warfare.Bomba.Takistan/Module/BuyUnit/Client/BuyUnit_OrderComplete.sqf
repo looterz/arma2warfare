@@ -63,7 +63,7 @@ Private ["_order", "_vehicle", "_unitType", "_side", "_vehInfo", "_upgrades", "_
 		[_vehicle, _side] ExecFSM "Client\FSM\updatesupply.fsm";
 	};
 	
-	if (_unitType in cargoHolder) then {
+	if (_unit in ('WFBE_CANEJECTCARGO' Call GetNamespace)) then {
 		_vehicle setVehicleInit Format["this AddAction ['HALO','Client\Action\Action_HALO.sqf', [], 97, false, true, '', 'getPos _target select 2 >= %1 && alive _target'];this addAction [localize 'STR_WF_Cargo_Eject','Client\Action\Action_EjectCargo.sqf', [], 99, false, true, '', 'driver _target == _this && alive _target']",('WFBE_HALOJUMPHEIGHT' Call GetNamespace)];
 		processInitCommands
 	};

@@ -13,6 +13,8 @@ Format["Init_Server: Init Start"] call LogMedium;
 	resistance setFriend [west,0];
 	resistance setFriend [east,0];
 
+if (paramTownsCivilians) then {createCenter civilian};
+
 	if (paramAI) then {
 		AIBuyUnit = Compile preprocessFile "Server\Functions\Server_BuyUnit.sqf";
 	};
@@ -411,9 +413,9 @@ publicVariable 'EastStartingLocation';
 publicVariable 'WestStartingLocation';
 
 _upArray = if (paramUpgradesEast) then {[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]} else {'WFBE_UPGRADELEVELS' Call GetNamespace};
-_upArray = if (paramUpgradesWest) then {[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]} else {'WFBE_UPGRADELEVELS' Call GetNamespace};
 EASTUpgrades = _upArray;
 PublicVariable 'EASTUpgrades';
+_upArray = if (paramUpgradesWest) then {[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]} else {'WFBE_UPGRADELEVELS' Call GetNamespace};
 WESTUpgrades = _upArray;
 PublicVariable 'WESTUpgrades';
 

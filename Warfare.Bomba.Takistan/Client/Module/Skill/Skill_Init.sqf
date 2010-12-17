@@ -1,61 +1,43 @@
 /*
 	Script: Skill System by Benny.
-	Description: Add special skills to players in function of their slots.
+	Description: Skill Initialization.
 */
 
-_type = "";
-_label = "";
-_condition = "";
+/* Skills Root */
+WFBE_SK_V_Root = 'Client\Module\Skill\Skill_';
 
-if (isNil "lastUseSkill") then {
+/* Functions */
+WFBE_SK_FNC_Apply = Compile preprocessFile "Client\Module\Skill\Skill_Apply.sqf";
 
-	// 0 - engineer
-	// 1 - spot
-	// 2 - lockpick
-	// 3 - medic
-	// 4 - mash
+/* Define which classname belong to which skill group */
+WFBE_SK_V_Engineers = ['USMC_SoldierS_Engineer','MVD_Soldier_TL','US_Soldier_Engineer_EP1','TK_Soldier_Engineer_EP1'];
+WFBE_SK_V_Officers = ['FR_Commander','RUS_Commander','US_Soldier_SL_EP1','TK_Soldier_SL_EP1'];
+WFBE_SK_V_Soldiers = ['FR_R','RUS_Soldier1','US_Delta_Force_EP1','TK_Special_Forces_EP1'];
+WFBE_SK_V_SpecsOps = ['FR_TL','RUS_Soldier_TL','US_Delta_Force_TL_EP1','TK_Special_Forces_TL_EP1'];
+WFBE_SK_V_Spotters = ['USMC_SoldierS_Sniper','RU_Soldier_Sniper','US_Soldier_Sniper_EP1','TK_Soldier_Sniper_EP1'];
 
-	lastUseSkill = [0, 0, 0, 0, -600, 0, 0, 0, 0, 0];
-};
+/* Skills Variables */
+WFBE_SK_V_LastUse_Medic = -1200;
+WFBE_SK_V_LastUse_Repair = -1200;
+WFBE_SK_V_LastUse_MASH = -1200;
+WFBE_SK_V_LastUse_Lockpick = -1200;
+WFBE_SK_V_LastUse_Spot = -1200;
 
-playerType = typeof player;
-	
-_dogTags = player call GetEquipDogTags;
-_dogTagCondition = "";
+/* Skills Timeout */
+WFBE_SK_V_Reload_Medic = 15;
+WFBE_SK_V_Reload_Repair = 65;
+WFBE_SK_V_Reload_MASH = 600;
+WFBE_SK_V_Reload_Lockpick = 25;
+WFBE_SK_V_Reload_Spot = 8;
 
-if (count _dogTags > 0) then {
-	_dogTag = _dogTags select ((count _dogTags) - 1);
-	
-	if (_dogTag == "DogtagsEngineer" ) then { playerType = (Skills_Engineers select 0); };
-	if (_dogTag == "DogtagsSaboteur" ) then { playerType = (Skills_Spot select 0); };
-	if (_dogTag == "DogtagsLockpick" ) then { playerType = (Skills_Lockpick select 0) };
-	if (_dogTag == "DogtagsMedic"    ) then { playerType = (Skills_Medic select 0); };
-	if (_dogTag == "DogtagsCommander") then { playerType = (Skills_MASH select 0) };
-	
-	if ( (WF_A2_Arrowhead || WF_A2_CombinedOps) ) then {
-		_dogTagCondition = "(!(isNull (unitBackpack player))) && (count (player call GetEquipDogTags) > 0)";
-	} else {
-		_dogTagCondition = "(count (player call GetEquipDogTags) > 0)";
-	};
-	
-};
+/* Find the player type */
+WFBE_SK_V_Type = "";
+if (playerType in WFBE_SK_V_Engineers) then {WFBE_SK_V_Type = "Engineer"};
+if (playerType in WFBE_SK_V_Officers) then {WFBE_SK_V_Type = "Officer"};
+if (playerType in WFBE_SK_V_Soldiers) then {WFBE_SK_V_Type = "Soldier"};
+if (playerType in WFBE_SK_V_SpecsOps) then {WFBE_SK_V_Type = "SpecOps"};
+if (playerType in WFBE_SK_V_Spotters) then {WFBE_SK_V_Type = "Spotter"};
 
-
-if (playerType in Skills_Engineers) then {_type = "Engineer";_label = localize "STR_WF_Action_Repair";_condition = "time - (lastUseSkill select 0) > 60"};
-if (playerType in Skills_Spot) then {_type = "Sniper";_label = localize "STR_WF_Action_Spot";_condition = "time - (lastUseSkill select 1) > 10"};
-if (playerType in Skills_Lockpick) then {_type = "SpecOps";_label = localize "STR_WF_Action_Lockpick";_condition = "time - (lastUseSkill select 2) > 25"};
-if (playerType in Skills_Medic) then {_type = "Medic";_label = localize "STR_WF_Action_Heal";_condition = "time - (lastUseSkill select 3) > 25"};
-if ((playerType in Skills_MASH) && paramRespawnMASH) then {_type = "Officer";_label = localize "STR_WF_Action_DeployMASH";_condition = "time - (lastUseSkill select 4) > 600"};
-
-if (!isNil "skillActionId") then {
-	player removeAction skillActionId; 
-};
-
-if (_type != "") then {
-	if (_dogTagCondition != "") then { _condition = "(" + _condition + ") && (" + _dogTagCondition + ")";  };
-	_action = Format ["Client\Module\Skill\Skill_%1.sqf",_type];
-	skillActionId = player addAction [_label,_action, [], 90, false, true, "", _condition];
-};
-
-format["InitSkill: DogTags: %1", _dogTags] call LogTrace;
-format["InitSkill: %1 Condition: %2", _type, _condition] call LogTrace;
+/* Special one time init */
+/* The soldier can hire more units than the others leader */
+if (WFBE_SK_V_Type == 'Soldier') then {['WFBE_MAXGROUPSIZE',('WFBE_MAXGROUPSIZE' Call GetNameSpace) + ('WFBE_MAXGZBONUSSKILL' Call GetNamespace),true] Call SetNamespace};

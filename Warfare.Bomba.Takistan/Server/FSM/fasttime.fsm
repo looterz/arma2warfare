@@ -60,9 +60,10 @@ class FSM
     class Update_Time
     {
       name = "Update_Time";
-      init = /*%FSM<STATEINIT""">*/"SkipTime _ftr;" \n
+      init = /*%FSM<STATEINIT""">*/"skipTime _ftr;" \n
        "_currentTime = DayTime;" \n
        "WF_Logic setVariable [""currentTime"",_currentTime,true];" \n
+       "" \n
        "_lastUpdate = time;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links

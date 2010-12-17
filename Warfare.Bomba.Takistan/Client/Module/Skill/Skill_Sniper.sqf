@@ -18,7 +18,7 @@ _markerName setMarkerColorLocal "ColorRed";
 _markerName setMarkerSizeLocal [0.5,0.5];
 markerID = markerID + 1;
 
-lastUseSkill set [1, time];
+WFBE_SK_V_LastUse_Spot = time;
 
 [_markerName] Spawn {
 	Private ["_marker"];

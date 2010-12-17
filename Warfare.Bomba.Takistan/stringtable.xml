@@ -32,7 +32,6 @@
         <Russian>Открыть отмычкой</Russian>
         <Italian>Apri Serratura</Italian>
       </Key>
-	  
       <Key ID="STR_WF_Action_DeployMASH">
         <English>Deploy MASH</English>
         <French>Déployer Hopital de Campagne</French>
@@ -170,7 +169,7 @@
         <English>Gameplay: Units Balancing</English>
         <French>Jouabilité: Equilibrage Unitées</French>
         <German>Gameplay: Units Balancing</German>
-        <Russian>Режим: Баланс вооружений</Russian>
+        <Russian>Режим: Баланс вооружения</Russian>
         <Italian>Gameplay: Units Balancing</Italian>
       </Key>
       <Key ID="STR_WF_BaseArea">
@@ -203,10 +202,24 @@
       </Key>
       <Key ID="STR_WF_Build_Complete">
         <English>&lt;t color='#F8D664'&gt;Factory Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Your &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; has arrived.</English>
-         <French>&lt;t color='#F8D664'&gt;Information Usine:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Votre &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; est arrive.</French>
+        <French>&lt;t color='#F8D664'&gt;Information Usine:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Votre &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; est arrivé.</French>
          <German>&lt;t color='#F8D664'&gt;Fabrik-Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Ihr &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; ist angekommen.</German>
         <Russian>&lt;t color='#F8D664'&gt;Информация:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt;&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; готов.</Russian>
-        <Italian>&lt;t color='#F8D664'&gt;Informazioni fabrica:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - il Tuo &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; e arrivato.</Italian>
+        <Italian>&lt;t color='#F8D664'&gt;Informazioni fabrica:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - il Tuo &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; è arrivato.</Italian>
+      </Key>
+       <Key ID="STR_WF_BuildMenu">
+        <English>Open Construction Menu (MHQ)</English>
+        <French>Ouvrir Menu de Construction (MHQ)</French>
+        <German>Öffne Konstruktionsmenü (MHQ)</German>
+        <Russian>Открыть меню строительства (Штаб)</Russian>
+        <Italian>Apri Menu Costruzione (MHQ)</Italian>
+      </Key>
+      <Key ID="STR_WF_BuildMenu_Repair">
+        <English>Open Construction Menu (Repair Truck)</English>
+        <French>Ouvrir Menu de Construction (Camion de Réparation)</French>
+        <German>Öffne Konstruktionsmenü (Reparatur LKW)</German>
+        <Russian>Открыть меню строительства</Russian>
+        <Italian>Apri Menu Costruzioni (Camion Riparazioni)</Italian>
       </Key>
       <Key ID="STR_WF_BuyEffective">
         <English>&lt;t color='#F8D664'&gt;Factory Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Building &lt;t color='#85B5FA'&gt;%1&lt;/t&gt;.</English>
@@ -215,37 +228,6 @@
         <Russian>&lt;t color='#F8D664'&gt;Информация:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt;&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; в производстве</Russian>
         <Italian>&lt;t color='#F8D664'&gt;Informazioni Fabrica:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; In Costruzione.</Italian>
       </Key>	  
-      <Key ID="STR_WF_Queu">
-        <English>&lt;t color='#F8D664'&gt;Factory Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; Queued.</English>
-         <French>&lt;t color='#F8D664'&gt;Information Usine:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; Mis en attente.</French>
-         <German>&lt;t color='#F8D664'&gt;Fabrik-Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; in der Warteschlange.</German>
-        <Russian>&lt;t color='#F8D664'&gt;Информация:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt;&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; на очереди.</Russian>
-        <Italian>&lt;t color='#F8D664'&gt;Factory Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; Queued.</Italian>
-      </Key>
-
-      <Key ID="STR_WF_Queued">
-        <English>Factory Queue: %1</English>
-        <French>Queu de fabrication: %1</French>
-        <German>Warteschlange: %1</German>
-        <Russian>На конвеере: %1</Russian>
-        <Italian>Coda Produzione: %1</Italian>
-      </Key>
-	  
-      <Key ID="STR_WF_BuildMenu">
-        <English>Open Construction Menu (MHQ)</English>
-        <French>Ouvrir Menu de Construction (MHQ)</French>
-        <German>Öffne Konstruktionsmenü (MHQ)</German>
-        <Russian>Открыть меню строительства (Штаб)</Russian>
-        <Italian>Apri Menu Costruzione (MHQ)</Italian>
-      </Key>
-      <Key ID="STR_WF_BuildMenu_Repair">
-        <English>Open Construction Menu</English>
-        <French>Ouvrir Menu de Construction</French>
-        <German>Öffne Konstruktionsmenü</German>
-        <Russian>Открыть меню строительства</Russian>
-        <Italian>Apri Menu Costruzioni</Italian>
-      </Key>
-	    
       <Key ID="STR_WF_BuyType">
         <English>Buy Types:</English>
         <French>Type d'Achats:</French>
@@ -294,6 +276,13 @@
         <German>Geld:</German>
         <Russian>Наличные:</Russian>
         <Italian>Fondi:</Italian>
+      </Key>
+      <Key ID="STR_WF_Classic">
+        <English>Classic</English>
+        <French>Classique</French>
+        <German>Classic</German>
+        <Russian>Классика</Russian>
+        <Italian>Classic</Italian>
       </Key>
       <Key ID="STR_WF_CombatMode">
         <English>Combat Mode :</English>
@@ -411,7 +400,7 @@
 		<English>Exchangeable Armament System</English>
 		<French>Système d'Echange d'Armement</French>
 		<German>Austauschbare Flugzeugbewaffnung</German>
-		<Russian>Сменная Система Вооружения</Russian>
+		<Russian>Система Сменного Вооружения</Russian>
 		<Italian>Exchangeable Armament System</Italian>
       </Key>
       <Key ID="STR_WF_EASA_Purchase">
@@ -432,7 +421,7 @@
         <English>Faction:</English>
         <French>Faction:</French>
         <German>Faction:</German>
-        <Russian>Фракция:</Russian>
+        <Russian>Группа:</Russian>
         <Italian>Faction:</Italian>
       </Key>
 	  <Key ID="STR_WF_Factory">
@@ -523,7 +512,7 @@
         <English>Gameplay: Ambient Civilians</English>
         <French>Jouabilité: Vie Civil</French>
         <German>Gameplay: Zivilisten</German>
-        <Russian>Режим: Гражданские</Russian>
+        <Russian>Режим: Гражданские вокруг</Russian>
         <Italian>Gameplay: Ambient Civilians</Italian>
       </Key>
       <Key ID="STR_WF_Gameplay_Allies">
@@ -623,6 +612,13 @@
         <German>Respawn: Feind nah</German>
         <Russian>Возрожд: Режим противник рядом</Russian>
         <Italian>Respawn: Enemy near</Italian>
+      </Key>
+      <Key ID="STR_WF_Gameplay_TownCivilians">
+        <English>Towns: Civilians</English>
+        <French>Villes: Civils</French>
+        <German>Towns: Civilians</German>
+        <Russian>Город: Гражданские</Russian>
+        <Italian>Towns: Civilians</Italian>
       </Key>
       <Key ID="STR_WF_Gameplay_Clouds">
         <English>Module: Volumetric Clouds</English>
@@ -841,6 +837,20 @@
         <Russian>Город: Захват</Russian>
         <Italian>Città: Occupazione</Italian>
       </Key>
+	  <Key ID="STR_WF_Gameplay_PMC">
+        <English>Extension: Private Military Company</English>
+        <French>Extension: Private Military Company</French>
+        <German>Extension: Private Military Company</German>
+        <Russian>Дополнения: PMC</Russian>
+        <Italian>Extension: Private Military Company</Italian>
+      </Key>
+      <Key ID="STR_WF_Gameplay_Realistic_Gear">
+        <English>Restriction: Realistic Gear</English>
+        <French>Réstriction: Equipements Réalistique</French>
+        <German>Restriction: Realistic Gear</German>
+        <Russian>Огранич: Реалистичное снаряжение</Russian>
+        <Italian>Restriction: Realistic Gear</Italian>
+      </Key>
       <Key ID="STR_WF_Gameplay_Reinforcement_Occupation">
         <English>Towns: Occupation Reinforcements</English>
         <French>Villes: Renforts d'Occupation</French>
@@ -1017,6 +1027,27 @@
         <Russian>Город: Количество</Russian>
         <Italian>Città: Numero</Italian>
       </Key>
+	  <Key ID="STR_WF_Gameplay_TownsCaptureMode">
+        <English>Towns: Capture Mode</English>
+        <French>Villes: Mode de Capture</French>
+        <German>Towns: Capture Mode</German>
+        <Russian>Город: Режим захвата</Russian>
+        <Italian>Towns: Capture Mode</Italian>
+      </Key>
+	  <Key ID="STR_WF_Gameplay_TownsCaptureMode_AllCamps">
+        <English>All Camps are Required</English>
+        <French>Tous les camp sont Nécessaire</French>
+        <German>All Camps are Required</German>
+        <Russian>Все малые бункеры должны быть захвачены</Russian>
+        <Italian>All Camps are Required</Italian>
+      </Key>
+	  <Key ID="STR_WF_Gameplay_TownsCaptureMode_Threshold">
+        <English>Units Threshold</English>
+        <French>Seuil d'Unités</French>
+        <German>Units Threshold</German>
+        <Russian>Превосходство</Russian>
+        <Italian>Units Threshold</Italian>
+      </Key>
       <Key ID="STR_WF_Gameplay_TownsPurchaseMilita">
         <English>Towns: Purchase Infantry</English>
         <French>Villes: Achat d'Infantrie</French>
@@ -1114,6 +1145,13 @@
         <German>Ausrüstung</German>
         <Russian>Снаряжение</Russian>
         <Italian>Equipaggiamento</Italian>
+      </Key>
+      <Key ID="STR_WF_Gear_AllowTwo">
+        <English>&lt;t color='#F8D664'&gt;Gear Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - This weapon/loadout cannot be purchased due to your current loadout settings. &lt;br/&gt;&lt;br/&gt; (The &lt;t color='#85B5FA'&gt;Realistic Gear&lt;/t&gt; parameter prevent the use of heavy primary weapons with launchers or backpacks).</English>
+        <French>&lt;t color='#F8D664'&gt;Information d'Equipement:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Cette arme ou ensemble d'équipement ne peut être acheter en raison de votre équipement courant (Le paramètre &lt;t color='#85B5FA'&gt; Equipement réalistique &lt;/t&gt; empêche l'utilisation d'armement lourd avec des lance-missiles ou des sac à dos).</French>
+        <German>&lt;t color='#F8D664'&gt;Gear Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - This weapon/loadout cannot be purchased due to your current loadout settings. &lt;br/&gt;&lt;br/&gt; (The &lt;t color='#85B5FA'&gt;Realistic Gear&lt;/t&gt; parameter prevent the use of heavy primary weapons with launchers or backpacks).</German>
+        <Russian>&lt;t color='#F8D664'&gt;Снаряжение:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Это оружие/разгрузка нельзя сейчас купить. &lt;br/&gt;&lt;br/&gt; (Параметр &lt;t color='#85B5FA'&gt;Реальное оружие&lt;/t&gt; не допускает использовать тяжелое первичное оружие вместе с рюкзаками или ПТРК/ПЗРК.</Russian>
+        <Italian>&lt;t color='#F8D664'&gt;Gear Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - This weapon/loadout cannot be purchased due to your current loadout settings. &lt;br/&gt;&lt;br/&gt; (The &lt;t color='#85B5FA'&gt;Realistic Gear&lt;/t&gt; parameter prevent the use of heavy primary weapons with launchers or backpacks).</Italian>
       </Key>
       <Key ID="STR_WF_Heal">
         <English>Heal</English>
@@ -1219,13 +1257,6 @@
         <German>&lt;t color='#F8D664'&gt;Fabrik-Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Maximales Einheiten-Limit erreicht (&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; Einheiten).</German>
         <Russian>&lt;t color='#F8D664'&gt;Информация:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt;Достигнут лимит отряда (&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; человек)</Russian>
         <Italian>&lt;t color='#F8D664'&gt;Informazioni Fabrica:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Limite Unità Raggiunto (&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; Unità).</Italian>
-      </Key>
-      <Key ID="STR_WF_MissionMenu">
-        <English>Missions Menu</English>
-        <French>Menu Missions</French>
-        <German>Aufträge</German>
-        <Russian>Меню заданий</Russian>
-        <Italian>Menu Missioni</Italian>
       </Key>
       <Key ID="STR_WF_Move">
         <English>Move</English>
@@ -1360,6 +1391,13 @@
         <Russian>Патрулирование</Russian>
         <Italian>Pattuglie</Italian>
       </Key>
+      <Key ID="STR_WF_Penalty">
+        <English>$%1. Lost for a civilian neutralization! be careful!</English>
+        <French>$%1. Perdu pour la neutralisation d'un civil! soyer prudent!</French>
+        <German>$%1. Lost for a civilian neutralization! be careful!</German>
+        <Russian>-$%1. Штраф за убийство гражданских. Будь внимательней!</Russian>
+        <Italian>$%1. Lost for a civilian neutralization! be careful!</Italian>
+      </Key>
       <Key ID="STR_WF_PlayerCommander">
         <English>You are the Commander.</English>
         <French>Vous êtes le Commandeur.</French>
@@ -1408,6 +1446,20 @@
         <German>Anschieben (Fahrzeug)</German>
         <Russian>Толкнуть (Транспорт)</Russian>
         <Italian>Spingi (Veicolo)</Italian>
+      </Key>
+      <Key ID="STR_WF_Queu">
+        <English>&lt;t color='#F8D664'&gt;Factory Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; Queued.</English>
+         <French>&lt;t color='#F8D664'&gt;Information Usine:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; Mis en attente.</French>
+         <German>&lt;t color='#F8D664'&gt;Fabrik-Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; in der Warteschlange.</German>
+        <Russian>&lt;t color='#F8D664'&gt;Информация:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt;&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; на очереди.</Russian>
+        <Italian>&lt;t color='#F8D664'&gt;Factory Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; Queued.</Italian>
+      </Key>
+      <Key ID="STR_WF_Queued">
+        <English>Factory Queue: %1</English>
+        <French>Queu de fabrication: %1</French>
+        <German>Warteschlange: %1</German>
+        <Russian>На конвеере: %1</Russian>
+        <Italian>Coda Produzione: %1</Italian>
       </Key>
       <Key ID="STR_WF_Rearm">
         <English>Rearm</English>
@@ -1478,6 +1530,27 @@
         <German>Wiedereinstieg</German>
         <Russian>Возрождение</Russian>
         <Italian>Respawn</Italian>
+      </Key>
+      <Key ID="STR_WF_Respawn_CampsNearby">
+        <English>Nearby Camps</English>
+        <French>Camps à Proximité</French>
+        <German>Nearby Camps</German>
+        <Russian>Nearby Camps</Russian>
+        <Italian>Nearby Camps</Italian>
+      </Key>
+	  <Key ID="STR_WF_Respawn_CampsRule_WestEast">
+        <English>West | East</English>
+        <French>Ouest | Est</French>
+        <German>West | East</German>
+        <Russian>West | East</Russian>
+        <Italian>West | East</Italian>
+      </Key>
+	  <Key ID="STR_WF_Respawn_CampsRule_WestEastRes">
+        <English>West | East | Resistance</English>
+        <French>Ouest | Est | Résistance</French>
+        <German>West | East | Resistance</German>
+        <Russian>West | East | Resistance</Russian>
+        <Italian>West | East | Resistance</Italian>
       </Key>
 	  <Key ID="STR_WF_Respawn_Penalty">
         <English>Respawn: Penalty</English>
@@ -1774,11 +1847,18 @@
         <Italian>Durata Incarichi:</Italian>
       </Key>
       <Key ID="STR_WF_TaskTown">
-        <English>Capturing %1 is essential to our team, neutralizing %1 Depot will help to capture it.</English>
-        <French>Capturer %1 est essentiel à notre équipe, neutraliser le Dépot de %1 pour procéder à la capture.</French>
+        <English>Capturing %1 is essential to our team, neutralizing %1 Depot will ensure it's capture.</English>
+        <French>Capturer %1 est éssentiel à notre équipe, neutraliser le Dépot de %1 pour procéder à la capture.</French>
         <German>%1 einzunehmen ist essentiell für das Team, neutralisieren Sie das zentrale Depot, um die Stadt einzunehmen.</German>
         <Russian>Захват %1 имеет большое значение для нас. Захватите бункер в центре для захвата города.</Russian>
         <Italian>Conquistare %1 è fondamentale per il nostro Team, neutralizza il deposito di %1 per catturarlo.</Italian>
+      </Key>
+      <Key ID="STR_WF_TaskTown_Complete">
+        <English>%1 has been captured by our team, Defending %1 Depot and Camps might be necessary to prevent enemies from taking it.</English>
+        <French>Notre équipe à capturé %1, la défense du Dépot de %1 et de ses Camps sera peut être nécessaire pour empêcher l'énemie de s'en emparer.</French>
+        <German>%1 has been captured by our team, Defending %1 Depot and Camps might be necessary to prevent enemies from taking it.</German>
+        <Russian>%1 has been captured by our team, Defending %1 Depot and Camps might be necessary to prevent enemies from taking it.</Russian>
+        <Italian>%1 has been captured by our team, Defending %1 Depot and Camps might be necessary to prevent enemies from taking it.</Italian>
       </Key>
       <Key ID="STR_WF_TaskTown_Display">
         <English>Capture %1</English>

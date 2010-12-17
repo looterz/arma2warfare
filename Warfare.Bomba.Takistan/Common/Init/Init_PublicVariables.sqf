@@ -3,6 +3,7 @@ Private ['_count','_l'];
 waitUntil { !isNil "initJIP" };
 
 _l		= [];
+_l = _l + ["RequestVehicleLock"];
 _l = _l + ["RequestCommanderVote"];
 _l = _l + ["RequestStructure"];
 _l = _l + ["RequestDefense"];
@@ -22,6 +23,7 @@ _l = _l + ["DisplayICBM"];
 _l = _l + ["EndGame"];
 _l = _l + ["ISIS_AddAction"];
 _l = _l + ["LocalizeMessage"];
+_l = _l + ["Penalty"];
 _l = _l + ["SetHQStatus"];
 _l = _l + ["SetTask"];
 _l = _l + ["SetVehicleLock"];

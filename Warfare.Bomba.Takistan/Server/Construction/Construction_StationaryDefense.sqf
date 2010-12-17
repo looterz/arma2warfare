@@ -68,7 +68,7 @@ if (_defense EmptyPositions "gunner" > 0 && paramAutoDefense) then {
 
 			//--- Manning Defenses.
 			if (_barrackNearby) then {			
-				[_defense,_soldier,_side,_team] Spawn HandleDefense;
+				[_defense,_side,_team,_closest] Spawn HandleDefense;
 			};
 		};
 	};

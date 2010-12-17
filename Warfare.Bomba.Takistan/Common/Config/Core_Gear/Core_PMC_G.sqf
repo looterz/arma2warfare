@@ -7,13 +7,53 @@ _i = [];
 
 /* Magazines - West */
 _u = _u + ['20Rnd_B_AA12_Pellets'];
-_i = _i + [['','','CfgMagazines','primary',20,0,true,false,0,0]];
+_i = _i + [['','','CfgMagazines','primary',8,0,true,false,0,0,true]];
 
 _u = _u + ['20Rnd_B_AA12_74Slug'];
-_i = _i + [['','','CfgMagazines','primary',30,1,true,false,0,0]];
+_i = _i + [['','','CfgMagazines','primary',10,0,true,false,0,0,true]];	
 
 _u = _u + ['20Rnd_B_AA12_HE'];
-_i = _i + [['','','CfgMagazines','primary',30,1,true,false,0,0]];
+_i = _i + [['','','CfgMagazines','primary',45,3,true,false,0,0,true]];
+
+/* Primary Weapons - West */
+_u = _u + ['AA12_PMC'];
+_i = _i + [['','','CfgWeapons','',380,2,true,false,0,0,true]];
+
+_u = _u + ['m8_carbine'];
+_i = _i + [['','','CfgWeapons','',280,2,true,false,0,0,true]];
+
+_u = _u + ['m8_carbineGL'];
+_i = _i + [['','','CfgWeapons','',290,3,true,false,0,0,true]];
+
+_u = _u + ['m8_compact'];
+_i = _i + [['','','CfgWeapons','',285,2,false,false,0,0,true]];
+
+_u = _u + ['m8_SAW'];
+_i = _i + [['','','CfgWeapons','',310,3,false,false,0,0,false]];
+
+_u = _u + ['m8_sharpshooter'];
+_i = _i + [['','','CfgWeapons','',295,3,false,false,0,0,true]];
+
+_u = _u + ['m8_carbine_pmc'];
+_i = _i + [['','','CfgWeapons','',290,2,true,false,0,0,true]];
+
+_u = _u + ['m8_compact_pmc'];
+_i = _i + [['','','CfgWeapons','',295,2,false,false,0,0,true]];
+
+_u = _u + ['m8_holo_sd'];
+_i = _i + [['','','CfgWeapons','',335,3,false,false,0,0,true]];
+
+_u = _u + ['m8_tws'];
+_i = _i + [['','','CfgWeapons','',350,3,false,false,0,0,true]];
+
+_u = _u + ['m8_tws_sd'];
+_i = _i + [['','','CfgWeapons','',385,3,false,false,0,0,true]];
+
+/* Secondary weapons - West */
+/* Misc - West */
+
+
+/* Misc - East */
 
 _u = _u + ['8Rnd_B_Saiga12_Pellets'];
 _i = _i + [['','','CfgMagazines','primary',30,0,true,false,0,0]];
@@ -24,36 +64,6 @@ _i = _i + [['','','CfgMagazines','primary',30,0,true,false,0,0]];
 _u = _u + ['14Rnd_57mm'];
 _i = _i + [['','','CfgMagazines','primary',30,0,true,false,0,0]];
 
-/* Primary Weapons - West */
-_u = _u + ['AA12_PMC'];
-_i = _i + [['','','CfgWeapons','',495,3,true,false,1,0]];
-
-_u = _u + ['PMC_AS50_scoped'];
-_i = _i + [['','','CfgWeapons','',395,3,true,false,2,0]];
-
-_u = _u + ['PMC_AS50_TWS'];
-_i = _i + [['','','CfgWeapons','',595,3,true,false,3,0]];
-
-_u = _u + ['m8_tws'];
-_i = _i + [['','','CfgWeapons','',595,3,true,false,3,0]];
-
-_u = _u + ['m8_tws_sd'];
-_i = _i + [['','','CfgWeapons','',695,3,true,false,3,0]];
-
-_u = _u + ['m8_holo_sd'];
-_i = _i + [['','','CfgWeapons','',395,3,true,false,1,0]];
-
-_u = _u + ['m8_compact_pmc'];
-_i = _i + [['','','CfgWeapons','',295,3,true,false,0,0]];
-
-_u = _u + ['m8_carbine_pmc'];
-_i = _i + [['','','CfgWeapons','',395,3,true,false,0,0]];
-
-/* Secondary weapons - West */
-/* Misc - West */
-
-
-/* Misc - East */
 _u = _u + ['PMC_ied_v1'];
 _i = _i + [['','','CfgMagazines','CfgMagazines',25,0,true,false,0,0]];
 
