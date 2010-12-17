@@ -84,7 +84,7 @@ _slot = 0;
 
 	if !(isNil '_get') then {
 		CtrlSetText[_miscInvGUI + _slot,(_get select QUERYGEARPICTURE)];
-	_slot = _slot + 1;
+		_slot = _slot + 1;
 		_miscItemSlots = _miscItemSlots + [_x];
 		_cost = _cost + (_get select QUERYGEARCOST);
 		for [{_count = (_get Select QUERYGEARSPACE) - 1},{_count > 0},{_count = _count - 1}] do {
