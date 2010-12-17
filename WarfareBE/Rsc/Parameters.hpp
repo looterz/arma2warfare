@@ -200,6 +200,12 @@ class Params {
 			texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 			default = 1;
 		};
+		class extensionPMC {
+			title = "$STR_WF_Gameplay_PMC";
+			values[] = {0,1};
+			texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+			default = 1;
+		};
 	#endif
 	class gameplayAlice {
 		title = "$STR_WF_Gameplay_Alice";
@@ -367,15 +373,15 @@ class Params {
 	};
 	class respawnCamps {
 		title = "$STR_WF_Gameplay_Camp";
-		values[] = {0,1};
-		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 1;
+		values[] = {0,1,2};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Classic","$STR_WF_Respawn_CampsNearby"};
+		default = 2;
 	};
 	class respawnCampsRule {
 		title = "$STR_WF_Gameplay_CampRespawnRule";
-		values[] = {0,1};
-		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 1;
+		values[] = {0,1,2};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Respawn_CampsRule_WestEast","$STR_WF_Respawn_CampsRule_WestEastRes"};
+		default = 2;
 	};
 	class respawnDelay {
 		title = "$STR_WF_Gameplay_Respawn";
@@ -406,7 +412,7 @@ class Params {
 		title = "$STR_WF_Gameplay_TownRespawnRange";
 		values[] = {50,100,150,200,250,300,350,400,450,500,550,600,650,700,750,800,850,900,950,1000};
 		texts[] = {"50m","100m","150m","200m","250m","300m","350m","400m","450m","500m","550m","600m","650m","700m","750m","800m","850m","900m","950m","1000m"};
-		default = 550;
+		default = 300;
 	};
 	class restrictionAdvancedAir {
 		title = "$STR_WF_Gameplay_AdvancedAir";
@@ -428,6 +434,12 @@ class Params {
 			default = 0;
 		};
 	#endif
+	class restrictionRealisticGear {
+		title = "$STR_WF_Gameplay_Realistic_Gear";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 1;
+	};
 	class townsAmount {
 		title = "$STR_WF_Gameplay_TownsAmount";
 		values[] = {0,1,2,3,4};
@@ -438,6 +450,18 @@ class Params {
 		title = "$STR_WF_Gameplay_MaxResStriker";
 		values[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,22,24,26,28,30,32,34,36,38,40};
 		texts[] = {"$STR_WF_Disabled","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","22","24","26","28","30","32","34","36","38","40"};
+		default = 0;
+	};
+	class townsCaptureMode {
+		title = "$STR_WF_Gameplay_TownsCaptureMode";
+		values[] = {0,1,2};
+		texts[] = {"$STR_WF_Classic","$STR_WF_Gameplay_TownsCaptureMode_Threshold","$STR_WF_Gameplay_TownsCaptureMode_AllCamps"};
+		default = 1;
+	};
+	class townsCivilians {
+		title = "$STR_WF_Gameplay_TownCivilians";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 0;
 	};
 	class townsOccupation {

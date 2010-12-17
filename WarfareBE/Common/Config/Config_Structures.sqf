@@ -348,6 +348,7 @@ if (WF_A2_Vanilla) then {
 	
 	/* RESISTANCE STATIONARY DEFENSES */
 	_n			= ["GUE_WarfareBMGNest_PK"];
+	_n = _n		+ ["ZU23_Gue"];
 
 	['WFBE_RESISTANCEDEFENSENAMES',_n,true] Call SetNamespace;
 };
@@ -692,6 +693,7 @@ if (WF_A2_Arrowhead) then {
 
 	/* RESISTANCE STATIONARY DEFENSES */
 	_n			= ["WarfareBMGNest_PK_TK_GUE_EP1"];
+	_n = _n		+ ["ZU23_TK_GUE_EP1"];
 
 	['WFBE_RESISTANCEDEFENSENAMES',_n,true] Call SetNamespace;
 };
@@ -1037,6 +1039,8 @@ if (WF_A2_CombinedOps) then {
 	/* RESISTANCE STATIONARY DEFENSES */
 	_n			= ["WarfareBMGNest_PK_TK_GUE_EP1"];
 	_n = _n		+ ["GUE_WarfareBMGNest_PK"];
+	_n = _n		+ ["ZU23_Gue"];
+	_n = _n		+ ["ZU23_TK_GUE_EP1"];
 
 	['WFBE_RESISTANCEDEFENSENAMES',_n,true] Call SetNamespace;
 };

@@ -19,7 +19,10 @@ class Mission
 		"catracked_w_baf",
 		"caair_baf_ch_47f",
 		"caair_baf",
-		"caweapons_baf"
+		"caweapons_baf",
+		"cacharacters_pmc",
+		"cawheeled_pmc_armoredsuv",
+		"caair_pmc_ka60"
 	};
 	addOnsAuto[]=
 	{
@@ -37,7 +40,7 @@ class Mission
 	randomSeed=6848509;
 	class Intel
 	{
-		briefingName="Warfare BE V2.065 Lite CO - Takistan";
+		briefingName="Warfare BE V2.066 Lite CO - Takistan";
 		briefingDescription="By Benny";
 		resistanceWest=0;
 		startWeather=0;
@@ -3415,5 +3418,7 @@ class OutroLoose
 		minute=20;
 	};
 };
+
+
 
 

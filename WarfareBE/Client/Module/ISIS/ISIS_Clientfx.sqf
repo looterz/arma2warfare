@@ -40,7 +40,7 @@ _nu = [_camera] Spawn {
 		waitUntil{camCommitted _camera};
 		if (random 100 < 20) then {
 			_ran = round(random((count _shout)-1));
-			player kbTell [sideHQ, (sideHQ getVariable "_topic_identity"), "simple",["1","",(_shoutTrsl select _ran),[(_shout select _ran)]],true];
+			player kbTell [sideHQ, WFBE_V_HQTopicSide, "simple",["1","",(_shoutTrsl select _ran),[(_shout select _ran)]],true];
 		};
 	};
 };

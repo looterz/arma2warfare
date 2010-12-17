@@ -1,18 +1,41 @@
 /*
 	Script: Skill System by Benny.
-	Description: Add special skills to players in function of their slots.
+	Description: Skill Initialization.
 */
 
-_type = "";
-_label = "";
-_condition = "";
+/* Skills Root */
+WFBE_SK_V_Root = 'Client\Module\Skill\Skill_';
 
-if (playerType in Skills_Engineers) then {_type = "Engineer";_label = localize "STR_WF_Action_Repair";_condition = "time - lastSkillUse > 60"};
-if (playerType in Skills_Spot) then {_type = "Sniper";_label = localize "STR_WF_Action_Spot";_condition = "time - lastSkillUse > 10"};
-if (playerType in Skills_Lockpick) then {_type = "SpecOps";_label = localize "STR_WF_Action_Lockpick";_condition = "time - lastSkillUse > 25"};
-if ((playerType in Skills_MASH) && paramRespawnMASH) then {_type = "Officer";_label = localize "STR_WF_Action_DeployMASH";_condition = "time - lastSkillUse > 600"};
+/* Functions */
+WFBE_SK_FNC_Apply = Compile preprocessFile "Client\Module\Skill\Skill_Apply.sqf";
 
-if (_type != "") then {
-	_action = Format ["Client\Module\Skill\Skill_%1.sqf",_type];
-	player addAction [_label,_action, [], 90, false, true, "", _condition];
-};
+/* Define which classname belong to which skill group */
+WFBE_SK_V_Engineers = ['USMC_SoldierS_Engineer','MVD_Soldier_TL','US_Soldier_Engineer_EP1','TK_Soldier_Engineer_EP1'];
+WFBE_SK_V_Officers = ['FR_Commander','RUS_Commander','US_Soldier_SL_EP1','TK_Soldier_SL_EP1'];
+WFBE_SK_V_Soldiers = ['FR_R','RUS_Soldier1','US_Delta_Force_EP1','TK_Special_Forces_EP1'];
+WFBE_SK_V_SpecsOps = ['FR_TL','RUS_Soldier_TL','US_Delta_Force_TL_EP1','TK_Special_Forces_TL_EP1'];
+WFBE_SK_V_Spotters = ['USMC_SoldierS_Sniper','RU_Soldier_Sniper','US_Soldier_Sniper_EP1','TK_Soldier_Sniper_EP1'];
+
+/* Skills Variables */
+WFBE_SK_V_LastUse_Repair = -1200;
+WFBE_SK_V_LastUse_MASH = -1200;
+WFBE_SK_V_LastUse_Lockpick = -1200;
+WFBE_SK_V_LastUse_Spot = -1200;
+
+/* Skills Timeout */
+WFBE_SK_V_Reload_Repair = 65;
+WFBE_SK_V_Reload_MASH = 600;
+WFBE_SK_V_Reload_Lockpick = 25;
+WFBE_SK_V_Reload_Spot = 8;
+
+/* Find the player type */
+WFBE_SK_V_Type = "";
+if (playerType in WFBE_SK_V_Engineers) then {WFBE_SK_V_Type = "Engineer"};
+if (playerType in WFBE_SK_V_Officers) then {WFBE_SK_V_Type = "Officer"};
+if (playerType in WFBE_SK_V_Soldiers) then {WFBE_SK_V_Type = "Soldier"};
+if (playerType in WFBE_SK_V_SpecsOps) then {WFBE_SK_V_Type = "SpecOps"};
+if (playerType in WFBE_SK_V_Spotters) then {WFBE_SK_V_Type = "Spotter"};
+
+/* Special one time init */
+/* The soldier can hire more units than the others leader */
+if (WFBE_SK_V_Type == 'Soldier') then {['WFBE_MAXGROUPSIZE',('WFBE_MAXGROUPSIZE' Call GetNameSpace) + ('WFBE_MAXGZBONUSSKILL' Call GetNamespace),true] Call SetNamespace};

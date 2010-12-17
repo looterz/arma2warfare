@@ -1,9 +1,9 @@
-/*%FSM<COMPILE "D:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, resstriker">*/
+/*%FSM<COMPILE "F:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, resstriker">*/
 /*%FSM<HEAD>*/
 /*
 item0[] = {"Init_Patrol",0,250,-37.336731,-245.259415,52.663269,-195.259415,0.000000,"Init Patrol"};
 item1[] = {"Wait",4,218,-35.585495,-60.933670,54.414505,-10.933670,0.000000,"Wait"};
-item2[] = {"Activity",2,250,-38.403221,10.450424,51.596794,60.450424,0.000000,"Activity"};
+item2[] = {"Activity",2,4346,-38.403221,10.450424,51.596794,60.450424,0.000000,"Activity"};
 item3[] = {"is_Active",4,218,101.439552,11.111540,191.439560,61.111511,1.000000,"is Active"};
 item4[] = {"Actions",2,250,100.520218,-64.953995,190.520096,-14.954021,0.000000,"Actions"};
 item5[] = {"Spawn",4,218,-316.513123,35.015533,-226.513107,85.015488,10.000000,"Spawn"};
@@ -37,7 +37,7 @@ link16[] = {13,1};
 link17[] = {14,15};
 link18[] = {15,1};
 globals[] = {0.000000,0,0,0,0,640,480,1,40,6316128,1,-358.298737,441.757324,317.624573,-294.183075,680,515,1};
-window[] = {0,-1,-1,-1,-1,735,100,1399,100,1,698};
+window[] = {0,-1,-1,-1,-1,838,154,1453,203,1,698};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -76,7 +76,7 @@ class FSM
        "_sideID = _location getVariable ""sideID"";" \n
        "_isActive = _location getVariable ""activeStriker"";" \n
        "" \n
-       "_alives = if (!isNil ""_team"") then {Count ((Units  _team) Call GetLiveUnits)} else {1};"/*%FSM</STATEINIT""">*/;
+       "_alives = if (!isNil ""_team"") then {Count ((Units  _team) Call GetLiveUnits)} else {0};"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -141,7 +141,7 @@ class FSM
        "if (time - _travelTime > 2400 || !alive _target || isNull _target) then {_update = true};" \n
        "" \n
        "if (_update) then {" \n
-       "	_buildings = (WestBaseStructures) + (EastBaseStructures) + [EastMHQ,WestMHQ]" \n
+       "	_buildings = (WestBaseStructures) + (EastBaseStructures) + [EastMHQ,WestMHQ];" \n
        "	_near = [_location, _buildings] Call SortByDistance;" \n
        "	_target = _near select 0;" \n
        "	[_team, true, [[_target, 'SAD', 100, 60]]] Call AIWPAdd;" \n

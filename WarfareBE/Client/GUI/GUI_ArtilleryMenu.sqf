@@ -220,7 +220,7 @@ while {alive player && dialog} do {
 				_skip = false;
 				if (!alive player) then {_skip = true};
 				if (!_skip) then {
-					{[_x,_locationPosition,120] Call PlaceSafe;_x setVelocity [0,0,-1]} forEach _travelingWith;
+					{[_x,_locationPosition,120] Call PlaceSafe} forEach _travelingWith;
 				};
 				sleep 1;
 				

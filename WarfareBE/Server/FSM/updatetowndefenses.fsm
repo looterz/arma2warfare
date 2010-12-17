@@ -1,4 +1,4 @@
-/*%FSM<COMPILE "D:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, updatetowndefenses">*/
+/*%FSM<COMPILE "F:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, updatetowndefenses">*/
 /*%FSM<HEAD>*/
 /*
 item0[] = {"Init",0,250,-63.339870,-329.544403,26.660130,-279.544769,0.000000,"Init"};
@@ -6,7 +6,7 @@ item1[] = {"End",1,250,-182.368073,-113.480629,-92.368042,-63.480659,0.000000,"E
 item2[] = {"Gameover",4,218,-182.650177,-187.482422,-92.650192,-137.482452,0.000000,"Gameover"};
 item3[] = {"_",8,218,-35.668163,-247.514877,-3.862146,-224.939621,0.000000,""};
 item4[] = {"Defense_Core",2,250,-63.405182,-187.376434,26.594841,-137.376434,0.000000,"Defense Core"};
-item5[] = {"Resistance",4,4314,-63.096802,-113.322952,26.903198,-63.322945,0.000000,"Resistance"};
+item5[] = {"Resistance",4,218,-63.096802,-113.322952,26.903198,-63.322945,0.000000,"Resistance"};
 item6[] = {"Skip",4,218,51.723022,-187.995987,141.723053,-137.995987,0.000000,"Skip"};
 item7[] = {"_",8,218,392.190338,-190.067062,423.996338,-167.491791,0.000000,""};
 item8[] = {"Advanced_Defense",2,250,-63.899727,-37.846992,26.100292,12.153011,0.000000,"Advanced" \n "Defense"};
@@ -16,7 +16,7 @@ item11[] = {"Active",4,218,49.450504,118.698433,139.450470,168.698425,0.000000,"
 item12[] = {"Update",2,250,-63.949944,119.619461,26.049990,169.619431,0.000000,"Update"};
 item13[] = {"_",2,250,357.586823,-300.604431,447.586670,-250.604416,0.000000,""};
 item14[] = {"Inactive",4,218,-63.968323,202.808212,26.031679,252.808212,0.000000,"Inactive"};
-item15[] = {"Spawn",2,250,444.153107,200.280548,534.152710,250.280533,0.000000,"Spawn"};
+item15[] = {"Spawn_Res",2,250,505.445801,202.593475,595.445435,252.593460,0.000000,"Spawn Res"};
 item16[] = {"__1",2,250,173.981140,117.028183,263.981445,167.028183,0.000000,""};
 item17[] = {"Reinf_",4,218,321.587677,117.539032,411.587677,167.539017,0.000000,"Reinf?"};
 item18[] = {"no_Reinf",4,218,173.933121,40.630589,263.933228,90.630539,1.000000,"no Reinf"};
@@ -28,6 +28,9 @@ item23[] = {"__3",2,250,358.437653,-452.002045,448.437714,-402.002045,0.000000,"
 item24[] = {"Time___1",4,218,215.696960,-494.702240,305.696960,-444.702209,0.000000,"Time >"};
 item25[] = {"Time__",4,218,210.816925,-367.821625,300.816895,-317.821625,0.000000,"Time <"};
 item26[] = {"Delete",2,250,90.036407,-493.482239,180.036377,-443.482239,0.000000,"Delete"};
+item27[] = {"Civilians",4,218,438.384674,124.400330,528.384521,174.400330,0.000000,"Civilians"};
+item28[] = {"No_Civilians",4,218,569.764099,125.541168,659.764099,175.541046,0.000000,"No Civilians"};
+item29[] = {"Spawn_Civilians",2,250,438.011932,38.918774,528.011597,88.918900,0.000000,"Spawn Civilians"};
 link0[] = {0,3};
 link1[] = {2,1};
 link2[] = {3,4};
@@ -47,22 +50,26 @@ link15[] = {12,14};
 link16[] = {13,20};
 link17[] = {13,21};
 link18[] = {14,15};
-link19[] = {15,7};
-link20[] = {16,17};
-link21[] = {16,18};
-link22[] = {17,19};
-link23[] = {18,13};
-link24[] = {19,7};
-link25[] = {20,22};
-link26[] = {21,23};
-link27[] = {22,3};
-link28[] = {23,24};
-link29[] = {23,25};
-link30[] = {24,26};
-link31[] = {25,22};
-link32[] = {26,3};
-globals[] = {0.000000,0,0,0,0,640,480,1,81,6316128,1,-345.034454,770.047791,311.367950,-637.109619,763,649,1};
-window[] = {0,-1,-1,-1,-1,869,100,1552,100,1,781};
+link19[] = {15,27};
+link20[] = {15,28};
+link21[] = {16,17};
+link22[] = {16,18};
+link23[] = {17,19};
+link24[] = {18,13};
+link25[] = {19,7};
+link26[] = {20,22};
+link27[] = {21,23};
+link28[] = {22,3};
+link29[] = {23,24};
+link30[] = {23,25};
+link31[] = {24,26};
+link32[] = {25,22};
+link33[] = {26,3};
+link34[] = {27,29};
+link35[] = {28,13};
+link36[] = {29,7};
+globals[] = {0.000000,0,0,0,0,640,480,1,84,6316128,1,-28.911661,740.138489,315.715332,-523.879272,665,726,1};
+window[] = {0,-1,-1,-1,-1,859,84,1409,18,1,683};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -79,6 +86,7 @@ class FSM
        "_resistanceTeamTypes = _this select 1;" \n
        "_probability = _this select 2;" \n
        "_detectionRange = _this select 3;" \n
+       "_maxSV = _this select 4;" \n
        "_name = Str _location;" \n
        "" \n
        "_patrolRange = _detectionRange * ('WFBE_DETECTIONTOPATROLRANGERATIO' Call GetNamespace);" \n
@@ -98,7 +106,16 @@ class FSM
        "_location setVariable [""reinforcements"",[]];" \n
        "_location setVariable [""reinforcements_alive"",0];" \n
        "" \n
-       "_defenses = _location NearEntities['WFBE_RESISTANCEDEFENSENAMES' Call GetNamespace,_detectionRange];" \n
+       "_civTeams = """";" \n
+       "_cTeams = [];" \n
+       "_coef = 1;" \n
+       "if (paramTownsCivilians) then {" \n
+       "	if (_maxSV <= 50) then {_civTeams = ""Villagers""};" \n
+       "	if (_maxSV > 50 && _maxSV < 120) then {_civTeams = ""Citizen"";_coef = 2};" \n
+       "	if (_maxSV >= 120) then {_civTeams = ""LargeCitizen"";_coef = 3};" \n
+       "};" \n
+       "" \n
+       "_defenses = _location nearEntities['WFBE_RESISTANCEDEFENSENAMES' Call GetNamespace,_detectionRange];" \n
        "{_x addEventHandler [""Killed"",{[_this select 0,_this select 1,resistance] Spawn UnitKilled}]} forEach _defenses;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
@@ -131,7 +148,7 @@ class FSM
     class Defense_Core
     {
       name = "Defense_Core";
-      init = /*%FSM<STATEINIT""">*/"_lastUpdate = time;" \n
+      init = /*%FSM<STATEINIT""">*/"_lastUpdate = time + random(0.2);" \n
        "" \n
        "_sideID = _location getVariable ""sideID"";"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
@@ -143,7 +160,7 @@ class FSM
           priority = 0.000000;
           to="Advanced_Defense";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"!gameOver && time - _lastUpdate > (10+random 0.2) && _sideID == RESISTANCEID"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!gameOver && time - _lastUpdate > 10 && _sideID == RESISTANCEID"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -217,7 +234,7 @@ class FSM
         class Inactive
         {
           priority = 0.000000;
-          to="Spawn";
+          to="Spawn_Res";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/"!_resistanceActive"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
@@ -267,10 +284,10 @@ class FSM
       };
     };
     /*%FSM</STATE>*/
-    /*%FSM<STATE "Spawn">*/
-    class Spawn
+    /*%FSM<STATE "Spawn_Res">*/
+    class Spawn_Res
     {
-      name = "Spawn";
+      name = "Spawn_Res";
       init = /*%FSM<STATEINIT""">*/"_teamCount = 0;" \n
        "_totalTeams = count _resistanceTeamTypes;" \n
        "_emptyDefenses = [];" \n
@@ -327,13 +344,23 @@ class FSM
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
-        /*%FSM<LINK "_">*/
-        class _
+        /*%FSM<LINK "No_Civilians">*/
+        class No_Civilians
         {
           priority = 0.000000;
           to="_";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!paramTownsCivilians"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Civilians">*/
+        class Civilians
+        {
+          priority = 0.000000;
+          to="Spawn_Civilians";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"paramTownsCivilians"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -524,6 +551,17 @@ class FSM
        "	_reinforcementTeams = [];" \n
        "	_location setVariable [""reinforcements"",[]];" \n
        "	_location setVariable [""reinforcements_alive"",0];" \n
+       "};" \n
+       "if (paramTownsCivilians) then {" \n
+       "	_count = 0;" \n
+       "	_total = count _cTeams;" \n
+       "	while {_count < _total} do {" \n
+       "		_team = _cTeams select _count;" \n
+       "		{deleteVehicle _x} forEach units _team;" \n
+       "		deleteGroup _team;" \n
+       "		_count = _count + 1;" \n
+       "	};" \n
+       "	_cTeams = [];" \n
        "};"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
@@ -533,6 +571,50 @@ class FSM
         {
           priority = 0.000000;
           to="Defense_Core";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Spawn_Civilians">*/
+    class Spawn_Civilians
+    {
+      name = "Spawn_Civilians";
+      init = /*%FSM<STATEINIT""">*/"_teamCount = 0;" \n
+       "while {_teamCount < _coef} do {" \n
+       "	_unitTypes = Format[""WFBE_CIV%1%2UNITS"",_civTeams,(1+round(random 3))] Call GetNamespace;" \n
+       "	_leaderName = _unitTypes select 0;" \n
+       "	_position = ([getPos _location,_tusr,_patrolRange] Call GetRandomPosition);" \n
+       "	_team = createGroup Civilian;" \n
+       "	_leader = _team createUnit [_leaderName,_position,[],0.4,""FORM""];" \n
+       "	_leader addEventHandler ['Killed',{[_this select 0,_this select 1] Spawn CivilianKilled}];" \n
+       "	[_leader,_position,50] Call PlaceSafe;" \n
+       "	_position = getPos _leader;" \n
+       "	_cTeams = _cTeams + [_team];" \n
+       "	_count = 1;" \n
+       "	_total = count _unitTypes;" \n
+       "" \n
+       "	while {_count < _total} do {" \n
+       "		_unitName = _unitTypes select _count;" \n
+       "		_unit = _team createUnit [_unitName,_position,[],0.4,""FORM""];" \n
+       "		_unit addEventHandler ['Killed',{[_this select 0,_this select 1] Spawn CivilianKilled}];" \n
+       "		_count = _count + 1;" \n
+       "	};" \n
+       "" \n
+       "	_teamCount = _teamCount + 1;" \n
+       "	[_team,_location,(_tupd/2)] Spawn AITownPatrol;" \n
+       "};"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "_">*/
+        class _
+        {
+          priority = 0.000000;
+          to="_";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;

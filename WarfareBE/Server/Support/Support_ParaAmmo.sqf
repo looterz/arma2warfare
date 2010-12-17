@@ -24,24 +24,20 @@ _timeStart = time;
 _ran = round(random((count _ranPos)-1));
 _grp = createGroup _side;
 _vehicle = createVehicle [Format ["WFBE_%1PARAVEHI",str _side] Call GetNamespace,(_ranPos select _ran), [], (_ranDir select _ran), "FLY"];
-_built = WF_Logic getVariable Format ["%1VehiclesCreated",str _side];
-_built = _built + 1;
-WF_Logic setVariable [Format["%1VehiclesCreated",str _side],_built,true];
-_built = WF_Logic getVariable Format ["%1UnitsCreated",str _side];
 _pilot = [Format ["WFBE_%1PILOT",str _side] Call GetNamespace,_grp,[100,12000,0],_side] Call CreateMan;
+[str _side,'VehiclesCreated',1] Call UpdateStatistics;
+[str _side,'UnitsCreated',1] Call UpdateStatistics;
 _pilot moveInDriver _vehicle;
 _grp setBehaviour 'CARELESS';
 _grp setCombatMode 'STEALTH';
 _pilot disableAI 'AUTOTARGET';
 _pilot disableAI 'TARGET';
-_built = _built + 1;
 [_grp,(_args select 2),"MOVE",10] Call AIMoveTo;
 Call Compile Format ["_vehicle addEventHandler ['Killed',{[_this select 0,_this select 1,%1] Spawn UnitKilled}]",_side];
 _vehicle setVehicleInit Format["[this,%1] ExecVM 'Common\Common_InitUnit.sqf';",_side];
 processInitCommands;
 _vehicle flyInHeight (200 + random(20));
 _exit = false;
-WF_Logic setVariable [Format["%1UnitsCreated",str _side],_built,true];
 _cargo = (crew _vehicle) - [driver _vehicle, gunner _vehicle, commander _vehicle];
 
 while {!_exit} do {

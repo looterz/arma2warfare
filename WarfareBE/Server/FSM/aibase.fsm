@@ -1,18 +1,18 @@
-/*%FSM<COMPILE "D:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, aibase">*/
+/*%FSM<COMPILE "F:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, aibase">*/
 /*%FSM<HEAD>*/
 /*
 item0[] = {"AI_BASE_Init",0,250,-15.348785,-34.504990,74.651321,15.495049,0.000000,"AI BASE" \n "Init"};
 item1[] = {"AI_BASE_End",1,250,121.421707,50.708939,211.421722,100.708939,0.000000,"AI BASE" \n "End"};
 item2[] = {"AI_Base_Running",4,218,122.273567,-35.331635,212.273392,14.668474,0.000000,"AI Base" \n "Running"};
 item3[] = {"AI_Base_Not_Runn",4,218,-15.582159,46.154228,74.417801,96.154228,0.000000,"AI Base" \n "Not Running"};
-item4[] = {"Advanced__Init",2,250,-16.452499,124.902863,73.547501,174.902863,0.000000,"Advanced " \n "Init"};
+item4[] = {"Advanced__Init",2,4346,-16.452499,124.902863,73.547501,174.902863,0.000000,"Advanced " \n "Init"};
 item5[] = {"Loop",8,218,-16.586647,206.297379,73.413300,256.297363,0.000000,"Loop"};
 item6[] = {"Global_Checks",2,250,-16.758400,279.866577,73.241608,329.866577,0.000000,"Global Checks"};
 item7[] = {"Player_Commander",4,218,121.742462,280.140930,211.742416,330.140930,10.000000,"Player" \n "Commander?"};
 item8[] = {"Teams_Type",4,218,-164.034988,280.176239,-74.035011,330.176270,1.000000,"Teams Type"};
 item9[] = {"Update_Teams",2,250,-163.247650,207.771179,-73.247955,257.771149,0.000000,"Update Teams"};
 item10[] = {"Upgrades",4,218,-267.920502,327.396942,-177.920532,377.396942,0.000000,"Upgrades"};
-item11[] = {"Do_Upgrades",2,4346,-267.724365,207.955505,-177.724365,257.955505,0.000000,"Do Upgrades"};
+item11[] = {"Do_Upgrades",2,250,-267.724365,207.955505,-177.724365,257.955505,0.000000,"Do Upgrades"};
 item12[] = {"",7,210,-169.994583,128.282928,-161.994583,136.282974,0.000000,""};
 link0[] = {0,2};
 link1[] = {0,3};
@@ -30,8 +30,8 @@ link12[] = {9,12};
 link13[] = {10,11};
 link14[] = {11,12};
 link15[] = {12,5};
-globals[] = {0.000000,0,0,0,0,640,480,1,19,6316128,1,-340.606110,214.050446,413.526428,-75.043388,705,621,1};
-window[] = {0,-1,-1,-1,-1,766,25,1370,25,1,723};
+globals[] = {0.000000,0,0,0,0,640,480,1,19,6316128,1,-340.606110,214.050446,413.526428,-75.043388,705,626,1};
+window[] = {0,-1,-1,-1,-1,821,168,1513,80,1,723};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -160,15 +160,36 @@ class FSM
        "	};" \n
        "} forEach _buildings;" \n
        "" \n
-       "_HQIsAlive = false;" \n
-       "if (getDammage _hq < 1) then {_HQIsAlive = true};" \n
-       "if (!_isDeployed && _HQIsAlive) then {" \n
+       "_HQIsAlive = if (alive _hq) then {true} else {false};" \n
+       "_canBeDeploy = true;" \n
+       "if (isMultiplayer && _HQIsAlive) then {" \n
+       "	_tbpr = 'WFBE_TOWNBUILDPROTECTIONRANGE' Call GetNamespace;" \n
+       "	_isPlayerOnSide = false;" \n
+       "	" \n
+       "	{" \n
+       "		if (!isNull _x) then {" \n
+       "			if (side _x == _side && isPlayer _x) then {_isPlayerOnSide = true};" \n
+       "		};" \n
+       "	} forEach playableUnits;" \n
+       "	" \n
+       "	if (_isPlayerOnSide) then {" \n
+       "		{" \n
+       "			if (_x distance _hq < _tbpr) then {_canBeDeploy = false};" \n
+       "		} forEach towns;" \n
+       "	};" \n
+       "};" \n
+       "" \n
+       "if (!_isDeployed && _HQIsAlive && _canBeDeploy) then {" \n
        "	_pos = getPos _hq;" \n
+       "	_pos set [2,0];" \n
+       "	_pos = [_hq,_pos,(('WFBE_AREAHQUNDEPLOYED' Call GetNamespace) select 0)+20] Call GetSafePlace;" \n
+       "	if (count _pos < 1) then {_pos = [_hq,_pos,(('WFBE_AREAHQUNDEPLOYED' Call GetNamespace) select 0)+50] Call GetSafePlace};" \n
+       "	if (count _pos < 1) then {_pos = Call Compile Format [""%1StartingLocation"",_sideText]};" \n
        "	_dir = getDir _hq;" \n
        "	_HQType = _names select _hqt;" \n
        "	_supply = WF_Logic getVariable Format [""%1Supplies"",_sideText];" \n
        "	if (_supply >= (_costs select _hqt)) then {" \n
-       "		[_HQType,_side,_pos,_dir] ExecVM ""Server\Construction\Construction_HQSite.sqf"";" \n
+       "		[_HQType,_side,_pos,_dir] ExecVM 'Server\Construction\Construction_HQSite.sqf';" \n
        "		_supply = _supply - (_costs select _hqt);" \n
        "		WF_Logic setVariable [Format [""%1Supplies"",_sideText],_supply,true];" \n
        "	};" \n
@@ -253,13 +274,35 @@ class FSM
        "					_pos set [1,((_structureRelPos select _count) select 1) + _y];" \n
        "					_newPos = [0,0,0];" \n
        "					_roads = [];" \n
+       "					/* Retrieve the AI Spawn area */" \n
+       "					_distance = (Format[""WFBE_%1STRUCTUREDISTANCES"",_sideText] Call GetNamespace) select _index;" \n
+       "					_direction = (Format[""WFBE_%1STRUCTUREDIRECTIONS"",_sideText] Call GetNamespace) select _index;" \n
+       "					" \n
        "					_continue = true;" \n
+       "					_attempts = 0;" \n
+       "					_max = 100;" \n
        "					while {_continue} do {" \n
-       "						_newPos = [_pos,30,100,10,0,50,0] Call BIS_fnc_findSafePos;" \n
-       "						_roads = _newPos nearRoads 60;" \n
+       "						_newPos = [_pos,30,_max,10,0,50,0] Call BIS_fnc_findSafePos;" \n
+       "						_aiSpawnPos = [_newPos,_distance,_direction] Call GetPositionFrom;" \n
+       "						_aiSpawnPos set [2,0];" \n
+       "						_roads = _newPos nearRoads 30;" \n
+       "						_roads2 = _aiSpawnPos nearRoads 30;" \n
+       "						" \n
+       "						_isFlat = _aiSpawnPos isFlatEmpty [" \n
+       "							5,	//--- Minimal distance from another object" \n
+       "							0,				//--- If 0, just check position. If >0, select new one" \n
+       "							0.6,				//--- Max gradient" \n
+       "							5,	//--- Gradient area" \n
+       "							0,				//--- 0 for restricted water, 2 for required water," \n
+       "							false,				//--- True if some water can be in 25m radius" \n
+       "							objNull			//--- Ignored object" \n
+       "						];" \n
+       "						" \n
        "						_isTooClose = false;" \n
        "						{if (_x distance _newPos < 70) then {_isTooClose = true}} forEach _structurePos;" \n
-       "						if (count _roads == 0 || _isTooClose) then {_continue = false};" \n
+       "						if (count _roads == 0 && count _roads2 == 0 && !_isTooClose && count _isFlat != 0) then {_continue = false};" \n
+       "						_attempts = _attempts + 1;" \n
+       "						if (_attempts > 100 && _max == 100) then {_max = _max + 150};" \n
        "					};" \n
        "					_structurePos set [_count, _newPos];" \n
        "					_dir = 0;" \n
@@ -381,13 +424,8 @@ class FSM
        "			_driver MoveInDriver _vehicle;" \n
        "			_repairAlive = true;" \n
        "" \n
-       "			_built = WF_Logic getVariable Format [""%1VehiclesCreated"",_sideText];" \n
-       "			_built = _built + 1;" \n
-       "			WF_Logic setVariable [Format[""%1VehiclesCreated"",_sideText],_built,true];" \n
-       "			_built = WF_Logic getVariable Format [""%1UnitsCreated"",_sideText];" \n
-       "			_built = _built + 1;" \n
-       "			WF_Logic setVariable [Format[""%1UnitsCreated"",_sideText],_built,true];" \n
-       "			" \n
+       "			[_sideText,'VehiclesCreated',1] Call UpdateStatistics;" \n
+       "			[_sideText,'UnitsCreated',1] Call UpdateStatistics;" \n
        "			_driver doMove ([GetPos _hq,10,20] Call GetRandomPosition);" \n
        "		};" \n
        "		" \n

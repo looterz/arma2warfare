@@ -1,16 +1,16 @@
-/*%FSM<COMPILE "D:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, supplytruck">*/
+/*%FSM<COMPILE "F:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, supplytruck">*/
 /*%FSM<HEAD>*/
 /*
-item0[] = {"Truck_Init",0,4346,-171.242203,-13.536451,-81.242249,36.463646,0.000000,"Truck Init"};
+item0[] = {"Truck_Init",0,250,-171.242203,-13.536451,-81.242249,36.463646,0.000000,"Truck Init"};
 item1[] = {"Truck_End",1,250,-67.454407,342.807892,22.545567,392.807800,0.000000,"Truck End"};
 item2[] = {"Truck_is__dead_",4,218,-67.806747,272.303101,22.193193,322.302917,1.000000,"Truck is " \n "dead?"};
 item3[] = {"Global__Checks",3,250,-170.493988,177.490768,-80.494026,227.490891,0.000000,"Global" \n " Checks"};
-item4[] = {"Loop",8,218,-171.007660,71.851631,-81.007713,121.851631,0.000000,"Loop"};
+item4[] = {"Loop",8,4314,-171.007660,71.851631,-81.007713,121.851631,0.000000,"Loop"};
 item5[] = {"Can__Move_",4,218,-275.117737,272.569733,-185.117691,322.569733,0.000000,"Can " \n "Move?"};
 item6[] = {"Check__Locations",2,250,-275.150818,177.713348,-185.842697,227.021362,0.000000,"Check" \n " Locations"};
 item7[] = {"Deliver_",4,218,-170.476105,272.373291,-80.476044,322.373322,0.000000,"Deliver?"};
-item8[] = {"Delivery",2,250,-169.352722,371.076233,-79.352699,421.076233,0.000000,"Delivery"};
-item9[] = {"",7,210,49.830540,392.427490,57.830544,400.427490,0.000000,""};
+item8[] = {"Delivery",2,250,-170.157013,387.966614,-80.156998,437.966614,0.000000,"Delivery"};
+item9[] = {"",7,210,49.830540,409.317871,57.830544,417.317871,0.000000,""};
 item10[] = {"",7,210,49.565125,92.576248,57.565128,100.576248,0.000000,""};
 item11[] = {"Destination_",4,218,-47.009888,176.357483,42.990112,226.357483,0.000000,"Destination?"};
 item12[] = {"Reload",2,250,-46.849068,102.598534,43.150940,152.598419,0.000000,"Reload"};
@@ -29,8 +29,8 @@ link11[] = {9,10};
 link12[] = {10,4};
 link13[] = {11,12};
 link14[] = {12,4};
-globals[] = {0.000000,0,0,0,0,640,480,1,23,6316128,1,-418.648132,83.729614,544.702759,-64.931931,726,906,1};
-window[] = {2,-1,-1,-1,-1,771,25,985,25,3,744};
+globals[] = {0.000000,0,0,0,0,640,480,1,23,6316128,1,-459.421387,124.502724,528.344360,-109.468002,726,793,1};
+window[] = {2,-1,-1,-1,-1,777,49,1009,31,3,744};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -55,12 +55,9 @@ class FSM
        "[Format[""WFBE_%1_AISupplyTrucks"",_sideText],(Format[""WFBE_%1_AISupplyTrucks"",_sideText] Call GetNamespace) + [_vehicle],true] Call SetNamespace;" \n
        "[_vehicle,GetPos _hq,30,50,true,false,true] Call PlaceNear;" \n
        "" \n
-       "_built = WF_Logic getVariable Format [""%1VehiclesCreated"",_sideText];" \n
-       "_built = _built + 1;" \n
-       "WF_Logic setVariable [Format[""%1VehiclesCreated"",_sideText],_built,true];" \n
-       "_built = WF_Logic getVariable Format [""%1UnitsCreated"",_sideText];" \n
-       "_built = _built + 1;" \n
-       "WF_Logic setVariable [Format[""%1UnitsCreated"",_sideText],_built,true];" \n
+       "[_sideText,'VehiclesCreated',1] Call UpdateStatistics;" \n
+       "[_sideText,'UnitsCreated',1] Call UpdateStatistics;" \n
+       "" \n
        "_spt = Format[""WFBE_%1SERVICEPOINTTYPE"",_sideText] Call GetNamespace;" \n
        "" \n
        "_SV = 1000;" \n
@@ -82,7 +79,7 @@ class FSM
           priority = 0.000000;
           to="Global__Checks";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastCheck > 15;"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastCheck > 15"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -215,7 +212,7 @@ class FSM
           priority = 0.000000;
           to="Global__Checks";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastCheck > 15;"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastCheck > 15"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -252,7 +249,7 @@ class FSM
           priority = 0.000000;
           to="Global__Checks";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastCheck > 15;"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastCheck > 15"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -273,7 +270,7 @@ class FSM
           priority = 0.000000;
           to="Global__Checks";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"time - _lastCheck > 15;"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastCheck > 15"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/

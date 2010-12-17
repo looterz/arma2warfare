@@ -1,12 +1,8 @@
 /* Important, use +array if you plan to use Setters */
 _primary = +(WF_Logic getVariable 'primaryClasses');
-
 _secondary = +(WF_Logic getVariable 'secondaryClasses');
-
 _sidearm = +(WF_Logic getVariable 'sidearmClasses');
-
 _misc = +(WF_Logic getVariable 'miscClasses');
-
 _magazine = +(WF_Logic getVariable 'magazineClasses');
 
 _template = +(WF_Logic getVariable 'templateClasses');
@@ -20,6 +16,7 @@ _templateUpgrades = +(WF_Logic getVariable 'templateUpgrades');
 _templateAllowed = +(WF_Logic getVariable 'templateAllowed');
 
 _currentUnit = player;
+_secondarySlotIDC = 3501;
 
 _returnProperBag = {
 	Private ['_bag'];
@@ -258,6 +255,7 @@ while {alive player && dialog} do {
 		switch (_mainAction) do {
 			case 'addWeapon': {
 				_skip = true;
+				_sskip = false;
 				_get = [];
 				
 				if (_filler != 'template') then {
@@ -282,30 +280,66 @@ while {alive player && dialog} do {
 									};
 								};
 							};
-							if (_currentData == 'secondary') then {
-								if (_currentItem in _listbp) then {
-									_unitBP = _currentItem;
+							
+							/* Handle the realistic Gear system if enabled */
+							_isSecoAllowTwo = true;
+							_isPrimAllowTwo = true;
+							if (paramGearNoRambo && (_tfil == 'primary' || _tfil == 'secondary' || _tfil == 'all')) then {
+								_getpp = [];
+								_getss = [];
+								
+								_query = if (_currentData == 'primary') then {_currentItem} else {_currentPrimary};
+								if (_query != '') then {
+									_getpp = (_query+"_W") Call GetNamespace;
+									if (isNil '_getpp') then {
+										_getpp = _query Call GetNamespace;
+									};
 								};
-								_backpackloadout = [[],[]];
-								_bpcost = 0;
+								if (_query != '') then {_isPrimAllowTwo = _getpp select QUERYGEARALLOWTWO};
+								
+								_query = if (_currentData == 'secondary') then {_currentItem} else {_currentSecondary};
+								if (_query != '') then {
+									_getss = (_query+"_W") Call GetNamespace;
+									if (isNil '_getss') then {
+										_getss = _query Call GetNamespace;
+									};
+								};
+								if (_query != '') then {_isSecoAllowTwo = _getss select QUERYGEARALLOWTWO};
+
+								if (!_isSecoAllowTwo && !_isPrimAllowTwo) then {
+									_sskip = true;
+									hint parseText (localize 'STR_WF_Gear_AllowTwo');
+								};
 							};
-							Call Compile Format ['_old = _current%1;_currentWeapons = _currentWeapons - [_current%1]; _current%1Cost = %2; _current%1 = "%3";ctrlSetText[_%1IDC,"%4"]',_currentData,_get select QUERYGEARCOST,_currentItem,_get select QUERYGEARPICTURE];
-							//--- New Magazines.
-							_currentMags = _get select QUERYGEARMAGAZINES;
-							//--- Old Magazines.
-							_get2 = (_old+"_W") Call GetNamespace;
-							if (isNil '_get2') then {
-								_get2 = _old Call GetNamespace;
-							};
-							if !(isNil '_get2') then {
-								if (typeName (_get2 select QUERYGEARMAGAZINES) != 'SCALAR' && typeName (_get select QUERYGEARMAGAZINES) != 'SCALAR') then {
-									_oldMags = _get2 select QUERYGEARMAGAZINES;
-									_currentMagazines = [_currentMags select 0,_oldMags,_currentMagazines] Call ReplaceInventoryAmmo;
+							
+							if !(_sskip) then {
+								if (_currentData == 'secondary') then {
+									if (_currentItem in _listbp) then {
+										_unitBP = _currentItem;
+									};
+									_backpackloadout = [[],[]];
+									_bpcost = 0;
+								};
+								Call Compile Format ['_old = _current%1;_currentWeapons = _currentWeapons - [_current%1]; _current%1Cost = %2; _current%1 = "%3";ctrlSetText[_%1IDC,"%4"]',_currentData,_get select QUERYGEARCOST,_currentItem,_get select QUERYGEARPICTURE];
+								//--- New Magazines.
+								_currentMags = _get select QUERYGEARMAGAZINES;
+								//--- Old Magazines.
+								_get2 = (_old+"_W") Call GetNamespace;
+								if (isNil '_get2') then {
+									_get2 = _old Call GetNamespace;
+								};
+								if !(isNil '_get2') then {
+									if (typeName (_get2 select QUERYGEARMAGAZINES) != 'SCALAR' && typeName (_get select QUERYGEARMAGAZINES) != 'SCALAR') then {
+										_oldMags = _get2 select QUERYGEARMAGAZINES;
+										_currentMagazines = [_currentMags select 0,_oldMags,_currentMagazines] Call ReplaceInventoryAmmo;
+									};
 								};
 							};
 						};
-						_currentWeapons = _currentWeapons + [_currentItem];
-						_displayInv = true;
+						if (!_sskip) then {
+							_currentWeapons = _currentWeapons + [_currentItem];
+							_displayInv = true;
+						};
 					};
 				};
 				if (_tfil == 'backpack') then {
@@ -914,6 +948,8 @@ while {alive player && dialog} do {
 			_temp = [];
 			_cAllow = true;
 			_upgr = 0;
+			_pallow = true;
+			_sallow = true;
 
 			if (_currentPrimary != '') then {
 				_get = _currentPrimary Call GetNamespace;
@@ -922,6 +958,7 @@ while {alive player && dialog} do {
 				_pict = (_get select QUERYGEARPICTURE);
 				if !(_get select QUERYGEARALLOWED) then {_cAllow = false};
 				_upgr = _get select QUERYGEARUPGRADE;
+				_pallow = _get select QUERYGEARALLOWTWO;
 			};
 			if (_currentSecondary != '') then {
 				_get = (_currentSecondary+"_W") Call GetNamespace;
@@ -935,6 +972,7 @@ while {alive player && dialog} do {
 				if (_pict == '') then {_pict = _get select QUERYGEARPICTURE};
 				if (_cAllow) then {if !(_get select QUERYGEARALLOWED) then {_cAllow = false}};
 				if ((_get select QUERYGEARUPGRADE) > _upgr) then {_upgr = (_get select QUERYGEARUPGRADE)};
+				_sallow = _get select QUERYGEARALLOWTWO;
 			};
 			if (_currentSidearm != '') then {
 				_get = _currentSidearm Call GetNamespace;
@@ -951,25 +989,29 @@ while {alive player && dialog} do {
 			if (_unitBP != '') then {
 				_addin = [_currentBackpackLoadout,_currentBackpackLoadoutAmount];
 			};
-			_template = _template + [_temp];
-			WF_Logic setVariable["templateClasses",_template];
-			_templateCosts = _templateCosts + [(_cost + _currentCost)];
-			WF_Logic setVariable["templateCosts",_templateCosts];
-			_templatePictures = _templatePictures + [_pict];
-			WF_Logic setVariable["templatePictures",_templatePictures];
-			_templateNames = _templateNames + [_desc];
-			WF_Logic setVariable["templateNames",_templateNames];
-			_templateMags = _templateMags + [_currentMagazines];
-			WF_Logic setVariable["templateMags",_templateMags];
-			_templateItems = _templateItems + [_currentItems+[_addin]];
-			WF_Logic setVariable["templateItems",_templateItems];
-			_templateSpecs = _templateSpecs + [_currentSpecials];
-			WF_Logic setVariable["templateSpecs",_templateSpecs];
-			_templateUpgrades = _templateUpgrades + [_upgr];
-			WF_Logic setVariable["templateUpgrades",_templateUpgrades];
-			_templateAllowed = _templateAllowed + [_cAllow];
-			WF_Logic setVariable["templateAllowed",_templateAllowed];
-			_updateFiller = true;
+			if (_pallow || _sallow) then {
+				_template = _template + [_temp];
+				WF_Logic setVariable["templateClasses",_template];
+				_templateCosts = _templateCosts + [(_cost + _currentCost)];
+				WF_Logic setVariable["templateCosts",_templateCosts];
+				_templatePictures = _templatePictures + [_pict];
+				WF_Logic setVariable["templatePictures",_templatePictures];
+				_templateNames = _templateNames + [_desc];
+				WF_Logic setVariable["templateNames",_templateNames];
+				_templateMags = _templateMags + [_currentMagazines];
+				WF_Logic setVariable["templateMags",_templateMags];
+				_templateItems = _templateItems + [_currentItems+[_addin]];
+				WF_Logic setVariable["templateItems",_templateItems];
+				_templateSpecs = _templateSpecs + [_currentSpecials];
+				WF_Logic setVariable["templateSpecs",_templateSpecs];
+				_templateUpgrades = _templateUpgrades + [_upgr];
+				WF_Logic setVariable["templateUpgrades",_templateUpgrades];
+				_templateAllowed = _templateAllowed + [_cAllow];
+				WF_Logic setVariable["templateAllowed",_templateAllowed];
+				_updateFiller = true;
+			} else {
+				hint parseText (localize 'STR_WF_Gear_AllowTwo');
+			};
 		};
 	};
 	

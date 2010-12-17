@@ -44,18 +44,16 @@ processInitCommands;
 _group = createGroup sideJoined;
 _driver = [Format ["WFBE_%1SOLDIER",sideJoinedText] Call GetNamespace,_group,getPos _uav,sideJoined] Call CreateMan;
 _driver MoveInDriver _uav;
-_built = WF_Logic getVariable Format ["%1UnitsCreated",sideJoinedText];
-_built = _built + 1;
+
+_built = 1;
 //--- OPFOR Uav has no gunner slot.
 if (sideJoined == west) then {
 	_gunner = [Format ["WFBE_%1SOLDIER",sideJoinedText] Call GetNamespace,_group,getPos _uav,sideJoined] Call CreateMan;
 	_gunner MoveInGunner _uav;
 	_built = _built + 1;
 };
-WF_Logic setVariable [Format["%1UnitsCreated",sideJoinedText],_built,true];
-_built = WF_Logic getVariable Format ["%1VehiclesCreated",sideJoinedText];
-_built = _built + 1;
-WF_Logic setVariable [Format["%1VehiclesCreated",sideJoinedText],_built,true];
+[sideJoinedText,'UnitsCreated',_built] Call UpdateStatistics;
+[sideJoinedText,'VehiclesCreated',1] Call UpdateStatistics;
 
 -12500 Call ChangePlayerFunds;
 

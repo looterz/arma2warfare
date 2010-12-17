@@ -577,14 +577,6 @@ class WF_CommandMenu {
 			y = 0.455;
 			text = $STR_WF_Upgrade_Menu;
 			action = "MenuAction = 3";
-		};		
-		class Button_D: RscShortcutButtonMain
-		{
-			idc = 13004;
-			x = 0.02;
-			y = 0.555;
-			text = $STR_WF_MissionMenu;
-			action = "MenuAction = 4";
 		};
 		class Button_E: RscShortcutButtonMain
 		{
@@ -2130,102 +2122,6 @@ class RscUpgradeMenu {
 				align = "left";
 				shadow = true;
 			};
-		};
-	};
-};
-
-//--- Mission Task Menu.
-class RscMissionMenu {
-	movingEnable = 1;
-	idd = 19000;
-	onLoad = "_this ExecVM ""Client\GUI\GUI_MissionTasks.sqf""";
-	
-	class controlsBackground {
-		class Mainback : RscPicture {
-			x = 0.04;
-			y = 0.01;
-			w = 1.25;
-			h = 1.67;
-			moving = 1;
-			text = "\ca\ui\data\igui_background_buy_units_ca.paa";
-		};
-	};
-	
-	class controls {
-		class CA_Diff_B_Back : RscIGUIShortcutButton {
-			idc = 19001;
-			x = 0.17 + 0.2 * 3;
-			y = 0.897;
-			w = 0.185;
-			h = 0.052;
-			text = $STR_DISP_CLOSE;
-			action = "closeDialog 0";
-		};
-		class WF_MiniMap : RscMapControl {
-			IDC = 19002;
-			ShowCountourInterval = 1;
-			x = 0.5;
-			y = 0.165;
-			w = 0.454;
-			h = 0.452;
-
-			onMouseMoving = "mouseX = (_this Select 1);mouseY = (_this Select 2)";
-			onMouseButtonDown = "mouseButtonDown = _this Select 1";
-			onMouseButtonUp = "mouseButtonUp = _this Select 1";
-		};
-		class CA_Label: RscText {
-			idc = 19003;
-			text = $STR_WF_MissionMenu;
-			x = 0.047634;
-			y = 0.01;
-			colorText[] = subcolor1;
-			SizeEx = 0.03;
-		};		
-		class CA_Description: RscStructuredText {
-			idc = 19004;
-			text = $STR_WF_Mission_Description;
-			size = 0.0232;
-			x = 0.043;
-			y = 0.66;
-			w = 0.92;
-			h = 0.24;
-		};
-		class CA_MM_Combo: RscCombo {
-			idc = 19005;
-			x = 0.07;
-			w = 0.4;
-			y = 0.18;
-			onLBSelChanged = "MenuAction = 101";
-		};
-		class CA_Accept: RscIGUIShortcutButton {
-			idc = 19006;
-			x = 0.07;
-			y = 0.22;
-			w = 0.4;
-			text = $STR_WF_Accept;
-			action = "MenuAction = 1";
-		};
-		class CA_Abort: RscIGUIShortcutButton {
-			idc = 19006;
-			x = 0.07;
-			y = 0.26;
-			w = 0.4;
-			text = $STR_WF_Abort;
-			action = "MenuAction = 2";
-		};
-		class CA_CurrentMission: CA_Label {
-			idc = 19007;
-			text = "";
-			x = 0.04;
-			y = 0.128;
-			w = 0.4;
-		};
-		class CA_Mission_Info: CA_Label {
-			idc = 19008;
-			text = $STR_WF_Mission_Information;
-			x = 0.05;
-			y = 0.62;
-			w = 0.4;
 		};
 	};
 };

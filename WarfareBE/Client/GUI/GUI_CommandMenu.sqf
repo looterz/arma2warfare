@@ -38,13 +38,13 @@ while {alive player && dialog} do {
 		_exited = true;	
 	};	
 	
-	//--- Missions Menu.
-	if (MenuAction == 4) then {
+	//--- To be replaced.
+	/*if (MenuAction == 4) then {
 		MenuAction = -1;
 		CloseDialog 0;
 		CreateDialog "RscMissionMenu";
 		_exited = true;	
-	};
+	};*/
 
 	//--- Support Menu.
 	if (MenuAction == 5) then {

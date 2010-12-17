@@ -1,5 +1,5 @@
-_location = _this Select 0;
-_locationName = _this Select 1;
+_location = _this select 0;
+_locationName = _this select 1;
 _resistanceTeamTypes = ["Group","Group"];
 _probability = 70;
 _startingSupplyValue = 10;
@@ -11,6 +11,8 @@ if (count _this > 4) then {_maxSupplyValue = _this Select 3};
 if (count _this > 5) then {_range = _this Select 4};
 if (count _this > 6) then {_resistanceTeamTypes = _this Select 5};
 if (count _this > 7) then {_probability = _this Select 6};
+
+if (isNull _location) exitWith {};
 
 _location setVariable ["name",_locationName];
 _location setVariable ["range",_range];
@@ -30,13 +32,14 @@ waitUntil {commonInitComplete};
 
 if (isServer) then {
 	//--- Don't pause.
-	[_location,_startingSupplyValue,_range,_resistanceTeamTypes,_probability] Spawn {
-		Private ["_isSet","_location","_probability","_range","_resistanceTeamTypes","_startingSupplyValue"];
+	[_location,_startingSupplyValue,_range,_resistanceTeamTypes,_probability,_maxSupplyValue] Spawn {
+		Private ["_isSet","_location","_maxSupplyValue","_probability","_range","_resistanceTeamTypes","_startingSupplyValue"];
 		_location = _this select 0;
 		_startingSupplyValue = _this select 1;
 		_range = _this select 2;
 		_resistanceTeamTypes = _this select 3;
 		_probability = _this select 4;
+		_maxSupplyValue = _this select 5;
 		
 		/* OA Depots are made of kryptonite */
 		if (WF_A2_Arrowhead || WF_A2_CombinedOps) then {_location addEventHandler ['handleDamage',{false}]};
@@ -47,9 +50,9 @@ if (isServer) then {
 		waitUntil {serverInitComplete && townInit};
 		[_location,_range] ExecFSM "Server\FSM\updatetown.fsm";
 		if (paramRes && ('WFBE_TOWNSTARTINGMODE' Call GetNamespace) != 1) then {
-			[_location,_resistanceTeamTypes,_probability,_range] ExecFSM "Server\FSM\updatetowndefenses.fsm";
+			[_location,_resistanceTeamTypes,_probability,_range,_maxSupplyValue] ExecFSM "Server\FSM\updatetowndefenses.fsm";
 		} else {
-			_defenses = _location NearEntities['WFBE_RESISTANCEDEFENSENAMES' Call GetNamespace,_range];
+			_defenses = _location nearEntities['WFBE_RESISTANCEDEFENSENAMES' Call GetNamespace,_range];
 			{deleteVehicle _x} forEach _defenses;
 		};
 		if (paramOccup) then {[_location,_probability,_range] ExecFSM "Server\FSM\updatetownoccupation.fsm"};

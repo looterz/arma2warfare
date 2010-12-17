@@ -16,7 +16,7 @@
 
 /* Description.ext Specific */
 #define WF_MAXPLAYERS 32
-#define WF_MISSIONNAME "Warfare Benny Edition V2.065 Lite CO - Takistan"
+#define WF_MISSIONNAME "Warfare Benny Edition V2.066 Lite CO - Takistan"
 #define WF_RESPAWNDELAY 2
 
 /* MySQL Support */

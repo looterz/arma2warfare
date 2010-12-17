@@ -3,7 +3,7 @@
 	Description: Add special skills to the defined engineer.
 */
 
-_vehicles = player NearEntities [["Car","Motorcycle","Tank","Ship","Air","StaticWeapon"],5];
+_vehicles = player nearEntities [["Car","Motorcycle","Tank","Ship","Air","StaticWeapon"],5];
 if (count _vehicles < 1) exitWith {};
 
 _sorted = [player,_vehicles] Call SortByDistance;
@@ -11,7 +11,7 @@ _vehicle = _sorted select 0;
 
 _dammages = getDammage _vehicle;
 if (_dammages <= 0) exitWith {};
-lastSkillUse = time;
+WFBE_SK_V_LastUse_Repair = time;
 
 _skip = false;
 for [{_x = 0},{_x < 5},{_x = _x + 1}] do {

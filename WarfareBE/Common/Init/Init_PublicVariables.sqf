@@ -20,6 +20,7 @@ _l = _l + ["DisplayICBM"];
 _l = _l + ["EndGame"];
 _l = _l + ["ISIS_AddAction"];
 _l = _l + ["LocalizeMessage"];
+_l = _l + ["Penalty"];
 _l = _l + ["SetHQStatus"];
 _l = _l + ["SetTask"];
 _l = _l + ["SetVehicleLock"];

@@ -111,9 +111,7 @@ if (!(alive _building)|| isNull _building) exitWith {
 if (_isMan) then {
 	_soldier = [_unit,_group,_position,sideJoined] Call CreateMan;
 	unitQueu = unitQueu - 1;
-	_built = WF_Logic getVariable Format ["%1UnitsCreated",sideJoinedText];
-	_built = _built + 1;
-	WF_Logic setVariable [Format["%1UnitsCreated",sideJoinedText],_built,true];
+	[sideJoinedText,'UnitsCreated',1] Call UpdateStatistics;
 } else {
 	_driver = _vehi select 0;
 	_gunner = _vehi select 1;
@@ -126,6 +124,11 @@ if (_isMan) then {
 	_vehicle setVelocity [0,0,-1];
 	_vehicles = (WF_Logic getVariable "emptyVehicles") + [_vehicle];
 	WF_Logic setVariable ["emptyVehicles",_vehicles,true];
+	
+	/* Fucked up vehicles handling */
+	if (_unit in ('WFBE_VEHIGUNNERISCMDER' Call GetNamespace)) then {
+		if (_gunner) then {_gunner = false;_commander = true};
+	};
 	
 	/* Clear the vehicle */
 	clearWeaponCargo _vehicle;
@@ -147,7 +150,7 @@ if (_isMan) then {
 		processInitCommands;
 	};
 	if (_unit in (Format['WFBE_%1SUPPLYTRUCKS',sideJoinedText] Call GetNamespace)) then {[_vehicle,sideJoined] ExecFSM "Client\FSM\updatesupply.fsm"};
-	if (_unit in cargoHolder) then {
+	if (_unit in ('WFBE_CANEJECTCARGO' Call GetNamespace)) then {
 		_vehicle setVehicleInit Format["this AddAction ['HALO','Client\Action\Action_HALO.sqf', [], 97, false, true, '', 'getPos _target select 2 >= %1 && alive _target'];this addAction [localize 'STR_WF_Cargo_Eject','Client\Action\Action_EjectCargo.sqf', [], 99, false, true, '', 'driver _target == _this && alive _target']",('WFBE_HALOJUMPHEIGHT' Call GetNamespace)];
 		processInitCommands
 	};
@@ -164,11 +167,9 @@ if (_isMan) then {
 	};
 	if (_unit in ('WFBE_BALANCEDUNITS' Call GetNamespace) && paramBalancing) then {[_vehicle] Spawn BalanceInit};
 	//--- Vehicles Init End.
-	
-	_built = WF_Logic getVariable Format ["%1VehiclesCreated",sideJoinedText];
-	_built = _built + 1;
-	WF_Logic setVariable [Format["%1VehiclesCreated",sideJoinedText],_built,true];
-	_built = WF_Logic getVariable Format ["%1UnitsCreated",sideJoinedText];
+
+	[sideJoinedText,'VehiclesCreated',1] Call UpdateStatistics;
+	_built = 0;
 	_group addVehicle _vehicle;
 	if (!_driver && !_gunner && !_commander) exitWith {};
 	_crew = Format ["WFBE_%1SOLDIER",sideJoinedText] Call GetNamespace;
@@ -195,7 +196,7 @@ if (_isMan) then {
 		unitQueu = unitQueu - 1;
 		_built = _built + 1;
 	};
-	WF_Logic setVariable [Format["%1UnitsCreated",sideJoinedText],_built,true];
+	[sideJoinedText,'UnitsCreated',_built] Call UpdateStatistics;
 };
 
 hint parseText(Format [localize "STR_WF_Build_Complete",_description]);

@@ -99,12 +99,16 @@ _i = _i + [['','',3200,35,3,2,2,0,'Guerilla']];
 
 /* Static Defenses */
 _c = _c + ['GUE_WarfareBMGNest_PK'];
-_i = _i + [['','',300,0,1,0,'Defense',0,'TK GUE']];
+_i = _i + [['','',300,0,1,0,'Defense',0,'Guerilla']];
+
+_c = _c + ['ZU23_Gue'];
+_i = _i + [['','',600,0,1,0,'Defense',0,'Guerilla']];
 
 for '_z' from 0 to (count _c)-1 do {
 	_get = (_c select _z) Call GetNamespace;
 	if (isNil '_get') then {
 		if ((_i select _z) select 0 == '') then {(_i select _z) set [0, [_c select _z,'displayName'] Call GetConfigInfo]};
+		if (WF_Debug) then {(_i select _z) set [3,1]};
 		_p = if ((_c select _z) isKindOf 'Man') then {'portrait'} else {'picture'};
 		(_i select _z) set [1, [_c select _z,_p] Call GetConfigInfo];
 		[_c select _z,_i select _z] Call SetNamespace;

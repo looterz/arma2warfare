@@ -19,7 +19,7 @@ link6[] = {5,3};
 link7[] = {6,5};
 link8[] = {7,1};
 globals[] = {0.000000,0,0,0,0,640,480,1,29,6316128,1,-395.307037,395.306915,167.465607,-285.572937,588,519,1};
-window[] = {0,-1,-1,-1,-1,837,154,1414,203,1,606};
+window[] = {0,-1,-1,-1,-1,745,56,1316,111,1,606};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -41,7 +41,6 @@ class FSM
        "_timer = 0;" \n
        "_exit = false;" \n
        "_canDeliver = false;" \n
-       "_sideUpgrades = (sideJoinedText) Call GetSideUpgrades;" \n
        "_hq = (sideJoinedText) Call GetSideHQ;" \n
        "_lastDestination = _hq;" \n
        "_delRange = 'WFBE_DELIVERYRANGE' Call GetNamespace;" \n
@@ -170,7 +169,7 @@ class FSM
        "	_maxSV = _closest getVariable ""maxSupplyValue"";" \n
        "	if (_SV > _currentSV) then {" \n
        "		if (_currentSV != _maxSV) then {" \n
-       "			_upgrades = WF_Logic getVariable _sideUpgrades;" \n
+       "			_upgrades = (sideJoinedText) Call GetSideUpgrades;" \n
        "			_increaseOf = (Format[""WFBE_MAXSUPPLYTRUCKSSV%1"",_upgrades select 6] Call GetNamespace);" \n
        "			_currentSV = _currentSV + _increaseOf;" \n
        "			if (_currentSV > _maxSV) then {_currentSV = _maxSV};" \n
@@ -184,9 +183,9 @@ class FSM
        "		hint Format[localize ""STR_WF_Supply_Equal"",_name,_currentSV,_maxSV];" \n
        "		_SV = _currentSV;" \n
        "	};" \n
-	   "	WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + _spsp]];" \n
-	   "	publicVariable 'WFBE_RequestChangeScore';" \n
-	   "	if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + _spsp]] Spawn HandleSPVF};" \n
+       "	WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + _spsp]];" \n
+       "	publicVariable 'WFBE_RequestChangeScore';" \n
+       "	if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + _spsp]] Spawn HandleSPVF};" \n
        "};"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links

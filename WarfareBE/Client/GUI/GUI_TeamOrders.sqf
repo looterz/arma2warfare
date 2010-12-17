@@ -277,11 +277,11 @@ while {alive player && dialog} do {
 				_radioLabel = ["All","Alpha","Bravo","Charlie","Delta","Echo","Foxtrot","Golf","Hotel","India","Juliet","Kilo","Lima","Mike","November","Oscar","Papa"];
 				
 				if (!_isAll) then {
-					player kbTell [sideHQ, (sideHQ getVariable "_topic_identity"), "OrderSent",["1","",(_radioLabel select _curSel),[(_radio select _curSel)]],["2","","one",["one2"]],["3","","moving to position",["HC_MovingToPosition"]],["4","","over.",["Over1"]],true];
+					player kbTell [sideHQ, WFBE_V_HQTopicSide, "OrderSent",["1","",(_radioLabel select _curSel),[(_radio select _curSel)]],["2","","one",["one2"]],["3","","moving to position",["HC_MovingToPosition"]],["4","","over.",["Over1"]],true];
 					[_team,_position] Call SetTeamMovePos;
 					[_team,_order] Call SetTeamMoveMode;
 				} else {
-					player kbTell [sideHQ, (sideHQ getVariable "_topic_identity"), "OrderSentAll",["1","",(_radioLabel select 0),[(_radio select 0)]],["2","","moving to position",["HC_MovingToPosition"]],["3","","over.",["Over1"]],true];
+					player kbTell [sideHQ, WFBE_V_HQTopicSide, "OrderSentAll",["1","",(_radioLabel select 0),[(_radio select 0)]],["2","","moving to position",["HC_MovingToPosition"]],["3","","over.",["Over1"]],true];
 					{
 						[_x,_position] Call SetTeamMovePos;
 						[_x,_order] Call SetTeamMoveMode;
@@ -323,7 +323,7 @@ while {alive player && dialog} do {
 			_taskTimeLabel = _TaskDurationLabel select (lbCurSel  14018);
 			_position = _map posScreenToWorld[mouseX,mouseY];
 			if (!_isAll) then {
-				player kbTell [sideHQ, (sideHQ getVariable "_topic_identity"), "OrderSent",["1","",(_radioLabel select _curSel),[(_radio select _curSel)]],["2","","one",["one2"]],["3","","moving to position",["HC_MovingToPosition"]],["4","","over.",["Over1"]],true];
+				player kbTell [sideHQ, WFBE_V_HQTopicSide, "OrderSent",["1","",(_radioLabel select _curSel),[(_radio select _curSel)]],["2","","one",["one2"]],["3","","moving to position",["HC_MovingToPosition"]],["4","","over.",["Over1"]],true];
 				if (alive (leader _team)) then {
 					_id = (leader _team) Call GetClientID;
 					if (_id != clientID) then {
@@ -333,7 +333,7 @@ while {alive player && dialog} do {
 					};
 				};
 			} else {
-				player kbTell [sideHQ, (sideHQ getVariable "_topic_identity"), "OrderSentAll",["1","",(_radioLabel select 0),[(_radio select 0)]],["2","","moving to position",["HC_MovingToPosition"]],["3","","over.",["Over1"]],true];
+				player kbTell [sideHQ, WFBE_V_HQTopicSide, "OrderSentAll",["1","",(_radioLabel select 0),[(_radio select 0)]],["2","","moving to position",["HC_MovingToPosition"]],["3","","over.",["Over1"]],true];
 				WFBE_SetTask = [sideJoined,'CLTFNCSETTASK',[_taskType,_taskTime,_taskTimeLabel,_position]];
 				publicVariable 'WFBE_SetTask';
 				if (!isMultiplayer || (isServer && local player)) then {[sideJoined,'CLTFNCSETTASK',[_taskType,_taskTime,_taskTimeLabel,_position]] Spawn HandlePVF};
@@ -348,7 +348,7 @@ while {alive player && dialog} do {
 			Private ["_team"];
 			_team = _this select 0;
 			_units = Units _team;
-			if (paramMobileRespawn || paramCampRespawn) then {//--- Make sure that the unit won't spawn back at a camp/ambu.
+			if (paramMobileRespawn || (('WFBE_RESPAWNCAMPSMODE' Call GetNamespace) > 0)) then {//--- Make sure that the unit won't spawn back at a camp/ambu.
 				[_team,"forceRespawn"] Call SetTeamRespawn;
 				sleep 2;
 			};

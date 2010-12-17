@@ -13,7 +13,6 @@ _killername = "";
 _killeduid = "";
 _killedname = "";
 _iskilledplayer = false;
-_iskillerplayer = false;
 
 _isMan = true;
 //--- Ghost Fix (Invincible soldiers wanking around, not fighting back and not moving).
@@ -23,10 +22,10 @@ if !(_killed isKindOf "Man") then {
 	if (count _crew > 0) then {{_x setPos [(getPos _killed select 0)-random(2)+random(4),(getPos _killed select 1)-random(2)+random(4),getPos _killed select 2]} forEach _crew};
 };
 
+_iskillerplayer = if (isPlayer _killer) then {true} else {false};
 if (mysql) then {
 	_killertype = typeOf _killer;
 	_iskilledplayer = if (isPlayer _killed) then {true} else {false};
-	_iskillerplayer = if (isPlayer _killer) then {true} else {false};
 	_killeruid = if (_iskillerplayer) then {getPlayerUID(_killer)} else {"0"};
 	_killeduid = if (_iskilledplayer) then {getPlayerUID(_killed)} else {"0"};
 	_killername = if (_iskillerplayer) then {name _killer} else {"nil"};
@@ -52,30 +51,57 @@ if (!(isServer) || local player) then {
 	_killed Spawn TrashObject;
 };
 
-sleep random(2)+random(4);
+sleep (random(2)+random(4));
 
-if (_isMan && (_sideVictim == west || _sideVictim == east)) then {
-	_lost = WF_Logic getVariable Format ["%1Casualties",str _sideVictim];
-	_lost = _lost + 1;
-	WF_Logic setVariable [Format["%1Casualties",str _sideVictim],_lost,true];	
-};
-if (!_isMan && (_sideVictim == west || _sideVictim == east)) then {
-	_lost = WF_Logic getVariable Format ["%1VehiclesLost",str _sideVictim];
-	_lost = _lost + 1;
-	WF_Logic setVariable [Format["%1VehiclesLost",str _sideVictim],_lost,true];	
-};
+if (_isMan && (_sideVictim == west || _sideVictim == east)) then {[str _sideVictim,'Casualties',1] Call UpdateStatistics};
+if (!_isMan && (_sideVictim == west || _sideVictim == east)) then {[str _sideVictim,'VehiclesLost',1] Call UpdateStatistics};
 
-_killerID = Leader _killerTeam Call GetClientID;
+_killerID = (leader _killerTeam) Call GetClientID;
 _get = _objectType Call GetNamespace;
 
 //--- Normal kill.
 if (!isNull _killerTeam && !isNil '_get' && (_sideKiller != sideEnemy) && (_sideKiller != _sideVictim) && (_sideKiller != Civilian)) then {
 	if (_killerID > 0 && isPlayer(leader _killerTeam)) then {
+		/* Bounty */
 		if (paramBounty) then {
 			WFBE_AwardBounty = [[_killerID,_sideKiller],'CLTFNCAWARDBOUNTY',_objectType];
 			publicVariable 'WFBE_AwardBounty';
 			if (!isMultiplayer || (isServer && local player)) then {[[_killerID,_sideKiller],'CLTFNCAWARDBOUNTY',_objectType] Spawn HandlePVF};
 		};
+		
+		/* AI Score */
+		if (!_iskillerplayer && _killerID > 0 && isPlayer(leader _killerTeam)) then {
+			[_objectType,leader _killerTeam] Spawn {
+				Private ['_player','_point','_type'];
+				_type = _this select 0;
+				_player = _this select 1;
+				
+				_point = switch (true) do {
+					case (_type isKindOf "Infantry"): {1};
+					case (_type isKindOf "Car"): {2};
+					case (_type isKindOf "Ship"): {4};
+					case (_type isKindOf "Motorcycle"): {1};
+					case (_type isKindOf "Tank"): {4};
+					case (_type isKindOf "Helicopter"): {4};
+					case (_type isKindOf "Plane"): {6};
+					case (_type isKindOf "StaticWeapon"): {2};
+					case (_type isKindOf "Building"): {2};
+					default {1};
+				};
+
+				sleep random(3);
+				
+				if (isServer) then {
+					['SRVFNCREQUESTCHANGESCORE',[_player,score _player + _point]] Spawn HandleSPVF;
+				} else {
+					WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[_player,score _player + _point]];
+					publicVariable 'WFBE_RequestChangeScore';
+					if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTCHANGESCORE',[_player,score _player + _point]] Spawn HandleSPVF};
+				};
+			};
+		};
+		
+		/* MySQL */
 		if (mysql) then {
 			_sta = switch (true) do {
 				case (_objectType isKindOf "Infantry"): {1};
@@ -121,6 +147,7 @@ if (!isNull _killerTeam && !isNil '_get' && (_sideKiller != sideEnemy) && (_side
 		};
 	};
 	
+	/* Playable AI Kill */
 	if (paramAI && _killerID > 0 && !(isPlayer(leader _killerTeam))) then {
 		if (isServer) then {
 			_bounty = (_get select QUERYUNITPRICE) * ('WFBE_BOUNTYMODIFIER' Call GetNamespace);

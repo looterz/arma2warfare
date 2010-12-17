@@ -1,85 +1,66 @@
-Private ["_award","_location","_locationName","_mysqlUpdate","_name","_locations","_objective","_range","_side","_sideValue","_units"];
+Private ["_award","_location","_locationName","_marker1","_mysqlUpdate","_name","_locations","_objective","_ptask","_range","_side","_sideName","_sideValue","_task","_units"];
 
-_location = _this Select 0;
-_sideValue = _this Select 1;
-_name = Str _location;
+_location = _this select 0;
+_sideValue = _this select 1;
+_name = str _location;
 _mysqlUpdate = "";
 
+_task = _location getVariable 'taskLink';
+_ptask = currentTask player;
+if (isNil '_task') then {_task = objNull};
 _locationName = _location getVariable "name";
 
-_sideName = Localize "STR_WF_Side_East";
-if (_sideValue == WESTID) then {_sideName = Localize "STR_WF_Side_West"};
+_sideName = localize "STR_WF_Side_East";
+if (_sideValue == WESTID) then {_sideName = localize "STR_WF_Side_West"};
 
 [Format[Localize "STR_WF_Town_Captured",_locationName,_sideName]] Call TitleTextMessage;
 _marker1 = Format["%1Depot",_name];
 
-if (_sideValue == sideID) then {_marker1 SetMarkerColorLocal "ColorGreen"} else {_marker1 SetMarkerColorLocal "ColorRed"};
-
-cutText["","PLAIN"];
+if (_sideValue == sideID) then {_marker1 setMarkerColorLocal "ColorGreen"} else {_marker1 setMarkerColorLocal "ColorRed"};
 
 if (_sideValue == sideID) then {
 	_award = false;
 	if ((Leader Group player) == player) then {
 		_units = Units Group player;
-		{if (_x Distance _location < ('WFBE_TOWNCAPTURERANGE' Call GetNamespace)) then {_award = true};} ForEach _units;
+		{if (_x distance _location < ('WFBE_TOWNCAPTURERANGE' Call GetNamespace)) then {_award = true};} ForEach _units;
 	};
 
-	if (player Distance _location < ('WFBE_TOWNCAPTURERANGE' Call GetNamespace) || _award) then {
-		if (isNull currentMission) then {
+	if (player distance _location < ('WFBE_TOWNCAPTURERANGE' Call GetNamespace) || _award) then {
+		if (_task == _ptask) then {
+			["TownHintDone",_location] Spawn TaskSystem;
+			('WFBE_TOWNMISSIONCAPTUREBOUNTY' Call GetNamespace) Call ChangePlayerFunds;
+			WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCORECAPTURETOWN' Call GetNamespace)]];
+			publicVariable 'WFBE_RequestChangeScore';
+			if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCORECAPTURETOWN' Call GetNamespace)]] Spawn HandleSPVF};
+			Format[Localize "STR_WF_Town_Bounty_Full",_locationName,('WFBE_TOWNMISSIONCAPTUREBOUNTY' Call GetNamespace)] Call CommandChatMessage;
+			_mysqlUpdate = "towncaptured";
+		} else {
 			('WFBE_TOWNCAPTUREBOUNTY' Call GetNamespace) Call ChangePlayerFunds;
 			WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCORECAPTURETOWN' Call GetNamespace)]];
 			publicVariable 'WFBE_RequestChangeScore';
 			if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCORECAPTURETOWN' Call GetNamespace)]] Spawn HandleSPVF};
 			Format[Localize "STR_WF_Town_Bounty_Full",_locationName,('WFBE_TOWNCAPTUREBOUNTY' Call GetNamespace)] Call CommandChatMessage;
 			_mysqlUpdate = "towncaptured";
-		} else {
-			if (currentMission == _location) then {
-				["TownSuccess",currentMission] Spawn TaskSystem;
-				["TownHintDone",currentMission] Spawn TaskSystem;
-				('WFBE_TOWNMISSIONCAPTUREBOUNTY' Call GetNamespace) Call ChangePlayerFunds;
-				WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCORECAPTURETOWN' Call GetNamespace)]];
-				publicVariable 'WFBE_RequestChangeScore';
-				if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCORECAPTURETOWN' Call GetNamespace)]] Spawn HandleSPVF};
-				Format[Localize "STR_WF_Town_Bounty_Full",_locationName,('WFBE_TOWNMISSIONCAPTUREBOUNTY' Call GetNamespace)] Call CommandChatMessage;
-				_mysqlUpdate = "towncaptured";
-			} else {
-				('WFBE_TOWNCAPTUREBOUNTY' Call GetNamespace) Call ChangePlayerFunds;
-				WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCORECAPTURETOWN' Call GetNamespace)]];
-				publicVariable 'WFBE_RequestChangeScore';
-				if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCORECAPTURETOWN' Call GetNamespace)]] Spawn HandleSPVF};
-				Format[Localize "STR_WF_Town_Bounty_Full",_locationName,('WFBE_TOWNCAPTUREBOUNTY' Call GetNamespace)] Call CommandChatMessage;
-				_mysqlUpdate = "towncaptured";
-			};
 		};
 	} else {
 		_range = (_location getVariable "range") * ('WFBE_TOWNCAPTUREASSISTRANGEMODIFIER' Call GetNamespace);
-		if (player Distance _location < _range) then {
-			if (isNull currentMission) then {
+		if (player distance _location < _range) then {
+			if (_task == _ptask) then {
+				["TownHintDone",_location] Spawn TaskSystem;
+				('WFBE_TOWNMISSIONASSISTCAPTUREBOUNTY' Call GetNamespace) Call ChangePlayerFunds;
+				WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCOREASSISTCAPTURETOWN' Call GetNamespace)]];
+				publicVariable 'WFBE_RequestChangeScore';
+				if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCOREASSISTCAPTURETOWN' Call GetNamespace)]] Spawn HandleSPVF};
+				Format[Localize "STR_WF_Town_Bounty_Full",_locationName,('WFBE_TOWNMISSIONASSISTCAPTUREBOUNTY' Call GetNamespace)] Call CommandChatMessage;
+				_mysqlUpdate = "townassist";
+			} else {
 				('WFBE_TOWNASSISTCAPTUREBOUNTY' Call GetNamespace) Call ChangePlayerFunds;
 				WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCOREASSISTCAPTURETOWN' Call GetNamespace)]];
 				publicVariable 'WFBE_RequestChangeScore';
 				if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCOREASSISTCAPTURETOWN' Call GetNamespace)]] Spawn HandleSPVF};
 				Format[Localize "STR_WF_Town_Bounty_Assist",_locationName,('WFBE_TOWNASSISTCAPTUREBOUNTY' Call GetNamespace)] Call CommandChatMessage;
 				_mysqlUpdate = "townassist";
-			} else {
-				if (currentMission == _location) then {
-					["TownSuccess",currentMission] Spawn TaskSystem;
-					["TownHintDone",currentMission] Spawn TaskSystem;
-					('WFBE_TOWNMISSIONASSISTCAPTUREBOUNTY' Call GetNamespace) Call ChangePlayerFunds;
-					WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCOREASSISTCAPTURETOWN' Call GetNamespace)]];
-					publicVariable 'WFBE_RequestChangeScore';
-					if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCOREASSISTCAPTURETOWN' Call GetNamespace)]] Spawn HandleSPVF};
-					Format[Localize "STR_WF_Town_Bounty_Full",_locationName,('WFBE_TOWNMISSIONASSISTCAPTUREBOUNTY' Call GetNamespace)] Call CommandChatMessage;
-					_mysqlUpdate = "townassist";
-				} else {
-					('WFBE_TOWNASSISTCAPTUREBOUNTY' Call GetNamespace) Call ChangePlayerFunds;
-					WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCOREASSISTCAPTURETOWN' Call GetNamespace)]];
-					publicVariable 'WFBE_RequestChangeScore';
-					if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCOREASSISTCAPTURETOWN' Call GetNamespace)]] Spawn HandleSPVF};
-					Format[Localize "STR_WF_Town_Bounty_Assist",_locationName,('WFBE_TOWNASSISTCAPTUREBOUNTY' Call GetNamespace)] Call CommandChatMessage;
-					_mysqlUpdate = "townassist";
-				};			
-			};
+			};	
 		};
 	};
 };
@@ -101,10 +82,12 @@ if (!isNull commanderTeam && sideID == _sideValue) then {
 	};
 };
 
-if !(isNull currentMission) then {
-	if (currentMission == _location) then {
-		["TownRemove",currentMission] Call TaskSystem;
-		currentMission = objNull;
-		["TownAddComplete"] Spawn TaskSystem;
+/* Task Handling */
+["TownUpdate",_location] Spawn TaskSystem;
+if (sideID == _sideValue) then {
+	if !(isNull _task) then {
+		if (_ptask == _task) then {
+			["TownAssignClosest"] Spawn TaskSystem;
+		};
 	};
 };

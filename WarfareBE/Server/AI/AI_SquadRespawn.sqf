@@ -1,22 +1,18 @@
-Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr","_rr","_respawn","_respawnLoc","_side","_sideText","_slot","_team","_upgrades"];
+Private ["_autonomous","_buildings","_closestRespawn","_deathLoc","_enemySide","_isForcedRespawn","_leader","_moveMode","_pos","_rd","_respawn","_respawnLoc","_side","_sideText","_team","_upgrades"];
 _side = _this select 0;
 _team = _this select 1;
-_slot = _this select 2;
 _sideText = str _side;
 _deathLoc = objNull;
 _respawnLoc = objNull;
 
 _rd = 'WFBE_RESPAWNDELAY' Call GetNamespace;
-_rr = 'WFBE_RESPAWNRANGE' Call GetNamespace;
-_rmr = 'WFBE_RESPAWNMINRANGE' Call GetNamespace;
+_rcm = 'WFBE_RESPAWNCAMPSMODE' Call GetNamespace;
 
 sleep (random 0.5);
 
 while {!gameOver} do {
 	if (isPlayer leader _team) exitWith {};
-	_built = WF_Logic getVariable Format ["%1UnitsCreated",_sideText];
-	_built = _built + 1;
-	WF_Logic setVariable [Format["%1UnitsCreated",_sideText],_built,true];
+	[str _side,'UnitsCreated',1] Call UpdateStatistics;
 	waitUntil {!alive leader _team || isPlayer leader _team};
 	_deathLoc = getPos (leader _team);
 	if (isPlayer leader _team) exitWith {};
@@ -32,32 +28,18 @@ while {!gameOver} do {
 	_leader setPos getMarkerPos Format["%1TempRespawnMarker",_sideText];
 
 	_availableSpawn = [];
+	_isForcedRespawn = false;
+	if (typeName _respawn == 'STRING') then {if (_respawn == "forceRespawn") then {_isForcedRespawn = true}};
+	
 	//--- Towns.
-	if (paramCampRespawn && _respawn != "forceRespawn") then {
-		_town = [_deathLoc,_side] Call GetClosestLocation;
-		if (!isNull _town) then {
-			if (_town distance _deathLoc  < _rr) then {
-				_camps = [_town,_side] Call GetFriendlyCamps;
-				if (count _camps > 0) then {
-					if (paramCampRespawnRule) then {
-						_closestCamps = [_deathLoc,_camps] Call SortByDistance;
-						_closestCamp = _closestCamps select 0;
-						_objects = _closestCamp nearEntities[[eastSoldierBaseClass,westSoldierBaseClass,"Car","Motorcycle","Tank","Air"],_rmr];
-						_objs = _objects;
-						{if (!(_x isKindOf "Man")) then {if (count (crew _x) == 0) then {_objects = _objects - [_x]}}} forEach _objs;
-						_hostiles = if (_side == west) then {East countSide _objects} else {West countSide _objects};
-						if (_deathLoc distance _closestCamp < _rmr && _hostiles > 0) then {_camps = _camps - [_closestCamp]};
-					};
-					_availableSpawn = _availableSpawn + _camps;
-				};
-			};
-		};
+	if (_rcm > 0 && !_isForcedRespawn) then {
+		_availableSpawn = _availableSpawn + ([_deathLoc, _side] Call GetRespawnCamps);
 	};
 	
 	_upgrades = (_sideText) Call GetSideUpgrades;
 	
 	//--- Mobile Respawn.
-	if (paramMobileRespawn && _respawn != "forceRespawn") then {
+	if (paramMobileRespawn && !_isForcedRespawn) then {
 		_mobileRespawns = Format ["WFBE_%1AMBULANCES",_sideText] Call GetNamespace;
 		_range = (Format["WFBE_RESPAWNMOBILERANGE%1",(_upgrades select 7)] Call GetNamespace);
 		_checks = _deathLoc nearEntities[_mobileRespawns,_range];
@@ -79,7 +61,7 @@ while {!gameOver} do {
 	switch (typeName _respawn) do {
 		case "STRING": {
 			_update = true;
-			if (_respawn == "forceRespawn") then {[_team,""] Call SetTeamRespawn};
+			if (_isForcedRespawn) then {[_team,""] Call SetTeamRespawn};
 		}; //--- Not defined.
 		case "OBJECT": {
 			_respawnLoc = _respawn;
@@ -104,7 +86,18 @@ while {!gameOver} do {
 		_respawnLoc = _availableSpawn select (round(random((count _availableSpawn)-1)));
 	};
 
+	diag_log format ["[WFBE (INFORMATION)] AI_SquadRespawn: AI Team Leader %1 is respawning at: %2 (%3)",leader _team,typeOf _respawnLoc,_respawnLoc];
 	_pos = [getPos _respawnLoc,20,30] Call GetRandomPosition;
 	_pos set [2,0];
 	_leader setPos _pos;
+	
+	//--- Assign fresh order (tbc).
+	_autonomous = (_team) Call GetTeamAutonomous;
+	if !(_autonomous) then {
+		_moveMode = (_team) Call GetTeamMoveMode;
+		if (_moveMode == "towns") then {[_team,"resetTowns"] Call SetTeamMoveMode};
+		if (_moveMode == "move") then {[_team,"resetMove"] Call SetTeamMoveMode};
+		if (_moveMode == "patrol") then {[_team,"resetPatrol"] Call SetTeamMoveMode};
+		if (_moveMode == "defense") then {[_team,"resetDefense"] Call SetTeamMoveMode};
+	};
 };

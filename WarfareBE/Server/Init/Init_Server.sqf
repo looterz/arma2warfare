@@ -6,6 +6,8 @@ createCenter resistance; //--- Allow resistance group to be spawned without a pl
 resistance setFriend [west,0];
 resistance setFriend [east,0];
 
+if (paramTownsCivilians) then {createCenter civilian};
+
 if (paramAI) then {
 	AIBuyUnit = Compile preprocessFile "Server\Functions\Server_BuyUnit.sqf";
 	AISquadRespawn = Compile preprocessFile "Server\AI\AI_SquadRespawn.sqf";
@@ -376,6 +378,9 @@ WF_Logic setVariable ["emptyVehicles",[],true];
 diag_log "[WFBE (INIT)] Init_Server: Resistance Config - [Done]";
 [] Call Compile preprocessFile "Server\Config\Config_Occupation.sqf";
 diag_log "[WFBE (INIT)] Init_Server: Occupation Config - [Done]";
+if (paramTownsCivilians) then {
+	[] Call Compile preprocessFile "Server\Config\Config_Civilians.sqf";
+};
 
 //--- Don't pause the server init script.
 [] Spawn {
@@ -410,9 +415,9 @@ publicVariable 'EastStartingLocation';
 publicVariable 'WestStartingLocation';
 
 _upArray = if (paramUpgradesEast) then {[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]} else {'WFBE_UPGRADELEVELS' Call GetNamespace};
-_upArray = if (paramUpgradesWest) then {[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]} else {'WFBE_UPGRADELEVELS' Call GetNamespace};
 EASTUpgrades = _upArray;
 PublicVariable 'EASTUpgrades';
+_upArray = if (paramUpgradesWest) then {[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]} else {'WFBE_UPGRADELEVELS' Call GetNamespace};
 WESTUpgrades = _upArray;
 PublicVariable 'WESTUpgrades';
 

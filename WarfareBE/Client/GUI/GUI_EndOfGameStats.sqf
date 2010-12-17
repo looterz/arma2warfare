@@ -1,5 +1,7 @@
 disableSerialization;
 
+12450 cutText ["","PLAIN",0];
+
 _side = _this Select 0;
 _sideText = Localize "STR_WF_Side_East";
 if (_side == West) then {_sideText = Localize "STR_WF_Side_West"};

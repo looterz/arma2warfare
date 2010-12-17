@@ -726,6 +726,12 @@ if (WF_A2_Arrowhead) then {
 				_m = _m + ["200Rnd_556x45_L110A1"];
 				_m = _m + ["NLAW"];
 			};
+			
+			if (paramDLCPMC) then {
+				_m = _m + ["20Rnd_B_AA12_Pellets"];
+				_m = _m + ["20Rnd_B_AA12_74Slug"];
+				_m = _m + ["20Rnd_B_AA12_HE"];
+			};
 
 			WF_Logic setVariable ['magazineClasses',_m];
 
@@ -784,6 +790,20 @@ if (WF_A2_Arrowhead) then {
 				_w = _w + ['BAF_L86A2_ACOG'];
 				_w = _w + ['BAF_L110A1_Aim'];
 				_w = _w + ['BAF_L7A2_GPMG'];
+			};
+			
+			if (paramDLCPMC) then {
+				_w = _w + ['AA12_PMC'];
+				_w = _w + ['m8_carbine'];
+				_w = _w + ['m8_carbineGL'];
+				_w = _w + ['m8_compact'];
+				_w = _w + ['m8_sharpshooter'];
+				_w = _w + ['m8_SAW'];
+				_w = _w + ['m8_carbine_pmc'];
+				_w = _w + ['m8_compact_pmc'];
+				_w = _w + ['m8_holo_sd'];
+				_w = _w + ['m8_tws'];
+				_w = _w + ['m8_tws_sd'];
 			};
 
 			WF_Logic setVariable ['primaryClasses',_w];
@@ -1497,6 +1517,12 @@ if (WF_A2_CombinedOps) then {
 				_m = _m + ["200Rnd_556x45_L110A1"];
 				_m = _m + ["NLAW"];
 			};
+			
+			if (paramDLCPMC) then {
+				_m = _m + ["20Rnd_B_AA12_Pellets"];
+				_m = _m + ["20Rnd_B_AA12_74Slug"];
+				_m = _m + ["20Rnd_B_AA12_HE"];
+			};
 
 			WF_Logic setVariable ['magazineClasses',_m];
 
@@ -1584,6 +1610,15 @@ if (WF_A2_CombinedOps) then {
 				_w = _w + ['BAF_L86A2_ACOG'];
 				_w = _w + ['BAF_L110A1_Aim'];
 				_w = _w + ['BAF_L7A2_GPMG'];
+			};
+			
+			if (paramDLCPMC) then {
+				_w = _w + ['AA12_PMC'];
+				_w = _w + ['m8_carbine_pmc'];
+				_w = _w + ['m8_compact_pmc'];
+				_w = _w + ['m8_holo_sd'];
+				_w = _w + ['m8_tws'];
+				_w = _w + ['m8_tws_sd'];
 			};
 
 			WF_Logic setVariable ['primaryClasses',_w];

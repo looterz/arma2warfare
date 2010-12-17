@@ -4,5 +4,6 @@ _team = _this select 0;
 _respawn = _this select 1;
 
 _index = _team Call GetClientIDFromTeam;
+if (_index == 0) exitWith {};
 
 Call Compile Format ["%1Respawn%2 = _respawn; publicVariable '%1Respawn%2';",str (side _team),_index];

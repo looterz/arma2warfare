@@ -7,7 +7,8 @@ _blackListID = [
 "12051782",
 "7148678",
 "4139392",
-"4094594"
+"4094594",
+"2992070"
 ];
 
 if (_id in _blackListID) then {true} else {false};
