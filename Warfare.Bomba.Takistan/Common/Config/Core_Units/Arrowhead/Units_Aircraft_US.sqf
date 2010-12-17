@@ -12,8 +12,10 @@ if (_r == 0 || _r == 1) then {
 	_u = _u		+ ['AH64D_EP1'];
 };
 if (_r == 0) then {
-	_u = _u		+ ['C130J_US_EP1'];
-	_u = _u		+ ['A10_US_EP1'];
+	if (!paramBuyAircraftInAirportOnly) then {
+		_u = _u		+ ['C130J_US_EP1'];
+		_u = _u		+ ['A10_US_EP1'];
+	};
 };
 if (paramDLCBAF) then {
 	_u = _u		+ ['BAF_Merlin_HC3_D'];
