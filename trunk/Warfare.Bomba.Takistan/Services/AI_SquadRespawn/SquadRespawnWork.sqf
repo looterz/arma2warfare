@@ -11,9 +11,6 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 	_sideText = str _side;
 	_respawnLoc = objNull;
 
-	_rr = 'WFBE_RESPAWNRANGE' Call GetNamespace;
-	_rmr = 'WFBE_RESPAWNMINRANGE' Call GetNamespace;
-	
 	if (isNil "_team") exitWith {
 		format["Service_SquadRespawnWork: Trying Respawn nil team", _this] call LogHigh;
 	};
@@ -34,31 +31,19 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 	};
 
 	format["AI_SquadRespawnWork: Unit: %1 alive:%2", leader _team, alive(leader _team)] call LogHigh;
+
+        _rd = 'WFBE_RESPAWNDELAY' Call GetNamespace;
+        _rcm = 'WFBE_RESPAWNCAMPSMODE' Call GetNamespace;
+
 	_respawn = (_team) Call GetTeamRespawn;
 
 	_availableSpawn = [];
-	//--- Towns.
-	if (paramCampRespawn && _respawn != "forceRespawn") then {
-		_town = [_deathLoc,_side] Call GetClosestLocation;
-		if (!isNull _town) then {
-			if (_town distance _deathLoc  < _rr) then {
-				_camps = [_town,_side] Call GetFriendlyCamps;
-				if (count _camps > 0) then {
-					if (paramCampRespawnRule) then {
-						_closestCamps = [_deathLoc,_camps] Call SortByDistance;
-						_closestCamp = _closestCamps select 0;
-						_objects = _closestCamp nearEntities[[eastSoldierBaseClass,westSoldierBaseClass,"Car","Motorcycle","Tank","Air"],_rmr];
-						_objs = _objects;
-						{if (!(_x isKindOf "Man")) then {if (count (crew _x) == 0) then {_objects = _objects - [_x]}}} forEach _objs;
-						_hostiles = if (_side == west) then {East countSide _objects} else {West countSide _objects};
-						if (_deathLoc distance _closestCamp < _rmr && _hostiles > 0) then {_camps = _camps - [_closestCamp]};
-					};
-					_availableSpawn = _availableSpawn + _camps;
-				};
-			};
-		};
-	};
 	
+	//--- Towns.
+	if (_rcm > 0 && _respawn != "forceRespawn") then {
+		_availableSpawn = _availableSpawn + ([_deathLoc, _side] Call GetRespawnCamps);
+	};
+
 	_upgrades = (_sideText) Call GetSideUpgrades;
 	
 	//--- Mobile Respawn.
@@ -68,12 +53,9 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 		
 		format["AI_SquadRespawn: mobileRespawns:%1 range:%2", _mobileRespawns, _range] call LogHigh;		
 		_checks = _deathLoc nearEntities[_mobileRespawns,_range];
-		
-		format["AI_SquadRespawn: respawnPoints:%1", _checks] call LogHigh;
-		
-		{
-			if (alive _x) then { _availableSpawn = _availableSpawn + [_x]; }
-		} forEach _checks;
+		if (count _checks > 0) then {
+			{if (alive _x) then {_availableSpawn = _availableSpawn + [_x]}} forEach _checks;
+		};
 	};
 	
 	_hq = (_sideText) Call GetSideHQ;
@@ -131,6 +113,16 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 		if (isMultiplayer) then {
 			[_leader, _side] spawn ManagedUnitAdd;
 		};
+
+	//--- Assign fresh order (tbc).
+	_autonomous = (_team) Call GetTeamAutonomous;
+	if !(_autonomous) then {
+		_moveMode = (_team) Call GetTeamMoveMode;
+		if (_moveMode == "towns") then {[_team,"resetTowns"] Call SetTeamMoveMode};
+		if (_moveMode == "move") then {[_team,"resetMove"] Call SetTeamMoveMode};
+		if (_moveMode == "patrol") then {[_team,"resetPatrol"] Call SetTeamMoveMode};
+		if (_moveMode == "defense") then {[_team,"resetDefense"] Call SetTeamMoveMode};
+	};
 
 		//--- Equip the AI.
 		_ran = 1 + round(random(2));

@@ -1,55 +1,67 @@
-/*%FSM<COMPILE "scriptedFSM.cfg, updatetown">*/
+/*%FSM<COMPILE "F:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, updatetown">*/
 /*%FSM<HEAD>*/
 /*
 item0[] = {"Init",0,250,-63.537106,-304.001923,26.462904,-254.002228,0.000000,"Init"};
-item1[] = {"End",1,250,-71.764908,273.178223,18.235218,323.178162,0.000000,"End"};
-item2[] = {"Gameover",4,218,-72.046967,168.936310,17.953068,218.936325,0.000000,"Gameover"};
+item1[] = {"End",1,250,-182.368073,-113.480629,-92.368042,-63.480659,0.000000,"End"};
+item2[] = {"Gameover",4,218,-182.650177,-187.482422,-92.650192,-137.482452,0.000000,"Gameover"};
 item3[] = {"_",8,218,-34.448154,-230.434799,-2.642141,-207.859543,0.000000,""};
-item4[] = {"Town_Core",2,250,-70.261162,-90.336258,19.738863,-40.336258,0.000000,"Town Core"};
-item5[] = {"Time_Supply",4,218,183.900146,-89.942642,273.900055,-39.942654,0.000000,"Time" \n "Supply"};
-item6[] = {"No",4,218,357.040771,405.389526,447.040955,455.389526,0.000000,"No"};
-item7[] = {"Yes",4,218,480.433655,102.544083,570.433594,152.544006,0.000000,"Yes"};
-item8[] = {"Normal_Supply",4,218,187.339172,103.591766,277.339081,153.591736,0.000000,"Normal" \n "Supply"};
-item9[] = {"Is_Units_Near_",2,250,356.835693,103.488190,446.835571,153.488220,0.000000,"Is Units" \n "Near?"};
-item10[] = {"Time_Supply",2,250,355.446198,-90.150070,445.446259,-40.150059,0.000000,"Time Supply"};
-item11[] = {"_",8,218,384.143463,5.587597,415.949493,28.162868,0.000000,""};
-item12[] = {"NoAction",2,250,649.862732,405.229980,739.862854,455.229919,0.000000,"NoAction"};
-item13[] = {"Town_Advanced_Is",2,250,639.167908,100.745911,745.411499,154.226501,0.000000,"Town Advanced" \n "Is Town Captured?"};
-item14[] = {"Yes",4,218,771.292114,103.996109,861.292236,153.995972,0.000000,"Yes"};
-item15[] = {"No",4,218,648.543091,250.777161,738.543213,300.777161,0.000000,"No"};
-item16[] = {"Captured",2,250,890.831909,106.231461,980.832153,156.231445,0.000000,"Captured"};
-item17[] = {"",7,210,1045.443359,-224.183441,1053.443604,-216.183441,0.000000,""};
-item18[] = {"",7,210,1045.920654,127.619873,1053.920654,135.619873,0.000000,""};
-item19[] = {"",7,210,1046.167725,426.005524,1054.167725,434.005524,0.000000,""};
-item20[] = {"Next_Update",4,218,58.363075,-88.993393,148.363190,-38.993374,0.000000,"Next" \n "Update"};
-item21[] = {"SupplyType",2,250,57.742722,25.400248,147.742767,75.400269,0.000000,"SupplyType"};
+item4[] = {"Town_Core",2,250,-63.405182,-187.376434,26.594841,-137.376434,0.000000,"Town Core"};
+item5[] = {"Time_Supply",4,218,53.706718,-187.309784,143.706726,-137.309799,0.000000,"Time" \n "Supply"};
+item6[] = {"Empty",4,218,-182.574295,-36.908699,-92.574234,13.091309,0.000000,"Empty"};
+item7[] = {"Not_Empty",4,218,-64.729942,42.105545,25.270105,92.105507,0.000000,"Not Empty"};
+item8[] = {"Normal_Supply",4,218,-63.477135,-114.415787,26.522726,-64.415848,0.000000,"Normal" \n "Supply"};
+item9[] = {"Check",2,250,-64.187141,-36.072510,25.812870,13.927521,0.000000,"Check"};
+item10[] = {"Time_Supply",2,250,54.842167,-111.734596,144.842194,-61.734596,0.000000,"Time Supply"};
+item11[] = {"_",8,218,84.156120,-22.145014,115.962143,0.430260,0.000000,""};
+item12[] = {"_",2,250,-300.613251,-37.831039,-210.613235,12.168960,0.000000,""};
+item13[] = {"",7,210,-260.014130,-223.295425,-252.014069,-215.295425,0.000000,""};
+item14[] = {"Town_Advanced",2,250,-67.838142,416.225128,22.161905,466.225098,0.000000,"Town Advanced"};
+item15[] = {"Captured",4,218,48.796371,416.225128,138.796494,466.225098,0.000000,"Captured"};
+item16[] = {"Skip",4,218,-302.480042,416.225128,-212.479980,466.225159,0.000000,"Skip"};
+item17[] = {"Captured",2,250,169.032181,416.024658,259.032227,466.024719,0.000000,"Captured"};
+item18[] = {"",7,210,210.899033,-223.047119,218.899048,-215.047119,0.000000,""};
+item19[] = {"Pick_Capture_Mod",2,250,-64.359787,111.495216,25.640230,161.495224,0.000000,"Pick Capture" \n "Mode"};
+item20[] = {"Threshold",4,218,-66.673355,182.056427,23.326881,232.056427,0.000000,"Threshold"};
+item21[] = {"Classic",4,218,-182.347382,110.338463,-92.347397,160.338455,0.000000,"Classic"};
+item22[] = {"Set_Classic",2,250,-182.257019,253.936035,-92.256966,303.936127,0.000000,"Set Classic"};
+item23[] = {"Set_Threshold",2,250,-66.763634,253.774261,23.236481,303.774231,0.000000,"Set Threshold"};
+item24[] = {"_",8,218,-37.573990,342.842560,-4.796462,363.201202,0.000000,""};
+item25[] = {"All_Camps",4,218,58.254791,111.494164,148.254791,161.494156,0.000000,"All Camps"};
+item26[] = {"Set_All_Camps",2,4346,58.345169,254.115845,148.345154,304.115936,0.000000,"Set All Camps"};
 link0[] = {0,3};
 link1[] = {2,1};
 link2[] = {3,4};
 link3[] = {4,2};
-link4[] = {4,20};
-link5[] = {5,10};
-link6[] = {6,12};
-link7[] = {7,13};
-link8[] = {8,9};
-link9[] = {9,6};
-link10[] = {9,7};
-link11[] = {10,11};
-link12[] = {11,9};
-link13[] = {12,19};
-link14[] = {13,14};
-link15[] = {13,15};
-link16[] = {14,16};
-link17[] = {15,12};
-link18[] = {16,18};
-link19[] = {17,3};
-link20[] = {18,17};
-link21[] = {19,18};
-link22[] = {20,21};
-link23[] = {21,5};
-link24[] = {21,8};
-globals[] = {0.000000,0,0,0,0,640,480,1,58,6316128,1,-169.505829,1095.056396,823.068481,-529.152710,779,833,1};
-window[] = {2,-1,-1,-1,-1,794,25,1285,25,3,797};
+link4[] = {4,5};
+link5[] = {4,8};
+link6[] = {5,10};
+link7[] = {6,12};
+link8[] = {7,19};
+link9[] = {8,9};
+link10[] = {9,6};
+link11[] = {9,7};
+link12[] = {10,11};
+link13[] = {11,9};
+link14[] = {12,13};
+link15[] = {13,3};
+link16[] = {14,15};
+link17[] = {14,16};
+link18[] = {15,17};
+link19[] = {16,12};
+link20[] = {17,18};
+link21[] = {18,3};
+link22[] = {19,20};
+link23[] = {19,21};
+link24[] = {19,25};
+link25[] = {20,23};
+link26[] = {21,22};
+link27[] = {22,24};
+link28[] = {23,24};
+link29[] = {24,14};
+link30[] = {25,26};
+link31[] = {26,24};
+globals[] = {0.000000,0,0,0,0,640,480,1,60,6316128,1,-342.357330,303.637573,511.308685,-304.291046,518,654,1};
+window[] = {0,-1,-1,-1,-1,851,52,1312,82,1,536};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -77,6 +89,9 @@ class FSM
        "_ssi = 'WFBE_SUPPLYSYSTEMINCREASETIME' Call GetNamespace;" \n
        "_tcr = 'WFBE_TOWNCAPTURERANGE' Call GetNamespace;" \n
        "_tcrate = 'WFBE_TOWNCAPTURERATE' Call GetNamespace;" \n
+       "" \n
+       "_tcm = 'WFBE_TOWNCAPTUREMODE' Call GetNamespace;" \n
+       "if (_tcm == 1) then {_tcr = 'WFBE_TOWNCAPTURERANGETHRESHOLD' Call GetNamespace };//--- Threshold Mode." \n
        "" \n
        "_timeSupply = if (_ss == 1) then {true} else {false};" \n
        "" \n
@@ -112,18 +127,30 @@ class FSM
     class Town_Core
     {
       name = "Town_Core";
-      init = /*%FSM<STATEINIT""">*/"_nextUpdate = time + 5;" \n
-       ""/*%FSM</STATEINIT""">*/;
+      init = /*%FSM<STATEINIT""">*/"_lastUpdate = time + random (0.2);" \n
+       "" \n
+       "_sideID = _location getVariable ""sideID"";" \n
+       "_objects = _location NearEntities[[eastSoldierBaseClass,westSoldierBaseClass,resistanceSoldierBaseClass,""Car"",""Motorcycle"",""Tank"",""Air""],_tcr];"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
-        /*%FSM<LINK "Next_Update">*/
-        class Next_Update
+        /*%FSM<LINK "Time_Supply">*/
+        class Time_Supply
         {
           priority = 0.000000;
-          to="SupplyType";
+          to="Time_Supply";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"!gameOver && _nextUpdate < time"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_timeSupply && !gameOver && time - _lastUpdate > 5"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Normal_Supply">*/
+        class Normal_Supply
+        {
+          priority = 0.000000;
+          to="Check";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!_timeSupply && !gameOver && time - _lastUpdate > 5"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -140,29 +167,29 @@ class FSM
       };
     };
     /*%FSM</STATE>*/
-    /*%FSM<STATE "Is_Units_Near_">*/
-    class Is_Units_Near_
+    /*%FSM<STATE "Check">*/
+    class Check
     {
-      name = "Is_Units_Near_";
-      init = /*%FSM<STATEINIT""">*/"_objects = _location NearEntities[[eastSoldierBaseClass,westSoldierBaseClass,resistanceSoldierBaseClass,""Car"",""Motorcycle"",""Tank"",""Air""],_tcr];"/*%FSM</STATEINIT""">*/;
+      name = "Check";
+      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
-        /*%FSM<LINK "Yes">*/
-        class Yes
+        /*%FSM<LINK "Not_Empty">*/
+        class Not_Empty
         {
           priority = 0.000000;
-          to="Town_Advanced_Is";
+          to="Pick_Capture_Mod";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/"count _objects > 0"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
-        /*%FSM<LINK "No">*/
-        class No
+        /*%FSM<LINK "Empty">*/
+        class Empty
         {
           priority = 0.000000;
-          to="NoAction";
+          to="_";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/"count _objects == 0"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
@@ -199,7 +226,7 @@ class FSM
         class _
         {
           priority = 0.000000;
-          to="Is_Units_Near_";
+          to="Check";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
@@ -208,10 +235,10 @@ class FSM
       };
     };
     /*%FSM</STATE>*/
-    /*%FSM<STATE "NoAction">*/
-    class NoAction
+    /*%FSM<STATE "_">*/
+    class _
     {
-      name = "NoAction";
+      name = "_";
       init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
@@ -229,28 +256,15 @@ class FSM
       };
     };
     /*%FSM</STATE>*/
-    /*%FSM<STATE "Town_Advanced_Is">*/
-    class Town_Advanced_Is
+    /*%FSM<STATE "Town_Advanced">*/
+    class Town_Advanced
     {
-      name = "Town_Advanced_Is";
-      init = /*%FSM<STATEINIT""">*/"_livingUnits = [_objects Call GetLiveUnits,200] Call GetUnitsBelowHeight;" \n
-       "_west = West CountSide _livingUnits;" \n
-       "_east = East CountSide _livingUnits;" \n
-       "_resistance = Resistance CountSide _livingUnits;" \n
-       "_skip = false;" \n
-       "_protected = false;" \n
-       "_captured = false;" \n
-       "if (_sideID == RESISTANCEID && _resistance > 0) then {_force = _resistance;_protected = true;_skip = true};" \n
-       "if (_sideID == EASTID && _east > 0) then {_force = _east;_protected = true;_skip = true};" \n
-       "if (_sideID == WESTID && _west > 0) then {_force = _west;_protected = true;_skip = true};" \n
-       "if (_east > 0 && _west > 0) then {_skip = true};" \n
-       "if (_west > 0 && _resistance > 0) then {_skip = true};" \n
-       "if (_resistance > 0 && _east > 0) then {_skip = true};" \n
-       "if !(_skip) then {" \n
+      name = "Town_Advanced";
+      init = /*%FSM<STATEINIT""">*/"if !(_skip) then {" \n
        "	_rate = _tcrate;" \n
        "	if (_east > 0) then {_rate = _tcrate * ([_location,East] Call GetTotalCampsOnSide) / (_location Call GetTotalCamps) * _mccr};" \n
        "	if (_west > 0) then {_rate = _tcrate * ([_location,West] Call GetTotalCampsOnSide) / (_location Call GetTotalCamps) * _mccr};" \n
-       "	if (_rate <= 1) then {_rate = 1.0};" \n
+       "	if (_rate < 1) then {_rate = 1};" \n
        "	if (_sideID == EASTID && (_west > 0 || _resistance > 0) && time - _timeAttacked > 60) then {_timeAttacked = time;[""IsUnderAttack"",_location,East,_name] Spawn SideMessage};" \n
        "	if (_sideID == WESTID && (_east > 0 || _resistance > 0) && time - _timeAttacked > 60) then {_timeAttacked = time;[""IsUnderAttack"",_location,West,_name] Spawn SideMessage};" \n
        "	_supplyValue = _location getVariable ""supplyValue"";" \n
@@ -258,6 +272,7 @@ class FSM
        "	_location setVariable [""supplyValue"",_supplyValue,true];" \n
        "	if (_supplyValue < 1) then {_captured = true};" \n
        "};" \n
+       "" \n
        "if (_protected) then {" \n
        "	_supplyValue = _location getVariable ""supplyValue"";" \n
        "	if (_supplyValue < _startingSupplyValue) then {" \n
@@ -269,18 +284,18 @@ class FSM
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
-        /*%FSM<LINK "No">*/
-        class No
+        /*%FSM<LINK "Skip">*/
+        class Skip
         {
           priority = 0.000000;
-          to="NoAction";
+          to="_";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/"!_captured"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
-        /*%FSM<LINK "Yes">*/
-        class Yes
+        /*%FSM<LINK "Captured">*/
+        class Captured
         {
           priority = 0.000000;
           to="Captured";
@@ -300,18 +315,19 @@ class FSM
        "_side = ""R"";" \n
        "if (_west > 0) then {_side = ""W""};" \n
        "if (_east > 0) then {_side = ""E""};" \n
+       "" \n
        "switch (_side) do {" \n
        "	case 'R': {" \n
        "		if (_sideID == WESTID) then {" \n
        "			WFBE_TownCaptured = [nil,'CLTFNCTOWNCAPTURED',[_location,RESISTANCEID,WESTID]];" \n
        "			publicVariable 'WFBE_TownCaptured';" \n
-       "			if (IsClientServer) then {[nil,'CLTFNCTOWNCAPTURED',[_location,RESISTANCEID,WESTID]] Spawn HandlePVF};" \n
+       "			if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCTOWNCAPTURED',[_location,RESISTANCEID,WESTID]] Spawn HandlePVF};" \n
        "			[""Lost"",_location,West] Spawn SideMessage;" \n
        "		};" \n
        "		if (_sideID == EASTID) then {" \n
        "			WFBE_TownCaptured = [nil,'CLTFNCTOWNCAPTURED',[_location,RESISTANCEID,EASTID]];" \n
        "			publicVariable 'WFBE_TownCaptured';" \n
-       "			if (IsClientServer) then {[nil,'CLTFNCTOWNCAPTURED',[_location,RESISTANCEID,EASTID]] Spawn HandlePVF};" \n
+       "			if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCTOWNCAPTURED',[_location,RESISTANCEID,EASTID]] Spawn HandlePVF};" \n
        "			[""Lost"",_location,East] Spawn SideMessage;" \n
        "		};" \n
        "		_location setVariable [""sideID"",RESISTANCEID,true];" \n
@@ -320,13 +336,13 @@ class FSM
        "		if (_sideID == WESTID) then {" \n
        "			WFBE_TownCapturedPublic = [nil,'CLTFNCTOWNCAPTUREDPUBLIC',[_location,EASTID]];" \n
        "			publicVariable 'WFBE_TownCapturedPublic';" \n
-       "			if (IsClientServer) then {[nil,'CLTFNCTOWNTOWNCAPTUREDPUBLIC',[_location,EASTID]] Spawn HandlePVF};" \n
+       "			if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCTOWNCAPTUREDPUBLIC',[_location,EASTID]] Spawn HandlePVF};" \n
        "			[""Lost"",_location,West] Spawn SideMessage;" \n
        "		};" \n
        "		if (_sideID == RESISTANCEID) then {" \n
        "			WFBE_TownCaptured = [nil,'CLTFNCTOWNCAPTURED',[_location,EASTID,EASTID]];" \n
        "			publicVariable 'WFBE_TownCaptured';" \n
-       "			if (IsClientServer) then {[nil,'CLTFNCTOWNCAPTURED',[_location,EASTID,EASTID]] Spawn HandlePVF};" \n
+       "			if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCTOWNCAPTURED',[_location,EASTID,EASTID]] Spawn HandlePVF};" \n
        "		};" \n
        "		[_location,East,_sideID Call GetSideFromID] Spawn SetCampsToSide;" \n
        "		_location setVariable [""sideID"",EASTID,true];" \n
@@ -336,13 +352,13 @@ class FSM
        "		if (_sideID == EASTID) then {" \n
        "			WFBE_TownCapturedPublic = [nil,'CLTFNCTOWNCAPTUREDPUBLIC',[_location,WESTID]];" \n
        "			publicVariable 'WFBE_TownCapturedPublic';" \n
-       "			if (IsClientServer) then {[nil,'CLTFNCTOWNTOWNCAPTUREDPUBLIC',[_location,WESTID]] Spawn HandlePVF};" \n
+       "			if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCTOWNCAPTUREDPUBLIC',[_location,WESTID]] Spawn HandlePVF};" \n
        "			[""Lost"",_location,East] Spawn SideMessage;" \n
        "		};" \n
        "		if (_sideID == RESISTANCEID) then {" \n
        "			WFBE_TownCaptured = [nil,'CLTFNCTOWNCAPTURED',[_location,WESTID,WESTID]];" \n
        "			publicVariable 'WFBE_TownCaptured';" \n
-       "			if (IsClientServer) then {[nil,'CLTFNCTOWNCAPTURED',[_location,WESTID,WESTID]] Spawn HandlePVF};" \n
+       "			if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCTOWNCAPTURED',[_location,WESTID,WESTID]] Spawn HandlePVF};" \n
        "		};" \n
        "		[_location,West,_sideID Call GetSideFromID] Spawn SetCampsToSide;" \n
        "		_location setVariable [""sideID"",WESTID,true];" \n
@@ -372,32 +388,185 @@ class FSM
       };
     };
     /*%FSM</STATE>*/
-    /*%FSM<STATE "SupplyType">*/
-    class SupplyType
+    /*%FSM<STATE "Pick_Capture_Mod">*/
+    class Pick_Capture_Mod
     {
-      name = "SupplyType";
-      init = /*%FSM<STATEINIT""">*/"_sideID = _location getVariable ""sideID"";" \n
-       ""/*%FSM</STATEINIT""">*/;
+      name = "Pick_Capture_Mod";
+      init = /*%FSM<STATEINIT""">*/"_livingUnits = [_objects Call GetLiveUnits,200] Call GetUnitsBelowHeight;" \n
+       "_west = West CountSide _livingUnits;" \n
+       "_east = East CountSide _livingUnits;" \n
+       "_resistance = Resistance CountSide _livingUnits;" \n
+       "_skip = false;" \n
+       "_protected = false;" \n
+       "_captured = false;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
-        /*%FSM<LINK "Normal_Supply">*/
-        class Normal_Supply
+        /*%FSM<LINK "Classic">*/
+        class Classic
         {
           priority = 0.000000;
-          to="Is_Units_Near_";
+          to="Set_Classic";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"!_timeSupply"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_tcm == 0"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
-        /*%FSM<LINK "Time_Supply">*/
-        class Time_Supply
+        /*%FSM<LINK "All_Camps">*/
+        class All_Camps
         {
           priority = 0.000000;
-          to="Time_Supply";
+          to="Set_All_Camps";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"_timeSupply"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_tcm == 2"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Threshold">*/
+        class Threshold
+        {
+          priority = 0.000000;
+          to="Set_Threshold";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_tcm == 1"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Set_Classic">*/
+    class Set_Classic
+    {
+      name = "Set_Classic";
+      init = /*%FSM<STATEINIT""">*/"if (_sideID == RESISTANCEID && _resistance > 0) then {_force = _resistance;_protected = true;_skip = true};" \n
+       "if (_sideID == EASTID && _east > 0) then {_force = _east;_protected = true;_skip = true};" \n
+       "if (_sideID == WESTID && _west > 0) then {_force = _west;_protected = true;_skip = true};" \n
+       "" \n
+       "if (_east > 0 && _west > 0) then {_skip = true};" \n
+       "if (_west > 0 && _resistance > 0) then {_skip = true};" \n
+       "if (_resistance > 0 && _east > 0) then {_skip = true};"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "_">*/
+        class _
+        {
+          priority = 0.000000;
+          to="Town_Advanced";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Set_Threshold">*/
+    class Set_Threshold
+    {
+      name = "Set_Threshold";
+      init = /*%FSM<STATEINIT""">*/"_resistanceDominion = if (_resistance > _east && _resistance > _west) then {true} else {false};" \n
+       "_westDominion = if (_west > _east && _west > _resistance) then {true} else {false};" \n
+       "_eastDominion = if (_east > _west && _east > _resistance) then {true} else {false};" \n
+       "" \n
+       "if (_sideID == RESISTANCEID && _resistanceDominion) then {_force = _resistance;_protected = true;_skip = true};" \n
+       "if (_sideID == EASTID && _eastDominion) then {_force = _east;_protected = true;_skip = true};" \n
+       "if (_sideID == WESTID && _westDominion) then {_force = _west;_protected = true;_skip = true};" \n
+       "" \n
+       "if (_resistanceDominion) then {" \n
+       "	_resistance = if (_east > _west) then {_resistance - _east} else {_resistance - _west};" \n
+       "	_force = _resistance;" \n
+       "	_east = 0; " \n
+       "	_west = 0;" \n
+       "};" \n
+       "if (_westDominion) then {" \n
+       "	_west = if (_east > _resistance) then {_west - _east} else {_west - _resistance};" \n
+       "	_force = _west;" \n
+       "	_east = 0;" \n
+       "	_resistance = 0;" \n
+       "};" \n
+       "if (_eastDominion) then {" \n
+       "	_east = if (_west > _resistance) then {_east - _west} else {_east - _resistance};" \n
+       "	_force = _east;" \n
+       "	_west = 0;" \n
+       "	_resistance = 0;" \n
+       "};" \n
+       "" \n
+       "if (!_resistanceDominion && !_westDominion && !_eastDominion) then {_west = 0; _east = 0; _resistance = 0};"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "_">*/
+        class _
+        {
+          priority = 0.000000;
+          to="Town_Advanced";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Set_All_Camps">*/
+    class Set_All_Camps
+    {
+      name = "Set_All_Camps";
+      init = /*%FSM<STATEINIT""">*/"_resistanceDominion = if (_resistance > _east && _resistance > _west) then {true} else {false};" \n
+       "_westDominion = if (_west > _east && _west > _resistance) then {true} else {false};" \n
+       "_eastDominion = if (_east > _west && _east > _resistance) then {true} else {false};" \n
+       "" \n
+       "if (_sideID == RESISTANCEID && _resistanceDominion) then {_force = _resistance;_protected = true;_skip = true};" \n
+       "if (_sideID == EASTID && _eastDominion) then {_force = _east;_protected = true;_skip = true};" \n
+       "if (_sideID == WESTID && _westDominion) then {_force = _west;_protected = true;_skip = true};" \n
+       "" \n
+       "if (_resistanceDominion) then {" \n
+       "	_resistance = if (_east > _west) then {_resistance - _east} else {_resistance - _west};" \n
+       "	_force = _resistance;" \n
+       "	_east = 0; " \n
+       "	_west = 0;" \n
+       "};" \n
+       "if (_westDominion) then {" \n
+       "	_west = if (_east > _resistance) then {_west - _east} else {_west - _resistance};" \n
+       "	_force = _west;" \n
+       "	_east = 0;" \n
+       "	_resistance = 0;" \n
+       "};" \n
+       "if (_eastDominion) then {" \n
+       "	_east = if (_west > _resistance) then {_east - _west} else {_east - _resistance};" \n
+       "	_force = _east;" \n
+       "	_west = 0;" \n
+       "	_resistance = 0;" \n
+       "};" \n
+       "" \n
+       "if (!_resistanceDominion && !_westDominion && !_eastDominion) then {_west = 0; _east = 0; _resistance = 0};" \n
+       "" \n
+       "_totalCamps = _location Call GetTotalCamps;" \n
+       "" \n
+       "if (_west > 0) then {" \n
+       "	if (_totalCamps != ([_location,west] Call GetTotalCampsOnSide)) then {_skip = true};" \n
+       "};" \n
+       "if (_east > 0) then {" \n
+       "	if (_totalCamps != ([_location,east] Call GetTotalCampsOnSide)) then {_skip = true};" \n
+       "};" \n
+       "//--- Resistance don't need all camps!" \n
+       "/*" \n
+       "if (_resistance > 0) then {" \n
+       "	if (_totalCamps != ([_location,resistance] Call GetTotalCampsOnSide)) then {_skip = true};" \n
+       "};" \n
+       "*/"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "_">*/
+        class _
+        {
+          priority = 0.000000;
+          to="Town_Advanced";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/

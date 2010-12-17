@@ -31,6 +31,6 @@ taskHint [format [localize "str_taskNew" + "\n%1",_task], [1,1,1,1], "taskNew"];
 	if (_succeed) then {
 		taskHint [format [localize "str_taskAccomplished" + "\n%1",_type], [1,1,1,1], "taskDone"];
 		_task setTaskState "Succeeded";
-		player kbTell [sideHQ, (sideHQ getVariable "_topic_identity"), "OrderDone",["1","","HQ",["HQ"]],["2","","We are",["WeAre"]],["3","","ready for orders",["ReadyForOrders"]],["4","","over.",["Over1"]],true];
+		player kbTell [sideHQ, WFBE_V_HQTopicSide, "OrderDone",["1","","HQ",["HQ"]],["2","","We are",["WeAre"]],["3","","ready for orders",["ReadyForOrders"]],["4","","over.",["Over1"]],true];
 	};
 };

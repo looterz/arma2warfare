@@ -1,5 +1,7 @@
 disableSerialization;
 
+12450 cutText ["","PLAIN",0];
+
 _side = _this Select 0;
 _sideText = Localize "STR_WF_Side_East";
 if (_side == West) then {_sideText = Localize "STR_WF_Side_West"};
@@ -29,13 +31,7 @@ _westLostRate = _westVehiclesLost / 5 * .1;
 _westRecruitedRate = _westUnitsCreated / 5 * .1;
 _westCasualtiesRate = _westCasualties / 5 * .1;
 
-"EndOfGameStats waiting show CutDialog" call LogTrace;
 waitUntil {!isNull (["currentCutDisplay"] call BIS_FNC_GUIget)};
-sleep 0.1;
-
-"EndOfGameStats CutDisplay showed" call LogTrace;
-
-
 ((["currentCutDisplay"] call BIS_FNC_GUIget) DisplayCtrl 90001) CtrlSetText _sideName;
 
 _westRecruitedCounter = (["currentCutDisplay"] call BIS_FNC_GUIget) DisplayCtrl 90200;

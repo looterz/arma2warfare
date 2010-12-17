@@ -25,7 +25,8 @@ QUERYGEARALLOWED = 6;
 QUERYGEARHANDGUNPOOL = 7;
 QUERYGEARMAGAZINES = 8;
 QUERYGEARSPACE = 9;
-QUERYGEAR_BASETYPE = 10;
+QUERYGEARALLOWTWO = 10;
+QUERYGEAR_BASETYPE = 11;
 
 /* IMPORTANT: New Getter/Setter, variable are stored into missionNamespace, the true/false variable define whether we shall override an existing variable or not */
 //--- How long a vehicle last empty before being sweeped.
@@ -71,6 +72,10 @@ if (WF_A2_CombinedOps) then {
 ['WFBE_BUILDINGMAXSERVICEPOINT',6,false] Call SetNamespace;
 //--- Bounty received by player whenever he capture a camp.
 ['WFBE_CAMPCAPTUREBOUNTY',100,true] Call SetNamespace;
+//--- Vehicle that are able to use the "Eject Cargo" action.
+['WFBE_CANEJECTCARGO',["MH60S","UH1Y","MV22","C130J","Mi17_Ins","Mi17_medevac_RU","Mi17_rockets_RU","Mi24_V","Mi24_P","MH6J_EP1","UH60M_EP1","UH60M_MEV_EP1","CH_47F_EP1","C130J_US_EP1","Mi17_TK_EP1","UH1H_TK_EP1","An2_TK_EP1","Mi24_D_TK_EP1","BAF_Merlin_HC3_D","CH_47F_BAF"],true] Call SetNamespace;
+//--- Killed Civilians bring a $xxx penalty to the player.
+['WFBE_CIVILIANPENALTY',2500,true] Call SetNamespace;
 //--- Command Center Range.
 ['WFBE_COMMANDCENTERRANGE',50000,true] Call SetNamespace;
 //--- Commander bounties.
@@ -161,6 +166,10 @@ if (WF_A2_CombinedOps) then {
 if (WF_A2_CombinedOps) then {['WFBE_RESISTANCEFACTION',1,false] Call SetNamespace};
 //--- Resistance Inactive period before being removed (town).
 ['WFBE_RESISTANCEINACTIVETIME',400,true] Call SetNamespace;
+//--- Respawn Camps (0: Disabled, 1: Classic [from town center], 2: Enhanced [from nearby camps]).
+['WFBE_RESPAWNCAMPSMODE',2,false] Call SetNamespace;
+//--- Respawn Camps Rule (0: Disabled, 1: West | East, 2: West | East | Resistance).
+['WFBE_RESPAWNCAMPSRULEMODE',2,false] Call SetNamespace;
 //--- Respawn Delay (Players/AI).
 ['WFBE_RESPAWNDELAY',30,false] Call SetNamespace;
 //--- Respawn Penalty (0: None, 1: Remove All, 2: Pay full gear price, 3: Pay 1/2 gear price, 4: pay 1/4 gear price).
@@ -172,10 +181,10 @@ if (WF_A2_CombinedOps) then {['WFBE_RESISTANCEFACTION',1,false] Call SetNamespac
 ['WFBE_RESPAWNMOBILERANGE0',250,true] Call SetNamespace;
 ['WFBE_RESPAWNMOBILERANGE1',350,true] Call SetNamespace;
 ['WFBE_RESPAWNMOBILERANGE2',500,true] Call SetNamespace;
-//--- Score Gained per town assist.
-['WFBE_SCOREASSISTCAPTURETOWN',5,true] Call SetNamespace;
 //--- Advanced Aircraft restriction.
 ['WFBE_RESTRICTIONADVAIR',0,false] Call SetNamespace;
+//--- Score Gained per town assist.
+['WFBE_SCOREASSISTCAPTURETOWN',5,true] Call SetNamespace;
 //--- Points Gained per camp captire.
 ['WFBE_SCORECAPTURECAMP',1,true] Call SetNamespace;
 //--- Score Gained per town capture.
@@ -219,8 +228,12 @@ if (WF_A2_CombinedOps) then {['WFBE_RESISTANCEFACTION',1,false] Call SetNamespac
 //--- Bounty received by player whenever he capture a town.
 ['WFBE_TOWNCAPTUREBOUNTY',400,true] Call SetNamespace;
 ['WFBE_TOWNMISSIONCAPTUREBOUNTY',800,true] Call SetNamespace;
+//--- Town capture mode (0: normal, 1: threshold, 2: all camps[Best Use with PvP]).
+['WFBE_TOWNCAPTUREMODE',1,false] Call SetNamespace;
 //--- Town Depot capture range.
 ['WFBE_TOWNCAPTURERANGE',40,true] Call SetNamespace;
+//--- Town Depot capture range (Threshold Capture mode).
+['WFBE_TOWNCAPTURERANGETHRESHOLD',100,true] Call SetNamespace;
 //--- Town Capture rate.
 ['WFBE_TOWNCAPTURERATE',1,true] Call SetNamespace;
 //--- Amount of Waypoints given to the AI Patrol in towns (Higher is wider).
@@ -249,15 +262,12 @@ if (WF_A2_CombinedOps) then {['WFBE_RESISTANCEFACTION',1,false] Call SetNamespac
 ['WFBE_UAVSPOTTINGRANGE',900,true] Call SetNamespace;
 //--- Units cleaning delay.
 ['WFBE_UNITREMOVEDLAY',300,false] Call SetNamespace;
+//--- Vehicles which have a fucked up config goes there (gunner = commander).
+['WFBE_VEHIGUNNERISCMDER',['M1128_MGS_EP1'],true] Call SetNamespace;
 //--- Victory Condition (0: Annihilation, 1: Assassination, 2: Supremacy, 3: Towns).
 ['WFBE_VICTORYCONDITION',2,false] Call SetNamespace;
 //--- Commander vote time.
-
-if (WF_DEBUG) then { 
-	['WFBE_VOTETIME',10,true] Call SetNamespace;
-} else 
-{ 	['WFBE_VOTETIME',60,true] Call SetNamespace; };
-
+['WFBE_VOTETIME',if (WF_Debug) then {10} else {60},true] Call SetNamespace;
 //--- Weather Type, 0: Clear, 1: Cloudy, 2: Rainny, 3: Dynamic)
 ['WFBE_WEATHER',0,false] Call SetNamespace;
 //--- Weather Transition period (longer is more realistic).

@@ -7,7 +7,7 @@ _type = Format ["WFBE_%1FARP",sideJoinedText] Call GetNamespace;
 _exist = WF_Logic getVariable Format ["%1MASH",sideJoinedText];
 if !(isNull _exist) then {deleteVehicle _exist};
 
-lastUseSkill set [4, time];
+WFBE_SK_V_LastUse_MASH = time;
 
 _skip = false;
 for [{_x = 0},{_x < 7},{_x = _x + 1}] do {

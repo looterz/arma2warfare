@@ -41,7 +41,6 @@ class FSM
        "_timer = 0;" \n
        "_exit = false;" \n
        "_canDeliver = false;" \n
-       "_sideUpgrades = (sideJoinedText) Call GetSideUpgrades;" \n
        "_hq = (sideJoinedText) Call GetSideHQ;" \n
        "_lastDestination = _hq;" \n
        "_delRange = 'WFBE_DELIVERYRANGE' Call GetNamespace;" \n
@@ -172,7 +171,7 @@ class FSM
        "	_maxSV = _closest getVariable ""maxSupplyValue"";" \n
        "	if (_SV > _currentSV) then {" \n
        "		if (_currentSV != _maxSV) then {" \n
-       "			_upgrades = WF_Logic getVariable _sideUpgrades;" \n
+       "			_upgrades = (sideJoinedText) Call GetSideUpgrades;" \n
        "			_increaseOf = (Format[""WFBE_MAXSUPPLYTRUCKSSV%1"",_upgrades select 6] Call GetNamespace);" \n
        "			_currentSV = _currentSV + _increaseOf;" \n
        "			if (_currentSV > _maxSV) then {_currentSV = _maxSV};" \n

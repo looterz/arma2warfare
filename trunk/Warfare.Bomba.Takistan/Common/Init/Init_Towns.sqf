@@ -13,7 +13,7 @@ waitUntil { !isNil "initJIP" };
 		
 		/* Attempt to fix Null over JIP */
 		towns = towns - [objNull];
-		if (count towns == totalTowns) then {townInit = true} else {sleep 5; failMission "END1"};
+	if (count towns == totalTowns) then {townInit = true;('DEBUG: \n\n The towns initialization has been fixed.') Call DebugHint;} else {('DEBUG: \n\n The towns initialization cannot be fixed.') Call DebugHint;sleep 5; failMission "END1"};
 	} else {townInit = true};
 
 	"Init_Towns: Towns initialization - [Done]" call LogMedium;

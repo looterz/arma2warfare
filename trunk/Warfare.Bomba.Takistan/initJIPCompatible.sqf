@@ -57,16 +57,14 @@
 	#endif
 
 	//--- Gameplay variables.
-	paramCampRespawn = true;
 	paramMobileRespawn = true;
-	paramCampRespawnRule = true;
 	paramBalancing = false;
 	paramFastTime = false;
 	paramAI = true;
 	paramAIcom = true;
-	paramSpacebar = false;
-	paramTabLock = false;
-	paramTacView = false;
+paramSpacebar = true;
+paramTabLock = true;
+paramTacView = true;
 	paramRestrictionKamov = false;
 	paramShowUID = true;
 	paramArty = true;
@@ -79,8 +77,8 @@
 	paramGearRestriction = false;
 	paramHangars = true;
 	paramAARadar = false;
-	paramFastTravel = false;
-	paramCounterMeasures = true;
+paramFastTravel = true;
+paramCounterMeasures = false;
 	paramAutoDefense = true;
 	paramVolumClouds = true;
 	paramICBM = true;
@@ -102,9 +100,12 @@
 	paramAlice = false;
 	paramEASA = true;
 	paramDLCBAF = true;
+paramDLCPMC = true;
 	paramArtyComputer = true;
 	paramBounty = true;
 	paramResVehLock = false;
+paramGearNoRambo = true;
+paramTownsCivilians = false;
 
 	param3thView = false;
 
@@ -179,6 +180,7 @@
 		if (time < 2) then {setDate [(date select 0),(date select 1),(date select 2),(paramsArray select _u),(date select 3)]};_u = _u + 1; //--- Time of Day.
 		missionNamespace setVariable ['WFBE_WEATHER',(paramsArray select _u)];_u = _u + 1;
 		if !(WF_A2_Vanilla) then {if ((paramsArray select _u) == 0) then {paramDLCBAF = false} else {paramDLCBAF = true};_u = _u + 1};
+ 	        if !(WF_A2_Vanilla) then {if ((paramsArray select _u) == 0) then {paramDLCPMC = false} else {paramDLCPMC = true};_u = _u + 1};
 		if ((paramsArray select _u) == 0) then {paramAlice = false} else {paramAlice = true};_u = _u + 1; //--- Ambient Civilians.
 		if ((paramsArray select _u) == 0) then {paramHangars = false} else {paramHangars = true};_u = _u + 1; //--- Airport Hangars.
 		missionNamespace setVariable ['WFBE_UNITREMOVEDLAY',(paramsArray select _u)];_u = _u + 1;
@@ -206,8 +208,8 @@
 		if ((paramsArray select _u) == 0) then {paramICBM = false} else {paramICBM = true};_u = _u + 1; //--- ICBM.
 		if ((paramsArray select _u) == 0) then {paramISIS = false} else {paramISIS = true};_u = _u + 1; //--- Injury/Wound system.
 		if ((paramsArray select _u) == 0) then {paramVolumClouds = false} else {paramVolumClouds = true};_u = _u + 1; //--- Volumetric Clouds.
-		if ((paramsArray select _u) == 0) then {paramCampRespawn = false} else {paramCampRespawn = true};_u = _u + 1; //--- Camp respawn's enabled.
-		if ((paramsArray select _u) == 0) then {paramCampRespawnRule = false} else {paramCampRespawnRule = true};_u = _u + 1; //--- Player cannot respawn if he dies to close of a camp.
+	missionNamespace setVariable ['WFBE_RESPAWNCAMPSMODE',(paramsArray select _u)];_u = _u + 1;
+	missionNamespace setVariable ['WFBE_RESPAWNCAMPSRULEMODE',(paramsArray select _u)];_u = _u + 1;
 		missionNamespace setVariable ['WFBE_RESPAWNDELAY',(paramsArray select _u)];_u = _u + 1;
 		if ((paramsArray select _u) == 0) then {paramRespawnMASH = false} else {paramRespawnMASH = true};_u = _u + 1; //--- MASH respawn's enabled.
 		if ((paramsArray select _u) == 0) then {paramMobileRespawn = false} else {paramMobileRespawn = true};_u = _u + 1; //--- Mobile respawn's enabled.
@@ -216,8 +218,11 @@
 		missionNamespace setVariable ['WFBE_RESTRICTIONADVAIR',(paramsArray select _u)];_u = _u + 1;
 		if ((paramsArray select _u) == 0) then {paramGearRestriction = false} else {paramGearRestriction = true};_u = _u + 1; //--- Player have a gear restriction in camps.
 		if !(WF_A2_Arrowhead) then {if ((paramsArray select _u) == 0) then {paramRestrictionKamov = false} else {paramRestrictionKamov = true};_u = _u + 1}; //--- Kamov enabled.
+	if ((paramsArray select _u) == 0) then {paramGearNoRambo = false} else {paramGearNoRambo = true};_u = _u + 1;
 		_u = _u + 1; //--- Town Amount System, leave blank.
 		missionNamespace setVariable ['WFBE_RESSTRIKER',(paramsArray select _u)];_u = _u + 1;
+	missionNamespace setVariable ['WFBE_TOWNCAPTUREMODE',(paramsArray select _u)];_u = _u + 1;
+	if ((paramsArray select _u) == 0) then {paramTownsCivilians = false} else {paramTownsCivilians = true};_u = _u + 1;
 		if ((paramsArray select _u) == 0) then {paramOccup = false} else {paramOccup = true};_u = _u + 1; //--- Town Occupation.
 		missionNamespace setVariable ['WFBE_TOWNOCCUPATIONDIFFICULTY',(paramsArray select _u)];_u = _u + 1;
 		if ((paramsArray select _u) == 0) then {paramOccReinf = false} else {paramOccReinf = true};_u = _u + 1; //--- Town Occupation Reinforcement.

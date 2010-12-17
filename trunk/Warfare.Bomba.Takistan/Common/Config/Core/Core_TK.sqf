@@ -82,10 +82,10 @@ _c = _c + ['LandRover_SPG9_TK_EP1'];
 _i = _i + [['','',750,17,2,2,1,0,'Takistani']];
 
 _c = _c + ['BTR40_TK_INS_EP1'];
-_i = _i + [['','',450,25,2,0,1,0,'Takistani Guerilla']];
+_i = _i + [['','',450,25,2,0,1,0,'Takistani']];
 
 _c = _c + ['BTR40_MG_TK_INS_EP1'];
-_i = _i + [['','',600,25,2,0,1,0,'Takistani Guerilla']];
+_i = _i + [['','',600,25,2,0,1,0,'Takistani']];
 
 _c = _c + ['V3S_TK_EP1'];
 _i = _i + [['','',275,20,1,0,1,0,'Takistani']];
@@ -236,6 +236,7 @@ for '_z' from 0 to (count _c)-1 do {
 	_get = (_c select _z) Call GetNamespace;
 	if (isNil '_get') then {
 		if ((_i select _z) select 0 == '') then {(_i select _z) set [0, [_c select _z,'displayName'] Call GetConfigInfo]};
+		if (WF_Debug) then {(_i select _z) set [3,1]};
 		_p = if ((_c select _z) isKindOf 'Man') then {'portrait'} else {'picture'};
 		(_i select _z) set [1, [_c select _z,_p] Call GetConfigInfo];
 		[_c select _z,_i select _z] Call SetNamespace;

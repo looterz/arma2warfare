@@ -3,7 +3,7 @@ PROFILER_BEGIN("Common_GetTeamType");
 
 Private['_result'];
 
-	_result = [_this, "TeamType"] call GetTeamVariable;
+	_result = [_this, "TeamType", -1] call GetTeamVariable;
 
 PROFILER_END();
 _result;
