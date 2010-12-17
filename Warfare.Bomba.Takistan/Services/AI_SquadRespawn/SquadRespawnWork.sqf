@@ -105,7 +105,8 @@ Private ["_isForcedRespawn", "_buildings","_closestRespawn","_deathLoc","_leader
 		
 			"AI_SquadRespawnWork: SP mode, and teamLeader is died, create TeamLeader" call LogHigh;
 			_leader = [_unitType, _team, _pos, _side] Call CreateMan;
-
+			
+			_team selectLeader _leader;
 			[_leader, _side] spawn SetAITeamKilledEventHandler;
 		};
 
