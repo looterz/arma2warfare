@@ -136,6 +136,10 @@ townDefenceRange = false;
 /* Airfields Init */
 if (isNil "Airfields") then {Airfields = []};
 
+/* Skill Module. */
+[] Call Compile preprocessFile "Client\Module\Skill\Skill_Init.sqf";
+[] Call WFBE_SK_FNC_Apply;
+
 /* Exec SQF|FSM Misc stuff. */
 if (paramTrackPlayer) then {[] ExecFSM "Client\FSM\updateteamsmarkers.fsm"};
 [] ExecFSM "Client\FSM\updateactions.fsm";
@@ -215,9 +219,6 @@ sleep 1;
 [player,Format ["WFBE_%1DEFAULTWEAPONS",sideJoinedText] Call GetNamespace,Format ["WFBE_%1DEFAULTAMMO",sideJoinedText] Call GetNamespace] Call EquipLoadout;
 /* Default gear menu filler. */
 WF_Logic setVariable ['filler','primary'];
-
-/* Skill Module. */
-[] Call WFBE_SK_FNC_Apply;
 
 //--- Handle Client keys: Disbale command Menu scanning, Factories Lock, etc.
 EH_BTNUpdateTimeout = 0;

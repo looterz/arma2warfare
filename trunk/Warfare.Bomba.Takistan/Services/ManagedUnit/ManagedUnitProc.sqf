@@ -29,19 +29,7 @@ Private ["_tmp", "_dirt", "_u", "_unit", "_item", "_data"];
 		_u = _u - 1;
 		
 		_unit = ManagedUnitList select _u;
-		
-		if (isNull _unit) then {
-			_data = ManagedUnitDataList select _u;
-			_side = _data select 0;
-			_man  = _data select 1;
 			
-			[objNull, _side, -1, _man] spawn UpdateSideStats;
-			ManagedUnitDataList set [_u, objNull];
-			_dirt = true;
-			
-			format["ManagedUnitProc: Detected deleted managed unit", _unit] call LogHigh;
-		};
-		
 		if (!alive _unit) then {
 		
 			_data = ManagedUnitDataList select _u;

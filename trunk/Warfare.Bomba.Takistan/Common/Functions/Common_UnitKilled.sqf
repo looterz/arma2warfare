@@ -86,7 +86,6 @@ if (!isNull _killerTeam && !isNil '_get' && (_sideKiller != sideEnemy) && (_side
 				if (IsClientServer) then {['SRVFNCREQUESTCHANGESCORE',[_player,score _player + _point]] Spawn HandleSPVF};
 			};
 		};
-	};
 	
 		/* MySQL */
 		if (mysql) then {

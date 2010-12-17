@@ -10,6 +10,16 @@ Private ["_unit", "_side", "_man"];
 	
 	_unit = _this select 0;
 	_side = _this select 1;
+	
+	if (isNil "_unit") exitWith { 
+		"Try add as managed nil object" call LogUnexpected;
+		PROFILER_END(); 
+	};
+	if (isNull _unit)  exitWith { 
+		"Try add as managed null object" call LogUnexpected;
+		PROFILER_END(); 
+	};	
+	
 
 	_man = if (_unit isKindOf "Man") then { true } else { false };
 	

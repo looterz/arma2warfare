@@ -894,13 +894,12 @@ while {alive player && dialog} do {
 			_currentCost = (_data select 3) + _currentPrimaryCost + _currentSecondaryCost + _currentSidearmCost + _currentSpecialCost + _bpcost;
 			respawnGearCost = _currentCost;
 			
-			{ 
-				respawnGearCost = respawnGearCost - ((_x call GetNamespace) select QUERYGEARCOST); 
-			} forEach (_currentUnit call GetEquipDogTags);
+			{ respawnGearCost = respawnGearCost - ((_x call GetNamespace) select QUERYGEARCOST); } forEach (_currentUnit call GetEquipDogTags);
 			
-			spawn WFBE_SK_FNC_Apply;			
+			[] spawn WFBE_SK_FNC_Apply;					     			
 			_cost = 0;
-		} else {
+		} 
+		else {
 			hint parseText(Format [localize "STR_WF_Funds_Missing_Gear",_cost - _funds]);
 		};
 	};

@@ -178,7 +178,7 @@ class FSM
        "} else {depotInRange = false; };" \n
        "" \n
        "_townDefenceRange = false;" \n
-       "if (paramBuildDefencesInTown == 2 || (paramBuildDefencesInTown == 1 && (playerType in Skills_Engineers))) then {" \n
+       "if (paramBuildDefencesInTown == 2 || (paramBuildDefencesInTown == 1 && (WFBE_SK_V_Type == 'Engineer'))) then {" \n
        "     _nObjects = nearestObjects [player, WFDEPOT,('WFBE_DEFENSEMANRANGE' Call GetNamespace)];" \n
        "     _townDepot = if (count _nObjects > 0) then {_nObjects select 0} else {objNull};" \n
        "     if (!isNull _townDepot) then {" \n

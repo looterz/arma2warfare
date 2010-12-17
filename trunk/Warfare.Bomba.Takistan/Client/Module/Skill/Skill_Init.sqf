@@ -31,12 +31,15 @@ WFBE_SK_V_Reload_Lockpick = 25;
 WFBE_SK_V_Reload_Spot = 8;
 
 /* Find the player type */
-WFBE_SK_V_Type = "";
-if (playerType in WFBE_SK_V_Engineers) then {WFBE_SK_V_Type = "Engineer"};
-if (playerType in WFBE_SK_V_Officers) then {WFBE_SK_V_Type = "Officer"};
-if (playerType in WFBE_SK_V_Soldiers) then {WFBE_SK_V_Type = "Soldier"};
-if (playerType in WFBE_SK_V_SpecsOps) then {WFBE_SK_V_Type = "SpecOps"};
-if (playerType in WFBE_SK_V_Spotters) then {WFBE_SK_V_Type = "Spotter"};
+WFBE_SK_V_BaseType = "";
+
+if (playerType in WFBE_SK_V_Engineers) then {WFBE_SK_V_BaseType = "Engineer"};
+if (playerType in WFBE_SK_V_Officers) then {WFBE_SK_V_BaseType = "Officer"};
+if (playerType in WFBE_SK_V_Soldiers) then {WFBE_SK_V_BaseType = "Soldier"};
+if (playerType in WFBE_SK_V_SpecsOps) then {WFBE_SK_V_BaseType = "SpecOps"};
+if (playerType in WFBE_SK_V_Spotters) then {WFBE_SK_V_BaseType = "Spotter"};
+
+WFBE_SK_V_Type = WFBE_SK_V_BaseType;
 
 /* Special one time init */
 /* The soldier can hire more units than the others leader */
