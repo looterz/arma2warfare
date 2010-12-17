@@ -96,7 +96,7 @@ class WF_Menu {
 			x = 0.015;
 			y = 0.17;
 			w = 0.627451;
-			h = 0.836601;
+			h = 0.976601;
 			moving = 1;
 			text = "\ca\ui\data\ui_mainmenu_background_ca.paa";
 		};

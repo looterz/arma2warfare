@@ -3,20 +3,18 @@
 	Description: Skill Application.
 */
 
-_playerSkill = WFBE_SK_V_Type;
 _conditionExtra = "";
-
 _dogTags = player call GetEquipDogTags;
 
-
+WFBE_SK_V_Type = WFBE_SK_V_BaseType;
 if (count _dogTags > 0) then {
 	_dogTag = _dogTags select ((count _dogTags) - 1);
 	
-	if (_dogTag == "DogtagsEngineer" ) then { _playerSkill = 'Engineer'; };
-	if (_dogTag == "DogtagsSaboteur" ) then { _playerSkill = 'Spotter'; };
-	if (_dogTag == "DogtagsLockpick" ) then { _playerSkill = 'SpecOps'; };
-	if (_dogTag == "DogtagsCommander") then { _playerSkill = 'Officer'; };
-	if (_dogTag == "DogtagsMedic"    ) then { _playerSkill = 'Medic'; };
+	if (_dogTag == "DogtagsEngineer" ) then { WFBE_SK_V_Type = 'Engineer'; };
+	if (_dogTag == "DogtagsSaboteur" ) then { WFBE_SK_V_Type = 'Spotter'; };
+	if (_dogTag == "DogtagsLockpick" ) then { WFBE_SK_V_Type = 'SpecOps'; };
+	if (_dogTag == "DogtagsCommander") then { WFBE_SK_V_Type = 'Officer'; };
+	if (_dogTag == "DogtagsMedic"    ) then { WFBE_SK_V_Type = 'Medic'; };
 	
 	if ( (WF_A2_Arrowhead || WF_A2_CombinedOps) ) then {
 		_conditionExtra = " && (!(isNull (unitBackpack player))) && (count (player call GetEquipDogTags) > 0)";
@@ -29,7 +27,7 @@ if (WFBE_SK_SkillActionId != -1) then {
 	player removeAction WFBE_SK_SkillActionId; 
 };
 
-switch (_playerSkill) do {
+switch (WFBE_SK_V_Type) do {
 	case 'Engineer': {
 		/* Repair Ability */
 		WFBE_SK_SkillActionId = player addAction [
