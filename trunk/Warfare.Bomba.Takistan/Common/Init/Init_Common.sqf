@@ -169,7 +169,7 @@ if (WF_A2_Vanilla) then {
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_USMC.sqf';
 	/* Units Core */
 	WFBE_V_UnitsRootVersion = 'Vanilla\';
-	WFBE_V_West_Faction = 'UMMC';
+	WFBE_V_West_Faction = 'USMC';
 	WFBE_V_East_Faction = 'RU';
 	WFBE_V_Resistance_Faction = 'GUE';
 };

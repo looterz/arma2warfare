@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Service_AI_SquadRespawn");
 
-Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr","_rr","_respawn","_respawnLoc","_side","_sideText","_slot","_team","_upgrades"];
+Private ["_isForcedRespawn", "_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr","_rr","_respawn","_respawnLoc","_side","_sideText","_slot","_team","_upgrades"];
 
 	_team 	  = _this select 0;
 	_deathLoc = _this select 1;
@@ -38,16 +38,18 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 	_respawn = (_team) Call GetTeamRespawn;
 
 	_availableSpawn = [];
-	
+	_isForcedRespawn = false;
+	if (typeName _respawn == 'STRING') then {if (_respawn == "forceRespawn") then {_isForcedRespawn = true}};
+
 	//--- Towns.
-	if (_rcm > 0 && _respawn != "forceRespawn") then {
+	if (_rcm > 0 && !_isForcedRespawn) then {
 		_availableSpawn = _availableSpawn + ([_deathLoc, _side] Call GetRespawnCamps);
 	};
 
 	_upgrades = (_sideText) Call GetSideUpgrades;
 	
 	//--- Mobile Respawn.
-	if (paramMobileRespawn && _respawn != "forceRespawn") then {
+	if (paramMobileRespawn && !_isForcedRespawn) then {
 		_mobileRespawns = Format ["WFBE_%1AMBULANCES",_sideText] Call GetNamespace;
 		_range = (Format["WFBE_RESPAWNMOBILERANGE%1",(_upgrades select 7)] Call GetNamespace);
 		
@@ -66,7 +68,7 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 	switch (typeName _respawn) do {
 		case "STRING": {
 			_update = true;
-			if (_respawn == "forceRespawn") then {[_team,""] Call SetTeamRespawn};
+			if (!_isForcedRespawn) then {[_team,""] Call SetTeamRespawn};
 		}; //--- Not defined.
 		case "OBJECT": {
 			_respawnLoc = _respawn;
