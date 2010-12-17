@@ -9,7 +9,7 @@ _currentWeapons = (((_unit) call GetEquipLoadout) select 0);
 _dogTags = [];
 _u = count _currentWeapons;
 
-while { !(_u == 0) } do {
+while { _u != 0 } do {
 
 	_u = _u - 1;
 	_weaponType = _currentWeapons select _u;

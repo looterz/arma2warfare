@@ -501,7 +501,10 @@ while {alive player && dialog} do {
 	};
 	
 	if (_updateUnit) then {
-		_currentWeapons = weapons _currentUnit;
+		
+		_loadout = (_currentUnit call GetEquipLoadout);
+		_currentWeapons = _loadout select 0;
+		
 		_currentCost = 0;
 		_unitBP = "";
 		if !(isNull(unitBackpack _currentUnit)) then {
