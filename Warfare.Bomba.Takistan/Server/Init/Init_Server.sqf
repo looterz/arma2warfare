@@ -231,6 +231,9 @@ processInitCommands;
 WestMHQ setVehicleInit "['Headquarters','ColorGreen',[1,1],'','HQUndeployed',this,0.2,false,'','',false,West] ExecVM 'Common\Common_MarkerUpdate.sqf'";
 processInitCommands;
 
+WestMHQ lock true;
+EastMHQ lock true;
+
 WF_Logic setVariable ["eastUnitsCreated",0,true];
 WF_Logic setVariable ["eastCasualties",0,true];
 WF_Logic setVariable ["eastVehiclesCreated",0,true];

@@ -6,9 +6,7 @@ private['_order', '_vehicle', '_lock'];
 	_vehicle = _order select 0;
 	_lock = _order select 1;
 	
-	if ( !(isNull _vehicle) && alive(_vehicle) ) then {
+	if (isNil "_vehicle") exitWith {};
+	if (isNull _vehicle !alive(_vehicle) ) exitWith {};
 	
-		_vehicle lock _lock;
-	};
-
-
+	_vehicle lock _lock;
