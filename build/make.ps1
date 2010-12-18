@@ -1,4 +1,4 @@
-$projectVer = "V2.065 R3.6b"
+$projectVer = "V2.066 R3.7b"
 $currentDirectory = [string](Get-Location);
 $revisionNumber = "";
 $prevBuildRevision = 332;
@@ -112,6 +112,9 @@ function preprocess-file {
 function preprocess-fileline {
 	param ([string]$fileLine)
 	
+	#$regexOption = [System.Text.RegularExpressions.RegexOptions]::Compiled -or [System.Text.RegularExpressions.RegexOptions]::IgnoreCase 
+	#	-or [System.Text.RegularExpressions.RegexOptions]::IgnorePatternWhitespace;	
+	
 	if ($fileLine -match "PROFILER_BEGIN" -or 
 	    $fileLine -match "PROFILER_END" -or
 		$fileLine -match "!isNil ""LogInited""" -or
@@ -132,7 +135,7 @@ function preprocess-fileline {
 		
 		$fileLine = $fileLine -replace "`"`"`">\*/`"", "@FSMSYS@"; #-- logger in fsm
 		$fileLine = $fileLine -replace "`"`".+?`"`"\s*call\s\s*Log.+?;", ""; #-- logger in fsm
-		$fileLine = $fileLine -replace "@FSMSYS@", "`"`"`">\*/`""; #-- logger in fsm
+		$fileLine = $fileLine -replace "@FSMSYS@", "`"`"`">*/`""; #-- logger in fsm
 		
 		$fileLine = $fileLine -replace "`".+?`"\s*call\s\s*Log.+?;", "";
 		$fileLine = $fileLine -replace "'.+?'\s*call\s\s*Log.+?;", "";
