@@ -18,8 +18,8 @@ link5[] = {4,2};
 link6[] = {5,3};
 link7[] = {6,5};
 link8[] = {7,1};
-globals[] = {0.000000,0,0,0,0,640,480,1,29,6316128,1,-185.248779,281.600861,329.188721,-236.307190,237,833,1};
-window[] = {2,-1,-1,-1,-1,859,225,1485,225,3,255};
+globals[] = {0.000000,0,0,0,0,640,480,1,29,6316128,1,-185.248779,281.600861,329.188721,-236.307190,407,493,1};
+window[] = {0,-1,-1,-1,-1,809,175,1435,175,1,425};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -54,7 +54,9 @@ class FSM
     class Check_Player
     {
       name = "Check_Player";
-      init = /*%FSM<STATEINIT""">*/"_nextUpdate = time + 2.5;"/*%FSM</STATEINIT""">*/;
+      init = /*%FSM<STATEINIT""">*/"if (Vehicle player != _lastVehicle) then {_UpdateActions = true};" \n
+       "" \n
+       "_nextUpdate = time + 2.5;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -64,7 +66,7 @@ class FSM
           priority = 1.000000;
           to="End";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"gameOver"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"gameOver || !alive player"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -74,7 +76,7 @@ class FSM
           priority = 0.000000;
           to="Update_Actions";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"alive player && !gameOver && (vehicle player != _lastVehicle)"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"alive player && !gameOver && _UpdateActions"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -107,15 +109,8 @@ class FSM
     {
       name = "Update_Actions";
       init = /*%FSM<STATEINIT""">*/"_UpdateActions = false;" \n
-       "_vehicle = vehicle player;" \n
-       "if (_vehicle != player) then {" \n
-       "	_optionsID = _vehicle addAction [""<t color='#F8D664'>"" + (localize ""STR_WF_Options"") + ""</t>"",""Client\Action\Action_Menu.sqf"", """", 1, false, true, """", """"];" \n
-       "} else {" \n
-       "	if (_optionsID != -1) then {" \n
-       "		_lastVehicle RemoveAction _optionsID;" \n
-       "		_optionsID = -1;" \n
-       "	};" \n
-       "};" \n
+       "_vehicle = Vehicle player;" \n
+       "if (_vehicle != player) then {_optionsID = _vehicle addAction [""<t color='#F8D664'>"" + (localize ""STR_WF_Options"") + ""</t>"",""Client\Action\Action_Menu.sqf"", """", 1, false, true, """", """"]} else {_lastVehicle RemoveAction _optionsID};" \n
        "_lastVehicle = _vehicle;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
