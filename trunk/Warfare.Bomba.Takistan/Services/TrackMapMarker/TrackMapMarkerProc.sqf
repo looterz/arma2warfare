@@ -9,7 +9,7 @@ Private ["_nextMarkerUpdate", "_tmp"];
 		WBE_TrackedMarkerList = WBE_TrackedMarkerList + _tmp;
 	};
 
-	if (visibleMap || trackMapMarkerNext < time) then {
+	if (visibleMap || trackMapMarkerNext < time || diag_fps > 40) then {
 		
 		format["Service_TrackMapMarkerProc: markers queue=%1", (count WBE_TrackedMarkerList)] call LogHigh;
 		
