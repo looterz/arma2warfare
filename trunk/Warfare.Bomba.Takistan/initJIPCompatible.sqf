@@ -77,8 +77,8 @@ paramTacView = true;
 	paramGearRestriction = false;
 	paramHangars = true;
 	paramAARadar = false;
-paramFastTravel = true;
-paramCounterMeasures = false;
+	paramFastTravel = true;
+	paramCounterMeasures = false;
 	paramAutoDefense = true;
 	paramVolumClouds = true;
 	paramICBM = true;
@@ -100,12 +100,12 @@ paramCounterMeasures = false;
 	paramAlice = false;
 	paramEASA = true;
 	paramDLCBAF = true;
-paramDLCPMC = true;
+	paramDLCPMC = true;
 	paramArtyComputer = true;
 	paramBounty = true;
 	paramResVehLock = false;
-paramGearNoRambo = true;
-paramTownsCivilians = false;
+	paramGearNoRambo = true;
+	paramTownsCivilians = false;
 
 	param3thView = false;
 

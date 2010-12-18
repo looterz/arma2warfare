@@ -24,8 +24,8 @@ Private ['_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', 
 		
 		_baseCost = _baseCost * (1 + _deltaPrice);
 		
-		_sellCost = floor(_baseCost * 0.95);
-		_buyCost = _baseCost + (_sellCost - _baseCost);	
+		_sellCost = floor(_baseCost * 0.90);
+		_buyCost = _baseCost + (_baseCost - _sellCost);	
 		
 		if (_buyCost < 5) then { _buyCost = 5; };
 		if (_sellCost < 5) then { _sellCost = 5; };
@@ -37,6 +37,7 @@ Private ['_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', 
 		_price = _productPrices select _u;
 		_price set [0, _sellCost];
 		_price set [1, _buyCost];
+		sleep 0.005;
 	};
 
 	_market setVariable ["marketProductPrice", _productPrices, true];

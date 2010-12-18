@@ -15,6 +15,7 @@ Private ['_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', 
 	_nearest = _market getVariable "marketNearestTown";
 	if (!isNil "_nearest") then {
 		_markets = [] + towns;
+		_markets = _markets - [_market];
 		_sorted = [_market, _markets] Call SortByDistance;
 		_nearest = _sorted select 0;
 		

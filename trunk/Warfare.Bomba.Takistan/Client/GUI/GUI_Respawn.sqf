@@ -168,6 +168,11 @@ if (_loadDefault) then {
 //--- Skill Module.
 [] spawn WFBE_SK_FNC_Apply;
 
+if (paramTrade) then
+	[] call marketClearPlayerCargo;
+};
+
+
 {deleteMarkerLocal _x} forEach _markers;
 if (!isNil "DeathCamera") then {
 	DeathCamera cameraEffect["TERMINATE","BACK"];
