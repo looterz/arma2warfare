@@ -35,7 +35,7 @@ class Mission
 	class Intel
 	{
 		briefingName="$MISSIONNAME";
-		briefingDescription="$MISSIONDESCRIPTION";
+		briefingDescription="Build $BUILDVERSION - $MISSIONDESCRIPTION";
 		resistanceWest=0;
 		startWeather=0;
 		forecastWeather=0;
