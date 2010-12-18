@@ -43,11 +43,11 @@ function EntryPoint
 	$numplayers = @( 40, 64 );
 	foreach($numplayer in $numplayers)
 	{
-		#compile-version -world "Takistan" -gamever "CO"  -numplayers $numplayer  -desc "Combined Operations - Takistan"
-		#compile-version -world "Takistan" -gamever "OA"  -numplayers $numplayer  -desc "Operation Arrowhead - Takistan"
+		compile-version -world "Takistan" -gamever "CO"  -numplayers $numplayer  -desc "Combined Operations - Takistan"
+		compile-version -world "Takistan" -gamever "OA"  -numplayers $numplayer  -desc "Operation Arrowhead - Takistan"
 
-		#compile-version -world "Chernarus" -gamever "CO" -numplayers $numplayer  -desc "Combined Operations - Chernarus"
-		#compile-version -world "Chernarus" -gamever "A2" -numplayers $numplayer  -desc "ArmA2 Vanilla - Chernarus"		
+		compile-version -world "Chernarus" -gamever "CO" -numplayers $numplayer  -desc "Combined Operations - Chernarus"
+		compile-version -world "Chernarus" -gamever "A2" -numplayers $numplayer  -desc "ArmA2 Vanilla - Chernarus"		
 	}
 	
 	compile-version -world "Lingor" -gamever "CO"  -numplayers 40  -desc "Combined Operations - Lingor"
