@@ -168,7 +168,7 @@ if (_loadDefault) then {
 //--- Skill Module.
 [] spawn WFBE_SK_FNC_Apply;
 
-if (paramTrade) then
+if (paramTrade) then {
 	[] call marketClearPlayerCargo;
 };
 
