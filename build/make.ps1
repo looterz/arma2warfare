@@ -50,7 +50,7 @@ function EntryPoint
 		#compile-version -world "Chernarus" -gamever "A2" -numplayers $numplayer  -desc "ArmA2 Vanilla - Chernarus"		
 	}
 	
-	compile-version -world "Linor" -gamever "CO"  -numplayers 40  -desc "Combined Operations - Linor"
+	compile-version -world "Lingor" -gamever "CO"  -numplayers 40  -desc "Combined Operations - Lingor"
 	
 	#-- remove temporary folder
 	#-- Remove-Item -path $tmpfolder -Recurse -Force;
