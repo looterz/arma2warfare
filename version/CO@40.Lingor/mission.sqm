@@ -661,6 +661,7 @@ class Mission
 					id=291;
 					side="EAST";
 					vehicle="TK_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -680,6 +681,7 @@ class Mission
 					id=292;
 					side="EAST";
 					vehicle="TK_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -699,6 +701,7 @@ class Mission
 					id=293;
 					side="EAST";
 					vehicle="TK_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -718,6 +721,7 @@ class Mission
 					id=294;
 					side="EAST";
 					vehicle="TK_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -737,6 +741,7 @@ class Mission
 					id=295;
 					side="EAST";
 					vehicle="TK_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -756,6 +761,7 @@ class Mission
 					id=296;
 					side="EAST";
 					vehicle="TK_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -775,6 +781,7 @@ class Mission
 					id=297;
 					side="EAST";
 					vehicle="TK_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -794,6 +801,7 @@ class Mission
 					id=298;
 					side="EAST";
 					vehicle="TK_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -813,6 +821,7 @@ class Mission
 					id=299;
 					side="EAST";
 					vehicle="TK_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -832,6 +841,7 @@ class Mission
 					id=300;
 					side="EAST";
 					vehicle="TK_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -851,6 +861,7 @@ class Mission
 					id=301;
 					side="EAST";
 					vehicle="TK_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -870,6 +881,7 @@ class Mission
 					id=302;
 					side="EAST";
 					vehicle="TK_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -889,6 +901,7 @@ class Mission
 					id=303;
 					side="EAST";
 					vehicle="TK_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -908,6 +921,7 @@ class Mission
 					id=304;
 					side="EAST";
 					vehicle="TK_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -927,6 +941,7 @@ class Mission
 					id=305;
 					side="EAST";
 					vehicle="TK_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -946,6 +961,7 @@ class Mission
 					id=306;
 					side="EAST";
 					vehicle="TK_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -965,6 +981,7 @@ class Mission
 					id=307;
 					side="EAST";
 					vehicle="TK_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -984,6 +1001,7 @@ class Mission
 					id=308;
 					side="EAST";
 					vehicle="TK_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -1003,6 +1021,7 @@ class Mission
 					id=309;
 					side="EAST";
 					vehicle="TK_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -1022,6 +1041,7 @@ class Mission
 					id=310;
 					side="WEST";
 					vehicle="US_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -1041,6 +1061,7 @@ class Mission
 					id=311;
 					side="WEST";
 					vehicle="US_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -1060,6 +1081,7 @@ class Mission
 					id=312;
 					side="WEST";
 					vehicle="US_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -1079,6 +1101,7 @@ class Mission
 					id=313;
 					side="WEST";
 					vehicle="US_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -1098,6 +1121,7 @@ class Mission
 					id=314;
 					side="WEST";
 					vehicle="US_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -1117,6 +1141,7 @@ class Mission
 					id=315;
 					side="WEST";
 					vehicle="US_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -1136,6 +1161,7 @@ class Mission
 					id=316;
 					side="WEST";
 					vehicle="US_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -1155,6 +1181,7 @@ class Mission
 					id=317;
 					side="WEST";
 					vehicle="US_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -1174,6 +1201,7 @@ class Mission
 					id=318;
 					side="WEST";
 					vehicle="US_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -1193,6 +1221,7 @@ class Mission
 					id=319;
 					side="WEST";
 					vehicle="US_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -1212,6 +1241,7 @@ class Mission
 					id=320;
 					side="WEST";
 					vehicle="US_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -1231,6 +1261,7 @@ class Mission
 					id=321;
 					side="WEST";
 					vehicle="US_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -1250,6 +1281,7 @@ class Mission
 					id=322;
 					side="WEST";
 					vehicle="US_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -1269,6 +1301,7 @@ class Mission
 					id=323;
 					side="WEST";
 					vehicle="US_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -1288,6 +1321,7 @@ class Mission
 					id=324;
 					side="WEST";
 					vehicle="US_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -1307,6 +1341,7 @@ class Mission
 					id=325;
 					side="WEST";
 					vehicle="US_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -1326,6 +1361,7 @@ class Mission
 					id=326;
 					side="WEST";
 					vehicle="US_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -1345,6 +1381,7 @@ class Mission
 					id=327;
 					side="WEST";
 					vehicle="US_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
@@ -1364,6 +1401,7 @@ class Mission
 					id=328;
 					side="WEST";
 					vehicle="US_Soldier_EP1";
+					player="PLAY CDG";
 					leader=1;
 					rank="LIEUTENANT";
 					skill=0.60000002;
