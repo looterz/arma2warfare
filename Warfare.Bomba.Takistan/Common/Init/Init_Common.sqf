@@ -188,6 +188,7 @@ if (WF_A2_Arrowhead) then {
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_TKGUE.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_TKSF.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_US.sqf';
+	[] Call Compile preprocessFile 'Common\Config\Core\Core_PMC.sqf';
 	/* Units Core */
 	WFBE_V_UnitsRootVersion = 'Arrowhead\';
 	WFBE_V_West_Faction = 'US';
@@ -219,7 +220,8 @@ if (WF_A2_CombinedOps) then {
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_TKSF.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_US.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_USMC.sqf';
-	/* Units Core */
+	[] Call Compile PreProcessFile 'Common\Config\Core\Core_PMC.sqf';
+        /* Units Core */
 	WFBE_V_UnitsRootVersion = 'CombinedOps\';
 	WFBE_V_West_Faction = 'US';
 	WFBE_V_East_Faction = 'RU';

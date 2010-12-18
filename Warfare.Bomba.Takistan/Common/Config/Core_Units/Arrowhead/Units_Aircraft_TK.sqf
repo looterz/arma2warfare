@@ -8,6 +8,14 @@ _u = _u		+ ['UH1H_TK_EP1'];
 if (_r == 0 ||_r == 1) then {
 	_u = _u		+ ['Mi24_D_TK_EP1'];
 };
+
+if (paramDLCPMC) then {
+	_u = _u		+ ['Ka60_PMC'];
+	_u = _u		+ ['Ka60_GL_PMC'];
+	_u = _u		+ ['Ka137_PMC'];
+	_u = _u		+ ['Ka137_MG_PMC'];
+};
+
 if (_r == 0) then {
 
 	if (!paramBuyAircraftInAirportOnly) then {

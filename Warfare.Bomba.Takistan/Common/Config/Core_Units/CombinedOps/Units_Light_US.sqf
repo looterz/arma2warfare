@@ -48,4 +48,11 @@ if (paramDLCBAF) then {
 	_u = _u		+ ['BAF_Jackal2_L2A1_D'];
 };
 
+if (paramDLCPMC) then {		
+	_u = _u		+ ['SUV_PMC'];
+	_u = _u		+ ['SUV_PMC_BAF'];
+	_u = _u		+ ['ArmoredSUV_PMC'];
+};
+
+
 _u
