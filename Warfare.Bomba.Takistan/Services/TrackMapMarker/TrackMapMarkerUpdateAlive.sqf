@@ -70,7 +70,7 @@ private['_u', '_mygroup', '_newDeadMarkers', '_text', '_amount', '_val', '_val2'
 			};
 		};
 		
-		if (diag_fps < 30) then { sleep 0.005; };
+		if (diag_fps < 40) then { sleep 0.005; };
 	};
 	
 	if (count _newDeadMarkers != 0) then {
