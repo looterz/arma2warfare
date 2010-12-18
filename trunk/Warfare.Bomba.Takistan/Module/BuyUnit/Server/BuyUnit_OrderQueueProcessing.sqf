@@ -42,6 +42,7 @@ PROFILER_BEGIN("BuyUnit_OrderQueueProcessing");
 			_dirty = true; 
 		};
 		_i = _i + 1;
+		sleep 0.005;
 	};
 	
 	if (_dirty) then {
