@@ -166,7 +166,7 @@ if (_loadDefault) then {
 };
 
 //--- Skill Module.
-spawn WFBE_SK_FNC_Apply;
+[] spawn WFBE_SK_FNC_Apply;
 
 {deleteMarkerLocal _x} forEach _markers;
 if (!isNil "DeathCamera") then {
