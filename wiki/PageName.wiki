@@ -1,7 +1,7 @@
 #summary Release Notes: Warfare V2.066 R3.7b Bomba Edition
 #labels Featured,ReleaseNotes,Beta
 
-= [http://code.google.com/p/arma2warfare/downloads/detail?name=WarfareV2.066.R3.7b.Bomba.Edition.zip =
+= [http://code.google.com/p/arma2warfare/downloads/detail?name=WarfareV2.066.R3.7b.Bomba.Edition.zip Warfare V2.066 R3.7b Bomba Edition] =
 Build 403
 
  * Merged with Warfare BE 2.0.66
