@@ -46,7 +46,7 @@ class FSM
           priority = 0.000000;
           to="Update_Markers";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"_nextUpdate < time && !gameOver && visibleMap"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_nextUpdate < time && !gameOver"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
