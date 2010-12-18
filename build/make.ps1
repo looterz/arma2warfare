@@ -194,6 +194,7 @@ function compile-version {
 	
 	replace-pattern -pattern $patMissioName -replaceTo $mission -fileName "$tmpfolder\mission.sqm";
 	replace-pattern -pattern $patMissioDesc -replaceTo $desc -fileName "$tmpfolder\mission.sqm";
+	replace-pattern -pattern $patBuildVersion -replaceTo $revisionNumber -fileName "$tmpfolder\mission.sqm";
 
 	replace-pattern -pattern $patMissioName -replaceTo $mission -fileName "$tmpfolder\briefing.sqf";
 	replace-pattern -pattern $patMissioDesc -replaceTo $desc -fileName "$tmpfolder\briefing.sqf";
