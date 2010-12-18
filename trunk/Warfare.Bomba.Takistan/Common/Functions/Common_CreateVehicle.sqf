@@ -17,6 +17,10 @@ Private ["_lock","_position","_side","_type","_vehicle"];
 	} else {
 		_vehicle = createVehicle [_type, _position, [], 0, ""];
 	};
+
+	if (_lock) then {
+		_vehicle lock _lock;
+	};
 	
 	if (_side != resistance) then {
 		_vehicle SetVehicleInit Format["[this,%1] ExecVM 'Common\Common_InitUnit.sqf';",_side];
@@ -25,10 +29,6 @@ Private ["_lock","_position","_side","_type","_vehicle"];
 	
 	[_vehicle, _side] spawn SetKilledEventHandler;
 	[_vehicle, _side] spawn ManagedUnitAdd;
-	
-	if (_lock) then {
-		_vehicle lock _lock;
-	};
 	
 	Format["Common_CreateVehicle: A %1 '%2' vehicle has been created",str _side,_type] call LogInform;
 
