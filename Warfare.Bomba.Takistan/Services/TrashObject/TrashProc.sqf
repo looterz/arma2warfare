@@ -25,6 +25,7 @@ PROFILER_BEGIN("Service_TrashProc");
 				deleteVehicle _body;
 			};
 			WBE_TrashObjectCollection set[ _i, objNull ];
+			sleep 0.005;
 		};
 		WBE_TrashObjectCollection = WBE_TrashObjectCollection - [ objNull ];
 		_u = count WBE_TrashObjectCollection;
