@@ -8,9 +8,6 @@ Private["_position","_radius","_list","_flat","_u","_object", "_meters", "_allow
 	_ignoreVehicle = _this select 2;
 	_vehicle	= if (count _this > 3) then { _this select 3 } else { objNull };
 	
-	_list = _position nearObjects _radius;
-	_flat = true;
-	
 	_maxGrad = 'WFBE_COINMAXGRADIENT' Call GetNamespace;
 	_minDist = 'WFBE_COINMINDISTANCE' Call GetNamespace;	
 	
@@ -28,7 +25,8 @@ Private["_position","_radius","_list","_flat","_u","_object", "_meters", "_allow
 		false;
 	};
 	
-	
+	_flat = true;
+	_list = _position nearObjects _radius;
 	_u = count _list;
 	
 	while { _u != 0 } do {
