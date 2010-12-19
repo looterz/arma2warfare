@@ -6,7 +6,7 @@ paramBoundariesRunning = true;
 while {true} do {
 	sleep 1;
 	
-	if ( !(vehicle player isKindOf "Air") ) then
+	if ( !(vehicle player isKindOf "Plane") ) then
 	{	
 		_isOnMap = Call BoundariesIsOnMap;
 		if !(_isOnMap) then {
