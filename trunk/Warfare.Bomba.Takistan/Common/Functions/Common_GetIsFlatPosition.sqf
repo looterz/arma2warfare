@@ -11,6 +11,24 @@ Private["_position","_radius","_list","_flat","_u","_object", "_meters", "_allow
 	_list = _position nearObjects _radius;
 	_flat = true;
 	
+	_maxGrad = 'WFBE_COINMAXGRADIENT' Call GetNamespace;
+	_minDist = 'WFBE_COINMINDISTANCE' Call GetNamespace;	
+	
+	_isFlat = _position isFlatEmpty [
+				0.00001,	//--- Minimal distance from another object
+				0,			//--- If 0, just check position. If >0, select new one
+				0.7, 		//_maxGrad,				//--- Max gradient
+				0.7,		//--- Gradient area
+				0,			//--- 0 for restricted water, 2 for required water,
+				false,		//--- True if some water can be in 25m radius
+				_vehicle	//--- Ignored object
+	];
+	if (count _isFlat == 0) exitWith { 
+		PROFILER_END();	
+		false;
+	};
+	
+	
 	_u = count _list;
 	
 	while { _u != 0 } do {
