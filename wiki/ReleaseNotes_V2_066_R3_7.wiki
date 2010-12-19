@@ -2,6 +2,10 @@
 #labels Featured,ReleaseNotes,Beta
 
 = [http://code.google.com/p/arma2warfare/downloads/detail?name=WarfareV2.066.R3.7b.Bomba.Edition.zip Warfare V2.066 R3.7b Bomba Edition] =
-Build 403
+Build 420
 
  * Merged with Warfare BE 2.0.66
+ * Fixed: Player can't unlock/lock MHQ or own vehicle
+ * Marker tracking on map now depend from client FPS (for reduce lags on client machine)
+ * Added support Lingor island
+ * Fixed: Disabled ability to build factories and defences in stones.
