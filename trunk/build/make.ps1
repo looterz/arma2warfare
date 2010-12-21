@@ -1,4 +1,4 @@
-$projectVer = "V2.066 R3.7b"
+$projectVer = "V2.066 R3.8b"
 $currentDirectory = [string](Get-Location);
 $revisionNumber = "";
 $prevBuildRevision = 332;
@@ -40,7 +40,7 @@ function EntryPoint
 		preprocess-file -fileName $x.FullName;
 	}
 	
-	$numplayers = @( 40, 64 );
+	$numplayers = @( 40 );
 	foreach($numplayer in $numplayers)
 	{
 		compile-version -world "Takistan" -gamever "CO"  -numplayers $numplayer  -desc "Combined Operations - Takistan"
@@ -60,6 +60,10 @@ function EntryPoint
 
 function preprocess-file {
 	param ([string]$fileName)
+
+	if ( $fileName -match ".*\\mando_missiles\\.*") {
+		return;
+	}
 
 	Write-Host "Preprocess-file: $fileName";
 	
