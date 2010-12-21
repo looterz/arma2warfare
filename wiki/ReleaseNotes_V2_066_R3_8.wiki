@@ -1,0 +1,9 @@
+#summary Release Notes: Warfare V2.066 R3.8b Bomba Edition
+#labels Featured,ReleaseNotes,Beta
+
+= [http://code.google.com/p/arma2warfare/downloads/detail?name=WarfareV2.066.R3.8b.Bomba.Edition.zip Warfare V2.066 R3.8b Bomba Edition] =
+Build 430
+
+ * Add Mando Missiles module
+ * Fixed: Unit skill are not assigned for resistance units
+ * New: Aircrafts can flight out of boundaries, in case when boundaries are enabled
