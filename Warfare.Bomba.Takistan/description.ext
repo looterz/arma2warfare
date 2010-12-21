@@ -37,7 +37,21 @@
 //--- Dialogs contain all the interfaces (dialogs).
 #include "Rsc\Dialogs.hpp"
 //--- Titles contains the titles (overlay).
-#include "Rsc\Titles.hpp"
+
+//-- Mando Missile ArmA
+#include "mando_missiles\mando_missile.h"
+
+class RscTitles {
+	titles[] = {OptionsAvailable,EndOfGameStats};
+	#include "Rsc\Titles.hpp"
+	#include "mando_missiles\mando_missiletitles.h"
+};
+
+class CfgSounds {
+   sounds[] = {};
+	#include "mando_missiles\mando_sounds.h"
+};
+
 
 //--- Include Identities (OA/CO Only).
 #ifndef VANILLA

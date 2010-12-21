@@ -20,10 +20,6 @@
 	#define ruflag "\ca\ca_e\data\flag_tkg_co.paa"
 #endif
 
-class RscTitles {
-	
-	titles[] = {OptionsAvailable,EndOfGameStats};
-
 	class OptionsAvailable {
 		idd = 10200;
 		movingEnable = 0;
@@ -356,4 +352,3 @@ class RscTitles {
 			x = 0.55;
 		};
 	};
-};

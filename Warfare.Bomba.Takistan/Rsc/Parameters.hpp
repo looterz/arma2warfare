@@ -610,6 +610,13 @@ class Params {
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 0;
+	};
+
+	class gameplayMandoMissile {
+		title = "Mando Missile Module";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 0;
 	};	
 };
 
