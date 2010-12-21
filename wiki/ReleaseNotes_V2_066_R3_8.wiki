@@ -6,4 +6,4 @@ Build 430
 
  * Add Mando Missiles module
  * Fixed: Unit skill are not assigned for resistance units
- * New: Aircrafts can flight out of boundaries, in case when boundaries are enabled
+ * New: Aircrafts can flight out of boundaries, if boundaries are enabled
