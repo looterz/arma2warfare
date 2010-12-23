@@ -310,9 +310,11 @@ while {alive player && dialog} do {
 					_supply = WF_Logic getVariable Format ["%1Supplies",sideJoinedText];
 					WF_Logic setVariable [Format ["%1Supplies",sideJoinedText],_supply  + _supplyB,true];
 					
-					WFBE_LocalizeMessage = [sideJoined, 'CLTFNCLOCALIZEMESSAGE',['SellFactory', str _closest]];
+					_closest removeAllEventHandlers "Killed";
+					
+					WFBE_LocalizeMessage = [sideJoined, 'CLTFNCLOCALIZEMESSAGE',['SellFactory', typeof(_closest)]];
 					publicVariable 'WFBE_LocalizeMessage';
-					if (local player) then {[sideJoined, 'CLTFNCLOCALIZEMESSAGE',['SellFactory', str _closest]] Spawn HandlePVF};
+					if (local player) then {[sideJoined, 'CLTFNCLOCALIZEMESSAGE',['SellFactory', typeof(_closest)]] Spawn HandlePVF};
 					
 					_closest setDammage 1;
 				};
