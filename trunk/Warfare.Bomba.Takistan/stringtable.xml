@@ -2502,7 +2502,16 @@
         <German>Attention. %1 without a backpack is not valid</German>
         <Russian>Внимание: %1 без рюкзака недействителен.</Russian>
         <Italian>Attention. %1 without a backpack is not valid</Italian>
-      </Key>	  
+      </Key>
+	  
+      <Key ID="STR_WF_SellFactory">
+        <English>Attention. Commander was sold factory '%1'.</English>
+        <French>Attention. Commander was sold factory '%1'.</French>
+        <German>Attention. Commander was sold factory '%1'.</German>
+        <Russian>Внимание: Фабрика %1 продана командиром</Russian>
+        <Italian>Attention. Commander was sold factory '%1'.</Italian>
+      </Key>
+	  
     </Container>
   </Package>
 </Project>
