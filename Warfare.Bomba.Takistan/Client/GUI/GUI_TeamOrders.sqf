@@ -308,8 +308,12 @@ while {alive player && dialog} do {
 					_supplyB = (Format ["WFBE_%1STRUCTURECOSTS",sideJoinedText] Call GetNamespace) select _id;
 					_supplyB = round(_supplyB / 2);//--- 50% of the supply is restored.
 					_supply = WF_Logic getVariable Format ["%1Supplies",sideJoinedText];
-					_supply = _supply + _supplyB;
-					WF_Logic setVariable [Format ["%1Supplies",sideJoinedText],_supply,true];
+					WF_Logic setVariable [Format ["%1Supplies",sideJoinedText],_supply  + _supplyB,true];
+					
+					WFBE_LocalizeMessage = [sideJoined, 'CLTFNCLOCALIZEMESSAGE',['SellFactory', str _closest]];
+					publicVariable 'WFBE_LocalizeMessage';
+					if (local player) then {[sideJoined, 'CLTFNCLOCALIZEMESSAGE',['SellFactory', str _closest]] Spawn HandlePVF};
+					
 					_closest setDammage 1;
 				};
 			};
