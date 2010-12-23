@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Service_TrackMapMarkerUpdateAlive");
 
-private['_u', '_mygroup', '_newDeadMarkers', '_text', '_amount', '_val', '_val2', '_ainumber', '_visible', '_timeout', '_marker', '_tracked', '_markerName', '_dirty', '_trackDeath', '_deathMarkerType', '_deathMarkerColor', '_deathMarkerSize' ];
+private['_u', '_traced', '_mygroup', '_newDeadMarkers', '_text', '_amount', '_val', '_val2', '_ainumber', '_visible', '_timeout', '_marker', '_tracked', '_markerName', '_dirty', '_trackDeath', '_deathMarkerType', '_deathMarkerColor', '_deathMarkerSize' ];
 
 	//--- _markerType 	    = _marker select 0;
 	//--- _markerColor 	    = _marker select 1;
@@ -22,9 +22,10 @@ private['_u', '_mygroup', '_newDeadMarkers', '_text', '_amount', '_val', '_val2'
 	_mygroup = group player;
 	_dirty = false;
 	_u = count WBE_TrackedMarkerList;
+	_traced = 50;
 	while { _u != 0 } do {
 		_u = _u - 1;
-		
+	
 		_marker = WBE_TrackedMarkerList select _u;
 
 		_markerName = _marker select 4;
@@ -70,7 +71,11 @@ private['_u', '_mygroup', '_newDeadMarkers', '_text', '_amount', '_val', '_val2'
 			};
 		};
 		
-		if (diag_fps < 40) then { sleep 0.005; };
+		_traced = _traced - 1;
+		if (_traced == 0) then {
+			_traced = 50;
+			if (diag_fps < 40) then { sleep 0.1; };		
+		};
 	};
 	
 	if (count _newDeadMarkers != 0) then {
