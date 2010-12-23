@@ -5,7 +5,7 @@ private['_vehicle', '_empty'];
 
 	_vehicle = _this;
 	_empty = true;
-	{ if (alive _x) then { _empty = false; } } forEach Crew _vehicle;
+	{ if (alive _x) then { _empty = false; } } forEach (crew _vehicle);
 	
 PROFILER_END();	
 _empty;
