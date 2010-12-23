@@ -1,6 +1,6 @@
 #include "profiler.h"
 
-private['_isArrayDirty', '_u', '_trashItem', '_timeout', '_i', '_body', '_force'];
+private['_isArrayDirty', '_u', '_trashItem', '_timeout', '_i', '_tracked', '_body', '_force'];
 PROFILER_BEGIN("Service_TrashProc");
 
 	_isArrayDirty = false;
@@ -34,6 +34,7 @@ PROFILER_BEGIN("Service_TrashProc");
 	format["Service_TrashProc: trash queue=%1", _u] call LogHigh;
 	
 	_i = 0;
+	_tracked = 50;
 	while { _u != 0 } do {
 		_u = _u - 1;
 		
@@ -50,7 +51,12 @@ PROFILER_BEGIN("Service_TrashProc");
 		} else {
 			_u = 0;		// if we reach point where unit still wait respawn, no need lookup more
 		};
-		sleep 0.005;
+		
+		_tracked = _tracked - 1;
+		if (_tracked == 0) then {
+			sleep 0.1;
+			_tracked = 50;
+		};
 	};
 	
 	if (_isArrayDirty) then {
