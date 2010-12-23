@@ -1,4 +1,4 @@
-Private["_localize","_txt"];
+Private["_localize","_txt", "_name"];
 
 _localize = _this Select 0;
 _commandChat = true;
@@ -34,7 +34,8 @@ switch (_localize) do {
 	};
 	
 	case "SellFactory": {
-		_txt = Format [Localize "STR_WF_SellFactory",_this select 1];
+		_name = [_this select 1, 'displayName'] Call GetConfigInfo;
+		_txt = Format [Localize "STR_WF_SellFactory", _name];
 		_commandChat = true;
 	};	
 };
