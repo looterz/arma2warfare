@@ -28,7 +28,10 @@ Private ["_order", "_vehicle", "_unitType", "_side", "_vehInfo", "_upgrades", "_
 	if (_unitType isKindOf "Man") then { unitQueu = unitQueu - 1; };	//-- buy soldier
 	
 	if (unitQueu < 0) then { unitQueu = 0; };	//-- just fix errors with unit queue;
-
+	
+	if (!paramTrackAI) then {
+		[_vehicle, _side] ExecVM 'Common\Common_InitUnit.sqf';
+	};
 	
 	if (_unitType isKindOf "Man") exitWith {
 	
@@ -99,5 +102,8 @@ Private ["_order", "_vehicle", "_unitType", "_side", "_vehInfo", "_upgrades", "_
 		[_vehicle] call BalanceInit;
 		_vehicle Call RemoveFlares;
 	};
-	
+
+	[_vehicle] joinSilent (group player);
+	_vehicle call TrackMapMarkerSetOwned;
+
 PROFILER_END();	

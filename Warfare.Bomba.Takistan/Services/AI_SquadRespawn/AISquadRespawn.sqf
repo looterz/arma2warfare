@@ -1,5 +1,5 @@
 #include "profiler.h"
-PROFILER_BEGIN("Service_AI_SquadRespawn");
+PROFILER_BEGIN("Service_AISquadRespawn");
 
 Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr","_rr","_respawn","_respawnLoc","_side","_sideText","_slot","_team","_upgrades"];
 
@@ -50,7 +50,7 @@ Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr
 	
 		format["AI_SquadRespawn: Multiplayer wait respawn Unit: %1 alive:%2", leader _team, alive(leader _team)] call LogHigh;
 		while { !alive (leader _team) } do {
-			sleep 0.5;
+			sleep 0.05;
 		};	// waitUntil unit respawn;
 		
 		_leader = leader _team;

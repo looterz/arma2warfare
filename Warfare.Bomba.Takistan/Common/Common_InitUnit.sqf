@@ -18,9 +18,6 @@ Private ["_finalNumber","_numbers","_side","_text","_unit", "_deadSize", "_attem
 	if ((typeOf _unit) in (Format['WFBE_%1REPAIRTRUCKS',str _side] Call GetNamespace)) then {_type = "RepairVehicle"};
 	_markerName = Format ["unitMarker%1",unitMarker];
 	unitMarker = unitMarker + 1;
-	if ( (group _unit == group player) ) then {
-		_color = "ColorOrange";
-	};
 
 	_deadSize = [2,2];
 
@@ -31,6 +28,10 @@ Private ["_finalNumber","_numbers","_side","_text","_unit", "_deadSize", "_attem
 		_deadSize = [1,1];
 	};
 
+	if ( (group _unit == group player) ) then {
+		_color = "ColorOrange";
+	};	
+	
 	_params = [_type,_color,_size,_txt,_markerName,_unit,1,true,"DestroyedVehicle",_color,false,_side, _deadSize];
 	_params Spawn MarkerUpdate;
 

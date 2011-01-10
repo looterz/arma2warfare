@@ -27,26 +27,32 @@ private['_u', '_traced', '_mygroup', '_newDeadMarkers', '_text', '_amount', '_va
 		_u = _u - 1;
 	
 		_marker = WBE_TrackedMarkerList select _u;
-
 		_markerName = _marker select 4;
 		_tracked = _marker select 5;
-		
-		if (alive _tracked && !(isNull _tracked)) then {
+				
+		if (alive _tracked && !(isNull(_tracked)) ) then {
 			
 			_condition = _marker select 13; 
-			_visible = if (isNil "_condition") then { true } else { (_tracked) call _condition; };
+			_visible = true;
+			if (!(isNil "_condition")) then { 
+				_visible = (_tracked) call _condition;
+				
+				if (_visible) then {
+					_markerName setMarkerAlphaLocal 1;
+				} else {
+					_markerName setMarkerAlphaLocal 0;				
+				};
+			};
 			
 			if ( _visible ) then {
-				_markerName setMarkerAlphaLocal 1;
+				
 				_markerName setMarkerPosLocal (getPos _tracked);
 			
-				if (group _tracked == _mygroup) then {
+				if (group _tracked == _mygroup) then {					
 					if (_tracked isKindOf "Man") then {
 						_marker spawn TrackMapMarkerSetName;
 					};
 				};		
-			} else {
-				_markerName setMarkerAlphaLocal 0;
 			};
 		} else {
 			
@@ -74,7 +80,7 @@ private['_u', '_traced', '_mygroup', '_newDeadMarkers', '_text', '_amount', '_va
 		_traced = _traced - 1;
 		if (_traced == 0) then {
 			_traced = 50;
-			if (diag_fps < 40) then { sleep 0.1; };		
+			if (diag_fps < 20) then { sleep 0.1; };		
 		};
 	};
 	

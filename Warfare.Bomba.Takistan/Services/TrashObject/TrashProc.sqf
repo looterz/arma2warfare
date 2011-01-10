@@ -30,7 +30,7 @@ PROFILER_BEGIN("Service_TrashProc");
 		WBE_TrashObjectCollection = WBE_TrashObjectCollection - [ objNull ];
 		_u = count WBE_TrashObjectCollection;
 	};
-	
+
 	format["Service_TrashProc: trash queue=%1", _u] call LogHigh;
 	
 	_i = 0;

@@ -32,7 +32,6 @@ Private ["_countArgs", "_markerType", "_markerColor", "_markerSize", "_markerTex
 	};
 
 	createMarkerLocal [_markerName, getPos _tracked];
-	_markerName setMarkerAlphaLocal 0;
 	_markerName setMarkerTypeLocal  _markerType;
 	_markerName setMarkerColorLocal _markerColor;
 	_markerName setMarkerSizeLocal  _markerSize;
@@ -48,8 +47,11 @@ Private ["_countArgs", "_markerType", "_markerColor", "_markerSize", "_markerTex
 		_condition = _this select 13;
 		if ( !(isNil "_condition") ) then {
 		
+			_markerName setMarkerAlphaLocal 0;
 			_markerInfo set[13, _condition];
 			format["MarkerUpdate: Set Condition condition=%1", _condition] call LogHigh;
+		} else {
+			_markerName setMarkerAlphaLocal 1;
 		};
 	};	
 	

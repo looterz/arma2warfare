@@ -3,7 +3,7 @@
 // -- function Function Notification = LogInform
 // waitUntil { !isNil "LogInited" };
 
-LOGLEVEL = 7;
+LOGLEVEL = 6;
 
 LogNotify     = {};
 LogUnexpected = {}; 
