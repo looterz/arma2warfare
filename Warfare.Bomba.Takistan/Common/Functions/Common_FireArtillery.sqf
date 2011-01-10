@@ -51,7 +51,7 @@ _weaponDir = _artillery weaponDirection _weapon;
 _bWait = true;
 
 _timeout = time + 10;
-while { _bWait && _timeout < time  } do {
+while { _bWait && time < _timeout } do {
 	sleep 0.1;
 	_weaponDir1 = _artillery weaponDirection _weapon;
 	_R = _weaponDir distance _weaponDir1;	
