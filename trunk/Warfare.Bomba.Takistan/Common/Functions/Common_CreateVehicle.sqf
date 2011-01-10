@@ -23,7 +23,7 @@ Private ["_lock","_position","_side","_type","_vehicle"];
 	};
 	
 	if (_side != resistance) then {
-		_vehicle SetVehicleInit Format["[this,%1] ExecVM 'Common\Common_InitUnit.sqf';",_side];
+		_vehicle setVehicleInit Format["[this,%1] ExecVM 'Common\Common_InitUnit.sqf';",_side];
 		ProcessInitCommands;
 	};
 	

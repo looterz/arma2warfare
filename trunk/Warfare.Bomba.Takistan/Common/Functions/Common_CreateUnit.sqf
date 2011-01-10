@@ -17,18 +17,16 @@ Private ["_dT", "_get", "_built", "_position","_side","_skill","_team","_type","
 	_unit setskill ["spotDistance", 1];
 	_unit setskill ["spotTime", 1];
 	_unit setskill ["endurance", 0.2];
-
+	
 	if (_side != resistance) then {
 
 		if (paramTrackAI) then {
 			_unit setVehicleInit Format["[this,%1] ExecVM 'Common\Common_InitUnit.sqf';",_side];
 			processInitCommands;
-		} else {
-			if (isPlayer leader _team) then {[_unit,_side] ExecVM 'Common\Common_InitUnit.sqf'};
-		};
+		}
 	};
 
-	[_unit, _side] spawn SetKilledEventHandler;
+	[_unit, _side] call SetKilledEventHandler;	// here sync call is required, because later it can be rewrited with aiteamkilledevent handler
 	[_unit, _side] spawn ManagedUnitAdd;
 	
 	if (paramISIS) then {_unit addEventHandler['handleDamage',{_this Call ISIS_Wound}]};

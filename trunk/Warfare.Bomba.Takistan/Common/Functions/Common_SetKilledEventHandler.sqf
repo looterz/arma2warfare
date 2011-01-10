@@ -1,6 +1,7 @@
 "Init SetKilledEventHandler - Begin" call LogHigh;
 
 EH_WESTUnitKilled = {
+	format["EH_WESTUnitKilled %1", _this] call LogHigh;
 	[_this select 0,_this select 1, west] spawn UnitKilled;
 };
 
@@ -9,13 +10,15 @@ EH_EASTUnitKilled = {
 };
 
 EH_WESTAITeamKilled = {
-	[_this select 0,_this select 1, west] spawn UnitKilled;
+	format["EH_WESTAITeamKilled %1", _this] call LogHigh;
+	
 	(group (_this select 0)) spawn AISquadRespawn;
+	[_this select 0,_this select 1, west] spawn UnitKilled;
 };
 
 EH_EASTAITeamKilled = {
-	[_this select 0,_this select 1, east] spawn UnitKilled;
 	(group (_this select 0)) spawn AISquadRespawn;
+	[_this select 0,_this select 1, east] spawn UnitKilled;
 };
 
 EH_RESISTANCEUnitKilled = {
@@ -24,6 +27,7 @@ EH_RESISTANCEUnitKilled = {
 
 SetKilledEventHandler = {
 	
+	format["SetKilledEventHandler: %1", _this] call LogHigh;
 	(_this select 0) removeAllEventHandlers "Killed";
 	
 	switch(_this select 1) do {
@@ -35,6 +39,7 @@ SetKilledEventHandler = {
 
 SetAITeamKilledEventHandler = {
 	
+	format["SetAITeamKilledEventHandler: %1", _this] call LogHigh;
 	(_this select 0) removeAllEventHandlers "Killed";
 	
 	switch(_this select 1) do {
