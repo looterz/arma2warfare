@@ -32,11 +32,11 @@ item27[] = {"Ready",4,218,1799.114136,507.161316,1889.114136,557.161316,0.000000
 item28[] = {"Update_vehicles",2,250,1796.381714,669.719910,1886.381714,719.719910,0.000000,"Update vehicles"};
 item29[] = {"",7,210,2112.182617,418.655731,2120.182617,426.655731,0.000000,""};
 item30[] = {"_",8,218,1964.129517,683.889099,1986.343140,704.948303,0.000000,""};
-item31[] = {"Handle_Purchases",2,250,2676.447266,399.601837,2766.447754,449.601837,0.000000,"Handle" \n "Purchases"};
+item31[] = {"Handle_Purchases",2,4346,2676.447266,399.601837,2766.447754,449.601837,0.000000,"Handle" \n "Purchases"};
 item32[] = {"Skip",4,218,2820.558594,397.558319,2910.558594,447.558319,0.000000,"Skip"};
 item33[] = {"Purchase",4,218,2676.335449,492.811981,2766.335449,542.811829,0.000000,"Purchase"};
 item34[] = {"",7,210,3042.666992,418.894318,3050.666992,426.894318,0.000000,""};
-item35[] = {"Handle_Env",2,4346,2677.670410,616.171204,2767.670410,666.171448,0.000000,"Handle Env"};
+item35[] = {"Handle_Env",2,250,2677.670410,616.171204,2767.670410,666.171448,0.000000,"Handle Env"};
 item36[] = {"Done",2,250,-121.737061,495.277832,-31.737000,545.277771,0.000000,"Done"};
 item37[] = {"Continue",4,218,2677.458984,730.206482,2767.458984,780.206604,0.000000,"Continue"};
 item38[] = {"Skip",4,218,2811.678711,615.459900,2901.678711,665.459778,0.000000,"Skip"};
@@ -147,8 +147,8 @@ link68[] = {57,56};
 link69[] = {58,59};
 link70[] = {59,36};
 link71[] = {60,31};
-globals[] = {0.000000,0,0,0,0,640,480,1,112,6316128,1,2367.623047,3255.996582,935.098694,238.426758,462,596,1};
-window[] = {0,-1,-1,-1,-1,762,25,1317,25,1,480};
+globals[] = {0.000000,0,0,0,0,640,480,1,112,6316128,1,2165.895752,3336.497314,1218.577881,365.830902,521,609,1};
+window[] = {2,-1,-1,-1,-1,754,307,1599,17,3,539};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -630,9 +630,11 @@ class FSM
     class Handle_Purchases
     {
       name = "Handle_Purchases";
-      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Handle Purchases, units:%2, max:%3, leader: %4"", _team, _size, _mbu, alive (leader _team)] call LogInform;" \n
+      init = /*%FSM<STATEINIT""">*/"_size = Count ((units  _team) Call GetLiveUnits);" \n
        "" \n
-       "_size = Count ((units  _team) Call GetLiveUnits);"/*%FSM</STATEINIT""">*/;
+       "format[""AITEAM.FSM: Team %1 Handle Purchases, units:%2, max:%3, leader: %4"", _team, _size, _mbu, alive (leader _team)] call LogInform;" \n
+       "" \n
+       ""/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
