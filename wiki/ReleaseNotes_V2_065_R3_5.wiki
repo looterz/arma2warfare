@@ -1,5 +1,5 @@
 #summary Release Notes: Warfare V2.065 R3.5beta Bomba Edition
-#labels Featured,ReleaseNotes,Beta
+#labels ReleaseNotes,Beta
 
 = [http://code.google.com/p/arma2warfare/downloads/detail?name=WarfareV2.065.R3.5b.Bomba.Edition.zip&can=2&q=#makechanges Warfare V2.065 R3.5b Bomba Edition] =
 Build 332
