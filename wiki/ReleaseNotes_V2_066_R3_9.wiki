@@ -1,5 +1,4 @@
 #summary Release Notes: Warfare V2.066 R3.9b Bomba Edition
-#labels Featured
 
 = [http://code.google.com/p/arma2warfare/downloads/detail?name=WarfareV2.066.R3.9b.Bomba.Edition.zip Warfare V2.066 R3.9b Bomba Edition] =
 Build 443
