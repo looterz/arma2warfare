@@ -227,7 +227,7 @@ switch (_type) do
             {
                _weapon = (mando_missileidxbase select mando_hud_missile) select 1;
                _ttypes = vehicle player getVariable "mando_target_types";
-               if (((_ttypes select 0) == "GROUND") && ((_weapon =="GLT_GBU53_Launcher") || (_weapon == "GLT_AGM154_Launcher") || (_weapon =="sfp_rbs15_launcher"))) then
+               if (((_ttypes select 0) == "GROUND") && ((_weapon =="GLT_GBU53_Launcher") || (_weapon == "GLT_AGM154_Launcher") || (_weapon =="sfp_rbs15_launcher") || (_weapon =="GLT_MOAB_Launcher"))) then
                {
                   ((UINameSpace GetVariable "mandotarget_disp") DisplayCtrl 76) CtrlSetTextColor [1.0, 1.0, 1.0, 0.5];
                   ((UINameSpace GetVariable "mandotarget_disp") DisplayCtrl 76) CtrlSetStructuredText ParseText Format ["GPS Targeting: %1", mando_keyspecialname];
@@ -313,7 +313,7 @@ while {!mando_exit_hud} do
          {
             _weapon = (mando_missileidxbase select mando_hud_missile) select 1;
             _ttypes = vehicle player getVariable "mando_target_types";
-            if (((_ttypes select 0) == "GROUND") && ((_weapon =="GLT_GBU53_Launcher") || (_weapon == "GLT_AGM154_Launcher") || (_weapon == "RKSL_stormshadow_Launcher") || (_weapon =="sfp_rbs15_launcher"))) then
+            if (((_ttypes select 0) == "GROUND") && ((_weapon =="GLT_GBU53_Launcher") || (_weapon == "GLT_AGM154_Launcher") || (_weapon == "RKSL_stormshadow_Launcher") || (_weapon =="sfp_rbs15_launcher") || (_weapon =="GLT_MOAB_Launcher"))) then
             {
                _continue = true;
             };

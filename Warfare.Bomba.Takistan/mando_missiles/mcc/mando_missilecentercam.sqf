@@ -23,6 +23,7 @@ _poscam = _launcher modelToWorld _posrelcam;
 };
 
 showCinemaborder false;
+
 _cam = "camera" camcreate [0, 0, 0];
 _cam cameraeffect ["internal", "back"];
 //_cam camSetPos _poscam;

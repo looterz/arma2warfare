@@ -93,7 +93,7 @@
    278, 	// speedmax 
    120,		// acceleration
    objNull, 	// target (calculated by the firing action)
-   2, 		// boomrange
+   0, 		// boomrange
    800, 	// activerange
    1, 		// modeinit
    300, 	// cruisealt
@@ -132,7 +132,7 @@
    278, 	// speedmax 
    120,		// acceleration
    objNull, 	// target (calculated by the firing action)
-   2, 		// boomrange
+   0, 		// boomrange
    800, 	// activerange
    1, 		// modeinit
    300, 	// cruisealt
@@ -281,6 +281,48 @@
 
 
    // Missile parameters for RKT_Kitchen_Rail (mando_hud_missile = 7)
+
+   if ((vehicle player) isKindOf "RKT_BackfireA") then
+   {
+   mando_hud_misp = mando_hud_misp + [[
+   vehicle player, 	// _launcher
+   "", 	// missilebody ("" for BIS used weapons when class of fired missile must be kept
+   [0,0,0], 	// launchpos (calculated by the firing action)
+   0, 		// dir (calculated by the firing action)
+   0, 		// vangle (calculated by the firing action)
+   10,		// speedini 
+   500, 	// speedmax 
+   120,		// acceleration
+   objNull, 	// target (calculated by the firing action)
+   0, 		// boomrange
+   3000, 	// activerange
+   1, 		// modeinit
+   300, 	// cruisealt
+   mando_missile_path+"warheads\echo\w80.sqf", 	// boomscript
+   "",	// smokescript
+   "", 	// soundrsc
+   29, 		// sounddur 
+   120,		// endurance
+   true,	// terrainavoidance
+   2, 		// updatefreq
+   1, 		// delayinit 
+   4,	 	// controltime
+   true, 	// detectable 
+   false, 	// debug
+   "", 		// launchscript
+   30, 		// hagility
+   30, 		// vagility
+   1, 		// accuracy
+   true, 	// intercept
+   45,		// scanarch 
+   90,		// scanarcv
+   0,		// Offset above target
+   0	// Countermeasures extent
+   ]];  
+
+   }
+   else
+   {
    mando_hud_misp = mando_hud_misp + [[
    vehicle player, 	// _launcher
    "", 	// missilebody ("" for BIS used weapons when class of fired missile must be kept
@@ -316,6 +358,7 @@
    0,		// Offset above target
    0	// Countermeasures extent
    ]];  
+   };
 
    mando_missileidxbase = mando_missileidxbase + [[-1,"RKT_Kitchen_Rail"]];
 
@@ -754,3 +797,43 @@
    ]];
 
    mando_missileidxbase = mando_missileidxbase + [[-1,"RKTF15E_mk84_6Rail"]];
+
+   // Missile parameters for KH31A(P) Missile (mando_hud_missile = 19);
+   mando_hud_misp = mando_hud_misp + [[
+   vehicle player,
+   "",
+   [0,0,0],
+   0,
+   0,
+   10,
+   600,
+   100,
+   objNull,
+   0,
+   2000,
+   1,
+   300,
+   mando_missile_path+"warheads\mando_missilehead1a.sqf",
+   "",
+   "",
+   29,
+   120,
+   true,
+   2,
+   0,
+   0,	
+   true,
+   false,
+   "",
+   40,
+   40,
+   1,
+   true,
+   90,
+   90,
+   0,
+   0
+   ]];  
+
+   mando_missileidxbase = mando_missileidxbase + [[-1,"GLT_CH31_Launcher"]];
+

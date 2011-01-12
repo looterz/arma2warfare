@@ -137,7 +137,7 @@
    false,
    0,
    ["GROUND"],
-   0.1,
+   0,
    "Kh29 (TV-GRND)",
    0.015,        // IR accuracy for headon shots or radar accuracy for ECM targets
    3,		// Number of simultaneously detected HUD targets (max is 6)
@@ -151,7 +151,7 @@
    false,
    0,
    ["GROUND"],
-   0.1,
+   0,
    "Kh29 (TV-GRND)",
    0.015,        // IR accuracy for headon shots or radar accuracy for ECM targets
    3,		// Number of simultaneously detected HUD targets (max is 6)
@@ -165,7 +165,7 @@
    false,
    0,
    ["GROUND"],
-   0.1,
+   0,
    "Kh22 (GRND)",
    0.015,        // IR accuracy for headon shots or radar accuracy for ECM targets
    2,		// Number of simultaneously detected HUD targets (max is 6)
@@ -186,6 +186,20 @@
    3,		// Number of simultaneously detected HUD targets (max is 6)
    500, 	// Sensor width / 2 in meters
    5000,	// Sensor length / 2 in meters
+   3            // Normal time to lock
+   ]];
+
+   mando_hud_modes = mando_hud_modes + [[
+   19,
+   false,
+   0,
+   ["RADAR"],
+   0.1,
+   "KH31P Anti-Radar",
+   0.015,        // IR accuracy for headon shots or radar accuracy for ECM targets
+   6,		// Number of simultaneously detected HUD targets (max is 6)
+   500, 	// Sensor width / 2 in meters
+   6000,	// Sensor length / 2 in meters
    3            // Normal time to lock
    ]];
 

@@ -482,9 +482,10 @@ while {(alive _disp)&&!(isNull _disp)} do
             {
                _enemysides = _enemysides + [_x];
             }; 
-         } forEach ([west, east, civilian, resistance, sideEnemy] - [side _disp]);
+         } forEach ([west, east, resistance, sideEnemy] - [side _disp]);		 
       };
-
+	  _enemysides = _enemysides - [civilian];
+	  
       _list = [];
       if (_createtrigger) then
       {
@@ -701,7 +702,7 @@ while {(alive _disp)&&!(isNull _disp)} do
 
          //If a unit accomplish the requirements to be targeted
          if (!isNull _blanco) then 
-         {
+         {		 
             //Now we have a target
             mando_lockedon=_blanco;
             publicVariable "mando_lockedon";

@@ -18,4 +18,5 @@
 
 // Gnat's B52
    [["GNTB52","GNTB52u"], 0, "", [4,6], [4,6], 15, 15, 20, [0,3,-5], mando_missile_path+"huds\mando_hud_gntb52.sqf", 0, 0, [[-1, "GNTMK82BombRail"]], 0]execVm"mando_missiles\units\mando_assignvehicle_by_type.sqf";
+   [["GNTB52","GNTB52u"], 1, "", [4,6], [4,6], 15, 15, 0, [0,3,-5], mando_missile_path+"huds\mando_hud_gntb52.sqf", 0, 0, [[-1, "GNTMK82BombRail"]], 0]execVm"mando_missiles\units\mando_assignvehicle_by_type.sqf";
 };

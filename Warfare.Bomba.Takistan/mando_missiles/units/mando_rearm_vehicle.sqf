@@ -207,6 +207,11 @@ switch (_event) do
          _type = "GLT_Falcon";
       };
 
+      if (_type isKindOf "RKT_BackfireA") then
+      {
+         _type = "GNT_TU22";
+      };
+
       if (_type in mando_av8s) then
       {
          _type = "AV8B";
@@ -225,6 +230,11 @@ switch (_event) do
       if (_type in ["RKTSU33MR", "RKTSU33AA","RKTSU33AG","RKTSU33B1","RKTSU33TAA","RKTSU33TAG","RKTSU33TB1"]) then
       {
          _type = "GNTSU33";
+      };
+
+      if (_type isKindOf "rksl_efa_base") then
+      {
+         _type = "RKSL_EF2000";
       };
 
       if (_type in mando_su34s) then
@@ -856,6 +866,34 @@ _mando_weapon_confs_temp = _mando_weapon_confs_temp + [["Nuclear", ["ACE_1Rnd_B6
 
          };
 
+         case "RKSL_EF2000":
+         {
+
+            _mando_weapon_confs_temp = [
+["(AGAA1)",["RKSL_150Rnd_27mmAP_Mauser","RKSL_4Rnd_Meteor","RKSL_2Rnd_AIM132","RKSL_6Rnd_brimstone_rack_mag","RKSL_litening_Pod_mag","RKSL_1rnd_efa_cft","RKSL_18Rnd_Brimstone_DM"],["RKSL_27mmmauser","RKSL_MeteorLauncher","RKSL_AIM132Launcher","RKSL_BrimstoneLauncher"]],
+["(AGAA2)",["RKSL_150Rnd_27mmAP_Mauser","RKSL_4Rnd_Meteor","RKSL_2Rnd_AIM132","RKSL_6Rnd_brimstone_rack_mag","RKSL_litening_Pod_mag","RKSL_1rnd_efa_cft","RKSL_18Rnd_Brimstone"],["RKSL_27mmmauser","RKSL_MeteorLauncher","RKSL_AIM132Launcher","RKSL_BrimstoneLauncher"]],
+["(AGAA3)",["RKSL_150Rnd_27mmAP_Mauser","RKSL_4Rnd_Meteor","RKSL_2Rnd_AIM132","RKSL_2Rnd_brimstone_rack_mag","RKSL_4Rnd_PAVE4_500","RKSL_1rnd_efa_fueltank","RKSL_1Rnd_pylonblank","RKSL_6Rnd_Brimstone_DM"],["RKSL_27mmmauser","RKSL_MeteorLauncher","RKSL_AIM132Launcher","RKSL_BrimstoneLauncher","RKSL_Paveway4500Launcher"]],
+["(AGAA4)",["RKSL_150Rnd_27mmAP_Mauser","RKSL_4Rnd_Meteor","RKSL_2Rnd_AIM132","RKSL_4Rnd_Maverick","RKSL_2Rnd_PAVE4_500","RKSL_litening_Pod_mag","RKSL_1rnd_efa_cft"],["RKSL_27mmmauser","RKSL_MeteorLauncher","RKSL_AIM132Launcher","RKSL_MaverickLauncher","RKSL_Paveway4500Launcher"]],
+["(AS1)",["RKSL_150Rnd_27mmAP_Mauser","RKSL_4Rnd_AIM120","RKSL_4Rnd_AIM132","RKSL_2rnd_efa_fueltank","RKSL_2Rnd_pylonblank","RKSL_1rnd_efa_fueltank"],["RKSL_27mmmauser","RKSL_AIM120Launcher","RKSL_AIM132Launcher"]],
+["(AS2)",["RKSL_150Rnd_27mmAP_Mauser","RKSL_4Rnd_Meteor","RKSL_4Rnd_AIM132","RKSL_2rnd_efa_fueltank","RKSL_2Rnd_AIM120","RKSL_1rnd_efa_fueltank"],["RKSL_27mmmauser","RKSL_MeteorLauncher","RKSL_AIM120Launcher","RKSL_AIM132Launcher"]],
+["(CAS-H)",["RKSL_150Rnd_27mmAP_Mauser","RKSL_4Rnd_AIM120","RKSL_2Rnd_AIM132","RKSL_4Rnd_GP_1000","RKSL_2Rnd_PAVE2_1000","RKSL_litening_Pod_mag"],["RKSL_27mmmauser","RKSL_AIM120Launcher","RKSL_AIM132Launcher","RKSL_1000GPLauncher","RKSL_Paveway1000Launcher"]],
+["(CAS-L)",["RKSL_150Rnd_27mmAP_Mauser","RKSL_4Rnd_AIM120","RKSL_2Rnd_AIM132","RKSL_19Rnd_CRV7_FAT","RKSL_19Rnd_CRV7_HEPD","RKSL_CRV_lau5003FPodx2","RKSL_4Rnd_PAVE4_500","RKSL_litening_Pod_mag"],["RKSL_27mmmauser","RKSL_AIM120Launcher","RKSL_AIM132Launcher","RKSL_CRV7_hepd_Launcher","RKSL_CRV7_FAT_Launcher","RKSL_Paveway4500Launcher"]],
+["(CAS-L2)",["RKSL_150Rnd_27mmAP_Mauser","RKSL_4Rnd_AIM120","RKSL_2Rnd_AIM132","RKSL_19Rnd_CRV7_FAT","RKSL_19Rnd_CRV7_HEPD","RKSL_CRV_lau5003FPodx2","RKSL_2Rnd_brimstone_rack_mag","RKSL_2Rnd_PAVE4_500","RKSL_litening_Pod_mag","RKSL_7Rnd_pylonblank","RKSL_6Rnd_Brimstone_DM"],["RKSL_27mmmauser","RKSL_AIM120Launcher","RKSL_AIM132Launcher","RKSL_CRV7_hepd_Launcher","RKSL_CRV7_FAT_Launcher","RKSL_BrimstoneLauncher","RKSL_Paveway4500Launcher"]],
+["(EUMS1)",["RKSL_150Rnd_27mmAP_Mauser","RKSL_4Rnd_AIM120","RKSL_2Rnd_irist","RKSL_2rnd_agm119mk3","RKSL_2rnd_efa_fueltank","RKSL_3Rnd_pylonblank","RKSL_1rnd_efa_cft"],["RKSL_27mmmauser","RKSL_AIM120Launcher","RKSL_iristLauncher","RKSL_agm119mk3_Launcher"]],
+["(IDS1)",["RKSL_150Rnd_27mmAP_Mauser","RKSL_4Rnd_AIM120","RKSL_2Rnd_AIM132","RKSL_2Rnd_PAVE2_1000","RKSL_2rnd_efa_fueltank","RKSL_2Rnd_PAVE2_500","RKSL_litening_Pod_mag"],["RKSL_27mmmauser","RKSL_AIM120Launcher","RKSL_AIM132Launcher","RKSL_Paveway1000Launcher","RKSL_Paveway500Launcher"]],
+["(LGB-H)",["RKSL_150Rnd_27mmAP_Mauser","RKSL_4Rnd_AIM120","RKSL_2Rnd_AIM132","RKSL_6Rnd_PAVE2_1000","RKSL_1rnd_efa_fueltank"],["RKSL_27mmmauser","RKSL_AIM120Launcher","RKSL_AIM132Launcher","RKSL_Paveway1000Launcher"]],
+["(LGB-L)",["RKSL_150Rnd_27mmAP_Mauser","RKSL_4Rnd_AIM120","RKSL_2Rnd_AIM132","RKSL_6Rnd_PAVE4_500","RKSL_1rnd_efa_fueltank"],["RKSL_27mmmauser","RKSL_AIM120Launcher","RKSL_AIM132Launcher","RKSL_Paveway4500Launcher"]],
+["(LGB-M)",["RKSL_150Rnd_27mmAP_Mauser","RKSL_4Rnd_AIM120","RKSL_2Rnd_AIM132","RKSL_6Rnd_PAVE2_500","RKSL_1rnd_efa_fueltank"],["RKSL_27mmmauser","RKSL_AIM120Launcher","RKSL_AIM132Launcher","RKSL_Paveway500Launcher"]],
+["(MS1)",["RKSL_150Rnd_27mmAP_Mauser","RKSL_4Rnd_AIM120","RKSL_4Rnd_AIM132","RKSL_2rnd_harpoon","RKSL_2Rnd_PAVE2_1000","RKSL_1rnd_efa_fueltank","RKSL_1rnd_efa_cft"],["RKSL_27mmmauser","RKSL_AIM120Launcher","RKSL_AIM132Launcher","RKSL_harpoon_Launcher","RKSL_Paveway1000Launcher"]],
+["(MS2)",["RKSL_150Rnd_27mmAP_Mauser","RKSL_4Rnd_AIM120","RKSL_2Rnd_AIM132","RKSL_4rnd_harpoon","RKSL_2Rnd_PAVE2_1000","RKSL_1rnd_efa_fueltank","RKSL_1rnd_efa_cft"],["RKSL_27mmmauser","RKSL_AIM120Launcher","RKSL_AIM132Launcher","RKSL_harpoon_Launcher","RKSL_Paveway1000Launcher"]],
+["(SEAD1)",["RKSL_150Rnd_27mmAP_Mauser","RKSL_4Rnd_AIM120","RKSL_2Rnd_AIM132","RKSL_2rnd_ALARM","RKSL_2rnd_efa_fueltank","RKSL_2Rnd_PAVE2_500","RKSL_1rnd_efa_fueltank"],["RKSL_27mmmauser","RKSL_AIM120Launcher","RKSL_AIM132Launcher","RKSL_ALARM_Launcher","RKSL_Paveway500Launcher"]],
+["(SEAD2)",["RKSL_150Rnd_27mmAP_Mauser","RKSL_4Rnd_AIM120","RKSL_2Rnd_AIM132","RKSL_6rnd_ALARM","RKSL_1rnd_efa_fueltank"],["RKSL_27mmmauser","RKSL_AIM120Launcher","RKSL_AIM132Launcher","RKSL_ALARM_Launcher"]],
+["(SR1)",["RKSL_150Rnd_27mmAP_Mauser","RKSL_4Rnd_Meteor","RKSL_4Rnd_AIM132","RKSL_2rnd_stormshadow","RKSL_2Rnd_PAVE2_1000","RKSL_1rnd_efa_fueltank"],["RKSL_27mmmauser","RKSL_MeteorLauncher","RKSL_AIM132Launcher","RKSL_stormshadow_Launcher","RKSL_Paveway1000Launcher"]],
+["(SR2)",["RKSL_150Rnd_27mmAP_Mauser","RKSL_4Rnd_Meteor","RKSL_2Rnd_AIM132","RKSL_4Rnd_Maverick","RKSL_2Rnd_PAVE4_500","RKSL_1rnd_efa_fueltank"],["RKSL_27mmmauser","RKSL_MeteorLauncher","RKSL_AIM132Launcher","RKSL_MaverickLauncher","RKSL_Paveway4500Launcher"]]
+            ];
+         };
+
+
          case "GNTSU33":
          {
             _display displayCtrl 1 lbAdd "R73Launcher_2";
@@ -880,6 +918,33 @@ _mando_weapon_confs_temp = [
 if (count (configFile>>"cfgWeapons" >> "ACE_B61BombLauncher") > 0) then
 {
 _mando_weapon_confs_temp = _mando_weapon_confs_temp + [["Nuclear", ["ACE_1Rnd_B61_50"],["ACE_B61BombLauncher"]]];
+};
+         };
+
+         case "GNT_TU22":
+         {
+            _display displayCtrl 1 lbAdd "R73Launcher_2";
+            _display displayCtrl 1 lbAdd "R73Launcher";
+            _display displayCtrl 1 lbAdd "Ch29Launcher";
+            _display displayCtrl 1 lbAdd "AirBombLauncher";
+            _display displayCtrl 1 lbAdd "S8Launcher";
+            _display displayCtrl 1 lbAdd "ACE_B61BombLauncher";
+            _display displayCtrl 1 lbAdd "RKT_Kitchen_Rail";
+            _display displayCtrl 1 lbAdd "RKTCh29Launcher";
+            _display displayCtrl 1 lbAdd "RKTR27Launcher";
+            _display displayCtrl 1 lbAdd "RKTR73Launcher";
+            _display displayCtrl 1 lbAdd "RKT_kb500Launcher";
+            _display displayCtrl 1 lbAdd "RKT_fb250Launcher";
+            _display displayCtrl 1 lbAdd "GLT_Ch31_Launcher";
+
+_mando_weapon_confs_temp = [
+["Kh-22N", ["3Rnd_RKT_Kitchen_mis"],["RKT_Kitchen_Rail"]],
+["Ground Attack", ["6Rnd_RKTCh29","10Rnd_KB500"],["RKTCh29Launcher","RKT_kb500Launcher"]],
+["Bomber", ["20Rnd_KB500"],["RKT_kb500Launcher"]]];
+
+if (count (configFile>>"cfgWeapons" >> "GLT_AIM120_Launcher") > 0) then
+{
+_mando_weapon_confs_temp = _mando_weapon_confs_temp + [["Anti-Radar", ["GLT_4Rnd_CH31"],["GLT_Ch31_Launcher"]]];
 };
          };
 
@@ -1059,7 +1124,7 @@ _mando_weapon_confs_temp = _mando_weapon_confs_temp + [["Nuclear", ["ACE_1Rnd_B6
 
       showCinemaBorder false;
       mando_weapon_confs_cam_angh = 0;
-      mando_weapon_confs_cam_dist = 10;
+      mando_weapon_confs_cam_dist = 20;
       mando_weapon_confs_cam = "camera" camcreate [0,0,0];
       mando_weapon_confs_cam cameraeffect ["internal", "back"];
       mando_weapon_confs_cam camSetTarget mando_rearm_target;
@@ -1348,7 +1413,7 @@ _is_rocket = [_weapon] call mando_is_rocket;
       {
          if (mando_weapon_confs_cam_dist > 10) then
          {
-            mando_weapon_confs_cam_dist = mando_weapon_confs_cam_dist - 10;
+            mando_weapon_confs_cam_dist = mando_weapon_confs_cam_dist - 5;
          };
       }
       else
@@ -1357,7 +1422,7 @@ _is_rocket = [_weapon] call mando_is_rocket;
          {
             if (mando_weapon_confs_cam_dist < 50) then
             {
-               mando_weapon_confs_cam_dist = mando_weapon_confs_cam_dist + 10;
+               mando_weapon_confs_cam_dist = mando_weapon_confs_cam_dist + 5;
             };
          };
       };

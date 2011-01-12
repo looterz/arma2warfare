@@ -49,6 +49,8 @@ mando_missile_stealth = ["ADF_F35A","F35B","F35_MK20","F35_CBU87"];
    []execVM mando_missile_path+"setups\mando_RKSL_typhoon_setup.sqf";
    []execVM mando_missile_path+"setups\mando_sfp_jas39_setup.sqf";
    []execVM mando_missile_path+"setups\mando_ped_mod_setup.sqf";
+   []execVM mando_missile_path+"setups\mando_ibr_setup.sqf";
+   []execVM mando_missile_path+"setups\mando_GNT_Tu22_setup.sqf";
 
    // HUDs sfp_hkp15 for pilots and gunners
    [["sfp_hkp15_rbs55","sfp_hkp15"], 0, "sight", [4], [4], 15, 15, 0, [4,3,-2.5], mando_missile_path+"huds\mando_hud_stp_hkp15.sqf", 0, 0, [[-1,"sfp_rbs55_veh_launcher"]], 0]execVm"mando_missiles\units\mando_assignvehicle_by_type.sqf";
@@ -62,8 +64,8 @@ mando_missile_stealth = ["ADF_F35A","F35B","F35_MK20","F35_CBU87"];
    // GNT Coaler HUD setup and Iran C130 (only flares and ECM)
    [["sfp_tp84","DDL_C27J_AM","ASZ_C130J_AM","Antonov225", "Antonov225_2", "Antonov225_3","il76moe", "il76", "il76loaded","nzdf_c130", "adf_c130_1", "adf_c130","RKTCoalerS","RKTCoalerD","RKTCoalerI","RKTCoalerR","iran_c130","USMC_c130_1","ANG_c130", "USN_c130", "USMC_c130","USCG_c130","usaf_c130","ANG_c130_1"], 0, "", [], [], 20, 20, 20, [4,3,-2.5], mando_missile_path+"huds\mando_hud_c130j.sqf", 0, 0, [], 0]execVm"mando_missiles\units\mando_assignvehicle_by_type.sqf";
 
-   [["sfp_sk60_cas","ASZ_AH6_EI_ffar","ASZ_AH6_EI_reos","OWP_MI26cg", "OWP_MI26ps", "OWP_MI26hk", "OWP_MI26md", "OWP_MI26fl","Ka60_GL_PMC","L39_TK_EP1","AH6J_EP1","MH6J_EP1","AH6X_EP1","CYBP_AH6_US","CYBP_AH6_RACS","CYBP_AH6_NAPA",
-"CYBP_AH6_CHDKZ","CYBP_MH6_US","CYBP_MH6_RACS","CYBP_MH6_NAPA","CYBP_MH6_CHDKZ"], 0, "", [], [], 15, 15, 0, [4,3,-2.5], mando_missile_path+"huds\mando_hud_locations.sqf", 0, 0, [], 0]execVm"mando_missiles\units\mando_assignvehicle_by_type.sqf";
+   [["AAW_s70","AAW_s70bh_mg", "sfp_sk60_cas","ASZ_AH6_EI_ffar","ASZ_AH6_EI_reos","OWP_MI26cg", "OWP_MI26ps", "OWP_MI26hk", "OWP_MI26md", "OWP_MI26fl","Ka60_GL_PMC","L39_TK_EP1","AH6J_EP1","MH6J_EP1","AH6X_EP1","CYBP_AH6_US","CYBP_AH6_RACS","CYBP_AH6_NAPA",
+"CYBP_AH6_CHDKZ","CYBP_MH6_US","CYBP_MH6_RACS","CYBP_MH6_NAPA","CYBP_MH6_CHDKZ","ACE_AH6J_DAGR_FLIR"], 0, "", [], [], 15, 15, 0, [4,3,-2.5], mando_missile_path+"huds\mando_hud_locations.sqf", 0, 0, [], 0]execVm"mando_missiles\units\mando_assignvehicle_by_type.sqf";
 
    [["sfp_hkp14","sfp_hkp14b","ASZ_AB212_AM","ASZ_AB212_MM","ASZ_AB212_MM_ffar","ASZ_AB412_EI","ASZ_AB412_EI_reos","ASZ_AB412_EI_ffar","ASZ_NH90_EI","ASZ_NH90_EI_reos","ASZ_NH90_MM","ASZ_NH90_EI_support","ASZ_NH90_MM_support","adf_NH90_casevac", "adf_NH90_mg", "adf_NH90", "nzdf_NH90_casevac", "nzdf_nh90_mg", "nzdf_nh90", "adf_s70csar", "adf_s70mg", "adf_ch47f", "adf_uh1h_1", "adf_uh1h", "nzdf_uh1h_2", "nzdf_uh1h_1", "nzdf_uh1h", "MV22", "UH1Y","Mi17_rockets_RU", "Mi17_Ins", "Mi17_CDF", "Mi17_Civilian","Mi17_medevac_CDF","modem_NH90","Mi17_Iraq","Mi171_IRAN","Mi17_IRAN","Mi17transp_Iraq","IRAN_AB206","iran_ab212","iran_uh1n","BWMod_UH1D_SAR","BWMod_UH1D","UH60M_EP1","Mi171Sh_CZ_EP1","Mi171Sh_rockets_CZ_EP1","Mi17_TK_EP1","Mi17_UN_CDF_EP1","ad_hh60g","ad_mh60k","ad_mh60k_black","ad_mh60k_erfs","ad_mh60k_erfs_black","Mi8MT_OTA_SAR","Mi8MT_SA_SAR"], 0, "", [], [], 15, 15, 0, [4,3,-2.5], mando_missile_path+"huds\mando_hud_lift.sqf", 0, 0, [], 0]execVm"mando_missiles\units\mando_assignvehicle_by_type.sqf";
 
@@ -83,7 +85,7 @@ mando_missile_stealth = ["ADF_F35A","F35B","F35_MK20","F35_CBU87"];
    [["IRAN_LST"], 8, 8, ["Air"], "SAM Console", _mcctypeaascript, [0,50,9,2], [0,1,20], 0, -1, 0, [], 3, 75]execVM"mando_missiles\mcc\mando_mccallow_by_type.sqf";
 
    // CH53 Choppers HUD setup (only flares)
-   [["adf_as350", "adf_ch47f", "CH_47F_EP1","RAF_Chin47", "CH_47F_BAF", "BAF_Merlin_HC3_D","ou_ch_53d","ou_ch_46e"], 0, "", [], [], 20, 20, 0, [4,3,-2.5], mando_missile_path+"huds\mando_hud_ch47.sqf", 0, 0, [], 0]execVm"mando_missiles\units\mando_assignvehicle_by_type.sqf";
+   [["adf_as350", "AAW_CH47","adf_ch47f", "CH_47F_EP1","RAF_Chin47", "CH_47F_BAF", "BAF_Merlin_HC3_D","ou_ch_53d","ou_ch_46e"], 0, "", [], [], 20, 20, 0, [4,3,-2.5], mando_missile_path+"huds\mando_hud_ch47.sqf", 0, 0, [], 0]execVm"mando_missiles\units\mando_assignvehicle_by_type.sqf";
 
 
    // BIS MH60S and Iranian iran_ab212asw torpedo armed chopper

@@ -25,6 +25,6 @@
    [["C130J","C130J_US_EP1","ADF_C130J"], 40, 40, ["Vehicles"], "40mm Gun Cam Ground mode", _mcc_tv_script, [-2,0,-2,5], [-3,0,-2,-90,80], {(driver _plane != player) && (((_plane worldToModel (positionCameraToWorld [0,0,0])) distance [0.5, 12.33, -2.06]) < 5)}, -1, 2, _background_mfd, 1, 0]execVM"mando_missiles\mcc\mando_mccallow_by_type.sqf";
 
    // C130J HUD setup (only flares and ECM)
-   [["C130J","C130J_US_EP1","ADF_C130J"], 0, "", [], [], 20, 20, 20, [4,3,-2.5], mando_missile_path+"huds\mando_hud_c130j.sqf", 0, 0, [], 0]execVm"mando_missiles\units\mando_assignvehicle_by_type.sqf";
+   [["C130J","C130J_US_EP1","ADF_C130J"], 0, "", [1], [1], 20, 20, 20, [4,3,-7], mando_missile_path+"huds\mando_hud_c130j.sqf", 0, 0, [], 0]execVm"mando_missiles\units\mando_assignvehicle_by_type.sqf";
 
 };

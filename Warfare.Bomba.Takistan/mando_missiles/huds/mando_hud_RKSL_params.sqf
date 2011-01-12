@@ -21,7 +21,7 @@
    mando_missile_path+"exhausts\mando_missilesmoke1a.sqf",	// smokescript
    "mando_missile1", 	// soundrsc
    29, 		// sounddur 
-   5, 		// endurance
+   10, 		// endurance
    false,	// terrainavoidance
    1, 		// updatefreq
    0, 		// delayinit 
@@ -220,7 +220,7 @@
    mando_missile_path+"exhausts\mando_missilesmoke1a.sqf",	// smokescript
    "mando_missile1", 	// soundrsc
    29, 		// sounddur 
-   30, 		// endurance
+   15, 		// endurance
    false,	// terrainavoidance
    2, 		// updatefreq
    1,		// delayinit 
@@ -300,7 +300,7 @@
    mando_missile_path+"exhausts\mando_missilesmoke1a.sqf",	// smokescript
    "mando_missile1", 	// soundrsc
    29, 		// sounddur 
-   5, 		// endurance
+   15, 		// endurance
    false,	// terrainavoidance
    1, 		// updatefreq
    0, 		// delayinit 

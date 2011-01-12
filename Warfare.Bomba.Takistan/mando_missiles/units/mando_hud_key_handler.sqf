@@ -9,6 +9,7 @@ _maxscanrange = mando_loscheck_range;
 _key = _this select 1;
 mando_key_pressed = _key;
 
+
 if ((_key == mando_keymode) && (mando_hud_num_modes > 0)) then
 {
    // Cycle through available modes
@@ -22,13 +23,25 @@ if ((_key == mando_keymode) && (mando_hud_num_modes > 0)) then
 
 //      hint format["%1", mando_missileidxbase];
 
-
+      _dirkey = 1;
+	  if (count _this > 2) then
+	  {
+	     if (_this select 2) then
+	     {
+	        _dirkey = -1;
+	     };
+      };
+	  
       for [{_i=0},{(_i < count mando_hud_modes)&&(_continue)},{_i=_i+1}] do
       {
-         mando_hud_mode = mando_hud_mode + 1;
+         mando_hud_mode = mando_hud_mode + _dirkey;
          if (mando_hud_mode == mando_hud_num_modes) then
          {
             mando_hud_mode = 0;
+         };
+         if (mando_hud_mode == -1) then
+         {
+            mando_hud_mode = mando_hud_num_modes - 1;
          };
 
          // Comprobar siguiente modo o saltar a siguiente valido
@@ -528,7 +541,8 @@ Sleep 0.1;
 
                   if (!isNull _mis) then
                   {
-                     _missilebody = typeOf _mis;
+                     _missilebody = typeOf _mis;					 
+					 
                      if ((_missparams select 6) == 0) then
                      {
                         _missparams set [6, (speed _launcher)/3.6];
@@ -592,7 +606,16 @@ Sleep 0.1;
                         _pos = [(_pos select 0)+sin(_dir - (getDir _launcher))*(mando_firingpos select 3), (_pos select 1)+cos(_dir - (getDir _launcher))*(mando_firingpos select 3),(_pos select 2)+sin(_vangle)*(mando_firingpos select 3)];
                      };
 
-                     deleteVehicle _mis;
+ 		             _mis setPos [60000,60000,60000];
+                     [_mis] spawn
+                     {
+                        _missile = _this select 0;            
+                        Sleep 6;
+                        if (alive _missile) then
+                        { 
+                           deleteVehicle _missile;
+                        };
+                     };					 
 
                      if ((_missparams select 1) == "") then
                      {
@@ -605,7 +628,6 @@ Sleep 0.1;
                      _missparams set [8, _target];
 
                      _fire = true;
-
                   }
                   else
                   {
@@ -666,18 +688,16 @@ Sleep 0.1;
                   {
                      case 0:  // Active rdr mode, target remains the same
                      {
-                        _delta = ((mando_hud_misp select mando_hud_missile) select 27)
- - ((mando_hud_modes select mando_hud_mode) select 6);
+                        _delta = ((mando_hud_misp select mando_hud_missile) select 27) - ((mando_hud_modes select mando_hud_mode) select 6);
 
-                        _missparams set [27, ((mando_hud_misp select mando_hud_missile) select 27) - _delta*mando_dec_acc_factor];
+                        _missparams set [27, ((mando_hud_misp select mando_hud_missile) select 27) - _delta*mando_dec_acc_factor];
                      };
 
                      case 1:  // IR mode, if headon vs air unit, accuracy greatly reduced
                      {
-                        _delta = ((mando_hud_misp select mando_hud_missile) select 27)
- - ((mando_hud_modes select mando_hud_mode) select 6);
+                        _delta = ((mando_hud_misp select mando_hud_missile) select 27) - ((mando_hud_modes select mando_hud_mode) select 6);
 
-                        _missparams set [27, ((mando_hud_misp select mando_hud_missile) select 27) - _delta*mando_dec_acc_factor];
+                        _missparams set [27, ((mando_hud_misp select mando_hud_missile) select 27) - _delta*mando_dec_acc_factor];
 
                      };
 
@@ -721,7 +741,6 @@ Sleep 0.1;
                         }
                         else
                         {
-
                            _pos = [(getPos _launcher select 0)+sin(getdir _launcher)*4000,(getPos _launcher select 1)+cos(getdir _launcher)*4000,0];
                         };
                         _log_target = "Logic" createVehicleLocal _pos;
