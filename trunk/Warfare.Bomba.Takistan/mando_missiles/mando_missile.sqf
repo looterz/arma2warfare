@@ -520,9 +520,8 @@ _proximity] spawn
 		mando_deton_script = _boomscript;
 		mando_deton_req = true;
 
-                publicVariable "mando_deton_x";publicVariable "mando_deton_y";publicVariable "mando_deton_z";publicVariable "mando_deton_target";publicVariable "mando_deton_side";publicVariable "mando_deton_launcher";publicVariable "mando_deton_script";publicVariable "mando_deton_req";
+        publicVariable "mando_deton_x";publicVariable "mando_deton_y";publicVariable "mando_deton_z";publicVariable "mando_deton_target";publicVariable "mando_deton_side";publicVariable "mando_deton_launcher";publicVariable "mando_deton_script";publicVariable "mando_deton_req";
 	};
-
 };
 
 _firstaim = true;
@@ -553,7 +552,6 @@ while {!_finish} do
       {
          if ((!isNull _x) && (isNull _chaff)) then 
          {
-
             _dstchaff = _mis distance _x;
             if (_dstchaff < _chaffrgn) then
             {
@@ -670,7 +668,11 @@ while {!_finish} do
    _climbdir = 1;
    if (_angv - _climb < 0) then {_climbdir = -1;};
 
-   if ((_difang > _maxacqver)&&(_mode == 2)) then {_follow = false;};
+   if ((_difang > _maxacqver)&&(_mode == 2)) then 
+   {
+      _follow = false;
+   };
+   
    if ((_difang < 0.005)||!_follow) then {_climbdir = 0;};
 
 
@@ -690,7 +692,10 @@ while {!_finish} do
    if (_dif > 180) then {_dif = _dif - 360;};
    _difabs = abs(_dif);
   
-   if ((_difabs > _maxacqhor)&&(_mode == 2)) then {_follow = false};
+   if ((_difabs > _maxacqhor)&&(_mode == 2)) then 
+   {
+      _follow = false;
+   };
 
 //   hint format["DI: %1, DM:%2, DT:%3, DA:%4", _dirini,_dir,_ang, _difabs];
 
@@ -834,9 +839,9 @@ while {!_finish} do
 
    if (!isNull _target) then
    {
-      if (((_distance < _proximitytemp)&&(_target != _chaff)) ||
-          ((_dist > 100)&&(_dist > _distold)&&(_target != _chaff)&&((getPos _rtarget select 2)>15))&&!_follow) then
-      {
+      if (((_distance < _proximitytemp) && (_target != _chaff)) ||
+          ((_dist > 500) && (_dist > _distold) && (_target != _chaff) && ((getPos _rtarget select 2)>15)) && !_follow) then
+      {	  
          _event = true;
       };
    };

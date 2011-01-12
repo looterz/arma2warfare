@@ -76,7 +76,17 @@ Sleep 0.05;
          _vangle        = asin (_vdir select 2) - asin (vectorDir _veh select 2);
 //         _speedini = (((speed _missile)/3.6 - (speed _veh)/3.6) + (_missparams select 5)) min (_missparams select 6);
          _speedini = (((speed _missile)/3.6 - (speed _veh)/3.6) + (_missparams select 5)) min 200;
-         deleteVehicle _missile;
+		 
+		 _missile setPos [60000,60000,60000];
+         [_missile] spawn
+         {
+            _missile = _this select 0;            
+            Sleep 6;
+            if (alive _missile) then
+            { 
+               deleteVehicle _missile;
+            };
+         };
 
          _missparams set [1, _missilebody];
          _missparams set [2, _pos];
@@ -322,9 +332,9 @@ mando_get_targets =
             {
                if (fuel _x < 1) then
                {
-                  if (isEngineOn _x) then
+                  if (side _x != side _unit) then 
                   {
-                     if (side _x != side _unit) then 
+                     if (count (crew _x) > 0) then 
                      {
                         if (((getPos _x select 2) > _min_targets_alt) &&
                             ((getPos _x select 2) < _max_targets_alt)) then

@@ -59,8 +59,11 @@ mando_gettarget=false;
 mando_getcontact=false;
 
 Sleep 1;
-mando_mccmark = "Logic" createVehicleLocal [0,0,0];
-mando_mccmark setPos [getPos _launcher select 0,getPos _launcher select 1,0];
+if (isNil "mando_mccmark") then
+{
+   mando_mccmark = "Logic" createVehicleLocal [0,0,0];
+   mando_mccmark setPos [getPos _launcher select 0,getPos _launcher select 1,0];
+};
 
 4 cutText["", "BLACK FADED"];
 _ok = createDialog "DlgMissileCenter";

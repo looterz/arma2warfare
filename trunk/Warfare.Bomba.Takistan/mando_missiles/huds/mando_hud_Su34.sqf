@@ -126,7 +126,7 @@
    0.02,        // IR accuracy for headon shots or radar accuracy for ECM targets
    2,		// Number of simultaneously detected HUD targets (max is 6)
    800, 	// Sensor width / 2 in meters
-   3500,	// Sensor length / 2 in meters
+   6000,	// Sensor length / 2 in meters
    3            // Normal time to lock
    ]];
 

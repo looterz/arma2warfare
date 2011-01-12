@@ -248,10 +248,17 @@ mando_get_targets =
 
                if (fuel _x < 1) then
                {
+/*
                   if (isEngineOn _x) then
                   {
                      if (side _x != side _unit) then 
                      {
+*/
+                  if (side _x != side _unit) then
+                  {
+                     if (count (crew _x) > 0) then 
+                     {
+
                         if (((getPos _x select 2) > _min_targets_alt) &&
                             ((getPos _x select 2) < _max_targets_alt)) then
                         {
@@ -1612,7 +1619,7 @@ while {!mando_exit_hud} do
             _rombe ctrlSetPosition [_hscreen+random(0.005)-0.00025, _vscreen+random(0.005)-0.00025];
          }
          else
-         {
+         {		 		
             _rombe ctrlSetPosition [_hscreen, _vscreen];
          };
          _rombe ctrlCommit 0;
@@ -1623,8 +1630,7 @@ while {!mando_exit_hud} do
          {
             _target setVariable ["mando_ecm_on", false];
             _ecm = false;
-         };
-
+         }; 		
 
          if (((abs(_angh) < 10) && (abs(_angv) < 10) && (_dist < mando_maxthrustedrange) && (_dist > mando_minimumrange)) || (mando_hud_guidance == 4)) then
          {

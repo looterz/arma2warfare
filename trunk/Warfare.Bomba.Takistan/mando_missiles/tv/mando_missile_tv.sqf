@@ -260,7 +260,8 @@ switch (_event) do
    case "onLoad":
    {
 
-      player action ["nvGogglesOff", player];
+      // player action ["nvGogglesOff", player];
+	  camUseNVG false;
 
       if ((typeName mando_tv_missileidx) != "SCALAR") then
       {
@@ -2494,7 +2495,18 @@ switch (_event) do
                               };
                               _missparam set [3, _firing_dir];
                            };
-                           deleteVehicle _mis;
+						   
+				   		   _mis setPos [60000,60000,60000];
+                           [_mis] spawn
+                           {
+                              _missile = _this select 0;            
+                              Sleep 6;
+                              if (alive _missile) then
+                              { 
+                                 deleteVehicle _missile;
+                              };
+                           };
+
                            _missparam execVM "mando_missiles\mando_missile.sqf";
                           
                         };   
@@ -2654,7 +2666,17 @@ switch (_event) do
                            _missparam set [5, ((speed _mis)/3.6 - (speed mando_tv_plane)/3.6) min (_missparam select 6)];
 
 
-                           deleteVehicle _mis;
+				   		   _mis setPos [60000,60000,60000];
+                           [_mis] spawn
+                           {
+                              _missile = _this select 0;            
+                              Sleep 6;
+                              if (alive _missile) then
+                              { 
+                                 deleteVehicle _missile;
+                              };
+                           };
+
                            _missparam execVM "mando_missiles\mando_missile.sqf";
                         };
 

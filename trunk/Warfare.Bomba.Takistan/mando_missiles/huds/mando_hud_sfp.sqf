@@ -143,7 +143,7 @@
    mando_missile_path+"exhausts\mando_missilesmoke1a.sqf",
    "mando_missile1",
    29,
-   5,
+   10,
    false,
    1,
    0,

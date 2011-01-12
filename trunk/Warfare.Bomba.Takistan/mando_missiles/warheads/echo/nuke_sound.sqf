@@ -18,10 +18,11 @@ _bang = "Can_small" createVehicleLocal _pos;
 _bang say3D["Nuke", 2*_range, 1];
 
 _vp = vehicle player;
-_dist = vehicle player distance _pos;
+_dist = (vehicle player) distance _pos;
 
-if ( _dist < 3*_range ) then {
-	sleep _dist/SPEED_SOUND;
+if ( _dist < 3*_range ) then 
+{
+	sleep (_dist/SPEED_SOUND);
 	playSound "eq";
 	_vp say3D "wind_4";
 };

@@ -8,6 +8,7 @@
                _x removeMagazinesTurret["60Rnd_CMFlareMagazine", [-1]];
                _x removeMagazinesTurret["120Rnd_CMFlareMagazine", [-1]];
                _x removeMagazinesTurret["120Rnd_CMFlare_Chaff_Magazine", [-1]];
+			   _x removeMagazinesTurret["60Rnd_CMFlare_Chaff_Magazine", [-1]];
             }
             else
             {
@@ -16,6 +17,7 @@
                   _x removeMagazinesTurret["60Rnd_CMFlareMagazine", [0]];
                   _x removeMagazinesTurret["120Rnd_CMFlareMagazine", [0]];
                   _x removeMagazinesTurret["120Rnd_CMFlare_Chaff_Magazine", [0]];
+				  _x removeMagazinesTurret["60Rnd_CMFlare_Chaff_Magazine", [0]];
                };
             };
             Sleep 0.01;

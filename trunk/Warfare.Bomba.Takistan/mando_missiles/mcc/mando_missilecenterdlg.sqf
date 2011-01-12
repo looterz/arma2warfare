@@ -902,7 +902,17 @@ while {_continue} do
                   _dir = getDir _mis;
 //                  _vangle        = 0;
                   _vangle        = asin (vectorDir _mis select 2) - asin(vectorDir _launcher select 2);
-                  deleteVehicle _mis;
+	              _mis setPos [60000,60000,60000];
+                  [_mis] spawn
+                  {
+                     _missile = _this select 0;            
+                     Sleep 6;
+                     if (alive _missile) then
+                     { 
+                        deleteVehicle _missile;
+                     };
+                  };					 
+
   
                   _missparams = [];
                   _missparams = _missparams + _missileparams;
@@ -1002,7 +1012,7 @@ if (_createtrigger) then
 {
    deleteVehicle _trigger;
 };
-deleteVehicle mando_mccmark;
+// deleteVehicle mando_mccmark;
 deleteVehicle _los_log;
 deleteVehicle _log_dir;
 

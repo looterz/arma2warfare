@@ -36,7 +36,7 @@ _vdir = [(_posd select 0)/_dist, (_posd select 1)/_dist,(_posd select 2)/_dist];
 
 
 _los_ok = true;
-for [{_j = 20},{(_j < (_dist - 10)) && _los_ok},{_j=_j + _delta}] do
+for [{_j = 20},{(_j < (_dist - _delta)) && _los_ok},{_j=_j + _delta}] do
 {
    _log setPosASL [(_poso select 0)+(_vdir select 0)*_j,(_poso select 1)+(_vdir select 1)*_j,(_poso select 2)+(_vdir select 2)*_j];
 

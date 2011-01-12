@@ -6,7 +6,7 @@ class CfgPatches
 		weapons[] ={};
 		requiredAddons[] = {"CAData","caMisc2"};
 		requiredVersion  = 1.05;
-		version          = 2.4b95;
+		version          = 2.4b96;
 	};
 };
 

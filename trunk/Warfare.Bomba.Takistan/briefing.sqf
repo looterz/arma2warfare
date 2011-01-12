@@ -172,6 +172,9 @@ player createDiaryRecord["Diary", ["Warfare Bomba Edition Summary", "
 <br/>
 <br/>Join to develop:
 <br/>* Just contact with coordinator on http://code.google.com/p/arma2warfare
+<br/>
+<br/> Used modules: 
+<br/> * Mando missiles 2.4b96
 "]];
 
 

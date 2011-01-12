@@ -9,3 +9,5 @@
 
 #define PLASMA_FRICTION 0.1
 
+
+#define SPEED_SOUND 340.29
