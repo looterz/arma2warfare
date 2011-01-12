@@ -1,0 +1,244 @@
+/*%FSM<COMPILE "scriptedFSM.cfg, townpatrol">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"Init_Patrol",0,4346,-39.314381,-121.655533,50.685616,-71.655525,0.000000,"Init Patrol"};
+item1[] = {"_",-1,250,-23.076923,39.464878,-19.732441,39.464878,0.000000,""};
+item2[] = {"Loop",8,218,-39.290764,-30.649605,50.709236,19.350384,0.000000,"Loop"};
+item3[] = {"Global_Checks",2,250,-39.677193,59.283379,50.322815,109.283371,0.000000,"Global Checks"};
+item4[] = {"Teams_",4,218,123.154083,58.610733,213.154068,108.610733,1.000000,"Teams?"};
+item5[] = {"End_Patrol",1,250,122.952362,138.857269,212.952408,188.857254,0.000000,"End Patrol"};
+item6[] = {"",7,210,216.588470,228.936813,224.588470,236.936813,0.000000,""};
+item7[] = {"Move_",4,218,-39.438534,136.119034,50.561466,186.119034,0.000000,"Move?"};
+item8[] = {"Move",2,250,-38.799076,207.803284,51.200939,257.803040,0.000000,"Move"};
+item9[] = {"",7,210,216.456116,-9.421276,224.456116,-1.421278,0.000000,""};
+item10[] = {"Idle_",4,218,-158.557541,60.217453,-68.557533,110.217453,0.000000,"Idle?"};
+item11[] = {"Idle",2,250,-159.332245,-31.197632,-69.332230,18.802366,0.000000,"Idle"};
+version=1;
+class LayoutItems
+{
+	class Item1
+	{
+		class ItemInfo
+		{
+			FontFace="Arial";
+			FontHeight=10;
+			lStyle=1;
+		};
+	};
+};
+link0[] = {0,2};
+link1[] = {2,3};
+link2[] = {3,4};
+link3[] = {3,7};
+link4[] = {3,10};
+link5[] = {4,5};
+link6[] = {6,9};
+link7[] = {7,8};
+link8[] = {8,6};
+link9[] = {9,2};
+link10[] = {10,11};
+link11[] = {11,2};
+globals[] = {0.000000,0,0,0,0,640,480,1,15,6316128,1,-256.373871,339.914581,308.677979,-157.313736,659,494,1};
+window[] = {0,-1,-1,-1,-1,860,225,1485,225,1,677};
+*//*%FSM</HEAD>*/
+class FSM
+{
+  fsmName = "townpatrol";
+  class States
+  {
+    /*%FSM<STATE "Init_Patrol">*/
+    class Init_Patrol
+    {
+      name = "Init_Patrol";
+      init = /*%FSM<STATEINIT""">*/"_location = _this select 0;" \n
+       "_teams = _this select 1;" \n
+       "_sideID = _this select 2;" \n
+       "_name = vehicleVarName _location;" \n
+       "" \n
+       "_lastCheck = 0;" \n
+       "_lastMove = 0;" \n
+       "_lastSV =_location getVariable ""supplyValue"";" \n
+       "_added = [];" \n
+       "_tudd = 'WFBE_TOWNUNITSDEFENSEDISTANCE' Call GetNamespace;" \n
+       "_tupd = 'WFBE_TOWNUNITSPATROLDISTANCE' Call GetNamespace;" \n
+       "" \n
+       "_isDefending = false;" \n
+       "" \n
+       "format [""TownPatrol.FSM: Init - %1"", _location] call LogInform;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Loop">*/
+        class Loop
+        {
+          priority = 0.000000;
+          to="Global_Checks";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastCheck > 30;"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Global_Checks">*/
+    class Global_Checks
+    {
+      name = "Global_Checks";
+      init = /*%FSM<STATEINIT""">*/"format [""TownPatrol.FSM: GlobalChecks - %1"", _location] call LogInform;" \n
+       "" \n
+       "_currentSV = _location getVariable ""supplyValue"";" \n
+       "" \n
+       "if ((paramResReinf) && _sideID == RESISTANCEID) then {" \n
+       "	_reinf = _location getVariable ""reinforcements"";" \n
+       "	if (count _reinf > 0) then {" \n
+       "		_location setVariable [""reinforcements"",[]];" \n
+       "		_added = _added + _reinf;" \n
+       "		_teams = _teams + _reinf;" \n
+       "	};" \n
+       "	_aliveTeams = _teams;" \n
+       "	{" \n
+       "		_alives = (units _x) Call GetLiveUnits;" \n
+       "		if (count _alives < 1 || isNull _x) then {" \n
+       "			_aliveTeams = _aliveTeams - [_x] - [objNull];" \n
+       "			if ((_location getVariable ""reinforcements_alive"") > -1) then {_location setVariable [""reinforcements_alive"",(_location getVariable ""reinforcements_alive"") - 1]};" \n
+       "		};" \n
+       "	} forEach _added;" \n
+       "	_added = _aliveTeams;" \n
+       "};" \n
+       "" \n
+       "if (paramOccReinf && _sideID != RESISTANCEID) then {" \n
+       "	_reinf = _location getVariable ""reinforcements_occ"";" \n
+       "	if (count _reinf > 0) then {" \n
+       "		_location setVariable [""reinforcements_occ"",[]];" \n
+       "		_added = _added + _reinf;" \n
+       "		_teams = _teams + _reinf;" \n
+       "	};" \n
+       "	_aliveTeams = _teams;" \n
+       "	{" \n
+       "		_alives = (units _x) Call GetLiveUnits;" \n
+       "		if (count _alives < 1 || isNull _x) then {" \n
+       "			_aliveTeams = _aliveTeams - [_x] - [objNull];" \n
+       "			if ((_location getVariable ""reinforcements_alive_occ"") > -1) then {_location setVariable [""reinforcements_alive_occ"",(_location getVariable ""reinforcements_alive_occ"") - 1]};" \n
+       "		};" \n
+       "	} forEach _added;" \n
+       "	_added = _aliveTeams;" \n
+       "};" \n
+       "" \n
+       "_aliveTeams = _teams;" \n
+       "{" \n
+       "	_alives = (units _x) Call GetLiveUnits;" \n
+       "	if (count _alives < 1 || isNull _x) then {_aliveTeams = _aliveTeams - [_x] - [objNull]};" \n
+       "} forEach _teams;" \n
+       "_teams = _aliveTeams;" \n
+       "" \n
+       "_lastCheck = time;" \n
+       "_enemy = 0;" \n
+       "_end = false;" \n
+       "if (_lastSV != _currentSV || _sideID != _location getVariable ""sideID"") then {_enemy = 1};" \n
+       "if (count _teams < 1) then {_end = true};" \n
+       "_lastSV = _currentSV;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Teams_">*/
+        class Teams_
+        {
+          priority = 1.000000;
+          to="End_Patrol";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_end"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Idle_">*/
+        class Idle_
+        {
+          priority = 0.000000;
+          to="Idle";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_lastMove == _enemy && !_end"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Move_">*/
+        class Move_
+        {
+          priority = 0.000000;
+          to="Move";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_lastMove != _enemy && !_end"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "End_Patrol">*/
+    class End_Patrol
+    {
+      name = "End_Patrol";
+      init = /*%FSM<STATEINIT""">*/"format [""TownPatrol.FSM: End  - %1"", _location] call LogInform;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Move">*/
+    class Move
+    {
+      name = "Move";
+      init = /*%FSM<STATEINIT""">*/"format [""TownPatrol.FSM: Move - %1"", _location] call LogInform;" \n
+       "" \n
+       "if (_enemy == 1) then {" \n
+       "	{[_x,getPos _location,_tudd,""Defend""] Spawn AITownResitance} forEach _teams;" \n
+       "} else {" \n
+       "	{[_x,_location,_tupd] Spawn AITownPatrol} forEach _teams;" \n
+       "};" \n
+       "_lastMove = _enemy;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Loop">*/
+        class Loop
+        {
+          priority = 0.000000;
+          to="Global_Checks";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastCheck > 30;"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Idle">*/
+    class Idle
+    {
+      name = "Idle";
+      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Loop">*/
+        class Loop
+        {
+          priority = 0.000000;
+          to="Global_Checks";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastCheck > 30;"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+  };
+  initState="Init_Patrol";
+  finalStates[] =
+  {
+    "End_Patrol",
+  };
+};
+/*%FSM</COMPILE>*/
