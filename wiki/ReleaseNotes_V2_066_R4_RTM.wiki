@@ -4,7 +4,7 @@
 = [http://code.google.com/p/arma2warfare/downloads/detail?name=WarfareV2.066.R4.Bomba.Edition.zip Warfare V2.066 R4 RTM Bomba Edition] =
 Build 446
 
-*Hilights*
+*Highlights*
 
  * New: Team notification after commander sold factory
  * New: Aircrafts can flight out of boundaries, if boundaries are enabled
