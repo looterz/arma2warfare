@@ -11,7 +11,7 @@ Build 446
  * New: Support Lingor island
  * New: Support weapons Private Military Company
 
- * Fix AI units not respawned sometimes, set event handlers assigned asyncronicly, but need syncronic
+ * Fix AI units not respawned sometimes
  * Fix Artillery fired before animation completed (set direction)
  * Fix Marker tracking on map now depend from client FPS (for reduce lags on client machine)
  * Fix Disabled ability to build factories and defences in stones.
