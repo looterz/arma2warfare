@@ -249,6 +249,7 @@ paramTacView = true;
 
 		param3thView = (paramsArray select _u); _u = _u + 1;
 		paramMissleCamera = if ((paramsArray select _u) == 0) then { false} else { true }; _u = _u + 1;
+		paramMandoMissleModule = if ((paramsArray select _u) == 0) then { false} else { true }; _u = _u + 1;
 	};
 
 	//--- Debug.
@@ -296,6 +297,9 @@ paramTacView = true;
 	};
 
 	[] ExecVM "Module\Init_Modules.sqf";
-
+	
+	if (paramMandoMissleModule) then {
+		execVM "mando_missiles\init.sqf";
+	};
 
 PROFILER_END();
