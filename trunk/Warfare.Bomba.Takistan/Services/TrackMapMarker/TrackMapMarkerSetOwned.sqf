@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Service_TrackMapMarkerAdd");
 
-Private ["_unit", "_marker"];
+Private ["_unit", "_marker", "_timeout", "_initDone"];
 
 	//--- _markerType 	    = _marker select 0;
 	//--- _markerColor 	    = _marker select 1;
@@ -19,6 +19,15 @@ Private ["_unit", "_marker"];
 	//--- _condition        = _marker select 13;
 
 	_unit = _this;
+	
+	_timeout = time + 15;
+	_initDone = false;
+	while { !_initDone && time < _timeout } do {
+		_initDone = _vehicle getVariable "initDone";
+		if (isNull "_initDone") then { _initDone = false; }; 
+		
+		if (_initDone == false) then { sleep 1; };
+	};	
 	
 	_marker = _unit call TrackMapMarkerGet;
 	if (!isNull _marker) then 
