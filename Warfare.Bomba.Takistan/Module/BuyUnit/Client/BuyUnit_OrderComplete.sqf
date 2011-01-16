@@ -104,6 +104,7 @@ Private ["_order", "_vehicle", "_unitType", "_side", "_vehInfo", "_upgrades", "_
 	};
 
 	[_vehicle] joinSilent (group player);
-	_vehicle call TrackMapMarkerSetOwned;
+
+	_vehicle spawn TrackMapMarkerSetOwned;
 
 PROFILER_END();	
