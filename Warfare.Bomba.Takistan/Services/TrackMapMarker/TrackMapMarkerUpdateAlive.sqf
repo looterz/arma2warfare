@@ -22,7 +22,7 @@ private['_u', '_traced', '_mygroup', '_newDeadMarkers', '_text', '_amount', '_va
 	_mygroup = group player;
 	_dirty = false;
 	_u = count WBE_TrackedMarkerList;
-	_traced = 50;
+	_traced = 100;
 	while { _u != 0 } do {
 		_u = _u - 1;
 	
@@ -79,7 +79,7 @@ private['_u', '_traced', '_mygroup', '_newDeadMarkers', '_text', '_amount', '_va
 		
 		_traced = _traced - 1;
 		if (_traced == 0) then {
-			_traced = 50;
+			_traced = 100;
 			if (diag_fps < 20) then { sleep 0.1; };		
 		};
 	};

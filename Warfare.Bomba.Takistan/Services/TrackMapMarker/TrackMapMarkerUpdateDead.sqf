@@ -18,7 +18,7 @@ PROFILER_BEGIN("Service_TrackMapMarkerUpdateDead");
 			WBE_TrackDeadMarkers set [_u, objNull];
 			_dirty = true;
 		};
-		if (diag_fps < 40) then { sleep 0.005; };
+		if (diag_fps < 20) then { sleep 0.1; };
 	};
 	
 	if (_dirty) then {
