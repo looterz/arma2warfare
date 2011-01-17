@@ -333,14 +333,12 @@ class Params {
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 0;
 	};
-	#ifdef VANILLA
-		class moduleCM {
-			title = "$STR_WF_Gameplay_Countermeasures";
-			values[] = {0,1};
-			texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-			default = 0;
-		};
-	#endif
+	class moduleCM {
+		title = "$STR_WF_Gameplay_Countermeasures";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 0;
+	};
 	class moduleEASA {
 		title = "$STR_WF_Gameplay_EASA";
 		values[] = {0,1};
