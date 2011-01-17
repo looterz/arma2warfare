@@ -23,16 +23,15 @@ Private ["_unit", "_marker", "_timeout", "_initDone"];
 	_timeout = time + 15;
 	_initDone = false;
 	while { !_initDone && time < _timeout } do {
-		_initDone = _vehicle getVariable "initDone";
-		if (isNull "_initDone") then { _initDone = false; }; 
 		
-		if (_initDone == false) then { sleep 1; };
+		_marker = _unit call TrackMapMarkerGet;
+		if (!isNull _marker) then {
+			_markerName = _marker select 4;
+			_markerName setMarkerColorLocal "ColorOrange";
+			_initDone = true;
+		} else {
+			sleep 1;
+		};
 	};	
-	
-	_marker = _unit call TrackMapMarkerGet;
-	if (!isNull _marker) then 
-	{
-		_markerName = _marker select 4;
-		_markerName setMarkerColorLocal "ColorOrange";
-	};
+
 PROFILER_END();
