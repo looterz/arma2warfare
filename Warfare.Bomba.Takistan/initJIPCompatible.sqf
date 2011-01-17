@@ -55,7 +55,7 @@
 	#ifdef WF_CAMO
 		WF_Camo = true;
 	#endif
-
+	
 	//--- Gameplay variables.
 	paramMobileRespawn = true;
 	paramBalancing = false;
@@ -254,8 +254,8 @@ paramTacView = true;
 
 	//--- Debug.
 	if (WF_Debug) then {
-		paramUpgradesEast = true;
-		paramUpgradesWest = true;
+		paramUpgradesEast = false;
+		paramUpgradesWest = false;
 		paramRes = true;
 		paramOccup = true;
 	};

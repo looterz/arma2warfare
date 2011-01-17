@@ -106,6 +106,7 @@ UnitKilled = Compile preprocessFile "Common\Functions\Common_UnitKilled.sqf";
 
 HeadHunters = Compile preprocessFile "Common\Functions\Common_HeadHunters.sqf";
 UpdateSideStats = Compile preprocessFile "Common\Functions\Common_UpdateSideStats.sqf";
+SelectCamo = Compile preprocessFile "Common\Functions\Common_SelectCamo.sqf";
 
 UseStationaryDefense = Compile preprocessFile "Common\Functions\Common_UseStationaryDefense.sqf";
 if (paramICBM) then {
