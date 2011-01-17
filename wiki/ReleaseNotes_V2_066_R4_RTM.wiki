@@ -9,7 +9,7 @@ Build 459
  * New: Team notification after commander sold factory
  * New: Aircrafts can flight out of boundaries, if boundaries are enabled
  * New: Support Lingor island
- * New: Support weapons Private Military Company
+ * New: Mando Missiles
 
  * Fix AI units not respawned sometimes
  * Fix Artillery fired before animation completed (set direction)
