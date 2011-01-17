@@ -203,7 +203,7 @@ paramTacView = true;
 		if ((paramsArray select _u) == 0) then {paramTabLock = false} else {paramTabLock = true};_u = _u + 1; //--- Lock Targets
 		if ((paramsArray select _u) == 0) then {paramSpacebar = false} else {paramSpacebar = true};_u = _u + 1; //--- Spacebar Scanning.
 		if ((paramsArray select _u) == 0) then {paramTacView = false} else {paramTacView = true};_u = _u + 1; //--- Tactical View.
-		if (WF_A2_Vanilla) then {if ((paramsArray select _u) == 0) then {paramCounterMeasures = false} else {paramCounterMeasures = true};_u = _u + 1}; //--- Countermeasures.
+		if ((paramsArray select _u) == 0) then {paramCounterMeasures = false} else {paramCounterMeasures = true};_u = _u + 1; //--- Countermeasures.
 		if ((paramsArray select _u) == 0) then {paramEASA = false} else {paramEASA = true};_u = _u + 1; //--- EASA.
 		if ((paramsArray select _u) == 0) then {paramHighCommand = false} else {paramHighCommand = true};_u = _u + 1; //--- High Command.
 		if ((paramsArray select _u) == 0) then {paramICBM = false} else {paramICBM = true};_u = _u + 1; //--- ICBM.
@@ -254,8 +254,8 @@ paramTacView = true;
 
 	//--- Debug.
 	if (WF_Debug) then {
-		paramUpgradesEast = false;
-		paramUpgradesWest = false;
+		paramUpgradesEast = true;
+		paramUpgradesWest = true;
 		paramRes = true;
 		paramOccup = true;
 	};
