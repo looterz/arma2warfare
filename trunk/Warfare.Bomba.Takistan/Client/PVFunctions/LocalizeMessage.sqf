@@ -38,6 +38,12 @@ switch (_localize) do {
 		_txt = Format [Localize "STR_WF_SellFactory", _name];
 		_commandChat = true;
 	};	
+	
+	case "BaseHuntingRestriction" : {
+		_name = _this select 1;
+		_txt = Format [Localize "STR_WF_BaseHuntingRestriction", _name, paramBaseHuntingTimeout];
+		_commandChat = true;
+	};
 };
 
 if (_commandChat) then {

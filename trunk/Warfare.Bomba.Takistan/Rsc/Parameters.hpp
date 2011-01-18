@@ -616,5 +616,13 @@ class Params {
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 0;
 	};	
+	
+	class gameplayBaseHuntingTimeout {
+		title = "$STR_WF_Restriction_BaseHunting";
+		values[] = {0, 30, 60, 90, 180};
+		texts[] = {"$STR_WF_Disabled", "30 min", "1 hr", "1.5 hr", "2 hr"};
+		default = 60;
+	};	
+	
 };
 

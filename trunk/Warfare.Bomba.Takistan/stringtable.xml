@@ -2511,6 +2511,24 @@
         <Russian>Внимание: %1 продан командиром</Russian>
         <Italian>Attention. Commander has sold factory '%1'.</Italian>
       </Key>
+
+      <Key ID="STR_WF_Restriction_BaseHunting">
+        <English>Restriction: BaseHunting</English>
+        <French>Restriction: BaseHunting</French>
+        <German>Restriction: BaseHunting</German>
+        <Russian>Огранич: BaseHunting</Russian>
+        <Italian>Restriction: BaseHunting</Italian>
+      </Key>
+	  
+      <Key ID="STR_WF_BaseHuntingRestriction">
+        <English>Player '%1' has attack enemy base. Forbidden attack the base in the first %2 minutes from the game start.</English>
+        <French>Player '%1' has attack enemy base. Forbidden attack the base in the first %2 minutes from the game start.</French>
+        <German>Player '%1' has attack enemy base. Forbidden attack the base in the first %2 minutes from the game start.</German>
+        <Russian>Игрок %1 атаковал базу противника. Запрещено атаковать базу в течении %2 минут от начала игры.</Russian>
+        <Italian>Player '%1' has attack base. Forbidden attack the base in the first %2 minutes from the game start.</Italian>
+      </Key>
+	  
+	  
 	  
     </Container>
   </Package>
