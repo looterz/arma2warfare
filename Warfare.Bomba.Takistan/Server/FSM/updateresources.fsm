@@ -62,17 +62,21 @@ class FSM
        "	_count = _count + 1;" \n
        "};" \n
        "" \n
-       "_eastSupplies = (WF_Logic getVariable ""EastSupplies"") + _eastIncome; " \n
-       "WF_Logic setVariable [""EastSupplies"",eastSupplies,true];" \n
        "" \n
-       "_westSupplies = (WF_Logic getVariable ""WestSupplies"") + _westIncome; " \n
-       "WF_Logic setVariable [""WestSupplies"",westSupplies,true];" \n
+       "if (_eastIncome > 0) then {" \n
+       "    	_eastSupplies = (WF_Logic getVariable ""EastSupplies"") + _eastIncome; " \n
+       "	WF_Logic setVariable [""EastSupplies"",eastSupplies,true];" \n
        "" \n
+       "	_id = 1;" \n
+       "	{if !(isNil '_x') then {[_eastIncome,East,_id] Call ChangeClientFunds};_id = _id + 1} ForEach _eTeams;" \n
+       "};" \n
        "" \n
-       "_id = 1;" \n
-       "{if !(isNil '_x') then {[_eastIncome,East,_id] Call ChangeClientFunds};_id = _id + 1} ForEach _eTeams;" \n
-       "_id = 1;" \n
-       "{if !(isNil '_x') then {[_westIncome,West,_id] Call ChangeClientFunds};_id = _id + 1} ForEach _wTeams;" \n
+       "if (_westIncome > 0) then {" \n
+       "	_westSupplies = (WF_Logic getVariable ""WestSupplies"") + _westIncome; " \n
+       "	WF_Logic setVariable [""WestSupplies"",westSupplies,true];" \n
+       "	_id = 1;" \n
+       "	{ if !(isNil '_x') then {[_westIncome,West,_id] Call ChangeClientFunds};_id = _id + 1} ForEach _wTeams;" \n
+       "};" \n
        "" \n
        "if (paramAllies) then {" \n
        "	westAlliesFunds = westAlliesFunds + _westIncome;" \n
