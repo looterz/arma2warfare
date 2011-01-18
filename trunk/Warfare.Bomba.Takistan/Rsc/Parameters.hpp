@@ -600,7 +600,7 @@ class Params {
 		title = "$STR_WF_Gameplay_ThirdView";
 		values[] = {0,1,2};
 		texts[] = {"$STR_WF_Enabled","$STR_WF_OnlyInVehicles","$STR_WF_Disabled"};
-		default = 0;
+		default = 1;
 	};
 
 	class gameplayMissleCamera {
@@ -614,7 +614,7 @@ class Params {
 		title = "Mando Missile Module";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 1;
+		default = 0;
 	};	
 };
 
