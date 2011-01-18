@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_BuildingHandleDamages");
 
-Private ['_building','_dammages','_origin','_side','_side', '_stones'];
+Private ['_building','_dammages','_origin','_side','_side', '_stones', '_killerId', '_sideKiller', '_funds'];
 
 _building = _this select 0;
 _dammages = _this select 1;
@@ -16,7 +16,26 @@ if (side _origin == sideEnemy) then {
 	_side = side _origin;
 };
 
-if (baseFrendlyFire && (_sideBuilding == _side)) then { _dammages = 0 }; 
+if (baseFrendlyFire && (_sideBuilding == _side)) then { _dammages = 0 };
+
+if (_dammages > 0 && paramBaseHuntingTimeout > 0 && (time < paramBaseHuntingTimeout * 60)) then {
+
+	_dammages = 0;
+	(vehicle _origin) setDamage 1;
+	
+	if (isPlayer _origin) then {
+		_killerId = _origin Call GetClientID;
+		_sideKiller = side _origin;
+		
+		_funds = ([_sideKiller, _killerId] Call GetClientTeam) Call GetTeamFunds;
+		[ -_funds, _sideKiller,_killerId] Call ChangeClientFunds;
+		
+		WFBE_LocalizeMessage = [nil,'CLTFNCLOCALIZEMESSAGE',['BaseHuntingRestriction', name _origin]];
+		publicVariable 'WFBE_LocalizeMessage';
+		if (IsClientServer) then {[nil,'CLTFNCLOCALIZEMESSAGE',['BaseHuntingRestriction', name _origin]] Spawn HandlePVF};
+	};
+}; 
+ 
 
 if (paramTrade && _dammages > 0) then {
 

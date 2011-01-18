@@ -109,7 +109,7 @@ paramTacView = true;
 
 	param3thView = false;
 
-	baseFrendlyFire = false;
+	baseFrendlyFire = true;
 	paramEnabledHeadHunters = true;
 	paramBuildDefencesInTown = 2;	// 0 - disabled, 1 - only engineers, 2 - anybody
 	paramSupplyExchange = true;
@@ -122,6 +122,7 @@ paramTacView = true;
 	paramArtilleryHighBallistic = false;
 	paramMissleCamera = false;
 	paramMandoMissleModule = true;
+	paramBaseHuntingTimeout = 60;
 
 	missionNamespace setVariable ['WFBE_MAXGROUPSIZEAI', 10];
 	missionNamespace setVariable ['WFBE_EASTSTARTINGMONEY',200000];
@@ -250,6 +251,8 @@ paramTacView = true;
 		param3thView = (paramsArray select _u); _u = _u + 1;
 		paramMissleCamera = if ((paramsArray select _u) == 0) then { false} else { true }; _u = _u + 1;
 		paramMandoMissleModule = if ((paramsArray select _u) == 0) then { false} else { true }; _u = _u + 1;
+		
+		paramBaseHuntingTimeout = paramsArray select _u; _u = _u + 1;
 	};
 
 	//--- Debug.
