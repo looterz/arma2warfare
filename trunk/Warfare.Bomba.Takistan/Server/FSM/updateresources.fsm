@@ -71,7 +71,7 @@ class FSM
        "format [""_correction = %1"", _correction] call LogHigh;" \n
        "" \n
        "if (_eastIncome > 0) then {" \n
-       "    _eastSupplies = (WF_Logic getVariable ""EastSupplies"") + _eastIncome; " \n
+       "    _eastSupplies = (WF_Logic getVariable ""EastSupplies"") + (_eastIncome * _correction); " \n
        "	WF_Logic setVariable [""EastSupplies"",_eastSupplies,true];" \n
        "	" \n
        "    _playerCount = 0;" \n
@@ -101,7 +101,7 @@ class FSM
        "};" \n
        "" \n
        "if (_westIncome > 0) then {" \n
-       "	_westSupplies = (WF_Logic getVariable ""WestSupplies"") + _westIncome; " \n
+       "	_westSupplies = (WF_Logic getVariable ""WestSupplies"") + (_westIncome * _correction); " \n
        "	WF_Logic setVariable [""WestSupplies"",_westSupplies,true];" \n
        "" \n
        "    _playerCount = 0;" \n
