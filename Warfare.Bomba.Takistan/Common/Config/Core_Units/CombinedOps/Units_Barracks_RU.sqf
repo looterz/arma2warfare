@@ -31,12 +31,12 @@ if (paramExtraUnits) then {
 	_u = _u		+ [['RUS_Soldier_Marksman']];
 	_u = _u		+ [['RUS_Soldier3', 'TK_Special_Forces_EP1']];
 	_u = _u		+ [['RUS_Soldier_TL', 'TK_Special_Forces_TL_EP1']];
-	_u = _u		+ [['MVD_Soldier_GL', '']];
+	_u = _u		+ [['MVD_Soldier_GL']];
 	_u = _u		+ [['MVD_Soldier_MG', 'TK_Special_Forces_MG_EP1']];
-	_u = _u		+ [['MVD_Soldier_Marksman', '']];
-	_u = _u		+ [['MVD_Soldier_AT', '']];
-	_u = _u		+ [['MVD_Soldier_Sniper', '']];
-	_u = _u		+ [['MVD_Soldier_TL', '']];
+	_u = _u		+ [['MVD_Soldier_Marksman']];
+	_u = _u		+ [['MVD_Soldier_AT']];
+	_u = _u		+ [['MVD_Soldier_Sniper']];
+	_u = _u		+ [['MVD_Soldier_TL']];
 };
 
 _u call SelectCamo;

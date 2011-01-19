@@ -9,11 +9,11 @@ _fnSelectCamoTypeVehicle = {
 	_u = 0;
 	_vehType = "";
 	
-	if (WF_Camo && (count _vehicleTypes) > 0 ) then {	// select green camo
+	if (WF_CamoType == 0 && (count _vehicleTypes) > 0 ) then {	// select green camo
 		_vehType = _vehicleTypes select 0;
 	};
 
-	if (!WF_Camo && (count _vehicleTypes) > 1 ) then {	// select sand camo
+	if (WF_CamoType == 1 && (count _vehicleTypes) > 1 ) then {	// select sand camo
 		_vehType = _vehicleTypes select 1;
 	};	
 	
