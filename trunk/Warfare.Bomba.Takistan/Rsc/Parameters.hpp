@@ -624,5 +624,11 @@ class Params {
 		default = 60;
 	};	
 	
+	class gameplayExtraUnits {
+		title = "$STR_WF_ExtendedUnits";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 0;
+	};	
 };
 

@@ -2528,7 +2528,13 @@
         <Italian>Player '%1' has attack base. Forbidden attack the base in the first %2 minutes from the game start.</Italian>
       </Key>
 	  
-	  
+      <Key ID="STR_WF_ExtendedUnits">
+        <English>Extended soldiers and vehicles types</English>
+        <French>Extended soldiers and vehicles types</French>
+        <German>Extended soldiers and vehicles types</German>
+        <Russian>Дополнительные типы солдат и техники</Russian>
+        <Italian>Extended soldiers and vehicles types</Italian>
+      </Key>	  
 	  
     </Container>
   </Package>

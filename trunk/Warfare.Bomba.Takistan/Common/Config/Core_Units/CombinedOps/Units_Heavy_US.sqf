@@ -15,8 +15,7 @@ _u = _u		+ [['M1A2_TUSK_MG', 'M1A2_US_TUSK_MG_EP1']];
 _u = _u		+ [['MLRS', 'MLRS_DES_EP1']];
 _u = _u		+ ['M6_EP1'];
 if (paramDLCBAF) then {
-	_u = _u		+ ['BAF_FV510_W'];
-	_u = _u		+ ['BAF_FV510_D'];
+	_u = _u		+ [['BAF_FV510_W', 'BAF_FV510_D']];
 };
 
 _u call SelectCamo;

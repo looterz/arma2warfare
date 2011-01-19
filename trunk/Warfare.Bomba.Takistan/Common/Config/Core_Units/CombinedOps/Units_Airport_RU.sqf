@@ -8,7 +8,7 @@ if (_r == 0) then {
 	_u = _u		+ ['An2_TK_EP1'];
 	_u = _u		+ ['L39_TK_EP1'];
 	_u = _u		+ ['Su34'];
-	_u = _u		+ ['Su25_Ins', 'Su25_TK_EP1'];
+	_u = _u		+ [['Su25_Ins', 'Su25_TK_EP1']];
 	_u = _u		+ ['Su39'];
 };
 	
