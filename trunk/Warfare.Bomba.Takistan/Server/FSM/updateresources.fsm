@@ -11,8 +11,8 @@ link1[] = {1,3};
 link2[] = {1,4};
 link3[] = {3,1};
 link4[] = {4,2};
-globals[] = {0.000000,0,0,0,0,640,480,1,15,6316128,1,-339.987122,339.986481,133.631165,-314.533264,239,833,1};
-window[] = {2,-1,-1,-1,-1,809,175,1435,175,3,257};
+globals[] = {0.000000,0,0,0,0,640,480,1,15,6316128,1,-87.850731,200.330124,146.228989,-499.079224,372,833,1};
+window[] = {2,-1,-1,-1,-1,659,25,1285,25,3,390};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -62,20 +62,80 @@ class FSM
        "	_count = _count + 1;" \n
        "};" \n
        "" \n
+       "_correction = (time - _lastUpdate) / _ii;" \n
+       "_eastPlayerIncome = _eastIncome;" \n
+       "_westPlayerIncome = _westIncome;" \n
+       "" \n
+       "format [""EastIncome = %1"", _eastIncome] call LogHigh;" \n
+       "format [""WestIncome = %1"", _westIncome] call LogHigh;" \n
+       "format [""_correction = %1"", _correction] call LogHigh;" \n
        "" \n
        "if (_eastIncome > 0) then {" \n
-       "    	_eastSupplies = (WF_Logic getVariable ""EastSupplies"") + _eastIncome; " \n
+       "    _eastSupplies = (WF_Logic getVariable ""EastSupplies"") + _eastIncome; " \n
        "	WF_Logic setVariable [""EastSupplies"",_eastSupplies,true];" \n
+       "	" \n
+       "    _playerCount = 0;" \n
+       "    { " \n
+       "		if !(isNil '_x') then {" \n
+       "			if (isPlayer (leader _x)) then { _playerCount = _playerCount + 1; };" \n
+       "		};" \n
+       "	} ForEach _eTeams;	" \n
+       "	" \n
+       "	format [""_eastPlayer count = %1"", _playerCount] call LogHigh;" \n
+       "	_eastPlayerIncome = if ( _playerCount > 0 ) then { _eastIncome * (count _eTeams) / _playerCount } else { 0 };" \n
+       "" \n
+       "      _AIIncome = _eastIncome * _correction;" \n
+       "      _playerIncome = _eastPlayerIncome * _correction;" \n
+       "	" \n
+       "	_id = 1;" \n
+       "	{ " \n
+       "	    if !(isNil '_x') then {" \n
+       "			_income = if (isPlayer (leader _x)) then { _playerIncome } else { _AIIncome };" \n
+       "			[_income, East, _id] Call ChangeClientFunds;" \n
+       "		};" \n
+       "		_id = _id + 1;" \n
+       "	} ForEach _eTeams;	" \n
        "" \n
        "	_id = 1;" \n
-       "	{if !(isNil '_x') then {[_eastIncome,East,_id] Call ChangeClientFunds};_id = _id + 1} ForEach _eTeams;" \n
+       "	{if !(isNil '_x') then {};_id = _id + 1} ForEach _eTeams;" \n
        "};" \n
        "" \n
        "if (_westIncome > 0) then {" \n
        "	_westSupplies = (WF_Logic getVariable ""WestSupplies"") + _westIncome; " \n
        "	WF_Logic setVariable [""WestSupplies"",_westSupplies,true];" \n
+       "" \n
+       "    _playerCount = 0;" \n
+       "    { " \n
+       "		if !(isNil '_x') then {" \n
+       "			if (isPlayer (leader _x)) then { _playerCount = _playerCount + 1; };" \n
+       "		};" \n
+       "	} ForEach _wTeams;" \n
+       "	  " \n
+       "	format [""_westPlayer count = %1"", _playerCount] call LogHigh;" \n
+       "	_westPlayerIncome = if ( _playerCount > 0 ) then { _westIncome * (count _wTeams) / _playerCount } else { 0 };" \n
+       "" \n
+       "      _AIIncome = _westIncome * _correction;" \n
+       "      _playerIncome = _westPlayerIncome * _correction;" \n
+       "" \n
        "	_id = 1;" \n
-       "	{ if !(isNil '_x') then {[_westIncome,West,_id] Call ChangeClientFunds};_id = _id + 1} ForEach _wTeams;" \n
+       "	{ " \n
+       "	    if !(isNil '_x') then {" \n
+       "			_income = if (isPlayer (leader _x)) then { _playerIncome } else { _AIIncome };" \n
+       "			[_income, West, _id] Call ChangeClientFunds;" \n
+       "		};" \n
+       "		_id = _id + 1;" \n
+       "	} ForEach _wTeams;" \n
+       "};" \n
+       "" \n
+       "format [""_eastPlayerIncome = %1"", _eastPlayerIncome] call LogHigh;" \n
+       "format [""_westPlayerIncome = %1"", _westPlayerIncome] call LogHigh;" \n
+       "" \n
+       "if ((WF_Logic getVariable ""EastIncome"") != _eastPlayerIncome) then {" \n
+       "     WF_Logic setVariable [""EastIncome"", _eastPlayerIncome,true];" \n
+       "};" \n
+       "" \n
+       "if ((WF_Logic getVariable ""WestIncome"") != _westPlayerIncome) then {" \n
+       "     WF_Logic setVariable [""WestIncome"", _westPlayerIncome, true];" \n
        "};" \n
        "" \n
        "if (paramAllies) then {" \n

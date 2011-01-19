@@ -264,8 +264,8 @@ paramTacView = true;
 	if (WF_Debug) then {
 		paramUpgradesEast = false;
 		paramUpgradesWest = false;
-		paramRes = true;
-		paramOccup = true;
+		paramRes = false;
+		paramOccup = false;
 	};
 
 	//--- Advanced squads
