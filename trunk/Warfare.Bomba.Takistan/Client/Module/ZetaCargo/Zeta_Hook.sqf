@@ -1,4 +1,4 @@
-Private ["_action","_actionID","_caller","_index","_lifter","_sorted","_type","_vehicle","_vehicles"];
+Private ["_action","_actionID","_caller","_index","_lifter","_sorted","_type","_vehicle","_vehicles", "_pos"];
 
 _lifter = _this select 0;
 _caller = _this select 1;
@@ -32,9 +32,18 @@ _action = _lifter addAction [localize "STR_WF_Lift_Detach","Client\Module\ZetaCa
 while {!gameOver} do {
 	sleep 2;
 	_isAttached = _lifter getVariable "Attached";
-	if ((getDammage _lifter > 0.3)||!_isAttached||isNull (driver _lifter)) exitWith {
+	
+	if ((getDammage _lifter > 0.3)||!_isAttached||isNull (driver _lifter) || ((position _vehicle) select 2) < 0) exitWith {
 		detach _vehicle;
 		_lifter removeAction _action;
 		if (alive _lifter) then {_lifter addAction [localize "STR_WF_Lift","Client\Module\ZetaCargo\Zeta_Hook.sqf"]};
+		
+		_pos = position _vehicle;
+		if (_pos select 2) < 0) then {
+			_pos set [2, 0];
+			_vehicle setPos _pos;
+		};
+		
+		
 	};
 };
