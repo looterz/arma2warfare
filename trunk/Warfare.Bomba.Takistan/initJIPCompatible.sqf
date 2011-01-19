@@ -50,10 +50,14 @@
 		WF_A2_CombinedOps = true;
 	#endif
 
-
 	WF_Camo = false;
 	#ifdef WF_CAMO
 		WF_Camo = true;
+	#endif
+	
+	WF_CamoType = 0;
+	#ifdef WF_CAMO
+		WF_CamoType = 1;
 	#endif
 	
 	//--- Gameplay variables.
