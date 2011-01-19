@@ -243,6 +243,9 @@ WF_Logic setVariable ["westCasualties",0,true];
 WF_Logic setVariable ["westVehiclesCreated",0,true];
 WF_Logic setVariable ["westVehiclesLost",0,true];
 
+WF_Logic setVariable ["WestIncome", 0, true];
+WF_Logic setVariable ["EastIncome", 0, true];
+
 WF_Logic setVariable ["WF_CHQInUse_West",false];
 WF_Logic setVariable ["WF_CHQInUse_East",false];
 
