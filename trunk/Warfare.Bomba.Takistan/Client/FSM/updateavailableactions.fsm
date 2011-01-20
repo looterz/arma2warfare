@@ -127,7 +127,7 @@ class FSM
        "if (visibleMap) then {" \n
        "	if (!isNull commanderTeam) then {_txt = format [localize 'STR_WF_Commander',name (leader commanderTeam)]} else {_txt = format [localize 'STR_WF_Commander',localize 'STR_WF_AI']};" \n
        "	_txt = _txt + '  ' + Format [localize ""STR_WF_Income"",Call GetPlayerFunds,(Call GetIncome)/_is];" \n
-       "	_txt = _txt + '  ' + localize 'STR_WF_Supply' + ': '+ str(WF_Logic getVariable _sideSupply);" \n
+	   "	_txt = _txt + '  ' + Format [localize ""STR_WF_IncomeSupply"", (WF_Logic getVariable _sideSupply), sideJoined call GetTotalSupplyValue];" \n
        "	(findDisplay 12 displayCtrl 116) ctrlSetText _txt;" \n
        "};" \n
        "" \n
