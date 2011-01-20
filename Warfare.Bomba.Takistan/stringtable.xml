@@ -1202,6 +1202,13 @@
         <Russian>Наличные: $%1 ($%2/мин)</Russian>
         <Italian>Entrate: $%1.($%2/Min.)</Italian>
       </Key>
+      <Key ID="STR_WF_IncomeSupply">
+        <English>Supply: %1 ($%2/Min)</English>
+        <French>Logistique: %1 ($%2/Min)</French>
+        <German>Versorgung: %1 ($%2/Min)</German>
+        <Russian>Снабжение: %1 ($%2/мин)</Russian>
+        <Italian>Supply: %1 ($%2/Min)</Italian>
+      </Key>	  
       <Key ID="STR_WF_Level">
         <English>Current Level: %1</English>
         <French>Niveau Actuel: %1</French>
