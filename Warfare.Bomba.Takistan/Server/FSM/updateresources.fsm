@@ -85,7 +85,7 @@ class FSM
        "} ForEach _eTeams;" \n
        "" \n
        "if (_eastIncome > 0) then {" \n
-       "    _eastSupplies = (WF_Logic getVariable ""EastSupplies"") + (_eastIncome * _correction); " \n
+       "    _eastSupplies = (WF_Logic getVariable ""EastSupplies"") + floor(_eastIncome * _correction); " \n
        "	WF_Logic setVariable [""EastSupplies"",_eastSupplies,true];" \n
        "	" \n
        "	format [""_eastPlayer count = %1"", _playerCount] call LogHigh;" \n
@@ -94,8 +94,8 @@ class FSM
        "		_eastPlayerIncome = _eastIncome * (1 + (_westPlayerCount - _eastPlayerCount) / _eastPlayerCount);" \n
        "	};" \n
        "" \n
-       "    _AIIncome = _eastIncome * _correction;" \n
-       "    _playerIncome = _eastPlayerIncome * _correction;" \n
+       "    _AIIncome = floor(_eastIncome * _correction);" \n
+       "    _playerIncome = floor(_eastPlayerIncome * _correction);" \n
        "	" \n
        "	_id = 1;" \n
        "	{ " \n
@@ -111,7 +111,7 @@ class FSM
        "};" \n
        "" \n
        "if (_westIncome > 0) then {" \n
-       "	_westSupplies = (WF_Logic getVariable ""WestSupplies"") + (_westIncome * _correction); " \n
+       "	_westSupplies = (WF_Logic getVariable ""WestSupplies"") + floor(_westIncome * _correction); " \n
        "	WF_Logic setVariable [""WestSupplies"",_westSupplies,true];" \n
        "" \n
        "	format [""_westPlayer count = %1"", _playerCount] call LogHigh;" \n
@@ -120,8 +120,8 @@ class FSM
        "		_westPlayerIncome = _westIncome * (1 + (_eastPlayerCount - _westPlayerCount) / _westPlayerCount);" \n
        "	};" \n
        "" \n
-       "      _AIIncome = _westIncome * _correction;" \n
-       "      _playerIncome = _westPlayerIncome * _correction;" \n
+       "      _AIIncome = floor(_westIncome * _correction);" \n
+       "      _playerIncome = floor(_westPlayerIncome * _correction);" \n
        "" \n
        "	_id = 1;" \n
        "	{ " \n
@@ -137,11 +137,11 @@ class FSM
        "format [""_westPlayerIncome = %1"", _westPlayerIncome] call LogHigh;" \n
        "" \n
        "if ((WF_Logic getVariable ""EastIncome"") != _eastPlayerIncome) then {" \n
-       "     WF_Logic setVariable [""EastIncome"", _eastPlayerIncome,true];" \n
+       "     WF_Logic setVariable [""EastIncome"", floor(_eastPlayerIncome),true];" \n
        "};" \n
        "" \n
        "if ((WF_Logic getVariable ""WestIncome"") != _westPlayerIncome) then {" \n
-       "     WF_Logic setVariable [""WestIncome"", _westPlayerIncome, true];" \n
+       "     WF_Logic setVariable [""WestIncome"", floor(_westPlayerIncome), true];" \n
        "};" \n
        "" \n
        "if (paramAllies) then {" \n
