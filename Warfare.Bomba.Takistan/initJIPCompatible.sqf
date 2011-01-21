@@ -55,9 +55,9 @@
 		WF_Camo = true;
 	#endif
 	
-	WF_CamoType = 0;
+	WF_CamoType = 1;
 	#ifdef WF_CAMO
-		WF_CamoType = 1;
+		WF_CamoType = 0;
 	#endif
 	
 	//--- Gameplay variables.
