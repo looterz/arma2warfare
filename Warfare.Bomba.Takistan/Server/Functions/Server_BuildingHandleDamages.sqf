@@ -35,7 +35,19 @@ if (_dammages > 0 && paramBaseHuntingTimeout > 0 && (time < paramBaseHuntingTime
 		if (IsClientServer) then {[nil,'CLTFNCLOCALIZEMESSAGE',['BaseHuntingRestriction', name _origin]] Spawn HandlePVF};
 	};
 }; 
- 
+
+if (_dammages > 0) then {
+
+        _totalDamage = _building getVariable '_totalDamage';
+        if (isNil "_totalDamage") then {_totalDamage = 0};
+
+        _totalDamage = _totalDamage + _dammages;
+        _building setVariable ['_totalDamage', _totalDamage, false]; 
+
+        if (_totalDamage - _dammages <= 5) then { 
+            _dammages = 0;
+        };        
+}; 
 
 if (paramTrade && _dammages > 0) then {
 
