@@ -5,7 +5,7 @@
 Build 486
 
 Whats new: 
-* BaseHunting restriction within a specified period in the settings (30min, 1h, 1.5h, 2h) 
+ * BaseHunting restriction within a specified period in the settings (30min, 1h, 1.5h, 2h) 
 - The player has violated the basehunting restriction, die and lose their money. 
 
  * To increase the strength of buildings to 5 times 
@@ -22,16 +22,16 @@ The capture of the city with 10SV one player and two assistants -
 Assault team get 500 * 10 * 0.75 = 3750 $ 
 Every assistant team get - 500 * 10 * 0,25 / 2 = $ 625 
 
-* Changed the mechanism of charging money for the time 
+ * Changed the mechanism of charging money for the time 
 - The team has less players will receive compensation for each missing player 
 if one team is 10 people, in another 8, each team member plays in the minorities, the will to receive compensation 
 for every less player; 
 currentIncome = currentIncome * (1 + (westPlayers - eastPlayers) / eastPlayers) 
 
-* Correction supply and salaries income
+ * Correction supply and salaries income
 if the server has lag, every salary (supply and money) increasing to lag coefficient, 
 ie if the salary comes once in 1.5 minutes instead of once per minute, the amount will be increased to 1.5 
 
-* Selection of a suitable camouflage in accordance with the world, removed the duplicated vehicles (wood and sand camo) 
+ * Selection of a suitable camouflage in accordance with the world, removed the duplicated vehicles (wood and sand camo) 
 map chernorusi mostly use vehicles and soldiers in wood camo 
 map takistana mostly use vehicles and soldiers in sand camo
