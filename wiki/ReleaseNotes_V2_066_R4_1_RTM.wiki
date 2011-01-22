@@ -10,23 +10,23 @@ Whats new:
 
  * To increase the strength of buildings to 5 times 
  * Changed the mechanism of charging money for the capture of the city 
-For the capture of the city charged the total cash = 500 * (last max SV) - the maximum value is reached under the occupation 
+For the capture of the city charged the total cash = 500 `*` (last max SV) - the maximum value is reached under the occupation 
 This cash is divided into equal among all players who participated in the capture of the city (including AI) 
 It is distributed in the proportion of 75% of those who captured 25%, and those who helped (depending on distance from the central depot) 
 If the assistants not exists, then the sum of adding to the assault cash 
 If there are no invaders, the sum of adding players to assistants cash
 
-The capture of the city with 10SV one player - the player will be awarded for the capture equal to 500 * 10 = $ 5000 
-The capture of the city with 10SV five players - each player will be awarded for the capture equal to 500 * 10 / 5 = $ 1000 
+The capture of the city with 10SV one player - the player will be awarded for the capture equal to 500 `*` 10 = $ 5000 
+The capture of the city with 10SV five players - each player will be awarded for the capture equal to 500 `*` 10 / 5 = $ 1000 
 The capture of the city with 10SV one player and two assistants - 
-Assault team get 500 * 10 * 0.75 = 3750 $ 
-Every assistant team get - 500 * 10 * 0,25 / 2 = $ 625 
+Assault team get 500 `*` 10 `*` 0.75 = 3750 $ 
+Every assistant team get - 500 `*` 10 `*` 0,25 / 2 = $ 625 
 
  * Changed the mechanism of charging money for the time 
 - The team has less players will receive compensation for each missing player 
 if one team is 10 people, in another 8, each team member plays in the minorities, the will to receive compensation 
 for every less player; 
-currentIncome = currentIncome * (1 + (westPlayers - eastPlayers) / eastPlayers) 
+currentIncome = currentIncome `*` (1 + (westPlayers - eastPlayers) / eastPlayers) 
 
  * Correction supply and salaries income
 if the server has lag, every salary (supply and money) increasing to lag coefficient, 
