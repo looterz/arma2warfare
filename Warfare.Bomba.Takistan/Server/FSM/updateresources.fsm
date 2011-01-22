@@ -11,8 +11,8 @@ link1[] = {1,3};
 link2[] = {1,4};
 link3[] = {3,1};
 link4[] = {4,2};
-globals[] = {0.000000,0,0,0,0,640,480,1,15,6316128,1,-83.571091,196.050446,93.958862,-347.271912,372,587,1};
-window[] = {2,-1,-1,-1,-1,784,150,1410,150,3,390};
+globals[] = {0.000000,0,0,0,0,640,480,1,15,6316128,1,-83.571091,196.050446,93.958862,-347.271912,372,833,1};
+window[] = {2,-1,-1,-1,-1,809,175,1435,175,3,390};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -88,7 +88,7 @@ class FSM
        "    _eastSupplies = (WF_Logic getVariable ""EastSupplies"") + floor(_eastIncome * _correction); " \n
        "	WF_Logic setVariable [""EastSupplies"",_eastSupplies,true];" \n
        "	" \n
-       "	format [""_eastPlayer count = %1"", _playerCount] call LogHigh;" \n
+       "	format [""_eastPlayer count = %1"", _eastPlayerCount] call LogHigh;" \n
        "	_eastPlayerIncome = _eastIncome;" \n
        "	if ( _eastPlayerCount > 0 && _eastPlayerCount < _westPlayerCount ) then { " \n
        "		_eastPlayerIncome = _eastIncome * (1 + (_westPlayerCount - _eastPlayerCount) / _eastPlayerCount);" \n
@@ -114,7 +114,7 @@ class FSM
        "	_westSupplies = (WF_Logic getVariable ""WestSupplies"") + floor(_westIncome * _correction); " \n
        "	WF_Logic setVariable [""WestSupplies"",_westSupplies,true];" \n
        "" \n
-       "	format [""_westPlayer count = %1"", _playerCount] call LogHigh;" \n
+       "	format [""_westPlayer count = %1"", _westPlayerCount] call LogHigh;" \n
        "	_westPlayerIncome = _westIncome;" \n
        "	if ( _westPlayerCount > 0 && _westPlayerCount < _eastPlayerCount  ) then { " \n
        "		_westPlayerIncome = _westIncome * (1 + (_eastPlayerCount - _westPlayerCount) / _westPlayerCount);" \n

@@ -105,7 +105,9 @@ UnitKilled = Compile preprocessFile "Common\Functions\Common_UnitKilled.sqf";
 //UpdateStatistics = Compile preprocessFile "Common\Functions\Common_UpdateStatistics.sqf";
 
 HeadHunters = Compile preprocessFile "Common\Functions\Common_HeadHunters.sqf";
-UpdateSideStats = Compile preprocessFile "Common\Functions\Common_UpdateSideStats.sqf";
+HeadHunters = Compile preprocessFile "Common\Functions\Common_HeadHunters.sqf";
+
+GetTownCaptureAward = Compile preprocessFile "Common\Functions\Common_GetTownCaptureAward.sqf";
 SelectCamo = Compile preprocessFile "Common\Functions\Common_SelectCamo.sqf";
 
 UseStationaryDefense = Compile preprocessFile "Common\Functions\Common_UseStationaryDefense.sqf";

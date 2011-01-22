@@ -17,9 +17,7 @@ if (!isPlayer(_killer)) exitWith {
 _victimId = _victim  Call GetClientID;
 _killerId = _killer Call GetClientID;
 
-
-//if (WF_DEBUG || (isPlayer(_victim) && _victimId > 0 && _killerId > 0 && _victimId != _killerId)) then {
-if ((_victimId > 0 && _killerId > 0 && _victimId != _killerId)) then {
+if (WF_DEBUG || (isPlayer(_victim) && _victimId > 0 && _killerId > 0 && _victimId != _killerId)) then {
 
 	_sideKiller = side _killer;
 	if (_sideKiller == sideEnemy) then {
