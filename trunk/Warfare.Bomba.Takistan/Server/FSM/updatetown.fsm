@@ -1,4 +1,4 @@
-/*%FSM<COMPILE "F:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, updatetown">*/
+/*%FSM<COMPILE "scriptedFSM.cfg, updatetown">*/
 /*%FSM<HEAD>*/
 /*
 item0[] = {"Init",0,250,-63.537106,-304.001923,26.462904,-254.002228,0.000000,"Init"};
@@ -15,7 +15,7 @@ item10[] = {"Time_Supply",2,250,54.842167,-111.734596,144.842194,-61.734596,0.00
 item11[] = {"_",8,218,84.156120,-22.145014,115.962143,0.430260,0.000000,""};
 item12[] = {"_",2,250,-300.613251,-37.831039,-210.613235,12.168960,0.000000,""};
 item13[] = {"",7,210,-260.014130,-223.295425,-252.014069,-215.295425,0.000000,""};
-item14[] = {"Town_Advanced",2,250,-67.838142,416.225128,22.161905,466.225098,0.000000,"Town Advanced"};
+item14[] = {"Town_Advanced",2,4346,-67.838142,416.225128,22.161905,466.225098,0.000000,"Town Advanced"};
 item15[] = {"Captured",4,218,48.796371,416.225128,138.796494,466.225098,0.000000,"Captured"};
 item16[] = {"Skip",4,218,-302.480042,416.225128,-212.479980,466.225159,0.000000,"Skip"};
 item17[] = {"Captured",2,250,169.032181,416.024658,259.032227,466.024719,0.000000,"Captured"};
@@ -27,7 +27,7 @@ item22[] = {"Set_Classic",2,250,-182.257019,253.936035,-92.256966,303.936127,0.0
 item23[] = {"Set_Threshold",2,250,-66.763634,253.774261,23.236481,303.774231,0.000000,"Set Threshold"};
 item24[] = {"_",8,218,-37.573990,342.842560,-4.796462,363.201202,0.000000,""};
 item25[] = {"All_Camps",4,218,58.254791,111.494164,148.254791,161.494156,0.000000,"All Camps"};
-item26[] = {"Set_All_Camps",2,4346,58.345169,254.115845,148.345154,304.115936,0.000000,"Set All Camps"};
+item26[] = {"Set_All_Camps",2,250,58.345169,254.115845,148.345154,304.115936,0.000000,"Set All Camps"};
 link0[] = {0,3};
 link1[] = {2,1};
 link2[] = {3,4};
@@ -60,8 +60,8 @@ link28[] = {23,24};
 link29[] = {24,14};
 link30[] = {25,26};
 link31[] = {26,24};
-globals[] = {0.000000,0,0,0,0,640,480,1,60,6316128,1,-342.357330,303.637573,511.308685,-304.291046,518,654,1};
-window[] = {0,-1,-1,-1,-1,851,52,1312,82,1,536};
+globals[] = {0.000000,0,0,0,0,640,480,1,1,6316128,1,-244.375153,205.654953,553.780701,-150.871643,532,833,1};
+window[] = {2,-1,-1,-1,-1,794,25,1285,25,3,550};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -268,6 +268,16 @@ class FSM
        "	if (_sideID == EASTID && (_west > 0 || _resistance > 0) && time - _timeAttacked > 60) then {_timeAttacked = time;[""IsUnderAttack"",_location,East,_name] Spawn SideMessage};" \n
        "	if (_sideID == WESTID && (_east > 0 || _resistance > 0) && time - _timeAttacked > 60) then {_timeAttacked = time;[""IsUnderAttack"",_location,West,_name] Spawn SideMessage};" \n
        "	_supplyValue = _location getVariable ""supplyValue"";" \n
+       "" \n
+       "      if (WF_DEBUG) then { _rate = _rate * 5; };" \n
+       "" \n
+       "	_maxCapSV = _location getVariable ""maxCapSV"";" \n
+       "	if (isNil ""_maxCapSV"") then { _maxCapSV = 0; };" \n
+       "" \n
+       "	if (_maxCapSV < _supplyValue) then {" \n
+       "		 _location setVariable[""maxCapSV"", _supplyValue, false] ;" \n
+       "	};" \n
+       "" \n
        "	_supplyValue = round(_supplyValue - (_resistance + _east + _west) * _rate);" \n
        "	_location setVariable [""supplyValue"",_supplyValue,true];" \n
        "	if (_supplyValue < 1) then {_captured = true};" \n
@@ -311,54 +321,75 @@ class FSM
     class Captured
     {
       name = "Captured";
-      init = /*%FSM<STATEINIT""">*/"_location setVariable [""supplyValue"",_startingSupplyValue,true];" \n
+      init = /*%FSM<STATEINIT""">*/"format[""Location Captured=%1"", _location] call LogHigh;" \n
+       "" \n
+       "_location setVariable [""supplyValue"",_startingSupplyValue,true];" \n
        "_side = ""R"";" \n
        "if (_west > 0) then {_side = ""W""};" \n
        "if (_east > 0) then {_side = ""E""};" \n
        "" \n
+       "_teamCaptureAward = _location getVariable ""maxCapSV"";" \n
+       " _location setVariable[""maxCapSV"", 0, false] ;" \n
+       "" \n
+       "if (isNil ""_maxCapSV"") then { _teamCaptureAward = _startingSupplyValue; };" \n
+       "" \n
+       "_teamCaptureAward = _teamCaptureAward * 500;" \n
+       "if (_sideID != RESISTANCEID) then {" \n
+       "	_teamCaptureAward = _teamCaptureAward * 2;" \n
+       "};" \n
+       "" \n
        "switch (_side) do {" \n
        "	case 'R': {" \n
+       "		_rewards = [_startingSupplyValue * 100, _startingSupplyValue * 80];" \n
+       "	" \n
        "		if (_sideID == WESTID) then {" \n
-       "			WFBE_TownCaptured = [nil,'CLTFNCTOWNCAPTURED',[_location,RESISTANCEID,WESTID]];" \n
+       "			WFBE_TownCaptured = [nil,'CLTFNCTOWNCAPTURED',[_location,RESISTANCEID,WESTID, _rewards]];" \n
        "			publicVariable 'WFBE_TownCaptured';" \n
-       "			if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCTOWNCAPTURED',[_location,RESISTANCEID,WESTID]] Spawn HandlePVF};" \n
+       "			if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCTOWNCAPTURED',[_location,RESISTANCEID,WESTID, _rewards]] Spawn HandlePVF};" \n
        "			[""Lost"",_location,West] Spawn SideMessage;" \n
        "		};" \n
        "		if (_sideID == EASTID) then {" \n
-       "			WFBE_TownCaptured = [nil,'CLTFNCTOWNCAPTURED',[_location,RESISTANCEID,EASTID]];" \n
+       "			WFBE_TownCaptured = [nil,'CLTFNCTOWNCAPTURED',[_location,RESISTANCEID,EASTID, _rewards]];" \n
        "			publicVariable 'WFBE_TownCaptured';" \n
-       "			if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCTOWNCAPTURED',[_location,RESISTANCEID,EASTID]] Spawn HandlePVF};" \n
+       "			if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCTOWNCAPTURED',[_location,RESISTANCEID,EASTID, _rewards]] Spawn HandlePVF};" \n
        "			[""Lost"",_location,East] Spawn SideMessage;" \n
        "		};" \n
        "		_location setVariable [""sideID"",RESISTANCEID,true];" \n
        "	};" \n
        "	case 'E': {" \n
+       "		_rewards = [('WFBE_EASTTEAMS' Call GetNamespace), _location, _teamCaptureAward] call GetTownCaptureAward;" \n
+       "		format[""East TeamRewards=%1"", _result] call LogHigh;" \n
+       "	" \n
        "		if (_sideID == WESTID) then {" \n
-       "			WFBE_TownCapturedPublic = [nil,'CLTFNCTOWNCAPTUREDPUBLIC',[_location,EASTID]];" \n
+       "			WFBE_TownCapturedPublic = [nil,'CLTFNCTOWNCAPTUREDPUBLIC',[_location,EASTID, _rewards]];" \n
        "			publicVariable 'WFBE_TownCapturedPublic';" \n
-       "			if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCTOWNCAPTUREDPUBLIC',[_location,EASTID]] Spawn HandlePVF};" \n
+       "			if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCTOWNCAPTUREDPUBLIC',[_location,EASTID, _rewards]] Spawn HandlePVF};" \n
        "			[""Lost"",_location,West] Spawn SideMessage;" \n
        "		};" \n
        "		if (_sideID == RESISTANCEID) then {" \n
-       "			WFBE_TownCaptured = [nil,'CLTFNCTOWNCAPTURED',[_location,EASTID,EASTID]];" \n
+       "			WFBE_TownCaptured = [nil,'CLTFNCTOWNCAPTURED',[_location,EASTID,EASTID, _rewards]];" \n
        "			publicVariable 'WFBE_TownCaptured';" \n
-       "			if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCTOWNCAPTURED',[_location,EASTID,EASTID]] Spawn HandlePVF};" \n
+       "			if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCTOWNCAPTURED',[_location,EASTID,EASTID, _rewards]] Spawn HandlePVF};" \n
        "		};" \n
        "		[_location,East,_sideID Call GetSideFromID] Spawn SetCampsToSide;" \n
        "		_location setVariable [""sideID"",EASTID,true];" \n
        "		[""Captured"",_location,East] Spawn SideMessage;" \n
        "	};" \n
        "	case 'W': {" \n
+       "		format[""Awards for Capture: %1"", _location] call LogHigh;" \n
+       "		_rewards = [('WFBE_WESTTEAMS' Call GetNamespace), _location, _teamCaptureAward] call GetTownCaptureAward;" \n
+       "		format[""Awards for Capture: %1 = %2"", _location, _rewards] call LogHigh;" \n
+       "" \n
        "		if (_sideID == EASTID) then {" \n
-       "			WFBE_TownCapturedPublic = [nil,'CLTFNCTOWNCAPTUREDPUBLIC',[_location,WESTID]];" \n
+       "			WFBE_TownCapturedPublic = [nil,'CLTFNCTOWNCAPTUREDPUBLIC',[_location,WESTID, _rewards]];" \n
        "			publicVariable 'WFBE_TownCapturedPublic';" \n
-       "			if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCTOWNCAPTUREDPUBLIC',[_location,WESTID]] Spawn HandlePVF};" \n
+       "			if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCTOWNCAPTUREDPUBLIC',[_location,WESTID, _rewards]] Spawn HandlePVF};" \n
        "			[""Lost"",_location,East] Spawn SideMessage;" \n
        "		};" \n
        "		if (_sideID == RESISTANCEID) then {" \n
        "			WFBE_TownCaptured = [nil,'CLTFNCTOWNCAPTURED',[_location,WESTID,WESTID]];" \n
        "			publicVariable 'WFBE_TownCaptured';" \n
-       "			if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCTOWNCAPTURED',[_location,WESTID,WESTID]] Spawn HandlePVF};" \n
+       "			if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCTOWNCAPTURED',[_location,WESTID,WESTID, _rewards]] Spawn HandlePVF};" \n
        "		};" \n
        "		[_location,West,_sideID Call GetSideFromID] Spawn SetCampsToSide;" \n
        "		_location setVariable [""sideID"",WESTID,true];" \n
@@ -371,7 +402,9 @@ class FSM
        "		if !(isNull _unit) then {_unit setPos (getpos _x);deleteVehicle _unit};" \n
        "		deleteVehicle _x;" \n
        "	};" \n
-       "} forEach _defenses;"/*%FSM</STATEINIT""">*/;
+       "} forEach _defenses;" \n
+       "" \n
+       ""/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
