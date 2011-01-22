@@ -1,5 +1,5 @@
 #include "profiler.h"
-PROFILER_BEGIN("Service_TrackMapMarkerAdd");
+PROFILER_BEGIN("Service_TrackMapMarkerSetOwned");
 
 Private ["_unit", "_marker", "_timeout", "_initDone"];
 
@@ -20,12 +20,17 @@ Private ["_unit", "_marker", "_timeout", "_initDone"];
 
 	_unit = _this;
 	
+	format["TrackMapMarkerSetOwned: %1", _unit] call LogHigh;
+	
 	_timeout = time + 15;
 	_initDone = false;
 	while { !_initDone && time < _timeout } do {
 		
 		_marker = _unit call TrackMapMarkerGet;
-		if (!isNull _marker) then {
+		
+		format["TrackMapMarkerSetOwned: %1, marker:%2", _unit, _marker] call LogHigh;
+		
+		if (!isNil "_marker") then {
 			_markerName = _marker select 4;
 			_markerName setMarkerColorLocal "ColorOrange";
 			_initDone = true;
@@ -33,5 +38,9 @@ Private ["_unit", "_marker", "_timeout", "_initDone"];
 			sleep 1;
 		};
 	};	
+	
+	if (_initDone == false) then {
+		format["TrackMapMarkerSetOwned: %1, marker:%2", _unit, _marker] call LogHigh;
+	};
 
 PROFILER_END();
