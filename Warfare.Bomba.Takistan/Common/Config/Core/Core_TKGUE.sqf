@@ -77,7 +77,7 @@ _i = _i + [['','',950,25,2,3,1,0,'Takistani Guerilla']];
 
 /* Heavy Vehicles */
 _c = _c + ['T34_TK_GUE_EP1'];
-_i = _i + [['','',2400,30,3,0,2,0,'Takistani Guerilla']];
+_i = _i + [['','',2400,30,3,1,2,0,'Takistani Guerilla']];
 
 _c = _c + ['T55_TK_GUE_EP1'];
 _i = _i + [['','',2800,35,3,1,2,0,'Takistani Guerilla']];
