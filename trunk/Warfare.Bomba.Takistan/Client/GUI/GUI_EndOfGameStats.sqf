@@ -3,6 +3,7 @@ disableSerialization;
 12450 cutText ["","PLAIN",0];
 
 _side = _this Select 0;
+_stats = _this select 1;
 _sideText = Localize "STR_WF_Side_East";
 if (_side == West) then {_sideText = Localize "STR_WF_Side_West"};
 _sideName = Format[Localize "STR_WF_Victory",_sideText];
@@ -12,14 +13,16 @@ TitleText["","PLAIN"];
 sleep 0.5;
 CutRsc["EndOfGameStats","PLAIN",0];
 
-_eastUnitsCreated = WF_Logic getVariable "eastUnitsCreated";
-_eastCasualties = WF_Logic getVariable "eastCasualties";
-_eastVehiclesCreated = WF_Logic getVariable "eastVehiclesCreated";
-_eastVehiclesLost = WF_Logic getVariable "eastVehiclesLost";
-_westUnitsCreated = WF_Logic getVariable "westUnitsCreated";
-_westCasualties = WF_Logic getVariable "westCasualties";
-_westVehiclesCreated = WF_Logic getVariable "westVehiclesCreated";
-_westVehiclesLost = WF_Logic getVariable "westVehiclesLost";
+_u = 0;
+_westUnitsCreated = _stats select _u; _u = _u + 1;
+_westCasualties = _stats select _u; _u = _u + 1;
+_westVehiclesCreated = _stats select _u; _u = _u + 1;
+_westVehiclesLost = _stats select _u; _u = _u + 1;
+
+_eastUnitsCreated = _stats select _u; _u = _u + 1;
+_eastCasualties = _stats select _u; _u = _u + 1;
+_eastVehiclesCreated = _stats select _u; _u = _u + 1;
+_eastVehiclesLost = _stats select _u; _u = _u + 1;
 
 _eastCreatedRate = _eastVehiclesCreated / 5 * .1;
 _eastLostRate = _eastVehiclesLost / 5 * .1;

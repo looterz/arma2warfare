@@ -1,7 +1,8 @@
 _side = _this Select 0;
 _blist = _this Select 1;
+_stats = _this Select 2;
 
-[_side] ExecVM "Client\GUI\GUI_EndOfGameStats.sqf";
+[_side, _stats] ExecVM "Client\GUI\GUI_EndOfGameStats.sqf";
 _track = if (WF_A2_Vanilla) then {"Track21_Rise_Of_The_Fallen"} else {"EP1_Track15"};
 playMusic _track;
 _base = WestMHQ;
