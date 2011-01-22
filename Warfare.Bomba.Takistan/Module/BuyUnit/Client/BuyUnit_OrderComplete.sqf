@@ -100,11 +100,9 @@ Private ["_order", "_vehicle", "_unitType", "_side", "_vehInfo", "_upgrades", "_
 	};
 	if (_unitType in ('WFBE_BALANCEDUNITS' Call GetNamespace) && paramBalancing) then {
 		[_vehicle] call BalanceInit;
-		_vehicle Call RemoveFlares;
 	};
-
+	_vehicle Call RemoveFlares;
 	[_vehicle] joinSilent (group player);
-
 	_vehicle spawn TrackMapMarkerSetOwned;
 
 PROFILER_END();	
