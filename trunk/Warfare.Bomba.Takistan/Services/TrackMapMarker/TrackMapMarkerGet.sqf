@@ -4,7 +4,7 @@ PROFILER_BEGIN("Service_TrackMapMarkerUpdateAlive");
 private['_u', '_unit', '_markerData', '_marker', '_tracked' ];
 
 	_unit = _this;
-	_markerData = objNull;
+	_markerData = nil;
 
 	_u = count WBE_TrackedMarkerList;
 	while { _u != 0 } do {
