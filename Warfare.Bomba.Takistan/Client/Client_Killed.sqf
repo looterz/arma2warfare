@@ -24,6 +24,14 @@ if (mysql) then {
 	};
 };
 
+if (paramEnabledHeadHunters) then {
+	_killed = _this select 0;
+	_killer = _this select 1;
+	_sideVictim = _this select 2;
+	[_killed, _killer, _sideVictim] spawn HeadHunters;
+};
+
+
 closeDialog 0;
 
 "dynamicBlur" ppEffectEnable true;
