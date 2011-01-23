@@ -81,7 +81,7 @@ if (mysql) then {
 
 if (!isNull commanderTeam && sideID == _sideValue) then {
 	if (commanderTeam == group player) then {
-		_bounty = ((_rewards select 0) + (_rewards select 1)) / 2;
+		_bounty = floor(((_rewards select 0) + (_rewards select 1)) / 2);
 		_bounty Call ChangePlayerFunds;
 		WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_COMMANDERTOWNCAPTURESCORE' Call GetNamespace)]];
 		publicVariable 'WFBE_RequestChangeScore';
