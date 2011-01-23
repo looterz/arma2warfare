@@ -372,7 +372,7 @@ _starterType call SelectCamo;
 _starterType = [];
 _starterType = _starterType + [["MTVR", "MTVR_DES_EP1"]];
 _starterType = _starterType + [["HMMWV_Ambulance", "HMMWV_Ambulance_DES_EP1"]];
-_starterType = _starterType + [['LAV25', 'HMMWV_M1035_DES_EP1']];
+_starterType = _starterType + [['LAV25', 'HMMWV_M1151_M2_DES_EP1']];
 _starterType call SelectCamo;
 { 	
 	_vehicle = [_x, (getPos WestMHQ),west,false] Call CreateVehi;
