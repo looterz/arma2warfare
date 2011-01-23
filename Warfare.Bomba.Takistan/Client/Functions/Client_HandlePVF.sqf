@@ -15,6 +15,8 @@ Private ["_destination","_exit","_id","_parameters","_publicVar","_script","_sid
 _publicVar = _this;
 _exit = true;
 
+format["HandlePVF: %1", _this] call LogHigh;
+
 _destination = _publicVar select 0;
 if (isNil '_destination') then {_destination = "nil";_exit = false};
 if (typeName(_destination) == 'SIDE') then {if (sideJoined == _destination) then {_exit = false}};
