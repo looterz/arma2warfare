@@ -15,10 +15,10 @@ item10[] = {"Time_Supply",2,250,54.842167,-111.734596,144.842194,-61.734596,0.00
 item11[] = {"_",8,218,84.156120,-22.145014,115.962143,0.430260,0.000000,""};
 item12[] = {"_",2,250,-300.613251,-37.831039,-210.613235,12.168960,0.000000,""};
 item13[] = {"",7,210,-260.014130,-223.295425,-252.014069,-215.295425,0.000000,""};
-item14[] = {"Town_Advanced",2,4346,-67.838142,416.225128,22.161905,466.225098,0.000000,"Town Advanced"};
+item14[] = {"Town_Advanced",2,250,-67.838142,416.225128,22.161905,466.225098,0.000000,"Town Advanced"};
 item15[] = {"Captured",4,218,48.796371,416.225128,138.796494,466.225098,0.000000,"Captured"};
 item16[] = {"Skip",4,218,-302.480042,416.225128,-212.479980,466.225159,0.000000,"Skip"};
-item17[] = {"Captured",2,250,169.032181,416.024658,259.032227,466.024719,0.000000,"Captured"};
+item17[] = {"Captured",2,4346,169.032181,416.024658,259.032227,466.024719,0.000000,"Captured"};
 item18[] = {"",7,210,210.899033,-223.047119,218.899048,-215.047119,0.000000,""};
 item19[] = {"Pick_Capture_Mod",2,250,-64.359787,111.495216,25.640230,161.495224,0.000000,"Pick Capture" \n "Mode"};
 item20[] = {"Threshold",4,218,-66.673355,182.056427,23.326881,232.056427,0.000000,"Threshold"};
@@ -60,8 +60,8 @@ link28[] = {23,24};
 link29[] = {24,14};
 link30[] = {25,26};
 link31[] = {26,24};
-globals[] = {0.000000,0,0,0,0,640,480,1,1,6316128,1,-244.375153,205.654953,553.780701,-150.871643,532,833,1};
-window[] = {2,-1,-1,-1,-1,794,25,1285,25,3,550};
+globals[] = {0.000000,0,0,0,0,640,480,1,1,6316128,1,-261.951050,223.230759,417.129364,-172.221115,517,628,1};
+window[] = {0,-1,-1,-1,-1,786,-6,1254,17,1,535};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -358,7 +358,7 @@ class FSM
        "	};" \n
        "	case 'E': {" \n
        "		_rewards = [('WFBE_EASTTEAMS' Call GetNamespace), _location, _teamCaptureAward] call GetTownCaptureAward;" \n
-       "		format[""East TeamRewards=%1"", _result] call LogHigh;" \n
+       "		format[""East TeamRewards=%1"", _rewards] call LogHigh;" \n
        "	" \n
        "		if (_sideID == WESTID) then {" \n
        "			WFBE_TownCapturedPublic = [nil,'CLTFNCTOWNCAPTUREDPUBLIC',[_location,EASTID, _rewards]];" \n
@@ -376,7 +376,6 @@ class FSM
        "		[""Captured"",_location,East] Spawn SideMessage;" \n
        "	};" \n
        "	case 'W': {" \n
-       "		format[""Awards for Capture: %1"", _location] call LogHigh;" \n
        "		_rewards = [('WFBE_WESTTEAMS' Call GetNamespace), _location, _teamCaptureAward] call GetTownCaptureAward;" \n
        "		format[""Awards for Capture: %1 = %2"", _location, _rewards] call LogHigh;" \n
        "" \n
@@ -387,7 +386,7 @@ class FSM
        "			[""Lost"",_location,East] Spawn SideMessage;" \n
        "		};" \n
        "		if (_sideID == RESISTANCEID) then {" \n
-       "			WFBE_TownCaptured = [nil,'CLTFNCTOWNCAPTURED',[_location,WESTID,WESTID]];" \n
+       "			WFBE_TownCaptured = [nil,'CLTFNCTOWNCAPTURED',[_location,WESTID,WESTID, _rewards]];" \n
        "			publicVariable 'WFBE_TownCaptured';" \n
        "			if (!isMultiplayer || (isServer && local player)) then {[nil,'CLTFNCTOWNCAPTURED',[_location,WESTID,WESTID, _rewards]] Spawn HandlePVF};" \n
        "		};" \n

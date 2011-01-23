@@ -6,6 +6,8 @@ _rewards = _this select 2;
 _name = Str _location;
 _mysqlUpdate = "";
 
+format["TownCapturePublic: %1", _this] call LogHigh;
+
 _locationName = _location getVariable "name";
 
 _sideName = Localize "STR_WF_Side_East";
