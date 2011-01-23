@@ -26,10 +26,8 @@ Private ["_unit", "_marker", "_timeout", "_initDone"];
 	_initDone = false;
 	while { !_initDone && time < _timeout } do {
 		
-		_marker = _unit call TrackMapMarkerGet;
-		
-		format["TrackMapMarkerSetOwned: %1, marker:%2", _unit, _marker] call LogHigh;
-		
+		_marker = _unit call TrackMapMarkerGet;		
+		format["TrackMapMarkerSetOwned: %1, marker:%2", _unit, _marker] call LogHigh;		
 		if (!isNil "_marker") then {
 			_markerName = _marker select 4;
 			_markerName setMarkerColorLocal "ColorOrange";
@@ -39,7 +37,7 @@ Private ["_unit", "_marker", "_timeout", "_initDone"];
 		};
 	};	
 	
-	if (_initDone == false) then {
+	if ( !_initDone ) then {
 		format["TrackMapMarkerSetOwned: %1, marker:%2", _unit, _marker] call LogHigh;
 	};
 
