@@ -59,7 +59,6 @@ switch (typeOf _unit) do {
 	};
 	//EAST
 	case "Ka52": {
-		//_unit removeWeapon "AT9Launcher";
 		_unit removeWeapon "VikhrLauncher";
 		_unit addMagazine "4Rnd_AT9_Mi24P";
 		_unit addMagazine "4Rnd_AT9_Mi24P";
@@ -72,12 +71,12 @@ switch (typeOf _unit) do {
 	};	
 	case "Ka52Black": {
 		//_unit removeWeapon "AT9Launcher";	 
-		_unit removeWeapon "VikhrLauncher";
-		_unit addMagazine "2Rnd_R73";
-		_unit addweapon "R73Launcher_2";	
-		_unit addMagazine "4Rnd_AT9_Mi24P";
-		_unit addMagazine "4Rnd_AT9_Mi24P";
-		_unit addweapon "AT9Launcher";
+		//_unit removeWeapon "VikhrLauncher";
+		//_unit addMagazine "2Rnd_R73";
+		//_unit addweapon "R73Launcher_2";	
+		//_unit addMagazine "4Rnd_AT9_Mi24P";
+		//_unit addMagazine "4Rnd_AT9_Mi24P";
+		//_unit addweapon "AT9Launcher";
 		
 		if ( (WF_A2_Arrowhead || WF_A2_CombinedOps) ) then {
 			_unit removeMagazinesTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];
