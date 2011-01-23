@@ -132,7 +132,7 @@ _c = _c + ['Ka52'];
 _i = _i + [['','',if (paramBalancing) then {33500} else {49500},55,2,2,3,0,'Russians']];
 
 _c = _c + ['Ka52Black'];
-_i = _i + [['','',if (paramBalancing) then {38500} else {49500},55,2,2,3,0,'Russians']];
+_i = _i + [['','', 49500,55,2,3,3,0,'Russians']];
 
 /* Special */
 _c = _c + ['Pchela1T'];
