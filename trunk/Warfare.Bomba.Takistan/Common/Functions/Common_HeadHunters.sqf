@@ -7,6 +7,9 @@ _victim = _this select 0;
 _killer = _this select 1;
 _sideVictim = _this select 2;
 
+_killerTeam = group _killer;
+_killer = leader _killerTeam;
+
 _huntedProcessed = false;
 
 _victimId = _victim  Call GetClientID;

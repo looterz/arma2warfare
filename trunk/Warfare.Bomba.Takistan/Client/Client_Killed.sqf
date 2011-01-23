@@ -2,6 +2,13 @@
 if (playerDead) exitWith {};
 playerDead = true;
 
+if (local player && paramEnabledHeadHunters) then {
+	//_killed = _this select 0;
+	//_killer = _this select 1;
+	//_sideVictim = _this select 2;
+	_this spawn HeadHunters;
+};
+
 player removeAction 0;
 player removeAction 1;
 player removeAction 2;
@@ -24,12 +31,7 @@ if (mysql) then {
 	};
 };
 
-if (paramEnabledHeadHunters) then {
-	_killed = _this select 0;
-	_killer = _this select 1;
-	_sideVictim = _this select 2;
-	[_killed, _killer, _sideVictim] spawn HeadHunters;
-};
+
 
 
 closeDialog 0;
