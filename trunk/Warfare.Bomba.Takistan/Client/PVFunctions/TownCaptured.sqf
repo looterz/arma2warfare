@@ -9,6 +9,8 @@ _mysqlUpdate = "";
 
 if (_sideToValue != sideID) exitWith {};
 
+format["TownCapture: %1", _this] call LogHigh;
+
 _task = _location getVariable 'taskLink';
 _ptask = currentTask player;
 if (isNil '_task') then {_task = objNull};
