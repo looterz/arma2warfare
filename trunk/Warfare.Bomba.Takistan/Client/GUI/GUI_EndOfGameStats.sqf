@@ -2,6 +2,8 @@ disableSerialization;
 
 12450 cutText ["","PLAIN",0];
 
+format["EndOfGameStats: %1", _this] call LogHigh;
+
 _side = _this Select 0;
 _stats = _this select 1;
 _sideText = Localize "STR_WF_Side_East";
