@@ -82,11 +82,11 @@ if (mysql) then {
 if (!isNull commanderTeam && sideID == _sideValue) then {
 	if (commanderTeam == group player) then {
 		_bounty = ((_rewards select 0) + (_rewards select 1)) / 2;
-		(_rewards select 0) Call ChangePlayerFunds;
+		_bounty Call ChangePlayerFunds;
 		WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_COMMANDERTOWNCAPTURESCORE' Call GetNamespace)]];
 		publicVariable 'WFBE_RequestChangeScore';
 		if (IsClientServer) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_COMMANDERTOWNCAPTURESCORE' Call GetNamespace)]] Spawn HandleSPVF};
-		Format[Localize "STR_WF_Commander_Bounty_Town",(_rewards select 0),_locationName] Call CommandChatMessage;
+		Format[Localize "STR_WF_Commander_Bounty_Town", _bounty, _locationName] Call CommandChatMessage;
 	};
 };
 
