@@ -357,19 +357,29 @@ if (('WFBE_TOWNSTARTINGMODE' Call GetNamespace) != 0 || ('WFBE_RESPATROL' Call G
 
 //--- Starter Vehicles:
 _starterVehicle = [];
-_vehicle = if (WF_A2_Vanilla || WF_A2_CombinedOps) then {["Kamaz",(getPos EastMHQ),east,false] Call CreateVehi} else {["V3S_TK_EP1",(getPos EastMHQ),east,false] Call CreateVehi};
-[_vehicle,getPos EastMHQ,45,60,true,false,true] Call PlaceNear;
-_starterVehicle = _starterVehicle + [_vehicle];
-_vehicle = if (WF_A2_Vanilla || WF_A2_CombinedOps) then {["GAZ_Vodnik_MedEvac",(getPos EastMHQ),east,false] Call CreateVehi} else {["M113Ambul_TK_EP1",(getPos EastMHQ),east,false] Call CreateVehi};
-[_vehicle,getPos EastMHQ,45,60,true,false,true] Call PlaceNear;
-_starterVehicle = _starterVehicle + [_vehicle];
+_starterType = [];
+_starterType = _starterType + [["Kamaz", "V3S_TK_EP1"]];
+_starterType = _starterType + [["GAZ_Vodnik_MedEvac", "M113Ambul_TK_EP1"]];
+_starterType = _starterType + [['BRDM2_INS', 'BRDM2_TK_EP1']];
+_starterType call SelectCamo;
+{ 	
+	_vehicle = [_x, (getPos EastMHQ),east,false] Call CreateVehi;
+	[_vehicle,getPos EastMHQ,45,60,true,false,true] Call PlaceNear;
+	_starterVehicle = _starterVehicle + [_vehicle];
+	
+} forEach _starterType;
 
-_vehicle = if (WF_A2_Vanilla) then {["MTVR",(getPos WestMHQ),west,false] Call CreateVehi} else {["MTVR_DES_EP1",(getPos WestMHQ),west,false] Call CreateVehi};
-[_vehicle,getPos WestMHQ,45,60,true,false,true] Call PlaceNear;
-_starterVehicle = _starterVehicle + [_vehicle];
-_vehicle = if (WF_A2_Vanilla) then {["HMMWV_Ambulance",(getPos WestMHQ),west,false] Call CreateVehi} else {["HMMWV_Ambulance_DES_EP1",(getPos WestMHQ),west,false] Call CreateVehi};
-[_vehicle,getPos WestMHQ,45,60,true,false,true] Call PlaceNear;
-_starterVehicle = _starterVehicle + [_vehicle];
+_starterType = [];
+_starterType = _starterType + [["MTVR", "MTVR_DES_EP1"]];
+_starterType = _starterType + [["HMMWV_Ambulance", "HMMWV_Ambulance_DES_EP1"]];
+_starterType = _starterType + [['LAV25', 'HMMWV_M1035_DES_EP1']];
+_starterType call SelectCamo;
+{ 	
+	_vehicle = [_x, (getPos WestMHQ),west,false] Call CreateVehi;
+	[_vehicle,getPos WestMHQ,45,60,true,false,true] Call PlaceNear;
+	_starterVehicle = _starterVehicle + [_vehicle];
+	
+} forEach _starterType;
 
 //--- Clear the cargo.
 {clearWeaponCargo _x; clearMagazineCargo _x} forEach _starterVehicle;

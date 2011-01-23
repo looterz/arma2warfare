@@ -59,6 +59,8 @@
 	#ifdef WF_CAMO
 		WF_CamoType = 0;
 	#endif
+	if (WF_A2_Vanilla) then { WF_CamoType = 0; }; 
+	if (WF_A2_Arrowhead) then { WF_CamoType = 1; };
 	
 	//--- Gameplay variables.
 	paramMobileRespawn = true;
