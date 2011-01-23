@@ -9,13 +9,17 @@ _sideVictim = _this select 2;
 
 _huntedProcessed = false;
 
+_victimId = _victim  Call GetClientID;
+_killerId = _killer Call GetClientID;
+
+format["Head Hunter Process: %1", _this ] call LogHigh;
+format["Head Hunter Process: _victimId=%1", _victimId ] call LogHigh;
+format["Head Hunter Process: _killerId=%1", _killerId ] call LogHigh;
+
 if (!isPlayer(_killer)) exitWith { 
 	PROFILER_END();
 	_huntedProcessed; 
 };
-
-_victimId = _victim  Call GetClientID;
-_killerId = _killer Call GetClientID;
 
 if (WF_DEBUG || (isPlayer(_victim) && _victimId > 0 && _killerId > 0 && _victimId != _killerId)) then {
 

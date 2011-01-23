@@ -143,14 +143,8 @@ if (!isNull _killerTeam && !isNil '_get' && (_sideKiller != sideEnemy) && (_side
 	};
 };
 
-_processedUnitKillPenalty = false;
-if (paramEnabledHeadHunters) then {
-	_processedUnitKillPenalty = [_killed, _killer, _sideVictim] call HeadHunters;
-};
-
 //--- Teamkill.
-if (!_processedUnitKillPenalty && !isNull _killerTeam && !isNil '_get' && (_sideKiller != sideEnemy) && (_sideKiller == _sideVictim) && (_sideKiller != Civilian) && _isMan) then {
-
+if (!isNull _killerTeam && !isNil '_get' && (_sideKiller != sideEnemy) && (_sideKiller == _sideVictim) && (_sideKiller != Civilian) && _isMan) then {
 
 	if (_killerID > 0 && isPlayer(leader _killerTeam)) then {
 		WFBE_LocalizeMessage = [[_killerID,_sideKiller],'CLTFNCLOCALIZEMESSAGE',['Teamkill']];
