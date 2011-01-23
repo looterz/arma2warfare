@@ -102,9 +102,8 @@ QuickSortInsertion = Compile preprocessFile "Common\Functions\Common_QuickSortIn
 
 SortByDistance = Compile preprocessFile "Common\Functions\Common_SortByDistance.sqf";
 UnitKilled = Compile preprocessFile "Common\Functions\Common_UnitKilled.sqf";
-//UpdateStatistics = Compile preprocessFile "Common\Functions\Common_UpdateStatistics.sqf";
+UpdateSideStats = Compile preprocessFile "Common\Functions\Common_UpdateSideStats.sqf";
 
-HeadHunters = Compile preprocessFile "Common\Functions\Common_HeadHunters.sqf";
 HeadHunters = Compile preprocessFile "Common\Functions\Common_HeadHunters.sqf";
 
 GetTownCaptureAward = Compile preprocessFile "Common\Functions\Common_GetTownCaptureAward.sqf";
