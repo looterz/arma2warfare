@@ -5,6 +5,8 @@ private['_varName', '_unit', '_side', '_man', '_count', '_built', '_inc', '_chan
 	_unit  = _this select 0;
 	_side  = _this select 1;
 	_inc = _this select 2;
+
+	format["Common_UpdateSideStats: %1 IsServer:%2", _this, isServer] call LogHigh;
 	
 	if (!isServer) exitWith {
 		[NETSEND_MSGID_UPDATESTATS, _this] spawn NetSend_ToServer;
