@@ -16,15 +16,15 @@ sleep 0.5;
 CutRsc["EndOfGameStats","PLAIN",0];
 
 _u = 0;
-_westUnitsCreated = _stats select _u; _u = _u + 1;
-_westCasualties = _stats select _u; _u = _u + 1;
 _westVehiclesCreated = _stats select _u; _u = _u + 1;
 _westVehiclesLost = _stats select _u; _u = _u + 1;
+_westUnitsCreated = _stats select _u; _u = _u + 1;
+_westCasualties = _stats select _u; _u = _u + 1;
 
-_eastUnitsCreated = _stats select _u; _u = _u + 1;
-_eastCasualties = _stats select _u; _u = _u + 1;
 _eastVehiclesCreated = _stats select _u; _u = _u + 1;
 _eastVehiclesLost = _stats select _u; _u = _u + 1;
+_eastUnitsCreated = _stats select _u; _u = _u + 1;
+_eastCasualties = _stats select _u; _u = _u + 1;
 
 _eastCreatedRate = _eastVehiclesCreated / 5 * .1;
 _eastLostRate = _eastVehiclesLost / 5 * .1;
