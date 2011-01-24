@@ -1,4 +1,4 @@
-Private['_c','_u'];
+Private['_c','_u', '_unitType'];
 
 /* WEST - Barracks */
 _u = Call Compile preprocessFile (WFBE_V_UnitsRoot + WFBE_V_UnitsRootVersion + 'Units_Barracks_' + WFBE_V_West_Faction + '.sqf');
@@ -30,29 +30,14 @@ if (paramAllies) then {
 	['WFBE_EASTALLIESBARRACKSUNITS',[],true] Call SetNamespace;
 };
 
-/* Overall settings of a side */
-if (WF_A2_Vanilla) then {
-	['WFBE_WESTSOLDIER','USMC_Soldier',true] Call SetNamespace;
-	['WFBE_EASTSOLDIER','RU_Soldier',true] Call SetNamespace;
-	['WFBE_GUERSOLDIER','GUE_Soldier_1',true] Call SetNamespace;
-};
+_unitType = ([['USMC_Soldier', 'US_Soldier_EP1']] call SelectCamo) select 0;	
+['WFBE_WESTSOLDIER',_unit,true] Call SetNamespace;
 
-if (WF_A2_Arrowhead) then {
-	['WFBE_WESTSOLDIER','US_Soldier_EP1',true] Call SetNamespace;
-	['WFBE_EASTSOLDIER','TK_Soldier_EP1',true] Call SetNamespace;
-	['WFBE_GUERSOLDIER','TK_GUE_Soldier_EP1',true] Call SetNamespace;
-};
+_unitType = ([['RU_Soldier', 'TK_Soldier_EP1']] call SelectCamo) select 0;	
+['WFBE_EASTSOLDIER',_unitType, true] Call SetNamespace;
 
-if (WF_A2_CombinedOps) then {
-	_resType = 'WFBE_RESISTANCEFACTION' Call GetNamespace;
-	if (isNil '_resType') then {_resType = -1};
-	['WFBE_WESTSOLDIER','US_Soldier_EP1',true] Call SetNamespace;
-	['WFBE_EASTSOLDIER','RU_Soldier',true] Call SetNamespace;
-	switch (_resType) do {
-		case 0: {['WFBE_GUERSOLDIER','GUE_Soldier_1',true] Call SetNamespace};
-		case 1: {['WFBE_GUERSOLDIER','TK_GUE_Soldier_EP1',true] Call SetNamespace};
-	};
-};
+_unitType = ([['GUE_Soldier_1', 'TK_GUE_Soldier_EP1']] call SelectCamo) select 0;	
+['WFBE_GUERSOLDIER',_unitType, true] Call SetNamespace;
 
 westSoldierBaseClass = 'SoldierWB';
 eastSoldierBaseClass = 'SoldierEB';
