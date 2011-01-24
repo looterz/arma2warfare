@@ -182,6 +182,9 @@ if (time < 30) then {
 	};
 };
 
+_team = group player;
+{ if (_x != player) then { deleteVehicle _x; } } forEach (units _team);
+
 player setPos ([_base,20,30] Call GetRandomPositionEx);
 
 /* HQ Building Init. */

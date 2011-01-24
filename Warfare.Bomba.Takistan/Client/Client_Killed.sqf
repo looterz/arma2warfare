@@ -4,9 +4,9 @@ playerDead = true;
 
 if (local player && paramEnabledHeadHunters) then {
 	//_killed = _this select 0;
-	//_killer = _this select 1;
-	//_sideVictim = _this select 2;
-	_this spawn HeadHunters;
+	_killer = _this select 1;
+	_sideVictim = _this select 2;
+	[player, _killer, _sideVictim] spawn HeadHunters;
 };
 
 player removeAction 0;

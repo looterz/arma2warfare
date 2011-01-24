@@ -15,9 +15,11 @@ _huntedProcessed = false;
 _victimId = _victim  Call GetClientID;
 _killerId = _killer Call GetClientID;
 
-format["Head Hunter Process: %1", _this ] call LogHigh;
-format["Head Hunter Process: _victimId=%1", _victimId ] call LogHigh;
-format["Head Hunter Process: _killerId=%1", _killerId ] call LogHigh;
+diag_log format["Head Hunter Process: %1", _this ];
+diag_log format["Head Hunter Process: _victimId=%1", _victimId ];
+diag_log format["Head Hunter Process: _killerId=%1", _killerId ];
+diag_log format["Head Hunter Process: _killer=%1 isPlayer=%2", _killer, isPlayer(_killer)];
+diag_log format["Head Hunter Process: _victim=%1 isPlayer=%2", _victim, isPlayer(_victim) ];
 
 if (!isPlayer(_killer)) exitWith { 
 	PROFILER_END();
@@ -40,14 +42,14 @@ if (WF_DEBUG || (isPlayer(_victim) && _victimId > 0 && _killerId > 0 && _victimI
 	_nameKiller = name _killer;
 	_nameVictim = name _victim;
 
-	format ["HeadHunting: %1(%2) kill %3(%4)", _nameKiller, _sideKiller, _nameVictim, _sideVictim] call LogHigh;
+	diag_log format ["HeadHunting: %1(%2) kill %3(%4)", _nameKiller, _sideKiller, _nameVictim, _sideVictim];
 	
 	if (_sideKiller != _sideVictim) then {
 	
 		_victimFunds = ([side _victim, _victimId] Call GetClientTeam) Call GetTeamFunds;
 		if (WF_DEBUG) then { _victimFunds = 35000; };
 		
-		format ["HeadHunting: Victim Funds: %1", _victimFunds] call LogHigh;
+		diag_log format ["HeadHunting: Victim Funds: %1", _victimFunds];
 		
 		if (_victimFunds >= 1000) then {
 		
@@ -96,7 +98,7 @@ if (WF_DEBUG || (isPlayer(_victim) && _victimId > 0 && _killerId > 0 && _victimI
 		_killerFunds = ([side _killer, _killerId] Call GetClientTeam) Call GetTeamFunds;
 		if (WF_DEBUG) then { _killerFunds = 35000; };
 		
-		format ["HeadHunting: Killer Funds: %1", _killerFunds] call LogHigh;
+		diag_log format ["HeadHunting: Killer Funds: %1", _killerFunds];
 		
 		if (_killerFunds > 0) then {
 
@@ -120,7 +122,7 @@ if (WF_DEBUG || (isPlayer(_victim) && _victimId > 0 && _killerId > 0 && _victimI
 	 };		
 };
 
-format["Head Hunter Process Completed"] call LogHigh;
+diag_log format["Head Hunter Process Completed"];
 
 PROFILER_END();
 _huntedProcessed;
