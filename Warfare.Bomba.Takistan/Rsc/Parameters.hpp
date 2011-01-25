@@ -610,15 +610,13 @@ class Params {
 		default = 0;
 	};
 
-	#ifdef MANDOMISSILES
-	#ifndef VANILLA
+	#ifdef MANDOMISSILES 
 	class gameplayMandoMissile {
 		title = "Mando Missile Module";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 0;
 	};	
-	#endif	
 	#endif
 	
 	class gameplayBaseHuntingTimeout {
