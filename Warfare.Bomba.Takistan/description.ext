@@ -39,18 +39,24 @@
 //--- Titles contains the titles (overlay).
 
 //-- Mando Missile ArmA
-#include "mando_missiles\mando_missile.h"
+#ifdef MANDOMISSILES
+	#include "mando_missiles\mando_missile.h"
+#endif
 
 class RscTitles {
 	titles[] = {OptionsAvailable,EndOfGameStats};
 	#include "Rsc\Titles.hpp"
-	#include "mando_missiles\mando_missiletitles.h"
+	#ifdef MANDOMISSILES
+		#include "mando_missiles\mando_missiletitles.h"
+	#endif
 };
 
+#ifdef MANDOMISSILES
 class CfgSounds {
    sounds[] = {};
 	#include "mando_missiles\mando_sounds.h"
 };
+#endif
 
 
 //--- Include Identities (OA/CO Only).
