@@ -16,11 +16,7 @@ if (count _dogTags > 0) then {
 	if (_dogTag == "DogtagsCommander") then { WFBE_SK_V_Type = 'Officer'; };
 	if (_dogTag == "DogtagsMedic"    ) then { WFBE_SK_V_Type = 'Medic'; };
 	
-	if ( (WF_A2_Arrowhead || WF_A2_CombinedOps) ) then {
-		_conditionExtra = " && (!(isNull (unitBackpack player))) && (count (player call GetEquipDogTags) > 0)";
-	} else {
-		_conditionExtra = " && (count (player call GetEquipDogTags) > 0)";
-	};
+	_conditionExtra = " && (count (player call GetEquipDogTags) > 0)";
 };
 
 if (WFBE_SK_SkillActionId != -1) then {

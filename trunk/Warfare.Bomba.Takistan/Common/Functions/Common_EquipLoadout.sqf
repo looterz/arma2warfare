@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_EquipLoadout");
 
-Private['_ammo','_unit','_weapon','_weapons', '_classType', '_dogtags', '_label', '_role'];
+Private['_ammo','_unit','_weapon','_weapons', '_classType', '_dogtags', '_label', '_role', '_hasBackpack'];
 
 	_unit = _this select 0;
 	_weapons = _this select 1;
@@ -28,18 +28,7 @@ Private['_ammo','_unit','_weapon','_weapons', '_classType', '_dogtags', '_label'
 		
 	} forEach _weapons;
 
-
-	if ((count _dogtags) > 0) then {
-		if (isNull (unitBackpack _unit)) then {
-
-			_role = _dogtags select ((count _dogtags)-1);	
-			_label = (_role Call GetNamespace) select QUERYGEARLABEL;			
-			hint format[localize "STR_WF_RoleDogTags_Information", _label];
-		};
-	};
-
 	_unit setVariable ["Dogtags", _dogtags];
-
 	_weapon = primaryWeapon _unit;
 	if (_weapon != '') then {_unit selectWeapon _weapon};
 

@@ -271,7 +271,7 @@ class Params {
 		title = "$STR_WF_Gameplay_TrackAI";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 1;
+		default = 0;
 	};
 	class gameplayTrackPlayers {
 		title = "$STR_WF_Gameplay_TrackPlayers";
@@ -373,7 +373,7 @@ class Params {
 		title = "$STR_WF_Gameplay_Camp";
 		values[] = {0,1,2};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Classic","$STR_WF_Respawn_CampsNearby"};
-		default = 2;
+		default = 1;
 	};
 	class respawnCampsRule {
 		title = "$STR_WF_Gameplay_CampRespawnRule";
@@ -448,7 +448,7 @@ class Params {
 		title = "$STR_WF_Gameplay_MaxResStriker";
 		values[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,22,24,26,28,30,32,34,36,38,40};
 		texts[] = {"$STR_WF_Disabled","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","22","24","26","28","30","32","34","36","38","40"};
-		default = 0;
+		default = 3;
 	};
 	class townsCaptureMode {
 		title = "$STR_WF_Gameplay_TownsCaptureMode";
@@ -472,7 +472,7 @@ class Params {
 		title = "$STR_WF_Gameplay_Difficulty_Occupation";
 		values[] = {1,2,3,4,5};
 		texts[] = {"Light","Medium","Hard","Insane","Automatic"};
-		default = 1;
+		default = 2;
 	};
 	class townsOccupReinforcement {
 		title = "$STR_WF_Gameplay_Reinforcement_Occupation";
@@ -508,13 +508,13 @@ class Params {
 		title = "$STR_WF_Gameplay_Difficulty_Resistance";
 		values[] = {1,2,3,4};
 		texts[] = {"Light","Medium","Hard","Insane"};
-		default = 1;
+		default = 2;
 	};
 	class townsResistanceReinforcement {
 		title = "$STR_WF_Gameplay_Reinforcement_Resistance";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 0;
+		default = 1;
 	};
 	class townsResistanceVehicleLock {
 		title = "$STR_WF_Gameplay_Resistance_VehLock";
@@ -610,12 +610,14 @@ class Params {
 		default = 0;
 	};
 
+	#ifndef VANILLA
 	class gameplayMandoMissile {
 		title = "Mando Missile Module";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 0;
 	};	
+	#endif	
 	
 	class gameplayBaseHuntingTimeout {
 		title = "$STR_WF_Restriction_BaseHunting";
@@ -624,11 +626,13 @@ class Params {
 		default = 60;
 	};	
 	
+	#ifdef COMBINEDOPS
 	class gameplayExtraUnits {
 		title = "$STR_WF_ExtendedUnits";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 0;
 	};	
+	#endif
 };
 

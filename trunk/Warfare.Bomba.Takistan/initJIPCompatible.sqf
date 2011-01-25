@@ -259,10 +259,23 @@ paramTacView = true;
 
 		param3thView = (paramsArray select _u); _u = _u + 1;
 		paramMissleCamera = if ((paramsArray select _u) == 0) then { false} else { true }; _u = _u + 1;
-		paramMandoMissleModule = if ((paramsArray select _u) == 0) then { false} else { true }; _u = _u + 1;
+		if (!WF_A2_Vanilla) then {
+			paramMandoMissleModule = if ((paramsArray select _u) == 0) then { false} else { true }; _u = _u + 1;
+		};
 		paramBaseHuntingTimeout = paramsArray select _u; _u = _u + 1;
-		paramExtraUnits = if ((paramsArray select _u) == 0) then { false} else { true }; _u = _u + 1;
+		
+		if (WF_A2_CombinedOps) then {
+			paramExtraUnits = if ((paramsArray select _u) == 0) then { false} else { true }; _u = _u + 1;
+		};
 	};
+	
+	if (WF_A2_Vanilla) then {
+		paramMandoMissleModule = false;
+	};
+	
+	if (!WF_A2_CombinedOps) then {
+		paramExtraUnits = false;
+	};	
 
 	//--- Debug.
 	if (WF_Debug) then {
@@ -309,6 +322,7 @@ paramTacView = true;
 	};
 
 	[] ExecVM "Module\Init_Modules.sqf";
+	
 	
 	if (paramMandoMissleModule) then {
 		execVM "mando_missiles\init.sqf";

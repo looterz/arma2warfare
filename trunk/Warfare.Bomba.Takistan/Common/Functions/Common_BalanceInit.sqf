@@ -7,17 +7,19 @@ _unit = _this select 0;
 switch (typeOf _unit) do {
 	//WEST
 	case "HMMWV_Avenger": {
-		_unit removeWeapon "SidewinderLaucher_AH1Z";
-		_unit removeWeapon "StingerLaucher";
-		_unit addMagazine "2Rnd_Sidewinder_AH1Z";
-		_unit addMagazine "2Rnd_Sidewinder_AH1Z";
-		_unit addMagazine "2Rnd_Sidewinder_AH1Z";
-		_unit addMagazine "2Rnd_Sidewinder_AH1Z";
-		_unit addMagazine "2Rnd_Sidewinder_AH1Z";
-		_unit addMagazine "2Rnd_Sidewinder_AH1Z";
-		_unit addMagazine "2Rnd_Sidewinder_AH1Z";
-		_unit addMagazine "2Rnd_Sidewinder_AH1Z";
-		_unit addWeapon "SidewinderLaucher_AH1Z";
+		if ( (WF_A2_Arrowhead || WF_A2_CombinedOps) ) then {
+			_unit removeWeapon "SidewinderLaucher_AH1Z";
+			_unit removeWeapon "StingerLaucher";
+			_unit addMagazine "2Rnd_Sidewinder_AH1Z";
+			_unit addMagazine "2Rnd_Sidewinder_AH1Z";
+			_unit addMagazine "2Rnd_Sidewinder_AH1Z";
+			_unit addMagazine "2Rnd_Sidewinder_AH1Z";
+			_unit addMagazine "2Rnd_Sidewinder_AH1Z";
+			_unit addMagazine "2Rnd_Sidewinder_AH1Z";
+			_unit addMagazine "2Rnd_Sidewinder_AH1Z";
+			_unit addMagazine "2Rnd_Sidewinder_AH1Z";
+			_unit addWeapon "SidewinderLaucher_AH1Z";
+		};
 	};
 	case "AH1Z": {
 		if ( (WF_A2_Arrowhead || WF_A2_CombinedOps) ) then {
@@ -70,14 +72,6 @@ switch (typeOf _unit) do {
 		};
 	};	
 	case "Ka52Black": {
-		//_unit removeWeapon "AT9Launcher";	 
-		//_unit removeWeapon "VikhrLauncher";
-		//_unit addMagazine "2Rnd_R73";
-		//_unit addweapon "R73Launcher_2";	
-		//_unit addMagazine "4Rnd_AT9_Mi24P";
-		//_unit addMagazine "4Rnd_AT9_Mi24P";
-		//_unit addweapon "AT9Launcher";
-		
 		if ( (WF_A2_Arrowhead || WF_A2_CombinedOps) ) then {
 			_unit removeMagazinesTurret ["120Rnd_CMFlare_Chaff_Magazine",[-1]];
 			_unit addMagazineTurret ["60Rnd_CMFlare_Chaff_Magazine",[-1]];

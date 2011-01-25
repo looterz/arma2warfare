@@ -37,14 +37,14 @@ EHKeyboardButtonDown = Compile preprocessFile "Client\Functions\Client_EHKeyboar
 EHMouseButtonDown = Compile preprocessFile "Client\Functions\Client_EHMouseButtonDown.sqf";
 EHJoystickButtonDown = Compile preprocessFile "Client\Functions\Client_EHJoystickButtonDown.sqf";
 
-RemoveFlares = Compile preprocessFile "Client\Functions\Client_RemoveFlares.sqf";
 Action_MissleCam = Compile preprocessFile "Module\CamMissle\action_misslecam.sqf";
-
 
 if !(WF_A2_Vanilla) then {
 	RespawningBag = Compile preprocessFile "Client\Functions\Client_RespawnBag.sqf";
+	RemoveFlares = Compile preprocessFile "Client\Functions\Client_RemoveFlares.sqf";
 } else {
 	RespawningBag = {};
+	RemoveFlares = RespawningBag;
 };
 ReturnArraySortAsc = Compile preprocessFile "Client\Functions\Client_ReturnArraySortAsc.sqf";
 TaskSystem = Compile preprocessFile "Client\Functions\Client_TaskSystem.sqf";

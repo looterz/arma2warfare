@@ -52,17 +52,8 @@ if (WF_DEBUG || (isPlayer(_victim) && _victimId > 0 && _killerId > 0 && _victimI
 		diag_log format ["HeadHunting: Victim Funds: %1", _victimFunds];
 		
 		if (_victimFunds >= 1000) then {
-		
-			_scoreSide = scoreSide (side _victim);
-			_scoreVictim = score _victim;
-			
-			_bonusPerc = 0.1;
-			if (_scoreSide > 0) then {
-			
-				_scoreVictim = if (_scoreVictim > 0) then { _scoreVictim; } else { 0; };
-				_bonusPerc = 0.05 + (0.1 * _scoreVictim / (_scoreSide / (WF_MAXPLAYERS/2)));				
-			};
-			
+
+			_bonusPerc = 0.30;
 			_commanderKilled = false;
 			_commanderTeam = (side _victim) Call GetCommanderTeam;
 			if !(isNull _commanderTeam) then {
@@ -77,7 +68,6 @@ if (WF_DEBUG || (isPlayer(_victim) && _victimId > 0 && _killerId > 0 && _victimI
 			_bounty = (ceil(0.5 + (_victimFunds * _bonusPerc /100)))*100;
 			
 			if (_bounty < 100)  then { _bounty = 100; };
-			if (_bounty > 5000 && !_commanderKilled) then { _bounty = 5000; };
 			if (_bounty > _victimFunds) then { _bounty = _victimFunds; };
 			
 			[_bounty,_sideKiller,_killerId] Call ChangeClientFunds;
