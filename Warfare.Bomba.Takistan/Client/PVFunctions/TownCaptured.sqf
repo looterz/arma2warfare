@@ -34,39 +34,43 @@ if (_sideValue == sideID) then {
 	};
 
 	if (player distance _location < ('WFBE_TOWNCAPTURERANGE' Call GetNamespace) || _award) then {
+		_bounty = floor(_rewards select 0);
 		if (_task == _ptask) then {
 			["TownHintDone",_location] Spawn TaskSystem;
-				(_rewards select 0) Call ChangePlayerFunds;
+				_bounty = floor(_bounty * 1.2);
+				_bounty Call ChangePlayerFunds;
 				WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCORECAPTURETOWN' Call GetNamespace)]];
 				publicVariable 'WFBE_RequestChangeScore';
 			if (IsClientServer) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCORECAPTURETOWN' Call GetNamespace)]] Spawn HandleSPVF};
-				Format[Localize "STR_WF_Town_Bounty_Full",_locationName,(_rewards select 0)] Call CommandChatMessage;		
+				Format[Localize "STR_WF_Town_Bounty_Full",_locationName, _bounty] Call CommandChatMessage;		
 				_mysqlUpdate = "towncaptured";				
 			} else {
-				(_rewards select 0) Call ChangePlayerFunds;
+				_bounty Call ChangePlayerFunds;
 				WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCORECAPTURETOWN' Call GetNamespace)]];
 				publicVariable 'WFBE_RequestChangeScore';
 				if (IsClientServer) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCORECAPTURETOWN' Call GetNamespace)]] Spawn HandleSPVF};
-				Format[Localize "STR_WF_Town_Bounty_Full",_locationName, (_rewards select 0)] Call CommandChatMessage;				
+				Format[Localize "STR_WF_Town_Bounty_Full",_locationName, _bounty] Call CommandChatMessage;				
 				_mysqlUpdate = "towncaptured";
 			};
 	} else {
 		_range = (_location getVariable "range") * ('WFBE_TOWNCAPTUREASSISTRANGEMODIFIER' Call GetNamespace);
 		if (player distance _location < _range) then {
+			_bounty = floor(_rewards select 1);
 			if (_task == _ptask) then {
 				["TownHintDone",_location] Spawn TaskSystem;
-					(_rewards select 1)*1.2 Call ChangePlayerFunds;
+					_bounty = floor(_bounty * 1.2);
+					_bounty Call ChangePlayerFunds;
 					WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCOREASSISTCAPTURETOWN' Call GetNamespace)]];
 					publicVariable 'WFBE_RequestChangeScore';
 					if (IsClientServer) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCOREASSISTCAPTURETOWN' Call GetNamespace)]] Spawn HandleSPVF};
-					Format[Localize "STR_WF_Town_Bounty_Full",_locationName,(_rewards select 1)*1.2] Call CommandChatMessage;
+					Format[Localize "STR_WF_Town_Bounty_Full",_locationName, _bounty] Call CommandChatMessage;
 					_mysqlUpdate = "townassist";					
 				} else {
-					(_rewards select 1) Call ChangePlayerFunds;
+					_bounty Call ChangePlayerFunds;
 					WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCOREASSISTCAPTURETOWN' Call GetNamespace)]];
 					publicVariable 'WFBE_RequestChangeScore';
 					if (IsClientServer) then {['SRVFNCREQUESTCHANGESCORE',[player,score player + ('WFBE_SCOREASSISTCAPTURETOWN' Call GetNamespace)]] Spawn HandleSPVF};
-					Format[Localize "STR_WF_Town_Bounty_Assist",_locationName, (_rewards select 1)] Call CommandChatMessage;
+					Format[Localize "STR_WF_Town_Bounty_Assist",_locationName, _bounty] Call CommandChatMessage;
 					_mysqlUpdate = "townassist";
 				};			
 			};
