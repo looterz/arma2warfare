@@ -459,19 +459,19 @@ _u = _u + ['CDF_dogtags'];
 _i = _i + [['','','CfgWeapons','Item', 50,0,true,false,0,0, true]];
 
 _u = _u + ['DogtagsLockpick'];
-_i = _i + [['STR_WF_RoleDogTags_Lockpick','','CfgWeapons','Item',10000,0,false,false,0,0, true, 'CDF_dogtags']];
+_i = _i + [['STR_WF_RoleDogTags_Lockpick','','CfgWeapons','Item',1000,0,false,false,0,0, true, 'CDF_dogtags']];
 
 _u = _u + ['DogtagsMedic'];
-_i = _i + [['STR_WF_RoleDogTags_Medic','','CfgWeapons','Item', 15000,0,false,false,0,0, true, 'CDF_dogtags']];
+_i = _i + [['STR_WF_RoleDogTags_Medic','','CfgWeapons','Item', 1500,0,false,false,0,0, true, 'CDF_dogtags']];
 
 _u = _u + ['DogtagsSaboteur'];
-_i = _i + [['STR_WF_RoleDogTags_Saboteur','','CfgWeapons','Item', 15000,0,false,false,0,0, true, 'CDF_dogtags']];
+_i = _i + [['STR_WF_RoleDogTags_Saboteur','','CfgWeapons','Item', 1500,0,false,false,0,0, true, 'CDF_dogtags']];
 
 _u = _u + ['DogtagsEngineer'];
-_i = _i + [['STR_WF_RoleDogTags_Engineer','','CfgWeapons','Item',50000,0,false,false,0,0, true, 'CDF_dogtags']];
+_i = _i + [['STR_WF_RoleDogTags_Engineer','','CfgWeapons','Item',5000,0,false,false,0,0, true, 'CDF_dogtags']];
 
 _u = _u + ['DogtagsCommander'];
-_i = _i + [['STR_WF_RoleDogTags_Commander','','CfgWeapons','Item',100000,0,false,false,0,0, true, 'CDF_dogtags']];
+_i = _i + [['STR_WF_RoleDogTags_Commander','','CfgWeapons','Item',50000,0,false,false,0,0, true, 'CDF_dogtags']];
 
 /* Misc - East */
 _u = _u + ['HandGrenade_East'];
