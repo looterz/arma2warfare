@@ -32,8 +32,10 @@ Private ["_finalNumber","_numbers","_side","_text","_unit", "_deadSize", "_attem
 		_color = "ColorOrange";
 	};	
 	
-	_params = [_type,_color,_size,_txt,_markerName,_unit,1,true,"DestroyedVehicle",_color,false,_side, _deadSize];
-	_params call MarkerUpdate;
+	if (paramTrackAI || !(_unit isKindOf "Man")) then {
+		_params = [_type,_color,_size,_txt,_markerName,_unit,1,true,"DestroyedVehicle",_color,false,_side, _deadSize];
+		_params call MarkerUpdate;
+	};
 	
 	_unit setVariable ["initDone", true];
 
