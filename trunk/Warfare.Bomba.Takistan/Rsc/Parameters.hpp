@@ -610,6 +610,7 @@ class Params {
 		default = 0;
 	};
 
+	#ifdef MANDOMISSILES
 	#ifndef VANILLA
 	class gameplayMandoMissile {
 		title = "Mando Missile Module";
@@ -618,6 +619,7 @@ class Params {
 		default = 0;
 	};	
 	#endif	
+	#endif
 	
 	class gameplayBaseHuntingTimeout {
 		title = "$STR_WF_Restriction_BaseHunting";

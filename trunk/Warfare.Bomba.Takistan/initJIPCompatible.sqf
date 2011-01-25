@@ -33,8 +33,9 @@
 	};
 
 	setViewDistance 1500;
-
-
+	
+	
+	
 	WF_A2_Vanilla = false;
 	#ifdef VANILLA
 		WF_A2_Vanilla = true;
@@ -127,7 +128,7 @@ paramTacView = true;
 	paramTrade = true;
 	paramArtilleryHighBallistic = false;
 	paramMissleCamera = false;
-	paramMandoMissleModule = true;
+	paramMandoMissleModule = false;
 	paramBaseHuntingTimeout = 60;
 	paramExtraUnits = false;
 
@@ -259,9 +260,13 @@ paramTacView = true;
 
 		param3thView = (paramsArray select _u); _u = _u + 1;
 		paramMissleCamera = if ((paramsArray select _u) == 0) then { false} else { true }; _u = _u + 1;
+		
+		#ifdef MANDOMISSILES
 		if (!WF_A2_Vanilla) then {
 			paramMandoMissleModule = if ((paramsArray select _u) == 0) then { false} else { true }; _u = _u + 1;
 		};
+		#endif
+		
 		paramBaseHuntingTimeout = paramsArray select _u; _u = _u + 1;
 		
 		if (WF_A2_CombinedOps) then {

@@ -13,6 +13,7 @@
 #define COMBINEDOPS 1
 //#define VANILLA 1
 //#define ARROWHEAD 1
+//#define MANDOMISSILES
 
 /* Description.ext Specific */
 #define WF_MAXPLAYERS 40
