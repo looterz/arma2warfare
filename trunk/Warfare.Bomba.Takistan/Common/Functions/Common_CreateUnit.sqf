@@ -19,11 +19,8 @@ Private ["_dT", "_get", "_built", "_position","_side","_skill","_team","_type","
 	_unit setskill ["endurance", 0.2];
 	
 	if (_side != resistance) then {
-
-		if (paramTrackAI) then {
-			_unit setVehicleInit Format["[this,%1] ExecVM 'Common\Common_InitUnit.sqf';",_side];
-			processInitCommands;
-		}
+		_unit setVehicleInit Format["[this,%1] ExecVM 'Common\Common_InitUnit.sqf';",_side];
+		processInitCommands;
 	};
 
 	[_unit, _side] call SetKilledEventHandler;	// here sync call is required, because later it can be rewrited with aiteamkilledevent handler
