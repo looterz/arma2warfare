@@ -7,11 +7,8 @@ _data = _this select 1;
 _turretPath = if (count _this > 2) then {_this select 2} else {[]};
 _cpt = count _turretPath;
 
-_i = count _data;
-while { !(_i == 0) } do
+for "_i" from 0 to ((count _data) - 1) do
 {
-	_i = _i - 1;
-	
 	_dataRow = _data select _i;	
 	
 	if (count _dataRow > 0) then {
@@ -22,10 +19,12 @@ while { !(_i == 0) } do
 				_turretPath set [_cpt,[_content]];
 				_tConstruct = [];
 				{_tConstruct = _tConstruct + _x} forEach _turretPath;
-				{
-					_vehicle addMagazineTurret [_x, _tConstruct];
-				} forEach (_data select (_i+1));
+				
+				format ["Construct:%1",_tConstruct] call LogHigh;
 				format ["Turret:%1 Mags:%2",_turretPath,_data select (_i+1)] call LogHigh;
+
+				{ _vehicle addMagazineTurret [_x, _tConstruct]; } forEach (_data select (_i+1));
+
 			};
 			//--- go deeper.
 			if (typeName _content == 'ARRAY') then {
