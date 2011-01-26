@@ -9,12 +9,11 @@ _turrets = [];
 _turretIndex = 0;
 
 //Explore all turrets and sub-turrets recursively.
-
-_u = count _entry;
-while { !(_u == 0) } do
+for '_i' from 0 to ((count _entry) - 1) do
 {
-	_u = _u - 1;
-	_subEntry = _entry select _u;
+	private ['_subEntry'];
+	_subEntry = _entry select _i;
+
 	if (isClass _subEntry) then
 	{
 		private ['_hasGunner'];
