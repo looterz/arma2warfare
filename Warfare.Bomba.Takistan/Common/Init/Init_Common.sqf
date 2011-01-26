@@ -2,7 +2,13 @@ waitUntil { !isNil "initJIP" };
  
 Format["Init_Common: Init Start at %1",time] call LogMedium;
 
-if (paramBalancing) then {BalanceInit = Compile preprocessFile "Common\Functions\Common_BalanceInit.sqf"};
+if (paramBalancing) then {
+	if ( (WF_A2_Arrowhead || WF_A2_CombinedOps) ) then { 
+		BalanceInit = compile preprocessFile "Common\Functions\Common_BalanceInit.sqf";
+	} else {
+		BalanceInit = compile preprocessFile "Common\Functions\Common_BalanceInitA2.sqf";
+	};	
+};
 if !(WF_A2_Vanilla) then {
 	BackpackHasSpace = Compile preprocessFile "Common\Functions\Common_BackpackHasSpace.sqf";
 	EquipBackpack = Compile preprocessFile "Common\Functions\Common_EquipBackpack.sqf";
