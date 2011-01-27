@@ -4,9 +4,11 @@ _nukeMarker = _this select 1;
 
 WFBE_LocalizeMessage = [nil,'CLTFNCLOCALIZEMESSAGE',['TacticalLaunch']];
 publicVariable 'WFBE_LocalizeMessage';
-if (IsClientServer) then {[nil,'CLTFNCLOCALIZEMESSAGE',['TacticalLaunch']] Spawn HandlePVF};
+if (local player || IsClientServer) then {[nil,'CLTFNCLOCALIZEMESSAGE',['TacticalLaunch']] Spawn HandlePVF};
 
+if (!WF_DEBUG) then
 sleep 300;
+};
 
 _path = "\ca\air2\cruisemissile\"; //";
 _pathS = _path + "data\scripts\"; //";
@@ -28,7 +30,7 @@ sleep 1.5;
 
 WFBE_DisplayICBM = [sideJoined,'CLTFNCDISPLAYICBM',[_target,_cruise]];
 publicVariable 'WFBE_DisplayICBM';
-if (IsClientServer) then {[sideJoined,'CLTFNCDISPLAYICBM',[_target,_cruise]] Spawn HandlePVF};
+if (local player || IsClientServer) then {[sideJoined,'CLTFNCDISPLAYICBM',[_target,_cruise]] Spawn HandlePVF};
 
 _misFlare = objNull;
 if (WF_A2_Vanilla || WF_A2_CombinedOps) then {
