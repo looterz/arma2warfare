@@ -7,12 +7,13 @@
 #define WF_DEBUG 1
 
 /* Gameplay: Change the overall camo */
-//#define WF_CAMO 1
+#define WF_CAMO 1
 
 /* Gamemode to run */
-//#define COMBINEDOPS 1
-#define VANILLA 1
+#define COMBINEDOPS 1
+//#define VANILLA 1
 //#define ARROWHEAD 1
+//#define MANDOMISSILES
 
 /* Description.ext Specific */
 #define WF_MAXPLAYERS 40
@@ -26,6 +27,8 @@
 #define WF_WESTSLOTNAMES [vehicleVarName WestSlot1,vehicleVarName WestSlot2,vehicleVarName WestSlot3,vehicleVarName WestSlot4,vehicleVarName WestSlot5,vehicleVarName WestSlot6,vehicleVarName WestSlot7,vehicleVarName WestSlot8,vehicleVarName WestSlot9,vehicleVarName WestSlot10,vehicleVarName WestSlot11,vehicleVarName WestSlot12,vehicleVarName WestSlot13,vehicleVarName WestSlot14,vehicleVarName WestSlot15,vehicleVarName WestSlot16,vehicleVarName WestSlot17,vehicleVarName WestSlot18,vehicleVarName WestSlot19,vehicleVarName WestSlot20]
 
 #define WF_EASTSLOTNAMES [vehicleVarName EastSlot1,vehicleVarName EastSlot2,vehicleVarName EastSlot3,vehicleVarName EastSlot4,vehicleVarName EastSlot5,vehicleVarName EastSlot6,vehicleVarName EastSlot7,vehicleVarName EastSlot8,vehicleVarName EastSlot9,vehicleVarName EastSlot10,vehicleVarName EastSlot11,vehicleVarName EastSlot12,vehicleVarName EastSlot13,vehicleVarName EastSlot14,vehicleVarName EastSlot15,vehicleVarName EastSlot16,vehicleVarName EastSlot17,vehicleVarName EastSlot18,vehicleVarName EastSlot19,vehicleVarName EastSlot20]
+
+
 
 /* MySQL Support */
 //#define MYSQL 1
