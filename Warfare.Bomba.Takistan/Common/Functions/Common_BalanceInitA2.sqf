@@ -5,6 +5,8 @@ PROFILER_BEGIN("Common_BalanceInit");
 Private ["_unit"];
 _unit = _this select 0;
 
+format["BalanceUnit:%1", typeof _unit] call LogHigh;
+
 switch (typeOf _unit) do {
 	//EAST
 	case "Ka52": {
