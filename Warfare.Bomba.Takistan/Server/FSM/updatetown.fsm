@@ -335,7 +335,7 @@ class FSM
        "" \n
        "_teamCaptureAward = _teamCaptureAward * 500;" \n
        "if (_sideID != RESISTANCEID) then {" \n
-       "	_teamCaptureAward = _teamCaptureAward * 2;" \n
+       "	_teamCaptureAward = _teamCaptureAward * 1;" \n
        "};" \n
        "" \n
        "switch (_side) do {" \n
