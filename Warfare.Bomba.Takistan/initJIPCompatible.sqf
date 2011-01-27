@@ -284,8 +284,8 @@ paramTacView = true;
 
 	//--- Debug.
 	if (WF_Debug) then {
-		paramUpgradesEast = true;
-		paramUpgradesWest = true;
+		paramUpgradesEast = false;
+		paramUpgradesWest = false;
 		paramRes = false;
 		paramOccup = false;
 	};
