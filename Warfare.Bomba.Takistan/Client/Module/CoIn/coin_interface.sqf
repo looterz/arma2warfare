@@ -2,6 +2,14 @@ _logic = _this select 3;
 _startPos = _this select 4;
 _source = _this select 5;
 
+_freePlaceTypeNames = [ 	
+	"Land_CamoNet_EAST", "Land_CamoNet_NATO";
+];
+
+_freePlaceClasses = [];
+{ _freePlaceClasses = _freePlaceClasses + [ (configFile >> "CfgVehicles" >> _x) ] } forEach _freePlaceTypeNames;
+
+
 //--- Area limits.
 _tooFar = false;
 if (paramBaseArea) then {
@@ -16,15 +24,22 @@ if (paramBaseArea) then {
 	};
 };
 
-_IsFreePlaceClass = {
+_fnCountFreePlaceObjects = {
+private['_position', '_radius', '_count', '_classType' ];
+
+	_position = _this select 0;
+	_radius = _this select 1;
+	
+	_count = 0;
+	{ _count = _count + (_position nearObjects [_x, _radius]); } forEach _freePlaceTypeNames;
+	
+	_count;
+};
+
+_fnIsFreePlaceClass = {
 private['_itemTypeName', '_status', '_freePlaceClasses', '_classType' ];
 
 	_itemTypeName = _this;
-
-	_freePlaceClasses = [ 	
-		(configFile >> "CfgVehicles" >> "Land_CamoNet_EAST"), 
-		(configFile >> "CfgVehicles" >> "Land_CamoNet_NATO")
-	];
 
 	_classType = (configFile >> "CfgVehicles" >> _itemTypeName);
 	_status = false;
@@ -612,7 +627,14 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 						_isCommander = false;
 						if (!isNull(commanderTeam)) then {if (commanderTeam == group player) then {_isCommander = true}};
 						
-						_checkPlaceZone = if (_isCommander && (_itemclass call _IsFreePlaceClass)) then { false } else { true };
+						_checkPlaceZone = if (_isCommander && (_itemclass call _fnIsFreePlaceClass)) then { false } else { true };
+						
+						if (!_checkPlaceZone) then {
+							_count = [position _preview, 10] call _fnCountFreePlaceObjects;
+							if (_count > 5) then {
+								_color = _colorRed;
+							};
+						};
 						
 						if (_checkPlaceZone) then {
 					
