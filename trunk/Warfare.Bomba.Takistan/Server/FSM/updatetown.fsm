@@ -333,7 +333,7 @@ class FSM
        "" \n
        "if (isNil ""_maxCapSV"") then { _teamCaptureAward = _startingSupplyValue; };" \n
        "" \n
-       "_teamCaptureAward = _teamCaptureAward * 500;" \n
+       "_teamCaptureAward = _teamCaptureAward * 250;" \n
        "if (_sideID != RESISTANCEID) then {" \n
        "	_teamCaptureAward = _teamCaptureAward * 1;" \n
        "};" \n
