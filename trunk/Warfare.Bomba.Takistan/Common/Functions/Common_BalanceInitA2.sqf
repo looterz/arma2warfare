@@ -15,7 +15,4 @@ switch (typeOf _unit) do {
 	};	
 };
 
-if ( (WF_A2_Arrowhead || WF_A2_CombinedOps) ) then {
-	_unit Call RemoveFlares; // -- allow flares only after upgrade
-};
 PROFILER_END();
