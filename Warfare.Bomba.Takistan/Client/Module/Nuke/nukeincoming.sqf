@@ -6,7 +6,7 @@ WFBE_LocalizeMessage = [nil,'CLTFNCLOCALIZEMESSAGE',['TacticalLaunch']];
 publicVariable 'WFBE_LocalizeMessage';
 if (local player || IsClientServer) then {[nil,'CLTFNCLOCALIZEMESSAGE',['TacticalLaunch']] Spawn HandlePVF};
 
-if (!WF_DEBUG) then
+if (!WF_DEBUG) then {
 sleep 300;
 };
 
