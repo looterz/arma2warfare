@@ -2,12 +2,10 @@ _logic = _this select 3;
 _startPos = _this select 4;
 _source = _this select 5;
 
-_freePlaceTypeNames = [ 	
-	"Land_CamoNet_EAST", "Land_CamoNet_NATO";
-];
+_freePlaceTypeNames = [ "Land_CamoNet_EAST", "Land_CamoNet_NATO"];
 
 _freePlaceClasses = [];
-{ _freePlaceClasses = _freePlaceClasses + [ (configFile >> "CfgVehicles" >> _x) ] } forEach _freePlaceTypeNames;
+{ _freePlaceClasses = _freePlaceClasses + [ (configFile >> "CfgVehicles" >> _x) ]; } forEach _freePlaceTypeNames;
 
 
 //--- Area limits.
@@ -31,13 +29,13 @@ private['_position', '_radius', '_count', '_classType' ];
 	_radius = _this select 1;
 	
 	_count = 0;
-	{ _count = _count + (_position nearObjects [_x, _radius]); } forEach _freePlaceTypeNames;
+	{ _count = _count + (count (_position nearObjects [_x, _radius])); } forEach _freePlaceTypeNames;
 	
 	_count;
 };
 
 _fnIsFreePlaceClass = {
-private['_itemTypeName', '_status', '_freePlaceClasses', '_classType' ];
+private['_itemTypeName', '_status', '_classType' ];
 
 	_itemTypeName = _this;
 
@@ -631,7 +629,7 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 						
 						if (!_checkPlaceZone) then {
 							_count = [position _preview, 10] call _fnCountFreePlaceObjects;
-							if (_count > 5) then {
+							if (_count > 3) then {
 								_color = _colorRed;
 							};
 						};
