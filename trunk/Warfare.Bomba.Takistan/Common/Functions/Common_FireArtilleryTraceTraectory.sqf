@@ -171,16 +171,18 @@ while { !_endTraectory && _time <= _timeFlight } do {
 
 format["FireArtillery: Tracing traectory and ground collision: Target=%1, HitPosition=%2", _target, _endTracePoint] call LogHigh;
 
-_time = 0;
-while { _time < _timeFlight } do {
+if (!WF_DEBUG) then {
+	_time = 0;
+	while { _time < _timeFlight } do {
 
-	if (!WF_DEBUG) then { sleep (0.15) } else { sleep (0.15) };
-	
-	_time = _time + 0.15;
-	if (_time > _timeFlight) then { _time = _timeFlight; };
-	
-	_dL = _velXY * _time;
-	_hitPoint setMarkerPosLocal [(_x0 + _dL * _vx), (_y0 + _dL * _vy) ];
+		sleep (0.15);
+		
+		_time = _time + 0.15;
+		if (_time > _timeFlight) then { _time = _timeFlight; };
+		
+		_dL = _velXY * _time;
+		_hitPoint setMarkerPosLocal [(_x0 + _dL * _vx), (_y0 + _dL * _vy) ];
+	};
 };
 
 _fireTarget setPos [_endTracePoint select 0, _endTracePoint select 1, 0];
@@ -190,28 +192,24 @@ deleteVehicle _fireTarget;
 _hitPoint setMarkerPosLocal _endTracePoint;
 
 _dT = if (WF_A2_Vanilla) then { 0 } else { 1 };
-_shellVx = _velXY * _vx;
-_shellVy = _velXY * _vy;
-_shellVz = _velZ - _gravityConst * (_timeFlight - (_dT));
+//_shellVx = _velXY * _vx;
+//_shellVy = _velXY * _vy;
+//_shellVz = _velZ - _gravityConst * (_timeFlight - (_dT));
 
-if (_shellVz > -50) then { _shellVz = -50; };
-_pos = [ (_aslTarget select 0) - _shellVx*_dT , (_aslTarget select 1) - _shellVy*_dT, 50+(_aslTarget select 2)-_shellVz*_dT ];
+//if (_shellVz > -50) then { _shellVz = -50; };
+//_pos = [ (_aslTarget select 0) - _shellVx*_dT , (_aslTarget select 1) - _shellVy*_dT, 50+(_aslTarget select 2)-_shellVz*_dT ];
+_pos = [ (_aslTarget select 0) , (_aslTarget select 1), 0.0 ];
 
-format["FireArtillery: prehit shell speed: shellVx=%1 shellVy=%2 shellVz=%3", _shellVx, _shellVy, _shellVz] call LogHigh;
-format["FireArtillery: prehit begin coords: %1", _pos] call LogHigh;
-format["FireArtillery: prehit end coords: %1", _aslTarget] call LogHigh;
-format["FireArtillery: shellType=%1", _shellType] call LogHigh;
-format["FireArtilleryR: pos=%1", _pos] call LogHigh;
+//format["FireArtillery: prehit shell speed: shellVx=%1 shellVy=%2 shellVz=%3", _shellVx, _shellVy, _shellVz] call LogHigh;
+//format["FireArtillery: prehit begin coords: %1", _pos] call LogHigh;
+//format["FireArtillery: prehit end coords: %1", _aslTarget] call LogHigh;
+//format["FireArtillery: shellType=%1", _shellType] call LogHigh;
+//format["FireArtilleryR: pos=%1", _pos] call LogHigh;
 
-if (WF_A2_Vanilla) then {
-	_shellnew =  createVehicle [_shelltype, [0, 0, 2000], [], 0, ""];
-	_shellnew setposasl _pos;
-	_shellnew setVelocity [0, 0, -500];
-} else {
-	_shellnew = _shelltype createvehicle ([_pos select 0, _pos select 1, 2000]);
-	_shellnew setposasl _pos;
-	_shellnew setVelocity [_shellvx, _shellvy, _shellvz];
-};
+_shellnew =  createVehicle [_shelltype, _pos, [], 0, ""];
+_shellnew setVectorDirAndUp [[0, -1, 0],[0, -1, 0]];
+_shellnew setVelocity [0, 0, 0];
+_shellnew setVelocity [velocity, velocity, velocity];
 
 _hitPoint setMarkerColorLocal "ColorRed";
 sleep 10;
