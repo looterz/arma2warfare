@@ -146,7 +146,7 @@ format["FireArtillery: Pos0=%1", atan(_velZ / _velXY), _velXY, _velZ] call LogHi
 _time = 0;
 _endTraectory = false;
 _traceH = 0;
-_dT = 0.010;
+_dT = 0.15;
 while { !_endTraectory && _time <= _timeFlight } do {
 
 	_time = _time + _dT;
@@ -158,9 +158,9 @@ while { !_endTraectory && _time <= _timeFlight } do {
 	_traceH = (_tracePos select 2);
 	format["FireArtillery: dT=%1, dL=%2, dH=%3, aslH=%4", _time, _dL, _dH, _traceH] call LogHigh;
 	
-	_dT = _traceH / 10000;
-	if (_dT > 5.00) then { _dT = 5.0;  };
-	if (_dT < 0.05) then { _dT = 0.05; };
+	//_dT = _traceH / 10000;
+	//if (_dT > 5.00) then { _dT = 5.0;  };
+	//if (_dT < 0.05) then { _dT = 0.05; };
 	
 	if ( _traceH < 0) then { 
 		_endTraectory = true;
@@ -174,7 +174,7 @@ format["FireArtillery: Tracing traectory and ground collision: Target=%1, HitPos
 _time = 0;
 while { _time < _timeFlight } do {
 
-	if (!WF_DEBUG) then { sleep (0.15) } else { sleep (0.01) };
+	if (!WF_DEBUG) then { sleep (0.15) } else { sleep (0.15) };
 	
 	_time = _time + 0.15;
 	if (_time > _timeFlight) then { _time = _timeFlight; };
@@ -195,7 +195,7 @@ _shellVy = _velXY * _vy;
 _shellVz = _velZ - _gravityConst * (_timeFlight - (_dT));
 
 if (_shellVz > -50) then { _shellVz = -50; };
-_pos = [ (_aslTarget select 0) - _shellVx*_dT , (_aslTarget select 1) - _shellVy*_dT, (_aslTarget select 2)-_shellVz*_dT ];
+_pos = [ (_aslTarget select 0) - _shellVx*_dT , (_aslTarget select 1) - _shellVy*_dT, 50+(_aslTarget select 2)-_shellVz*_dT ];
 
 format["FireArtillery: prehit shell speed: shellVx=%1 shellVy=%2 shellVz=%3", _shellVx, _shellVy, _shellVz] call LogHigh;
 format["FireArtillery: prehit begin coords: %1", _pos] call LogHigh;
@@ -204,7 +204,7 @@ format["FireArtillery: shellType=%1", _shellType] call LogHigh;
 format["FireArtilleryR: pos=%1", _pos] call LogHigh;
 
 if (WF_A2_Vanilla) then {
-	_shellnew =  createVehicle [_shelltype, [_target select 0, _target select 1, 2000], [], 0, ""];
+	_shellnew =  createVehicle [_shelltype, [0, 0, 2000], [], 0, ""];
 	_shellnew setposasl _pos;
 	_shellnew setVelocity [0, 0, -500];
 } else {
