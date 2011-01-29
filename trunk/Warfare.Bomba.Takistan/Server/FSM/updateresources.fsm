@@ -12,7 +12,7 @@ link2[] = {1,4};
 link3[] = {3,1};
 link4[] = {4,2};
 globals[] = {0.000000,0,0,0,0,640,480,1,15,6316128,1,-83.571091,196.050446,93.958862,-347.271912,372,833,1};
-window[] = {2,-1,-1,-1,-1,809,175,1435,175,3,390};
+window[] = {2,-1,-1,-1,-1,834,200,1460,200,3,390};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -62,7 +62,9 @@ class FSM
        "	_count = _count + 1;" \n
        "};" \n
        "" \n
-       "_correction = (time - _lastUpdate) / _ii;" \n
+       "_correction = if (diag_fps > 0 && diag_fps < 30) then { 30 / diag_fps } else { 1 };" \n
+       "_correction = _correction * (time - _lastUpdate) / _ii;" \n
+       "" \n
        "_eastPlayerIncome = _eastIncome;" \n
        "_westPlayerIncome = _westIncome;" \n
        "" \n
