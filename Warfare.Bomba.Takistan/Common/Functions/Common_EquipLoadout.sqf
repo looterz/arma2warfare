@@ -13,7 +13,7 @@ Private['_ammo','_unit','_weapon','_weapons', '_classType', '_dogtags', '_label'
 
 	_dogtags = [];
 
-	format["EquipLoadout:%1",_this] call LogTrace;
+	format["EquipLoadout:%1",_this] call LogHigh;
 
 	{_unit addMagazine _x} forEach _ammo;
 	{

@@ -207,9 +207,7 @@ _pos = [ (_aslTarget select 0) , (_aslTarget select 1), 0.0 ];
 //format["FireArtilleryR: pos=%1", _pos] call LogHigh;
 
 _shellnew =  createVehicle [_shelltype, _pos, [], 0, ""];
-_shellnew setVectorDirAndUp [[0, -1, 0],[0, -1, 0]];
-_shellnew setVelocity [0, 0, 0];
-_shellnew setVelocity [velocity, velocity, velocity];
+_shellnew setVelocity [0, 0, _velocity];
 
 _hitPoint setMarkerColorLocal "ColorRed";
 sleep 10;

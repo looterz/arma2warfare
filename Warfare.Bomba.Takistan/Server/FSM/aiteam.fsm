@@ -826,9 +826,8 @@ class FSM
        "		" \n
        "			_buyFrom = objNull;" \n
        "			_kindDetail = _x Call GetNamespace;" \n
-       "			format[""AITEAM.FSM: Team %1 Handle Purchase, kindDetail: %2"", _team, _kindDetail] call LogInform;			" \n
-       "			" \n
        "			if !(isNil '_kindDetail') then {" \n
+       "				format[""AITEAM.FSM: Team %1 Handle Purchase, kindDetail: %2"", _team, _kindDetail] call LogInform;			" \n
        "				_crews = _kindDetail select QUERYUNITCREW;" \n
        "				_price = _kindDetail select QUERYUNITPRICE;" \n
        "				_upgradeRequired = _kindDetail select QUERYUNITUPGRADE;" \n
