@@ -1,7 +1,9 @@
+private["_i", "_item", "_selected"];
+
 #include "profiler.h"
 PROFILER_BEGIN("Common_SelectCamo");
 
-_fnSelectCamoTypeVehicle = {
+fnSelectCamoTypeVehicle = {
 	Private ["_vehicleTypes","_u","_vehType"];
 
 	_vehicleTypes = _this;
@@ -26,14 +28,13 @@ _fnSelectCamoTypeVehicle = {
 	_vehType;
 };
 	
-	
 _i = count _this;
 while { _i != 0 } do {
 	_i = _i - 1;
 	_item = _this select _i;
 	
 	if (typeName _item == 'ARRAY') then {
-		_selected = _item call _fnSelectCamoTypeVehicle;
+		_selected = _item call fnSelectCamoTypeVehicle;
 		_this set [_i, _selected];
 		
 		format["%1 selected %2", _item, _selected] call LogHigh;
