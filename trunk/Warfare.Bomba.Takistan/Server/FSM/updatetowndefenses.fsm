@@ -5,11 +5,11 @@ item0[] = {"Init",0,250,-63.339870,-329.544403,26.660130,-279.544769,0.000000,"I
 item1[] = {"End",1,250,-182.368073,-113.480629,-92.368042,-63.480659,0.000000,"End"};
 item2[] = {"Gameover",4,218,-182.650177,-187.482422,-92.650192,-137.482452,0.000000,"Gameover"};
 item3[] = {"_",8,218,-35.668163,-247.514877,-3.862146,-224.939621,0.000000,""};
-item4[] = {"Defense_Core",2,4346,-63.405182,-187.376434,26.594841,-137.376434,0.000000,"Defense Core"};
+item4[] = {"Defense_Core",2,250,-63.405182,-187.376434,26.594841,-137.376434,0.000000,"Defense Core"};
 item5[] = {"Resistance",4,218,-63.096802,-113.322952,26.903198,-63.322945,0.000000,"Resistance"};
 item6[] = {"Skip",4,218,51.723022,-187.995987,141.723053,-137.995987,0.000000,"Skip"};
 item7[] = {"_",8,218,392.190338,-190.067062,423.996338,-167.491791,0.000000,""};
-item8[] = {"Advanced_Defense",2,250,-63.899727,-37.846992,26.100292,12.153011,0.000000,"Advanced" \n "Defense"};
+item8[] = {"Advanced_Defense",2,4346,-63.899727,-37.846992,26.100292,12.153011,0.000000,"Advanced" \n "Defense"};
 item9[] = {"Skip",4,218,52.047401,-37.929413,142.047272,12.070588,0.000000,"Skip"};
 item10[] = {"Enemies",4,218,-63.950096,42.576328,26.049911,92.576347,0.000000,"Enemies"};
 item11[] = {"Active",4,218,49.450504,118.698433,139.450470,168.698425,0.000000,"Active"};
@@ -68,8 +68,8 @@ link33[] = {26,3};
 link34[] = {27,29};
 link35[] = {28,13};
 link36[] = {29,7};
-globals[] = {0.000000,0,0,0,0,640,480,1,84,6316128,1,-175.740204,555.618652,357.814514,-412.036987,665,700,1};
-window[] = {0,-1,-1,-1,-1,1066,225,1517,225,1,683};
+globals[] = {0.000000,0,0,0,0,640,480,1,84,6316128,1,-58.946922,770.173645,342.497528,-556.443787,665,721,1};
+window[] = {0,-1,-1,-1,-1,866,25,1350,25,1,683};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -99,6 +99,7 @@ class FSM
        "_rit = 'WFBE_RESISTANCEINACTIVETIME' Call GetNamespace;" \n
        "_tupd = 'WFBE_TOWNUNITSPATROLDISTANCE' Call GetNamespace;" \n
        "_tusr = 'WFBE_TOWNUNITSPAWNRANGE' Call GetNamespace;" \n
+       "_useCivilians = if (('WFBE_CIVILIANFACTION' Call GetNamespace) > 0) then {true} else {false};" \n
        "" \n
        "_reinforcementTeams = [];" \n
        "_reinforcementVehicles = [];" \n
@@ -109,7 +110,7 @@ class FSM
        "_civTeams = """";" \n
        "_cTeams = [];" \n
        "_coef = 1;" \n
-       "if (paramTownsCivilians) then {" \n
+       "if (_useCivilians) then {" \n
        "	if (_maxSV <= 50) then {_civTeams = ""Villagers""};" \n
        "	if (_maxSV > 50 && _maxSV < 120) then {_civTeams = ""Citizen"";_coef = 2};" \n
        "	if (_maxSV >= 120) then {_civTeams = ""LargeCitizen"";_coef = 3};" \n
@@ -193,8 +194,6 @@ class FSM
       name = "Advanced_Defense";
       init = /*%FSM<STATEINIT""">*/"_objects = _location nearEntities[[eastSoldierBaseClass,westSoldierBaseClass,""Car"",""Motorcycle"",""Tank"",""Air""],_detectionRange];" \n
        "_objects = [_objects Call GetLiveUnits,200] Call GetUnitsBelowHeight;" \n
-       "_objs = _objects;" \n
-       "{if (!(_x isKindOf ""Man"")) then {if (count (crew _x) == 0) then {_objects = _objects - [_x]}}} forEach _objs;" \n
        "_enemies = (West countSide _objects) + (East countSide _objects);"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
@@ -323,7 +322,7 @@ class FSM
        "				_vehicles = _vehicles + [_vehicle];" \n
        "				_continue = true;" \n
        "				if (vehicle _leader == _leader) then {_leader moveInDriver _vehicle;_continue = false};" \n
-       "				_type = if (typeOf _vehicle == ""Tank"") then {'WFBE_GUERCREW' Call GetNamespace} else {'WFBE_GUERSOLDIER' Call GetNamespace};" \n
+       "				_type = if (_vehicle isKindOf 'Man') then {'WFBE_GUERSOLDIER' Call GetNamespace} else {if (_vehicle isKindOf 'Air') then {'WFBE_GUERPILOT' Call GetNamespace} else {'WFBE_GUERCREW' Call GetNamespace}};" \n
        "				if (_continue) then {_driver = [_type,_team,_position,resistance] Call CreateMan;_driver moveInDriver _vehicle};" \n
        "				if (_vehicle emptyPositions ""gunner"" > 0) then {_gunner = [_type,_team,_position,resistance] Call CreateMan;_gunner moveInGunner _vehicle};" \n
        "				if (_vehicle emptyPositions ""commander"" > 0) then {_commander = [_type,_team,_position,resistance] Call CreateMan;_commander moveInCommander _vehicle};" \n
@@ -332,6 +331,7 @@ class FSM
        "		_count = _count + 1;" \n
        "	};" \n
        "	[_team,_location,_tupd] Spawn AITownPatrol;" \n
+       "	if (paramUPSMON) then {[(leader _team),Format ['UPSMON_TOWN_%1',str _location],""move"",""nofollow"",""fortify"",""reinforcement""] Spawn UPSMON};" \n
        "	_teamCount = _teamCount + 1;" \n
        "};" \n
        "[_location,_teams,_sideID] ExecFSM ""Server\FSM\townpatrol.fsm"";"/*%FSM</STATEINIT""">*/;
@@ -344,7 +344,7 @@ class FSM
           priority = 0.000000;
           to="_";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"!paramTownsCivilians"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!_useCivilians"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -354,7 +354,7 @@ class FSM
           priority = 0.000000;
           to="Spawn_Civilians";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"paramTownsCivilians"/*%FSM</CONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_useCivilians"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
@@ -424,9 +424,10 @@ class FSM
        "			_unit = [_unitName,_team,_position,resistance] Call CreateMan;" \n
        "		} else {" \n
        "			_vehicle = [_unitName,_position,resistance,paramResVehLock] Call CreateVehi;" \n
+       "			_reinforcementVehicles = _reinforcementVehicles + [_vehicle];" \n
        "			_continue = true;" \n
        "			if (vehicle _leader == _leader) then {_leader moveInDriver _vehicle;_continue = false};" \n
-       "			_type = if (typeOf _vehicle == ""Tank"") then {'WFBE_GUERCREW' Call GetNamespace} else {'WFBE_GUERSOLDIER' Call GetNamespace};" \n
+       "			_type = if (_vehicle isKindOf 'Man') then {'WFBE_GUERSOLDIER' Call GetNamespace} else {if (_vehicle isKindOf 'Air') then {'WFBE_GUERPILOT' Call GetNamespace} else {'WFBE_GUERCREW' Call GetNamespace}};" \n
        "			if (_continue) then {_driver = [_type,_team,_position,resistance] Call CreateMan;_driver moveInDriver _vehicle};" \n
        "			if (_vehicle emptyPositions ""gunner"" > 0) then {_gunner = [_type,_team,_position,resistance] Call CreateMan;_gunner moveInGunner _vehicle};" \n
        "			if (_vehicle emptyPositions ""commander"" > 0) then {_commander = [_type,_team,_position,resistance] Call CreateMan;_commander moveInCommander _vehicle};" \n
@@ -434,6 +435,8 @@ class FSM
        "	};" \n
        "	_count = _count + 1;" \n
        "};" \n
+       "" \n
+       "if (paramUPSMON) then {[(leader _team),Format ['UPSMON_TOWN_%1',str _location],""move"",""nofollow"",""fortify"",""reinforcement""] Spawn UPSMON};" \n
        "" \n
        "_existing = _location getVariable ""reinforcements"";" \n
        "_location setVariable [""reinforcements"",_existing + [_team]];" \n
@@ -539,10 +542,10 @@ class FSM
        "	_location setVariable [""reinforcements"",[]];" \n
        "	_location setVariable [""reinforcements_alive"",0];" \n
        "};" \n
-       "if (paramTownsCivilians) then {" \n
-       "	_count = _count - 1;" \n
+       "if (_useCivilians) then {" \n
        "	_count = count _cTeams;" \n
        "	while {_count != 0 } do {" \n
+       "  	        _count = _count - 1;" \n
        "		_team = _cTeams select _count;" \n
        "		{deleteVehicle _x} forEach units _team;" \n
        "		deleteGroup _team;" \n

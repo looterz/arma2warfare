@@ -14,7 +14,6 @@ if (_sideKiller == sideEnemy) then {
 sleep random(2)+random(4);
 
 _killerID = leader _killerTeam Call GetClientID;
-if (_killerID == 0) exitWith {};
 
 //--- Civilian's death.
 if (!isNull _killerTeam && (_sideKiller == west) || (_sideKiller == east)) then {

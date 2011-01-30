@@ -22,6 +22,7 @@ _u = _u		+ [['MTVR', 'MTVR_DES_EP1']];
 _u = _u		+ [['MtvrRepair', 'MtvrRepair_DES_EP1']];
 _u = _u		+ [['WarfareReammoTruck_USMC', 'MtvrReammo_DES_EP1']];
 _u = _u		+ [['MtvrRefuel', 'MtvrRefuel_DES_EP1']];
+_u = _u		+ [['WarfareSalvageTruck_USMC', 'MtvrSalvage_DES_EP1']];
 if (('WFBE_SUPPLYSYSTEM' Call GetNamespace) == 0) then {
 	_u = _u	+ [['WarfareSupplyTruck_USMC', 'MtvrSupply_DES_EP1']];
 };

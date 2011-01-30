@@ -28,10 +28,11 @@
 	if (local player) then {
 		"Player initialization" call LogMedium;
 		waitUntil {!isNull(player)};
-		/* Client Init Done - Begin the blackout on Layer 1 */
+	/* Client Init - Begin the blackout on Layer 1 */
 		12452 cutText [(localize 'STR_WF_Loading')+"...","BLACK FADED",0];
 	};
 
+//--- Server & Client default View Distance.
 	setViewDistance 1500;
 	
 	
@@ -63,10 +64,15 @@
 	if (WF_A2_Vanilla) then { WF_CamoType = 0; }; 
 	if (WF_A2_Arrowhead) then { WF_CamoType = 1; };
 	
+//--- Special, require a clipboard handler on windows (available on dev-heaven).
+	mysql = false;
+	#ifdef MYSQL
+		mysql =	if (isMultiplayer) then {true} else {false};
+	#endif
+
 	//--- Gameplay variables.
 	paramMobileRespawn = true;
 	paramBalancing = false;
-	paramFastTime = false;
 	paramAI = true;
 	paramAIcom = true;
 paramSpacebar = true;
@@ -84,15 +90,12 @@ paramTacView = true;
 	paramGearRestriction = false;
 	paramHangars = true;
 	paramAARadar = false;
-	paramFastTravel = true;
 	paramCounterMeasures = false;
-	paramAutoDefense = true;
 	paramVolumClouds = true;
 	paramICBM = true;
 	paramHighCommand = true;
 	paramBaseArea = true;
 	paramSpawnRestriction = true;
-	paramAllies = false;
 	paramUpgradesEast = true;
 	paramUpgradesWest = true;
 	paramISIS = false;
@@ -111,8 +114,10 @@ paramTacView = true;
 	paramArtyComputer = true;
 	paramBounty = true;
 	paramResVehLock = false;
-	paramGearNoRambo = true;
-	paramTownsCivilians = false;
+paramExtendedInventory = false;
+paramSecondaryMissions = true;
+paramUPSMON = true;
+paramDefenseCollide = false;
 
 	param3thView = false;
 
@@ -143,11 +148,7 @@ paramTacView = true;
 	EastSupplies = 100000;
 	WestSupplies = 100000;
 
-	//--- Special, require a clipboard handler on windows.
-	mysql = false;
-	#ifdef MYSQL
-		mysql =	if (isMultiplayer) then {true} else {false};
-	#endif
+
 
 	//--- 1.04 New Parameters system. Multiplayer.
 	if (!isNil "paramsArray") then {
@@ -161,11 +162,11 @@ paramTacView = true;
 		if ((paramsArray select _u) == 0) then {paramArtyUI = false} else {paramArtyUI = true};_u = _u + 1; //--- Enable Artillery Interface (Artillery Module).
 		missionNamespace setVariable ['WFBE_ARTILLERYMAXRANGE',(paramsArray select _u)];_u = _u + 1;
 		if ((paramsArray select _u) == 0) then {paramAIcom = false} else {paramAIcom = true};_u = _u + 1; //--- AI Commander Enabled.
-		if !(WF_A2_Arrowhead) then {if ((paramsArray select _u) == 0) then {paramAllies = false} else {paramAllies = true};_u = _u + 1}; //--- Allies.
+	if !(WF_A2_Arrowhead) then {missionNamespace setVariable ['WFBE_ALLIES',(paramsArray select _u)];_u = _u + 1};
 		if ((paramsArray select _u) == 0) then {paramAARadar = false} else {paramAARadar = true};_u = _u + 1; //--- Anti Air Radar.
 		if ((paramsArray select _u) == 0) then {paramBaseArea = false} else {paramBaseArea = true};_u = _u + 1; //--- Base Area.
 		missionNamespace setVariable ['WFBE_BASEAREAMAX',(paramsArray select _u)];_u = _u + 1;
-		if ((paramsArray select _u) == 0) then {paramAutoDefense = false} else {paramAutoDefense = true};_u = _u + 1; //--- Auto Defenses Manning.
+	missionNamespace setVariable ['WFBE_AIDEFENSE',(paramsArray select _u)];_u = _u + 1;
 		missionNamespace setVariable ['WFBE_DEFENSEMANRANGE',(paramsArray select _u)];_u = _u + 1;
 		//--- Building Limits.
 		missionNamespace setVariable ['WFBE_BUILDINGMAXBARRACKS',(paramsArray select _u)];
@@ -174,7 +175,9 @@ paramTacView = true;
 		missionNamespace setVariable ['WFBE_BUILDINGMAXHEAVY',(paramsArray select _u)];
 		missionNamespace setVariable ['WFBE_BUILDINGMAXAIRCRAFT',(paramsArray select _u)];
 		missionNamespace setVariable ['WFBE_BUILDINGMAXSERVICEPOINT',(paramsArray select _u)*2];_u = _u + 1;
+	if ((paramsArray select _u) == 0) then {paramDefenseCollide = false} else {paramDefenseCollide = true};_u = _u + 1;
 		missionNamespace setVariable ['WFBE_HQDEPLOYPRICE',(paramsArray select _u)];_u = _u + 1;
+	missionNamespace setVariable ['WFBE_HQDEPLOYRANGE',(paramsArray select _u)];_u = _u + 1;
 		if ((paramsArray select _u) == 0) then {paramBasePatrols = false} else {paramBasePatrols = true};_u = _u + 1; //--- Base patrols.
 		if ((paramsArray select _u) == 0) then {paramSpawnRestriction = false} else {paramSpawnRestriction = true};_u = _u + 1; //--- Restrict the Spawn logic to 2km within a town.
 		missionNamespace setVariable ['WFBE_SIDESTARTINGDISTANCE',(paramsArray select _u)];_u = _u + 1;
@@ -188,7 +191,7 @@ paramTacView = true;
 		EastSupplies = (paramsArray select _u);_u = _u + 1;
 		WestSupplies = (paramsArray select _u);_u = _u + 1;
 		missionNamespace setVariable ['WFBE_SUPPLYSYSTEM',(paramsArray select _u)];_u = _u + 1;
-		if ((paramsArray select _u) == 0) then {paramFastTime = false} else {paramFastTime = true};_u = _u + 1; //--- Fast time's enabled.
+	missionNamespace setVariable ['WFBE_FASTTIMERATE', paramsArray select _u];_u = _u + 1;
 		if (time < 2) then {setDate [(date select 0),(date select 1),(date select 2),(paramsArray select _u),(date select 3)]};_u = _u + 1; //--- Time of Day.
 		missionNamespace setVariable ['WFBE_WEATHER',(paramsArray select _u)];_u = _u + 1;
 		if !(WF_A2_Vanilla) then {if ((paramsArray select _u) == 0) then {paramDLCBAF = false} else {paramDLCBAF = true};_u = _u + 1};
@@ -197,11 +200,13 @@ paramTacView = true;
 		if ((paramsArray select _u) == 0) then {paramHangars = false} else {paramHangars = true};_u = _u + 1; //--- Airport Hangars.
 		missionNamespace setVariable ['WFBE_UNITREMOVEDLAY',(paramsArray select _u)];_u = _u + 1;
 		missionNamespace setVariable ['WFBE_ABANDONVEHICLETIMER', paramsArray select _u];_u = _u + 1;
-		if ((paramsArray select _u) == 0) then {paramFastTravel = false} else {paramFastTravel = true};_u = _u + 1; //--- Fast Travel.
+	        if ((paramsArray select _u) == 0) then {paramExtendedInventory = false} else {paramExtendedInventory = true};_u = _u + 1;
+	        missionNamespace setVariable ['WFBE_FASTTRAVEL',(paramsArray select _u)];_u = _u + 1;
 		if ((paramsArray select _u) == 0) then {baseFrendlyFire = false} else {baseFrendlyFire = true};_u = _u + 1; //--- Base Friendly Fire.
 		missionNamespace setVariable ['WFBE_MAXCLUTTERDISTANCE',(paramsArray select _u)];_u = _u + 1;
 		if ((paramsArray select _u) == 0) then {paramKickTeamswappers = false} else {paramKickTeamswappers = true};_u = _u + 1; //--- Kick teamswappers.
 		if ((paramsArray select _u) == 0) then {paramBoundaries = false} else {paramBoundaries = true};_u = _u + 1; //--- Prevent players from going outside of the map, they're killed after x seconds.
+	if ((paramsArray select _u) == 0) then {paramSecondaryMissions = false} else {paramSecondaryMissions = true};_u = _u + 1;
 		if ((paramsArray select _u) == 0) then {paramShowUID = false} else {paramShowUID = true};_u = _u + 1; //--- Show User ID.
 		if ((paramsArray select _u) == 0) then {paramTrackAI = false} else {paramTrackAI = true};_u = _u + 1; //--- Track AI (Yellow dots) on map.
 		if ((paramsArray select _u) == 0) then {paramTrackPlayer = false} else {paramTrackPlayer = true};_u = _u + 1; //--- Track players.
@@ -219,6 +224,7 @@ paramTacView = true;
 		if ((paramsArray select _u) == 0) then {paramHighCommand = false} else {paramHighCommand = true};_u = _u + 1; //--- High Command.
 		if ((paramsArray select _u) == 0) then {paramICBM = false} else {paramICBM = true};_u = _u + 1; //--- ICBM.
 		if ((paramsArray select _u) == 0) then {paramISIS = false} else {paramISIS = true};_u = _u + 1; //--- Injury/Wound system.
+	if ((paramsArray select _u) == 0) then {paramUPSMON = false} else {paramUPSMON = true};_u = _u + 1;
 		if ((paramsArray select _u) == 0) then {paramVolumClouds = false} else {paramVolumClouds = true};_u = _u + 1; //--- Volumetric Clouds.
 	missionNamespace setVariable ['WFBE_RESPAWNCAMPSMODE',(paramsArray select _u)];_u = _u + 1;
 	missionNamespace setVariable ['WFBE_RESPAWNCAMPSRULEMODE',(paramsArray select _u)];_u = _u + 1;
@@ -230,22 +236,23 @@ paramTacView = true;
 		missionNamespace setVariable ['WFBE_RESTRICTIONADVAIR',(paramsArray select _u)];_u = _u + 1;
 		if ((paramsArray select _u) == 0) then {paramGearRestriction = false} else {paramGearRestriction = true};_u = _u + 1; //--- Player have a gear restriction in camps.
 		if !(WF_A2_Arrowhead) then {if ((paramsArray select _u) == 0) then {paramRestrictionKamov = false} else {paramRestrictionKamov = true};_u = _u + 1}; //--- Kamov enabled.
-	if ((paramsArray select _u) == 0) then {paramGearNoRambo = false} else {paramGearNoRambo = true};_u = _u + 1;
 		_u = _u + 1; //--- Town Amount System, leave blank.
 		missionNamespace setVariable ['WFBE_RESSTRIKER',(paramsArray select _u)];_u = _u + 1;
 	missionNamespace setVariable ['WFBE_TOWNCAPTUREMODE',(paramsArray select _u)];_u = _u + 1;
-	if ((paramsArray select _u) == 0) then {paramTownsCivilians = false} else {paramTownsCivilians = true};_u = _u + 1;
+	missionNamespace setVariable ['WFBE_CIVILIANFACTION',(paramsArray select _u)];_u = _u + 1;
 		if ((paramsArray select _u) == 0) then {paramOccup = false} else {paramOccup = true};_u = _u + 1; //--- Town Occupation.
 		missionNamespace setVariable ['WFBE_TOWNOCCUPATIONDIFFICULTY',(paramsArray select _u)];_u = _u + 1;
+	missionNamespace setVariable ['WFBE_OCCUPATIONEASTFACTION',(paramsArray select _u)];_u = _u + 1;
+	missionNamespace setVariable ['WFBE_OCCUPATIONWESTFACTION',(paramsArray select _u)];_u = _u + 1;
 		if ((paramsArray select _u) == 0) then {paramOccReinf = false} else {paramOccReinf = true};_u = _u + 1; //--- Town Occupation Reinforcement.
 		missionNamespace setVariable ['WFBE_RESPATROL',(paramsArray select _u)];_u = _u + 1;
 		missionNamespace setVariable ['WFBE_TOWNBUILDPROTECTIONRANGE',(paramsArray select _u)];_u = _u + 1;
 		if ((paramsArray select _u) == 0) then {paramPurchaseInfDepot = false} else {paramPurchaseInfDepot = true};_u = _u + 1; //--- Town Milita Purchase.
 		if ((paramsArray select _u) == 0) then {paramRes = false} else {paramRes = true};_u = _u + 1; //--- Town Resistance.
 		missionNamespace setVariable ['WFBE_TOWNRESISTANCEDIFFICULTY',(paramsArray select _u)];_u = _u + 1;
+	missionNamespace setVariable ['WFBE_RESISTANCEFACTION',(paramsArray select _u)];_u = _u + 1;
 		if ((paramsArray select _u) == 0) then {paramResReinf = false} else {paramResReinf = true};_u = _u + 1; //--- Town Resistance Reinforcement.
 		if ((paramsArray select _u) == 0) then {paramResVehLock = false} else {paramResVehLock = true};_u = _u + 1; //--- Town Resistance Vehicles Lock.
-		if (WF_A2_CombinedOps) then {missionNamespace setVariable ['WFBE_RESISTANCEFACTION',(paramsArray select _u)];_u = _u + 1};
 		missionNamespace setVariable ['WFBE_TOWNSTARTINGMODE',(paramsArray select _u)];_u = _u + 1;
 		
 		paramEnabledHeadHunters  = if ((paramsArray select _u) == 0) then { false} else { true};_u = _u + 1; 						//--- Head Hunters - money loss for die from enemy player / money give for kill enemy player
@@ -297,10 +304,8 @@ paramTacView = true;
 	missionNamespace setVariable ['WFBE_EASTTEAMS', WF_EASTTEAMS];
 	missionNamespace setVariable ['WFBE_WESTTEAMS', WF_WESTTEAMS];
 
+//--- Maximum players, try to keep the same amount of player on east & west.
 	maxPlayers = count (missionNamespace getVariable 'WFBE_EASTTEAMS');
-	
-	//--- Prevent Choppy Clouds.
-	if (fastTime) then {weather = false};
 	
 	//--- All parameters are set and ready.
 	_time = time;
@@ -310,7 +315,9 @@ paramTacView = true;
 	initJIP = true;
 	"Init JIP - [Done]" call LogMedium;
 
-	ExecVM "Common\Init\Init_Common.sqf";
+//--- Execute the common files.
+        ExecVM "Common\Init\Init_Common.sqf";
+//--- Execute the towns file.
 	ExecVM "Common\Init\Init_Towns.sqf";
 
 	[] ExecVM "Services\Services.sqf";

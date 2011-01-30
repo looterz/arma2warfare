@@ -30,6 +30,7 @@ class FSM
       init = /*%FSM<STATEINIT""">*/"_lastUpdate = time;" \n
        "_txt = '';" \n
        "_handle = nil;" \n
+       "_ft = 'WFBE_FASTTRAVEL' Call GetNamespace;" \n
        "_ftr = 'WFBE_FASTTRAVELRANGE' Call GetNamespace;" \n
        "_is = 'WFBE_INCOMESYSTEM' Call GetNamespace;" \n
        "_mhqbr = 'WFBE_MHQBUILDINGRANGE' Call GetNamespace;" \n
@@ -41,7 +42,6 @@ class FSM
        "_spr = 'WFBE_SERVICEPOINTRANGE' Call GetNamespace;" \n
        "_tpr = 'WFBE_TOWNBUILDPROTECTIONRANGE' Call GetNamespace;" \n
        "_tcr = 'WFBE_TOWNCAPTURERANGE' Call GetNamespace;" \n
-       "_tdr = 'WFBE_DEFENSEMANRANGE' Call GetNamespace;" \n
        "" \n
        "_fastTravel = false;" \n
        "" \n
@@ -132,8 +132,7 @@ class FSM
        "};" \n
        "" \n
        "//--- HQ." \n
-       "if !(isNull _base) then {hqInRange = if ((player distance _base < _mhqbr)&&(alive _base)) then {true} else {false}};" \n
-       "" \n
+       "if !(isNull _base) then {hqInRange = if ((player distance _base < _mhqbr)&&(alive _base)&&(player distance _closest > _tpr)) then {true} else {false}};" \n
        "" \n
        "barracksInRange = (['BARRACKSTYPE',_buildings,_purchaseRange,sideJoined,player] Call BuildingInRange) select 1;" \n
        "gearInRange = (['BARRACKSTYPE',_buildings,_pgr,sideJoined,player] Call BuildingInRange) select 1;" \n
@@ -168,12 +167,12 @@ class FSM
        "};" \n
        "" \n
        "//--- Town Depot." \n
-       "_nObjects = nearestObjects [player, WFDEPOT,('WFBE_TOWNPURCHASERANGE' Call GetNamespace)];" \n
+       "_nObjects = nearestObjects [vehicle player, WFDEPOT,('WFBE_TOWNPURCHASERANGE' Call GetNamespace)];" \n
        "_nObject = if (count _nObjects > 0) then {_nObjects select 0} else {objNull};" \n
        "if (!isNull _nObject) then {" \n
        "	_sideID = _nObject getVariable ""sideID"";" \n
        "	if !(isNil ""_sideID"") then {" \n
-       "		if (_sideID == sideID) then {if (player distance _nObject < _tcr) then {serviceInRange = true;depotInRange = true} else {depotInRange = false}};" \n
+       "		if (_sideID == sideID) then {if (vehicle player distance _nObject < _tcr) then {serviceInRange = true;depotInRange = true} else {depotInRange = false}};" \n
        "	};" \n
        "} else {depotInRange = false; };" \n
        "" \n
@@ -216,7 +215,7 @@ class FSM
        "};" \n
        "" \n
        "//--- Fast Travel." \n
-       "if (paramFastTravel && commandInRange) then {" \n
+       "if ((_ft > 0) && commandInRange) then {" \n
        "	_fastTravel = false;" \n
        "	_isDeployed = (sideJoinedText) Call GetSideHQDeployed;" \n
        "	if (player distance _base < _ftr && alive _base && _isDeployed) then {_fastTravel = true} else {" \n
@@ -247,16 +246,6 @@ class FSM
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
-        /*%FSM<LINK "Loop">*/
-        class Loop
-        {
-          priority = 0.000000;
-          to="Update_Client_Ac";
-          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"_nextUpdate < time && !gameOver"/*%FSM</CONDITION""">*/;
-          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
-        };
-        /*%FSM</LINK>*/
         /*%FSM<LINK "Gameover">*/
         class Gameover
         {
@@ -264,6 +253,16 @@ class FSM
           to="End";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/"gameOver"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Loop">*/
+        class Loop
+        {
+          priority = 0.000000;
+          to="Update_Client_Ac";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_nextUpdate < time && !gameOver"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/

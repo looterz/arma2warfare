@@ -11,7 +11,7 @@ onLoadMissionTime = false;
 
 //--- ArrowHead loadscreen.
 #ifndef VANILLA
-	loadScreen = "ca\Missions_e\MPScenarios\MPE_MountainWarfare.Takistan\loading_mpwarfare_co.paa";
+	loadScreen = WF_LOADSCREEN;
 #endif
 
 //--- Properties.

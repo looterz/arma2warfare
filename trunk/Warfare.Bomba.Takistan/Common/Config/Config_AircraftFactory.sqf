@@ -1,22 +1,22 @@
-Private['_c','_u'];
+Private['_c','_resType','_u'];
 
 /* WEST - Aircraft */
-_u = Call Compile preprocessFile (WFBE_V_UnitsRoot + WFBE_V_UnitsRootVersion + 'Units_Aircraft_' + WFBE_V_West_Faction + '.sqf');
+_u = Call Compile preprocessFile (WFBE_V_UnitsRoot + WFBE_V_West_UnitsRootVersion + 'Units_Aircraft_' + WFBE_V_West_Faction + '.sqf');
 ['WFBE_WESTAIRCRAFTUNITS',_u,true] Call SetNamespace;
 if (local player) then {['AIRCRAFT','WEST',_u] Call Compile preProcessFile 'Client\Init\Init_Faction.sqf'};
 
 /* EAST - Aircraft */
-_u = Call Compile preprocessFile (WFBE_V_UnitsRoot + WFBE_V_UnitsRootVersion + 'Units_Aircraft_' + WFBE_V_East_Faction + '.sqf');
+_u = Call Compile preprocessFile (WFBE_V_UnitsRoot + WFBE_V_East_UnitsRootVersion + 'Units_Aircraft_' + WFBE_V_East_Faction + '.sqf');
 ['WFBE_EASTAIRCRAFTUNITS',_u,true] Call SetNamespace;
 if (local player) then {['AIRCRAFT','EAST',_u] Call Compile preProcessFile 'Client\Init\Init_Faction.sqf'};
 
 /* RESISTANCE - Aircraft */
 _u = [];
-//_u = Call Compile preprocessFile (WFBE_V_UnitsRoot + WFBE_V_UnitsRootVersion + 'Units_Aircraft_' + WFBE_V_Resistance_Faction + '.sqf');
+//_u = Call Compile preprocessFile (WFBE_V_UnitsRoot + WFBE_V_Resistance_UnitsRootVersion + 'Units_Aircraft_' + WFBE_V_Resistance_Faction + '.sqf');
 ['WFBE_GUERAIRCRAFTUNITS',_u,true] Call SetNamespace;
 
 /* Allies */
-if (paramAllies) then {
+if (('WFBE_ALLIES' Call GetNamespace) > 0) then {
 	//--- CDF Allies.
 	_u = Call Compile preprocessFile (WFBE_V_UnitsRoot + 'Vanilla\Units_Aircraft_CDF.sqf');
 	['WFBE_WESTALLIESAIRCRAFTUNITS',_u,true] Call SetNamespace;
@@ -31,19 +31,33 @@ if (paramAllies) then {
 	['WFBE_EASTALLIESAIRCRAFTUNITS',[],true] Call SetNamespace;
 };
 
+_resType = ('WFBE_RESISTANCEFACTIONS' Call GetNamespace) select ('WFBE_RESISTANCEFACTION' Call GetNamespace);
+
 if (WF_A2_Vanilla) then {
 	['WFBE_WESTPILOT','USMC_Soldier_Pilot',true] Call SetNamespace;
 	['WFBE_EASTPILOT','RU_Soldier_Pilot',true] Call SetNamespace;
+	switch (_resType) do {
+		case 'GUE': {['WFBE_GUERPILOT','GUE_Soldier_1',true] Call SetNamespace};
+	};
 };
 
 if (WF_A2_Arrowhead) then {
 	['WFBE_WESTPILOT','US_Soldier_Pilot_EP1',true] Call SetNamespace;
 	['WFBE_EASTPILOT','TK_Soldier_Pilot_EP1',true] Call SetNamespace;
+	switch (_resType) do {
+		case 'TKGUE': {['WFBE_GUERPILOT','TK_GUE_Soldier_EP1',true] Call SetNamespace};
+		case 'PMC': {['WFBE_GUERPILOT','Soldier_Pilot_PMC',true] Call SetNamespace};
+	};
 };
 
 if (WF_A2_CombinedOps) then {
 	['WFBE_WESTPILOT','US_Soldier_Pilot_EP1',true] Call SetNamespace;
 	['WFBE_EASTPILOT','RU_Soldier_Pilot',true] Call SetNamespace;
+	switch (_resType) do {
+		case 'GUE': {['WFBE_GUERPILOT','GUE_Soldier_1',true] Call SetNamespace};
+		case 'TKGUE': {['WFBE_GUERPILOT','TK_GUE_Soldier_EP1',true] Call SetNamespace};
+		case 'PMC': {['WFBE_GUERPILOT','Soldier_Pilot_PMC',true] Call SetNamespace};
+	};
 };
 
 //--- UAV

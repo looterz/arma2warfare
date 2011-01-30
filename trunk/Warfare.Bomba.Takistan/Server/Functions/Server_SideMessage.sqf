@@ -11,7 +11,8 @@ if (count _this > 3) then {_extra = _this select 3};
 _speaker = BIS_WF_HQEAST; _receiver = BIS_WF_HQEAST2; _topicSide = BIS_WF_HQEAST_TI;
 if (_side == west) then {_speaker = BIS_WF_HQWEST;_receiver = BIS_WF_HQWEST2; _topicSide = BIS_WF_HQWEST_TI};
 
-if (_special == "Destroyed" || _special == "IsUnderAttack" || _special == "Constructed") then {
+//--- Radio: Base building / attacks / destruction.
+if (_special in ["Destroyed","IsUnderAttack","Constructed"]) then {
 	_localizedString = localize "strwfbarracks";
 	_value = "Barracks";
 	switch (typeName _specialb) do {
@@ -37,7 +38,8 @@ if (_special == "Destroyed" || _special == "IsUnderAttack" || _special == "Const
 	_speaker kbTell [_receiver, _topicSide, _special,["1","",_localizedString,[_value]],true];
 };
 
-if (_special == "Lost" || _special == "Captured" || _special == "HostilesDetectedNear") then {
+//--- Radio: Town Capture/Loss.
+if (_special in ["Lost","Captured","HostilesDetectedNear"]) then {
 	_locRaw = str _specialb;
 	_rlName = _specialb getVariable "name";
 	_canSpeak = if (_side == east && WF_A2_CombinedOps && worldName in ('WFBE_WORLDWHITELISTVA' Call GetNamespace)) then {true} else {false};
@@ -54,8 +56,12 @@ if (_special == "Lost" || _special == "Captured" || _special == "HostilesDetecte
 	};
 	_speaker kbTell [_receiver, _topicSide, _special,["1","",_rlName,[_locRaw]],true];
 };
-if (_special == "VotingForNewCommander" || _special == "NewIntelAvailable") then {_speaker kbTell [_receiver, _topicSide, _special,true]};
-if (_special == "CapturedNear" || _special == "LostAt") then {
+
+//--- Radio: Voting for a new commander.
+if (_special in ["VotingForNewCommander","NewIntelAvailable"]) then {_speaker kbTell [_receiver, _topicSide, _special,true]};
+
+//--- Radio: Camp Capture/Loss.
+if (_special in ["CapturedNear","LostAt"]) then {
 	_locRaw = str _extra;
 	_rlName = _extra getVariable "name";
 	_canSpeak = if (_side == east && WF_A2_CombinedOps && worldName in ('WFBE_WORLDWHITELISTVA' Call GetNamespace)) then {true} else {false};
@@ -71,6 +77,23 @@ if (_special == "CapturedNear" || _special == "LostAt") then {
 		};
 	};
 	_speaker kbTell [_receiver, _topicSide, _special,["1","",_specialb,[_specialb]],["2","",_rlName,[_locRaw]],true];
+};
+
+if (paramSecondaryMissions) then {
+	//--- Radio: Mission.
+	if (_special in ['MMissionFailed','NewMissionAvailable']) then {
+		_speaker kbTell [_receiver, _topicSide, _special,true];
+	};
+	
+	//--- Radio: Mission Complete.
+	if (_special == 'MMissionComplete') then {
+		_speaker kbTell [_receiver, _topicSide, _special,["1","",_specialb,[_extra]],true];
+	};
+	
+	//--- Radio: Extraction Team.
+	if (_special in ['ExtractionTeam','ExtractionTeamCancel']) then {
+		_speaker kbTell [_receiver, _topicSide, _special,["1","",_specialb,[_specialb]],true];
+	};	
 };
 
 PROFILER_END();

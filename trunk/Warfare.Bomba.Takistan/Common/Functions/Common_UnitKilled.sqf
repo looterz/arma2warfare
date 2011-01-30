@@ -16,14 +16,13 @@ _killername = "";
 _killeduid = "";
 _killedname = "";
 _iskilledplayer = false;
-_iskillerplayer = false;
 
 _isMan = true;
 //--- Ghost Fix (Invincible soldiers wanking around, not fighting back and not moving).
 if !(_killed isKindOf "Man") then {
 	_crew = crew _killed;
 	_isMan = false;
-	if (count _crew > 0) then {{_x setPos [(getPos _killed select 0) - 2 + random(4),(getPos _killed select 1)- 2 + random(4), 0]} forEach _crew};
+	if (count _crew > 0) then {{_x setPos [(getPos _killed select 0)-random(2)+random(4),(getPos _killed select 1)-random(2)+random(4),getPos _killed select 2]} forEach _crew};
 };
 
 _iskillerplayer = if (isPlayer _killer) then {true} else {false};
@@ -46,6 +45,7 @@ if (_sideVictim == sideEnemy) then {
 	if (_killed isKindOf eastSoldierBaseClass) then {_sideVictim = east};
 };
 
+format["UnitKilled: %1 p3", _this] call LogHigh;
 _killerID = (leader _killerTeam) Call GetClientID;
 _get = _objectType Call GetNamespace;
 
@@ -81,9 +81,13 @@ if (!isNull _killerTeam && !isNil '_get' && (_sideKiller != sideEnemy) && (_side
 
 				sleep random(3);
 				
-				WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[_player,score _player + _point]];
-				publicVariable 'WFBE_RequestChangeScore';
-				if (IsClientServer) then {['SRVFNCREQUESTCHANGESCORE',[_player,score _player + _point]] Spawn HandleSPVF};
+				if (isServer) then {
+					['SRVFNCREQUESTCHANGESCORE',[_player,score _player + _point]] Spawn HandleSPVF;
+				} else {
+					WFBE_RequestChangeScore = ['SRVFNCREQUESTCHANGESCORE',[_player,score _player + _point]];
+					publicVariable 'WFBE_RequestChangeScore';
+					if (IsClientServer) then {['SRVFNCREQUESTCHANGESCORE',[_player,score _player + _point]] Spawn HandleSPVF};
+				};
 			};
 		};
 	
@@ -160,4 +164,5 @@ if (!isNull _killerTeam && !isNil '_get' && (_sideKiller != sideEnemy) && (_side
 	};
 };
 
+format["UnitKilled: %1 End", _this] call LogHigh;
 PROFILER_END();

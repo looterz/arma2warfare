@@ -19,9 +19,9 @@ GetUnitEquipmentPrice = Compile preprocessFile "Common\Functions\Common_GetUnitE
 BuildingInRange = Compile preprocessFile "Common\Functions\Common_BuildingInRange.sqf";
 ChangeTeamFunds = Compile preprocessFile "Common\Functions\Common_ChangeTeamFunds.sqf";
 ChangeClientFunds = Compile preprocessFile "Common\Functions\Common_ChangeClientFunds.sqf";
-if (paramTownsCivilians) then {CivilianKilled = Compile preprocessFile "Common\Functions\Common_CivilianKilled.sqf"};
 CreateMan = Compile preprocessFile "Common\Functions\Common_CreateUnit.sqf";
 CreateVehi = Compile preprocessFile "Common\Functions\Common_CreateVehicle.sqf";
+EquipArtillery = Compile preprocessFile "Common\Functions\Common_EquipArtillery.sqf";
 EquipLoadout = Compile preprocessFile "Common\Functions\Common_EquipLoadout.sqf";
 GetEquipLoadout = Compile preprocessFile "Common\Functions\Common_GetEquipLoadout.sqf";
 GetEquipDogTags = Compile preprocessFile "Common\Functions\Common_GetEquipDogTags.sqf";
@@ -76,6 +76,8 @@ GetTotalSupplyValue = Compile preprocessFile "Common\Functions\Common_GetTotalSu
 GetTownsHeld = Compile preprocessFile "Common\Functions\Common_GetTownsHeld.sqf";
 GetUnitsBelowHeight = Compile preprocessFile "Common\Functions\Common_GetUnitsBelowHeight.sqf";
 GetUnitVehicle = Compile preprocessFile "Common\Functions\Common_GetUnitVehicle.sqf";
+HandleArtillery = Compile preprocessFile "Common\Functions\Common_HandleArtillery.sqf";
+IsArtillery = Compile preprocessFile "Common\Functions\Common_IsArtillery.sqf";
 if (paramISIS) then {
 	ISIS_Heal = Compile preprocessFile "Client\Module\ISIS\ISIS_Heal.sqf";
 	ISIS_Wound = Compile preprocessFile "Client\Module\ISIS\ISIS_Wound.sqf";
@@ -108,6 +110,7 @@ QuickSortInsertion = Compile preprocessFile "Common\Functions\Common_QuickSortIn
 
 SortByDistance = Compile preprocessFile "Common\Functions\Common_SortByDistance.sqf";
 UnitKilled = Compile preprocessFile "Common\Functions\Common_UnitKilled.sqf";
+//UpdateStatistics = Compile preprocessFile "Common\Functions\Common_UpdateStatistics.sqf";
 UpdateSideStats = Compile preprocessFile "Common\Functions\Common_UpdateSideStats.sqf";
 
 HeadHunters = Compile preprocessFile "Common\Functions\Common_HeadHunters.sqf";
@@ -131,17 +134,20 @@ varQueu = random(10)+random(100)+random(1000);
 EastCommanderTeam = ObjNull;
 WestCommanderTeam = ObjNull;
 
+/* Starting Supply */
 if (isNil "EastSupplies") then {EastSupplies = if (WF_Debug) then {1000000} else {1200}};
 if (isNil "WestSupplies") then {WestSupplies = if (WF_Debug) then {1000000} else {1200}};
 
 Format["Init_Common: Starting Supply (West: %1 East: %2) - [Done]",WestSupplies,EastSupplies] call LogMedium;
 
+/* Starting Money */
 ['WFBE_EASTSTARTINGMONEY',if (WF_Debug) then {900000} else {800},false] Call SetNamespace;
 ['WFBE_WESTSTARTINGMONEY',if (WF_Debug) then {900000} else {800},false] Call SetNamespace;
 
 Format["Init_Common: Starting Funds (West: %1 East: %2) - [Done]",'WFBE_WESTSTARTINGMONEY' Call GetNamespace,'WFBE_EASTSTARTINGMONEY' Call GetNamespace] call LogMedium;
 
-if (paramAllies) then {
+/* Allies */
+if (('WFBE_ALLIES' Call GetNamespace) > 0) then {
 	westAlliesFunds = ('WFBE_WESTSTARTINGMONEY' Call GetNamespace)*5;
 	eastAlliesFunds = ('WFBE_EASTSTARTINGMONEY' Call GetNamespace)*5;
 	
@@ -155,11 +161,12 @@ for [{_count = 0},{_count < maxPlayers},{_count = _count + 1}] do {
 	Call Compile Format["if (IsNil 'WestTeam%1Vote') then {WestTeam%1Vote = -1}",_count + 1];
 };
 
+/* Prepare the constants */
 [] Call Compile preprocessFile "Common\Init\Init_CommonConstants.sqf";
 
 /* CORE SYSTEM - Start
 	Different Core are added depending on the current ArmA Version running, add yours bellow.
-	The faction is the same as the filename, like US = Units_Barracks_US.sqf.
+	The faction is the same as the filename, like US = Units_Barracks_US.sqf (Units_Barracks_ + US + .sqf).
 */
 WFBE_V_UnitsRoot = 'Common\Config\Core_Units\';
 if (WF_A2_Vanilla) then {
@@ -176,10 +183,17 @@ if (WF_A2_Vanilla) then {
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_Spetsnaz.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_USMC.sqf';
 	/* Units Core */
-	WFBE_V_UnitsRootVersion = 'Vanilla\';
+	WFBE_V_West_UnitsRootVersion = 'Vanilla\';
 	WFBE_V_West_Faction = 'USMC';
+	WFBE_V_East_UnitsRootVersion = 'Vanilla\';
 	WFBE_V_East_Faction = 'RU';
+	WFBE_V_Resistance_UnitsRootVersion = 'Vanilla\';
 	WFBE_V_Resistance_Faction = 'GUE';
+	/* Squads Core */
+	WFBE_V_West_SquadsRootVersion = 'Vanilla';
+	WFBE_V_West_SquadsFaction = 'USMC';
+	WFBE_V_East_SquadsRootVersion = 'Vanilla';
+	WFBE_V_East_SquadsFaction = 'RU';
 };
 if (WF_A2_Arrowhead) then {
 	/* Gear Core */
@@ -187,21 +201,30 @@ if (WF_A2_Arrowhead) then {
 	[] Call Compile preprocessFile 'Common\Config\Core_Gear\Core_BAF_G.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core_Gear\Core_PMC_G.sqf';
 	/* Class Core */
+	[] Call Compile preprocessFile 'Common\Config\Core\Core_ACR.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_BAF.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_BAFD.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_BAFW.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_DeltaForce.sqf';
+	[] Call Compile preprocessFile 'Common\Config\Core\Core_KSK.sqf';
+	[] Call Compile preprocessFile 'Common\Config\Core\Core_PMC.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_TK.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_TKCIV.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_TKGUE.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_TKSF.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_US.sqf';
-	[] Call Compile preprocessFile 'Common\Config\Core\Core_PMC.sqf';
 	/* Units Core */
-	WFBE_V_UnitsRootVersion = 'Arrowhead\';
+	WFBE_V_West_UnitsRootVersion = 'Arrowhead\';
 	WFBE_V_West_Faction = 'US';
+	WFBE_V_East_UnitsRootVersion = 'Arrowhead\';
 	WFBE_V_East_Faction = 'TK';
+	WFBE_V_Resistance_UnitsRootVersion = 'Arrowhead\';
 	WFBE_V_Resistance_Faction = 'TKGUE';
+	/* Squads Core */
+	WFBE_V_West_SquadsRootVersion = 'Arrowhead';
+	WFBE_V_West_SquadsFaction = 'US';
+	WFBE_V_East_SquadsRootVersion = 'Arrowhead';
+	WFBE_V_East_SquadsFaction = 'TK';
 };
 if (WF_A2_CombinedOps) then {
 	/* Gear Core */
@@ -210,6 +233,7 @@ if (WF_A2_CombinedOps) then {
 	[] Call Compile preprocessFile 'Common\Config\Core_Gear\Core_BAF_G.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core_Gear\Core_PMC_G.sqf';
 	/* Class Core */
+	[] Call Compile preprocessFile 'Common\Config\Core\Core_ACR.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_BAF.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_BAFD.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_BAFW.sqf';
@@ -219,7 +243,9 @@ if (WF_A2_CombinedOps) then {
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_FR.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_GUE.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_INS.sqf';
+	[] Call Compile preprocessFile 'Common\Config\Core\Core_KSK.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_MVD.sqf';
+	[] Call Compile preprocessFile 'Common\Config\Core\Core_PMC.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_RU.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_Spetsnaz.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_TK.sqf';
@@ -228,17 +254,29 @@ if (WF_A2_CombinedOps) then {
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_TKSF.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_US.sqf';
 	[] Call Compile preprocessFile 'Common\Config\Core\Core_USMC.sqf';
-	[] Call Compile PreProcessFile 'Common\Config\Core\Core_PMC.sqf';
         /* Units Core */
-	WFBE_V_UnitsRootVersion = 'CombinedOps\';
+	WFBE_V_West_UnitsRootVersion = 'CombinedOps\';
 	WFBE_V_West_Faction = 'US';
+	WFBE_V_East_UnitsRootVersion = 'CombinedOps\';
 	WFBE_V_East_Faction = 'RU';
+	WFBE_V_Resistance_UnitsRootVersion = 'CombinedOps\';
 	WFBE_V_Resistance_Faction = 'GUE';
+	/* Squads Core */
+	if (WF_Camo) then {
+		WFBE_V_West_SquadsRootVersion = 'CombinedOps';
+		WFBE_V_West_SquadsFaction = 'US_Camo';
+	} else {
+		WFBE_V_West_SquadsRootVersion = 'Arrowhead';
+		WFBE_V_West_SquadsFaction = 'US';
+	};
+	WFBE_V_East_SquadsRootVersion = 'Vanilla';
+	WFBE_V_East_SquadsFaction = 'RU';
 };
 /* CORE SYSTEM - End */
 
 "Init_Common: Core Loading - [Done]" call LogMedium;
 
+//--- Common Exec.
 [] Call Compile preprocessFile "Common\Init\Init_PublicVariables.sqf";
 [] Call Compile preprocessFile "Common\Config\Config_Artillery.sqf";
 [] Call Compile preprocessFile "Common\Config\Config_Barracks.sqf";
@@ -251,9 +289,14 @@ if (WF_A2_CombinedOps) then {
 [] Call Compile preprocessFile "Common\Config\Config_Squads.sqf";
 [] Call Compile preprocessFile "Common\Config\Config_Loadouts.sqf";
 
+//--- Server Exec.
+if (isServer) then {
+	[] Call Compile preprocessFile "Common\Config\Config_Resistance.sqf";
+	[] Call Compile preprocessFile "Common\Config\Config_Occupation.sqf";
+};
 "Init_Common: Config Loading - [Done]" call LogMedium;
 
-//--- Boundaries, use setPos to find the perfect spot on other islands and worldName to determine the island name (editor: LogInform worldName; player setPos [0,5120,0]; ).
+//--- Boundaries, use setPos to find the perfect spot on other islands and worldName to determine the island name (editor: diag_log worldName; player setPos [0,5120,0]; ).
 if (paramBoundaries) then {
 	[] Call Compile preprocessFile "Common\Init\Init_Boundaries.sqf";
 	"Init_Common: Boundaries Loading - [Done]" call LogMedium;;
@@ -271,8 +314,14 @@ if (local player) then {
 
 //--- Variable Destruction.
 WFBE_V_UnitsRoot = nil;
-WFBE_V_UnitsRootVersion = nil;
+WFBE_V_West_UnitsRootVersion = nil;
+WFBE_V_East_UnitsRootVersion = nil;
+WFBE_V_Resistance_UnitsRootVersion = nil;
 WFBE_V_West_Faction = nil;
 WFBE_V_East_Faction = nil;
-WFBE_V_Resisance_Faction = nil;
+WFBE_V_Resistance_Faction = nil;
+WFBE_V_East_SquadsFaction = nil;
+WFBE_V_West_SquadsFaction = nil;
+WFBE_V_East_SquadsRootVersion = nil;
+WFBE_V_West_SquadsRootVersion = nil;
 commonInitComplete = true;

@@ -15,6 +15,7 @@ _u = _u		+ ['MTVR'];
 _u = _u		+ ['MtvrRepair'];
 _u = _u		+ ['WarfareReammoTruck_USMC'];
 _u = _u		+ ['MtvrRefuel'];
+_u = _u		+ ['WarfareSalvageTruck_USMC'];
 if (('WFBE_SUPPLYSYSTEM' Call GetNamespace) == 0) then {_u = _u		+ ['WarfareSupplyTruck_USMC']};
 _u = _u		+ ['RHIB'];
 _u = _u		+ ['RHIB2Turret'];

@@ -32,6 +32,13 @@ _l = _l + ["TownCapturedPublic"];
 _l = _l + ["UAV_Reveal"];
 _l = _l + ["VoteForCommander"];
 
+/* Add missions Clients PVF here */
+if (paramSecondaryMissions) then {
+	_l = _l + ['M_BASE_Attack'];
+	_l = _l + ['M_TOWN_Attack'];
+	_l = _l + ['M_UAV_RetrieveModule'];
+};
+
 _clientCommandPV = _l;
 
 for [{_count = Count _clientCommandPV - 1},{_count >= 0},{_count = _count - 1}] do {Call Compile Format["CLTFNC%1 = Compile PreprocessFile 'Client\PVFunctions\%1.sqf'",_clientCommandPV Select _count,_count]};

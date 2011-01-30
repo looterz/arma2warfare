@@ -21,7 +21,6 @@ _u = _u		+ ['RU_Soldier_Pilot'];
 _u = _u		+ ['RUS_Soldier1'];
 _u = _u		+ ['RUS_Soldier2'];
 _u = _u		+ ['RUS_Soldier_GL'];
-_u = _u		+ ['RUS_Commander'];
 _u = _u		+ ['RUS_Soldier_Marksman'];
 _u = _u		+ ['RUS_Soldier3'];
 _u = _u		+ ['RUS_Soldier_TL'];

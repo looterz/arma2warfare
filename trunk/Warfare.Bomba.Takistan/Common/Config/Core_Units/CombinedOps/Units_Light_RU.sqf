@@ -16,7 +16,7 @@ _u = _u		+ [['Kamaz', 'V3S_TK_EP1']];
 _u = _u		+ [['KamazRepair', 'UralRepair_TK_EP1']];
 _u = _u		+ [['WarfareReammoTruck_RU', 'UralReammo_TK_EP1']];
 _u = _u		+ [['KamazRefuel', 'UralRefuel_TK_EP1']];
-
+_u = _u		+ [['WarfareSalvageTruck_RU', 'UralSalvage_TK_EP1']];
 if (('WFBE_SUPPLYSYSTEM' Call GetNamespace) == 0) then {
 	_u = _u + [['WarfareSupplyTruck_RU', 'UralSupply_TK_EP1']];
 };

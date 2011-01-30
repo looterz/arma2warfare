@@ -77,6 +77,7 @@ while {alive player && dialog} do {
 			case "ammo": {_val = 14};
 			case "easa": {_val = 15};
 			case "paradrop": {_val = 16};
+			case "shells": {_val = 17};
 		};
 
 		ctrlSetFocus (_controls select _val);

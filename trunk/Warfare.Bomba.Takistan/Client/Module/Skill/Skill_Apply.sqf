@@ -27,7 +27,7 @@ switch (WFBE_SK_V_Type) do {
 	case 'Engineer': {
 		/* Repair Ability */
 		WFBE_SK_SkillActionId = player addAction [
-			localize 'STR_WF_Action_Repair',
+			("<t color='#5A9EFF'>" + localize 'STR_WF_Action_Repair'+ "</t>"),
 			(WFBE_SK_V_Root + 'Engineer' + '.sqf'), 
 			[], 
 			80, 
@@ -42,7 +42,7 @@ switch (WFBE_SK_V_Type) do {
 		if (paramRespawnMASH) then {
 			/* MASH Ability */
 			WFBE_SK_SkillActionId = player addAction [
-				localize 'STR_WF_Action_DeployMASH',
+				("<t color='#5A9EFF'>" + localize 'STR_WF_Action_DeployMASH'+ "</t>"),
 				(WFBE_SK_V_Root + 'Officer' + '.sqf'), 
 				[], 
 				80, 
@@ -56,7 +56,7 @@ switch (WFBE_SK_V_Type) do {
 	case 'SpecOps': {
 		/* Lockpicking Ability */
 		WFBE_SK_SkillActionId = player addAction [
-			localize 'STR_WF_Action_Lockpick',
+			("<t color='#5A9EFF'>" + localize 'STR_WF_Action_Lockpick'+ "</t>"),
 			(WFBE_SK_V_Root + 'SpecOps' + '.sqf'), 
 			[], 
 			80, 
@@ -69,7 +69,7 @@ switch (WFBE_SK_V_Type) do {
 	case 'Spotter': {
 		/* Spotting Ability */
 		WFBE_SK_SkillActionId = player addAction [
-			localize 'STR_WF_Action_Spot',
+			("<t color='#5A9EFF'>" + localize 'STR_WF_Action_Spot'+ "</t>"),
 			(WFBE_SK_V_Root + 'Sniper' + '.sqf'), 
 			[], 
 			80, 
@@ -83,7 +83,7 @@ switch (WFBE_SK_V_Type) do {
 	case 'Medic': {
 		/* Medic Ability */
 		WFBE_SK_SkillActionId = player addAction [
-			localize 'STR_WF_Action_Heal',
+			("<t color='#5A9EFF'>" + localize 'STR_WF_Action_Heal'+ "</t>"),
 			(WFBE_SK_V_Root + 'Medic' + '.sqf'), 
 			[], 
 			80, 

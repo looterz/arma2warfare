@@ -6,55 +6,55 @@ _i = [];
 
 /* Infantry */
 _c = _c + ['RU_Soldier'];
-_i = _i + [['','',150,4,-1,0,0,0.7,'Russians']];
+_i = _i + [['','',150,4,-1,0,0,0.76,'Russians']];
 
 _c = _c + ['RU_Soldier2'];
-_i = _i + [['','',120,4,-1,0,0,0.68,'Russians']];
+_i = _i + [['','',120,4,-1,0,0,0.74,'Russians']];
 
 _c = _c + ['RU_Soldier_LAT'];
-_i = _i + [['','',220,5,-1,1,0,0.72,'Russians']];
+_i = _i + [['','',220,5,-1,0,0,0.78,'Russians']];
 
 _c = _c + ['RU_Soldier_AT'];
-_i = _i + [['','',310,5,-1,2,0,0.74,'Russians']];
+_i = _i + [['','',310,5,-1,1,0,0.8,'Russians']];
 
 _c = _c + ['RU_Soldier_HAT'];
-_i = _i + [['','',620,6,-1,3,0,0.78,'Russians']];
+_i = _i + [['','',620,6,-1,3,0,0.84,'Russians']];
 
 _c = _c + ['RU_Soldier_AA'];
-_i = _i + [['','',425,6,-1,1,0,0.75,'Russians']];
+_i = _i + [['','',425,6,-1,1,0,0.81,'Russians']];
 
 _c = _c + ['RU_Soldier_AR'];
-_i = _i + [['','',210,5,-1,1,0,0.72,'Russians']];
+_i = _i + [['','',210,5,-1,1,0,0.78,'Russians']];
 
 _c = _c + ['RU_Soldier_MG'];
-_i = _i + [['','',220,5,-1,0,0,0.73,'Russians']];
+_i = _i + [['','',220,5,-1,0,0,0.79,'Russians']];
 
 _c = _c + ['RU_Soldier_GL'];
-_i = _i + [['','',160,5,-1,0,0,0.74,'Russians']];
+_i = _i + [['','',160,5,-1,0,0,0.8,'Russians']];
 
 _c = _c + ['RU_Soldier_Marksman'];
-_i = _i + [['','',290,5,-1,1,0,0.76,'Russians']];
+_i = _i + [['','',290,5,-1,1,0,0.82,'Russians']];
 
 _c = _c + ['RU_Soldier_Sniper'];
-_i = _i + [['','',300,5,-1,2,0,0.78,'Russians']];
+_i = _i + [['','',300,5,-1,2,0,0.84,'Russians']];
 
 _c = _c + ['RU_Soldier_SniperH'];
-_i = _i + [['','',330,5,-1,3,0,0.8,'Russians']];
+_i = _i + [['','',330,5,-1,3,0,0.86,'Russians']];
 
 _c = _c + ['RU_Soldier_Medic'];
-_i = _i + [['','',190,4,-1,0,0,73,'Russians']];
+_i = _i + [['','',190,4,-1,0,0,0.79,'Russians']];
 
 _c = _c + ['RU_Soldier_Crew'];
-_i = _i + [['','',120,4,-1,0,0,0.71,'Russians']];
+_i = _i + [['','',120,4,-1,0,0,0.76,'Russians']];
 
 _c = _c + ['RU_Soldier_Pilot'];
-_i = _i + [['','',120,4,-1,0,0,0.71,'Russians']];
+_i = _i + [['','',120,4,-1,0,0,0.77,'Russians']];
 
 _c = _c + ['RU_Soldier_TL'];
-_i = _i + [['','',240,5,-1,1,0,0.84,'Russians']];
+_i = _i + [['','',240,5,-1,1,0,0.9,'Russians']];
 
 _c = _c + ['RU_Soldier_SL'];
-_i = _i + [['','',220,5,-1,2,0,0.83,'Russians']];
+_i = _i + [['','',220,5,-1,2,0,0.89,'Russians']];
 
 /* Light Vehicles */
 _c = _c + ['UAZ_RU'];
@@ -68,6 +68,9 @@ _i = _i + [['','',585,18,2,1,1,0,'Russians']];
 
 _c = _c + ['Kamaz'];
 _i = _i + [['','',300,15,1,0,1,0,'Russians']];
+
+_c = _c + ['WarfareSalvageTruck_RU'];
+_i = _i + [['','',450,18,1,0,1,0,'Russians']];
 
 _c = _c + ['KamazRepair'];
 _i = _i + [['','',525,21,1,1,1,0,'Russians']];
@@ -98,13 +101,13 @@ _i = _i + [['','',4200,25,2,3,1,0,'Russians']];
 
 /* Heavy Vehicles */
 _c = _c + ['BMP3'];
-_i = _i + [['','',2400,35,3,1,2,0,'Russians']];
+_i = _i + [['','',2400,35,3,if (WF_A2_Vanilla) then {0} else {1},2,0,'Russians']];
 
 _c = _c + ['T72_RU'];
-_i = _i + [['','',5850,40,3,2,2,0,'Russians']];
+_i = _i + [['','',5800,40,3,if (WF_A2_Vanilla) then {1} else {2},2,0,'Russians']];
 
 _c = _c + ['T90'];
-_i = _i + [['','',7875,40,3,3,2,0,'Russians']];
+_i = _i + [['','',7800,40,3,if (WF_A2_Vanilla) then {2} else {3},2,0,'Russians']];
 
 _c = _c + ['2S6M_Tunguska'];
 _i = _i + [['','',10000,35,3,3,2,0,'Russians']];
@@ -129,7 +132,7 @@ _c = _c + ['Su39'];
 _i = _i + [['','',63600,55,1,3,3,0,'Russians']];
 
 _c = _c + ['Ka52'];
-_i = _i + [['','',if (paramBalancing) then {33500} else {49500},55,2,2,3,0,'Russians']];
+_i = _i + [['','',if (paramBalancing) then {39500} else {49500},55,2,2,3,0,'Russians']];
 
 _c = _c + ['Ka52Black'];
 _i = _i + [['','', if (paramBalancing) then {75000} else {49500},55,2,3,3,0,'Russians']];
@@ -195,15 +198,19 @@ _c = _c + ['RUSpecialWeaponsBox'];
 _i = _i + [['','',7200,0,0,0,'Ammo',0,'Russians']];
 
 for '_z' from 0 to (count _c)-1 do {
-	_get = (_c select _z) Call GetNamespace;
-	if (isNil '_get') then {
-		if ((_i select _z) select 0 == '') then {(_i select _z) set [0, [_c select _z,'displayName'] Call GetConfigInfo]};
-		if (WF_Debug) then {(_i select _z) set [3,1]};
-		_p = if ((_c select _z) isKindOf 'Man') then {'portrait'} else {'picture'};
-		(_i select _z) set [1, [_c select _z,_p] Call GetConfigInfo];
-		[_c select _z,_i select _z] Call SetNamespace;
+	if (isClass (configFile >> 'CfgVehicles' >> (_c select _z))) then {
+		_get = (_c select _z) Call GetNamespace;
+		if (isNil '_get') then {
+			if ((_i select _z) select 0 == '') then {(_i select _z) set [0, [_c select _z,'displayName'] Call GetConfigInfo]};
+			if (WF_Debug) then {(_i select _z) set [3,1]};
+			_p = if ((_c select _z) isKindOf 'Man') then {'portrait'} else {'picture'};
+			(_i select _z) set [1, [_c select _z,_p] Call GetConfigInfo];
+			[_c select _z,_i select _z] Call SetNamespace;
+		} else {
+		format["Core_RU: Duplicated Element found '%1'",(_c select _z)] call LogHigh;
+		};
 	} else {
-		Format ["Core_RU: Duplicated Element found '%1'",(_c select _z)] call LogMedium;
+		format["Core_RU: Element '%1' is not a valid class.",(_c select _z)] call LogHigh;
 	};
 };
 

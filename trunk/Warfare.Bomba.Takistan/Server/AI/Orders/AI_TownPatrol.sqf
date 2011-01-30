@@ -18,11 +18,15 @@ Private ["_wppos", "_pos", "_u", "_wpid", "_type", "_target",  "_patrolTargetNex
 _team = _this select 0;
 _town = _this select 1;
 _radius = if (count _this > 2) then {_this select 2} else {30};
-
 if (typeName _town != 'OBJECT') exitWith {
 	Format ["AI_TownPatrol: Object expected, %1 given",_town] call LogError;
 	PROFILER_END();
 };
+
+if (isNull _team) exitWith {
+	Format ["AI_TownPatrol: Null Groups cannot be used (Town: %1)",_town] call LogError;
+};
+_townPos = getPos _town;
 
 _camps = _town getVariable 'camps';
 
@@ -32,10 +36,11 @@ _maxWaypoints = _partolTargetsCount + ('WFBE_TOWNPATROLHOPS' Call GetNamespace);
 
 _wps = [];
 
+//--- Randomize the behaviours.
 if (random 100 > 50) then {_team setFormation "DIAMOND"} else {_team setFormation "STAG COLUMN"};
-_team setBehaviour "AWARE";
-_team setSpeedMode "LIMITED";
-_team setCombatMode "YELLOW";
+if (random 100 > 50) then {_team setCombatMode "YELLOW"} else {_team setCombatMode "RED"};
+if (random 100 > 50) then {_team setBehaviour "AWARE"} else {_team setBehaviour "COMBAT"};
+if (random 100 > 50) then {_team setSpeedMode "NORMAL"} else {_team setSpeedMode "LIMITED"};
 
 //--- Dyn insert.
 _patrolTargetNextStep = if (_partolTargetsCount != 0 && _maxWaypoints != 0) then { floor(_maxWaypoints / _partolTargetsCount) } else {-1};

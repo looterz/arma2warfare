@@ -19,12 +19,9 @@ for "_i" from 0 to ((count _data) - 1) do
 				_turretPath set [_cpt,[_content]];
 				_tConstruct = [];
 				{_tConstruct = _tConstruct + _x} forEach _turretPath;
-				
-				format ["Construct:%1",_tConstruct] call LogHigh;
-				format ["Turret:%1 Mags:%2",_turretPath,_data select (_i+1)] call LogHigh;
-
-				{ _vehicle addMagazineTurret [_x, _tConstruct]; } forEach (_data select (_i+1));
-
+				{
+					_vehicle addMagazineTurret [_x, _tConstruct];
+				} forEach (_data select (_i+1));
 			};
 			//--- go deeper.
 			if (typeName _content == 'ARRAY') then {

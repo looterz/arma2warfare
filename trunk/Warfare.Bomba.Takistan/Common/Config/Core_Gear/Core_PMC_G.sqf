@@ -3,7 +3,7 @@ Private ['_config','_element','_get','_i','_info','_prefix','_proceed','_u','_z'
 _u = [];
 _i = [];
 
-/* _i = _i + [[label, picture, config, belong to type, cost, upgrade level, allowed in camps, belong to the handgun pool, magazines, magazine space]]*/
+/* _i = _i + [[label, picture, config, belong to type, cost, upgrade level, allowed in camps, belong to the handgun pool, magazines, magazine space, allow two weapons]]*/
 
 /* Magazines - West */
 _u = _u + ['20Rnd_B_AA12_Pellets'];
@@ -48,33 +48,6 @@ _i = _i + [['','','CfgWeapons','',350,3,false,false,0,0,true]];
 
 _u = _u + ['m8_tws_sd'];
 _i = _i + [['','','CfgWeapons','',385,3,false,false,0,0,true]];
-
-/* Secondary weapons - West */
-/* Misc - West */
-
-
-/* Misc - East */
-
-_u = _u + ['8Rnd_B_Saiga12_Pellets'];
-_i = _i + [['','','CfgMagazines','primary',30,0,true,false,0,0]];
-
-_u = _u + ['8Rnd_B_Beneli_Pellets'];
-_i = _i + [['','','CfgMagazines','primary',30,0,true,false,0,0]];
-
-_u = _u + ['14Rnd_57mm'];
-_i = _i + [['','','CfgMagazines','primary',30,0,true,false,0,0]];
-
-_u = _u + ['PMC_ied_v1'];
-_i = _i + [['','','CfgMagazines','CfgMagazines',25,0,true,false,0,0]];
-
-_u = _u + ['PMC_ied_v2'];
-_i = _i + [['','','CfgMagazines','CfgMagazines',35,1,true,false,0,0]];
-
-_u = _u + ['PMC_ied_v3'];
-_i = _i + [['','','CfgMagazines','CfgMagazines',45,2,true,false,0,0]];
-
-_u = _u + ['PMC_ied_v4'];
-_i = _i + [['','','CfgMagazines','CfgMagazines',55,2,true,false,0,0]];
 
 for '_z' from 0 to (count _u)-1 do {
 	_info = (_i select _z);

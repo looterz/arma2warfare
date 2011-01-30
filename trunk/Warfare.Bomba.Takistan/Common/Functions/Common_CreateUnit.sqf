@@ -10,7 +10,7 @@ Private ["_dT", "_get", "_built", "_position","_side","_skill","_team","_type","
 
 	_get = _type Call GetNamespace;
 	_skill = if !(isNil '_get') then {_get select QUERYUNITSKILL} else {'WFBE_AISKILL' Call GetNamespace};
-	_unit = _team createUnit [_type,_position,[],15,"FORM"];
+	_unit = _team createUnit [_type,_position,[],0,"FORM"];
 	[_unit] joinSilent _team;
 	_unit setSkill _skill;
 	

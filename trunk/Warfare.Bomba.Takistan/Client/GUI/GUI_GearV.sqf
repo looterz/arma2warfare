@@ -1,12 +1,8 @@
 /* Important, use +array if you plan to use Setters */
 _primary = +(WF_Logic getVariable 'primaryClasses');
-
 _secondary = +(WF_Logic getVariable 'secondaryClasses');
-
 _sidearm = +(WF_Logic getVariable 'sidearmClasses');
-
 _misc = +(WF_Logic getVariable 'miscClasses');
-
 _magazine = +(WF_Logic getVariable 'magazineClasses');
 
 _template = +(WF_Logic getVariable 'templateClasses');
@@ -83,30 +79,6 @@ _currentItems = [];
 _currentMagazines = [];
 _slistMagazines = [];
 
-WF_Gear_Hotkeys = {
-	Private ['_ctrl','_key'];
-	_key = _this select 1;
-	_ctrl = _this select 3;
-
-	if (_key == 16 && _ctrl) then {//--- Ctrl + A
-		WF_Logic setVariable ['filler','all'];
-	};
-	if (_key == 20 && _ctrl) then {//--- Ctrl + T
-		WF_Logic setVariable ['filler','template'];
-	};
-	if (_key == 25 && _ctrl) then {//--- Ctrl + P
-		WF_Logic setVariable ['filler','primary'];
-	};
-	if (_key == 31 && _ctrl) then {//--- Ctrl + S
-		WF_Logic setVariable ['filler','sidearm'];
-	};
-	if (_key == 38 && _ctrl) then {//--- Ctrl + L
-		WF_Logic setVariable ['filler','secondary'];
-	};
-	if (_key == 39 && _ctrl) then {//--- Ctrl + M
-		WF_Logic setVariable ['filler','misc'];
-	};
-};
 _disp = (findDisplay 16000) displayAddEventHandler ['KeyDown','_this Call WF_Gear_Hotkeys'];
 
 //--- Fill the available units list.
@@ -230,10 +202,10 @@ while {alive player && dialog} do {
 								};
 							};
 							
-							/* Handle the realistic Gear system if enabled */
+							/* Handle the extended inventory system if disabled */
 							_isSecoAllowTwo = true;
 							_isPrimAllowTwo = true;
-							if (paramGearNoRambo && (_tfil == 'primary' || _tfil == 'secondary' || _tfil == 'all')) then {
+							if (!paramExtendedInventory && (_tfil == 'primary' || _tfil == 'secondary' || _tfil == 'all')) then {
 								_getpp = [];
 								_getss = [];
 								
@@ -719,7 +691,7 @@ while {alive player && dialog} do {
 				if (_cAllow) then {if !(_get select QUERYGEARALLOWED) then {_cAllow = false}};
 				if ((_get select QUERYGEARUPGRADE) > _upgr) then {_upgr = (_get select QUERYGEARUPGRADE)};
 			};
-			if (_pallow || _sallow) then {
+			if (_pallow || _sallow || paramExtendedInventory) then {
 			_template = _template + [_temp];
 			WF_Logic setVariable["templateClasses",_template];
 			_templateCosts = _templateCosts + [(_cost + _currentCost)];

@@ -105,16 +105,20 @@ _c = _c + ['Mi24_D'];
 _i = _i + [['','',25500,40,2,1,3,0,'CDF']];
 
 for '_z' from 0 to (count _c)-1 do {
-	_get = (_c select _z) Call GetNamespace;
-	if (isNil '_get') then {
-		if ((_i select _z) select 0 == '') then {(_i select _z) set [0, [_c select _z,'displayName'] Call GetConfigInfo]};
-		if (WF_Debug) then {(_i select _z) set [3,1]};
-		_p = if ((_c select _z) isKindOf 'Man') then {'portrait'} else {'picture'};
-		(_i select _z) set [1, [_c select _z,_p] Call GetConfigInfo];
-		[_c select _z,_i select _z] Call SetNamespace;
+	if (isClass (configFile >> 'CfgVehicles' >> (_c select _z))) then {
+		_get = (_c select _z) Call GetNamespace;
+		if (isNil '_get') then {
+			if ((_i select _z) select 0 == '') then {(_i select _z) set [0, [_c select _z,'displayName'] Call GetConfigInfo]};
+			if (WF_Debug) then {(_i select _z) set [3,1]};
+			_p = if ((_c select _z) isKindOf 'Man') then {'portrait'} else {'picture'};
+			(_i select _z) set [1, [_c select _z,_p] Call GetConfigInfo];
+			[_c select _z,_i select _z] Call SetNamespace;
+		} else {
+		format["Core_CDF: Duplicated Element found '%1'",(_c select _z)] call LogHigh;
+		};
 	} else {
-		Format ["Core_CDF: Duplicated Element found '%1'",(_c select _z)] call LogMedium;
+		format["Core_CDF: Element '%1' is not a valid class.",(_c select _z)] call LogHigh;
 	};
 };
 
-Format ["Core_CDF: Initialization (%1 Elements) - [Done]",count _c] call LogMedium;
+Format ["Core_CDF: Initialization (%1 Elements) - [Done]",count _c]  call LogMedium;
