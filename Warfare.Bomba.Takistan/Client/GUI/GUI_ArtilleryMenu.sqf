@@ -308,16 +308,15 @@ while {alive player && dialog} do {
 			_artyTypeId = lbCurSel(17008);
 			
 			if (isNil '_artyTypeId') then { _artyTypeId = 0; };
-			_units = [Group player,GetPos player,false, _artyTypeId] Call GetTeamArtillery;
+			_units = [Group player,GetPos player,false, _artyTypeId, sideJoined] Call GetTeamArtillery;
 			_countInRange = 0;
 
 			if (count _units == 0) then {
 				_txt = localize 'STR_WF_ArtyNoGuns';
 			} else {
 				
-                                _minRange = (Format ["WFBE_%1_ARTILLERY_MINRANGES",_side] Call GetNamespace) select _artyTypeId;
-                                _maxRange = (Format ["WFBE_%1_ARTILLERY_MAXRANGES",_side] Call GetNamespace) select _artyTypeId;
-					
+                _minRange = (Format ["WFBE_%1_ARTILLERY_MINRANGES",sideJoined] Call GetNamespace) select _artyTypeId;
+                _maxRange = (Format ["WFBE_%1_ARTILLERY_MAXRANGES",sideJoined] Call GetNamespace) select _artyTypeId;
 				{
 					_artillery = _x;					
 					_dist = _artilleryMarker distance _artillery;
