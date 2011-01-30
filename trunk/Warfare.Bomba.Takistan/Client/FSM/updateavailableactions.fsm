@@ -42,6 +42,7 @@ class FSM
        "_spr = 'WFBE_SERVICEPOINTRANGE' Call GetNamespace;" \n
        "_tpr = 'WFBE_TOWNBUILDPROTECTIONRANGE' Call GetNamespace;" \n
        "_tcr = 'WFBE_TOWNCAPTURERANGE' Call GetNamespace;" \n
+       "_tdr = 'WFBE_DEFENSEMANRANGE' Call GetNamespace;" \n
        "" \n
        "_fastTravel = false;" \n
        "" \n
@@ -132,7 +133,10 @@ class FSM
        "};" \n
        "" \n
        "//--- HQ." \n
-       "if !(isNull _base) then {hqInRange = if ((player distance _base < _mhqbr)&&(alive _base)&&(player distance _closest > _tpr)) then {true} else {false}};" \n
+       "if !(isNull _base) then {"\n"
+	   " //-- modded for allow build in towns" \n
+	   "      hqInRange = if ((player distance _base < _mhqbr)&&(alive _base)) then {true} else {false};"\n
+	   "};" \n
        "" \n
        "barracksInRange = (['BARRACKSTYPE',_buildings,_purchaseRange,sideJoined,player] Call BuildingInRange) select 1;" \n
        "gearInRange = (['BARRACKSTYPE',_buildings,_pgr,sideJoined,player] Call BuildingInRange) select 1;" \n
