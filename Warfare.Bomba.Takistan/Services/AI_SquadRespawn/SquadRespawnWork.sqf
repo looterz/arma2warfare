@@ -25,12 +25,14 @@ Private ["_isForcedRespawn", "_buildings","_closestRespawn","_deathLoc","_leader
 	};	
 	
 	_leader = leader _team;
+	if (isNil "_leader") then { _leader = objNull };
+	
 	if (isPlayer _leader) exitWith {
 	
 		WBE_AISQUAD_RESPAWN_QUEUE = WBE_AISQUAD_RESPAWN_QUEUE - [ _team ];
 	};
 
-	format["AI_SquadRespawnWork: Unit: %1 alive:%2", leader _team, alive(leader _team)] call LogHigh;
+	format["AI_SquadRespawnWork: Unit: %1 Alive:%2", _leader, alive(_leader)] call LogHigh;
 
         _rd = 'WFBE_RESPAWNDELAY' Call GetNamespace;
         _rcm = 'WFBE_RESPAWNCAMPSMODE' Call GetNamespace;
@@ -95,25 +97,33 @@ Private ["_isForcedRespawn", "_buildings","_closestRespawn","_deathLoc","_leader
 
 	_pos = [_respawnLoc,20,30] Call GetRandomPositionEx;
 	_pos set [2,0];
-	format["AI_SquadRespawnWork: Unit: %1 Respawn Location:", leader _team, _pos] call LogHigh;
+	format["AI_SquadRespawnWork: Unit: %1 Respawn Location:", _leader, _pos] call LogHigh;
 
 	
-	if ( !(isPlayer (leader _team)) ) then {
+	if ( !(isPlayer (_leader)) || isNull(_leader) ) then {
 	
-		_leader = leader _team;
-		if (!isMultiplayer && !(alive (leader _team)) ) then {
-		
+		_createNewUnit = false;	
+		if (!isMultiplayer && !(alive (_leader)) ) then {
 			"AI_SquadRespawnWork: SP mode, and teamLeader is died, create TeamLeader" call LogHigh;
+			_createNewUnit = true;
+		};
+
+		if (isNull _leader) then {
+			format["AI_SquadRespawnWork: Team Leader is Null - Team %1", _team] call LogHigh;
+			_createNewUnit = true;
+		};
+		
+		if (_createNewUnit) then {
+
 			_leader = [_unitType, _team, _pos, _side] Call CreateMan;
-			
 			_team selectLeader _leader;
 			[_leader, _side] spawn SetAITeamKilledEventHandler;
 		};
 
-		format["AI_SquadRespawnWork: TeamLeader %1 SetPos=%2", leader _team, _pos] call LogHigh;
+		format["AI_SquadRespawnWork: TeamLeader %1 SetPos=%2", _leader, _pos] call LogHigh;
 		_leader setPos _pos;	
 
-		if (isMultiplayer) then {
+		if (isMultiplayer && !_createNewUnit) then {
 			[_leader, _side] spawn ManagedUnitAdd;
 		};
 

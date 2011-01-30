@@ -11,47 +11,14 @@ switch (_localize) do {
 	case "CommanderDisconnected": {_txt = Localize "strwfcommanderdisconnected"};
 	case "TacticalLaunch": {_txt = Localize "STR_WF_ICBM_Launch"};
 	case "Teamkill": {_txt = Format [Localize "STR_WF_Teamkill",('WFBE_TEAMKILLPENALTY' Call GetNamespace)]; -('WFBE_TEAMKILLPENALTY' Call GetNamespace) Call ChangePlayerFunds};
-	case "FundsTransfer": {
-		_txt = Format [Localize "STR_WF_FundsTransfer",_this select 1,_this select 2];
-		_commandChat = false;
-	};
-	case "HeadHunterReceiveBounty": {
-		_txt = Format [Localize "STR_WF_HeadHunterReceiveBounty",_this select 1,_this select 2];
-		_commandChat = false;
-	};
-	case "HeadHunterSendBounty": {
-		_txt = Format [Localize "STR_WF_HeadHunterSendBounty",_this select 1,_this select 2];
-		_commandChat = false;
-	};
-	
-	case "HeadHunterReceiveRefund": {
-		_txt = Format [Localize "STR_WF_HeadHunterReceiveRefund",_this select 1,_this select 2];
-		_commandChat = false;
-	};
-	case "HeadHunterSendRefund": {
-		_txt = Format [Localize "STR_WF_HeadHunterSendRefund",_this select 1,_this select 2];
-		_commandChat = false;
-	};
-	
-	case "SellFactory": {
-		_name = [_this select 1, 'displayName'] Call GetConfigInfo;
-		_txt = Format [Localize "STR_WF_SellFactory", _name];
-		_commandChat = true;
-	};	
-	
-	case "BaseHuntingRestriction" : {
-		_name = _this select 1;
-		_txt = Format [Localize "STR_WF_BaseHuntingRestriction", _name, paramBaseHuntingTimeout];
-		_commandChat = true;
-	};
+	case "FundsTransfer": { _commandChat = false; _txt = Format [Localize "STR_WF_FundsTransfer",_this select 1,_this select 2]; };
+	case "StructureSold": { _commandChat = true; _txt = Format [Localize "STR_WF_Structure_Sold",([_this select 1,'displayName'] Call GetConfigInfo)]};
+
+	case "HeadHunterReceiveBounty": { _commandChat = false; _txt = Format [Localize "STR_WF_HeadHunterReceiveBounty",_this select 1,_this select 2]; };
+	case "HeadHunterSendBounty": { 	_commandChat = false; _txt = Format [Localize "STR_WF_HeadHunterSendBounty",_this select 1,_this select 2]; };
+	case "HeadHunterReceiveRefund": { _commandChat = false; _txt = Format [Localize "STR_WF_HeadHunterReceiveRefund",_this select 1,_this select 2]; };
+	case "HeadHunterSendRefund": { _commandChat = false; _txt = Format [Localize "STR_WF_HeadHunterSendRefund",_this select 1,_this select 2]; };
+	case "BaseHuntingRestriction" : { _commandChat = true; _txt = Format [Localize "STR_WF_BaseHuntingRestriction", (_this select 1), paramBaseHuntingTimeout]; };
 };
 
-if (_commandChat) then {
-	_txt Call CommandChatMessage;
-} else {
-	_txt Call GroupChatMessage;
-};
-
-if (_localize != 'FundsTransfer') then {
-} else {
-};
+if (_commandChat) then { _txt Call CommandChatMessage; } else { _txt Call GroupChatMessage; };

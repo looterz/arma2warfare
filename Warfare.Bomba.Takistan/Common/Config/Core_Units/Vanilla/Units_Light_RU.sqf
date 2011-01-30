@@ -12,6 +12,7 @@ _u = _u		+ ['Kamaz'];
 _u = _u		+ ['KamazRepair'];
 _u = _u		+ ['WarfareReammoTruck_RU'];
 _u = _u		+ ['KamazRefuel'];
+_u = _u		+ ['WarfareSalvageTruck_RU'];
 if (('WFBE_SUPPLYSYSTEM' Call GetNamespace) == 0) then {_u = _u		+ ['WarfareSupplyTruck_RU']};
 _u = _u		+ ['GAZ_Vodnik_MedEvac'];
 _u = _u		+ ['BRDM2_INS'];

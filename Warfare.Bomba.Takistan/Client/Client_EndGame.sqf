@@ -10,11 +10,15 @@ _secTarget = EastMHQ;
 if (_side == West) then {_base = EastMHQ;_secTarget = WestMHQ};
 _position = getPos _base;
 
+_blist = [_secTarget,_blist] Call SortByDistance;
+_blist = [_secTarget] + _blist;
+
 //--- Safety Pos.
 _HQ = (sideJoinedText) Call GetSideHQ;
 _vehi = vehicle player;
 if (_vehi != player) then {player action ["EJECT", _vehi];_vehi = player};
-_vehi setPos ([_HQ,20,30] Call GetRandomPositionEx);
+_vehi setVelocity [0,0,-0.1];
+_vehi setPos ([_HQ, 20, 30] Call GetRandomPositionEx);
 
 if (!isNil "DeathCamera") then {
 	DeathCamera cameraEffect["TERMINATE","BACK"];
@@ -40,26 +44,20 @@ _camera camCommit 10;
 
 waitUntil {camCommitted _camera};
 
-_camera camSetPos getPos _secTarget;
-_camera camSetTarget getPos _secTarget;
-_camera camSetRelPos [160.80,130.29,140.07];
-_camera camCommit 0;
-
-waitUntil {camCommitted _camera};
-
-_camera camSetRelPos [-190.71,190.55,180.94];
-_camera camCommit 10;
-
-waitUntil {camCommitted _camera};
+_camShotOrder = [[0,100,35],[50,0,20],[0,-50,20],[-50,0,20]];
 
 {
 	_camera camSetPos getPos _x;
 	_camera camSetTarget getPos _x;
-	_camera camSetRelPos [160.80,130.29,140.07];
-	_camera camCommit 0;
+	
+	{
+		_camera camSetRelPos _x;
+		_camera camCommit 5;
 	waitUntil {camCommitted _camera};
-	_camera camSetRelPos [-190.71,190.55,180.94];
-	_camera camCommit 10;
+	} forEach _camShotOrder;
+	
+	_camera camSetRelPos [0,100,35];
+	_camera camCommit 5;
 	waitUntil {camCommitted _camera};
 } forEach _blist;
 

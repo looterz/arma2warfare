@@ -55,12 +55,12 @@ if (_type == 'Sign_Danger') exitWith {
 
 [_defense, _side] spawn SetKilledEventHandler;
 
-if (_defense EmptyPositions "gunner" > 0 && paramAutoDefense) then {
+if (_defense EmptyPositions "gunner" > 0 && (('WFBE_AIDEFENSE' Call GetNamespace) > 0)) then {
 	_team = if (_side == WEST) then {WF_DefenseWestGrp} else {WF_DefenseEastGrp};
 
 	if (_manned) then {
 		_alives = (units _team) Call GetLiveUnits;
-		if (count _alives < ('WFBE_MAXAIDEFENSE' Call GetNamespace)) then {
+		if (count _alives < ('WFBE_AIDEFENSE' Call GetNamespace)) then {
 			_buildings = (str _side) Call GetSideStructures;
 			_check = ['BARRACKSTYPE',_buildings,'WFBE_DEFENSEMANRANGE' Call GetNamespace,_side,_defense] Call BuildingInRange;
 			_closest = _check select 0;

@@ -2,19 +2,18 @@
 /*%FSM<HEAD>*/
 /*
 item0[] = {"AI_BASE_Init",0,250,-15.348785,-34.504990,74.651321,15.495049,0.000000,"AI BASE" \n "Init"};
-item1[] = {"AI_BASE_End",1,250,-17.260908,493.396362,72.739075,543.396362,0.000000,"AI BASE" \n "End"};
-item2[] = {"AI_Base_Running",4,218,-15.194590,363.800049,74.805260,413.800171,0.000000,"AI Base" \n "Running"};
-item3[] = {"AI_Base_Not_Runn",4,218,151.275726,57.530907,241.275681,107.530907,0.000000,"AI Base" \n "Not Running"};
-item4[] = {"Advanced__Init",2,250,150.405396,136.279541,240.405380,186.279541,0.000000,"Advanced " \n "Init"};
-item5[] = {"Loop",8,218,150.271240,217.674042,240.271164,267.674011,0.000000,"Loop"};
-item6[] = {"Global_Checks",2,250,150.099487,291.243225,240.099472,341.243225,0.000000,"Global Checks"};
-item7[] = {"Player_Commander",4,218,149.917725,386.323242,239.917709,436.323242,10.000000,"Player" \n "Commander?"};
-item8[] = {"Teams_Type",4,218,297.038849,341.597961,387.038666,391.597961,1.000000,"Teams Type"};
-item9[] = {"Update_Teams",2,4346,424.533905,341.838654,514.532959,391.838623,0.000000,"Update Teams"};
-item10[] = {"Upgrades",4,218,297.898315,262.110931,387.898254,312.110931,0.000000,"Upgrades"};
-item11[] = {"Do_Upgrades",2,250,420.578613,267.687836,499.596924,307.551178,0.000000,"Do Upgrades"};
-item12[] = {"",7,210,565.612610,283.468384,573.612610,291.468414,0.000000,""};
-item13[] = {"",7,210,565.782654,239.294510,573.782654,247.294525,0.000000,""};
+item1[] = {"AI_BASE_End",1,250,121.421707,50.708939,211.421722,100.708939,0.000000,"AI BASE" \n "End"};
+item2[] = {"AI_Base_Running",4,218,122.273567,-35.331635,212.273392,14.668474,0.000000,"AI Base" \n "Running"};
+item3[] = {"AI_Base_Not_Runn",4,218,-15.582159,46.154228,74.417801,96.154228,0.000000,"AI Base" \n "Not Running"};
+item4[] = {"Advanced__Init",2,4346,-16.452499,124.902863,73.547501,174.902863,0.000000,"Advanced " \n "Init"};
+item5[] = {"Loop",8,218,-16.586647,206.297379,73.413300,256.297363,0.000000,"Loop"};
+item6[] = {"Global_Checks",2,250,-16.758400,279.866577,73.241608,329.866577,0.000000,"Global Checks"};
+item7[] = {"Player_Commander",4,218,121.742462,280.140930,211.742416,330.140930,10.000000,"Player" \n "Commander?"};
+item8[] = {"Teams_Type",4,218,-164.034988,280.176239,-74.035011,330.176270,1.000000,"Teams Type"};
+item9[] = {"Update_Teams",2,250,-163.247650,207.771179,-73.247955,257.771149,0.000000,"Update Teams"};
+item10[] = {"Upgrades",4,218,-215.547272,312.433167,-125.547333,362.433167,0.000000,"Upgrades"};
+item11[] = {"Upgrades",2,250,-267.724365,207.955505,-177.724365,257.955505,0.000000,"Upgrades"};
+item12[] = {"",7,210,-169.994583,128.282928,-161.994583,136.282974,0.000000,""};
 link0[] = {0,2};
 link1[] = {0,3};
 link2[] = {2,1};
@@ -30,10 +29,9 @@ link11[] = {8,9};
 link12[] = {9,12};
 link13[] = {10,11};
 link14[] = {11,12};
-link15[] = {12,13};
-link16[] = {13,5};
-globals[] = {0.000000,0,0,0,0,640,480,1,20,6316128,1,-85.718567,630.601990,614.970581,-88.679611,419,833,1};
-window[] = {2,-1,-1,-1,-1,966,225,1517,225,3,437};
+link15[] = {12,5};
+globals[] = {0.000000,0,0,0,0,640,480,1,21,6316128,1,-428.130035,157.950897,480.503235,-35.746780,705,621,1};
+window[] = {0,-1,-1,-1,-1,866,125,1470,125,1,723};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -186,8 +184,8 @@ class FSM
        "if (!_isDeployed && _HQIsAlive && _canBeDeploy) then {" \n
        "	_pos = getPos _hq;" \n
        "	_pos set [2,0];" \n
-       "	_pos = [_hq,_pos,(('WFBE_AREAHQUNDEPLOYED' Call GetNamespace) select 0)+20] Call GetSafePlace;" \n
-       "	if (count _pos < 1) then {_pos = [_hq,_pos,(('WFBE_AREAHQUNDEPLOYED' Call GetNamespace) select 0)+50] Call GetSafePlace};" \n
+       "	_pos = [_pos,(('WFBE_AREAHQUNDEPLOYED' Call GetNamespace) select 0)+20] Call GetSafePlace;" \n
+       "	if (count _pos < 1) then {_pos = [_pos,(('WFBE_AREAHQUNDEPLOYED' Call GetNamespace) select 0)+50] Call GetSafePlace};" \n
        "	if (count _pos < 1) then {_pos = Call Compile Format [""%1StartingLocation"",_sideText]};" \n
        "	_dir = getDir _hq;" \n
        "	_HQType = _names select _hqt;" \n
@@ -250,9 +248,8 @@ class FSM
        "" \n
        "_lastCheck = time;" \n
        "_hq = (_sideText) Call GetSideHQ;" \n
-       "_HQIsAlive = true;" \n
        "" \n
-       "if !(alive _hq) then {_HQIsAlive = false};" \n
+       "_HQIsAlive = if !(alive _hq) then {false} else {true};" \n
        "if (_structureTimer > 20) then {" \n
        "	_structureTimer = 0;" \n
        "	//--- Base Buildings handling." \n
@@ -487,7 +484,7 @@ class FSM
         class Upgrades
         {
           priority = 0.000000;
-          to="Do_Upgrades";
+          to="Upgrades";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/"time - _lastUpgradeCheck > 120 && isNull _commander"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
@@ -613,10 +610,10 @@ class FSM
       };
     };
     /*%FSM</STATE>*/
-    /*%FSM<STATE "Do_Upgrades">*/
-    class Do_Upgrades
+    /*%FSM<STATE "Upgrades">*/
+    class Upgrades
     {
-      name = "Do_Upgrades";
+      name = "Upgrades";
       init = /*%FSM<STATEINIT""">*/"""AIBase.FSM: Upgrades"" call LogInform;" \n
        "" \n
        "_lastUpgradeCheck = time;" \n

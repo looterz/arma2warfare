@@ -42,9 +42,7 @@ switch (_args select 0) do {
 		_dropPosZ = getPos _base select 2;
 		_droppos1 = [_dropPosX + 4, _dropPosY + 4, _dropPosZ];
 		_droppos2 = [_dropPosX + 8, _dropPosY + 8, _dropPosZ];
-		waitUntil { alive _target && !(isNull _target) } do {
-			sleep 0.5;
-		};
+		waitUntil {!alive _target || isNull _target};
 		det1 = "BO_GBU12_LGB" createVehicle [(getpos _target select 0),(getpos _target select 1), 0];
 		det2 = createVehicle ["BO_GBU12_LGB",_droppos1,[], 0, "None"];
 		det3 = createVehicle ["BO_GBU12_LGB",_droppos2,[], 0, "None"];

@@ -1,14 +1,14 @@
-_camp = _this Select 0;
-_town = _this Select 1;
+_camp = _this select 0;
+_town = _this select 1;
 
 waitUntil { !isNil "initJIP" };
 waitUntil { townModeSet };
 waitUntil { townInit };
 
-if (isNull _town) exitWith {
+if (isNull _town && !isNull _camp) exitWith {
 	Format ["Init_Camp.sqf: Camp not initialized due parent town is removed in the towns templates."] call LogHigh;
 
-	if (isServer && !isNull _camp) then {
+	if (isServer) then {
 		(getPos _camp) Spawn {
 			waitUntil {commonInitComplete};
 			_defenses = _this nearEntities[('WFBE_RESISTANCEDEFENSENAMES' Call GetNamespace),250];
@@ -39,15 +39,18 @@ _camps = _town getVariable "camps";
 _camps = _camps + [_camp];
 _town setVariable ["camps",_camps];
 
-_index = _camps Find _camp;
+_index = _camps find _camp;
 _marker = Format["%1Camp%2",str _town,_index];
 createMarkerLocal [_marker,getPos _camp];
 _marker setMarkerTypeLocal "Strongpoint";
 _marker setMarkerColorLocal "ColorBlue";
 _marker setMarkerSizeLocal [0.5,0.5];
+_camp setVariable ['town',_town];
 
 Format["Init_Camp: Camp '%1' of town '%2' initialization - [Done]",str _camp,str _town] call LogHigh;
 
+waitUntil {commonInitComplete};
+sleep 10;
 
 if (isServer) then {
 	_supplyValue = 0;

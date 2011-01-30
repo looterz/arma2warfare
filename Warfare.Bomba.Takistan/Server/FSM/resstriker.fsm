@@ -1,22 +1,23 @@
 /*%FSM<COMPILE "scriptedFSM.cfg, resstriker">*/
 /*%FSM<HEAD>*/
 /*
-item0[] = {"Init_Patrol",0,250,-37.336731,-245.259415,52.663269,-195.259415,0.000000,"Init Patrol"};
+item0[] = {"Init_Patrol",0,250,-34.983627,-411.153412,55.016373,-361.153381,0.000000,"Init Patrol"};
 item1[] = {"Wait",4,4314,-35.585495,-60.933670,54.414505,-10.933670,0.000000,"Wait"};
 item2[] = {"Activity",2,250,-38.403221,10.450424,51.596794,60.450424,0.000000,"Activity"};
-item3[] = {"is_Active",4,218,101.439552,11.111540,191.439560,61.111511,1.000000,"is Active"};
-item4[] = {"Actions",2,250,100.520218,-64.953995,190.520096,-14.954021,0.000000,"Actions"};
-item5[] = {"Spawn",4,218,-316.513123,35.015533,-226.513107,85.015488,10.000000,"Spawn"};
-item6[] = {"Create",2,250,-316.368622,-205.743271,-226.368637,-155.743256,0.000000,"Create"};
-item7[] = {"Gameover",4,218,-99.764572,74.877029,-9.764542,124.877037,0.000000,"Gameover"};
-item8[] = {"End",1,250,-101.050774,175.913666,-11.050694,225.913651,0.000000,"End"};
-item9[] = {"Wait",4,218,-38.930679,109.403816,51.069321,159.403778,0.000000,"Wait"};
+item3[] = {"is_Active",4,218,93.203682,-83.012711,183.203690,-33.012737,1.000000,"is Active"};
+item4[] = {"Actions",2,250,109.932617,-215.552826,199.932495,-165.552826,0.000000,"Actions"};
+item5[] = {"Spawn",4,218,-270.627533,9.131363,-180.627548,59.131310,10.000000,"Spawn"};
+item6[] = {"Create",2,250,-272.836273,-216.332245,-182.836182,-166.332230,0.000000,"Create"};
+item7[] = {"Gameover",4,218,-32.701054,164.295074,57.298973,214.295105,0.000000,"Gameover"};
+item8[] = {"End",1,250,-32.810734,264.155151,57.189362,314.155151,0.000000,"End"};
+item9[] = {"Wait",4,218,30.485954,111.756920,120.485947,161.756882,0.000000,"Wait"};
 item10[] = {"Respawn_units",2,250,207.845749,108.995827,297.845764,158.995819,0.000000,"Respawn units"};
-item11[] = {"_",8,218,231.577728,-112.425110,275.102661,-89.123550,0.000000,""};
-item12[] = {"_",8,218,-14.641279,-176.291138,27.894829,-149.034271,0.000000,""};
-item13[] = {"Advanced_Init",2,250,-39.362053,-125.860779,50.637978,-75.860779,0.000000,"Advanced Init"};
-item14[] = {"Town_Enemy",4,218,-253.437073,0.921768,-163.437073,50.921768,0.000000,"Town Enemy"};
-item15[] = {"Idle",2,250,-251.141953,-120.718803,-161.141937,-70.718803,0.000000,"Idle"};
+item11[] = {"_",8,218,231.577728,-278.319122,275.102600,-255.017548,0.000000,""};
+item12[] = {"_",8,218,-12.288172,-342.185120,30.247936,-314.928223,0.000000,""};
+item13[] = {"Advanced_Init",2,250,-37.008949,-291.754730,52.991081,-241.754745,0.000000,"Advanced Init"};
+item14[] = {"Town_Enemy",4,218,-173.431488,-75.554214,-83.431458,-25.554180,0.000000,"Town Enemy"};
+item15[] = {"InitIdle",2,250,-33.479610,-137.190552,56.520367,-87.190544,0.000000,"InitIdle"};
+item16[] = {"_",8,218,-13.464723,-204.528412,29.071384,-177.271515,0.000000,""};
 link0[] = {0,12};
 link1[] = {1,2};
 link2[] = {2,3};
@@ -25,19 +26,20 @@ link4[] = {2,7};
 link5[] = {2,9};
 link6[] = {2,14};
 link7[] = {3,4};
-link8[] = {4,1};
+link8[] = {4,16};
 link9[] = {5,6};
-link10[] = {6,1};
+link10[] = {6,16};
 link11[] = {7,8};
 link12[] = {9,10};
 link13[] = {10,11};
 link14[] = {11,13};
 link15[] = {12,13};
-link16[] = {13,1};
+link16[] = {13,16};
 link17[] = {14,15};
 link18[] = {15,1};
-globals[] = {0.000000,0,0,0,0,640,480,1,40,6316128,1,-179.198883,293.226257,122.174026,-221.028839,680,494,1};
-window[] = {0,-1,-1,-1,-1,660,25,1317,25,1,698};
+link19[] = {16,15};
+globals[] = {0.000000,0,0,0,0,640,480,1,42,6316128,1,-304.648499,575.413208,332.096497,-307.242371,680,494,1};
+window[] = {0,-1,-1,-1,-1,685,50,1342,50,1,698};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -113,7 +115,7 @@ class FSM
         class Town_Enemy
         {
           priority = 0.000000;
-          to="Idle";
+          to="InitIdle";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/"!gameOver && !_isActive && _sideID != RESISTANCEID"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
@@ -148,14 +150,14 @@ class FSM
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
-        /*%FSM<LINK "Wait">*/
-        class Wait
+        /*%FSM<LINK "_">*/
+        class _
         {
           priority = 0.000000;
-          to="Activity";
+          to="InitIdle";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"_nextUpdate < time"/*%FSM</CONDITION""">*/;
-          action=/*%FSM<ACTION""">*/"_nextUpdate = time + 40;"/*%FSM</ACTION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
       };
@@ -177,7 +179,7 @@ class FSM
        "	if (_x isKindOf ""Man"") then {" \n
        "		_unit = [_x,_team,_position,resistance] Call CreateMan;" \n
        "	} else {" \n
-       "		_type = if (_x isKindOf ""Tank"") then {'WFBE_GUERCREW' Call GetNamespace} else {'WFBE_GUERSOLDIER' Call GetNamespace};" \n
+       "		_type = if (_x isKindOf 'Man') then {'WFBE_GUERSOLDIER' Call GetNamespace} else {if (_x isKindOf 'Air') then {'WFBE_GUERPILOT' Call GetNamespace} else {'WFBE_GUERCREW' Call GetNamespace}};" \n
        "		_vehicle = [_x,_position,resistance,paramResVehLock] Call CreateVehi;" \n
        "		_vehicles = _vehicles + [_vehicle];" \n
        "		_unit = [_type,_team,_position,resistance] Call CreateMan;" \n
@@ -193,14 +195,14 @@ class FSM
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
-        /*%FSM<LINK "Wait">*/
-        class Wait
+        /*%FSM<LINK "_">*/
+        class _
         {
           priority = 0.000000;
-          to="Activity";
+          to="InitIdle";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"_nextUpdate < time"/*%FSM</CONDITION""">*/;
-          action=/*%FSM<ACTION""">*/"_nextUpdate = time + 40;"/*%FSM</ACTION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
       };
@@ -251,24 +253,24 @@ class FSM
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
-        /*%FSM<LINK "Wait">*/
-        class Wait
+        /*%FSM<LINK "_">*/
+        class _
         {
           priority = 0.000000;
-          to="Activity";
+          to="InitIdle";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
-          condition=/*%FSM<CONDITION""">*/"_nextUpdate < time"/*%FSM</CONDITION""">*/;
-          action=/*%FSM<ACTION""">*/"_nextUpdate = time + 40;"/*%FSM</ACTION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
       };
     };
     /*%FSM</STATE>*/
-    /*%FSM<STATE "Idle">*/
-    class Idle
+    /*%FSM<STATE "InitIdle">*/
+    class InitIdle
     {
-      name = "Idle";
-      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      name = "InitIdle";
+      init = /*%FSM<STATEINIT""">*/"_nextUpdate = time + 40 + random(10);"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -279,7 +281,7 @@ class FSM
           to="Activity";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/"_nextUpdate < time"/*%FSM</CONDITION""">*/;
-          action=/*%FSM<ACTION""">*/"_nextUpdate = time + 40;"/*%FSM</ACTION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
         };
         /*%FSM</LINK>*/
       };

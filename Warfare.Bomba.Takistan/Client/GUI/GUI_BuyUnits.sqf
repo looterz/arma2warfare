@@ -34,9 +34,9 @@ _updateDetails = true;
 _updateList = true;
 _updateMap = true;
 _val = 0;
-
 _mbu = 'WFBE_MAXGROUPSIZE' Call GetNamespace;
-_currentUnit = objNull;
+
+ctrlSetText[12025,localize 'STR_WF_Faction' + ":"];
 
 //--- Get the closest Factory Type in range.
 _break = false;
@@ -94,7 +94,7 @@ _fillList = {
 		_unitPriceData = [_products, _prices, objNull, objNull];
 	};
 	
-	_costDiscount = [_type, _closest] call _getDiscountCoef;
+	_costDiscount = [_type, _closest] call fnGetDiscount;
 	_tmplistUnits = [];
 	{
 		_addin = true;
@@ -120,7 +120,7 @@ _fillList = {
 			_i = _i + 1;
 		};
 		_u = _u + 1;
-	} forEach _listNames;	
+	} forEach _listNames;
 	
 	_u = 0;
 	lnbClear _listBox;
@@ -136,7 +136,7 @@ _fillList = {
 	if (_i > 0) then {lnbSetCurSelRow [_listBox,0]} else {lnbSetCurSelRow [_listBox,-1]};
 };
 
-_getDiscountCoef = {
+fnGetDiscount = {
 private['_costCoefficient', '_closestFactory', '_type', '_closest', '_discount', '_buildings1', '_factories1', '_sorted1', '_range', '_depotNearFactory', '_nearTown', '_sideID', '_supplyValue', '_maxSV', '_dist', '_k'  ];		
 
 		_type = _this select 0;
@@ -234,8 +234,15 @@ while {alive player && dialog} do {
 		_currentRow = lnbCurSelRow _listBox;
 		_currentValue = lnbValue[_listBox,[_currentRow,0]];
 		_unit = _listUnits select _currentValue;
-		_currentUnit = _unit Call GetNamespace;	
-		
+		_currentUnit = _unit Call GetNamespace;
+		_currentCost = _currentUnit select QUERYUNITPRICE;
+		if !(_isInfantry) then {
+			_extra = 0;
+			if (_driver) then {_extra = _extra + 1};
+			if (_gunner) then {_extra = _extra + 1};
+			if (_commander) then {_extra = _extra + 1};
+			_currentCost = _currentCost + (('WFBE_CREWCOST' Call GetNamespace) * _extra);
+		};
 		if ((_currentRow) != -1) then {
 			_funds = Call GetPlayerFunds;
 			_skip = false;
@@ -278,7 +285,6 @@ while {alive player && dialog} do {
 	if (MenuAction == 203) then {MenuAction = -1;_commander = if (_commander) then {false} else {true};_updateDetails = true};
 	
 	//--- Factory DropDown list value has changed.
-//--- TODO: update = true call repaint list view twice!
 	if (MenuAction == 301) then {
 		MenuAction = -1;_factSel = lbCurSel 12018;
 		
@@ -301,10 +307,10 @@ while {alive player && dialog} do {
 	
 	//--- Player funds.
 	ctrlSetText [12019,Format [localize 'STR_WF_Cash',Call GetPlayerFunds]];
-
+	
 	//--- Update factories.
 	if (_updateList) then {
-	
+		
 		format["GUI_BuyUnit UpdateList type=%1", _type] call LogTrace;
 	
 		switch (_type) do {
@@ -391,11 +397,13 @@ while {alive player && dialog} do {
 		//--- Our list is not empty.
 		if (_currentRow != -1) then {
 			_currentValue = lnbValue[_listBox,[_currentRow,0]];
-			_currentUnit = (_listUnits select _currentValue) Call GetNamespace;
-			ctrlSetText [12009,_currentUnit select QUERYUNITPICTURE];
-			_currentCost = _currentUnit select QUERYUNITPRICE;
-
 			_unit = _listUnits select _currentValue;
+			_currentUnit = _unit Call GetNamespace;
+			ctrlSetText [12009,_currentUnit select QUERYUNITPICTURE];
+			ctrlSetText [12033,_currentUnit select QUERYUNITFACTION];
+			ctrlSetText [12035,str (_currentUnit select QUERYUNITTIME)];
+			_currentCost = _currentUnit select QUERYUNITPRICE;
+			
 			if (_unit isKindOf "Man") then { 
 				_currentCost = _unit call GetUnitEquipmentPrice; 
 			};
@@ -403,11 +411,15 @@ while {alive player && dialog} do {
 			if (paramTrade && paramVehicleComponents) then {
 				_currentCost = [_closestFactory, _unit, _currentCost] call marketGetUnitPrice;
 			};
-			
-			_isInfantry = if ((_listUnits select _currentValue) isKindOf 'Man') then {true} else {false};
+			_isInfantry = if (_unit isKindOf 'Man') then {true} else {false};
 			
 			//--- Update driver-gunner-commander icons.
 			if (!_isInfantry && _type != 'Depot') then {
+				ctrlSetText [12036,"N/A"];
+				ctrlSetText [12037,str (getNumber (configFile >> 'CfgVehicles' >> _unit >> 'transportSoldier'))];
+				ctrlSetText [12038,str (getNumber (configFile >> 'CfgVehicles' >> _unit >> 'maxSpeed'))];
+				ctrlSetText [12039,str (getNumber (configFile >> 'CfgVehicles' >> _unit >> 'armor'))];
+				
 				_slots = _currentUnit select QUERYUNITCREW;
 				_c = 0;
 				_extra = 0;
@@ -458,10 +470,48 @@ while {alive player && dialog} do {
 				//--- Set the 'extra' price.
 				_currentCost = _currentCost + (('WFBE_CREWCOST' Call GetNamespace) * _extra);
 			} else {
+				ctrlSetText [12036,Format ["%1/100",(_currentUnit select QUERYUNITSKILL) * 100]];
+				ctrlSetText [12037,"N/A"];
+				ctrlSetText [12038,"N/A"];
+				ctrlSetText [12039,"N/A"];
+			
 				{ctrlShow [_x,false]} forEach (_IDCSVehi);
 				_driver = false;
 				_gunner = false;
 				_commander = false;
+				
+				//--- Display a unit's loadout.
+				_weapons = (getArray (configFile >> 'CfgVehicles' >> _unit >> 'weapons')) - ['Put','Throw'];
+				_magazines = getArray (configFile >> 'CfgVehicles' >> _unit >> 'magazines');
+				
+				_classMags = [];
+				_classMagsAmount = [];
+				_MagsLabel = [];
+				
+				{ 	_findAt = _classMags find _x;
+					if (_findAt == -1) then {
+						_classMags = _classMags + [_x];
+						_classMagsAmount = _classMagsAmount + [1];
+						_MagsLabel = _MagsLabel + [[_x,'displayName','CfgMagazines'] Call GetConfigInfo];
+					} else {
+						_classMagsAmount set [_findAt, (_classMagsAmount select _findAt) + 1];
+					};
+				} forEach _magazines;
+				//--- localize that!
+				_txt = "<t color='#A7F04F' shadow='2'>" + (localize 'STR_WF_Weapons') + " :</t><br /> <t color='#D3A119' shadow='2'>{</t>";
+				for [{_i = 0},{_i < count _weapons},{_i = _i + 1}] do {
+					_txt = _txt + "<t color='#86C8FF' shadow='2'>" + ([(_weapons select _i),'displayName','CfgWeapons'] Call GetConfigInfo) + "</t>";
+					if ((_i+1) < count _weapons) then {_txt = _txt + "<t color='#D3A119' shadow='2'>,</t> "}; 
+				};
+				_txt = _txt + "<t color='#D3A119' shadow='2'>}</t><br /><br />";	
+				_txt = _txt + "<t color='#A7F04F' shadow='2'>" + (localize 'STR_WF_Magazines') + " :</t><br /> <t color='#D3A119' shadow='2'>{</t>";
+				for [{_i = 0},{_i < count _MagsLabel},{_i = _i + 1}] do {
+					_txt = _txt + "<t color='#86C8FF' shadow='2'>" + ((_MagsLabel select _i) + "</t> <t color='#D057F8' shadow='2'>x</t> <t color='#FB7E7E' shadow='2'>" + str (_classMagsAmount select _i)) + "</t>";
+					if ((_i+1) < count _MagsLabel) then {_txt = _txt + "<t color='#D3A119' shadow='2'>,</t> "}; 
+				};
+				_txt = _txt + "<t color='#D3A119' shadow='2'>}</t>";
+				
+				(_display displayCtrl 12022) ctrlSetStructuredText (parseText _txt);
 			};
 			
 			//--- Lock Icon.
@@ -475,11 +525,12 @@ while {alive player && dialog} do {
 			};
 
 			//--- Long description.
-			_utype = _listUnits select _currentValue;
-			_txt = '';
-			if (isClass (configFile >> 'CfgVehicles' >> _utype >> 'Library')) then {
-				_txt = getText (configFile >> 'CfgVehicles' >> _utype >> 'Library' >> 'libTextDesc');
-			};
+			if !(_isInfantry) then {
+				if (isClass (configFile >> 'CfgVehicles' >> _unit >> 'Library')) then {
+					_txt = getText (configFile >> 'CfgVehicles' >> _unit >> 'Library' >> 'libTextDesc');
+					(_display displayCtrl 12022) ctrlSetStructuredText (parseText _txt);
+				} else { _txt = ''; };
+                        };
 			
 			if (paramTrade && paramVehicleComponents) then {
 				_txtRequire = [_closestFactory, _utype] call marketGetUnitRequirementText;
@@ -488,15 +539,14 @@ while {alive player && dialog} do {
 			
 			(_display displayCtrl 12022) ctrlSetStructuredText (parseText _txt);
 			
-			_costDiscount = [_type, _closest] call _getDiscountCoef;
+			_costDiscount = [_type, _closest] call fnGetDiscount;
 			_currentCost = (ceil(_currentCost * _costDiscount / 5))*5;		
 			if (_currentCost < 5) then { _currentCost = 5; };				
 			
-			ctrlSetText [12010,Format [localize 'STR_WF_Price',_currentCost]];
+			ctrlSetText [12034,Format ["$ %1.",_currentCost]];
 			_updateDetails = false;
 		} else {
-			ctrlSetText [12009, ''];
-			ctrlSetText [12010, ''];
+			{ctrlSetText [_x , ""]} forEach [12009,12010,12027,12028,12029,12030,12031,12032,12033,12034,12035,12036,12037,12038,12039];
 			(_display displayCtrl 12022) ctrlSetStructuredText (parseText '');
 		};
 	};

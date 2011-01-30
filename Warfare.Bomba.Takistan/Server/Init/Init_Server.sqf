@@ -1,6 +1,5 @@
 #include "profiler.h"
 PROFILER_BEGIN("Init_Server");
-
 waitUntil { !isNil "initJIP" };
 
 if (!isServer || time > 30) exitWith {
@@ -9,32 +8,32 @@ if (!isServer || time > 30) exitWith {
 
 Format["Init_Server: Init Start"] call LogMedium;
 
-	createCenter resistance; //--- Allow resistance group to be spawned without a placeholder.
-	resistance setFriend [west,0];
-	resistance setFriend [east,0];
-
-if (paramTownsCivilians) then {createCenter civilian};
+//--- Allow resistance group to be spawned without a placeholder.
+createCenter resistance;
+resistance setFriend [west,0];
+resistance setFriend [east,0];
 
 	if (paramAI) then {
 		AIBuyUnit = Compile preprocessFile "Server\Functions\Server_BuyUnit.sqf";
+	if (WF_A2_Vanilla) then {AISquadRespawn = Compile preprocessFile "Server\AI\AI_SquadRespawn.sqf"};
 	};
-	
+        if !(WF_A2_Vanilla) then {AIAdvancedRespawn = Compile preprocessFile "Server\AI\AI_AdvancedRespawn.sqf"};
 	AIMoveTo = Compile preprocessFile "Server\AI\Orders\AI_MoveTo.sqf";
 	AIPatrol = Compile preprocessFile "Server\AI\Orders\AI_Patrol.sqf";
 	AITownPatrol = Compile preprocessFile "Server\AI\Orders\AI_TownPatrol.sqf";
 	AITownResitance = Compile preprocessFile "Server\AI\AI_Resistance.sqf";
 	AIWPAdd = Compile preprocessFile "Server\AI\Orders\AI_WPAdd.sqf";
 	AIWPRemove = Compile preprocessFile "Server\AI\Orders\AI_WPRemove.sqf";
-	if (paramAllies) then {AlliesBuyUnit = Compile preprocessFile "Server\Functions\Server_AlliesBuyUnit.sqf"};
 	BuildingDamaged = Compile preprocessFile "Server\Functions\Server_BuildingDamaged.sqf";
 	if (paramHandleFF) then {BuildingHandleDamages = Compile preprocessFile "Server\Functions\Server_BuildingHandleDamages.sqf"};
-
 	BuildingKilled = Compile preprocessFile "Server\Functions\Server_BuildingKilled.sqf";
 	CanUpdateTeam = Compile preprocessFile "Server\Functions\Server_CanUpdateTeam.sqf";
+CreateTeamTemplate = Compile preprocessFile "Server\Functions\Server_CreateTeam.sqf";
 	HandleDefense = Compile preprocessFile "Server\Functions\Server_HandleDefense.sqf";
 	
 	HandleRequest_LockVehicle = Compile preprocessFile "Server\Request\HandleRequest_LockVehicle.sqf";
 	HandleRequest_CheatDetected = Compile preprocessFile "Server\Request\HandleRequest_CheatDetected.sqf";
+//HandleEmptyVehicle = Compile preprocessFile "Server\Functions\Server_HandleEmptyVehicle.sqf";
 
 HandleSPVF = Compile preprocessFile "Server\Functions\Server_HandleSPVF.sqf";
 HandleSpecial = Compile preprocessFile "Server\Functions\Server_HandleSpecial.sqf";
@@ -44,17 +43,21 @@ SelectOccupTeam = Compile preprocessFile "Server\Functions\Server_SelectOccupTea
 SetCampsToSide = Compile preprocessFile "Server\Functions\Server_SetCampsToSide.sqf";
 SideMessage = Compile preprocessFile "Server\Functions\Server_SideMessage.sqf";
 SVoteForCommander = Compile preprocessFile "Server\Server_VoteForCommander.sqf";
-
+//TrashObject = Compile preprocessFile "Server\Functions\Server_TrashObject.sqf";
 UpdateTeam = Compile preprocessFile "Server\Functions\Server_UpdateTeam.sqf";
 UpdateSupplyTruck = Compile preprocessFile "Server\AI\AI_UpdateSupplyTruck.sqf";
 
+//--- Support Functions.
 KAT_ParaAmmo = Compile preProcessfile "Server\Support\Support_ParaAmmo.sqf";
 KAT_Paratroopers = Compile preProcessfile "Server\Support\Support_Paratroopers.sqf";
 KAT_ParaVehicles = Compile preProcessfile "Server\Support\Support_ParaVehicles.sqf";
 KAT_UAV = Compile preProcessfile "Server\Support\Support_UAV.sqf";
 
+//--- Server Init is now complete.
+serverInitComplete = true;
 "Init_Server: Functions - [Done]" call LogMedium;
 
+//--- Run the MySQL Module if defined.
 if (mysql) then {
 	WF_Logic setVariable ["WF_MYSQL_CLIENT",[],true];
 	WF_Logic setVariable ["WF_MYSQL_SERVER",[Format ["MYSQLDATA§WFBE_Insert_Island§%1§%2",worldName,getText (configFile >> "CfgWorlds" >> worldName >> "description")]]];
@@ -63,7 +66,7 @@ if (mysql) then {
 	"Init_Server: MySQL Module - [Done]"  call LogMedium;
 };
 
-//--- JIP Handling.
+//--- JIP Handler, handle the joining and leaving players.
 onPlayerConnected "[_uid,_name] ExecVM 'Server\Server_PlayerConnected.sqf'";
 onPlayerDisconnected "[_uid,_name] ExecVM 'Server\Server_PlayerDisconnected.sqf'";
 
@@ -83,7 +86,8 @@ while {!isNil Format["StartingLocation%1",_total]} do {
 //--- Waiting for the common part to be executed.
 waitUntil {commonInitComplete && townInit};
 
-if (paramFastTime) then {
+//--- Fast Time.
+if (('WFBE_FASTTIMERATE' Call GetNamespace) > 0) then {
 	[] ExecFSM "Server\FSM\fasttime.fsm";
 	"Init_Server: Fast Time Module - [Done]"  call LogMedium;;
 };
@@ -106,11 +110,12 @@ if (_weat == 3) then {
 
 "Init_Server: Weather Module - [Done]"  call LogMedium;;
 
-//--- Static defenses in town main group, they share their knowledge.
+//--- Static defenses in town main group, they exchange information about enemies.
 WF_ResistanceDefenseTeam = createGroup resistance;
 
 "Init_Server: Common and Towns - [Done]" call LogMedium;
 
+//--- Select whether the spawn restriction is enabled or not.
 _locationLogics = [];
 if (paramSpawnRestriction) then {
 	{
@@ -162,6 +167,7 @@ WestMHQ setPos getPos _westLocation;
 
 "Init_Server: HQ Positioned - [Done]" call LogMedium;
 
+//--- Friendly Fire handler.
 if (paramHandleFF) then {
 	EastMHQ addEventHandler ['handleDamage',{[_this select 0,_this select 2,_this select 3, east] Call BuildingHandleDamages}];
 	WestMHQ addEventHandler ['handleDamage',{[_this select 0,_this select 2,_this select 3, west] Call BuildingHandleDamages}];
@@ -171,10 +177,11 @@ if (paramHandleFF) then {
 eastStartingLocation = _eastLocation;
 westStartingLocation = _westLocation;
 
+//--- Adding a killed EH to both MHQ.
 Call Compile Format ["EastMHQ AddEventHandler ['killed',{[_this select 0,_this select 1,%1,'%2'] Spawn HQKilled}];",east,typeOf EastMHQ];
 Call Compile Format ["WestMHQ AddEventHandler ['killed',{[_this select 0,_this select 1,%1,'%2'] Spawn HQKilled}];",west,typeOf WestMHQ];
 
-//--- Voice System (bikb).
+//--- Radio System - Server.
 _WF_GroupLogic = createGroup sideLogic;
 _WF_GroupLogic2 = createGroup sideLogic;
 _WF_GroupLogic3 = createGroup sideLogic;
@@ -231,9 +238,7 @@ processInitCommands;
 WestMHQ setVehicleInit "['Headquarters','ColorGreen',[1,1],'','HQUndeployed',this,0.2,false,'','',false,West] ExecVM 'Common\Common_MarkerUpdate.sqf'";
 processInitCommands;
 
-WestMHQ lock true;
-EastMHQ lock true;
-
+//--- Statistics variables.
 WF_Logic setVariable ["eastUnitsCreated",0,true];
 WF_Logic setVariable ["eastCasualties",0,true];
 WF_Logic setVariable ["eastVehiclesCreated",0,true];
@@ -251,6 +256,7 @@ WF_Logic setVariable ["WF_CHQInUse_East",false];
 
 "Init_Server: Stats Variable - [Done]" call LogMedium;
 
+//--- Structures (en: it's possible to add location in the array, just make sure that they match the defined type in config_structures).
 EastBaseStructures = [];
 WestBaseStructures = [];
 publicVariable "EastBaseStructures";
@@ -357,44 +363,40 @@ if (('WFBE_TOWNSTARTINGMODE' Call GetNamespace) != 0 || ('WFBE_RESPATROL' Call G
 
 //--- Starter Vehicles:
 _starterVehicle = [];
-_starterType = [];
-_starterType = _starterType + [["Kamaz", "V3S_TK_EP1"]];
-_starterType = _starterType + [["GAZ_Vodnik_MedEvac", "M113Ambul_TK_EP1"]];
-_starterType = _starterType + [['BRDM2_INS', 'BRDM2_TK_EP1']];
-_starterType call SelectCamo;
+
+//--- Starting Vehicles East.
+
 { 	
 	_vehicle = [_x, (getPos EastMHQ),east,false] Call CreateVehi;
 	[_vehicle,getPos EastMHQ,45,60,true,false,true] Call PlaceNear;
 	_starterVehicle = _starterVehicle + [_vehicle];
-	
-} forEach _starterType;
-
-_starterType = [];
-_starterType = _starterType + [["MTVR", "MTVR_DES_EP1"]];
-_starterType = _starterType + [["HMMWV_Ambulance", "HMMWV_Ambulance_DES_EP1"]];
-_starterType = _starterType + [['LAV25', 'HMMWV_M1151_M2_DES_EP1']];
-_starterType call SelectCamo;
+	clearWeaponCargo _vehicle;
+	clearMagazineCargo _vehicle;
+} forEach ('WFBE_EASTSTARTINGVEHICLES' Call GetNamespace);
+//--- Starting Vehicles West.
 { 	
 	_vehicle = [_x, (getPos WestMHQ),west,false] Call CreateVehi;
 	[_vehicle,getPos WestMHQ,45,60,true,false,true] Call PlaceNear;
 	_starterVehicle = _starterVehicle + [_vehicle];
-	
-} forEach _starterType;
-
-//--- Clear the cargo.
-{clearWeaponCargo _x; clearMagazineCargo _x} forEach _starterVehicle;
+	clearWeaponCargo _vehicle;
+	clearMagazineCargo _vehicle;
+} forEach ('WFBE_WESTSTARTINGVEHICLES' Call GetNamespace);
 
 "Init_Server: Starting Vehicles - [Done]" call LogHigh;
 
 //--- Pre-initialization of the Garbage Collector & Empty vehicle collector.
-WF_Logic setVariable ["trash",[],true];
+if (WF_A2_Vanilla) then {WF_Logic setVariable ["trash",[],true]};
 WF_Logic setVariable ["emptyVehicles",[],true];
 
-//--- Misc SQF|FSM execution.
-[] Call Compile preprocessFile "Server\Config\Config_Resistance.sqf";
-"Init_Server: Resistance Config - [Done]"  call LogHigh;
-[] Call Compile preprocessFile "Server\Config\Config_Occupation.sqf";
-"Init_Server: Occupation Config - [Done]" call LogHigh;
+//--- Civilians Module.
+if (('WFBE_CIVILIANFACTION' Call GetNamespace) > 0) then {
+	//--- Create a group center.
+	createCenter civilian;
+	//--- Civilian Kill function.
+	CivilianKilled = Compile preprocessFile "Common\Functions\Common_CivilianKilled.sqf";
+	//--- Execute the config file.
+	[] Call Compile preprocessFile "Server\Config\Config_Civilians.sqf";
+};
 
 //--- Don't pause the server init script.
 [] Spawn {
@@ -428,12 +430,21 @@ WF_Logic setVariable ["WestMHQRepair",false,true];
 publicVariable 'EastStartingLocation';
 publicVariable 'WestStartingLocation';
 
-_upArray = if (paramUpgradesEast) then {[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]} else {'WFBE_UPGRADELEVELS' Call GetNamespace};
+//--- Upgrades.
+_upArray = if (paramUpgradesEast) then {[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]} else {'WFBE_UPGRADELEVELS' Call GetNamespace};
 EASTUpgrades = _upArray;
 PublicVariable 'EASTUpgrades';
-_upArray = if (paramUpgradesWest) then {[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]} else {'WFBE_UPGRADELEVELS' Call GetNamespace};
+_upArray = if (paramUpgradesWest) then {[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]} else {'WFBE_UPGRADELEVELS' Call GetNamespace};
 WESTUpgrades = _upArray;
 PublicVariable 'WESTUpgrades';
+
+//--- Building Limits.
+WestBuildingsCurrent = [];
+EastBuildingsCurrent = [];
+for '_i' from 0 to ((count ('WFBE_WESTSTRUCTURES' Call GetNamespace))-1) do {WestBuildingsCurrent set [_i, 0]};
+for '_i' from 0 to ((count ('WFBE_EASTSTRUCTURES' Call GetNamespace))-1) do {EastBuildingsCurrent set [_i, 0]};
+PublicVariable 'WestBuildingsCurrent';
+PublicVariable 'EastBuildingsCurrent';
 
 if (paramRespawnMASH) then {
 	WF_Logic setVariable ["EastMASH",objNull,true];
@@ -451,16 +462,18 @@ if (paramBaseArea) then {
 "Init_Server: NetVar - [Done]" call LogHigh;
 
 //--- Allies base.
-if (paramAllies && (WF_A2_Vanilla || WF_A2_CombinedOps)) then {
+_allies = 'WFBE_ALLIES' Call GetNamespace;
+if (_allies > 0 && (WF_A2_Vanilla || WF_A2_CombinedOps)) then {
+	AlliesBuyUnit = Compile preprocessFile "Server\Functions\Server_AlliesBuyUnit.sqf";
 	[] Call Compile preprocessFile "Server\Config\Config_Allies.sqf";
-	[west] ExecFSM "Server\FSM\allies.fsm";
-	[east] ExecFSM "Server\FSM\allies.fsm";
+	if (_allies in [1,3]) then {[west] ExecFSM "Server\FSM\allies.fsm"};
+	if (_allies in [2,3]) then {[east] ExecFSM "Server\FSM\allies.fsm"};
 	
 	"Init_Server: Allies Module - [Done]" call LogHigh;
 };
 
 //--- Auto Defenses Manning.
-if (paramAutoDefense) then {
+if (('WFBE_AIDEFENSE' Call GetNamespace) > 0) then {
 	WF_DefenseWestGrp = createGroup west;
 	WF_DefenseEastGrp = createGroup east;
 	
@@ -475,14 +488,25 @@ if (paramAlice) then {
 	"Init_Server: ALICE Module - [Done]" call LogHigh;
 };
 
+//--- Mission Module
+if (paramSecondaryMissions) then {
+	ExecFSM 'Server\FSM\missions.fsm';
+	"Init_Server: Missions Init - [Done]" call LogHigh;
+};
+
+//--- UPSMON AI
+if (paramUPSMON) then {
+	Call Compile preprocessFileLineNumbers "Server\Module\UPSMON\Init_UPSMON.sqf";
+	"Init_Server: UPSMON AI Init - [Done]" call LogHigh;
+};
+
 "Init_Server: Init Server [Done]" call LogMedium;
-
-
 
 //--- Waiting until that the game is launched.
 waitUntil {time > 0};
 serverInitComplete = true;
 
+//--- Launch votes.
 [East] Spawn SVoteForCommander;
 [West] Spawn SVoteForCommander;
 

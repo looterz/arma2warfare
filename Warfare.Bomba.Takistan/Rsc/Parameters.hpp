@@ -48,7 +48,7 @@ class Params {
 	class artilleryRange {
 		title = "$STR_WF_Gameplay_Artillery";
 		values[] = {1,2,3};
-		texts[] = {"Short","Medium","Long"};
+		texts[] = {"$STR_WF_Short","$STR_WF_Medium","$STR_WF_Long"};
 		default = 3;
 	};
 	class baseAICommander {
@@ -61,8 +61,8 @@ class Params {
 	#ifndef ARROWHEAD
 		class baseAllies {
 			title = "$STR_WF_Gameplay_Allies";
-			values[] = {0,1};
-			texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+			values[] = {0,1,2,3};
+			texts[] = {"$STR_WF_Disabled","$STR_WF_Side_West","$STR_WF_Side_East","$STR_WF_Respawn_CampsRule_WestEast"};
 			default = 0;
 		};
 	#endif
@@ -86,9 +86,9 @@ class Params {
 	};
 	class baseAutoDefenses {
 		title = "$STR_WF_Gameplay_AutoDefense";
-		values[] = {0,1};
-		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 1;
+		values[] = {0,10,20,30,40,50,60,70,80,90,100};
+		texts[] = {"$STR_WF_Disabled","10","20","30","40","50","60","70","80","90","100"};
+		default = 30;
 	};
 	class baseAutoDefensesRange {
 		title = "$STR_WF_Gameplay_AutoDefense_Range";
@@ -102,11 +102,23 @@ class Params {
 		texts[] = {"1","2","3","4","5","6","7","8","9","10"};
 		default = 2;
 	};
+	class baseDefensePlacement {
+		title = "$STR_WF_Gameplay_DefensePlacement";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Collide_No","$STR_WF_Collide"};
+		default = 0;
+	};
 	class baseHQDeploycost {
 		title = "$STR_WF_Gameplay_HQDeployCost";
 		values[] = {100,200,300,400,500,600,700,800,900,1000,1500,2000,2500,3000,3500,4000,5000,6000,7000,8000,9000,10000};
 		texts[] = {"S 100.","S 200.","S 300.","S 400.","S 500.","S 600.","S 700.","S 800.","S 900.","S 1000.","S 1500.","S 2000.","S 2500.","S 3000.","S 3500.","S 4000.","S 5000.","S 6000.","S 7000.","S 8000.","S 9000.","S 10000"};
 		default = 400;
+	};
+	class baseHQDeployRange {
+		title = "$STR_WF_Gameplay_HQDeployRange";
+		values[] = {50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,220,240,260,280,300,320,340,360,380,400};
+		texts[] = {"50m","60m","70m","80m","90m","100m","110m","120m","130m","140m","150m","160m","170m","180m","190m","200m","220m","240m","260m","280m","300m","320m","340m","360m","380m","400m"};
+		default = 120;
 	};
 	class basePatrols {
 		title = "$STR_WF_Gameplay_BasePatrols";
@@ -124,7 +136,7 @@ class Params {
 		title = "$STR_WF_Gameplay_StartingDistance";
 		values[] = {1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000,7500,8000,8500,9000};
 		texts[] = {"1000m","1500m","2000m","2500m","3000m","3500m","4000m","4500m","5000m","5500m","6000m","6500m","7000m","7500m","8000m","8500m","9000m"};
-		default = 9000;
+		default = 5500;
 	};
 	class baseStartingLocations {
 		title = "$STR_WF_Gameplay_StartingLocations";
@@ -171,13 +183,13 @@ class Params {
 	class economySupplySystem {
 		title = "$STR_WF_Gameplay_SupplySystem";
 		values[] = {0,1};
-		texts[] = {"$STR_WF_Gameplay_SupplySystem_Truck","$STR_WF_Gameplay_SupplySystem_Time"};
+		texts[] = {"$STR_WF_Gameplay_SupplySystem_Truck","$STR_WF_Time"};
 		default = 1;
 	};
 	class environmentFastTime {
 		title = "$STR_WF_Gameplay_FastTime";
-		values[] = {0,1};
-		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		values[] = {0,1,2,3,4,5,6,7,8,9};
+		texts[] = {"$STR_WF_Disabled","1 Second = 2 Seconds","1 Second = 3 Seconds","1 Second = 4 Seconds","1 Second = 5 Seconds","1 Second = 10 Seconds","1 Second = 15 Seconds","1 Second = 20 Seconds","1 Second = 25 Seconds","1 Second = 30 Seconds"};
 		default = 0;
 	};
 	class environmentTimeOfDay {
@@ -190,7 +202,7 @@ class Params {
 	class environmentWeather {
 		title = "$STR_WF_Gameplay_Weather";
 		values[] = {0,1,2,3};
-		texts[] = {"$STR_WF_Weather_Clear","$STR_WF_Weather_Cloudy","$STR_WF_Weather_Rainny","$STR_WF_Weather_Dynamic"};
+		texts[] = {"$STR_WF_Weather_Clear","$STR_WF_Weather_Cloudy","$STR_WF_Weather_Rainy","$STR_WF_Weather_Dynamic"};
 		default = 0;
 	};
 	#ifndef VANILLA
@@ -231,10 +243,16 @@ class Params {
 		texts[] = {"1 Minute","2 Minutes","3 Minutes","4 Minutes","5 Minutes","10 Minutes","20 Minutes","30 Minutes","40 Minutes","50 Minutes","1 Hour"};
 		default = 600;
 	};
-	class gameplayFastTravel {
-		title = "$STR_WF_Gameplay_FastTravel";
+	class gameplayExtendedInventory {
+		title = "$STR_WF_Gameplay_Extended_Inventory";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 1;
+	};
+	class gameplayFastTravel {
+		title = "$STR_WF_Gameplay_FastTravel";
+		values[] = {0,1,2};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Free","$STR_WF_Fee"};
 		default = 0;
 	};
 	class gameplayFriendlyFire {
@@ -260,6 +278,12 @@ class Params {
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 1;
+	};
+	class gameplaySecondaryMissions {
+		title = "$STR_WF_Gameplay_SecondaryMissions";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 0;
 	};
 	class gameplayShowUID {
 		title = "$STR_WF_Gameplay_ShowUID";
@@ -319,7 +343,7 @@ class Params {
 		title = "$STR_WF_Gameplay_TabLock";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 0;
+		default = 1;
 	};
 	class keyboardSpacebarScanning {
 		title = "$STR_WF_Gameplay_Spacebar";
@@ -363,6 +387,12 @@ class Params {
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 0;
 	};
+	class moduleUPSMON {
+		title = "$STR_WF_Gameplay_UPSMON";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 0;
+	};
 	class moduleVC {
 		title = "$STR_WF_Gameplay_Clouds";
 		values[] = {0,1};
@@ -371,8 +401,8 @@ class Params {
 	};
 	class respawnCamps {
 		title = "$STR_WF_Gameplay_Camp";
-		values[] = {0,1,2};
-		texts[] = {"$STR_WF_Disabled","$STR_WF_Classic","$STR_WF_Respawn_CampsNearby"};
+		values[] = {0,1,2,3};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Classic","$STR_WF_Respawn_CampsNearby","$STR_WF_Respawn_Defender"};
 		default = 1;
 	};
 	class respawnCampsRule {
@@ -432,16 +462,10 @@ class Params {
 			default = 0;
 		};
 	#endif
-	class restrictionRealisticGear {
-		title = "$STR_WF_Gameplay_Realistic_Gear";
-		values[] = {0,1};
-		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 1;
-	};
 	class townsAmount {
 		title = "$STR_WF_Gameplay_TownsAmount";
 		values[] = {0,1,2,3,4};
-		texts[] = {"Extra Small","Small","Medium","Large","Full"};
+		texts[] = {"$STR_WF_Extra_Small","$STR_WF_Small","$STR_WF_Medium","$STR_WF_Large","$STR_WF_Full"};
 		default = 3;
 	};
 	class townsStrikerMax {
@@ -456,12 +480,30 @@ class Params {
 		texts[] = {"$STR_WF_Classic","$STR_WF_Gameplay_TownsCaptureMode_Threshold","$STR_WF_Gameplay_TownsCaptureMode_AllCamps"};
 		default = 1;
 	};
+	#ifdef VANILLA
+		class townsCivilians {
+			title = "$STR_WF_Gameplay_TownCivilians";
+			values[] = {0,1};
+			texts[] = {"$STR_WF_Disabled","Chernarus Civilians"};
+			default = 0;
+		};
+	#endif
+	#ifdef ARROWHEAD
 	class townsCivilians {
 		title = "$STR_WF_Gameplay_TownCivilians";
 		values[] = {0,1};
-		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+			texts[] = {"$STR_WF_Disabled","Takistan Civilians"};
+			default = 0;
+		};
+	#endif
+	#ifdef COMBINEDOPS
+		class townsCivilians {
+			title = "$STR_WF_Gameplay_TownCivilians";
+			values[] = {0,1,2};
+			texts[] = {"$STR_WF_Disabled","Chernarus Civilians","Takistan Civilians"};
 		default = 0;
 	};
+	#endif
 	class townsOccupation {
 		title = "$STR_WF_Gameplay_Occupation";
 		values[] = {0,1};
@@ -471,9 +513,51 @@ class Params {
 	class townsOccupDifficulty {
 		title = "$STR_WF_Gameplay_Difficulty_Occupation";
 		values[] = {1,2,3,4,5};
-		texts[] = {"Light","Medium","Hard","Insane","Automatic"};
+		texts[] = {"$STR_WF_Light","$STR_WF_Medium","$STR_WF_Hard","$STR_WF_Impossible","$STR_WF_Automatic"};
 		default = 2;
 	};
+	#ifdef VANILLA
+		class townsOccupationFactionEast {
+			title = "$STR_WF_Gameplay_Occupation_Type_East";
+			values[] = {0,1};
+			texts[] = {"Insurgents","Russians"};
+			default = 1;
+		};
+		class townsOccupationFactionWest {
+			title = "$STR_WF_Gameplay_Occupation_Type_West";
+			values[] = {0,1};
+			texts[] = {"Chernarussian Defence Force","United States Marine Corps"};
+			default = 1;
+		};
+	#endif
+	#ifdef ARROWHEAD
+		class townsOccupationFactionEast {
+			title = "$STR_WF_Gameplay_Occupation_Type_East";
+			values[] = {0};
+			texts[] = {"Takistan Army"};
+			default = 0;
+		};
+		class townsOccupationFactionWest {
+			title = "$STR_WF_Gameplay_Occupation_Type_West";
+			values[] = {0};
+			texts[] = {"United States"};
+			default = 0;
+		};
+	#endif
+	#ifdef COMBINEDOPS
+		class townsOccupationFactionEast {
+			title = "$STR_WF_Gameplay_Occupation_Type_East";
+			values[] = {0,1,2};
+			texts[] = {"Insurgents","Russians","Takistan Army"};
+			default = 1;
+		};
+		class townsOccupationFactionWest {
+			title = "$STR_WF_Gameplay_Occupation_Type_West";
+			values[] = {0,1,2};
+			texts[] = {"Chernarussian Defence Force","United States","United States Marine Corps"};
+			default = 1;
+	};
+	#endif
 	class townsOccupReinforcement {
 		title = "$STR_WF_Gameplay_Reinforcement_Occupation";
 		values[] = {0,1};
@@ -507,14 +591,38 @@ class Params {
 	class townsResistanceDifficulty {
 		title = "$STR_WF_Gameplay_Difficulty_Resistance";
 		values[] = {1,2,3,4};
-		texts[] = {"Light","Medium","Hard","Insane"};
+		texts[] = {"$STR_WF_Light","$STR_WF_Medium","$STR_WF_Hard","$STR_WF_Impossible"};
 		default = 2;
 	};
+	#ifdef VANILLA
+		class townsResistanceFaction {
+			title = "$STR_WF_Gameplay_Reinforcement_Type";
+			values[] = {0};
+			texts[] = {"Guerillas"};
+		default = 0;
+	};
+	#endif
+	#ifdef ARROWHEAD
+		class townsResistanceFaction {
+			title = "$STR_WF_Gameplay_Reinforcement_Type";
+			values[] = {0,1};
+			texts[] = {"Private Military Company","Takistani Locals"};
+			default = 1;
+		};
+	#endif
+	#ifdef COMBINEDOPS
+		class townsResistanceFaction {
+			title = "$STR_WF_Gameplay_Reinforcement_Type";
+		values[] = {0,1,2};
+			texts[] = {"Guerillas","Private Military Company","Takistani Locals"};
+			default = 2;
+	};
+	#endif
 	class townsResistanceReinforcement {
 		title = "$STR_WF_Gameplay_Reinforcement_Resistance";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 1;
+		default = 0;
 	};
 	class townsResistanceVehicleLock {
 		title = "$STR_WF_Gameplay_Resistance_VehLock";
@@ -522,18 +630,10 @@ class Params {
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 0;
 	};
-	#ifdef COMBINEDOPS
-		class townsResistanceType {
-			title = "$STR_WF_Gameplay_Reinforcement_Type";
-			values[] = {0,1};
-			texts[] = {"Guerillas","Takistani Locals"};
-			default = 1;
-		};
-	#endif
 	class townsStartingMode {
 		title = "$STR_WF_Gameplay_StartingMode";
 		values[] = {0,1,2};
-		texts[] = {"None","Divided","Nearby"};
+		texts[] = {"$STR_WF_None","$STR_WF_Divided_Towns","$STR_WF_Nearby_Town"};
 		default = 0;
 	};
 	class headHunters {

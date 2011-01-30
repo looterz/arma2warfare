@@ -4,17 +4,18 @@ _boundariesXY = -1;
 switch (worldName) do {
 	case 'chernarus': {_boundariesXY = 15360};
 	case 'Chernarus': {_boundariesXY = 15360};
-	
-	case 'utes': {_boundariesXY = 5120};
-	case 'queshkibrul': {_boundariesXY = 5120};
 	case 'eden': {_boundariesXY = 12800};
+	case 'fallujah': {_boundariesXY = 10240};
 	case 'isladuala': {_boundariesXY = 10240};
 	case 'Panthera2': {_boundariesXY = 10240};
-	case 'SaraLite': {_boundariesXY = 10240};
+	case 'queshkibrul': {_boundariesXY = 5120};
 	case 'Sara': {_boundariesXY = 20480};
-	case 'Zargabad': {_boundariesXY = 8192};
-	case 'takistan': {_boundariesXY = 12800};
+	case 'SaraLite': {_boundariesXY = 10240};
 	case 'Takistan': {_boundariesXY = 12800};
+	case 'takistan': {_boundariesXY = 12800};
+	case 'utes': {_boundariesXY = 5120};
+	case 'Yapal': {_boundariesXY = 5120};
+	case 'Zargabad': {_boundariesXY = 8192};
 };
 
 if (_boundariesXY == -1) then {

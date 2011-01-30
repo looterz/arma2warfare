@@ -1,5 +1,8 @@
 waitUntil { !isNil "initJIP" };
 
+ARTY_HandleILLUM = Compile preprocessFile "Client\Module\Arty\ARTY_HandleILLUM.sqf"; 
+ARTY_HandleSADARM = Compile preprocessFile "Client\Module\Arty\ARTY_HandleSADARM.sqf"; 
+
 if (paramArty) then {
 	ARTY_Prep = Compile preprocessFile "Client\Module\Arty\ARTY_mobileMissionPrep.sqf";
 	ARTY_Finish = Compile preprocessFile "Client\Module\Arty\ARTY_mobileMissionFinish.sqf";
@@ -44,7 +47,7 @@ if !(WF_A2_Vanilla) then {
 	RemoveFlares = Compile preprocessFile "Client\Functions\Client_RemoveFlares.sqf";
 } else {
 	RespawningBag = {};
-	RemoveFlares = RespawningBag;
+	RemoveFlares = {};
 };
 ReturnArraySortAsc = Compile preprocessFile "Client\Functions\Client_ReturnArraySortAsc.sqf";
 TaskSystem = Compile preprocessFile "Client\Functions\Client_TaskSystem.sqf";
@@ -64,7 +67,8 @@ BIS_FNC_GUIget = {UInamespace getVariable (_this select 0)};
 //--- Waiting for the common part to be executed.
 waitUntil {commonInitComplete};
 
-if (paramFastTime) then {[] ExecFSM "Client\FSM\fasttimecli.fsm"};
+//--- Handle the Fast Time.
+if (('WFBE_FASTTIMERATE' Call GetNamespace) > 0) then {[] ExecFSM "Client\FSM\fasttimecli.fsm"};
 
 //--- Handle the weather.
 _weat = 'WFBE_WEATHER' Call GetNamespace;
@@ -162,7 +166,7 @@ if (paramTrackPlayer) then {[] ExecFSM "Client\FSM\updateteamsmarkers.fsm"};
 };
 [] Call Compile preprocessFile "briefing.sqf";
 
-/* Position the player */
+/* Get the client starting location */
 _base = objNull;
 if (time < 30) then {
 	waitUntil {!isNil Format ["%1StartingLocation",sideJoinedText]};
@@ -231,19 +235,17 @@ call compile preprocessFile "Client\Functions\Client_EHKeyboardLockWeaponInit.sq
 (findDisplay 46) displayAddEventHandler ["MouseButtonDown", "_this call EH_MouseButtonDown"];
 (findDisplay 46) displayAddEventHandler ["JoystickButton", "_this call EHJoystickButtonDown"];
 
-//--- Soldier Skill.
-if (playerType in Skills_Soldiers) then {['WFBE_MAXGROUPSIZE',('WFBE_MAXGROUPSIZE' Call GetNameSpace) + ('WFBE_MAXGZBONUSSKILL' Call GetNamespace),true] Call SetNamespace};
 
-/* Vote */
+/* Vote System, define whether a vote is already running or not */
 _voteTime = 0;
-_lo = false;
-while {!_lo} do {sleep 0.1;_voteTime = WF_Logic getVariable Format ["%1CommanderVoteTime",sideJoinedText];if !(isNil '_voteTime') then {_lo = true}};
+waitUntil {sleep 0.1;_voteTime = WF_Logic getVariable Format ["%1CommanderVoteTime",sideJoinedText];!(isNil '_voteTime')};
 if (_voteTime > 0) then {createDialog "RscDisplayWFVoting"};
 
-/* Debug */
+/* Debug System - Client */
 if (WF_Debug) then {
 	onMapSingleClick "if (_alt) then { vehicle player setpos _pos;(vehicle player) setVelocity [0,0,-0.1] };"; //--- Teleport
 	//player addEventHandler ["HandleDamage", {false}];
+	// player setCaptive true;
 	player addEventHandler ["HandleDamage", {false;if (player != (_this select 3)) then {(_this select 3) setDammage 1}}]; //--- God-Slayer mode.
 };
 
@@ -263,10 +265,14 @@ if (paramArtyUI) then {[] ExecVM "ca\modules\ARTY\data\scripts\init.sqf"};
 /* EASA */
 if (paramEASA) then {[] Call Compile preProcessFile "Client\Module\EASA\EASA_Init.sqf"};
 
+/* Key Binding */
+[] Call Compile preprocessFile "Client\Init\Init_Keybind.sqf";
+
 /* JIP Handler */
 waitUntil {townInit};
 
 sleep 3;
+/* JIP System, initialize the camps and towns properly. */
 [] Spawn {
 	sleep 2;
 	[] ExecVM "Client\Functions\Client_InitTownsAndCamps.sqf";
@@ -275,7 +281,11 @@ sleep 3;
 /* Repair Truck CoIn Handling. */
 ['WFBE_AREAREPAIRTRUCK' Call GetNamespace,false,RCoin,"REPAIR"] Call Compile preprocessFile "Client\Init\Init_Coin.sqf";
 
+/* Towns Task System */
 ["TownAddComplete"] Spawn TaskSystem;
+
+/* End Init */
+finishMissionInit;
 
 /* Client Init Done - Remove the blackout */
 12452 cutText [(localize 'STR_WF_Loading')+"...","BLACK IN",5];

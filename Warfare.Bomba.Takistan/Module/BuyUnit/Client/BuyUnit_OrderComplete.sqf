@@ -104,5 +104,16 @@ Private ["_order", "_vehicle", "_unitType", "_side", "_vehInfo", "_upgrades", "_
 	_vehicle Call RemoveFlares;
 	[_vehicle] joinSilent (group player);
 	_vehicle spawn TrackMapMarkerSetOwned;
+	
+	
+	/* Salvager? */
+	if (_vehicle in (Format['WFBE_%1SALVAGETRUCK',sideJoinedText] Call GetNamespace)) then {
+		[_vehicle] ExecFSM 'Client\FSM\updatesalvage.fsm';
+	};
+	
+	/* Are we dealing with an artillery unit ? */
+	_isArtillery = [_vehicle, sideJoinedText] Call IsArtillery;
+	if (_isArtillery != -1) then {[_vehicle,_isArtillery, sideJoinedText] Call EquipArtillery};
+	
 
 PROFILER_END();	

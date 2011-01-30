@@ -27,7 +27,7 @@ class FSM
       name = "Init";
       init = /*%FSM<STATEINIT""">*/"_currentTime = DayTime;" \n
        "_lastUpdate = time;" \n
-       "_ftr = 'WFBE_FASTTIMERATE' Call GetNamespace;" \n
+       "_ftr = ('WFBE_FASTTIMERATES' Call GetNamespace) select ('WFBE_FASTTIMERATE' Call GetNamespace);" \n
        "WF_Logic setVariable [""currentTime"",_currentTime,true];"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
@@ -61,7 +61,7 @@ class FSM
     {
       name = "Update_Time";
       init = /*%FSM<STATEINIT""">*/"skipTime _ftr;" \n
-       "_currentTime = DayTime;" \n
+       "_currentTime = dayTime;" \n
        "WF_Logic setVariable [""currentTime"",_currentTime,true];" \n
        "" \n
        "_lastUpdate = time;"/*%FSM</STATEINIT""">*/;
