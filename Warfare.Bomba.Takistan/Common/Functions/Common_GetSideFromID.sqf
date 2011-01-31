@@ -1,16 +1,15 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_GetSideFromId");
 
-Private["_side"];
+if (_this == EASTID) exitWith {
+	PROFILER_END();
+	east;
+};
 
-_side = Resistance;
-if (_this == EASTID) then {
-	_side = East
-} else {
-	if (_this == WESTID) then {
-		_side = West
-	};
+if (_this == WESTID) exitWith {
+	PROFILER_END();
+	west;
 };
 
 PROFILER_END();
-_side;
+resistance;

@@ -15,9 +15,9 @@ for [{_count = 0},{_count < _total},{_count = _count + 1}] do {_votes = _votes +
 //Count votes.
 for [{_count = 0},{_count < _total},{_count = _count + 1}] do {
 	if (isPlayer (leader (_teams Select _count))) then {
-		_vote = Call Compile Format ["%1Team%2Vote",Str _side,_count + 1];
+		_vote = [(_count + 1), _side] call GetTeamVote;
 		if (_vote != -1) then {
-			_votes Set[_vote,(_votes Select _vote) + 1];
+			_votes set[_vote,(_votes Select _vote) + 1];
 		} else {
 			_AI = _AI + 1;
 		};

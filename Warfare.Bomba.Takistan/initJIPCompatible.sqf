@@ -121,7 +121,7 @@ paramDefenseCollide = false;
 
 	param3thView = false;
 
-	baseFrendlyFire = true;
+	baseFrendlyFire = false;
 	paramEnabledHeadHunters = true;
 	paramBuildDefencesInTown = 2;	// 0 - disabled, 1 - only engineers, 2 - anybody
 	paramSupplyExchange = true;
@@ -291,8 +291,8 @@ paramDefenseCollide = false;
 
 	//--- Debug.
 	if (WF_Debug) then {
-		paramUpgradesEast = true;
-		paramUpgradesWest = true;
+		paramUpgradesEast = false;
+		paramUpgradesWest = false;
 		paramRes = false;
 		paramOccup = false;
 	};

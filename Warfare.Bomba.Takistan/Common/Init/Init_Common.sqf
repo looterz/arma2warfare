@@ -1,4 +1,5 @@
 waitUntil { !isNil "initJIP" };
+CompileFile = Compile preprocessFile "Common\Functions\Common_CompileFile.sqf";
  
 Format["Init_Common: Init Start at %1",time] call LogMedium;
 
@@ -14,6 +15,8 @@ if !(WF_A2_Vanilla) then {
 	EquipBackpack = Compile preprocessFile "Common\Functions\Common_EquipBackpack.sqf";
 };
 
+GetTeamVote = compile preprocessFile "Common\Functions\Common_GetTeamVote.sqf";
+SetTeamVote = compile preprocessFile "Common\Functions\Common_SetTeamVote.sqf";
 
 GetUnitEquipmentPrice = Compile preprocessFile "Common\Functions\Common_GetUnitEquipmentPrice.sqf";
 BuildingInRange = Compile preprocessFile "Common\Functions\Common_BuildingInRange.sqf";
@@ -61,7 +64,10 @@ GetSideHQ = Compile preprocessFile "Common\Functions\Common_GetSideHQ.sqf";
 GetSideHQDeployed = Compile preprocessFile "Common\Functions\Common_GetSideHQDeployed.sqf";
 GetSideID = Compile preprocessFile "Common\Functions\Common_GetSideID.sqf";
 GetSideStructures = Compile preprocessFile "Common\Functions\Common_GetSideStructures.sqf";
+
 GetSideUpgrades = Compile preprocessFile "Common\Functions\Common_GetSideUpgrades.sqf";
+SetSideUpgrades = Compile preprocessFile "Common\Functions\Common_SetSideUpgrades.sqf";
+
 GetTeamArtillery = Compile preprocessFile "Common\Functions\Common_GetTeamArtillery.sqf";
 GetTeamAutonomous = Compile preprocessFile "Common\Functions\Common_GetTeamAutonomous.sqf";
 GetTeamFunds = Compile preprocessFile "Common\Functions\Common_GetTeamFunds.sqf";

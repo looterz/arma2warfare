@@ -19,9 +19,10 @@ while {_i > 0} do {
 	upgradingTime = _i;
 	sleep 1;
 };
-_upgrades = (sideJoinedText) Call GetSideUpgrades;
+_upgrades = (sideJoined) Call GetSideUpgrades;
 _upgrades Set [_index,_index2 + 1];
-Call Compile Format ["%1Upgrades = _upgrades; publicVariable '%1Upgrades';",sideJoinedText];
+[_upgrades, sideJoined] call SetSideUpgrades;
+
 upgradingTime = -1;
 isUpgrading = false;
 hint Format [localize "STR_WF_Upgrade_Complete",_name,_index2 + 1];
