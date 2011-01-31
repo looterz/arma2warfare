@@ -1,5 +1,125 @@
 MenuAction = -1;
 
+if (isNil "supportHintLines") then {
+	supportHintLines = [];
+	supportHintVisible = false;
+};
+
+fnSupportHintAdd ={
+private["_hint"];
+	_hint = [ _this select 0, time + 5, true ];
+	supportHintLines = supportHintLines + [ _hint ];
+	[] spawn fnSupportHintShow;
+	_hint;	
+};
+
+fnSupportHintUpdate ={
+private["_hint", "_text"];
+	_hint = _this select 0;
+	_text = _this select 1;
+	
+	_hint set[0, _text];
+	_hint set[1, time + 5];	
+};
+
+fnSupportHintRemove = {
+private["_hint", "_text"];
+	_hint = _this;
+	_hint set [2, false];
+};
+
+fnSupportHintShow = {	
+	
+	if (supportHintVisible) exitWith {};
+	supportHintVisible = true;
+	while { (count supportHintLines) > 0 } do {
+		[] call fnSupportHintDisplay;
+		sleep 2;
+	};
+	supportHintVisible = false;
+};
+
+fnSupportHintDisplay = {
+private["_lines", "_str", "_u", "_line", "_text", "_timeout", "_removed"];
+
+	_str = objNull;
+	_u = count supportHintLines;
+	_lines = 0;
+	
+	while { _u != 0} do 
+	{  
+		_u = _u - 1;
+		_line = supportHintLines select _u;
+		_text = _line select 0;
+		_timeout = _line select 1;
+		_active = _line select 2;
+		
+		format["%1", _line] call LogHigh;
+		
+	   if (_active && time < _timeout) then { 
+			_str = if (_lines == 0) then { _text } else { _str + _text };
+			_str = _str + "<br/>";
+			_lines = _lines + 1;
+		} else { 
+			supportHintLines set [_u, objNull]; 
+		};
+	};
+	if (_lines > 0) then {
+		hint parseText(_str);
+	};
+	supportHintLines = supportHintLines - [ objNull ];
+};
+
+fnSupportProcessing = {
+private["_u", "_veh", "_name", "_actionTime", "_strSupportSuccess", "_strSupportFailed", "_strSupportProcessing","_supports", "_typeRepair", "_repairRange", "_supportRange","_success", "_timeout", "_cts", "_distanceMin","_timeRemains", "_txt", "_hint"];
+	_u = 0;
+	_veh = _this select _u; _u = _u + 1;
+	_name = _this select _u; _u = _u + 1;
+	_actionTime = _this select _u; _u = _u + 1;
+	_strSupportSuccess = localize(_this select _u); _u = _u + 1;
+	_strSupportFailed = localize(_this select _u); _u = _u + 1;
+	_strSupportProcessing = localize(_this select _u); _u = _u + 1;
+	_supports = _this select _u; _u = _u + 1;
+	_typeRepair = _this select _u; _u = _u + 1;
+	_repairRange = _this select _u; _u = _u + 1;
+	_supportRange = _this select _u; _u = _u + 1;
+	
+	_success = false;
+	_timeout = time + _actionTime;
+	
+	_txt = Format[_strSupportProcessing,_name, _actionTime];
+	_hint = [_txt] call fnSupportHintAdd;	
+	
+	while {true} do {
+		sleep 1;
+		
+		//--- Check the distance & alive.
+		_cts = 0;
+		{
+			_distanceMin = if ((typeOf _x) in _typeRepair) then {_repairRange} else {_supportRange};
+			if ((alive _x) && ((_veh distance _x) < _distanceMin)) then {_cts = _cts + 1};
+		} forEach _supports;
+		
+		_timeRemains = floor(_timeout - time);
+		if (_timeRemains < 0) then { _timeRemains = 0 };
+		
+		if (_cts == 0 || !(alive _veh)) exitWith {
+			_txt = format[_strSupportFailed,_name];
+			[_hint, _txt] call fnSupportHintUpdate;
+		};
+		if (_timeRemains == 0) exitWith {
+			_txt = format[_strSupportSuccess,_name];
+			[_hint, _txt] call fnSupportHintUpdate;
+			_success = true;
+		};
+
+		_txt = Format[_strSupportProcessing,_name, _timeRemains];
+		[_hint, _txt] call fnSupportHintUpdate;					
+	};
+	_success;
+};
+
+
 _vehi = [group player,false] Call GetTeamVehicles;
 _alives = (units group player) Call GetLiveUnits;
 {if (vehicle _x == _x) then {_vehi = _vehi + [_x]}} forEach _alives;
@@ -11,6 +131,12 @@ _sheal = 'WFBE_SUPPORTHEALTIME' Call GetNamespace;
 _srearm = 'WFBE_SUPPORTREARMTIME' Call GetNamespace;
 _srefuel = 'WFBE_SUPPORTREFUELTIME' Call GetNamespace;
 _srepair = 'WFBE_SUPPORTREPAIRTIME' Call GetNamespace;
+
+if (WF_DEBUG) then {
+	_srefuel = 0;
+	_srepair = 0;
+	_srearm = 0;
+};
 
 _healPrice = 0;
 _repairPrice = 0;
@@ -281,30 +407,10 @@ while {true} do {
 				if (_veh isKindOf 'Tank') then {_rearmTime = round(_rearmTime * _heaCoef)};
 				if (_veh isKindOf 'Car' || _veh isKindOf 'Motorcycle') then {_rearmTime = round(_rearmTime * _ligCoef)};
 				
-				//--- Inform the player.
-				hint parseText(Format[localize "STR_WF_Rearming",_name,_rearmTime]);
-				
-				//--- Make sure that we still have something as a support.
-				_cts = 0;
-				_i = 0;
-				while {true} do {
-					sleep 1;
-					
-					//--- Check the distance & alive.
-					_cts = 0;
-					{
-						_distanceMin = if ((typeOf _x) in _typeRepair) then {_repairRange} else {_supportRange};
-						if ((alive _x) && ((_veh distance _x) < _distanceMin)) then {_cts = _cts + 1};
-					} forEach _supports;
-					
-					_i = _i + 1;
-					
-					if (_cts == 0 || !(alive _veh)) exitWith {hint parseText(Format[localize "STR_WF_Rearm_Failed",_name])};
-					if (_i >= _rearmTime) exitWith {hint parseText(Format[localize "STR_WF_Rearm_Success",_name])};
-				};
+				_success = [_veh, _name, _rearmTime, "STR_WF_Rearm_Success", "STR_WF_Rearm_Failed", "STR_WF_Rearming", _supports, _typeRepair, _repairRange, _supportRange] call fnSupportProcessing;
 				
 				//--- Rearm?
-				if (_cts != 0) then {
+				if (_success) then {
 					[_veh,sideJoinedText] Spawn RearmVehicle;
 				};
 			};
@@ -369,32 +475,10 @@ while {true} do {
 				if (_veh isKindOf 'Tank') then {_repTime = round(_repTime * _heaCoef)};
 				if (_veh isKindOf 'Car' || _veh isKindOf 'Motorcycle') then {_repTime = round(_repTime * _ligCoef)};
 				
-				//--- Inform the player.
-				hint parseText(Format[localize "STR_WF_Repairing",_name,_repTime]);
-				
-				//--- Make sure that we still have something as a support.
-				_cts = 0;
-				_i = 0;
-				while {true} do {
-					sleep 1;
-					
-					//--- Check the distance & alive.
-					_cts = 0;
-					{
-						_distanceMin = if ((typeOf _x) in _typeRepair) then {_repairRange} else {_supportRange};
-						if ((alive _x) && ((_veh distance _x) < _distanceMin)) then {_cts = _cts + 1};
-					} forEach _supports;
-					
-					_i = _i + 1;
-					
-					if (_cts == 0 || !(alive _veh)) exitWith {hint parseText(Format[localize "STR_WF_Repair_Failed",_name])};
-					if (_i >= _repTime) exitWith {hint parseText(Format[localize "STR_WF_Repair_Success",_name])};
-				};
+				_success = [_veh, _name, _repTime, "STR_WF_Repair_Success", "STR_WF_Repair_Failed", "STR_WF_Repairing", _supports, _typeRepair, _repairRange, _supportRange] call fnSupportProcessing;
 				
 				//--- Fix the damages?
-				if (_cts != 0) then {
-			_veh setDammage 0;
-				};
+				if (_success) then { _veh setDammage 0; };
 			};
 		};
 		//--- Refuel.
@@ -458,30 +542,11 @@ while {true} do {
 				if (_veh isKindOf 'Car' || _veh isKindOf 'Motorcycle') then {_refTime = round(_refTime * _ligCoef)};
 				
 				//--- Inform the player.
-				hint parseText(Format[localize "STR_WF_Refueling",_name,_refTime]);
-				
-				//--- Make sure that we still have something as a support.
-				_cts = 0;
-				_i = 0;
-				while {true} do {
-					sleep 1;
-					
-					//--- Check the distance & alive.
-					_cts = 0;
-					{
-						_distanceMin = if ((typeOf _x) in _typeRepair) then {_repairRange} else {_supportRange};
-						if ((alive _x) && ((_veh distance _x) < _distanceMin)) then {_cts = _cts + 1};
-					} forEach _supports;
-					
-					_i = _i + 1;
-					
-					if (_cts == 0 || !(alive _veh)) exitWith {hint parseText(Format[localize "STR_WF_Refueling_Failed",_name])};
-					if (_i >= _refTime) exitWith {hint parseText(Format[localize "STR_WF_Refueling_Success",_name])};
-				};
+				_success = [_veh, _name, _refTime, "STR_WF_Refueling_Success", "STR_WF_Refueling_Failed", "STR_WF_Refueling", _supports, _typeRepair, _repairRange, _supportRange] call fnSupportProcessing;
 				
 				//--- Refuel the vehicle?
-				if (_cts != 0) then {
-			_veh setFuel 1;
+				if (_success) then {
+					_veh setFuel 1;
 				};
 			};
 		};
