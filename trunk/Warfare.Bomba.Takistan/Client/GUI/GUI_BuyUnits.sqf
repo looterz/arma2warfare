@@ -149,58 +149,46 @@ private['_costCoefficient', '_closestFactory', '_type', '_closest', '_discount',
 
 		_discount = 0;
 		_closestFactory = _closest;
-		if ((typeOf _closest) in WFDEPOT) then 
-		{ 
+		if ( !((typeOf _closest) in WFDEPOT) ) then {	// -- handle factory discount for build in town
+
+			_range = 'WFBE_DEFENSEMANRANGE' Call GetNamespace;
+			_range = _range * 0.8;
+			
+			_depotNearFactory = nearestObjects [_closestFactory, WFDEPOT, _range];
+			_nearTown = if (count _depotNearFactory > 0) then {_depotNearFactory select 0} else {objNull; };
+		
+			if (!(isNull _nearTown)) then {
+				_sideID =  _nearTown getVariable "sideID";
+				if ( _sideID == sideID) then {
+					_supplyValue = _nearTown getVariable "supplyValue";
+					_maxSV = _nearTown getVariable "maxSupplyValue";
+					_costCoefficient = _costCoefficient - (0.1 + 0.2*(_maxSV / 120) * (_supplyValue / _maxSV));		
+				};
+			};
+		} else {	//-- handle buy in town depot
+		
 			_buildings1 = (sideJoinedText) Call GetSideStructures;				
 			_factories1 = [sideJoined,Format ['WFBE_%1%2TYPE',sideJoinedText,_type] Call GetNamespace,_buildings1] Call GetFactories;
 			_sorted1 = [_closest, _factories1] Call SortByDistance;
 			
-			_closestFactory = if (count _sorted1 > 0) then { _sorted1 select 0; } else { objNull; };
-		}; //-- buy in central depot
-		
-		if (isNull _closestFactory) exitWith {
-			_costCoefficient;
-		};
-		
-		_range = 'WFBE_DEFENSEMANRANGE' Call GetNamespace;
-		if (isNil '_range') then { _range = 300; };
-		_range = _range * 0.8;
-		
-		_depotNearFactory = nearestObjects [_closestFactory, WFDEPOT, _range];
-		_nearTown = if (count _depotNearFactory > 0) then {_depotNearFactory select 0} else {objNull; };
-		
-		if (isNull _nearTown) exitWith {
-			_costCoefficient;
-		};
-		
-		_sideID = _nearTown getVariable "sideID";
-		if (isNil "_sideID") exitWith {
-			_costCoefficient;
-		};
-
-		if ( !(_sideID == sideID)) exitWith {
-			_costCoefficient;
-		};
-		
-		_supplyValue = _nearTown getVariable "supplyValue";
-		_maxSV = _nearTown getVariable "maxSupplyValue";
-		
-		_discount = 0.1 + 0.2*(_maxSV / 120) * (_supplyValue / _maxSV);
-
-		_costCoefficient = _costCoefficient - _discount;		
-		if ((typeOf _closest) in WFDEPOT) then {
-			_dist = _closest distance _closestFactory;
-			_costCoefficient = _costCoefficient + (_dist / 4000); // -- increase price for delivery to 25% for each 1000m
+			_closestFactory = if (count _sorted1 > 0) then { _sorted1 select 0 } else { objNull; };
 			
-			_supplyValue = _closest getVariable "supplyValue";
-			_maxSV = _closest getVariable "maxSupplyValue";
-			
-			_k = (0.3 -  (0.6*_supplyValue / 120) ); 
-			if (_k > 0.3)  then { _k = 0.3;  };
-			if (_k < -0.3) then { _k = -0.3; };
-			
-			_costCoefficient = _costCoefficient + _k;
+			if !(isNull _closestFactory) then {
+				_dist = _closest distance _closestFactory;
+				_costCoefficient = _costCoefficient + (_dist / 4000); // -- increase price for delivery to 25% for each 1000m
+				
+				_supplyValue = _closest getVariable "supplyValue";
+				_maxSV = _closest getVariable "maxSupplyValue";
+				
+				_k = (0.3 -  (0.6*_supplyValue / 120) ); 
+				if (_k > 0.3)  then { _k = 0.3;  };
+				if (_k < -0.3) then { _k = -0.3; };
+				
+				_costCoefficient = _costCoefficient + _k;
+			}
 		};
+		
+		if (_costCoefficient < 0.5) then { _costCoefficient = 0.5 };
 		_costCoefficient;
 };
 
@@ -235,14 +223,7 @@ while {alive player && dialog} do {
 		_currentValue = lnbValue[_listBox,[_currentRow,0]];
 		_unit = _listUnits select _currentValue;
 		_currentUnit = _unit Call GetNamespace;
-		_currentCost = _currentUnit select QUERYUNITPRICE;
-		if !(_isInfantry) then {
-			_extra = 0;
-			if (_driver) then {_extra = _extra + 1};
-			if (_gunner) then {_extra = _extra + 1};
-			if (_commander) then {_extra = _extra + 1};
-			_currentCost = _currentCost + (('WFBE_CREWCOST' Call GetNamespace) * _extra);
-		};
+		
 		if ((_currentRow) != -1) then {
 			_funds = Call GetPlayerFunds;
 			_skip = false;
@@ -290,10 +271,9 @@ while {alive player && dialog} do {
 		
 		if (_closest != _sorted select _factSel) then {
 			_updateMap = true;
-			_update=true;
-			_closest = _sorted select _factSel;
+              		_closest = _sorted select _factSel;
+                         [_listUnits,_type,_listBox,_val] Call _fillList;
 		};
-		
 	};
 	
 	//--- Selection change, we update the details.
@@ -308,6 +288,24 @@ while {alive player && dialog} do {
 	//--- Player funds.
 	ctrlSetText [12019,Format [localize 'STR_WF_Cash',Call GetPlayerFunds]];
 	
+	//--- Update tabs.
+	if (_update) then {
+		_listUnits = Format ['WFBE_%1%2UNITS',sideJoinedText,_type] Call GetNamespace;
+
+		[_comboFaction,_type] Call _changeFactionCombo;
+		
+		//--- Update tabs icons.
+		_IDCS = [12005,12006,12007,12008,12020,12021];
+		_IDCS = _IDCS - [_currentIDC];
+		_con = _display DisplayCtrl _currentIDC;
+		_con ctrlSetTextColor [0.75,0.75,0.75,1];
+		{_con = _display DisplayCtrl _x;_con ctrlSetTextColor [0.4, 0.4, 0.4, 1]} forEach _IDCS;
+
+		_update = false;
+  		_updateList = true;
+		_updateDetails = true;
+	};
+
 	//--- Update factories.
 	if (_updateList) then {
 		
@@ -338,11 +336,10 @@ while {alive player && dialog} do {
 					
 					_nearDepotList = nearestObjects [player, WFDEPOT,('WFBE_TOWNPURCHASERANGE' Call GetNamespace)];
 					if (count _nearDepotList > 0) then {
-						
 						_nearDepot = _nearDepotList select 0;
-						if (_closest distance _nearDepot >  0.8*('WFBE_DEFENSEMANRANGE' Call GetNamespace)) then {
-						// -- if  town has factory not add buy from central depot
-							_factories = _factories + [_nearDepot];
+						_nearSideId = _nearDepot getVariable "sideId";
+						if (sideID == _nearSideId &&_closest distance _nearDepot >  0.8*('WFBE_DEFENSEMANRANGE' Call GetNamespace)) then {
+                            _factories = _factories + [_nearDepot];
 							_sorted = [player,_factories] Call SortByDistance;
 							_closest = _sorted select 0;						
 						};
@@ -361,31 +358,11 @@ while {alive player && dialog} do {
 		} forEach _sorted;
 		lbSetCurSel [12018,0];
 		
+		[_listUnits,_type,_listBox,_val] Call _fillList;
 		_updateList = false;
 		_updateMap = true;
 	};
-	
-	//--- Update tabs.
-	if (_update) then {
-		_listUnits = Format ['WFBE_%1%2UNITS',sideJoinedText,_type] Call GetNamespace;
 
-		[_comboFaction,_type] Call _changeFactionCombo;
-		[_listUnits,_type,_listBox,_val] Call _fillList;
-		
-		//--- Update tabs icons.
-		_IDCS = [12005,12006,12007,12008,12020,12021];
-		_IDCS = _IDCS - [_currentIDC];
-		_con = _display DisplayCtrl _currentIDC;
-		_con ctrlSetTextColor [0.75,0.75,0.75,1];
-		{_con = _display DisplayCtrl _x;_con ctrlSetTextColor [0.4, 0.4, 0.4, 1]} forEach _IDCS;
-
-		_update = false;
-		
-		if (!_updateMap) then {
-  		      _updateList = true;
-		      _updateDetails = true;
-                };
-	};
 	
 	//--- Display Factory Queu.
 	_countQueue = (_closest) call BuyUnit_GetOrderQueueStatus;	
@@ -525,20 +502,20 @@ while {alive player && dialog} do {
 			};
 
 			//--- Long description.
+			_txt = '';
 			if !(_isInfantry) then {
-				if (isClass (configFile >> 'CfgVehicles' >> _unit >> 'Library')) then {
-					_txt = getText (configFile >> 'CfgVehicles' >> _unit >> 'Library' >> 'libTextDesc');
-					(_display displayCtrl 12022) ctrlSetStructuredText (parseText _txt);
-				} else { _txt = ''; };
-                        };
-			
-			if (paramTrade && paramVehicleComponents) then {
-				_txtRequire = [_closestFactory, _utype] call marketGetUnitRequirementText;
-				_txt = _txtRequire + _txt;
+				_txt = if (isClass (configFile >> 'CfgVehicles' >> _unit >> 'Library')) then {
+					getText (configFile >> 'CfgVehicles' >> _unit >> 'Library' >> 'libTextDesc');
+				} else { '' };
+
+				if (paramTrade && paramVehicleComponents) then {
+					_utype = _listUnits select _currentValue;
+					_txtRequire = [_closestFactory, _utype] call marketGetUnitRequirementText;
+					_txt = _txtRequire + _txt;
+				};
+				(_display displayCtrl 12022) ctrlSetStructuredText (parseText _txt);
 			};
-			
-			(_display displayCtrl 12022) ctrlSetStructuredText (parseText _txt);
-			
+		
 			_costDiscount = [_type, _closest] call fnGetDiscount;
 			_currentCost = (ceil(_currentCost * _costDiscount / 5))*5;		
 			if (_currentCost < 5) then { _currentCost = 5; };				
