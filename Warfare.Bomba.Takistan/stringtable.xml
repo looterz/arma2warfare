@@ -1686,25 +1686,25 @@
         <Italian>Riarma</Italian>
       </Key>
       <Key ID="STR_WF_Rearming">
-		<English>&lt;t color='#F8D664'&gt;Vehicle Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; is being rearmed... &lt;br/&gt;&lt;br/&gt;Please wait for &lt;t color='#85B5FA'&gt;%2&lt;/t&gt; seconds during the rearm process...</English>
-        <French>&lt;t color='#F8D664'&gt;Information Véhicule:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Un &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; est en cours de réarmement... &lt;br/&gt;&lt;br/&gt;Veuillez attendre &lt;t color='#85B5FA'&gt;%2&lt;/t&gt; secondes durant la phase de réarmement...</French>
-        <German>&lt;t color='#F8D664'&gt;Vehicle Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; is being rearmed... &lt;br/&gt;&lt;br/&gt;Please wait for &lt;t color='#85B5FA'&gt;%2&lt;/t&gt; seconds during the rearm process...</German>
-        <Russian>&lt;t color='#F8D664'&gt;Транспорт:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; перевооружение... &lt;br/&gt;&lt;br/&gt;Ждите &lt;t color='#85B5FA'&gt;%2&lt;/t&gt; секунд до перезарядки.</Russian>
-        <Italian>&lt;t color='#F8D664'&gt;Informazioni Veicolo:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; riarmo in corso... &lt;br/&gt;&lt;br/&gt;Please wait for &lt;t color='#85B5FA'&gt;%2&lt;/t&gt; seconds during the rearm process...</Italian>
+		<English>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; rearming %2 sec</English>
+        <French>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; rearming %2 sec</French>
+        <German>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; rearming %2 sec</German>
+        <Russian>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; перезарядка %2 сек.</Russian>
+        <Italian>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; rearming %2 sec</Italian>
       </Key>
       <Key ID="STR_WF_Rearm_Failed">
-        <English>&lt;t color='#F8D664'&gt;Vehicle Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; has failed to be rearmed.</English>
-        <French>&lt;t color='#F8D664'&gt;Information Véhicule:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Un &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; n'a pas été réarmé.</French>
-        <German>&lt;t color='#F8D664'&gt;Vehicle Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; has failed to be rearmed.</German>
-        <Russian>&lt;t color='#F8D664'&gt;Транспорт:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; нельзя перевооружить.</Russian>
-        <Italian>&lt;t color='#F8D664'&gt;Informazioni Veicolo:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; riarmo fallito.</Italian>
+        <English>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; rearm cancelled</English>
+        <French>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; rearm cancelled</French>
+        <German>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; rearm cancelled</German>
+        <Russian>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; перезарядка отменена.</Russian>
+        <Italian>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; rearm cancelled</Italian>
       </Key>
 	  <Key ID="STR_WF_Rearm_Success">
-        <English>&lt;t color='#F8D664'&gt;Vehicle Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; has been rearmed.</English>
-        <French>&lt;t color='#F8D664'&gt;Information Véhicule:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Un &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; a été réarmé.</French>
-        <German>&lt;t color='#F8D664'&gt;Vehicle Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; has been rearmed.</German>
-        <Russian>&lt;t color='#F8D664'&gt;Транспорт:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; перевооружен.</Russian>
-        <Italian>&lt;t color='#F8D664'&gt;Informazioni Veicolo:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; è stato riarmato.</Italian>
+        <English>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; has been rearmed.</English>
+        <French>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; has been rearmed.</French>
+        <German>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; has been rearmed.</German>
+        <Russian>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; перезаряжен.</Russian>
+        <Italian>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; has been rearmed.</Italian>
       </Key>
       <Key ID="STR_WF_Refuel">
         <English>Refuel</English>
@@ -1714,25 +1714,25 @@
         <Italian>Rifornimento</Italian>
       </Key>
       <Key ID="STR_WF_Refueling">
-        <English>&lt;t color='#F8D664'&gt;Vehicle Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; is being refueled... &lt;br/&gt;&lt;br/&gt;Please wait for &lt;t color='#85B5FA'&gt;%2&lt;/t&gt; seconds during the refuel process...</English>
-        <French>&lt;t color='#F8D664'&gt;Information Véhicule:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Un &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; est en cours de ravitaillement... &lt;br/&gt;&lt;br/&gt;Veuillez attendre &lt;t color='#85B5FA'&gt;%2&lt;/t&gt; secondes durant la phase de ravitaillement...</French>
-        <German>&lt;t color='#F8D664'&gt;Vehicle Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; is being refueled... &lt;br/&gt;&lt;br/&gt;Please wait for &lt;t color='#85B5FA'&gt;%2&lt;/t&gt; seconds during the refuel process...</German>
-        <Russian>&lt;t color='#F8D664'&gt;Транспорт:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; заправка топлива... &lt;br/&gt;&lt;br/&gt;Пожалуйста ждите &lt;t color='#85B5FA'&gt;%2&lt;/t&gt; время заправки в секундах...</Russian>
-        <Italian>&lt;t color='#F8D664'&gt;Informazioni Veicolo:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; rifornimento in corso... &lt;br/&gt;&lt;br/&gt;Please wait for &lt;t color='#85B5FA'&gt;%2&lt;/t&gt; seconds during the refuel process...</Italian>
+        <English>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; refueling %2 sec</English>
+        <French>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; refueling %2 sec</French>
+        <German>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; refueling %2 sec</German>
+        <Russian>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; заправка %2 сек.</Russian>
+        <Italian>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; refueling %2 sec</Italian>
       </Key>
       <Key ID="STR_WF_Refueling_Failed">
-        <English>&lt;t color='#F8D664'&gt;Vehicle Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; has failed to be refueled.</English>
-        <French>&lt;t color='#F8D664'&gt;Information Véhicule:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Un &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; n'a pas été ravitaillé.</French>
-        <German>&lt;t color='#F8D664'&gt;Vehicle Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; has failed to be refueled.</German>
-        <Russian>&lt;t color='#F8D664'&gt;Транспорт:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; невозможно заправить топливом.</Russian>
-        <Italian>&lt;t color='#F8D664'&gt;Informazioni Veicolo:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; rifornimento fallito.</Italian>
+        <English>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; refuel cancelled</English>
+        <French>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; refuel cancelled</French>
+        <German>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; refuel cancelled</German>
+        <Russian>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; заправка отменена</Russian>
+        <Italian>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; refuel cancelled</Italian>
       </Key>
 	  <Key ID="STR_WF_Refueling_Success">
-        <English>&lt;t color='#F8D664'&gt;Vehicle Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; has been refueled.</English>
-        <French>&lt;t color='#F8D664'&gt;Information Véhicule:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Un &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; a été ravitaillé.</French>
-        <German>&lt;t color='#F8D664'&gt;Vehicle Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; has been refueled.</German>
-        <Russian>&lt;t color='#F8D664'&gt;Транспорт:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; заправлен.</Russian>
-        <Italian>&lt;t color='#F8D664'&gt;Informazioni Veicolo:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; è stato rifornito.</Italian>
+        <English>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; refueled</English>
+        <French>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; refueled</French>
+        <German>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; refueled</German>
+        <Russian>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; заправлен.</Russian>
+        <Italian>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; refueled</Italian>
       </Key>
       <Key ID="STR_WF_Repair">
         <English>Repair</English>
@@ -1742,25 +1742,25 @@
         <Italian>Ripara</Italian>
       </Key>
       <Key ID="STR_WF_Repairing">
-        <English>&lt;t color='#F8D664'&gt;Vehicle Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; is being repaired... &lt;br/&gt;&lt;br/&gt;Please wait for &lt;t color='#85B5FA'&gt;%2&lt;/t&gt; seconds during the reparations...</English>
-        <French>&lt;t color='#F8D664'&gt;Information Véhicule:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Un &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; est en cours de réparation... &lt;br/&gt;&lt;br/&gt;Veuillez attendre &lt;t color='#85B5FA'&gt;%2&lt;/t&gt; secondes durant les réparations...</French>
-        <German>&lt;t color='#F8D664'&gt;Vehicle Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; is being repaired... &lt;br/&gt;&lt;br/&gt;Please wait for &lt;t color='#85B5FA'&gt;%2&lt;/t&gt; seconds during the reparations...</German>
-        <Russian>&lt;t color='#F8D664'&gt;Транспорт:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; ремонт... &lt;br/&gt;&lt;br/&gt;Ждите &lt;t color='#85B5FA'&gt;%2&lt;/t&gt; секунд. Идет ремонт.</Russian>
-        <Italian>&lt;t color='#F8D664'&gt;Informazioni Veicolo:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; riparazione in corso... &lt;br/&gt;&lt;br/&gt;Please wait for &lt;t color='#85B5FA'&gt;%2&lt;/t&gt; secondi al termine della riparazione...</Italian>
+        <English>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; repairing %2 sec</English>
+        <French>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; repairing %2 sec</French>
+        <German>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; repairing %2 sec</German>
+        <Russian>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; ремонт %2 сек.</Russian>
+        <Italian>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; repairing %2 sec</Italian>
       </Key>
       <Key ID="STR_WF_Repair_Failed">
-        <English>&lt;t color='#F8D664'&gt;Vehicle Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; has failed to be repaired.</English>
-        <French>&lt;t color='#F8D664'&gt;Information Véhicule:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Un &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; n'a pas été reparé.</French>
-        <German>&lt;t color='#F8D664'&gt;Vehicle Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; has failed to be repaired.</German>
-        <Russian>&lt;t color='#F8D664'&gt;Транспорт:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; не может быть отремонтирован.</Russian>
-        <Italian>&lt;t color='#F8D664'&gt;Informazioni Veicolo:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; riparazione fallita.</Italian>
+        <English>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; repair cancelled</English>
+        <French>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; repair cancelled</French>
+        <German>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; repair cancelled</German>
+        <Russian>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; ремонт отменен</Russian>
+        <Italian>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; repair cancelled</Italian>
       </Key>
 	  <Key ID="STR_WF_Repair_Success">
-        <English>&lt;t color='#F8D664'&gt;Vehicle Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; has been successfully repaired.</English>
-        <French>&lt;t color='#F8D664'&gt;Information Véhicule:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - Un &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; a été reparé.</French>
-        <German>&lt;t color='#F8D664'&gt;Vehicle Information:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; has been successfully repaired.</German>
-        <Russian>&lt;t color='#F8D664'&gt;Транспорт:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; отремонтирован.</Russian>
-        <Italian>&lt;t color='#F8D664'&gt;Informazioni Veicolo:&lt;/t&gt;&lt;br/&gt;&lt;br/&gt; - A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; è stato completamente riparato</Italian>
+        <English>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; repaired</English>
+        <French>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; repaired</French>
+        <German>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; repaired</German>
+        <Russian>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; ремонт завершен.</Russian>
+        <Italian>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; repaired</Italian>
       </Key>
       <Key ID="STR_WF_Repair_MHQ">
         <English>Repair (MHQ)</English>
