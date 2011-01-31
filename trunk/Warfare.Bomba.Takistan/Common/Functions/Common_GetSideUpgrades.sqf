@@ -3,12 +3,12 @@ PROFILER_BEGIN("Common_GetSideUpgrades");
 
 	private['_sideId'];
 	_sideId = (_this) call GetSideID;
-	if (_side == WESTID) exitWith {
+	if (_sideId == WESTID) exitWith {
 		PROFILER_END();
 		WESTUpgrades;
 	};
 
-	if (_side == EASTID) exitWith {
+	if (_sideId == EASTID) exitWith {
 		PROFILER_END();
 		EASTUpgrades;
 	};

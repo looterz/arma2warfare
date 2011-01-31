@@ -3,7 +3,7 @@ PROFILER_BEGIN("Common_GetSideHQDeployed");
 
 private["_sideId"];
 
-_sideId = (_this) call GetSide;
+_sideId = (_this) call GetSideID;
 if (_sideId == WESTID) exitWith {
 	PROFILER_END();
 	WESTMHQDeployed;
