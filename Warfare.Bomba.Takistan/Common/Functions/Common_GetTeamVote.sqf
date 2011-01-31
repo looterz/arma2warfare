@@ -1,14 +1,14 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_GetTeamVote");
 
-Private["_amount","_funds","_id","_side","_team"];
+Private["_amount","_funds","_id","_sideId","_team"];
 
 _id = _this Select 0;
-_side = _this Select 1;
+_sideId = (_this Select 1) call GetSideID;
 _value = nil;
 
-	switch (_side) do {
-		case "WEST": {
+	switch (_sideId) do {
+		case WESTID: {
 			switch(_id) do	{
 				case  1: { _value = WESTTeam1Vote ; };
 				case  2: { _value = WESTTeam2Vote ; };
@@ -36,7 +36,7 @@ _value = nil;
 				};
 			};
 		};
-		case "EAST": {
+		case EASTID: {
 			switch(_id) do	{
 				case  1: { _value = EASTTeam1Vote; };
 				case  2: { _value = EASTTeam2Vote; };
