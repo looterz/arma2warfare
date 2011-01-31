@@ -939,14 +939,14 @@
         <English>Extension: Private Military Company</English>
         <French>Extension: Private Military Company</French>
         <German>Erweiterung: Private Military Company</German>
-        <Russian>Дополнение: Частная военныя компания</Russian>
+        <Russian>Расширение: Частная военныя компания</Russian>
         <Italian>Extension: Private Military Company</Italian>
       </Key>
       <Key ID="STR_WF_Gameplay_Extended_Inventory">
         <English>Gameplay: Extended Inventory</English>
         <French>Jouabilité: Inventaire Etendus</French>
         <German>Gameplay: Eweitertes Inventar</German>
-        <Russian>Геймплей: Расширенное снаряжение</Russian>
+        <Russian>Режим: Расширенное снаряжение</Russian>
         <Italian>Gameplay: Inventario Esteso</Italian>
       </Key>
       <Key ID="STR_WF_Gameplay_Reinforcement_Occupation">
@@ -1016,7 +1016,7 @@
         <English>Gameplay: Secondary Missions</English>
         <French>Jouabilité: Missions Secondaire</French>
         <German>Gameplay: Sekundäre Mission</German>
-        <Russian>Геймплей: Дополнительные задания</Russian>
+        <Russian>Режим: Дополнительные задания</Russian>
         <Italian>Gameplay: Missioni Secondarie</Italian>
       </Key>
       <Key ID="STR_WF_Gameplay_ShowUID">
@@ -1535,7 +1535,7 @@
         <English>None</English>
         <French>Aucun</French>
         <German>Keine</German>
-        <Russian>Ни один</Russian>
+        <Russian>Нет городов</Russian>
         <Italian>Niente</Italian>
       </Key>
       <Key ID="STR_WF_Nuke">
@@ -2845,7 +2845,7 @@
         <English>Restriction: BaseHunting</English>
         <French>Restriction: BaseHunting</French>
         <German>Restriction: BaseHunting</German>
-        <Russian>Огранич: BaseHunting</Russian>
+        <Russian>Огранич: Запрет атаковать базу противника</Russian>
         <Italian>Restriction: BaseHunting</Italian>
       </Key>
 	  
@@ -2861,7 +2861,7 @@
         <English>Gameplay: Extended soldiers and vehicles types</English>
         <French>Gameplay: Extended soldiers and vehicles types</French>
         <German>Gameplay: Extended soldiers and vehicles types</German>
-        <Russian>Режим: Дополнительные типы солдат и техники</Russian>
+        <Russian>Расширение: Дополнительные типы солдат и техники</Russian>
         <Italian>Gameplay: Extended soldiers and vehicles types</Italian>
       </Key>	  
       <Key ID="STR_WF_IncomeSupply">
