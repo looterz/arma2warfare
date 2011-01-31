@@ -1,9 +1,18 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_GetSideStructures");
 
-private['_value'];
+private['_sideId'];
 
-_value = Call Compile Format ["%1BaseStructures",_this];
+_sideId = (_this) call GetSideID;
+if (_side == WESTID) exitWith {
+	PROFILER_END();
+	WESTBaseStructures;
+};
 
+if (_side == EASTID) exitWith {
+	PROFILER_END();
+	EASTBaseStructures;
+};
+
+format["Common_GetSideStructures unknown side: '%1'", _side] call LogError;
 PROFILER_END();
-if (!isNil "_value") exitWith { _value; };

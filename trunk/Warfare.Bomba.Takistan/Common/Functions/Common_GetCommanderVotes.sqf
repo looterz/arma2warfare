@@ -10,17 +10,17 @@ _total = count _teams + 1;
 
 _votes = [];
 _u = _total;
-while { !(_u == 0) } do {
+while { _u != 0 } do {
 	_u = _u - 1;
 	_votes = _votes + [0];
 };
 
 //Count votes.
 _u = count _teams;
-while { !(_u == 0) } do {
+while { _u != 0 } do {
 	_u = _u - 1;
 	if (isPlayer (leader (_teams select _u))) then	{
-		_vote = (Call Compile Format ["%1Team%2Vote", str _side, (_u+1)]) + 1;
+		_vote = ([(_u+1), _side] call GetTeamVote) + 1;
 		_votes set [_vote, (_votes select _vote) + 1];			
 	};
 };

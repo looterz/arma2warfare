@@ -1,9 +1,17 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_GetSideUpgrades");
 
-private['_value'];
+	private['_sideId'];
+	_sideId = (_this) call GetSideID;
+	if (_side == WESTID) exitWith {
+		PROFILER_END();
+		WESTUpgrades;
+	};
 
-_value = Call Compile Format ["%1Upgrades",_this];
-
+	if (_side == EASTID) exitWith {
+		PROFILER_END();
+		EASTUpgrades;
+	};
+	format["Common_GetSideUpgrades unknown side: '%1'", _side] call LogError;
+	
 PROFILER_END();
-if (!isNil "_value") exitWith { _value; };
