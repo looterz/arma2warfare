@@ -41,6 +41,11 @@ SetTeamVariable = Compile preprocessFile "Common\Functions\Common_SetTeamVariabl
 GetClientID = Compile preprocessFile "Common\Functions\Common_GetClientID.sqf";
 GetClientIDFromTeam = Compile preprocessFile "Common\Functions\Common_GetClientIDFromTeam.sqf";
 GetClientTeam = Compile preprocessFile "Common\Functions\Common_GetClientTeam.sqf";
+
+GetClientFunds = Compile preprocessFile "Common\Functions\Common_GetClientFunds.sqf";
+SetClientFunds = Compile preprocessFile "Common\Functions\Common_SetClientFunds.sqf";
+
+
 GetClosestLocation = Compile preprocessFile "Common\Functions\Common_GetClosestLocation.sqf";
 GetClosestLocationBySide = Compile preprocessFile "Common\Functions\Common_GetClosestLocationBySide.sqf";
 GetCommanderFromVotes = Compile preprocessFile "Common\Functions\Common_GetCommanderFromVotes.sqf";
