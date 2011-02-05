@@ -19,11 +19,14 @@ fnSelectCamoTypeVehicle = {
 		_vehType = _vehicleTypes select 1;
 	};	
 	
-	_u = 0;	// select first not null vehicleType by default
-	while { _u < count _vehicleTypes && _vehType == "" } do {
-		_vehType = _vehicleTypes select _u;
-		_u = _u + 1;
-	};	
+	if (_vehType == "" && WF_A2_CombinedOps) then {
+		_u = 0;	// select first not null vehicleType by default
+		while { _u < count _vehicleTypes && _vehType == "" } do {
+			_vehType = _vehicleTypes select _u;
+			_u = _u + 1;
+		};	
+	};
+	
 	if (_vehType == "") exitWith { objNull };
 	_vehType;
 };
