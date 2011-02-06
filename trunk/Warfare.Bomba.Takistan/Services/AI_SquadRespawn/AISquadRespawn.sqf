@@ -2,7 +2,7 @@
 PROFILER_BEGIN("Service_AISquadRespawn");
 
 /* Enhanced Respawn Management via Multiplayer Event Handler - Experimental */
-Private ["_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr","_rr","_respawn","_respawnLoc","_side","_sideText","_slot","_team","_upgrades"];
+private['_deathLoc','_leader','_pos','_rd','_rmr','_rr','_respawnLoc','_side','_sideText','_team','_respawnedunit','_corpse','_unittype','_timeout','_squad'];
 
 	_respawnedUnit = _this select 0;
 	format["AI_SquadRespawn Initialized: %1", _this] call LogHigh;

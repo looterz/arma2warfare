@@ -10,7 +10,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_PlayerConnected");
 
-Private ['_attempts','_funds','_get','_leader','_name','_side','_sideLeft','_slotIndex','_team','_uid'];
+private['_attempts','_funds','_get','_leader','_name','_side','_sideLeft','_slotIndex','_team','_uid','_units'];
 
 _uid = _this select 0;
 _name = _this select 1;

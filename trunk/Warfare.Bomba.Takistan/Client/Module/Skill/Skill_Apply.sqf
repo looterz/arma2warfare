@@ -1,3 +1,4 @@
+private['_conditionextra','_dogtag','_dogtags'];
 /*
 	Script: Skill Application System by Benny.
 	Description: Skill Application.

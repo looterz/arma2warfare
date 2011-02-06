@@ -1,5 +1,6 @@
 /* SADARM Handler, Armor Killer */
-Private ['_destination','_force','_shell','_targetToHit','_velocity'];
+private['_destination','_shell','_targetToHit','_velocity','_deploypos','_pz','_parachute','_barrel','_dir','_px','_py','_projectile','_targetfound','_targets','_xoff','_yoff','_zoff','_mag','_dx','_dy','_v1','_hmag','_zcomp','_chutemodel','_altitude','_burst','_dz','_ux','_uy','_uz'];
+
 _shell = _this select 0;
 _destination = _this select 1;
 _velocity = _this select 2;

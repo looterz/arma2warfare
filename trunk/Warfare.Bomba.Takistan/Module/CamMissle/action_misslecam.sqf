@@ -1,3 +1,5 @@
+private['_veh','_cammode','_wcamactionid'];
+
 "Create Missle camera Action" call LogTrace;
 
 _veh = _this select 0;

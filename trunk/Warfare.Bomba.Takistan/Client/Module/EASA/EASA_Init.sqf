@@ -1,4 +1,4 @@
-Private ['_easaLoadout','_easaVehi','_vehicle'];
+private['_easaLoadout','_easaVehi','_easadefault'];
 
 EASA_Equip = Compile preProcessFile 'Client\Module\EASA\EASA_Equip.sqf';
 EASA_RemoveLoadout = Compile preProcessFile 'Client\Module\EASA\EASA_RemoveLoadout.sqf';

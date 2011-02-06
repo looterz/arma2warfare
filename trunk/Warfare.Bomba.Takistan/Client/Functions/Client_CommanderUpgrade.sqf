@@ -1,4 +1,4 @@
-Private ["_i","_index","_index2","_name","_time"];
+private['_i','_index','_index2','_name','_time','_upgrades'];
 _time = _this select 0;
 _index = _this select 1;
 _index2 = _this select 2;

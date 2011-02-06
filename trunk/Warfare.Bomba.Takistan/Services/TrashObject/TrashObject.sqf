@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Service_TrashObject");
 
-Private ["_alive","_group","_isMan","_object"];
+private['_object'];
 _object = _this;
 
 	if (isNil "_object") exitWith { PROFILER_END(); };

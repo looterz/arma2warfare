@@ -1,3 +1,5 @@
+private['_val','_level','_u','_dependencie','_maxlevel','_tooltip_text','_name','_tooltip','_tooltip_text_content','_dependent','_enabled','_tooltip_h','_display','_requiredfunds','_requiredsupply','_controls','_upgrades','_condition','_tooltip_w','_curidc','_time','_canupgrade','_hasfunds','_supply','_upgr','_upgrlev','_upgrdep','_upgrcond','_bpath','_needed','_currentsupply','_currentfunds','_colorsupply','_colorfunds','_tooltip_x','_tooltip_y','_commander','_txt'];
+
 disableSerialization;
 
 _display = _this select 0;

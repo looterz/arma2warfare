@@ -1,3 +1,5 @@
+private['_exited','_skip','_timer','_enable','_votetime'];
+
 MenuAction = -1;
 _exited = false;
 _timer = 3;

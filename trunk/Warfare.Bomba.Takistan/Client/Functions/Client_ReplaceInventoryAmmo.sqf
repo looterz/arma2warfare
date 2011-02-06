@@ -1,4 +1,4 @@
-Private ['_get','_limit','_magazines','_newMag','_newMagIsSide','_newMagSpace','_oldMags','_presentMags','_replacement','_rlIndex','_size','_spaceToReduce'];
+private['_get','_limit','_magazines','_newMag','_newMagIsSide','_newMagSpace','_oldMags','_presentMags','_replacement','_size','_spaceToReduce','_totaltoreplace','_futurespace','_freespace'];
 _newMag = _this select 0;
 _oldMags = _this select 1;
 _magazines = _this select 2;

@@ -1,3 +1,5 @@
+private['_get','_cost'];
+
 #include "profiler.h"
 PROFILER_BEGIN("Init_UnitEquipmentPrice");
 

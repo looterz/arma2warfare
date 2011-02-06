@@ -1,5 +1,8 @@
 #include "profiler.h"
 PROFILER_BEGIN("Init_Server");
+
+private['_i','_locationlogics','_westlocation','_eastlocation','_vehicle','_total','_ran','_oc','_attempts','_startervehicle','_uparray','_allies','_weat','_nearlogics','_ssd','_wf_grouplogic','_wf_grouplogic2','_wf_grouplogic3','_wf_grouplogic4','_bis_wf_hqeastgrp','_bis_wf_hqwestgrp','_bis_wf_hqeastgrp2','_bis_wf_hqwestgrp2','_type','_alice'];
+
 waitUntil { !isNil "initJIP" };
 
 if (!isServer || time > 30) exitWith {

@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("RequestTeamUpdate");
 
-Private["_args","_properties","_team"];
+private['_args','_team'];
 
 _args = _this;
 _team = _args select 0;

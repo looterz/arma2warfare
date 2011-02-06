@@ -1,6 +1,6 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_GetTeamArtillery");
-Private["_artillery","_artyTypes","_count","_destination","_ignoreAmmo","_index","_position","_search","_side","_team","_units","_vehicle","_x","_y"];
+private['_artillery','_artyTypes','_destination','_ignoreAmmo','_index','_side','_team','_units','_vehicle','_artyweapons','_weapon'];
 
 _team = _this select 0;
 _destination = _this select 1;

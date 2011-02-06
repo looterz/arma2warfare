@@ -1,4 +1,4 @@
-Private["_localize","_txt", "_name"];
+private['_localize','_txt','_commandchat'];
 
 _localize = _this Select 0;
 _commandChat = true;

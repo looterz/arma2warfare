@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_HandleDefense");
 
-Private ["_buildings","_closest","_defense","_index","_side","_team","_type","_unit"];
+private['_closest','_defense','_index','_side','_team','_type','_soldier','_dt','_distance','_direction','_position'];
 _defense = _this select 0;
 _side = _this select 1;
 _team = _this select 2;

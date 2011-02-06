@@ -1,5 +1,5 @@
 /* Enhanced Respawn Management via Multiplayer Event Handler - Experimental */
-Private ['_availableSpawn','_corpse','_deathLoc','_isForcedRespawn','_respawn','_respawnLoc','_respawnedUnit','_side','_sideText','_team'];
+private['_availableSpawn','_corpse','_deathLoc','_isForcedRespawn','_respawn','_respawnLoc','_respawnedUnit','_side','_sideText','_team','_movemode','_upgrades','_i','_update','_checks','_skip','_ran','_hq','_buildings','_pos','_rd','_rcm','_mobilerespawns','_range','_closestrespawn','_autonomous'];
 
 _respawnedUnit = _this select 0;
 _corpse = _this select 1;

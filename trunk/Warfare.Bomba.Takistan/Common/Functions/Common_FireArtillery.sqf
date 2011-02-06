@@ -1,6 +1,6 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_FireArtillery");
-Private["_ammo","_artillery","_destination","_dispersion","_direction","_distance","_gunner","_minRange","_maxRange","_position","_radius","_side","_type","_velocity","_weapon","_x","_y"];
+private['_ammo','_artillery','_destination','_dispersion','_direction','_distance','_gunner','_minRange','_maxRange','_position','_radius','_side','_velocity','_weapon','_y','_index','_watchposition','_weapondir1','_i','_angle','_feh','_weapondir','_bwait','_timeout','_r','_reloadtime','_burst'];
 
 _artillery = _this select 0;
 _destination = _this select 1;

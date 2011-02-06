@@ -1,4 +1,4 @@
-Private['_c','_u'];
+private['_c','_u','_longestdepotbuildtime'];
 
 /* WEST - Depot */
 _u = Call Compile preprocessFile (WFBE_V_UnitsRoot + WFBE_V_West_UnitsRootVersion + 'Units_Depot_' + WFBE_V_West_Faction + '.sqf');

@@ -1,5 +1,5 @@
 /* Only use string ! */
-Private['_ammo','_unit','_weapon','_weapons'];
+private['_k','_copy','_asciar','_temp','_lowest','_index','_i','_list'];
 
 _list = _this;
 _temp = [];

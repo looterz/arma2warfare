@@ -1,4 +1,5 @@
-Private ['_resType'];
+private['_resType','_u','_n'];
+
 _resType = 'WFBE_RESISTANCEFACTION' Call GetNamespace;
 if (isNil '_resType') then {_resType = -1};
 

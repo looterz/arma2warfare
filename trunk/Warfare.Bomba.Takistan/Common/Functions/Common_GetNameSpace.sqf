@@ -2,7 +2,6 @@
 PROFILER_BEGIN("Common_GetNamespace");
 
 Private ['_value'];
-
 _value = missionNamespace getVariable _this;
 
 PROFILER_END();

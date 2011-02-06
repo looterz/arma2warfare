@@ -1,4 +1,4 @@
-Private ["_actionID","_caller","_index","_lifter","_param","_sorted","_type","_vehicle","_vehicles"];
+private['_actionID','_caller','_lifter','_param','_vehicle'];
 
 _lifter = _this select 0;
 _caller = _this select 1;

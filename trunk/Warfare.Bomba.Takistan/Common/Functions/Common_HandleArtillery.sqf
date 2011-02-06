@@ -1,5 +1,5 @@
 /* Handle artillery Fired EH */
-Private ['_ammo','_ammoList','_cannon','_destination','_direction','_dispersion','_distance','_keepShellAlive','_landDestination','_maxRange','_nearLaser','_projectile','_radius','_shellpos','_side','_velocity', '_arty'];
+private['_ammo','_ammoList','_cannon','_destination','_direction','_dispersion','_distance','_keepShellAlive','_landDestination','_maxRange','_nearLaser','_projectile','_radius','_shellpos','_side','_velocity','_arty','_y','_smokeonimpact','_percent','_smoke'];
 
 _ammo = _this select 0;
 _ammoList = _this select 2;

@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_GetTeamFunds");
 
-Private["_id","_team", "_result", "_sideId"];
+private['_id','_team','_sideId','_funds'];
 
 	_team = _this;
 	

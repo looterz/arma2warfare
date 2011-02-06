@@ -1,3 +1,5 @@
+private['_u','_n'];
+
 if (WF_A2_Vanilla) then {
 	//--- West.
 	_n		= ["SmallTeam1"];

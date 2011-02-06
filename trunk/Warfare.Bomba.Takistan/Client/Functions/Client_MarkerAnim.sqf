@@ -1,4 +1,4 @@
-Private ["_additionalErase","_markerColor","_markerName","_markerPosition","_markerSize","_markerType"];
+private['_additionalErase','_markerColor','_markerName','_markerPosition','_markerSize','_markerType','_direction','_expand'];
 _markerName = _this select 0;
 _markerPosition = _this select 1;
 _markerType = _this select 2;

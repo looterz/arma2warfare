@@ -34,7 +34,7 @@ if (!isserver) exitWith {};
 waitUntil {!isNil("KRON_UPS_INIT")};
 waitUntil {KRON_UPS_INIT==1};
 	
-private ["_artillery","_smoke1","_i","_area","_position","_maxcadence","_mincadence","_sleep","_rounds"];
+private['_artillery','_area','_maxcadence','_mincadence','_sleep','_rounds','_range','_bullet','_vector'];
 _range = 800;
 _area = 150;
 _maxcadence = 10;

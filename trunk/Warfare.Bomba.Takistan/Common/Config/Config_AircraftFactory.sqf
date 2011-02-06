@@ -1,4 +1,4 @@
-Private['_c','_resType','_u'];
+private['_c','_resType','_u','_longestaircraftbuildtime'];
 
 /* WEST - Aircraft */
 _u = Call Compile preprocessFile (WFBE_V_UnitsRoot + WFBE_V_West_UnitsRootVersion + 'Units_Aircraft_' + WFBE_V_West_Faction + '.sqf');

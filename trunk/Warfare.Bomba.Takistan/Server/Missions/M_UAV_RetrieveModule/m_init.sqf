@@ -1,3 +1,5 @@
+private['_attempts','_uav','_randompos','_markersize','_wteamrunning','_eteamrunning','_saferadius','_waitfor','_wteam','_eteam','_size','_targets','_objects','_wcomplete','_ecomplete','_near','_ran','_boundariesxy','_wteamname','_completelist','_uniquelabel','_uniqueindex','_eastuav','_crashed','_spawnunits','_returned','_end','_wspos','_espos','_nearuav','_westuav','_target','_jiphandler','_update','_eteamname','_completelisttr','_uavmodel','_list','_defensepos','_oldplayerlist','_west','_east','_resistance','_unit','_craters'];
+
 /* UAV  Retrieve Module Script */
 
 _uniqueLabel = _this select 0;

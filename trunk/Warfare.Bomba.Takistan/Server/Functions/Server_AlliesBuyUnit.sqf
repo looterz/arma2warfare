@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_AlliesBuyUnit");
 
-Private ["_building","_built","_crew","_direction","_dir","_distance","_factoryType","_id","_index","_isVehicle","_longest","_position","_queu","_queu2","_ret","_side","_sideText","_soldier","_team","_type","_unitType","_vehicle","_waitTime"];
+private['_building','_crew','_direction','_distance','_factoryType','_id','_index','_isVehicle','_longest','_position','_queu','_queu2','_ret','_side','_sideText','_soldier','_team','_type','_unitType','_vehicle','_waitTime','_factoryposition','_turrets','_vehi','_config'];
 _id = _this select 0;
 _building = _this select 1;
 _unitType = _this select 2;

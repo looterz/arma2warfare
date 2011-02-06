@@ -1,8 +1,6 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_GetTownCaptureAward");
-private['_teams', '_location', '_assaultTeams', '_assaultTeamCount', '_assistTeamCount', '_assaultAward', '_assistAward'];
-
-
+private['_teams','_location','_assaultTeams','_assaultTeamCount','_assistTeamCount','_assaultAward','_assistAward','_cash','_fnisassaultteam','_fngetassalutteams','_result'];
 
 	_fnIsAssaultTeam = {
 		private['_team', '_maxDist', '_location', '_flag'];

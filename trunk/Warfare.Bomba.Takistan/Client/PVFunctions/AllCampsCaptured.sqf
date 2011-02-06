@@ -1,4 +1,4 @@
-Private ["_alertOtherSide","_camp","_camps","_count","_marker","_sideID"];
+private['_alertOtherSide','_camp','_camps','_count','_marker','_sideID','_town'];
 
 _town = _this Select 0;
 _sideID = _this Select 1;

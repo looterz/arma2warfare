@@ -1,3 +1,5 @@
+private['_u','_n'];
+
 _n		= ["Group"];
 _u		= ["TK_GUE_Warlord_EP1"];
 _u = _u + ["TK_GUE_Soldier_4_EP1"];

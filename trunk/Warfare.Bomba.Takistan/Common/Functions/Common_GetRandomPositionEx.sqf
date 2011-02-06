@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_GetRandomPositionEx");
 
-Private["_grid", "_position","_radius","_direction","_maxRadius","_minRadius", "_bCount"];
+private['_position','_radius','_direction','_maxRadius','_minRadius','_bCount'];
 	
 	_position = getPos (_this select 0);
 	_minRadius = _this select 1;

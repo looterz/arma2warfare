@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_AI_Resistance");
 
-Private ["_action","_position","_range","_team"];
+private['_action','_position','_range','_team'];
 _team = _this select 0;
 _position = _this select 1;
 _range = _this select 2;

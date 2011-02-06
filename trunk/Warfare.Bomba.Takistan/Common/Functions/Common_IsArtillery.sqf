@@ -1,4 +1,4 @@
-Private ['_artyNames','_retVal','_side','_unit'];
+private['_artyNames','_retVal','_side','_unit','_i'];
 _unit = _this select 0;
 _side = _this select 1;
 

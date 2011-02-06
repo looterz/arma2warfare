@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_GetClosestLocation");
 
-Private["_count","_location","_object","_nearest","_nearestDistance"];
+private['_count','_location','_object','_nearest','_nearestDistance','_distance'];
 
 _object = _this select 0;
 _nearest = objNull;

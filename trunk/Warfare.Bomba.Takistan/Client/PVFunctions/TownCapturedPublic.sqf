@@ -1,4 +1,4 @@
-Private ["_award", "_awardValue", "_rewards", "_location","_locationName","_mysqlUpdate","_name","_locations","_objective","_range","_side","_sideValue","_units"];
+private['_award','_rewards','_location','_locationName','_mysqlUpdate','_name','_range','_sideValue','_units','_bounty','_sidename','_marker1'];
 
 _location = _this Select 0;
 _sideValue = _this Select 1;

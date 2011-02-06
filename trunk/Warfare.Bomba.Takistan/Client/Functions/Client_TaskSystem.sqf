@@ -1,4 +1,4 @@
-Private ["_location","_locations","_sideID","_sorted","_task","_type"];
+private['_location','_sideID','_task','_type','_i','_next'];
 _type = _this select 0;
 _location = if (count _this > 1) then {_this select 1} else {objNull};
 

@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_RearmVehicle");
 
-Private["_amount","_magazines","_side","_type","_vehicle"];
+private['_amount','_magazines','_side','_type','_vehicle','_isartillery','_get'];
 
 _vehicle = _this select 0;
 _side = _this select 1;

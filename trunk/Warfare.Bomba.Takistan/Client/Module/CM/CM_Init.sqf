@@ -1,4 +1,4 @@
-Private ["_amount","_vehicle"];
+private['_amount','_vehicle'];
 _vehicle = _this select 0;
 
 if (isNull _vehicle) exitWith {};

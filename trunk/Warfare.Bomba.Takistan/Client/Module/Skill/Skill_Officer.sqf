@@ -1,3 +1,5 @@
+private['_exist','_skip','_type','_array','_toworld','_tent'];
+
 /*
 	Script: Officer Skill System by Benny.
 	Description: Add special skills to the defined officer.

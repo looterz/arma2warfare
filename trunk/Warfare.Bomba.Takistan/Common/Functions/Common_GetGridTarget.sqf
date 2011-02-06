@@ -1,7 +1,6 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_GetGridTarget");
-
-Private["_target","_minRadius","_maxRadius","_pos","_names", "_center", "_gridName", "_id", "_grid", "_gridData"];
+private['_target','_minRadius','_maxRadius','_pos','_gridName','_grid','_gridData','_posname'];
 
 	_target    = _this select 0;
 	_minRadius = _this select 1;

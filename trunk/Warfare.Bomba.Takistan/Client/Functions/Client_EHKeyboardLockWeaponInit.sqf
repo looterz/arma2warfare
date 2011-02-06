@@ -1,5 +1,3 @@
-private["_pressedButton","_pressedShift","_pressedControl","_pressedAlt","_return","_userKeyMessage","_actionKeysImages","_pressedButtonArray"];
-
 EH_KeyboardLockWeaponTypes = 
 [ 	(configFile >> "CfgWeapons" >> "M256"), 
 	(configFile >> "CfgWeapons" >> "2A42"), 

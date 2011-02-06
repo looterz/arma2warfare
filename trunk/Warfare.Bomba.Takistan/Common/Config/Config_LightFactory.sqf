@@ -1,4 +1,4 @@
-Private['_c','_u'];
+private['_c','_u','_longestlightbuildtime'];
 
 /* WEST - Light */
 _u = Call Compile preprocessFile (WFBE_V_UnitsRoot + WFBE_V_West_UnitsRootVersion + 'Units_Light_' + WFBE_V_West_Faction + '.sqf');

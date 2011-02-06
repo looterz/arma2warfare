@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_HeadHunters");
 
-Private ['_sideKiller', '_sideVictim', '_huntedProcessed', '_killerFunds', '_bounty', '_commanderId', '_commanderTeam', '_commanderKilled', '_bonusPerc', '_victim', '_killer', '_victimId', '_killerId', '_victimFunds', '_scoreSide', '_scoreVictim'];
+private['_sideKiller','_sideVictim','_huntedProcessed','_killerFunds','_bounty','_commanderId','_commanderTeam','_commanderKilled','_bonusPerc','_victim','_killer','_victimId','_killerId','_victimFunds','_namekiller','_namevictim','_killerteam'];
 
 _victim = _this select 0;
 _killer = _this select 1;

@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_GetTeamVote");
 
-Private["_amount","_funds","_id","_sideId","_team"];
+private['_id','_sideId','_value'];
 
 _id = _this Select 0;
 _sideId = (_this Select 1) call GetSideID;

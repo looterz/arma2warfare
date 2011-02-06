@@ -1,3 +1,4 @@
+private['_range','_town','_townname','_teams','_probability'];
 _town = _this Select 0;
 _townName = _this Select 1;
 

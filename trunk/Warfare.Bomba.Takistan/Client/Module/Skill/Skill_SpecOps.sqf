@@ -1,3 +1,5 @@
+private['_vehicle','_min','_vehicles','_skip','_sorted','_ran'];
+
 /*
 	Script: Spec Ops Skill System by Benny.
 	Description: Add special skills to the defined spec ops unit.

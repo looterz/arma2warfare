@@ -1,4 +1,4 @@
-Private ['_cost','_get','_inventorySlots','_items','_loadout','_misca','_miscItemSlots','_primary','_secondary','_sidearm','_sidearmInventorySlots','_slot','_sorted'];
+private['_cost','_get','_inventorySlots','_items','_loadout','_misca','_miscItemSlots','_primary','_secondary','_sidearm','_sidearmInventorySlots','_slot','_sorted','_count','_inventorygui','_sidearminvgui','_miscinvgui'];
 _loadout = _this select 0;
 _items = _this select 1;
 

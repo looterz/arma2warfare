@@ -1,4 +1,4 @@
-Private ['_add','_currentGearUpgr','_filler','_get','_i','_listBox','_listNames','_u'];
+private['_add','_currentGearUpgr','_filler','_get','_i','_listBox','_listNames','_u'];
 _listNames = _this select 0;
 _filler = _this select 1;
 _listBox = _this select 2;

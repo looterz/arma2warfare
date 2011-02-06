@@ -1,4 +1,4 @@
-Private ['_data','_get','_i','_index','_j','_old','_override','_tar','_tindex','_vehicle','_x'];
+private['_data','_get','_i','_index','_j','_old','_override','_tar','_tindex','_vehicle','_type'];
 _vehicle = _this select 0;
 _index = _this select 1;
 _tindex = _index;

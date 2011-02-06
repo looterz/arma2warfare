@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_UnitKilled");
+private['_bounty','_get','_group','_isMan','_killed','_killer','_killerID','_killername','_killerTeam','_killertype','_killeruid','_objectType','_sideVictim','_sidekiller','_killeduid','_killedname','_iskilledplayer','_sta','_iskillerplayer','_crew'];
 
-Private ["_bounty","_get","_group","_isMan","_killed","_killer","_killerID","_killername","_killerTeam","_killertype","_killeruid","_lost","_objects","_objectType","_side","_sideVictim","_uid"];
 _killed = _this select 0;
 _killer = _this select 1;
 _sideVictim = _this select 2;

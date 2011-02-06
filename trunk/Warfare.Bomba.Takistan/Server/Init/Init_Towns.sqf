@@ -1,6 +1,8 @@
 #include "profiler.h"
 PROFILER_BEGIN("Init_Towns");
 
+private['_initied','_towns','_neartownsw','_near','_camps','_neartownse','_require','_wstart','_defenses','_town','_estart','_limit','_half','_total'];
+
 waitUntil { !isNil "initJIP" };
 waitUntil {townInit};
 

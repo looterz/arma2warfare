@@ -1,8 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_GetCommanderFromVotes");
 
-Private["_AI","_commander","_count","_highest","_highestTeam","_side","_teams","_total","_vote","_votes"];
-
+private['_AI','_commander','_count','_highest','_highestTeam','_side','_teams','_total','_vote','_votes','_tie'];
 _side = _this Select 0;
 
 _AI = 0;

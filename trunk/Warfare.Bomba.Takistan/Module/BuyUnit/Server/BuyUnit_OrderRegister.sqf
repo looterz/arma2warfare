@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("BuyUnit_OrderRegister");
 
-private['_order', '_clientId', '_building', '_orderId', '_orderInfo'];
+private['_order','_clientId','_building','_orderId'];
 	
 	//--- _orderId		  = _orderInfo select 0;
 	//--- _productionTime = _orderInfo select 1;

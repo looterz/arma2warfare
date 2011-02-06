@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("RequestStructure");
 
-Private ["_side","_structure"];
+private['_side','_index','_structuretype','_pos','_dir','_script'];
 _side = _this select 0;
 _structureType = _this select 1;
 _pos = _this select 2;

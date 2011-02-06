@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_BackpackHasSpace");
 
-Private ['_backpackHasRoom','_bp','_bpContent','_bpItem','_max','_space','_type','_u'];
+private['_backpackHasRoom','_bp','_bpContent','_bpItem','_max','_space','_type'];
 _bp = _this select 0;
 _bpContent = _this select 1;
 _bpItem = _this select 2;

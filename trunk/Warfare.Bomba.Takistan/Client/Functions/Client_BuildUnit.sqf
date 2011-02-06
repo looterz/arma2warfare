@@ -1,4 +1,4 @@
-Private ["_building", "_unitType", "_vehInfo", "_cpt", "_isMan", "_driver", "_gunner", "_commander", "_clientId"];
+Private ["_building", "_unitType", "_vehInfo", "_cpt", "_isMan", "_driver", "_gunner", "_commander"];
 _building = _this select 0;
 _unitType = _this select 1;
 _vehInfo = _this select 2;

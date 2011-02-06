@@ -1,3 +1,4 @@
+private['_maxrange'];
 _maxRange = 'WFBE_ARTILLERYMAXRANGE' Call GetNamespace;
 
 if (WF_A2_Vanilla) then {

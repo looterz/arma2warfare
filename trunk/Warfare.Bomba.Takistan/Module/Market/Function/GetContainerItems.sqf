@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Market_GetContainerItems");
 
-Private ['_container','_items','_storage', '_u', '_product', '_id', '_value', '_u'];
+private['_container','_items','_storage'];
 
 	_container = _this;
 	_storage = _container getVariable "marketProductStorage";

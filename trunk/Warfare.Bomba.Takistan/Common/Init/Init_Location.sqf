@@ -1,3 +1,5 @@
+private['_marker','_size','_locationname','_defenses'];
+
 waitUntil { !isNil "initJIP" };
  
 _location = _this select 0;

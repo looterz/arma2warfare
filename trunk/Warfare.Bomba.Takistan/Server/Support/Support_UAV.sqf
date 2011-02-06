@@ -1,7 +1,7 @@
 #include "profiler.h"
-PROFILER_BEGIN("RequestChangeScore");
+PROFILER_BEGIN("Support_UAV");
 
-Private["_args","_side"];
+private['_args','_side','_uav','_driver','_gunner','_exit','_playerteam'];
 
 _args = _this;
 _side = _args select 1;

@@ -1,3 +1,5 @@
+private['_callpos','_enable','_markername','_currentlevel','_markers','_area','_marker','_closest','_camera','_txt','_startpoint','_sorted','_funds','_canft','_map','_currentupgrades','_base','_skip','_units','_ftlocations','_checks','_ft','_ftr','_fee','_locationposition','_artytypeid','_countinrange','_firetime','_status','_i','_destination','_travelingwith','_nukemarker','_pard','_sideid','_camps','_allcamps','_buildings','_locations','_display','_lastrange','_lastupdate','_isdeployed','_commander','_obj','_dist','_idcs','_compass','_gps','_pad','_radio','_watch','_delay','_artillerymarker','_minrange','_maxrange','_artillery'];
+
 disableSerialization;
 
 _display = _this select 0;

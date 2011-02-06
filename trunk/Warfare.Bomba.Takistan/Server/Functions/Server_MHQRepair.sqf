@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_MHQRepair");
 
-Private ["_hq","_HQName","_MHQ","_side","_sideText"];
+private['_hq','_HQName','_MHQ','_side','_sideText','_commanderteam','_commanderid','_position','_direction'];
 _side = _this select 0;
 _sideText = str _side;
 

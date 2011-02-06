@@ -1,4 +1,4 @@
-private["_display", "_pressedMouseButton","_pressedControl","_return","_userKeyMessage","_actionKeysImages","_pressedMouseButtonArray"];
+private['_display','_pressedMouseButton','_pressedControl','_return','_pressedMouseButtonArray','_pressedshift','_pressedalt'];
 
 _return = false;
 // ------------------ Parse Arguments -----------------

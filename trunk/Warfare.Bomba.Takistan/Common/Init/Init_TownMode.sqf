@@ -1,3 +1,5 @@
+private['_i','_index','_paramname','_value'];
+
 /*
 	Town mode initialization.
 		the town that have to be removed need to be stored on the desired variable over WF_Logic. If those ain't set, the full town setting will be used. 

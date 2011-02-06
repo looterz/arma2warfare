@@ -60,6 +60,7 @@ SetKilledEventHandler = {
 
 
 SetAITeamKilledEventHandler = {
+private['_extended'];
 	
 	_extended = if (isMultiplayer && !WF_A2_Vanilla) then { true } else { false };
 	

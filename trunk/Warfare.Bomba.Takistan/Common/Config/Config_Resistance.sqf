@@ -1,4 +1,4 @@
-Private ['_resType'];
+private['_resType'];
 
 _resType = ('WFBE_RESISTANCEFACTIONS' Call GetNamespace) select ('WFBE_RESISTANCEFACTION' Call GetNamespace);
 

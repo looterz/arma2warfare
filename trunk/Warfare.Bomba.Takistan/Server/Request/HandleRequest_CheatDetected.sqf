@@ -1,4 +1,4 @@
-private['_order', '_vehicle', '_lock', '_cmdAllowed', '_banned', '_id', '_uid', '_name'];
+private['_id','_uid','_name','_player','_msgdata','_info'];
 		
 	_msgData = _this;
 	_player = _msgData select 0;

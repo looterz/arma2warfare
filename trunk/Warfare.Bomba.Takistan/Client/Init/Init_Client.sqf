@@ -1,3 +1,5 @@
+private['_base','_hqradio','_oc','_votetime','_weat','_lo','_buildings','_idbl','_txt','_commanderteam','_team','_isdeployed'];
+
 waitUntil { !isNil "initJIP" };
 
 ARTY_HandleILLUM = Compile preprocessFile "Client\Module\Arty\ARTY_HandleILLUM.sqf"; 

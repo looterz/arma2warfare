@@ -1,3 +1,5 @@
+private['_uav','_add','_logic','_wp','_wpcount','_step','_radius','_dir','_lastwp','_lastwppos','_closest','_pos','_checks','_group','_cw','_spawn','_waypoints','_currentwp','_varname','_buildings','_sorted','_uavsetup','_driver','_gunner','_id','_logicmarta'];
+
 _logic = UAVL;
 
 if (!isNull playerUAV) then {if (!alive playerUAV) then {playerUAV = objNull}};

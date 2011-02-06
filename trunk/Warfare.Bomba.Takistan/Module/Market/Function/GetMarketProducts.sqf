@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Market_GetMarketProducts");
 
-Private ['_nullMarket', '_market', '_marketStock', '_marketBuyCost', '_marketSellCost', '_marketInited', '_u', '_buyCoef', '_baseCost', '_productVolume', '_sellK','_buyCost','_sellCost', '_currentSupply', '_isCommander', '_marketPrices' ];
+private['_market','_marketStock','_marketInited'];
 
 	_market = _this;
 

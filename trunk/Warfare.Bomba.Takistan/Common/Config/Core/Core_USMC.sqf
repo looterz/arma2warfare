@@ -1,5 +1,5 @@
 /* USMC Configuration */
-Private ['_c','_get','_i','_p','_z'];
+Private ['_c','_get','_i','_p'];
 
 _c = [];
 _i = [];

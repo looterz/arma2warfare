@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_CreateUnit");
 
-Private ["_dT", "_get", "_built", "_position","_side","_skill","_team","_type","_unit", "_eventHandler", "_varName"];
+private['_get','_position','_side','_skill','_team','_type','_unit'];
 
 	_type = _this select 0;
 	_team = _this select 1;

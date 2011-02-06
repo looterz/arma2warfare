@@ -1,3 +1,5 @@
+private['_unit','_dammages','_units','_skip'];
+
 /*
 	Script: Medic Skill System by Bomba.
 	Description: Add special skills to the defined medic.

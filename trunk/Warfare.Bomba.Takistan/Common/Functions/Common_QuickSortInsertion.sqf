@@ -1,5 +1,5 @@
 #include "profiler.h"
-private['_a', '_lo', '_hi', '_i', '_j', '_v', '_vv', '_bCycle', '_u', '_u1'];
+private['_a','_lo','_hi','_i','_j','_v','_vv','_bCycle','_u','_u1','_item'];
 
 	_a = _this select 0;
 	_lo = _this select 1;

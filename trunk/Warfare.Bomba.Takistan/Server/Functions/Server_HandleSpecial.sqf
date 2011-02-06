@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_HandleSpecial");
 
-Private["_args","_side"];
+private['_args','_side','_target','_base','_dropposx','_dropposy','_dropposz','_st','_droppos1','_droppos2','_playerteam'];
 
 _args = _this;
 _side = _args select 1;

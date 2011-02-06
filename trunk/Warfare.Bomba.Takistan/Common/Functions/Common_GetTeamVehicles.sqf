@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_GetTeamVehicles");
 
-Private["_canMove","_count","_crew","_ignoreOwnerConflict","_member","_ownerConflict","_range","_team","_teamVehicles","_units","_vehicle"];
+private['_canMove','_crew','_ignoreOwnerConflict','_member','_ownerConflict','_range','_team','_teamVehicles','_units','_vehicle'];
 
 _team = _this select 0;
 _canMove = _this select 1;

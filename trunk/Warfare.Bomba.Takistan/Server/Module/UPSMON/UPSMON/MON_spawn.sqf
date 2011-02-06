@@ -23,7 +23,7 @@ if (!isserver) exitWith {};
 //Waits until UPSMON is init
 waitUntil {!isNil("KRON_UPS_INIT")};
 waitUntil {KRON_UPS_INIT==1};	
-private ["_template","_position","_params","_copies","_membertypes","_unittype","_side","_UCthis","_initstr","_grp","_lead","_newunit","_i","_newpos","_vehicle","_initlstr"];
+private['_template','_position','_params','_copies','_membertypes','_unittype','_side','_UCthis','_initstr','_grp','_lead','_newunit','_i','_newpos','_vehicle','_initlstr','_e','_c','_rnd','_spawned','_vehicletypes'];
 
 //Parameter reading
 _template  = _this select 0;

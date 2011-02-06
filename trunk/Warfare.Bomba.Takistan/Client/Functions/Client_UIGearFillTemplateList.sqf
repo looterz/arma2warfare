@@ -1,4 +1,4 @@
-Private ['_add','_currentUpgrades','_filler','_i','_listBox','_listCosts','_listNames','_listPictures','_listUpgrades','_listAllowed','_u'];
+private['_add','_currentUpgrades','_filler','_i','_listBox','_listCosts','_listNames','_listPictures','_listUpgrades','_listAllowed','_u'];
 _listCosts = _this select 0;
 _listNames = _this select 1;
 _listPictures = _this select 2;

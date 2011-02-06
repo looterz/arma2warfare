@@ -1,3 +1,5 @@
+private['_restype','_initext','_camotype'];
+
 waitUntil { !isNil "initJIP" };
 
 /* DO NOT CHANGE! */

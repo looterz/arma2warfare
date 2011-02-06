@@ -1,4 +1,4 @@
-Private ["_flarecount","_missile","_vehicle"];
+private['_flarecount','_missile','_vehicle','_i','_isactive','_type'];
 _vehicle = _this select 0;
 _missile = _this select 1;
 

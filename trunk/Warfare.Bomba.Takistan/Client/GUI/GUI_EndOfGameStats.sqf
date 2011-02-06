@@ -1,3 +1,5 @@
+private['_position','_width','_u','_stats','_recruited','_casualties','_created','_lost','_eastcasualtycount','_eastrecruitedcount','_eastcreatedcount','_eastlostcount','_westcasualtycount','_westrecruitedcount','_westcreatedcount','_westlostcount','_westrecruitedbar','_westcasualtybar','_westcreatedbar','_westlostbar','_eastrecruitedbar','_eastcasualtybar','_eastcreatedbar','_eastlostbar','_westvehiclescreated','_westvehicleslost','_westunitscreated','_westcasualties','_eastvehiclescreated','_eastvehicleslost','_eastunitscreated','_eastcasualties','_timepassed','_sidetext','_side','_sidename','_eastcreatedrate','_eastlostrate','_eastrecruitedrate','_eastcasualtiesrate','_westcreatedrate','_westlostrate','_westrecruitedrate','_westcasualtiesrate','_westrecruitedcounter','_westcasualtycounter','_westcreatedcounter','_westlostcounter','_eastrecruitedcounter','_eastcasualtycounter','_eastcreatedcounter','_eastlostcounter'];
+
 disableSerialization;
 
 12450 cutText ["","PLAIN",0];

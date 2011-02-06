@@ -1,4 +1,4 @@
-private['_destination', '_index', '_type', '_units', '_reloadTime', '_burst', '_u', "_fired"];
+private['_destination','_index','_type','_units','_count'];
 
 _destination = _this select 0;
 _index = _this select 1;

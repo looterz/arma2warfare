@@ -1,4 +1,5 @@
-Private ['_alliesTeamCost','_alliesTeamTemplates','_alliesTeamTemplateRequires','_alliesTeamTypes'];
+private['_alliesTeamCost','_alliesTeamTemplates','_alliesTeamTemplateRequires','_alliesTeamTypes','_u','_p','_get','_f','_d'];
+
 /* ALLIES TEAM TEMPLATES */
 /* CDF*/
 _alliesTeamTemplates = [];

@@ -1,3 +1,4 @@
+private['_varname'];
 #include "profiler.h"
 
 NETSEND_MSGID_BUYUNIT 	   	 = 10;

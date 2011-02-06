@@ -1,3 +1,5 @@
+private['_camp','_town','_camps','_marker','_defenses','_supplyvalue','_check','_index','_flagpole'];
+
 _camp = _this select 0;
 _town = _this select 1;
 

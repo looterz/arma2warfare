@@ -1,3 +1,5 @@
+private['_count','_l','_servercommandpv','_clientcommandpv'];
+
 Private ['_count','_l'];
 
 waitUntil { !isNil "initJIP" };

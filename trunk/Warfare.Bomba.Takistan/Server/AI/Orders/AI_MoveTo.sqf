@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_AIOrders_MoveTo");
 
-Private ["_destination","_formations","_mission","_radius","_team","_update"];
+private['_destination','_mission','_radius','_team','_update'];
 _team = _this select 0;
 _destination = _this select 1;
 _mission = _this select 2;

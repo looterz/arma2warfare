@@ -1,3 +1,4 @@
+private['_caller','_vehicle','_act'];
 _vehicle = _this select 0;
 _caller = _this select 1;
 _act = _this select 2;

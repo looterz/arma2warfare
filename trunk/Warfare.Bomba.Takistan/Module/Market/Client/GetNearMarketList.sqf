@@ -1,4 +1,4 @@
-Private ['_sorted','_range', '_markets', '_buildings', '_hq', '_marketList'];
+private['_sorted','_range','_markets','_buildings','_hq','_marketList','_base'];
 
 waitUntil {_base = ((sideJoinedText) Call GetSideHQ);!isNil "_base"};
 

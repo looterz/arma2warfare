@@ -1,3 +1,4 @@
+private['_vehicle','_dammages','_vehicles','_skip','_sorted'];
 /*
 	Script: Engineer Skill System by Benny.
 	Description: Add special skills to the defined engineer.

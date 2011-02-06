@@ -1,3 +1,5 @@
+private['_target','_wave','_cone','_smoke','_light','_top','_top2','_top3','_top4','_top5','_smoke2','_xhandle'];
+
 //--- Nuke blast.
 _target = _this select 0;
 if (player distance _target < 4000) then {

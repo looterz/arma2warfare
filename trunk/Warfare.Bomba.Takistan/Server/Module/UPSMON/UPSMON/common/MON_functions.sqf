@@ -5,6 +5,7 @@
 //		http://www.simulacion-esp.com/
 //		Comunidad Hispana de Simulación
 // =========================================================================================================
+private['_bldunitsin','_movein','_air','_flyingheigh','_targetx','_targety','_landonbeh','_bullet','_area2'];
 
 MON_bugged_vehicles = ["BIS_alice_emptydoor","ACE_Grenade_Geometry"];
 
@@ -14,7 +15,7 @@ MON_bugged_vehicles = ["BIS_alice_emptydoor","ACE_Grenade_Geometry"];
 //param2: altura
 MON_subir = {
 if (!isserver) exitwith{};
-private ["_object","_altura","_pos","_x","_y","_z","_bld","_bldpos"];
+private['_bldunitsin','_movein','_air','_flyingheigh','_targetx','_targety','_landonbeh','_bullet','_area2'];
 
 _object = _this select 0;
 _altura = _this select 1;

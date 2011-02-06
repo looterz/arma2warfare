@@ -1,4 +1,4 @@
-Private ['_ammo','_currentUpgrades','_extMagUpgr','_index','_side','_unit'];
+private['_ammo','_currentUpgrades','_extMagUpgr','_index','_side','_unit','_i'];
 _unit = _this select 0;
 _index = _this select 1;
 _side = _this select 2;

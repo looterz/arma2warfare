@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Service_AI_SquadRespawn");
 
-Private ["_isForcedRespawn", "_buildings","_closestRespawn","_deathLoc","_leader","_pos","_rd","_rmr","_rr","_respawn","_respawnLoc","_side","_sideText","_slot","_team","_upgrades"];
+private['_isForcedRespawn','_buildings','_closestRespawn','_deathLoc','_leader','_pos','_rd','_respawn','_respawnLoc','_side','_sideText','_team','_upgrades','_availablespawn','_createnewunit','_movemode','_update','_checks','_hq','_ran','_unittype','_rcm','_mobilerespawns','_range','_autonomous'];
 
 	_team 	  = _this select 0;
 	_deathLoc = _this select 1;

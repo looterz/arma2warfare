@@ -1,4 +1,4 @@
-Private ['_occTypeEast','_occTypeWest'];
+private['_occTypeEast','_occTypeWest'];
 
 _occTypeWest = ('WFBE_OCCUPATIONWESTFACTIONS' Call GetNamespace) select ('WFBE_OCCUPATIONWESTFACTION' Call GetNamespace);
 _occTypeEast = ('WFBE_OCCUPATIONEASTFACTIONS' Call GetNamespace) select ('WFBE_OCCUPATIONEASTFACTION' Call GetNamespace);

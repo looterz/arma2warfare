@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Service_TrackMapMarkerSetOwned");
 
-Private ["_unit", "_marker", "_timeout", "_initDone"];
+private['_unit','_marker','_timeout','_initDone','_markername'];
 
 	//--- _markerType 	    = _marker select 0;
 	//--- _markerColor 	    = _marker select 1;

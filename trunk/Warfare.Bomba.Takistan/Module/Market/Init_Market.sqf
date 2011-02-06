@@ -1,4 +1,6 @@
-﻿#include "profiler.h"
+﻿private['_u','_weight','_defensetypes','_productinfo','_cost','_productid','_max','_fninitdefenseproduct','_d','_product','_prodspeed'];
+
+#include "profiler.h"
 PROFILER_BEGIN("Market_Init");
 
 marketGetNearMarketList = Compile preprocessFile "Module\Market\Client\GetNearMarketList.sqf"; 

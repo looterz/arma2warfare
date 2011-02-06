@@ -1,3 +1,5 @@
+private['_u','_time'];
+
 //--- Define which 'part' of the game to run.
 	[]call compile preprocessFile "logging.sqf";
 	"Init JIP - [Start]" call LogMedium;

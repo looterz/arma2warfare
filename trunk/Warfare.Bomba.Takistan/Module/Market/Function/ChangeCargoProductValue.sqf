@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Market_ChangeCargoProductValue");
 
-Private ['_container','_productId', '_dV', '_items', '_storage', '_u', '_modified', '_product', '_id', '_value'  ];
+private['_productId','_dV','_product','_cargoinfo','_cargo','_volume','_producttype','_productsu','_cargofreespacesu','_data'];
 
 	format["ChangeCargoProductValue: _this: %1", _this] call LogHigh;
 

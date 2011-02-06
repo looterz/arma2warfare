@@ -1,4 +1,4 @@
-Private ["_camera","_nu","_stunned","_unit"];
+private['_camera','_nu','_stunned','_unit','_ran'];
 
 _unit = _this select 0;
 

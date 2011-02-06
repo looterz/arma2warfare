@@ -1,3 +1,5 @@
+private['_aircoef','_artcoef','_heacoef','_ligcoef','_nearsupport','_enabled','_healprice','_get','_nearissp','_nearisdp','_nearisrt','_sorted','_effective','_add','_vehi','_repairprice','_refuelprice','_rearmprice','_checks','_cursel','_funds','_type','_lastveh','_sp','_closestsp','_canbeused','_csp','_nobject','_descvehi','_repair','_lastuse','_sheal','_srearm','_srefuel','_srepair','_lastdmg','_lastfue','_enable','_nobjects','_sideid','_amount','_val','_val2','_isinvehicle','_iscommander','_crews','_active','_alives','_ss','_buildings','_currentupgrades','_easalevel','_pura','_desc','_ainumber','_finalnumber','_fuel'];
+
 MenuAction = -1;
 
 if (isNil "supportHintLines") then {

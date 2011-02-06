@@ -1,4 +1,4 @@
-Private ["_ammo","_enemy","_missile","_vehicle"];
+private['_ammo','_enemy','_missile','_vehicle','_prob','_chance'];
 _vehicle = _this select 0;
 _ammo = _this select 1;
 _enemy = _this select 2;

@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_BuildingDamaged");
 
-Private["_currentDammages","_damage","_damagedBy","_side","_structure","_timeAttacked"];
+private['_currentDammages','_damage','_damagedBy','_side','_structure'];
 
 _structure = _this Select 0;
 _damagedBy = _this Select 1;

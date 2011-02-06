@@ -1,5 +1,5 @@
+private['_vehicle','_lock'];
 #include "netsend.h"
-private['_vehicle', '_lock'];
 	_vehicle = _this select 0;
 
 	_lock = if (locked _vehicle) then {false} else {true};

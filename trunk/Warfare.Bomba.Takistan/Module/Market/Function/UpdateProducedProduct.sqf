@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Market_UpdateProducedProduct");
 
-Private ['_marketSideId', '_market','_products', '_productivity', '_lastProduceProduct', '_dT', '_storage', '_prices', '_incCoef', '_supplyValue', '_maxSV', '_u', '_updated', '_value', '_inc', '_product', '_maxProduced' ];
+private['_marketSideId','_market','_productivity','_lastProduceProduct','_dT','_storage','_incCoef','_supplyValue','_maxSV','_u','_updated','_value','_inc','_product','_maxProduced','_productsideid','_istown'];
 
 	_market = _this;
 

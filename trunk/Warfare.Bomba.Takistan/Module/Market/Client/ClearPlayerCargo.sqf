@@ -1,7 +1,4 @@
 #include "profiler.h"
 PROFILER_BEGIN("Market_ClearPlayerCargo");
-Private ['_containerItems','_u','_type','_items', '_u'];
-
-	_containerItems = [];	
-	player setVariable ["marketProductStorage", _containerItems, true];
+	player setVariable ["marketProductStorage", [], true];
 PROFILER_END();

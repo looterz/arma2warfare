@@ -1,4 +1,4 @@
-Private ['_borderdis','_boundary','_difx','_dify','_dir','_positiondis','_sqrradH','_sqrradHR'];
+private['_borderdis','_boundary','_difx','_dify','_dir','_positiondis','_sqrradH','_sqrradHR','_position','_adis','_bdis'];
 
 _boundary = 'WFBE_BOUNDARIESXY' Call GetNamespace;
 _sqrradH = _boundary / 2;

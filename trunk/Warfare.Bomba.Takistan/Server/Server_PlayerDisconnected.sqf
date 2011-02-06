@@ -10,7 +10,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_PlayerDisconnected");
 
-Private ['_buildings','_closestRespawn','_funds','_get','_hq','_name','_respawnLoc','_side','_sideText','_slotIndex','_team','_units','_uid'];
+private['_buildings','_closestRespawn','_funds','_get','_hq','_name','_respawnLoc','_side','_sideText','_slotIndex','_team','_units','_uid','_cmdrteam','_strtrans'];
 _uid = _this select 0;
 _name = _this select 1;
 

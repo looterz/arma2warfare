@@ -14,7 +14,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_AIOrders_TownPatrol");
 
-Private ["_wppos", "_pos", "_u", "_wpid", "_type", "_target",  "_patrolTargetNext", "_waypointGridData", "_waypointGridDataNodeCount",  "_team", "_town", "_radius", "_camps", "_partolTargets", "_partolTargetsCount", "_maxWaypoints", "_wps", "_patrolTargetNextStep", "_wpradius", "_wpcompletionRadius", "_patrolTarget"];
+private['_wppos','_pos','_u','_wpid','_type','_target','_patrolTargetNext','_team','_town','_radius','_camps','_partolTargets','_partolTargetsCount','_maxWaypoints','_wps','_patrolTargetNextStep','_wpradius','_wpcompletionRadius','_patrolTarget','_townpos'];
 _team = _this select 0;
 _town = _this select 1;
 _radius = if (count _this > 2) then {_this select 2} else {30};

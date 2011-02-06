@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_SetCampsToSide");
 
-Private["_camp","_camps","_count", "_u","_notifyAllSides","_objects","_previousSide","_side","_sideID","_startingSV","_town"];
+private['_camp','_camps','_count','_notifyAllSides','_objects','_previousSide','_side','_sideID','_startingSV','_town','_texture'];
 
 _town = _this Select 0;
 _side = _this Select 1;

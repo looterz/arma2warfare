@@ -4,7 +4,7 @@
 */
 
 
-Private ['_civType'];
+private['_civType','_u','_n'];
 _civType = ('WFBE_CIVILIANFACTIONS' Call GetNamespace) select ('WFBE_CIVILIANFACTION' Call GetNamespace);
 
 if (_civType == 'Chernarus Civilians') then {

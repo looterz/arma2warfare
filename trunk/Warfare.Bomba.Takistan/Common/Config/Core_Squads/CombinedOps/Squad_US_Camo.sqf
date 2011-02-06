@@ -1,4 +1,4 @@
-_aiTeamTemplates = [];
+private['_u','_aiteamtemplates','_aiteamtemplaterequires','_aiteamtypes','_aiteamupgrades','_d','_f','_l'];_aiTeamTemplates = [];
 _aiTeamTemplateRequires = [];
 _aiTeamTypes = []; //--- 0 Inf, 2 Light, 3 Armor, 4 Air
 _aiTeamUpgrades = [];

@@ -1,4 +1,4 @@
-Private ['_crews','_list','_lockVehicles','_position','_side','_team','_type','_unit','_units','_vehicle'];
+private['_crews','_list','_lockVehicles','_position','_side','_team','_type','_unit','_units','_vehicle','_vehicles','_ctype','_driver','_gunner','_commander'];
 
 _list = _this select 0;
 _position = _this select 1;

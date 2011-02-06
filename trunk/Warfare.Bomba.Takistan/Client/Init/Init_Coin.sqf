@@ -1,4 +1,5 @@
-Private ["_area","_coin","_d","_extra","_isHQdeployed"];
+private['_area','_coin','_d','_extra','_isHQdeployed','_i','_coinitemarray','_indexcategory','_structures','_coincategories','_defenses','_structurecosts','_structuredescriptions','_curid','_defensecosts','_defensedescriptions','_defensecategories','_updatedefenses','_updatestructures','_emptystructures','_fix','_repairtruck','_price'];
+
 _area = _this select 0;
 _isHQdeployed = _this select 1;
 _coin = _this select 2;

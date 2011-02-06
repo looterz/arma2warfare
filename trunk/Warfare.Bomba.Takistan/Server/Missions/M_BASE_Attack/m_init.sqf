@@ -1,3 +1,5 @@
+private['_structures','_markersize','_marker','_i','_pos','_group','_spawnlocations','_hq','_attempts','_cpt','_grps','_jiphandler','_update','_inrange','_boundariesxy','_near','_vehicles','_ishqdeployed','_attackafter','_oldplayerlist','_position','_teamtype','_retval'];
+
 /* Base Attack Script (Hybrid) */
 
 _uniqueLabel = _this select 0;

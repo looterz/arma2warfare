@@ -1,3 +1,4 @@
+private['_msgId','_msgData','_msgTo'];
 #include "profiler.h"
 PROFILER_BEGIN("NetSend_ToClient");
 	private['_msgId', '_msgData', '_msgTo', '_vehInfo' ];

@@ -1,3 +1,5 @@
+private['_u','_n'];
+
 _n		= ["Group"];
 _u		= ["GUE_Soldier_CO"];
 _u = _u + ["GUE_Soldier_GL"];

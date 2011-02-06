@@ -1,4 +1,4 @@
-Private ["_killed","_killer","_killerID","_killerTeam","_objects"];
+private['_killed','_killer','_killerID','_killerTeam','_sidekiller','_iskillerplayer'];
 _killed = _this select 0;
 _killer = _this select 1;
 _sideKiller = side _killer;

@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_BuildingKilled");
 
-Private ['_current','_find',"_structure","_structures","_side","_type"];
+private['_current','_find','_structure','_side','_type','_killer','_uid','_bounty','_killerid','_sidekiller','_killedname','_tked'];
 _structure = _this select 0;
 _killer = _this select 1;
 _side = _this select 2;

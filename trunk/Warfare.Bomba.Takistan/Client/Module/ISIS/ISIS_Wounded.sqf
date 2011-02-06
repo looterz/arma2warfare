@@ -1,4 +1,4 @@
-Private ["_hasAction","_start","_state","_status","_unit"];
+private['_hasAction','_start','_state','_status','_unit','_han'];
 _unit = _this select 0;
 _start = time;
 _state = "";

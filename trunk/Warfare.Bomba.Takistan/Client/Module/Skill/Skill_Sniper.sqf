@@ -1,3 +1,5 @@
+private['_markername','_binoculars','_screenpos','_markertime'];
+
 /*
 	Script: Sniper Skill System by Benny.
 	Description: Add special skills to the defined sniper.

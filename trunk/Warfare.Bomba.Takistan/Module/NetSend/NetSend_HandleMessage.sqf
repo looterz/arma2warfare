@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("NetSend_HandleMessage");
 
-private['_clientId', '_unitData', '_response', '_order', '_data', '_unitType', '_description', '_txt', '_vehicle' ];
+private['_data','_msgid'];
 	
 	if (typeName _this != 'ARRAY') exitWith {
 		PROFILER_END();

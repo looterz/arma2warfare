@@ -1,7 +1,7 @@
 ﻿#include "profiler.h"
 PROFILER_BEGIN("Market_InitMarketStorage");
 
-Private ['_marketSideId', '_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', '_u', '_isTown', '_buyCoef', '_baseCost', '_productVolume', '_sellK','_buyCost','_sellCost', '_currentSupply', '_isCommander', '_isFactory', '_buildings' ];
+private['_marketSideId','_market','_u','_u','_isTown','_value','_productsideid','_storage','_maxproducespeed','_prodvalue','_productivity','_maxproduced','_prices','_product'];
 
 	_market = _this;
 	_isTown = (_market in towns);

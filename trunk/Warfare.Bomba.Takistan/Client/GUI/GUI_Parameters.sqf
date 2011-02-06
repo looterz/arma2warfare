@@ -1,3 +1,4 @@
+private['_i','_paramname','_text','_values','_texts','_value','_status','_gettime'];
 /* Ingame parameters dump. */
 
 for [{_i = 0},{_i < (count (missionConfigFile/"Params"))},{_i = _i + 1}]  do {

@@ -1,3 +1,5 @@
+private['_vehicle','_lookpos'];
+
 _vehicle = _this select 0;
 
 // Lower gun/missile racks.

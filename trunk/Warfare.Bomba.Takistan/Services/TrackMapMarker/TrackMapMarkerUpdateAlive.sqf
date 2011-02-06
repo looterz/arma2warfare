@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Service_TrackMapMarkerUpdateAlive");
 
-private['_u', '_traced', '_mygroup', '_newDeadMarkers', '_text', '_amount', '_val', '_val2', '_ainumber', '_visible', '_timeout', '_marker', '_tracked', '_markerName', '_dirty', '_trackDeath', '_deathMarkerType', '_deathMarkerColor', '_deathMarkerSize' ];
+private['_u','_traced','_mygroup','_newDeadMarkers','_visible','_timeout','_marker','_tracked','_markerName','_dirty','_trackDeath','_deathMarkerType','_deathMarkerColor','_deathMarkerSize','_condition'];
 
 	//--- _markerType 	    = _marker select 0;
 	//--- _markerColor 	    = _marker select 1;
