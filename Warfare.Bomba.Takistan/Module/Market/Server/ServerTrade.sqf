@@ -1,4 +1,4 @@
-private['_nearTime','_dT','_periodTownUpdate','_periodFactoryUpdate','_nextTownUpdate','_nextFactoryUpdate','_buildings']
+private['_nearTime','_dT','_periodTownUpdate','_periodFactoryUpdate','_nextTownUpdate','_nextFactoryUpdate','_buildings'];
 
 waitUntil { serverInitComplete };
 
