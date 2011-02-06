@@ -15,7 +15,7 @@ MON_bugged_vehicles = ["BIS_alice_emptydoor","ACE_Grenade_Geometry"];
 //param2: altura
 MON_subir = {
 if (!isserver) exitwith{};
-private['_bldunitsin','_movein','_air','_flyingheigh','_targetx','_targety','_landonbeh','_bullet','_area2'];
+private['_object','_altura','_x','_y','_z','_pos','_bld','_bldpos'];
 
 _object = _this select 0;
 _altura = _this select 1;
