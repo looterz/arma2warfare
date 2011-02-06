@@ -1,8 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Market_UpdateProductValue");
 
-Private ['_container','_productId', '_dV', '_items', '_storage', '_u', '_modified', '_product', '_id', '_value'  ];
-
+private['_container','_productId','_dV','_storage','_u','_id','_updated','_volume','_item'];
 	_dV = _this select 2;
 	
 	format["UpdateProductValue: %1", _this] call LogHigh;

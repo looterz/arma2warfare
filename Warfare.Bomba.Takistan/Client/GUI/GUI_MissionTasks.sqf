@@ -1,3 +1,4 @@
+private['_map','_sorted','_names','_locations','_cursel','_skip','_display','_sideid'];
 disableSerialization;
 
 MenuAction = -1;

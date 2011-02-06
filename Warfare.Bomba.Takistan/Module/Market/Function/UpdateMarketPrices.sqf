@@ -1,7 +1,7 @@
 ﻿#include "profiler.h"
 PROFILER_BEGIN("Market_UpdateMarketPrices");
 
-Private ['_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', '_u', '_buyCoef', '_baseCost', '_productVolume', '_sellK','_buyCost','_sellCost', '_currentSupply', '_isCommander', '_isFactory', '_buildings', '_isTown' ];
+private['_market','_u','_u','_baseCost','_productVolume','_buyCost','_sellCost','_deltaprice','_productprices','_price','_stock','_maxvolumeproduced'];
 
 	_market = _this select 0;
 	_stock = _this select 1;

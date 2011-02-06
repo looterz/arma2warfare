@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_SetCommanderVotes");
 
-Private["_count","_side","_teams","_total","_value"];
+private['_side','_teams','_total','_value','_id','_vote'];
 
 _side = _this Select 0;
 _value = _this Select 1;

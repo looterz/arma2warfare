@@ -1,3 +1,5 @@
+private['_marker','_size','_markers','_label','_id','_uav','_searcharea','_markerranpos','_task','_randompos','_taskstate','_sidewin'];
+
 _size = _this select 0;
 _label = _this select 1;
 _id = _this select 2;

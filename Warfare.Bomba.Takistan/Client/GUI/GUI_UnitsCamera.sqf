@@ -1,4 +1,6 @@
+private['_currentunit','_n','_units','_map','_cameraswap','_objects','_currentmode','_selected','_near','_list','_display','_cameramodes','_id','_type'];
 disableSerialization;
+
 _display = _this select 0;
 MenuAction = -1;
 mouseButtonUp = -1;

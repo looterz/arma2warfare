@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("BuyUnit_HandleMessage");
 
-private['_clientId', '_unitData', '_response', '_order', '_data', '_unitType', '_description', '_txt', '_vehicle' ];
+private['_response','_order','_data','_unitType','_description','_txt','_vehicle'];
 	
 	//--- _responseType = _this select 0;
 	//--- _responseData = _this select 1;

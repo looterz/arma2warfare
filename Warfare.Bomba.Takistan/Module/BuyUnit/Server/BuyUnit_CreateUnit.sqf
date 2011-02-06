@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("BuyUnit_CreateUnit");
 
-Private ["_args", "_clientId", "_building", "_unitType", "_side", "_team", "_vehInfo", "_isAITeam", "_sideTeam", "_vehicleCreated", "_unitsCreated", "_unitCreated", "_distance", "_direction", "_type", "_index", "_position", "_driver", "_gunner", "_comander", "_locked", "_factoryPosition", "_crew", "_crewUnit", "_config", "_turrets" ];	
+private['_args','_clientId','_building','_unitType','_side','_team','_vehInfo','_isAITeam','_unitCreated','_distance','_direction','_type','_index','_position','_driver','_gunner','_comander','_locked','_factoryPosition','_crew','_crewUnit','_config','_turrets','_vehicle','_sidetext','_commander'];	
 
 	_clientId = _this select 0;
 	_building = _this select 1;

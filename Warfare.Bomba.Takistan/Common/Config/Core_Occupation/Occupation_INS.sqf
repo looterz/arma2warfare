@@ -1,3 +1,5 @@
+private['_u','_n'];
+
 _n		= ["SmallTeam1"];
 _u		= ["Ins_Soldier_CO"];
 _u = _u + ["Ins_Soldier_MG"];

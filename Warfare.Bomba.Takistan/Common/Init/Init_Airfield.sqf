@@ -1,3 +1,5 @@
+private['_location'];
+
 _location = _this select 0;
 
 waitUntil {commonInitComplete};

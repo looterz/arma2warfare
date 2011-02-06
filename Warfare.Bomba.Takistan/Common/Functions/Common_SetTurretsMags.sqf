@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_SetTeamType");
 
-private ['_content','_cpt','_data','_dataRow','_i','_tConstruct','_turretPath','_vehicle'];
+private['_content','_cpt','_data','_dataRow','_tConstruct','_turretPath','_vehicle'];
 _vehicle = _this select 0;
 _data = _this select 1;
 _turretPath = if (count _this > 2) then {_this select 2} else {[]};

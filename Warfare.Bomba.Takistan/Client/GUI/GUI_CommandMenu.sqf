@@ -1,3 +1,5 @@
+private['_exited','_commandinrange','_enable'];
+
 MenuAction = -1;
 _exited = false;
 

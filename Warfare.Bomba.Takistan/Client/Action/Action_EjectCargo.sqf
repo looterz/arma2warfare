@@ -1,3 +1,4 @@
+private['_vehicle','_cargo'];
 _vehicle = _this select 0;
 
 _cargo = (crew _vehicle) - [driver _vehicle, gunner _vehicle, commander _vehicle];

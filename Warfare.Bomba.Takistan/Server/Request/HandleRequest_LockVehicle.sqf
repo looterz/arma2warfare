@@ -1,4 +1,4 @@
-private['_order', '_vehicle', '_lock'];
+private['_order','_vehicle','_lock'];
 	//_clientId = _this select 0;
 	//_msgId   = _this select 1;
 	_order = _this;

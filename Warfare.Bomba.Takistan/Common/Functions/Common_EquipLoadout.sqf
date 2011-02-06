@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_EquipLoadout");
 
-Private['_ammo','_unit','_weapon','_weapons', '_classType', '_dogtags', '_label', '_role', '_hasBackpack'];
+private['_ammo','_unit','_weapon','_weapons','_classType','_dogtags'];
 
 	_unit = _this select 0;
 	_weapons = _this select 1;

@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_UpdateSideStats");
 
-private['_varName', '_unit', '_side', '_man', '_count', '_built', '_inc', '_changeTo'];
+private['_varName','_unit','_side','_man','_built','_inc','_changeTo'];
 	_unit  = _this select 0;
 	_side  = _this select 1;
 	_inc = _this select 2;

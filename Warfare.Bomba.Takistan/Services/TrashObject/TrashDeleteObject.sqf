@@ -1,6 +1,6 @@
 #include "profiler.h"
 
-private["_trashItem", '_object', '_canDelete', '_isDeleted', '_canRemove'];
+private['_trashItem','_object','_canDelete','_isDeleted'];
 PROFILER_BEGIN("Service_TrashDeleteObject");
 
 	_isDeleted = false;

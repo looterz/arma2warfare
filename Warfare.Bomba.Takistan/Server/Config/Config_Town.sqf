@@ -1,3 +1,5 @@
+private['_location','_params','_configscripts','_range','_locationname','_total','_script'];
+
 waitUntil { !isNil "initJIP" };
 
 	_location = _this Select 0;

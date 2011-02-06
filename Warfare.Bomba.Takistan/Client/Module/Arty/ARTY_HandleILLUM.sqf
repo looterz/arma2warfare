@@ -1,5 +1,5 @@
 /* ILLUM Handler, Battlefield light bringer */
-Private ['_destination','_force','_shell','_targetToHit','_velocity'];
+private['_destination','_shell','_targetToHit','_velocity','_deploypos','_flare'];
 _shell = _this select 0;
 _destination = _this select 1;
 _velocity = _this select 2;

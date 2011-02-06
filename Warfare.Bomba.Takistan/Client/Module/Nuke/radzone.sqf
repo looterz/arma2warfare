@@ -1,3 +1,4 @@
+private['_array'];
 //--- Radiation
 
 _target = _this select 0;

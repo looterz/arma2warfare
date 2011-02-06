@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Service_ManagedUnitProc");
 
-Private ["_tmp", "_dirt", "_u", "_unit", "_item", "_data"];
+private['_tmp','_dirt','_u','_unit','_item','_data','_side','_man'];
 
 	if (count ManagedUnitListOperate > 0) then {
 		_tmp = ManagedUnitListOperate;

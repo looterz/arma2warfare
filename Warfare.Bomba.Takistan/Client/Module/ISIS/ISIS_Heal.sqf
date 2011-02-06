@@ -1,3 +1,5 @@
+private['_injured','_healer','_neara','_nearb','_placeata','_relposa','_relposb','_near','_posh','_posi','_posa','_posb','_fpos','_dy','_dx','_healtime','_anims','_anim','_canbeplaceat','_success'];
+
 _injured = _this select 0;
 _healer = _this select 1;
 

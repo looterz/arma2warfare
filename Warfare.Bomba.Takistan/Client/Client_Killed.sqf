@@ -1,3 +1,5 @@
+private['_killer','_isinertobject','_sidevictim','_istkfriendly'];
+
 //--- Prevent double death.
 if (playerDead) exitWith {};
 playerDead = true;

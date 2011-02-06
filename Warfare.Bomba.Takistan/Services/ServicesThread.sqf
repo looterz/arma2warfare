@@ -1,3 +1,5 @@
+private['_nextaction','_hthread','_nearactiontime','_dt','_srvinfo','_bdone','_srvproc','_srvperiod','_name'];
+
 while { !gameOver } do {
 	
 	_nearActionTime = 10000;

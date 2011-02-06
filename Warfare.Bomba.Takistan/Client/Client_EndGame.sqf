@@ -1,3 +1,5 @@
+private['_camera','_blist','_vehi','_base','_sectarget','_side','_stats','_track','_position','_hq','_nvgstate','_camshotorder'];
+
 _side = _this Select 0;
 _blist = _this Select 1;
 _stats = _this Select 2;

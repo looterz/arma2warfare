@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_PlaceNear");
 
-Private["_direction","_faceAway","_maxRadius","_minRadius","_object","_placeSafe","_position","_radius","_randomDirection","_safeRadius"];
+private['_direction','_faceAway','_maxRadius','_minRadius','_object','_placeSafe','_position','_radius','_randomDirection','_safeRadius','_destination'];
 
 _object = _this Select 0;
 _position = _this Select 1;

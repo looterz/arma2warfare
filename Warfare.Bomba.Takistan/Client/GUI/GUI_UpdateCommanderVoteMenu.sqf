@@ -1,3 +1,5 @@
+private['_count','_selected','_playerslots','_selectedteam','_votetime','_exit','_refresh','_votes','_name','_lastteams','_total','_lastteam','_lastvotes','_commanderteam','_reselect','_ai','_selection','_selectedtext'];
+
 _voteTime = WF_Logic getVariable Format ["%1CommanderVoteTime",sideJoinedText];
 if (_voteTime <= 0) exitWith {};
 

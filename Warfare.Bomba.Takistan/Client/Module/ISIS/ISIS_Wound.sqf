@@ -1,4 +1,4 @@
-Private ["_damage","_damages","_isStuned","_type","_unit"];
+private['_damage','_damages','_isStuned','_type','_unit','_lastwound'];
 
 _unit = _this select 0;
 _type = _this select 1;

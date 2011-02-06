@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_GetIsFlatPosition");
 
-Private["_position","_radius","_list","_flat","_u","_object", "_meters", "_allowedType", "_ignoreVehicle"];
+private['_position','_radius','_list','_flat','_u','_object','_meters','_allowedType','_ignoreVehicle','_vehicle','_isflat','_maxgrad','_mindist'];
 
 	_position 	= _this select 0;
 	_radius 	= _this select 1;

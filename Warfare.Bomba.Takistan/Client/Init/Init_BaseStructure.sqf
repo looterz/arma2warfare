@@ -1,4 +1,4 @@
-Private["_color","_marker","_structure","_text","_type","_side"];
+private['_color','_marker','_structure','_text','_type','_side','_allies','_hq','_votetime'];
 
 waitUntil {commonInitComplete};
 

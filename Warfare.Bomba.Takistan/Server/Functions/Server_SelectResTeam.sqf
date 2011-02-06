@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_SelectResTeam");
 
-Private ['_u', '_difficulty','_difficulty1', '_factor','_infAssign','_minInfSpawnRatio','_minVehSpawnRatio','_poolInf','_poolVeh','_ratioInfantry','_ratioVehicle','_teams','_try','_vehAssign'];
+private['_u','_difficulty','_difficulty1','_infAssign','_minInfSpawnRatio','_minVehSpawnRatio','_poolInf','_poolVeh','_ratioInfantry','_ratioVehicle','_teams','_try','_vehAssign','_ranarr'];
 
 _difficulty = _this select 0;
 

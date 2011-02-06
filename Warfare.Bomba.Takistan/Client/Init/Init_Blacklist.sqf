@@ -1,4 +1,4 @@
-Private ["_blackListID","_id"];
+private['_blackListID','_id'];
 _id = getPlayerUID (_this select 0);
 
 	if (isClass (configFile >> "darky_menu")) exitwith {

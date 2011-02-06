@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_ConstructionHQSite");
 
-Private ["_deployed","_direction","_HQ","_position","_side","_sideText","_site","_varTH"];
+private['_deployed','_direction','_HQ','_position','_side','_sideText','_site','_varTH','_mhq','_type','_update','_areas','_near','_logic','_hqname','_grp'];
 _type = _this select 0;
 _side = _this select 1;
 _position = _this select 2;

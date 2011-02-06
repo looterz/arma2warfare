@@ -1,7 +1,7 @@
 #include "profiler.h"
-PROFILER_BEGIN("RequestChangeScore");
+PROFILER_BEGIN("RequestDefense");
 
-Private ["_defenseType","_dir","_index","_manned","_pos","_side","_structure", "_noammo"];
+private['_defenseType','_dir','_index','_manned','_pos','_side','_noammo'];
 _side = _this select 0;
 _defenseType = _this select 1;
 _pos = _this select 2;

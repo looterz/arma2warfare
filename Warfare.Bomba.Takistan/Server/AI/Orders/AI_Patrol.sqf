@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_AIOrders_Patrol");
 
-Private ["_destination","_maxWaypoints","_pos","_radius","_radius2", "_isSufracePos", "_team","_type","_update","_wps", "_u"];
+private['_destination','_maxWaypoints','_pos','_radius','_radius2','_team','_type','_update','_wps','_u'];
 _team = _this select 0;
 _destination = _this select 1;
 _radius = if (count _this > 2) then {_this select 2} else {30};

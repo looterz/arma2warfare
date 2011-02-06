@@ -1,3 +1,5 @@
+private['_startat','_txt'];
+
 waitUntil { !isNil "initJIP" };
 	
 	waitUntil{townModeSet};

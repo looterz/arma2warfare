@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_RearmVehicleOA");
 
-Private['_amount','_config','_magazines','_side','_turrets','_type','_vehicle'];
+private['_amount','_config','_magazines','_side','_turrets','_type','_vehicle','_isartillery','_get'];
 
 _vehicle = _this select 0;
 _side = _this select 1;

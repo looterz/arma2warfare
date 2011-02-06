@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_GetClientFunds");
 
-Private["_id","_team", "_result", "_sideId", "_funds"];
+private['_id','_sideId','_funds'];
 
 	_funds = _this select 0;
 	_sideId = (_this Select 1) call GetSideID;

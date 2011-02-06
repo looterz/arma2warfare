@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_GetGridPosition");
 
-Private["_pos","_maxRadius","_minRadius", "_grid", "_dt", "_x", "_y", "_pos1"  ];
+private['_pos','_maxRadius','_minRadius','_grid','_dt','_y','_pos1'];
 
 	_pos = _this select 0;
 	_minRadius = _this select 1;

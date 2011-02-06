@@ -1,8 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_UseStationaryDefense");
 
-Private["_count","_defense","_defenseTypes","_emptyDefenses","_range","_total","_totalDefenses","_unit","_units"];
-
+private['_count','_defense','_defenseTypes','_emptyDefenses','_range','_total','_totalDefenses','_unit','_units','_defenses'];
 _units = _this select 0;
 _range = _this select 1;
 

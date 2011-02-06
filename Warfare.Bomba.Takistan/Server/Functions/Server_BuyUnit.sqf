@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_BuyUnit");
 
-Private ["_building", "_openTicketId", "_ticketId", "_team"];
+private['_building','_team','_unittype','_side','_vehinfo'];
 	_building = _this select 1;
 	_unitType = _this select 2;
 	_side	  = _this select 3;

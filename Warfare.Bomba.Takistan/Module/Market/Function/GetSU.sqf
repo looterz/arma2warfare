@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Market_GetSU");
 
-Private ['_unitType','_su'];
+private['_unitType','_su','_unitweight','_unit'];
 
 	if (isNil "_this") exitWith { 
 		PROFILER_END();

@@ -1,3 +1,4 @@
+private['_availablespawn','_checks','_spawn','_hq','_buildings','_markername','_price','_upgrades','_range','_markers','_markerindex','_ta','_mode','_temp','_position','_sorted','_loaddefault','_skip','_display','_map','_mobilerespawns','_farps','_funds','_listbp','_weaps','_defaultweap','_defaultammo'];
 disableSerialization;
 
 MenuAction = -1;

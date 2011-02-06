@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_GetClosestLocationBySide");
 
-Private["_bFound", "_count","_location","_object","_nearest","_nearestDistance","_sideID","_tsideID"];
+private['_bFound','_count','_location','_object','_nearest','_nearestDistance','_sideID','_tsideID','_distance'];
 
 _object = _this Select 0;
 _sideID = _this Select 1;

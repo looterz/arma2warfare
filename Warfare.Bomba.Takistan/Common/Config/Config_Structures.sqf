@@ -1,3 +1,5 @@
+private['_n','_v','_d','_c','_t','_i','_s','_dis','_dir','_h','_count'];
+
 /*
 	_v - variable name
 	_n - building classname

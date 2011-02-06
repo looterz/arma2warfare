@@ -1,3 +1,4 @@
+private['_array','_destroy','_blacklisted','_bo'];
 //--- Nuke destruction.
 
 _target = _this select 0;

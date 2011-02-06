@@ -1,7 +1,7 @@
 ﻿#include "profiler.h"
 PROFILER_BEGIN("Market_NormalizePrices");
 
-Private ['_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', '_u', '_buyCoef', '_baseCost', '_productVolume', '_sellK','_buyCost','_sellCost', '_currentSupply', '_isCommander', '_isFactory', '_buildings', '_isTown', '_products', '_townProducts', '_sorted','_tax' ];
+private['_market','_u','_marketSellCost','_u','_sorted','_tax','_townbuycost','_nearest','_dist','_markets','_townsellcost','_dsell','_dbuy','_marketprices','_townprices','_marketprice','_updated'];
 
 	_market = _this;
 	

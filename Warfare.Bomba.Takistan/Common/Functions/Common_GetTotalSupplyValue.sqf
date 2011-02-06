@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_GetTotalSupplyValue");
 
-Private["_count","_held","_side","_supplyValue","_sideID","_town"];
+private['_count','_side','_supplyValue','_sideID','_town'];
 
 _side = _this;
 _sideID = _side Call GetSideID;

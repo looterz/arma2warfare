@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("BuyUnit_OrderComplete");
 
-Private ["_order", "_vehicle", "_unitType", "_side", "_vehInfo", "_upgrades", "_init"];
+private['_order','_vehicle','_unitType','_side','_vehInfo','_upgrades','_init','_isartillery'];
 
 	waitUntil { !isNil "initJIP" };
 

@@ -1,3 +1,5 @@
+private['_count'];
+
 waitUntil { !isNil "initJIP" };
 CompileFile = Compile preprocessFile "Common\Functions\Common_CompileFile.sqf";
  

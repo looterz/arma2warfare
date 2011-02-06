@@ -4,7 +4,7 @@ PROFILER_BEGIN("Server_ConstructionStationaryDefense");
 //*****************************************************************************************
 //Description: Creates Defenses.
 //*****************************************************************************************
-Private ["_defense","_direction","_index","_manned","_position","_side","_type", "_noammo"];
+private['_defense','_direction','_index','_manned','_position','_side','_type','_noammo','_c','_toworld','_h','_array','_minetype','_mine','_team','_check','_alives','_buildings','_closest','_barracknearby','_isveh'];
 _type = _this select 0;
 _side = _this select 1;
 _position = _this select 2;

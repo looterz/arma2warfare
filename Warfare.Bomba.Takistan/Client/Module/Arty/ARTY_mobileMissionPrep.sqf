@@ -1,3 +1,5 @@
+private['_vehicle'];
+
 _vehicle = _this select 0;
 
 (driver _vehicle) action ["engineOff", _vehicle];

@@ -14,7 +14,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_AIOrders_WPAdd");
 
-Private ['_clear','_completionRadius','_position','_radius','_team','_type','_waypoint','_waypoints','_bSetCurrentWaypoint', '_index'];
+private['_clear','_completionRadius','_position','_radius','_team','_type','_waypoint','_waypoints','_index'];
 _team = _this select 0;
 _clear = _this select 1;
 _waypoints = _this select 2;

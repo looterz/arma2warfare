@@ -1,4 +1,4 @@
-Private["_side","_sideValue","_stats"];
+private['_side','_sideValue','_stats','_blist'];
 
 _sideValue = _this select 0;
 _blist = _this select 1;

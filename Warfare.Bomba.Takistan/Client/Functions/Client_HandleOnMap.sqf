@@ -1,4 +1,4 @@
-Private ['_isOffMap','_timeToKill'];
+private['_timeToKill','_isonmap'];
 
 _timeToKill = 'WFBE_OFFMAPMAXTIME' Call GetNamespace;
 paramBoundariesRunning = true;

@@ -1,3 +1,4 @@
+private['_iddx','_listprice','_j','_cdata','_listdesc','_listbox','_i','_type','_data','_funds'];
 MenuAction = -1;
 
 _type = ('WFBE_EASA_Vehicles' Call GetNamespace) find (typeOf (vehicle player));

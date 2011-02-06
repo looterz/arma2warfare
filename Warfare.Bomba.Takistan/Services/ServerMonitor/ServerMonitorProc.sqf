@@ -1,3 +1,5 @@
+private['_created','_lost'];
+
 #include "profiler.h"
 PROFILER_BEGIN("Service_ServerMonitorProc");
 

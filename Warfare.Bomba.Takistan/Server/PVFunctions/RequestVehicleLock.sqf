@@ -1,4 +1,4 @@
-Private["_client","_locked","_side","_vehicle"];
+private['_locked','_vehicle'];
 
 _vehicle = _this select 0;
 _locked = _this select 1;

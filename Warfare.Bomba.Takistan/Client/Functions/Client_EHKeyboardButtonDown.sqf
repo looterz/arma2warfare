@@ -1,4 +1,4 @@
-private["_pressedButton","_pressedShift","_pressedControl","_pressedAlt","_return","_userKeyMessage","_actionKeysImages","_pressedButtonArray"];
+private['_pressedButton','_pressedShift','_pressedControl','_pressedAlt','_keyhandled'];
 
 // ------------------ Parse Arguments -----------------
 

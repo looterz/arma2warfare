@@ -1,3 +1,5 @@
+private['_markersize','_group','_grps','_i','_pos','_towns','_spawnlocations','_attempts','_cpt','_jiphandler','_update','_inrange','_boundariesxy','_near','_restypes','_vehicles','_attackafter','_oldplayerlist','_position','_sideid','_teamtype','_retval'];
+
 /* Town Attack Script (Hybrid) */
 
 _uniqueLabel = _this select 0;

@@ -1,4 +1,4 @@
-Private ['_i','_loadout','_vehicle'];
+private['_i','_loadout','_vehicle'];
 _vehicle = _this select 0;
 _loadout = _this select 1;
 

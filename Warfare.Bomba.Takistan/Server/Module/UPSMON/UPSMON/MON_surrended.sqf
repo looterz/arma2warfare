@@ -3,7 +3,7 @@
 //  Version: 1.0 
 //  Author: Monsada (smirall@hotmail.com)
 // ---------------------------------------------------------------------------------------------------------
-private ["_side","_soldiers"];
+private['_side','_soldiers'];
 _side = _this select 0;
 
 _soldiers = switch (_side) do {

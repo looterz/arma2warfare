@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_SelectResTeam");
 
-Private ["_canSpeak","_extra","_side","_speaker","_special","_specialb","_topicSide"];
+private['_canSpeak','_extra','_side','_speaker','_special','_specialb','_topicSide','_locraw','_value','_localizedstring','_receiver','_rlname'];
 _special = _this select 0;
 _specialb = _this select 1;
 _side = _this select 2;

@@ -1,3 +1,4 @@
+private['_w','_m','_d','_t','_s','_i','_p','_l','_b','_items','_get','_count','_cost','_c','_totaltemplates'];
 /*
 	New loadout system. | Hybrid
 	  Only one side gear is defined at a time. west don't know east and vice versa.

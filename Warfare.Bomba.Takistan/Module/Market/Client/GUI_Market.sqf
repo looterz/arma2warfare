@@ -1,4 +1,6 @@
-﻿disableSerialization;
+﻿private['_market','_productid','_uiproductlist','_txt','_u','_buyvalue','_uibuyvolumeslider','_uisellvolumeslider','_graycolor','_sellvalue','_marketstock','_marketprices','_selectedrowid','_cargofreespacesu','_nearmarkets','_currentcost','_maxbuyvalue','_productlistids','_newprice','_force','_cargofreeactualsu','_uinearmarketdropdown','_selectedmarketid','_lasttimestamp','_fnlocalizeunit','_cargoitems','_cargosu','_uibuyvolumebutton','_uisellvolumebutton','_ismhq','_isfactory','_currentsupply','_iscommander','_incvalue','_procupdatemarketdata','_timestamp','_showitem','_currentfunds','_cargovalue','_costsell','_costbuy','_cargounittype','_uibuyvolumetext','_uisellvolumetext','_uicashtext','_lastsv','_fnupdateplayercargoinfo','_procupdatestockproduct','_countnearmarkets','_id','_d','_unitformat','_freecargoactual','_product','_cargomaxweightsu','_display','_uicosttext','_uifreecargo','_procreadstockdata','_ishq','_procupdatemarketslist','_procupdateproductlist','_greencolor','_txtstockvolume','_txtcargovolume','_lastselectedproductid','_color','_uicashtextlabel','_uititle','_istown','_hq','_mycargo','_whitecolor','_productweightperunit'];
+
+disableSerialization;
 
 _cargo = player;
 _cargoMaxWeightSU = objNull;

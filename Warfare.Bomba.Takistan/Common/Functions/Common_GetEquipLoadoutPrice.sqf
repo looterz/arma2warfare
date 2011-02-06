@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_GetEquipLoadoutPrice");
 
-Private['_ammo','_unit','_weapon','_weapons', '_classType', '_dogtags', '_label'];
+private['_unit','_u','_currentweapons','_cost','_i','_loadout','_weapontype'];
 
 _unit = _this;
 

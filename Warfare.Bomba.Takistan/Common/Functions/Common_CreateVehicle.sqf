@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_CreateVehicle");
 
-Private ["_lock","_position","_side","_type","_vehicle"];
+private['_lock','_position','_side','_type','_vehicle','_markers','_placement','_special'];
 
 	_type = _this select 0;
 	_position = _this select 1;

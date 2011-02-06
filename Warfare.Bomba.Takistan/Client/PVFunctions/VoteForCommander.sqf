@@ -1,3 +1,5 @@
+private['_votetime'];
+
 if (votePopUp) then {
 	_voteTime = 0;
 	waitUntil {_voteTime = WF_Logic getVariable Format ["%1CommanderVoteTime",sideJoinedText];!isNil "_voteTime"};

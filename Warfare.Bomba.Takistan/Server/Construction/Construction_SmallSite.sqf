@@ -4,7 +4,7 @@ PROFILER_BEGIN("Server_ConstructionSmallSite");
 //*****************************************************************************************
 //Description: Creates a small construction site.
 //*****************************************************************************************
-Private ["_constructed","_direction","_index","_position","_side","_site","_siteName","_structures","_structureType","_time","_timeNextUpdate"];
+private['_constructed','_direction','_index','_position','_side','_site','_siteName','_time','_timeNextUpdate','_objects','_type','_starttime','_construct'];
 _type = _this select 0;
 _side = _this select 1;
 _position = _this select 2;

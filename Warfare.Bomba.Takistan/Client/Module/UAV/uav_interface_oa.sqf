@@ -1,3 +1,5 @@
+private['_uav','_newheight','_id','_ppcolor','_marker','_key','_worldpos','_defaultteamswitch','_locked','_action_leave','_markertime','_displayeh_keydown','_displayeh_mousebuttondown','_mapeh_mousebttondown','_logic'];
+
 _logic = _arguments select 0;
 _defaultTeamswitch = teamswitchenabled;
 

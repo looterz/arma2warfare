@@ -1,3 +1,4 @@
+private['_vehicle','_vel','_dir','_speed'];
 _vehicle = _this select 0;
 
 _vel = velocity _vehicle;

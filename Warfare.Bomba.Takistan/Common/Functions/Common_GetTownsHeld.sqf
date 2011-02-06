@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_GetTownHeld");
 
-Private["_count","_held","_sideID"];
+private['_held','_sideID'];
 
 _held = 0;
 _sideID = _this Call GetSideID;

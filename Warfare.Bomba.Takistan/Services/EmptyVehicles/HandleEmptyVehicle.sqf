@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Service_HandleEmptyVehicle");
 
-Private ["_exit","_reset","_timer","_trash","_vehicle"];
+private['_vehicle'];
 
 	_vehicle = _this;
 

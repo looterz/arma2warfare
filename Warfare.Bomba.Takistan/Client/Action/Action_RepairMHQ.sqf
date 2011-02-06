@@ -1,3 +1,4 @@
+private['_supply','_repairprice','_hq','_vehicle','_isbeingfixed'];
 _vehicle = _this select 0;
 
 _hq = (sideJoinedText) Call GetSideHQ;

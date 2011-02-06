@@ -1,3 +1,5 @@
+private['_uav','_newalt','_control','_ppinversion','_newspeed','_ppcolor','_ppblur','_ppgrain','_display','_controls','_defaultvalue','_controlhint','_defaultteamswitch','_locked','_alt','_speed','_displayeh_keydown','_displayeh_mousebuttondown','_displayeh_mousezchanged','_mapeh_mousebttondown','_logic','_igui_update'];
+
 _logic = _this select 0;
 _defaultTeamswitch = teamswitchenabled;
 

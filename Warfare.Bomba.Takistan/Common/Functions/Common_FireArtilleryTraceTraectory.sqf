@@ -1,4 +1,4 @@
-private['_arty', '_pos', '_hitPoint', '_target', '_speed', '_aslH', '_shell', '_posASL1', '_timeMax', '_artyPos', '_x0', '_y0', '_z0', '_vel', '_dx', '_dy', '_R', '_H', '_theta', '_vx', '_vy', '_sinQ', '_cosQ', '_time', '_endTraectory', '_timeFlight', '_halfG', '_velXY', '_velY', '_dL', '_dH', '_posASL2'  ];
+private['_arty','_pos','_hitPoint','_target','_speed','_aslH','_shell','_posASL1','_artyPos','_x0','_y0','_z0','_vel','_dx','_dy','_R','_H','_theta','_vx','_vy','_time','_endTraectory','_timeFlight','_velXY','_dL','_dH','_firetarget','_procgetendheight','_asltarget','_endtracepoint','_gravityconst','_velz','_traceh','_dt','_tracepos','_proccalculatetheta','_shelltype','_shellnew','_oldtheta'];
 
 _gravityConst = 9.81; // m/s2
 

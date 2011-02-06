@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Support_ParaVehicles");
 
-Private["_args","_side"];
+private['_args','_side','_pilot','_ranpos','_grp','_ran','_exit','_cargovehicle','_bd','_randir','_vehiclecoord','_positioncoord','_playerteam','_timestart','_cargo'];
 
 _args = _this;
 _side = _args select 1;

@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_VoteForCommander");
 
-Private ['_aibase','_commanderTeam','_comVoteTime','_side','_sideText'];
+private['_aibase','_commanderTeam','_comVoteTime','_side','_sideText','_delay'];
 _side = _this select 0;
 
 waitUntil { !isNil "initJIP" };

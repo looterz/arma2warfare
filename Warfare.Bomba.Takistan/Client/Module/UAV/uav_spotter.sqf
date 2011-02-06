@@ -7,7 +7,7 @@
 	  This file handle the UAV 'spotting' ability. If the UAV knows about an hostile unit, it'll reveal it's average location on the map.
 */
 
-Private ['_delay','_range','_sensitivity','_uav'];
+private['_delay','_range','_sensitivity','_uav'];
 _uav = _this select 0;
 _delay = 'WFBE_UAVSPOTTINGDELAY' Call GetNamespace;
 _range = 'WFBE_UAVSPOTTINGRANGE' Call GetNamespace;

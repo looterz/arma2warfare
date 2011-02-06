@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_SpawnTurrets");
 
-private ["_turrets", "_path", "_vehicle", "_crew", "_team"];
+private['_turrets','_path','_vehicle','_crew','_team','_unit'];
 _turrets = _this select 0;
 _path = _this select 1;
 _vehicle = _this select 2;

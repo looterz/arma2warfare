@@ -1,3 +1,5 @@
+private['_cruise','_target','_dropposition','_misflare','_path','_paths','_nukemarker','_type','_dropposx','_dropposy','_dropposz','_planespawnpos'];
+
 //--- Nuke launching.
 _target = _this select 0;
 _nukeMarker = _this select 1;

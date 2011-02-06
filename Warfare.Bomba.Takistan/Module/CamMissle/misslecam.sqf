@@ -1,4 +1,6 @@
+private['_cam','_missile','_type','_pos','_lastpos','_dt','_base','_hud','_disp','_viewdist','_vel','_dir'];
 disableSerialization;
+
 // execVM "\scripts\su34.sqf"
 // execVM "Module\CamMissle\action_misslecam.sqf"
 // (vehicle player) call RearmVehicle

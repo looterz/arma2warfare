@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_HQKilled");
 
-Private ["_deployed","_dir","_hq","_HQName","_killer","_MHQ","_pos","_side","_type"];
+private['_deployed','_dir','_hq','_HQName','_killer','_MHQ','_pos','_side','_type','_bounty','_killerid','_sidekiller','_uid','_kuid','_killedname','_tked','_kname'];
 _hq = _this select 0;
 _killer = _this select 1;
 _side = _this select 2;

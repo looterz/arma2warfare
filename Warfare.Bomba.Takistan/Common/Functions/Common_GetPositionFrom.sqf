@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Common_GetPositionFrom");
 
-Private["_destination","_distance","_direction","_position", "_value"];
+private['_distance','_direction','_position','_value'];
 
 _position = _this Select 0;
 if (typeName _position != "ARRAY") then {_position = position _position};

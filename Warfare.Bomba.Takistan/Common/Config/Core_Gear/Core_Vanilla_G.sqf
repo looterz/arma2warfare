@@ -1,5 +1,4 @@
-Private ['_config','_element','_get','_i','_info','_prefix','_proceed','_u','_z'];
-
+private['_config','_element','_get','_i','_info','_prefix','_proceed','_u','_basetype'];
 _u = [];
 _i = [];
 

@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Market_InitServer");
 
-Private ['_unitType','_su'];
+private['_isinited'];
 
 _isInited = WF_Logic getVariable "marketInitialized";
 if (isNil "_isInited") then { _isInited = 0; };

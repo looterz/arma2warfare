@@ -1,3 +1,4 @@
+private['_vehicle','_units','_currentvd','_text','_transferamount','_amount','_val','_val2','_isinvehicle','_timer','_cursel','_curunitsel','_funds','_i','_desc','_ainumber','_finalnumber','_descvehi','_txt','_destroy','_is','_lastvd','_lasttg','_objects','_vehi','_xtra','_pos','_display'];
 disableSerialization;
 
 _display = _this select 0;

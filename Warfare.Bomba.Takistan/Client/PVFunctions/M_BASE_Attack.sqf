@@ -1,3 +1,5 @@
+private['_marker','_size','_markers','_ranpos','_label','_id','_task','_cpt','_groups','_tpos','_exit','_target','_properpos'];
+
 _size = _this select 0;
 _label = _this select 1;
 _id = _this select 2;

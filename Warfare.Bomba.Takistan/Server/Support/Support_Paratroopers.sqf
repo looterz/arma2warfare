@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Support_Paratroopers");
 
-Private["_args","_side"];
+private['_args','_side','_vehicle','_pilot','_grp','_ranpos','_ran','_exit','_bd','_randir','_vehiclecoord','_positioncoord','_playerteam','_cargo','_delay','_timestart','_currentupgrades','_currentlevel','_units','_unit'];
 
 _args = _this;
 _side = _args select 1;

@@ -1,4 +1,4 @@
-Private['_c','_u'];
+private['_c','_u','_longestairportbuildtime'];
 
 /* WEST - Airport */
 _u = Call Compile preprocessFile (WFBE_V_UnitsRoot + WFBE_V_West_UnitsRootVersion + 'Units_Airport_' + WFBE_V_West_Faction + '.sqf');

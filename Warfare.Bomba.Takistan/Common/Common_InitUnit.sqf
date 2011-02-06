@@ -1,7 +1,8 @@
+private['_ownUnit','_side','_unit','_deadSize','_type','_color','_size','_txt','_markername','_params'];
+
 #include "profiler.h"
 PROFILER_BEGIN("Common_InitUnit");
 
-Private ["_ownUnit", "_finalNumber","_numbers","_side","_text","_unit", "_deadSize", "_attempts"];
 	_unit = _this select 0;
 	_side = _this select 1;
 

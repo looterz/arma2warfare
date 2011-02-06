@@ -1,4 +1,4 @@
-Private['_c','_u'];
+private['_c','_u','_restype','_longestbarracksbuildtime'];
 
 /* WEST - Barracks */
 _u = Call Compile preprocessFile (WFBE_V_UnitsRoot + WFBE_V_West_UnitsRootVersion + 'Units_Barracks_' + WFBE_V_West_Faction + '.sqf');

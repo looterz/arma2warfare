@@ -2,7 +2,7 @@
 PROFILER_BEGIN("Common_GetTurretsMags");
 
 /* Adapted from BIS turret's function. */
-private ['_subEntry', '_entry','_turretIndex','_turrets','_turretIndex', '_u'];
+private['_subEntry','_entry','_turretIndex','_turrets','_turretIndex'];
 _entry = _this select 0;
 
 _turrets = [];
