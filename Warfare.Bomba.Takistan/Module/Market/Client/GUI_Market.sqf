@@ -347,7 +347,7 @@ while {alive (vehicle player) && dialog} do {
 		ctrlEnable [_uiSellVolumeButton, ((!isNull _market) && _cargoValue != 0 && _costSell != -1)];
 		ctrlEnable [_uiSellVolumeSlider, ((!isNull _market) && _cargoValue != 0 && _costSell != -1)];	
 		
-		ctrlSetText [_uiCostText, format [localize "STR_WF_TradeCost", -(_currentCost)]];	
+		ctrlSetText [_uiCostText, format [localize "STR_WF_TradeCost", abs(_currentCost)]];	
 	} else {
 	
 		ctrlSetText [_uiBuyVolumeText, format [localize "STR_WF_TradeBuyValue", "", ""]];	
