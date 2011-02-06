@@ -128,7 +128,6 @@ paramDefenseCollide = false;
 	paramBuyVehiclesInTown = true;
 	paramBuyAircraftInAirportOnly = true;
 	paramStrictTankTargetLock = true;
-	paramVehicleComponents = true;
 	paramUnitCostWithGear = true;
 	paramTrade = true;
 	paramArtilleryHighBallistic = false;
@@ -260,7 +259,6 @@ paramDefenseCollide = false;
 		paramSupplyExchange      = if ((paramsArray select _u) == 0) then { false} else { true};_u = _u + 1; 						//--- Supply Exchange in town depot
 		paramBuyVehiclesInTown   = if ((paramsArray select _u) == 0) then { false} else { true};_u = _u + 1; 						//--- Supply Exchange in town depot
 		if ((paramsArray select _u) == 0) then {paramBuyAircraftInAirportOnly = false} else {paramBuyAircraftInAirportOnly = true};_u = _u + 1; //--- Buy aircrafts only in airport
-		if ((paramsArray select _u) == 0) then {paramVehicleComponents = false} else {paramVehicleComponents = true};_u = _u + 1; //--- Vehicle component requirements
 		paramUnitCostWithGear = if ((paramsArray select _u) == 0) then { false} else { true }; _u = _u + 1; //---  Unit Cost with Gear
 		paramTrade = if ((paramsArray select _u) == 0) then { false} else { true}; _u = _u + 1; //---  Unit Cost with Gear
 		paramArtilleryHighBallistic  = if ((paramsArray select _u) == 0) then { false} else { true};_u = _u + 1; //---  Unit Cost with Gear

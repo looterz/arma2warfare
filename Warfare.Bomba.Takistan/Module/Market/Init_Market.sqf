@@ -6,23 +6,24 @@ marketClearPlayerCargo = Compile preprocessFile "Module\Market\Client\ClearPlaye
 marketGetSU = Compile preprocessFile "Module\Market\Function\GetSU.sqf"; 
 
 marketGetContainerItems = Compile preprocessFile "Module\Market\Function\GetContainerItems.sqf";
+marketSetContainerItems = Compile preprocessFile "Module\Market\Function\SetContainerItems.sqf";
+
 marketGetMarketProducts = Compile preprocessFile "Module\Market\Function\GetMarketProducts.sqf"; 
 marketGetMarketPrices = Compile preprocessFile "Module\Market\Function\GetMarketPrices.sqf"; 
 
 marketGetProductValue = Compile preprocessFile "Module\Market\Function\GetProductValue.sqf"; 
+marketGetProductIdByType = Compile preprocessFile "Module\Market\Function\GetProductIdByType.sqf";
 marketUpdateProductValue = Compile preprocessFile "Module\Market\Function\UpdateProductValue.sqf"; 
 
 marketInitMarketStorage = Compile preprocessFile "Module\Market\Function\Init_MarketStorage.sqf"; 
 marketUpdateProducedProduct = Compile preprocessFile "Module\Market\Function\UpdateProducedProduct.sqf";
 marketUpdateMarketPrices = Compile preprocessFile "Module\Market\Function\UpdateMarketPrices.sqf";
 marketNormalizePrices = Compile preprocessFile "Module\Market\Function\NormalizePrices.sqf";
-marketGetUnitPrice = Compile preprocessFile "Module\Market\Function\GetUnitPrice.sqf";
-marketGetUnitPriceEx = Compile preprocessFile "Module\Market\Function\GetUnitPriceEx.sqf";
-marketUseResourcesToBuyUnit = Compile preprocessFile "Module\Market\Function\UseResourcesToBuyUnit.sqf";
-marketGetUnitRequiredProducts = Compile preprocessFile "Module\Market\Function\GetUnitRequiredProducts.sqf";
-marketGetUnitRequirementText = Compile preprocessFile "Module\Market\Function\GetUnitRequirementText.sqf";
+
+marketChangeCargoProductValue = Compile preprocessFile "Module\Market\Function\ChangeCargoProductValue.sqf";
 
 marketRoundValue = Compile preprocessFile "Module\Market\Function\RoundValue.sqf";
+marketGetCargoInfo = Compile preprocessFile "Module\Market\Function\GetCargoInfo.sqf";
 
 marketProductIdSupply = 0;
 marketProductIdStones = 2;
@@ -41,25 +42,63 @@ MARKET_PRODUCTCOLLECTION_BASEPRICE = 2;
 MARKET_PRODUCTCOLLECTION_MAXVOLUMEPRODUCT = 3;
 MARKET_PRODUCTCOLLECTION_MAXPRODUCESPEED = 4;
 
-// name, unit, basePrice, maxVolumeProduced, maxProduceSpeed/min
+// name, unit, basePrice, maxVolumeProduced, maxProduceSpeed/min, weight per unit (kg), sideId
 marketProductCollection = 
 [
-	["Supplies", 		"t",  5000,	  15,	  1.0], // 0
- 	["Food", 			"t",    10,	1000,	 10.0],	// 1
-	["Stones", 			"t",    30,	1000,	 10.0], // 2
-	["Textiles", 		"t",    50,	 500,	  6.5], // 3
-	["Liquor/Wines", 	"t",   150,	 300,	  6.5], // 4
-	["Luxuries", 		"t",   200,	 300,	  6.5], // 5
-	["Oil", 			"t",   300,	 200,	  5.0], // 6
-	["Gunpowder",		"t",   600,	 200,	  3.0], // 7
-	["Computers", 		"t",   900,	 200,	  3.0], // 8
-	["Alloys", 			"t",  1200,	 200,	  3.0], // 9
-	["Machinery", 		"t",  1500,	 200,	  3.0], // 10
-	["Narcotics", 		"t",  3000,	  50,	  0.5], // 11
-	["Platinum", 		"kg", 600,	 100,	  3.0], // 12
-	["Gold", 			"kg",  900,	 250,	  3.0], // 13
-	["Gem-stones", 		"g",  2400,	  50,	  0.5]  // 14
+	["Supplies", 			"t", 	  5000,	  	  15,  1.0, 1, -1], // 0
+	["Shields", 			"t",    	30,		1000, 10.0, 1, -1]  // 2
 ];
+
+waitUntil { commonInitComplete };
+
+format["Init_Market: %1", ("WFBE_WESTDEFENSENAMES" Call GetNamespace)] call LogHigh;
+
+
+
+_fnInitDefenseProduct = {
+	private["_defenses", "_sideId"];
+	
+	_defenses = _this select 0;
+	_sideId = _this select 1;
+	
+	{
+			_productId = _defenseTypes find _x;
+			if (_productId != -1) then {
+				_product = marketProductCollection select _productId;
+				_product set [6, 0]; // set sideId Any;
+			};
+
+			_d = _x Call GetNamespace;
+			
+			format["Init_Market: %1, %2", _x, _d] call LogHigh;
+
+			
+			if (!isNil '_d' && _productId == -1) then {
+				_cost = _d select QUERYUNITPRICE;
+				_defenseTypes = _defenseTypes + [_x];
+				
+				_max = ceil( 10 * 2400 / _cost ); //  max town can contain 10 cannons
+				_prodSpeed = ceil( (1 / 5) * 2400 / _cost );	// town can produce 1 cannon at 5 mins
+				_weight    = ceil( 5000 / (2400 / _cost) );
+				
+				if (_max > 100) then { _max = 100; };
+				
+				if (_weight < 250) then { _weight = 250; };
+				if (_weight > 1000) then { _weight = floor(_weight / 1000) * 1000 };
+				if (_weight > 250) then { _weight = floor(_weight / 250) * 250 };
+				if (_weight > 10000) then { _weight = 10000 };
+				
+				marketProductCollection = marketProductCollection + [ [_x, "piece", _cost, _max, _prodSpeed, _weight, _sideId] ];
+			};
+
+	} forEach _defenses;	
+	
+};
+
+_defenseTypes = [];
+["WFBE_WESTDEFENSENAMES" Call GetNamespace, WESTID, _defenseTypes] call _fnInitDefenseProduct;
+["WFBE_EASTDEFENSENAMES" Call GetNamespace, EASTID, _defenseTypes] call _fnInitDefenseProduct;
+
 
 marketTransportVehicleTypes = 
 [	["C130J", 		100, 	"t"],
@@ -83,8 +122,7 @@ marketTransportVehicleTypes =
 	["KamazRefuel", 	15, 	"t"],	
 	["Kamaz_Base", 		40, 	"t"],
 	
-	
-	["CAManBase", 	  15, 	"kg"],
+	["CAManBase", 	  15, 	if (WF_DEBUG) then { "t"} else {"kg"} ],
 	["Bicycle", 	  15, 	"kg"],
 	["Motorcycle", 	 100, 	"kg"],
 	["Car", 		  10, 	"t"],
@@ -94,31 +132,18 @@ marketTransportVehicleTypes =
 	["Helicopter",    10, 	"t"]	
 ];
 
-if (paramVehicleComponents) then {
-	marketBuildUnitProductRequire = [
-
-		["CAManBase",   [marketProductIdFood,   0.100], [marketProductIdTextiles, 0.100],  [marketProductIdGunpowder, 0.010] ],
-		["Bicycle", 	[marketProductIdAlloys, 0.010] ],
-		["Motorcycle", 	[marketProductIdAlloys, 0.050], [marketProductIdOil, 0.020] ],
-		["Car", 		[marketProductIdAlloys, 0.200], [marketProductIdOil, 0.050] ],
-		["Truck", 		[marketProductIdAlloys, 0.500], [marketProductIdOil, 0.100] ],
-		["Helicopter",  [marketProductIdAlloys, 1.000], [marketProductIdOil, 0.500], [marketProductIdGunpowder, 1.000], [marketProductIdComputers, 0.500] ],	
-		["Plane", 		[marketProductIdAlloys, 1.000], [marketProductIdOil, 1.000], [marketProductIdGunpowder, 1.000], [marketProductIdComputers, 1.000] ],
-		["Tank", 		[marketProductIdAlloys, 1.500], [marketProductIdOil, 1.500], [marketProductIdGunpowder, 1.000], [marketProductIdComputers, 0.250] ]
-	];
-} else {
-	marketBuildUnitProductRequire = [];
-};
-
 marketTotalProductCount = count marketProductCollection;
 
 marketEmptyContainer = [];
 marketEmptyPriceList = [];
-_u = marketTotalProductCount;
-while { !(_u == 0) } do {
-	_u = _u - 1;
+marketProductTypes   = [];
+
+_u = 0;
+while { _u < marketTotalProductCount } do {
 	marketEmptyContainer = marketEmptyContainer + [0];
 	marketEmptyPriceList = marketEmptyPriceList + [[-1, -1]];
+	marketProductTypes   =  marketProductTypes + [ (marketProductCollection select _u) select 0 ];
+	_u = _u + 1;	
 };
 
 

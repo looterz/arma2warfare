@@ -1,14 +1,15 @@
 ﻿disableSerialization;
 
 _cargo = player;
-_cargoMaxWeight = objNull;
+_cargoMaxWeightSU = objNull;
+_cargoFreeSpaceSU = objNull;
 _cargoUnitType = objNull;
 _cargoItems = objNull;
 _cargoSU = objNull;
 
 _display = _this select 0;
 
-lnbAddRow  [17004, ["Product", "Unit", "Sell", "Buy", "Cargo", "Stock"] ];
+lnbAddRow  [17004, [localize "STR_WF_TradeProduct", localize "STR_WF_TradeUnit", localize "STR_WF_TradeSell", localize "STR_WF_TradeBuy", localize "STR_WF_TradeCargo", localize "STR_WF_TradeStock"] ];
 ctrlEnable [17004,false];
 
 _uiTitle = 17001;
@@ -31,56 +32,38 @@ _selectedMarketId = -1;
 _lastSV = -1;
 _lastTimeStamp = -1;
 
+_productListIds = [];
+
 _nearMarkets = [];
 _market = objNull;
 _marketStock = [];
 _marketPrices = [];
 _productId = 0;
+_selectedRowId = 0;
 
-_procGetPlayerCargo = {
-private['_crew','_u', '_count', '_crewman', '_hq', '_found', '_vehType', '_type' ];
-
-	_cargo = vehicle player;
-
-	if (_cargo != player) then {
-
-		_crew = crew _cargo;
-		_u = 0;
-		_count = 0;
-		while { _u < count _crew } do {
-		
-			_crewman = _crew select _u;
-			if (_crewman != player && (isPlayer _crewman)) then { _count = _count +1; };		
-			_u = _u +1;		
-		};
-		
-		if (_count != 0) then { _cargo = player; };	
+_fnLocalizeUnit = {
+private["_localized"];
+	_localized = "";
+	switch (_this) do
+	{
+		case "t": { _localized = localize "STR_WF_TradeUnitTonn"; };
+		case "kg": { _localized = localize "STR_WF_TradeUnitKilogramm"; };
+		case "g": { _localized = localize "STR_WF_TradeUnitGramm"; };
+		case "piece": { _localized = localize "STR_WF_TradeUnitPiece"; };
 	};
+	_localized;
+};
 
-	_hq = (sideJoinedText) Call GetSideHQ;
-	if (_cargo == _hq) then { _cargo = player; };
+_fnUpdatePlayerCargoInfo = {
+private['_cargoInfo'];
 
-	_cargoMaxWeight = 0;
-	_cargoUnitType = "kg";
-
-	_u = (count marketTransportVehicleTypes);
-	_found = false;
-	while { _u != 0 } do {
-		_u = _u - 1;
-
-		_vehType = marketTransportVehicleTypes select _u;
-		
-		_type = _vehType select 0;
-		if (_cargo isKindOf _type) then {
-		
-			_cargoMaxWeight = _vehType select 1;
-			_cargoUnitType   = _vehType select 2;
-			_u = 0;
-		};	
-	};
-
-	_cargoSU    = (_cargoUnitType) call marketGetSU;
-	_cargoItems = (_cargo) call marketGetContainerItems;
+	_cargoInfo = (vehicle player) call marketGetCargoInfo;
+	_cargo = _cargoInfo select 0;
+	_cargoItems = _cargoInfo select 1;
+	_cargoMaxWeightSU = _cargoInfo select 2;
+	_cargoFreeSpaceSU = _cargoInfo select 3;
+	_cargoSU = _cargoInfo select 4;
+	_cargoUnitType = _cargoInfo select 5;	
 };
 _procReadStockData = {
 
@@ -134,6 +117,8 @@ _procUpdateStockProduct = {
 	_market = _this select 0;
 	_productId  = _this select 1;
 	_incValue  = _this select 2;
+	
+	if (!alive _market || isNull _market) exitWith {};
 	
 	_isFactory = if (_market in ((sideJoinedText) Call GetSideStructures)) then { true} else { false };
 	_isHq = if (_market == (sideJoinedText) Call GetSideHQ) then { true } else { false };
@@ -194,7 +179,7 @@ _procUpdateMarketData  = {
 		_selectedMarketId = _id;
 		_lastSV = _sv;
 		
-		[] call _procGetPlayerCargo;
+		[] call _fnUpdatePlayerCargoInfo;
 		[] call _procReadStockData;
 		
 		_myCargo = _cargo;
@@ -205,20 +190,33 @@ _procUpdateMarketData  = {
 		[] call _procUpdateProductList;
 	};
 };
+
 _procUpdateProductList = {
 private['_cargo', '_stockValue', '_price', '_sell', '_buy', '_txtSell', '_txtBuy', '_productSU', '_i', '_productName', '_productUnit', '_productCost' ];
 	_grayColor = [0.5,0.5,0.5,1];
 	_greenColor = [0, 0.5, 0,1];
 	_whiteColor = [0, 0.5, 0,1];
-
+	_productListIds = [];
+	
 	lnbClear _uiProductList;
 	_i = 0;
 	{
 		_productName = _x select 0;
 		_productUnit = _x select 1;
 		_productCost = _x select 2;
+		_productWeightPerUnit = _x select 3;
 		
-		_productSU = (_productUnit) call marketGetSU;
+		_d = _productName Call GetNamespace;
+		if !(isNil '_d') then {
+			_productName = _d select QUERYUNITLABEL;
+			_txt = toArray(_productName);
+			_u = 26;
+			while { _u < (count _txt)} do {  _txt set [_u, objNull]; _u = _u + 1; }; // trim name to 20 chars
+			_txt = _txt - [objNull];			
+			_productName = toString(_txt);
+		};
+		
+		_productSU = _x call marketGetSU;
 		
 		_cargo = _cargoItems select _i;
 		_stockValue = floor(_marketStock select _i);
@@ -227,15 +225,26 @@ private['_cargo', '_stockValue', '_price', '_sell', '_buy', '_txtSell', '_txtBuy
 		_sell = _price select 0;
 		_buy = _price select 1;	
 		
-		_txtSell = '--';
-		_txtBuy  = '--';
+		_txtSell = "";
+		_txtBuy  = "";
 		
-		if (_sell != -1) then { _txtSell = format["$%1", _sell] };
-		if (_buy  != -1 && _stockValue != 0) then { _txtBuy  = format["$%1", _buy]  };		
+		_showItem = false;
+		if (_sell != -1 && _cargo > 0) then { _showItem = true; _txtSell = format["$%1", _sell] };
+		if (_buy != -1 && _stockValue > 0) then { _showItem = true; _txtBuy  = format["$%1", _buy]  };
+
 		                               
-		lnbAddRow  [_uiProductList, [_productName, _productUnit, _txtSell, _txtBuy, format["%1%2", _cargo, _productUnit] , format["%1%2", _stockValue, _productUnit]   ] ];
+		if (_showItem) then {
+			_unitFormat = if (_productUnit == "piece") then { "%1" } else { "%1%2" };
+			_productListIds = _productListIds + [_i];
+			
+			_productUnit = (_productUnit call _fnLocalizeUnit);
+			_txtStockVolume = if (_stockValue > 0) then { format[_unitFormat, _stockValue, _productUnit] } else { "" };
+			_txtCargoVolume = if (_cargo > 0) then { format[_unitFormat, _cargo, _productUnit] } else { "" };
+
+			lnbAddRow [_uiProductList, [_productName, _productUnit, _txtSell, _txtBuy, _txtCargoVolume, _txtStockVolume] ];
+		};
 		
-		if (_productSU > _cargoSU || (_stockValue == 0 && _cargo==0) ) then {
+		if ((_productSU > _cargoFreeSpaceSU && _cargo == 0) || (_stockValue == 0 && _cargo==0) ) then {
 			lnbSetColor [_uiProductList, [_i, 0], _grayColor];
 			lnbSetColor [_uiProductList, [_i, 2], _grayColor];
 			lnbSetColor [_uiProductList, [_i, 3], _grayColor];
@@ -253,88 +262,109 @@ private['_cargo', '_stockValue', '_price', '_sell', '_buy', '_txtSell', '_txtBuy
 		_i = _i+1;
 	} forEach marketProductCollection;
 	
-	lnbSetCurSelRow [_uiProductList, _productId];
+	lnbSetCurSelRow [_uiProductList, _selectedRowId];
 };
 
 MenuAction = -1;
 
 SliderSetPosition[_uiBuyVolumeSlider, 0];
 SliderSetPosition[_uiSellVolumeSlider, 0];
-		
-while {alive player && dialog} do {
 
+ctrlEnable [_uiBuyVolumeButton, false];
+ctrlEnable [_uiBuyVolumeSlider, false];
+ctrlEnable [_uiSellVolumeButton, false];
+ctrlEnable [_uiSellVolumeSlider, false];
+		
+while {alive (vehicle player) && dialog} do {
+	sleep 0.100;
 
 	if (Side player != sideJoined && !_isCommander) exitWith {closeDialog 0};
 	if (!dialog) exitWith {};
 
+	[] call _fnUpdatePlayerCargoInfo;
 	[] call _procUpdateMarketsList;
 	[] call _procUpdateMarketData;
+	
 
-	_productId = lnbCurSelRow _uiProductList;
-	if (_productId == -1) then {
-		_productId = 0;
-		lnbSetCurSelRow [_uiProductList, _productId];
+	_selectedRowId = lnbCurSelRow _uiProductList;
+	if (_selectedRowId == -1) then {
+		_selectedRowId = 0;
+		lnbSetCurSelRow [_uiProductList, _selectedRowId];
 	};
-	
-	
-	_product = marketProductCollection select _productId;
-	_price = _marketPrices select _productId;
-	
-	_productUnit = _product select 1;
-	_productSU = (_productUnit) call marketGetSU;
-	
-	_cargoValue = _cargoItems select _productId;
-	_stockValue = _marketStock select _productId;
-	
 	_currentFunds = Call GetPlayerfunds;
-	_sellValue = floor (SliderPosition _uiSellVolumeSlider);
-	_buyValue = floor (SliderPosition _uiBuyVolumeSlider);
 	
-	if (_sellValue < 0) then { _sellValue = 0; };
-	if (_buyValue < 0)  then { _buyValue = 0; };
+	_cargoFreeActualSU = _cargoFreeSpaceSU;	
+	_freeCargoActual = (floor(10*_cargoFreeSpaceSU / _cargoSU)) / 10;
 	
-	_costSell = _price select 0;
-	_costBuy  = _price select 1;
+	_buyValue = 0;
+	_sellValue = 0;
+	_currentCost = 0;
+	if (_selectedRowId < count _productListIds) then {
 	
-	_cargoFreeSU = _cargoMaxWeight * _cargoSU;
-	_u = 0;
-	{ 
-		_pid = (marketProductCollection select _u) select 1;
-		_su =  (_pid) call marketGetSU;
-		_cargoFreeSU = _cargoFreeSU - (_x * _su); 
-		_u = _u+1;
-	} forEach _cargoItems;
-	if (_cargoFreeSU < 0) then { _cargoFreeSU = 0; };
-	
-	_freeCargo = (floor(10*_cargoFreeSU / _cargoSU)) / 10;
-	
-	_maxBuyValue = _stockValue;
-	if ( (_stockValue * _productSU) > _cargoFreeSU) then { _maxBuyValue = floor(_cargoFreeSU / _productSU); };
-
-	if (_buyValue > _maxBuyValue) then { _buyValue = _maxBuyValue; };
-	_currentCost =  -(_buyValue*_costBuy) + (_sellValue*_costSell);
-	
-	ctrlSetText [_uiFreeCargo, format ["Free Cargo: %1%2", _freeCargo, _cargoUnitType]];	
-	ctrlSetText [_uiBuyVolumeText, format ["Buy: %1%2", _buyValue, _productUnit]];	
-	ctrlSetText [_uiSellVolumeText, format ["Sell: %1%2", _sellValue, _productUnit]];	
-
-	SliderSetRange[_uiBuyVolumeSlider, 0,  _maxBuyValue];
-	SliderSetRange[_uiSellVolumeSlider, 0, _cargoValue];
-
-	if (_lastSelectedProductId != _productId) then {
-		SliderSetPosition[_uiBuyVolumeSlider, 0];
-		SliderSetPosition[_uiSellVolumeSlider, 0];	
+		_productId = _productListIds select _selectedRowId;
+		_product = marketProductCollection select _productId;
+		_price = _marketPrices select _productId;
+		_productSU = _product call marketGetSU;
 		
-		_lastSelectedProductId = _productId;
+		_productUnit = _product select 1;
+		
+		_cargoValue = _cargoItems select _productId;
+		_stockValue = _marketStock select _productId;
+
+		_sellValue = floor (SliderPosition _uiSellVolumeSlider);
+		_buyValue = floor (SliderPosition _uiBuyVolumeSlider);
+		
+		if (_sellValue < 0) then { _sellValue = 0; };
+		if (_buyValue < 0)  then { _buyValue = 0; };
+		
+		_costSell = _price select 0;
+		_costBuy  = _price select 1;
+		
+		_cargoFreeActualSU = _cargoFreeActualSU + _sellValue *  _productSU;
+		_cargoFreeActualSU = _cargoFreeActualSU - _buyValue *  _productSU;
+		_freeCargoActual = (floor(10*_cargoFreeActualSU / _cargoSU)) / 10;
+		
+		_maxBuyValue = _stockValue;
+		if ( (_stockValue * _productSU) > _cargoFreeSpaceSU) then { _maxBuyValue = floor(_cargoFreeSpaceSU / _productSU); };
+
+		if (_buyValue > _maxBuyValue) then { _buyValue = _maxBuyValue; };
+		_currentCost =  -(_buyValue*_costBuy) + (_sellValue*_costSell);
+	
+		ctrlSetText [_uiBuyVolumeText, format [localize "STR_WF_TradeBuyValue", _buyValue, (_productUnit call _fnLocalizeUnit)]];	
+		ctrlSetText [_uiSellVolumeText, format [localize "STR_WF_TradeSellValue", _sellValue, (_productUnit call _fnLocalizeUnit)]];	
+
+		SliderSetRange[_uiBuyVolumeSlider, 0,  _maxBuyValue];
+		SliderSetRange[_uiSellVolumeSlider, 0, _cargoValue];
+
+		if (_lastSelectedProductId != _productId) then {
+			SliderSetPosition[_uiBuyVolumeSlider, 0];
+			SliderSetPosition[_uiSellVolumeSlider, 0];	
+			
+			_lastSelectedProductId = _productId;
+		};
+		ctrlEnable [_uiBuyVolumeButton, ((!isNull _market) && _stockValue != 0 && (_currentFunds + _currentCost) >= 0 && _maxBuyValue != 0 && _costBuy != -1)];
+		ctrlEnable [_uiBuyVolumeSlider, ((!isNull _market) && _stockValue != 0 && _maxBuyValue != 0 && _costBuy != -1)];
+		ctrlEnable [_uiSellVolumeButton, ((!isNull _market) && _cargoValue != 0 && _costSell != -1)];
+		ctrlEnable [_uiSellVolumeSlider, ((!isNull _market) && _cargoValue != 0 && _costSell != -1)];	
+		
+		ctrlSetText [_uiCostText, format [localize "STR_WF_TradeCost", -(_currentCost)]];	
+	} else {
+	
+		ctrlSetText [_uiBuyVolumeText, format [localize "STR_WF_TradeBuyValue", "", ""]];	
+		ctrlSetText [_uiSellVolumeText, format [localize "STR_WF_TradeSellValue", "", ""]];	
+
+		SliderSetPosition[_uiBuyVolumeSlider, 0];
+		SliderSetPosition[_uiSellVolumeSlider, 0];
+
+		ctrlEnable [_uiBuyVolumeButton, false];
+		ctrlEnable [_uiBuyVolumeSlider, false];
+		ctrlEnable [_uiSellVolumeButton, false];
+		ctrlEnable [_uiSellVolumeSlider, false];		
 	};
 	
-	ctrlEnable [_uiBuyVolumeButton, (_stockValue != 0 && (_currentFunds + _currentCost) >= 0 && _maxBuyValue != 0 && _costBuy != -1)];
-	ctrlEnable [_uiBuyVolumeSlider, (_stockValue != 0 && _maxBuyValue != 0 && _costBuy != -1)];
-	ctrlEnable [_uiSellVolumeButton, (_cargoValue != 0 && _costSell != -1)];
-	ctrlEnable [_uiSellVolumeSlider, (_cargoValue != 0 && _costSell != -1)];	
 	
-	ctrlSetText [_uiCostText, format ["Cost: $%1", _currentCost]];	
-	ctrlSetText [_uiCashText, format ["Cash: $%1", _currentFunds]];	
+	ctrlSetText [_uiFreeCargo, format [localize "STR_WF_TradeFreeCargo", _freeCargoActual, (_cargoUnitType call _fnLocalizeUnit)]];	
+	ctrlSetText [_uiCashText, format [localize "STR_WF_TradeCash", _currentFunds]];	
 
 	_color = if (_currentFunds + _currentCost < 0) then { [1, 0, 0, 1]; } else { [0, 1, 0, 1]; };
 	_uiCashTextLabel = _display DisplayCtrl _uiCashText;
@@ -344,7 +374,7 @@ while {alive player && dialog} do {
 		MenuAction = -1;
 		
 		SliderSetPosition[_uiBuyVolumeSlider, 0];
-
+	
 		_currentCost Call ChangePlayerFunds;
 		[_cargo, _productId, _buyValue] call marketUpdateProductValue;
 		[_market, _productId, -_buyValue] call _procUpdateStockProduct;
@@ -363,6 +393,4 @@ while {alive player && dialog} do {
 		
 		[true] call _procUpdateMarketData;
 	};
-	
-	sleep 0.25;
 };

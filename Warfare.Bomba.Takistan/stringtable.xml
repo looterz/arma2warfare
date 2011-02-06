@@ -2870,7 +2870,169 @@
         <German>Versorgung: %1 ($%2/Min)</German>
         <Russian>Снабжение: %1 ($%2/мин)</Russian>
         <Italian>Supply: %1 ($%2/Min)</Italian>
+      </Key>
+      <Key ID="STR_WF_StaticDefenseFoldDammaged">
+        <English>You must repair first &lt;t color='#85B5FA'&gt;%1&lt;/t&gt;, prior fold to &lt;t color='#85B5FA'&gt;%2&lt;/t&gt;</English>
+        <French>You must repair first &lt;t color='#85B5FA'&gt;%1&lt;/t&gt;, prior fold to &lt;t color='#85B5FA'&gt;%2&lt;/t&gt;</French>
+        <German>You must repair first &lt;t color='#85B5FA'&gt;%1&lt;/t&gt;, prior fold to &lt;t color='#85B5FA'&gt;%2&lt;/t&gt;</German>
+        <Russian>Необходимо починить &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; перед погрузкой в &lt;t color='#85B5FA'&gt;%2&lt;/t&gt;</Russian>
+        <Italian>You must repair first &lt;t color='#85B5FA'&gt;%1&lt;/t&gt;, prior fold to &lt;t color='#85B5FA'&gt;%2&lt;/t&gt;</Italian>
+      </Key>
+      <Key ID="STR_WF_StaticDefenseFold">
+        <English>A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; folded into &lt;t color='#85B5FA'&gt;%2&lt;/t&gt;</English>
+        <French>A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; folded into &lt;t color='#85B5FA'&gt;%2&lt;/t&gt;</French>
+        <German>A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; folded into &lt;t color='#85B5FA'&gt;%2&lt;/t&gt;</German>
+        <Russian>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; загружен в &lt;t color='#85B5FA'&gt;%2&lt;/t&gt;</Russian>
+        <Italian>A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; folded into &lt;t color='#85B5FA'&gt;%2&lt;/t&gt;</Italian>
+      </Key>	
+      <Key ID="STR_WF_StaticDefenseUnfold">
+        <English>A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; unfolded from &lt;t color='#85B5FA'&gt;%2&lt;/t&gt;. Rearm required before begin use.</English>
+        <French>A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; unfolded from &lt;t color='#85B5FA'&gt;%2&lt;/t&gt;. Rearm required before begin use.</French>
+        <German>A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; unfolded from &lt;t color='#85B5FA'&gt;%2&lt;/t&gt;. Rearm required before begin use.</German>
+        <Russian>&lt;t color='#85B5FA'&gt;%1&lt;/t&gt; выгружен из &lt;t color='#85B5FA'&gt;%2&lt;/t&gt;. Перед использованием требуется перезарядка.</Russian>
+        <Italian>A &lt;t color='#85B5FA'&gt;%1&lt;/t&gt; unfolded from &lt;t color='#85B5FA'&gt;%2&lt;/t&gt;. Rearm required before begin use.</Italian>
+      </Key>	 
+      <Key ID="STR_WF_StaticDefenseLeft">
+        <English>%1 (%2 Left)</English>
+        <French>%1 (%2 Left)</French>
+        <German>%1 (%2 Left)</German>
+        <Russian>%1 (%2шт.)</Russian>
+        <Italian>%1 (%2 Left)</Italian>
+      </Key>	
+
+      <Key ID="STR_WF_TradeUnitPiece">
+        <English>pc</English>
+        <French>pc</French>
+        <German>pc</German>
+        <Russian>шт.</Russian>
+        <Italian>pc</Italian>
+      </Key>
+      <Key ID="STR_WF_TradeUnitGramm">
+        <English>g</English>
+        <French>g</French>
+        <German>g</German>
+        <Russian>г</Russian>
+        <Italian>g</Italian>
       </Key>	  
+      <Key ID="STR_WF_TradeUnitKilogramm">
+        <English>kg</English>
+        <French>kg</French>
+        <German>kg</German>
+        <Russian>кг</Russian>
+        <Italian>kg</Italian>
+      </Key>	  
+      <Key ID="STR_WF_TradeUnitTonn">
+        <English>t</English>
+        <French>t</French>
+        <German>t</German>
+        <Russian>т</Russian>
+        <Italian>t</Italian>
+      </Key>
+
+      <Key ID="STR_WF_TradeProduct">
+        <English>Product</English>
+        <French>Product</French>
+        <German>Product</German>
+        <Russian>Наименование</Russian>
+        <Italian>Product</Italian>
+      </Key>	  
+	
+      <Key ID="STR_WF_TradeUnit">
+        <English>Unit</English>
+        <French>Unit</French>
+        <German>Unit</German>
+        <Russian>Ед.</Russian>
+        <Italian>Unit</Italian>
+      </Key>	
+	  
+      <Key ID="STR_WF_TradeSell">
+        <English>Sell</English>
+        <French>Sell</French>
+        <German>Sell</German>
+        <Russian>Прод</Russian>
+        <Italian>Sell</Italian>
+      </Key>	  
+	
+      <Key ID="STR_WF_TradeBuy">
+        <English>Buy</English>
+        <French>Buy</French>
+        <German>Buy</German>
+        <Russian>Куп.</Russian>
+        <Italian>Buy</Italian>
+      </Key>
+	  
+      <Key ID="STR_WF_TradeSellButton">
+        <English>Sell</English>
+        <French>Sell</French>
+        <German>Sell</German>
+        <Russian>Продать</Russian>
+        <Italian>Sell</Italian>
+      </Key>	  
+	
+      <Key ID="STR_WF_TradeBuyButton">
+        <English>Buy</English>
+        <French>Buy</French>
+        <German>Buy</German>
+        <Russian>Купить</Russian>
+        <Italian>Buy</Italian>
+      </Key>	  
+	
+      <Key ID="STR_WF_TradeCargo">
+        <English>Cargo</English>
+        <French>Cargo</French>
+        <German>Cargo</German>
+        <Russian>Груз</Russian>
+        <Italian>Cargo</Italian>
+      </Key>
+	
+      <Key ID="STR_WF_TradeStock">
+        <English>Stock</English>
+        <French>Stock</French>
+        <German>Stock</German>
+        <Russian>Склад</Russian>
+        <Italian>Stock</Italian>
+      </Key>	  
+	  
+      <Key ID="STR_WF_TradeSellValue">
+        <English>Sell: %1%2</English>
+        <French>Sell: %1%2</French>
+        <German>Sell: %1%2</German>
+        <Russian>Продать: %1%2</Russian>
+        <Italian>Sell: %1%2</Italian>
+      </Key>	  
+	
+      <Key ID="STR_WF_TradeBuyValue">
+        <English>Buy: %1%2</English>
+        <French>Buy: %1%2</French>
+        <German>Buy: %1%2</German>
+        <Russian>Купить: %1%2</Russian>
+        <Italian>Buy: %1%2</Italian>
+      </Key>	  
+
+      <Key ID="STR_WF_TradeCost">
+        <English>Cost: $%1</English>
+        <French>Cost: $%1</French>
+        <German>Cost: $%1</German>
+        <Russian>Цена: $%1</Russian>
+        <Italian>Cost: $%1</Italian>
+      </Key>
+	  
+      <Key ID="STR_WF_TradeFreeCargo">
+        <English>Free Cargo: %1%2</English>
+        <French>Free Cargo: %1%2</French>
+        <German>Free Cargo: %1%2</German>
+        <Russian>Свободно: %1%2</Russian>
+        <Italian>Free Cargo: %1%2</Italian>
+      </Key>	  
+	 
+      <Key ID="STR_WF_TradeCash">
+        <English>Cash: $%1</English>
+        <French>Cash: $%1</French>
+        <German>Cash: $%1</German>
+        <Russian>Наличные: $%1</Russian>
+        <Italian>Cash: $%1</Italian>
+      </Key>
+	 
     </Container>
   </Package>
 </Project>

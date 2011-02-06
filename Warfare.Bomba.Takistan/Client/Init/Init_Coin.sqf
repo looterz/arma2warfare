@@ -3,7 +3,9 @@ _area = _this select 0;
 _isHQdeployed = _this select 1;
 _coin = _this select 2;
 _extra = "";
+_repairTruck = objNull;
 if (count _this > 3) then {_extra = _this select 3};
+if (count _this > 4) then { _repairTruck = _this select 4};
 
 _coin setVariable ["BIS_COIN_areasize", _area];
 _coin setVariable ["BIS_COIN_fundsDescription",["$"]];
@@ -25,7 +27,11 @@ _updateDefenses = false;
 _emptyStructures = false;
 
 if (_isHQdeployed && _extra == "") then {_i = 1;_updateStructures = true; _updateDefenses = true};
-if (_extra == "REPAIR") then {_updateDefenses = true; _emptyStructures = true;_coin setVariable ["BIS_COIN_funds",Call GetPlayerFunds]};
+if (_extra == "REPAIR") then {
+	_updateDefenses = true; 
+	_emptyStructures = true;
+	_coin setVariable ["BIS_COIN_funds",Call GetPlayerFunds]
+};
 
 if (_updateStructures) then {
 	_structures = Format["WFBE_%1STRUCTURENAMES",sideJoinedText] Call GetNamespace;
@@ -54,10 +60,20 @@ if (_emptyStructures) then {
 _indexCategory=0;
 _coinCategories = [];
 _coinItemArray = [];
-if (count _structures > 0) then {_coinCategories = _coinCategories + [localize "strwfbase"];_indexCategory =_indexCategory +1;};
-if (count _defenses > 0) then {if (_extra == "REPAIR") then {_coinCategories = []};_coinCategories = _coinCategories + [localize "str_m04t37_0"] + [localize "STR_WF_Fortification"] + [localize "STR_WF_Strategic"] + [localize "STR_WF_Ammo"]};
+if (count _structures > 0) then {
+	_coinCategories = _coinCategories + [localize "strwfbase"];_indexCategory =_indexCategory +1;
+};
 
-if (_isHQdeployed && _i == 1 && _extra == "") then {_coinItemArray = _coinItemArray + [[_structures select 0,0,[0, _structureCosts select 0], (_structureDescriptions select 0) + " " +  localize "strwfhqmobilizeme"]]};
+if (count _defenses > 0) then {
+	if (_extra == "REPAIR") then { _coinCategories = []; };
+	
+	_coinCategories = _coinCategories + [localize "str_m04t37_0"] + [localize "STR_WF_Fortification"] + [localize "STR_WF_Strategic"] + [localize "STR_WF_Ammo"];
+};
+
+if (_isHQdeployed && _i == 1 && _extra == "") then {
+	_coinItemArray = _coinItemArray + [[_structures select 0,0,[0, _structureCosts select 0], (_structureDescriptions select 0) + " " +  localize "strwfhqmobilizeme"]];
+};
+
 for [{_i=_i}, {_i<count _structures}, {_i = _i+1}] do {
   _coinItemArray = _coinItemArray + [[_structures select _i,0,[0, _structureCosts select _i], (_structureDescriptions select _i)]];
 };
@@ -65,7 +81,12 @@ for [{_i=_i}, {_i<count _structures}, {_i = _i+1}] do {
 _i = 0;
 _fix = 1;
 
-if (_extra == "REPAIR") then {_coinItemArray = [];_indexCategory=0;_fix = 0};
+if (_extra == "REPAIR") then {
+	_coinItemArray = [];
+	_indexCategory=0;
+	_fix = 0;
+};
+
 {
 	_curId = _indexCategory;
 	switch (_defenseCategories select _i) do {
@@ -73,14 +94,17 @@ if (_extra == "REPAIR") then {_coinItemArray = [];_indexCategory=0;_fix = 0};
 		case "Strategic": {_curId = _indexCategory + 2};
 		case "Ammo": {_curId = _indexCategory + 3};
 	};
-	
+
    _price = _defenseCosts select _i;
-  _coinItemArray = _coinItemArray + [[_x,_curId,[_fix, _price], _defenseDescriptions select _i]];   
+   _coinItemArray = _coinItemArray + [[_x,_curId,[_fix, _price], _defenseDescriptions select _i]];   
+  
   _i=_i+1;  
 } forEach _defenses;
 
 _coin setVariable ["BIS_COIN_categories",_coinCategories]; 
 _coin setVariable ["BIS_COIN_items",_coinItemArray];
+
+_coin setVariable ["BIS_COIN_actionCondition","false"];
 
 //--- Logic ID
 if (isnil "BIS_coin_lastID") then {BIS_coin_lastID = -1};

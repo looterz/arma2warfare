@@ -19,7 +19,7 @@ Private ['_nullMarket', '_market', '_marketStock', '_marketBuyCost', '_marketSel
 	if (isNil '_marketInited') then {
 		_market call marketInitMarketStorage;
 	};
-	_marketStock = _market getVariable "marketProductStorage";
+	_marketStock = _market call marketGetContainerItems;
 	
 PROFILER_END();
 _marketStock;

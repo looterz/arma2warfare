@@ -37,7 +37,6 @@ Private ['_market', '_u', '_marketBuyCost', '_marketSellCost', '_marketInited', 
 		_price = _productPrices select _u;
 		_price set [0, _sellCost];
 		_price set [1, _buyCost];
-		sleep 0.005;
 	};
 
 	_market setVariable ["marketProductPrice", _productPrices, true];
