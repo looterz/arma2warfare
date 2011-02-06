@@ -42,7 +42,7 @@ Private ['_marketSideId', '_market','_products', '_productivity', '_lastProduceP
 			_inc = (_productivity select _u) * _dT * _incCoef;
 			
 			_maxProduced = marketProductMaxProduceVolumeCollection select _u;
-			if (!isTown) then { _maxProduced = _maxProduced * 2 };
+			if (!_isTown) then { _maxProduced = _maxProduced * 2 };
 
 			if (_inc >= 0.1 && _value < _maxProduced) then {
 				_value = _value + _inc;
