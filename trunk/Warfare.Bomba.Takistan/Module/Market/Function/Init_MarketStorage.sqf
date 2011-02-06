@@ -28,10 +28,10 @@ Private ['_marketSideId', '_market', '_u', '_marketBuyCost', '_marketSellCost', 
 		_product = marketProductCollection select _u;
 		_productSideId = _product select 6;
 		
-		_maxProduced     = (marketProductMaxProduceVolumeCollection select _u)*0.25;
+		_maxProduced     = (marketProductMaxProduceVolumeCollection select _u);
 		_maxProduceSpeed = marketProductMaxProduceSpeedCollection select _u;
 
-		_value = if (_isTown) then { random _maxProduced } else { _maxProduced * 2};
+		_value = if (_isTown) then { random (_maxProduced / 4) } else { _maxProduced / 2};
 		_prodvalue = if (_isTown) then { random (_maxProduceSpeed) }
 				     else { _maxProduceSpeed*0.5 + random (_maxProduceSpeed*0.5) };
 				

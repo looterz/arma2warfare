@@ -20,10 +20,12 @@ Private ['_marketSideId', '_market','_products', '_productivity', '_lastProduceP
 	_marketSideId = _market getVariable "sideID";
 
 	_incCoef = 1;
+	_isTown = false;
 	if (_market in towns) then {
 		_supplyValue = _market getVariable "supplyValue";
 		_maxSV = _market getVariable "maxSupplyValue";
 		_incCoef = 1 + ((_supplyValue / _maxSV)*0.25);
+		_isTown = true;
 	};
 
 	_u = count _storage;
@@ -40,6 +42,7 @@ Private ['_marketSideId', '_market','_products', '_productivity', '_lastProduceP
 			_inc = (_productivity select _u) * _dT * _incCoef;
 			
 			_maxProduced = marketProductMaxProduceVolumeCollection select _u;
+			if (!isTown) then { _maxProduced = _maxProduced * 2 };
 
 			if (_inc >= 0.1 && _value < _maxProduced) then {
 				_value = _value + _inc;
