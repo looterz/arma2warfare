@@ -38,10 +38,10 @@ while { true } do {
 		if (paramHangars) then { _buildings = _buildings + Airfields; };
 		
 		{
-			_market = _x;
-			_products = _market call marketGetMarketProducts;
-			[_market, _products] call marketUpdateMarketPrices;
-			_market spawn marketNormalizePrices;
+			_x spawn {
+				_this call marketUpdateProducedProduct;
+				_this spawn marketNormalizePrices;
+			};
 		
 		} forEach _buildings;
 		_nextFactoryUpdate = time + _periodFactoryUpdate;

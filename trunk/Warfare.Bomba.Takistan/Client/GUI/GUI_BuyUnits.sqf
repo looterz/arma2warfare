@@ -87,13 +87,6 @@ _fillList = {
 		};
 	};
 	
-	_unitPriceData = objNull;
-	if (paramTrade && paramVehicleComponents) then {
-		_products = _closestFactory call marketGetMarketProducts;
-		_prices = _closestFactory call marketGetMarketPrices;
-		_unitPriceData = [_products, _prices, objNull, objNull];
-	};
-	
 	_costDiscount = [_type, _closest] call fnGetDiscount;
 	_tmplistUnits = [];
 	{
@@ -105,12 +98,6 @@ _fillList = {
 		if ((_c select QUERYUNITUPGRADE) <= (_currentUpgrades select _value) && _addin) then {
 		
 			_basePrice = if (_x isKindOf "Man") then { _x call GetUnitEquipmentPrice; } else { _c select QUERYUNITPRICE; };
-			
-			if (paramTrade && paramVehicleComponents) then {
-				_unitPriceData set [2, _x];
-				_unitPriceData set [3, _basePrice];
-				_basePrice = _unitPriceData call marketGetUnitPriceEx;
-			};
 			
 			_cost = _basePrice;
 			_cost = (ceil(_basePrice * _costDiscount / 5))*5;		
@@ -263,10 +250,6 @@ while {alive player && dialog} do {
 				_params = if (_isInfantry) then {[_closest,_unit,[]]} else {[_closest,_unit,[_driver,_gunner,_commander,_isLocked]]};
 				_params Spawn BuildUnit;
 				-(_currentCost) Call ChangePlayerFunds;
-				
-				if (paramTrade && paramVehicleComponents) then {
-					[_closestFactory, _unit] Call marketUseResourcesToBuyUnit;
-				};
 			};
 		};
 	};
@@ -408,9 +391,6 @@ while {alive player && dialog} do {
 				_currentCost = _unit call GetUnitEquipmentPrice; 
 			};
 			
-			if (paramTrade && paramVehicleComponents) then {
-				_currentCost = [_closestFactory, _unit, _currentCost] call marketGetUnitPrice;
-			};
 			_isInfantry = if (_unit isKindOf 'Man') then {true} else {false};
 			
 			//--- Update driver-gunner-commander icons.
@@ -531,11 +511,6 @@ while {alive player && dialog} do {
 					(_display displayCtrl 12022) ctrlSetStructuredText (parseText _txt);
 				} else { _txt = ''; };
                         };
-			
-			if (paramTrade && paramVehicleComponents) then {
-				_txtRequire = [_closestFactory, _utype] call marketGetUnitRequirementText;
-				_txt = _txtRequire + _txt;
-			};
 			
 			(_display displayCtrl 12022) ctrlSetStructuredText (parseText _txt);
 			

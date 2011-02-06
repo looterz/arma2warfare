@@ -1,6 +1,19 @@
 _logic = _this select 3;
 _startPos = _this select 4;
 _source = _this select 5;
+COIN_RearmVehicle = _this select 5;
+
+if (isNil "COIN_RearmVehicle") then {
+	COIN_RearmVehicle = vehicle player;
+};
+
+if (isNull COIN_RearmVehicle) then {
+	COIN_RearmVehicle = vehicle player;
+};
+
+if (COIN_RearmVehicle == player) then {
+	COIN_RearmVehicle = objNull;
+};
 
 _freePlaceTypeNames = [ "Land_CamoNet_EAST", "Land_CamoNet_NATO"];
 
@@ -242,9 +255,11 @@ BIS_CONTROL_CAM_Handler = {
 			_logic setVariable ["WF_RequestUpdate",true];
 		};
 		
-		//--- Sell Defense. (Commander only) (Custom Action #3).
-		if ((_key in (actionKeys "User17")) && !isNull(commanderTeam)) then {
-			if(commanderTeam == clientTeam) then {
+		//--- Sell Defense. (Commander only) (Custom Action #3).		
+		if ((_key in (actionKeys "User17"))) then { //  && 
+			if(true) then { // commanderTeam == clientTeam
+				
+			
 				_preview = _logic getVariable "BIS_COIN_preview";
 				if (isNil "_preview") then {//--- Proceed when there is no preview.
 					_targeting = screenToWorld [0.5,0.5];
@@ -254,11 +269,55 @@ BIS_CONTROL_CAM_Handler = {
 						_sold = _closest getVariable 'sold';
 						_closestType = typeOf (_closest);
 						_get = _closestType Call GetNamespace;
-						if (!isNil '_get' && isNil '_sold') then {
+						
+						_crewCount = 0;
+						{ if (alive _x) then {_crewCount = _crewCount + 1} } forEach (crew _closest);
+						
+						if (!isNil '_get' && isNil '_sold' && _crewCount == 0) then {
 							_closest setVariable ['sold',true];
-							_price = _get select QUERYUNITPRICE;   
-							round(_price/2) Call ChangePlayerFunds;
-							deleteVehicle _closest;
+							
+							_defenseName = [typeof _closest, 'displayName'] Call GetConfigInfo;							
+							_sellForMoney = false;
+							if (!isNull(commanderTeam)) then {
+								if (commanderTeam == clientTeam) then { _sellForMoney = true };
+							};
+							
+							_txt = "";
+							_selled = false;
+							if (paramTrade && !(isNull COIN_RearmVehicle)) then {
+								
+								_repairName = [typeof COIN_RearmVehicle, 'displayName'] Call GetConfigInfo;							
+								_sellForMoney = false;
+								_tryFoldToVehicle = true;
+								if (getDammage _closest > 0.3) then {
+									hint parseText (format[ localize "STR_WF_StaticDefenseFoldDammaged", _defenseName, _repairName]);
+									_tryFoldToVehicle = false;
+								};
+							
+								if (_tryFoldToVehicle) then {
+									_state = ([COIN_RearmVehicle, typeof _closest, 1] call marketChangeCargoProductValue);
+									if (_state select 0) then {
+										hint parseText (format[ localize "STR_WF_StaticDefenseFold", _defenseName, _repairName]);
+										_logic setVariable ["BIS_COIN_restart", true];
+										_selled = true;
+									};
+									_txt = _state select 1;
+								};
+							};
+							
+							if (_sellForMoney) then {
+								_price = _get select QUERYUNITPRICE;   
+								_dammage = (getDammage _closest);
+								if (_dammage > 1) then { _dammage = 1; };
+								round((_price/2)*(1 - _dammage)) Call ChangePlayerFunds;
+								_selled = true;
+							};
+							
+							if (_selled) then {
+								deleteVehicle _closest;
+							} else {
+								_closest setVariable ['sold', nil];
+							}
 						};
 					};
 				};
@@ -690,6 +749,8 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 
 					//--- Define the last direction used.
 					_logic setVariable ["BIS_COIN_lastdir",_dir];
+					
+					_noammo = false;
 
 					//--- On Purchase.
 					[_logic,_itemclass] call {
@@ -725,19 +786,38 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 						//--- Defense.
 						_get = _class Call GetNamespace;
 						if !(isNil '_get') then {
-							_price = _get select QUERYUNITPRICE;
-							-_price Call ChangePlayerFunds;
+							
+							_buildForMoney = (isNull COIN_RearmVehicle);
+							if (paramTrade && !isNull COIN_RearmVehicle) then {
+								_repairName = [typeof COIN_RearmVehicle, 'displayName'] Call GetConfigInfo;
+								_defenseName = [_class, 'displayName'] Call GetConfigInfo;
+							
+								_state = ([COIN_RearmVehicle, _class, -1] call marketChangeCargoProductValue);
+								if (_state select 0) then {
+									_buildForMoney = false;
+									_logic setVariable ["BIS_COIN_restart", true];
+									_noammo = true;
+									
+									hint parseText (format[ localize "STR_WF_StaticDefenseUnfold", _defenseName, _repairName]);																
+								};						
+							};
+							
+							if (_buildForMoney) then {
+								_price = _get select QUERYUNITPRICE;
+								-_price Call ChangePlayerFunds;
+							};
 						};
 					};
 
 					//--- Execute designer defined code On Construct
-					[_logic,_itemclass,_pos,_dir,_par] call {    
+					[_logic,_itemclass,_pos,_dir,_par, _noammo] call {    
 						private ["_class","_defenses","_deployed","_dir",'_find',"_logic","_par","_pos","_structures"];
 						_logic = _this select 0;
 						_class = _this select 1;
 						_pos = _this select 2;
 						_dir = _this select 3;
 						_par = _this select 4;
+						_noammo = _this select 5;
 						_deployed = (sideJoinedText) Call GetSideHQDeployed;
 						_structures = Format["WFBE_%1STRUCTURENAMES",sideJoinedText] Call GetNamespace;
 						_defenses = Format["WFBE_%1DEFENSENAMES",sideJoinedText] Call GetNamespace;
@@ -757,9 +837,9 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 							if (IsClientServer) then {['SRVFNCREQUESTSTRUCTURE',[sideJoined,_class,_pos,_dir]] Spawn HandleSPVF};
 						};
 						if (_class in _defenses) then {
-							WFBE_RequestDefense = ['SRVFNCREQUESTDEFENSE',[sideJoined,_class,_pos,_dir,manningDefense]];
+							WFBE_RequestDefense = ['SRVFNCREQUESTDEFENSE',[sideJoined,_class,_pos,_dir,manningDefense, _noammo]];
 							publicVariable 'WFBE_RequestDefense';
-							if (IsClientServer) then {['SRVFNCREQUESTDEFENSE',[sideJoined,_class,_pos,_dir,manningDefense]] Spawn HandleSPVF};
+							if (IsClientServer) then {['SRVFNCREQUESTDEFENSE',[sideJoined,_class,_pos,_dir,manningDefense, _noammo]] Spawn HandleSPVF};
 							lastBuilt = _par;
 						};
 					};
@@ -923,9 +1003,24 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 							if ((_current select _find) >= _limit) then {_buildLimit = true};
 						};
 						if (_itemcategory == _i/*_category*/) then {
+						
 							_canAfford = if (_cashValue - _itemcost >= 0 && !_buildLimit) then {1} else {0};
-							_canAffordCount = _canAffordCount + _canAfford;
 							_text = _itemname + " - " + _cashDescription + str _itemcost;
+							
+							if (paramTrade && (!isNull COIN_RearmVehicle)) then {
+								_defenseId = _itemclass call marketGetProductIdByType;
+//								format["coin_menu_item: %1 %2", _defenseId, _itemclass] call LogHigh;
+								if (_defenseId != -1) then {
+									_count = if (!isNull COIN_RearmVehicle) then {[COIN_RearmVehicle, _defenseId] call marketGetProductValue} else {0};
+									if (_count == 0) then { _canAfford = 0; };
+									_text = _itemname;
+									if (_count > 0) then { 
+										_text = _text + format[localize "STR_WF_StaticDefenseLeft", _itemname, _count] };
+								};								
+							};
+						
+							_canAffordCount = _canAffordCount + _canAfford;
+
 							_arrayNames = _arrayNames + [_text];
 							_arrayNamesLong = _arrayNamesLong + [_text + "                   "];
 							_arrayEnable = _arrayEnable + [_canAfford];

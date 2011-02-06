@@ -4,17 +4,22 @@ PROFILER_BEGIN("Server_ConstructionStationaryDefense");
 //*****************************************************************************************
 //Description: Creates Defenses.
 //*****************************************************************************************
-Private ["_defense","_direction","_index","_manned","_position","_side","_type"];
+Private ["_defense","_direction","_index","_manned","_position","_side","_type", "_noammo"];
 _type = _this select 0;
 _side = _this select 1;
 _position = _this select 2;
 _direction = _this select 3;
 _index = _this select 4;
 _manned = _this select 5;
+_noammo = if (count _this > 6) then { _this select 6 } else { false };
 
 _defense = _type createVehicle _position;
 _defense setDir _direction;
 _defense setPos _position;
+
+if (_noammo) then {
+	_defense setVehicleAmmo 0;
+};
 
 Format["Construction_StationaryDefense: A %1 %2 was created",str _side,_type] call LogInform;
 
