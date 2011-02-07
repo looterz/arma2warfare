@@ -21,6 +21,7 @@ private['_data','_msgid'];
 		case NETSEND_MSGID_UPDATESTATS: 	{ _data spawn UpdateSideStats; };		
 		case NETSEND_MSGID_ADDTRASH:		{ _data spawn TrashObject; };		
 		case NETSEND_MSGID_MANAGEDUNITADD:	{ _data spawn ManagedUnitAdd; };
+		case NETSEND_MSGID_KICKTEAMSWAP: 	{ failMission "END1"; };
 		
 		default {
 			format["NetSend_HandleMessage: Unknown msgId. %1", _msgId] call LogError;
