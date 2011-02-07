@@ -1,5 +1,6 @@
-private['_injured','_healer','_neara','_nearb','_placeata','_relposa','_relposb','_near','_posh','_posi','_posa','_posb','_fpos','_dy','_dx','_healtime','_anims','_anim','_canbeplaceat','_success'];
 
+private ["_nearA","_nearB","_placeAtA","_anim","_injured","_healer","_posA","_posB",
+"_relPosA","_relPosB","_near","_fPos","_posh","_posi","_dy","_dx","_healTime","_anims"];
 _injured = _this select 0;
 _healer = _this select 1;
 
@@ -14,7 +15,6 @@ _near = ((getPos _injured) nearEntities ["Man",10]) - [_healer,_injured];
 _nearA = 0;
 _nearB = 0;
 if (count _near > 0) then {
-	_canBePlaceAt = objNull;
 	{
 		_nearA = if (_x distance _relPosA < 1) then {1 + _nearA} else {0 + _nearA};
 		_nearB = if (_x distance _relPosB < 1) then {1 + _nearB} else {0 + _nearB};
@@ -43,7 +43,6 @@ _dy = (_posh select 1) - (_posi select 1); _dx = (_posh select 0) - (_posi selec
 _healer setDir (270- (_dy atan2 _dx) - direction _injured);
 
 _healTime = time;
-_success = false;
 _anims = [
 "ainvpknlmstpsnonwrfldnon_medic",
 "ainvpknlmstpsnonwrfldnon_medic0s",

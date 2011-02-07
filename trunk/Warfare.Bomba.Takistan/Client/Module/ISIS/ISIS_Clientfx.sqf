@@ -1,4 +1,4 @@
-private['_camera','_nu','_stunned','_unit','_ran'];
+Private ["_camera","_nu","_stunned","_unit"];
 
 _unit = _this select 0;
 
@@ -26,7 +26,7 @@ _camera camSetRelPos [2,2,3];
 _camera camCommit 0;
 
 _nu = [_camera] Spawn {
-	Private ["_camera","_rx","_ry","_rz","_shout","_shoutTrsl"];
+	private ["_camera","_rx","_ry","_rz","_shout","_shoutTrsl","_ran"];
 	_camera = _this select 0;
 	_shout = ["ImHitE","ImBleedingE","SomebodyHelpMeE","GetMeACorpsmanNowE","CorpsmanE","TheyGotMeE","NeedHelpE","WoundedE"];
 	_shoutTrsl = ["I'm hit!","I'm bleeding!","Somebody help me!","Get me a corpsman now!","Corpsman!","They got me!","Need help!","Wounded!"];

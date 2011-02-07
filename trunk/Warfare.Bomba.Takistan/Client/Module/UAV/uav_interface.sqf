@@ -86,7 +86,9 @@ if (isnil "_newspeed") then {
 ((uinamespace getvariable 'BIS_UAV_DISPLAY') displayctrl 112412) ctrlsettext str (_newspeed);
 ((uinamespace getvariable 'BIS_UAV_DISPLAY') displayctrl 112412) ctrlcommit 0;
 
-BIS_UAV_GUIinit = {scriptName "UAV\data\scripts\uav_interface.sqf: GUI Init";
+BIS_UAV_GUIinit = {
+private ["_control","_display","_controls","_controlHint"];
+scriptName "UAV\data\scripts\uav_interface.sqf: GUI Init";
 	disableserialization;
 	_display = uinamespace getvariable "BIS_UAV_DISPLAY";
 	_controls = [112401,112402,112403,112404];
@@ -105,7 +107,9 @@ BIS_UAV_GUIinit = {scriptName "UAV\data\scripts\uav_interface.sqf: GUI Init";
 };
 [] spawn BIS_UAV_GUIinit;
 
-_IGUI_update = _this spawn {scriptName "UAV\data\scripts\uav_interface.sqf: IGUI Update";
+_IGUI_update = _this spawn {
+private ["_uav"];
+scriptName "UAV\data\scripts\uav_interface.sqf: IGUI Update";
 	_uav = BIS_UAV_PLANE;
 	while {cameraon == BIS_UAV_PLANE} do {
 		if (isnull (uinamespace getvariable "BIS_UAV_DISPLAY")) then {bis_uav_terminate = true;

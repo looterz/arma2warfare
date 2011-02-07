@@ -16,7 +16,7 @@ for "_i" from 1 to (_launchercount) do {
 	_dirpos = _vehicle modelToWorld (_vehicle selectionPosition format["flare_launcher%1_dir",_i]);
 	_flare = "FlareCountermeasure" createVehicleLocal _relpos;
 	_dirpos = [(_dirpos select 0) - (_relpos select 0),(_dirpos select 1) - (_relpos select 1),(_dirpos select 2) - (_relpos select 2)];
-	_div = abs(_dirpos select 0)+abs(_dirpos select 1)+abs(_dirpos select 2);
+    _div = (abs (_dirpos select 0)) + (abs (_dirpos select 1)) + (abs (_dirpos select 2));
 	_flarevel = [(_dirpos select 0)/_div*_muzzzlevel,(_dirpos select 1)/_div*_muzzzlevel,(_dirpos select 2)/_div*_muzzzlevel];
 	_vvel = velocity _vehicle;
 
