@@ -76,7 +76,7 @@ namespace ArmA2.Script
 
             if (FsmContent)
             {
-                contentText = contentText.Replace("\"\"\">*/", "*/");     // """>*/           \"\"\">*/
+                contentText = contentText.Replace("\"\"\">*/", "*/");     // """>*/  to */
             }
 
             contentText = RemoveMultiLineComments(contentText);
@@ -110,7 +110,8 @@ namespace ArmA2.Script
             return contentText.Trim();
         }
 
-        private string ProcessCommands(string content)
+        public delegate string HandleCommand(string commandText);
+        public string ProcessCommands(string content, HandleCommand handleCommand)
         {
             var scopes = GetScopes(content, 0, content.Length).OrderByDescending(m => m.Start);
             scopes.ForEach(m =>
@@ -119,7 +120,7 @@ namespace ArmA2.Script
                 if (L > 0)
                 {
                     var scopeContent = content.Substring(m.Start+1, L-1);
-                    scopeContent = ProcessCommands(scopeContent);
+                    scopeContent = ProcessCommands(scopeContent, handleCommand);
                     content = content.Remove(m.Start + 1, L-1);
                     content = content.Insert(m.Start + 1, scopeContent);
                 }
@@ -151,7 +152,7 @@ namespace ArmA2.Script
                 if (L > 0)
                 {
                     var scopeContent = content.Substring(m.Start, L);
-                    scopeContent = ProcessCommandLine(scopeContent);
+                    scopeContent = ProcessCommandLine(scopeContent, handleCommand);
                     content = content.Remove(m.Start, L);
                     content = content.Insert(m.Start, scopeContent);
                 }
@@ -162,10 +163,25 @@ namespace ArmA2.Script
         }
 
 
-        private string ProcessCommandLine(string line)
+        private string ProcessCommandLine(string line, HandleCommand handleCommand)
         {
             line = line.Trim();
             Console.WriteLine(line);
+
+            int start = 0;
+            while (true)
+            {
+                int pos = GetNextChar(line, start, ";");
+                int end = (pos == -1) ? line.Length : pos;
+
+                string cmd = line.Substring(start, end - start);
+                handleCommand.Invoke(cmd);
+
+                start = pos+1;
+                if (pos == -1)
+                    break;
+            }
+
 
             return line;
         }
@@ -382,19 +398,50 @@ namespace ArmA2.Script
             return scopes;
         }
 
-        public int GetScopeNext(string content, int startPos)
+        public int GetNextChar(string content, int startPos, string ch)
         {
             if (startPos == -1 || startPos >= content.Length)
                 return -1;
 
-            return (content.IndexOf("{", startPos));
+            while (true)
+            {
+                int pos = content.IndexOf(ch, startPos);
+                if (pos == -1)
+                    return -1;
+
+                while (true)
+                {
+                    int strA = GetNextStringStart(content, startPos);
+                    if (strA == -1)
+                        return pos;
+
+                    int strB = GetNextStringEnd(content, strA);
+                    if (strB == -1)
+                    {
+                        Console.WriteLine("Warning! Unterminated string: {0}", content.Substring(strA));
+                        return -1;
+                    }
+
+                    if (strA < pos && pos < strB)
+                    {
+                        startPos = strB;    // скобка лежит внутри строки... это недопустимо
+                        break;
+                    }
+                    startPos = strB;    // ищем следующую строку
+                }
+            }
+        }
+
+        public int GetScopeNext(string content, int startPos)
+        {
+            return GetNextChar(content, startPos, "{");
         }
 
         public int GetScopeEnd(string content, int startPos)
         {
             while (startPos != -1 && startPos < content.Length)
             {
-                int pos = (content.IndexOf("}", startPos));
+                int pos = GetNextChar(content, startPos, "}");
                 int insideScope = GetScopeNext(content, startPos + 1);
                 if (insideScope == -1 || insideScope > pos)
                     return pos;

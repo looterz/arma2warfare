@@ -13,6 +13,17 @@ namespace Obfuscate
         readonly Compiler _obfuscate = new Compiler();
 
         [Test]
+        public void TestCommandSplit()
+        {
+            string text = @"var c= ""var c=0; var c=5""; for(var c=0; c<100; c++)";
+            _obfuscate.ProcessCommands(text, m => 
+            { 
+                Console.WriteLine(m);
+                return m;
+            });
+        }
+
+        [Test]
         public void TestTemplates()
         {
             GlobalVars.ExcludeLines.Clear();
@@ -30,7 +41,6 @@ namespace Obfuscate
 
             foreach(var file in files)
             {
-                Console.WriteLine("Test: {0}", Path.GetFileName(file));
                 Console.SetOut(new StringWriter(new StringBuilder()));
                 Compiler compiler = new Compiler();
                 compiler.FsmContent = (Path.GetExtension(file).ToLower() == ".fsm");
@@ -44,10 +54,9 @@ namespace Obfuscate
                 //if (contentActual != contentExpected)
                 //    contentActual = contentActual;
                 
-                Assert.AreEqual(contentExpected, contentActual, string.Format("Test Failed:{0}", Path.GetFileName(file)));
-
-
+                Assert.AreEqual(contentExpected, contentActual, string.Format("{0} - [Failed]", Path.GetFileName(file)));
                 Console.SetOut(outputBase);
+                Console.WriteLine("{0} - [Done]", Path.GetFileName(file));
             }
 
         }
@@ -60,6 +69,22 @@ namespace Obfuscate
             var ix1 = _obfuscate.GetScopeNext(testText, 0);
             var ix2 = _obfuscate.GetScopeEnd(testText, ix1);
             Assert.AreEqual("{ somevar }", testText.Substring(ix1, ix2 - ix1 + 1), "");
+
+            testText = @"sometext { sometext var { sometext }{ sometext }} sometext { sometext }{ sometext }";
+            var scopeCount = _obfuscate.GetScopes(testText, 0, testText.Length).Count();
+            Assert.AreEqual(3, scopeCount, "incorrect calculate internal scope count");
+
+            testText = @"sometext ""som{0}var""";
+            scopeCount = _obfuscate.GetScopes(testText, 0, testText.Length).Count();
+            Assert.AreEqual(0, scopeCount, "incorrect calculate internal scope count");
+
+            testText = @"sometext ""som{0}var"" sometext ""111"" sometext { abc } sometext ""som{0}var"" sometext ""111"" sometext ";
+            scopeCount = _obfuscate.GetScopes(testText, 0, testText.Length).Count();
+            Assert.AreEqual(1, scopeCount, "incorrect calculate internal scope count");
+
+            testText = @"sometext { ""som}v{ar}"" } sometext";
+            scopeCount = _obfuscate.GetScopes(testText, 0, testText.Length).Count();
+            Assert.AreEqual(1, scopeCount, "incorrect calculate internal scope count");
 
             testText = @"sometext { {somevar} }";
             ix1 = _obfuscate.GetScopeNext(testText, 0);
