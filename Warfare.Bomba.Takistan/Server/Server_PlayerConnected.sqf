@@ -109,7 +109,8 @@ if (_sideLeft != _side) then {
 	
 	//--- Kick the player?.
 	if (paramKickTeamswappers) then {
-		serverCommand Format["#kick %1",_name];
+		//serverCommand Format["#kick %1",_name];
+		[_uid, NETSEND_MSGID_KICKTEAMSWAP, nil] call NetSend_ToClient;
 		
 		Format["Server_PlayerConnected: Player %1 (%2) was kicked for teamswapping",_name,_get select 0] call LogNotify;
 	};
