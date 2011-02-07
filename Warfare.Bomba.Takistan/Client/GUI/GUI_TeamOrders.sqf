@@ -86,7 +86,8 @@ lbAdd[14025,"Default"];
 
 //--- Fill the list function.
 _fillList = {
-	Private ['_i','_isVehicle','_listBox','_listContent','_pic','_unit'];
+	Private ['_i','_isVehicle','_listBox','_listContent','_pic','_unit',
+         '_color','_extra'];
 	_listContent = _this select 0;
 	_listBox = _this select 1;
 	_i = 0;
@@ -354,7 +355,7 @@ while {alive player && dialog} do {
 	if (MenuAction == 201) then {
 		MenuAction = -1;
 		[_team] Spawn {
-			Private ["_team"];
+			Private ["_team","_units"];
 			_team = _this select 0;
 			_units = Units _team;
 			if (paramMobileRespawn || (('WFBE_RESPAWNCAMPSMODE' Call GetNamespace) > 0)) then {//--- Make sure that the unit won't spawn back at a camp/ambu.

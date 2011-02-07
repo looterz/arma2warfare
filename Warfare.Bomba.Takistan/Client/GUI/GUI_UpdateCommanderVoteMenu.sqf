@@ -42,7 +42,6 @@ while {!_exit} do {
 		_reselect = false;
 		_selected = lbCurSel 10006;
 		_selectedTeam = lbValue[10006,_selected];
-		_selectedText = lbText[10006,_selected];
 		_lastVotes = _votes;
 
 		if (_selected != -1) then {_reselect = true};
@@ -69,7 +68,7 @@ while {!_exit} do {
 	_selected = lbCurSel 10006;
 	if (_selected != -1) then {
 		_selectedTeam = lbValue[10006,_selected];
-		if (_selectedTeam != _lastTeam) then {Call Compile Format["%1Team%2Vote = _selectedTeam;publicVariable '%1Team%2Vote';",sideJoinedText,clientID]};
+		if (_selectedTeam != _lastTeam) then {Call Compile Format["%1Team%2Vote = %3;publicVariable '%1Team%2Vote';",sideJoinedText,clientID,_selectedTeam]};
 		_lastTeam = _selectedTeam;
 	};
 };
