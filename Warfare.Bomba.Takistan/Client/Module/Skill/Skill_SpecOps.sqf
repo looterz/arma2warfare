@@ -1,10 +1,10 @@
-private['_vehicle','_min','_vehicles','_skip','_sorted','_ran'];
-
 /*
 	Script: Spec Ops Skill System by Benny.
 	Description: Add special skills to the defined spec ops unit.
 */
 
+
+private ["_x","_skip","_min","_ran","_vehicles","_sorted","_vehicle"];
 _vehicles = player nearEntities [["Car","Motorcycle","Tank","Ship","Air"],5];
 if (count _vehicles < 1) exitWith {};
 

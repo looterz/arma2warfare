@@ -1,6 +1,6 @@
-private['_target','_wave','_cone','_smoke','_light','_top','_top2','_top3','_top4','_top5','_smoke2','_xhandle'];
-
 //--- Nuke blast.
+
+private ["_target","_Cone","_top","_top2","_smoke","_Wave","_light","_top3","_top4","_top5","_smoke2","_null"];
 _target = _this select 0;
 if (player distance _target < 4000) then {
 	"dynamicBlur" ppEffectEnable true;
@@ -58,7 +58,7 @@ if (player distance _target < 4000) then {
 
 	sleep 0.1;
 
-	_xHandle = [] Spawn
+	_null = [] Spawn
 	{
 		Sleep 4;
 		"colorCorrections" ppEffectAdjust [1.0, 0.5, 0, [0.5, 0.5, 0.5, 0], [1.0, 1.0, 0.8, 0.4],[0.3, 0.3, 0.3, 0.1]];

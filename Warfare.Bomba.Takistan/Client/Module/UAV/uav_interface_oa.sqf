@@ -1,5 +1,5 @@
-private['_uav','_newheight','_id','_ppcolor','_marker','_key','_worldpos','_defaultteamswitch','_locked','_action_leave','_markertime','_displayeh_keydown','_displayeh_mousebuttondown','_mapeh_mousebttondown','_logic'];
 
+private ["_logic","_arguments","_defaultTeamswitch","_uav","_locked","_action_leave","_ppColor","_displayEH_keydown","_displayEH_mousebuttondown","_mapEH_mousebttondown"];
 _logic = _arguments select 0;
 _defaultTeamswitch = teamswitchenabled;
 
@@ -55,6 +55,8 @@ progressLoadingScreen 0.5;
 
 //--- Detect pressed keys (temporary solution)
 BIS_UAV_HELI_keydown = {
+	
+private ["_id","_worldpos","_marker","_markertime","_newHeight","_key","_uav"];
 	_key = _this select 1;
 	_uav = BIS_UAV_PLANE;
 

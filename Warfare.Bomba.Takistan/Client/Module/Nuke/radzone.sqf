@@ -1,9 +1,10 @@
-private['_array'];
 //--- Radiation
 
+
+private ["_target"];
 _target = _this select 0;
 [_target] Spawn {
-	Private ["_dammageable","_target"];
+	private ["_dammageable","_target","_x","_array"];
 	_target = _this select 0;
 	_dammageable = ["Man","Car","Motorcycle","Tank","Ship","Air","StaticWeapon"];
 	for [{_x = 0},{_x < 300},{_x = _x + 1}] do {

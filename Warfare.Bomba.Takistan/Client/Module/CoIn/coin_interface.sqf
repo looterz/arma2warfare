@@ -137,6 +137,8 @@ _buildingsType = _buildingsType - [_buildingsType select 0];
 
 //--- Open menu
 _logic spawn {
+	
+private ["_params","_logic"];
 	_logic = _this;
 	waitUntil {!isNil {_this getVariable "BIS_COIN_fundsOld"}};
 	while {!isNil "BIS_CONTROL_CAM"} do {
@@ -153,6 +155,8 @@ _logic spawn {
 
 //--- Border - temporary solution //TODO: move border if position of logic changes (eg. by placing hq)
 _createBorder = {
+	
+     private ["_dir","_xpos","_ypos","_zpos","_a","_border","_logic","_startpos","_oldBorder","_center","_size","_width","_pi","_perimeter","_wallcount","_total"];
 	_logic = _this select 0;
 	_startpos = _this select 1;
 	_oldBorder = missionNamespace getVariable "BIS_COIN_border";
@@ -183,8 +187,8 @@ _createBorder = {
 
 	for "_i" from 1 to _total do {
 		_dir = (360 / _total) * _i;
-		_xpos = (_center select 0) + (sin _dir * _size);
-		_ypos = (_center select 1) + (cos _dir * _size);
+        _xpos = (_center select 0) + (sin _dir) * _size;
+        _ypos = (_center select 1) + (cos _dir) * _size;
 		_zpos = (_center select 2);
 
 		_a = "transparentwall" createVehicleLocal [_xpos,_ypos,_zpos];
@@ -200,6 +204,9 @@ _createBorderScope = [_logic,_startpos] spawn _createBorder;
 if !(isNil "BIS_CONTROL_CAM_Handler") exitWith {endLoadingScreen};
 
 BIS_CONTROL_CAM_Handler = {
+    private ["_terminate","_key","_NVGstate","_currentCash","_price","_closest","_closestType","_get","_targeting","_near","_preview",
+    "_ctrl","_menu","_player","_border","_mode","_input",
+    "_logic","_keysCancel","_keysBanned","_keyNightVision"];
 	_mode = _this select 0;
 	_input = _this select 1;
 	_camera = BIS_CONTROL_CAM;
@@ -743,6 +750,8 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 
 				//--- Execute designer defined code
 				[_logic,_itemclass,_pos,_dir,_params] spawn {
+					
+                      private ["_hqDeployed","_structures","_get","_logic","_itemclass","_pos","_dir","_par"];
 					_logic = _this select 0;
 					_itemclass = _this select 1;
 					_pos = _this select 2;
@@ -881,21 +890,21 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 				_textPicture = format ["<t align='left' size='2.8' shadow='0'><img image='%1'/></t> ",_filePicture];
 			};
 
-			_text1 = if (count _params > 0) then {localize "str_coin_rotate" + "<t align='right'>" + call compile (keyname 29) + "</t><br />"} else {"<br />"};
+            _text1 = if (count _params > 0) then {localize "str_coin_rotate" + "<t align='right'>" + (call compile (keyname 29)) + "</t><br />"} else {"<br />"};
 			
 			_status = if (manningDefense) then {"Enabled"} else {"Disabled"};
-			_text2 = if (count _params > 0) then {localize "str_coin_build" + "<t align='right'>" + call compile (actionKeysNames ["DefaultAction",1]) + "</t><br />"} else {localize "STR_WF_Gameplay_AutoDefense" + ":<t align='right'>" + _status + "</t><br />"};
+            _text2 = if (count _params > 0) then {localize "str_coin_build" + "<t align='right'>" + (call compile (actionKeysNames ["DefaultAction",1])) + "</t><br />"} else {localize "STR_WF_Gameplay_AutoDefense" + ":<t align='right'>" + _status + "</t><br />"};
 
 			_text3 = if (commandingMenu != "#USER:BIS_Coin_categories_0") then {
 				//--- Back hint
 				if (isNil "BIS_Coin_noExit") then {
-					localize "str_coin_back" + "<t align='right'>" + call compile (actionKeysNames ["MenuBack",1]) + "</t>";
+                    localize "str_coin_back" + "<t align='right'>" + (call compile (actionKeysNames ["MenuBack",1])) + "</t>";
 				} else {""};
 			} else {
 			
 				//--- Exit hint
 				if (isNil "BIS_Coin_noExit") then {
-					"<t color='#ff5544'>" + localize "str_coin_exit" + "<t align='right'>" + call compile (actionKeysNames ["MenuBack",1]) + "</t></t>";
+                    "<t color='#ff5544'>" + localize "str_coin_exit" + "<t align='right'>" + (call compile (actionKeysNames ["MenuBack",1])) + "</t></t>";
 				} else {""};
 			};
 
