@@ -667,13 +667,6 @@ class Params {
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 1;
 	};	
-
-	class VehiclesForResources {
-		title = "$STR_WF_Gameplay_VehiclesComponenents";
-		values[] = {0,1};
-		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 0;
-	};	
 	
 	class UnitCostWithGear {
 		title = "$STR_WF_Gameplay_UnitCostWithGear";
