@@ -104,7 +104,7 @@ class FSM
   {
     "END",
     "___Nervous_anim",
-    "Come_on__come",
+    "Come_on__come"
   };
 };
 /*%FSM</COMPILE>*/

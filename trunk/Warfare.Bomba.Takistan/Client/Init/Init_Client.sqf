@@ -161,6 +161,7 @@ if (paramTrackPlayer) then {[] ExecFSM "Client\FSM\updateteamsmarkers.fsm"};
 	[] ExecFSM "Client\FSM\updateavailableactions.fsm";
 };
 [] Spawn {
+    private ['_lo','_commanderTeam'];
 	_lo = false;
 	while {!_lo} do {sleep 0.1;_commanderTeam = (sideJoined) Call GetCommanderTeam;if (!isNil '_commanderTeam') then {_lo = true}};
 	/* Commander Handling */
