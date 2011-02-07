@@ -1,53 +1,47 @@
-$projectVer = "V2.066 R3.8b"
+$projectVer = "V2.067 R4.3"
+$spyName = "Warfare BE V2.067 Lite"
 $currentDirectory = [string](Get-Location);
 $revisionNumber = "";
-$prevBuildRevision = 332;
+$prevBuildRevision = 464;
 
 function EntryPoint
 {
+	$output = new-object Text.StringBuilder;
+	$consoleOut = new-Object System.IO.StringWriter($output);
+	[Console]::SetOut($consoleOut);
+	
 	cls
 	$root = [System.IO.Path]::GetFullPath($currentDirectory + "\..");
 	
 	$source = "$root\Warfare.Bomba.Takistan";
 	$versionDir = "$root\version\";
 	$tmpfolder = [System.IO.Path]::GetTempPath() + "buildwarfare";
-	
 
 	$outputDir = "$currentDirectory\release";
 	if ([System.IO.Directory]::Exists($outputDir) -eq $false) {
 		$null = new-item -type directory -path $outputDir;
 	}
 	
-	Remove-Item -path $tmpfolder -Recurse -Force -ErrorAction SilentlyContinue;
-	$null = new-item -type directory -path $tmpfolder;
-
-	#-- copy source files to build folder
-	copy-files -source $source -destination $tmpfolder;
-
 	#-- set build version in description
 	$revisionNumber = SVN-GetRevision -svnToolsPath "$currentDirectory\svn" -repositoryFolder $source
 	SVN-GetHistory -svnToolsPath "$currentDirectory\svn" -repositoryFolder $source -baseRevision "$prevBuildRevision" -headRevision $revisionNumber
-	Write-Host "Revision: $revisionNumber";
-
-	#-- remove debug files
-	dir -Path $tmpfolder -Recurse | Where {$_.Name -eq "profiler.h"} | Foreach-Object { Remove-Item $_.FullName };
-	Remove-Item $tmpfolder\logging.sqf
-	Remove-Item $tmpfolder\profiler.sqf
+	Write-Host "Revision: $revisionNumber";	
 	
-	#-- preprocess files, remove debug scripts
-	$files = dir -Path $tmpfolder -Recurse -Include "*.sqf", "*.fsm" | Where {$_.psIsContainer -eq $false};
-	foreach($x in $files) {
-		preprocess-file -fileName $x.FullName;
-	}
+	preprocess-mission;	
 	
 	$numplayers = @( 40 );
+	
+	compile-version -world "Takistan" -gamever "Mando.CO"  -numplayers 40  -desc "Combined Operations - Takistan" -missionMods ""
+
+	#-- build versions without mando missiles
+	Remove-Item $tmpfolder\mando_missiles -Recurse -Force -ErrorAction SilentlyContinue;
 	foreach($numplayer in $numplayers)
 	{
-		compile-version -world "Takistan" -gamever "CO"  -numplayers $numplayer  -desc "Combined Operations - Takistan"
-		compile-version -world "Takistan" -gamever "OA"  -numplayers $numplayer  -desc "Operation Arrowhead - Takistan"
+		compile-version -world "Takistan" -gamever "CO"  -numplayers $numplayer  -desc "Combined Operations - Takistan" -missionMods ""
+		compile-version -world "Takistan" -gamever "OA"  -numplayers $numplayer  -desc "Operation Arrowhead - Takistan" -missionMods ""
 
-		compile-version -world "Chernarus" -gamever "CO" -numplayers $numplayer  -desc "Combined Operations - Chernarus"
-		compile-version -world "Chernarus" -gamever "A2" -numplayers $numplayer  -desc "ArmA2 Vanilla - Chernarus"		
+		compile-version -world "Chernarus" -gamever "CO" -numplayers $numplayer  -desc "Combined Operations - Chernarus" -missionMods ""
+		compile-version -world "Chernarus" -gamever "A2" -numplayers $numplayer  -desc "ArmA2 Vanilla - Chernarus" -missionMods "" 
 	}
 	
 	compile-version -world "Lingor" -gamever "CO"  -numplayers 40  -desc "Combined Operations - Lingor"
@@ -58,14 +52,76 @@ function EntryPoint
 	Write-Host "Build completed."
 }
 
+function preprocess-mission {
+
+	Remove-Item -path $tmpfolder -Recurse -Force -ErrorAction SilentlyContinue;
+	$null = new-item -type directory -path $tmpfolder;
+
+	#-- copy source files to build folder
+	copy-files -source $source -destination $tmpfolder;
+
+	#-- remove debug files
+	dir -Path $tmpfolder -Recurse | Where {$_.Name -eq "profiler.h"} | Foreach-Object { Remove-Item $_.FullName };
+	Remove-Item $tmpfolder\profiler.sqf
+	
+	[ArmA2.Script.GlobalVars]::PublicVariables.Clear();
+	[ArmA2.Script.GlobalVars]::ExcludePhrases.Clear();
+	[ArmA2.Script.GlobalVars]::ExcludeLines.Clear();
+	
+     [ArmA2.Script.GlobalVars]::ExcludeLines.Add("PROFILER_BEGIN");
+     [ArmA2.Script.GlobalVars]::ExcludeLines.Add("PROFILER_END");
+     [ArmA2.Script.GlobalVars]::ExcludeLines.Add("profiler.sqf");
+     [ArmA2.Script.GlobalVars]::ExcludeLines.Add("profiler.h");
+     [ArmA2.Script.GlobalVars]::ExcludeLines.Add("!isNil `"initProfiler`"");
+	 [ArmA2.Script.GlobalVars]::ExcludeLines.Add("!isNil `"LogInited`"");
+	 [ArmA2.Script.GlobalVars]::ExcludeLines.Add("logging.h");
+	 [ArmA2.Script.GlobalVars]::ExcludeLines.Add("logging.sqf");
+	 [ArmA2.Script.GlobalVars]::ExcludeLines.Add("call Log(Inform|High|Medium|Warning|Error|Trace|Unexpected|Notify)(?:[^\w])");
+	 
+     #-- [ArmA2.Script.GlobalVars]::ExcludePhrases.Add("format[\[].+?[\]]\s* call Log(Inform|High|Medium|Warning|Error|Trace|Unexpected|Notify)");
+     #-- [ArmA2.Script.GlobalVars]::ExcludePhrases.Add("`"(?:[^`"\\]|\\.|\`"\`")*""\s*call Log(Inform|High|Medium|Warning|Error|Trace|Unexpected|Notify)");
+     #-- [ArmA2.Script.GlobalVars]::ExcludePhrases.Add("'(?:[^'\\]|\\.|'')*'\s*call Log(Inform|High|Medium|Warning|Error|Trace|Unexpected|Notify)");	
+	
+	
+	#-- first pass remove comments, debug scripts, obfuscate local variables
+	#
+	$files = dir -Path $tmpfolder -Recurse -Include "*.sqf", "*.fsm" | Where {($_.psIsContainer -eq $false) -and (($_.FullName -match ".*\\mando_missiles\\.*") -ne $true) };
+	$files = $files | Where { ($_.FullName -match ".*\\briefing.sqf") -eq $false };
+	foreach($x in $files) {
+
+		Write-Host "Preprocess-file: "$x.FullName;	
+		
+		#-- preprocess-file -fileName $x.FullName;
+		[ArmA2.Script.Compiler]::CompileFile($x.FullName, $false);
+		
+		if ($output.Length -gt 0) { Write-Host $output; }
+		$output.Length = 0;		
+	}
+
+	#-- $publicVars = [ArmA2.Script.Compiler]::GetPublicVarsOrderByUsage();	
+	#-- foreach($x in $publicVars) { 
+	#-- 		write-host $x;
+	#-- }
+
+	#-- second pass. collect stats about how often public variable used
+	#
+	#-- [ArmA2.Script.Compiler]::ResetPublicUsage();
+	#-- foreach($x in $files) {
+	#--   	[ArmA2.Script.Compiler]::AddPublicVariablesUsageStat($x.FullName);
+	#-- }	
+	
+	#-- $publicVars = [ArmA2.Script.Compiler]::GetPublicVarsOrderByUsage();	
+	#-- foreach($x in $publicVars) { 
+	#-- 		write-host $x;
+	#-- }
+}
+
 function preprocess-file {
 	param ([string]$fileName)
 
-	if ( $fileName -match ".*\\mando_missiles\\.*") {
-		return;
-	}
 
-	Write-Host "Preprocess-file: $fileName";
+
+
 	
 	$fileInfo = Get-ChildItem -Path $fileName;
     if( $fileInfo.GetType().Name -eq 'FileInfo')
@@ -181,9 +237,9 @@ function obfuscate-fileline {
 };
 
 function compile-version {
-	param ([string]$world, [string]$gamever, [int]$numplayers, [string]$desc)
+	param ([string]$world, [string]$gamever, [int]$numplayers, [string]$desc, [string]$missionMods)
 	
-	$projectName =  "Warfare$projectVer@$numplayers$gamever.Bomba.Edition.$world" -replace " ", ".";	
+	$projectName =  "WBE$projectVer@$numplayers$gamever.$world" -replace " ", ".";	
 	
 	Copy-Item "$source\briefing.sqf" "$tmpfolder" -Force
 	
@@ -196,9 +252,10 @@ function compile-version {
 	$patMissioDesc = [System.Text.RegularExpressions.Regex]::Escape("`$MISSIONDESCRIPTION");
 	$patBuildVersion = [System.Text.RegularExpressions.Regex]::Escape("`$BUILDVERSION");
 	
-	replace-pattern -pattern $patMissioName -replaceTo $mission -fileName "$tmpfolder\version.sqf";
+	$spyMission = "$spyName $gamever$missionMods + $world";
+	replace-pattern -pattern $patMissioName -replaceTo $spyMission -fileName "$tmpfolder\version.sqf";
+	replace-pattern -pattern $patMissioName -replaceTo $spyMission -fileName "$tmpfolder\mission.sqm";
 	
-	replace-pattern -pattern $patMissioName -replaceTo $mission -fileName "$tmpfolder\mission.sqm";
 	replace-pattern -pattern $patMissioDesc -replaceTo $desc -fileName "$tmpfolder\mission.sqm";
 	replace-pattern -pattern $patBuildVersion -replaceTo $revisionNumber -fileName "$tmpfolder\mission.sqm";
 
@@ -290,4 +347,12 @@ function SVN-GetHistory {
 	$lines | Set-Content "$outputDir\history.txt";
 }
 
+function Add-References {
+
+	$currentDirectory = [string](Get-Location);
+	$assemblyPath =$currentDirectory + "\ArmA2.Script.Compiler.dll"; 
+	[Void] [System.Reflection.Assembly]::LoadFile( $assemblyPath );
+}
+
+Add-References;
 EntryPoint;

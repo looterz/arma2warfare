@@ -1,0 +1,1 @@
+class FSM{fsmName="aiteam";class States{class Init{name="Init";init="_team=_this select 0;_lastPos=position(leader _team);";precondition="";};};};
