@@ -22,7 +22,7 @@ _currentGearUpgr = ((sideJoinedText) Call GetSideUpgrades) select 13;
 	if !(isNil '_get') then {
 		if ((_get select QUERYGEARUPGRADE) <= _currentGearUpgr) then {
 			_add = true;
-			if (gearRestriction && !gearInRange) then {
+			if (paramGearRestriction && !gearInRange) then {
 				if !(_get select QUERYGEARALLOWED) then {_add = false};
 			};
 			if (_add) then {
