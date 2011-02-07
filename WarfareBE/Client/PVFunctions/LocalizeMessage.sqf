@@ -1,6 +1,6 @@
 Private["_localize","_txt"];
 
-_localize = _this Select 0;
+_localize = _this select 0;
 
 _txt = "";
 switch (_localize) do {
@@ -11,6 +11,7 @@ switch (_localize) do {
 	case "TacticalLaunch": {_txt = Localize "STR_WF_ICBM_Launch"};
 	case "Teamkill": {_txt = Format [Localize "STR_WF_Teamkill",('WFBE_TEAMKILLPENALTY' Call GetNamespace)]; -('WFBE_TEAMKILLPENALTY' Call GetNamespace) Call ChangePlayerFunds};
 	case "FundsTransfer": {_txt = Format [Localize "STR_WF_FundsTransfer",_this select 1,_this select 2]};
+	case "StructureSold": {_txt = Format [Localize "STR_WF_Structure_Sold",([_this select 1,'displayName'] Call GetConfigInfo)]};
 };
 
 if (_localize != 'FundsTransfer') then {

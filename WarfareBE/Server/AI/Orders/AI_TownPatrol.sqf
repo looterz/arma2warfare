@@ -14,6 +14,7 @@ _team = _this select 0;
 _town = _this select 1;
 _radius = if (count _this > 2) then {_this select 2} else {30};
 if (typeName _town != 'OBJECT') exitWith {diag_log Format ["[WFBE (ERROR)] AI_TownPatrol: Object expected, %1 given",_town]};
+if (isNull _team) exitWith {diag_log Format ["[WFBE (ERROR)] AI_TownPatrol: Null Groups cannot be used (Town: %1)",_town]};
 _townPos = getPos _town;
 
 _camps = _town getVariable 'camps';
@@ -22,10 +23,11 @@ _usable = [_town] + _camps;
 _maxWaypoints = ('WFBE_TOWNPATROLHOPS' Call GetNamespace) + count(_usable);
 _wps = [];
 
+//--- Randomize the behaviours.
 if (random 100 > 50) then {_team setFormation "DIAMOND"} else {_team setFormation "STAG COLUMN"};
-_team setBehaviour "AWARE";
-_team setSpeedMode "LIMITED";
-_team setCombatMode "YELLOW";
+if (random 100 > 50) then {_team setCombatMode "YELLOW"} else {_team setCombatMode "RED"};
+if (random 100 > 50) then {_team setBehaviour "AWARE"} else {_team setBehaviour "COMBAT"};
+if (random 100 > 50) then {_team setSpeedMode "NORMAL"} else {_team setSpeedMode "LIMITED"};
 
 //--- Dyn insert.
 _insertStep = if (count(_usable) != 0) then {floor(_maxWaypoints / count(_usable))} else {-1};
@@ -62,6 +64,6 @@ for [{_x=0},{_x<=_maxWaypoints},{_x=_x+1}] do {
 	_wps = _wps + [[_pos,_type,_wpradius,_wpcompletionRadius]];
 };
 
-diag_log Format["[WFBE (INFORMATION)] AI_TownPatrol: The %1 %2 Team is patrolling the %3 town",side _team,_team,_town];
+diag_log Format["[WFBE (INFORMATION)][frameno:%4 | ticktime:%5] AI_TownPatrol: The %1 %2 Team is patrolling the %3 town",side _team,_team,_town,diag_frameno,diag_tickTime];
 
 [_team, true, _wps] Call AIWPAdd;

@@ -19,7 +19,6 @@ for "_i" from 0 to ((count _data) - 1) do
 				{
 					_vehicle addMagazineTurret [_x, _tConstruct];
 				} forEach (_data select (_i+1));
-				diag_log format ["Turret:%1 Mags:%2",_turretPath,_data select (_i+1)];
 			};
 			//--- go deeper.
 			if (typeName _content == 'ARRAY') then {

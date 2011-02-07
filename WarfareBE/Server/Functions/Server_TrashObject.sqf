@@ -19,7 +19,7 @@ if !(isNull _object) then {
 	if (_isMan) then {
 		_get = _group getVariable 'funds';
 		if (isNil '_get') then {
-			_alive = units _group Call GetLiveUnits;
+			_alive = (units _group) Call GetLiveUnits;
 			if (count _alive <= 0) then {deleteGroup _group};
 		};
 		hideBody _object;

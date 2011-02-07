@@ -4,7 +4,7 @@ _args = _this;
 _side = _args select 1;
 
 _playerTeam = (_args select 3);
-diag_log Format["[WFBE (INFORMATION)] Server_HandleSpecial: The %1 %2 Team (Leader: %3) has called an Ammunition Paradroping",str _side,_playerTeam,name leader _playerTeam];
+diag_log Format["[WFBE (INFORMATION)][frameno:%4 | ticktime:%5] Server_HandleSpecial: The %1 %2 Team (Leader: %3) has called an Ammunition Paradroping",str _side,_playerTeam,name (leader _playerTeam),diag_frameno,diag_tickTime];
 _ranPos = [];
 _ranDir = [];
 if (paramBoundaries) then {

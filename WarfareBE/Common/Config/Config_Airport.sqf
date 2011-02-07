@@ -1,12 +1,12 @@
 Private['_c','_u'];
 
 /* WEST - Airport */
-_u = Call Compile preprocessFile (WFBE_V_UnitsRoot + WFBE_V_UnitsRootVersion + 'Units_Airport_' + WFBE_V_West_Faction + '.sqf');
+_u = Call Compile preprocessFile (WFBE_V_UnitsRoot + WFBE_V_West_UnitsRootVersion + 'Units_Airport_' + WFBE_V_West_Faction + '.sqf');
 ['WFBE_WESTAIRPORTUNITS',_u,true] Call SetNamespace;
 if (local player) then {['AIRPORT','WEST',_u] Call Compile preProcessFile 'Client\Init\Init_Faction.sqf'};
 
 /* EAST - Airport */
-_u = Call Compile preprocessFile (WFBE_V_UnitsRoot + WFBE_V_UnitsRootVersion + 'Units_Airport_' + WFBE_V_East_Faction + '.sqf');
+_u = Call Compile preprocessFile (WFBE_V_UnitsRoot + WFBE_V_East_UnitsRootVersion + 'Units_Airport_' + WFBE_V_East_Faction + '.sqf');
 ['WFBE_EASTAIRPORTUNITS',_u,true] Call SetNamespace;
 if (local player) then {['AIRPORT','EAST',_u] Call Compile preProcessFile 'Client\Init\Init_Faction.sqf'};
 
@@ -18,7 +18,7 @@ _longestAirportBuildTime = 0;
 			_longestAirportBuildTime = (_c select QUERYUNITTIME);
 		};
 	} else {
-		diag_log Format ["[WFBE (ERROR)] Config_Airport: '%1' is not defined in the Core files.",_x];
+		diag_log Format ["[WFBE (ERROR)][frameno:%2 | ticktime:%3] Config_Airport: '%1' is not defined in the Core files.",_x,diag_frameno,diag_tickTime];
 	};
 } forEach (('WFBE_EASTAIRPORTUNITS' Call GetNamespace) + ('WFBE_WESTAIRPORTUNITS' Call GetNamespace));
 
@@ -27,4 +27,4 @@ _longestAirportBuildTime = 0;
 airportDistance = 60;
 airportDirection = 180;
 
-diag_log "[WFBE (INIT)] Config_Airport: Initialization - [Done]";
+diag_log Format ["[WFBE (INIT)][frameno:%1 | ticktime:%2] Config_Airport: Initialization - [Done]",diag_frameno,diag_tickTime];

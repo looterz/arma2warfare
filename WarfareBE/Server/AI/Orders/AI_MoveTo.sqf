@@ -12,6 +12,6 @@ if (side _team == west || side _team == east) then {
 //--- Override.
 if (_update) then {_team Call UpdateTeam};
 
-diag_log Format["[WFBE (INFORMATION)] AI_MoveTo: The %1 %2 Team is moving to %3",side _team,_team,_destination];
+diag_log Format["[WFBE (INFORMATION)][frameno:%4 | ticktime:%5] AI_MoveTo: The %1 %2 Team is moving to %3",side _team,_team,_destination,diag_frameno,diag_tickTime];
 
 [_team,true,[[_destination, _mission, _radius, 20]]] Call AIWPAdd;

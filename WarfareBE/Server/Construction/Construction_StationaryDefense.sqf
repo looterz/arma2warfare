@@ -1,6 +1,4 @@
-//*****************************************************************************************
-//Description: Creates Defenses.
-//*****************************************************************************************
+/* Description: Creates Defenses. */
 Private ["_defense","_direction","_index","_manned","_position","_side","_type"];
 _type = _this select 0;
 _side = _this select 1;
@@ -13,7 +11,7 @@ _defense = _type createVehicle _position;
 _defense setDir _direction;
 _defense setPos _position;
 
-diag_log Format["[WFBE (INFORMATION)] Construction_StationaryDefense: A %1 %2 was created",str _side,_type];
+diag_log Format["[WFBE (INFORMATION)][frameno:%3 | ticktime:%4] Construction_StationaryDefense: A %1 %2 was created",str _side,_type,diag_frameno,diag_tickTime];
 
 //--- If it's a minefield, we exit the script while spawning it.
 if (_type == 'Sign_Danger') exitWith {
@@ -52,13 +50,13 @@ if (_type == 'Sign_Danger') exitWith {
 
 Call Compile Format ["_defense addEventHandler ['Killed',{[_this select 0,_this select 1,%1] Spawn UnitKilled}]",_side];
 
-if (_defense EmptyPositions "gunner" > 0 && paramAutoDefense) then {
+if (_defense EmptyPositions "gunner" > 0 && (('WFBE_AIDEFENSE' Call GetNamespace) > 0)) then {
 	_team = if (_side == WEST) then {WF_DefenseWestGrp} else {WF_DefenseEastGrp};
 	emptyQueu = emptyQueu + [_defense];
 	_defense Spawn HandleEmptyVehicle;
 	if (_manned) then {
 		_alives = (units _team) Call GetLiveUnits;
-		if (count _alives < ('WFBE_MAXAIDEFENSE' Call GetNamespace)) then {
+		if (count _alives < ('WFBE_AIDEFENSE' Call GetNamespace)) then {
 			_buildings = (str _side) Call GetSideStructures;
 			_check = ['BARRACKSTYPE',_buildings,'WFBE_DEFENSEMANRANGE' Call GetNamespace,_side,_defense] Call BuildingInRange;
 			_closest = _check select 0;
@@ -77,6 +75,10 @@ if (paramArtyUI) then {
     if (_isVeh == 1) then {
 		_defense setVehicleInit "[this] ExecVM 'Common\Common_InitArtillery.sqf'";
 		processInitCommands;
-		diag_log Format["[WFBE (INFORMATION)] Construction_StationaryDefense: Artillery UI has been set over the %1 %2",str _side,_type];
+		diag_log Format["[WFBE (INFORMATION)][frameno:%3 | ticktime:%4] Construction_StationaryDefense: Artillery UI has been set over the %1 %2",str _side,_type,diag_frameno,diag_tickTime];
 	};
 };
+
+/* Are we dealing with an artillery unit ? */
+_isArtillery = [_type,_side] Call IsArtillery;
+if (_isArtillery != -1) then {[_defense,_isArtillery,_side] Call EquipArtillery};

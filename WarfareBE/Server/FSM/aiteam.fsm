@@ -1,4 +1,4 @@
-/*%FSM<COMPILE "D:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, aiteam">*/
+/*%FSM<COMPILE "F:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, aiteam">*/
 /*%FSM<HEAD>*/
 /*
 item0[] = {"Init",0,250,-81.542984,-257.577942,8.457038,-207.578140,0.000000,"Init"};
@@ -6,14 +6,14 @@ item1[] = {"AI",4,218,-82.819679,-169.595276,7.180347,-119.595261,0.000000,"AI"}
 item2[] = {"Player",4,218,49.705437,-259.537231,139.705353,-209.537186,1.000000,"Player"};
 item3[] = {"End",1,250,50.881416,-351.881897,140.881409,-301.881897,0.000000,"End"};
 item4[] = {"_",-1,250,78.086945,-213.540482,78.086945,-208.131866,0.000000,""};
-item5[] = {"Advanced_Init",2,250,-85.897964,-82.487251,4.102041,-32.487217,0.000000,"Advanced Init"};
+item5[] = {"Advanced_Init",2,4346,-85.897964,-82.487251,4.102041,-32.487217,0.000000,"Advanced Init"};
 item6[] = {"Loop",4,218,-83.198402,0.114880,6.801598,50.114880,0.000000,"Loop"};
 item7[] = {"",7,210,86.608803,29.398537,94.608841,37.398552,0.000000,""};
 item8[] = {"_",8,218,62.498558,99.618889,94.074371,122.354271,0.000000,""};
 item9[] = {"Towns",4,218,424.040314,260.865143,514.040283,310.865143,1.000000,"Towns"};
 item10[] = {"Check",2,250,-83.027481,86.339714,6.972525,136.339722,0.000000,"Check"};
 item11[] = {"Handle_AI_Mode",2,250,34.021767,145.371872,124.021767,195.371826,0.000000,"Handle" \n "AI Mode"};
-item12[] = {"Handle_Towns",2,4346,645.149963,260.576935,735.150269,310.576996,0.000000,"Handle Towns"};
+item12[] = {"Handle_Towns",2,250,645.149963,260.576935,735.150269,310.576996,0.000000,"Handle Towns"};
 item13[] = {"Auto_Move",4,218,156.132660,127.149292,246.132660,177.149307,1.000000,"Auto Move"};
 item14[] = {"Ind_Move",4,218,151.292526,60.816727,241.292587,110.816818,0.000000,"Ind Move"};
 item15[] = {"Handle_Movement",2,250,259.692505,65.755508,349.692505,115.755600,0.000000,"Handle" \n "Movement"};
@@ -143,8 +143,8 @@ link65[] = {56,57};
 link66[] = {57,59};
 link67[] = {58,59};
 link68[] = {59,25};
-globals[] = {0.000000,0,0,0,0,640,480,1,93,6316128,1,-252.487289,1060.075317,792.499084,-352.976318,707,617,1};
-window[] = {0,-1,-1,-1,-1,887,150,1563,150,1,725};
+globals[] = {0.000000,0,0,0,0,640,480,1,93,6316128,1,-14.852192,1297.710327,792.499084,-352.976318,707,622,1};
+window[] = {0,-1,-1,-1,-1,853,88,1501,116,1,725};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -234,7 +234,7 @@ class FSM
        "	[_team,_index] Call SetTeamType;" \n
        "};" \n
        "" \n
-       "if (isMultiplayer) then {[_side,_team] Spawn AISquadRespawn};"/*%FSM</STATEINIT""">*/;
+       "if (isMultiplayer && WF_A2_Vanilla) then {[_side,_team] Spawn AISquadRespawn};"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -317,7 +317,12 @@ class FSM
     class Handle_Towns
     {
       name = "Handle_Towns";
-      init = /*%FSM<STATEINIT""">*/"if (_moveMode == 'resetTowns') then {_moveAtLast = _moveAt;_moveAt = objNull;_moveAtRunning = false};" \n
+      init = /*%FSM<STATEINIT""">*/"if (_moveMode == 'resetTowns') then {" \n
+       "	_moveAtLast = _moveAt;" \n
+       "	_moveAt = objNull;" \n
+       "	_moveAtRunning = false;" \n
+       "	[_team,'towns'] Call SetTeamMoveMode;" \n
+       "};" \n
        "" \n
        "if !(isNull _moveAt) then {" \n
        "	_tsideID = _moveAt getVariable 'sideID';" \n
@@ -890,7 +895,7 @@ class FSM
        "					};" \n
        "				};" \n
        "			} else {" \n
-       "				diag_log Format [""[WFBE (ERROR)] aiteam.fsm: Element %1 is not defined within the core system"",_x];" \n
+       "				diag_log Format[""[WFBE (ERROR)][frameno:%2 | ticktime:%3] aiteam.fsm: Element %1 is not defined within the core system."",_x,diag_frameno,diag_tickTime];" \n
        "			};" \n
        "		} forEach _teamType;" \n
        "	};" \n
@@ -922,12 +927,12 @@ class FSM
        "		_temp =  _temp - [_x];" \n
        "	} else {" \n
        "		if !(isNull _moveAt) then {" \n
-       "			if (_x distance _moveAt < 775) then {" \n
+       "			if (_x distance _moveAt < 775 &&  !(surfaceIsWater [getpos _x select 0, getpos _x select 1])) then {" \n
        "				if (_x isKindOf 'Air') then {" \n
        "					_x spawn {" \n
-       "						_cargo = (crew _this) - [driver _this, gunner _this, commander _this];" \n
+       "						_cargo = assignedCargo _this;" \n
        "						{" \n
-       "							if (alive _x && _this == vehicle _x && local _x) then {" \n
+       "							if (alive _x && _this == vehicle _x && local _x && (_x != driver _this)) then {" \n
        "								unassignVehicle _x;" \n
        "								[_x] orderGetIn false;" \n
        "								_x action [""EJECT"", _this];" \n
@@ -937,9 +942,10 @@ class FSM
        "						} forEach _cargo;" \n
        "					};" \n
        "				} else {" \n
-       "					_cargo = (crew _x) - [driver _x, gunner _x, commander _x];" \n
+       "					_cargo = assignedCargo _x;" \n
+       "					_vehicle = _x;" \n
        "					{" \n
-       "						if (alive _x && local _x) then {" \n
+       "						if (alive _x && local _x && (vehicle _x == _vehicle) && (_x != driver _vehicle)) then {" \n
        "							[_x] orderGetIn false;" \n
        "							unassignVehicle _x;" \n
        "							[_x] allowGetIn false;" \n
@@ -972,7 +978,10 @@ class FSM
     class Handle_Move
     {
       name = "Handle_Move";
-      init = /*%FSM<STATEINIT""">*/"if (_moveMode == 'resetMove') then {_lastCoord = [0,0,0]};" \n
+      init = /*%FSM<STATEINIT""">*/"if (_moveMode == 'resetMove') then {" \n
+       "	_lastCoord = [0,0,0];" \n
+       "	[_team,'move'] Call SetTeamMoveMode;" \n
+       "};" \n
        "" \n
        "_coord = (_team) Call GetTeamMovePos;" \n
        "if ((_coord select 0 != _lastCoord select 0)&&(_coord select 1 != _lastCoord select 1)) then {" \n
@@ -1005,7 +1014,10 @@ class FSM
     class Handle_Patrol
     {
       name = "Handle_Patrol";
-      init = /*%FSM<STATEINIT""">*/"if (_moveMode == 'resetPatrol') then {_lastCoord = [0,0,0]};" \n
+      init = /*%FSM<STATEINIT""">*/"if (_moveMode == 'resetPatrol') then {" \n
+       "	_lastCoord = [0,0,0];" \n
+       "	[_team,'patrol'] Call SetTeamMoveMode;" \n
+       "};" \n
        "" \n
        "_coord = (_team) Call GetTeamMovePos;" \n
        "if ((_coord select 0 != _lastCoord select 0)&&(_coord select 1 != _lastCoord select 1)) then {" \n
@@ -1026,7 +1038,10 @@ class FSM
     class Handle_Defense
     {
       name = "Handle_Defense";
-      init = /*%FSM<STATEINIT""">*/"if (_moveMode == 'resetDefense') then {_lastCoord = [0,0,0]};" \n
+      init = /*%FSM<STATEINIT""">*/"if (_moveMode == 'resetDefense') then {" \n
+       "	_lastCoord = [0,0,0];" \n
+       "	[_team,'defense'] Call SetTeamMoveMode;" \n
+       "};" \n
        "" \n
        "_coord = (_team) Call GetTeamMovePos;" \n
        "if ((_coord select 0 != _lastCoord select 0)&&(_coord select 1 != _lastCoord select 1)) then {" \n

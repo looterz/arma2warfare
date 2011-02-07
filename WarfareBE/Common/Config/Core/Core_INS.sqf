@@ -86,7 +86,7 @@ _c = _c + ['BMP2_Ambul_INS'];
 _i = _i + [['','',950,20,1,1,2,0,'Insurgents']];
 
 _c = _c + ['BMP2_INS'];
-_i = _i + [['','',2600,30,3,0,2,0,'Insurgents']];
+_i = _i + [['','',2600,30,3,if (WF_A2_Vanilla) then {0} else {1},2,0,'Insurgents']];
 
 _c = _c + ['ZSU_INS'];
 _i = _i + [['','',3400,35,3,1,2,0,'Insurgents']];
@@ -109,16 +109,20 @@ _c = _c + ['ZU23_Ins'];
 _i = _i + [['','',945,0,1,0,'Defense',0,'Insurgents']];
 
 for '_z' from 0 to (count _c)-1 do {
-	_get = (_c select _z) Call GetNamespace;
-	if (isNil '_get') then {
-		if ((_i select _z) select 0 == '') then {(_i select _z) set [0, [_c select _z,'displayName'] Call GetConfigInfo]};
-		if (WF_Debug) then {(_i select _z) set [3,1]};
-		_p = if ((_c select _z) isKindOf 'Man') then {'portrait'} else {'picture'};
-		(_i select _z) set [1, [_c select _z,_p] Call GetConfigInfo];
-		[_c select _z,_i select _z] Call SetNamespace;
+	if (isClass (configFile >> 'CfgVehicles' >> (_c select _z))) then {
+		_get = (_c select _z) Call GetNamespace;
+		if (isNil '_get') then {
+			if ((_i select _z) select 0 == '') then {(_i select _z) set [0, [_c select _z,'displayName'] Call GetConfigInfo]};
+			if (WF_Debug) then {(_i select _z) set [3,1]};
+			_p = if ((_c select _z) isKindOf 'Man') then {'portrait'} else {'picture'};
+			(_i select _z) set [1, [_c select _z,_p] Call GetConfigInfo];
+			[_c select _z,_i select _z] Call SetNamespace;
+		} else {
+			diag_log Format ["[WFBE (INIT)][frameno:%2 | ticktime:%3] Core_INS: Duplicated Element found '%1'",(_c select _z),diag_frameno,diag_tickTime];
+		};
 	} else {
-		diag_log Format ["[WFBE (INIT)] Core_INS: Duplicated Element found '%1'",(_c select _z)];
+		diag_log Format ["[WFBE (ERROR)][frameno:%2 | ticktime:%3] Core_INS: Element '%1' is not a valid class.",(_c select _z),diag_frameno,diag_tickTime];
 	};
 };
 
-diag_log Format ["[WFBE (INIT)] Core_INS: Initialization (%1 Elements) - [Done]",count _c];
+diag_log Format ["[WFBE (INIT)][frameno:%2 | ticktime:%3] Core_INS: Initialization (%1 Elements) - [Done]",count _c,diag_frameno,diag_tickTime];

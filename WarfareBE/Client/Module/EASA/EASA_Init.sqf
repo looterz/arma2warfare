@@ -240,6 +240,15 @@ if (WF_A2_Arrowhead) then {
 }
 ];
 
+_easaVehi = 	_easaVehi + ['AH1Z'];
+_easaDefault = 	_easaDefault + [[['HellfireLauncher','8Rnd_Hellfire']]];
+_easaLoadout = 	_easaLoadout + [
+ [
+  [[2900],['AGM-114 (8)'],['HellfireLauncher','8Rnd_Hellfire']],
+  [[3100],['AIM-9L (8)'],['SidewinderLaucher_AH64','8Rnd_Sidewinder_AH64']]
+ ]
+];
+
 ['WFBE_EASA_Vehicles',_easaVehi,true] Call SetNamespace;
 ['WFBE_EASA_Loadouts',_easaLoadout,true] Call SetNamespace;
 ['WFBE_EASA_Default',_easaDefault,true] Call SetNamespace;

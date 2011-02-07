@@ -48,11 +48,11 @@ if (!IsNull _site) then {
 	if (paramHandleFF) then {Call Compile Format ["_site addEventHandler ['handleDamage',{[_this select 0,_this select 2,_this select 3, %1] Call BuildingHandleDamages}]",_side]};
 	Call Compile Format ["_site AddEventHandler ['killed',{[_this select 0,_this select 1,%1,'%2'] Spawn BuildingKilled}];",_side,_type];
 	
-	diag_log Format["[WFBE (INFORMATION)] Construction_SmallSite: A %1 %2 was constructed",str _side,_type];
+	diag_log Format["[WFBE (INFORMATION)][frameno:%3 | ticktime:%4] Construction_SmallSite: A %1 %2 has been constructed",str _side,_type,diag_frameno,diag_tickTime];
 };
 
 //--- Base Patrols.
 if ((_type == WESTBAR || _type == EASTBAR) && paramBasePatrols) then {
 	[_site, _side] ExecFSM 'Server\FSM\basepatrol.fsm';
-	diag_log Format["[WFBE (INFORMATION)] Construction_SmallSite: A %1 Base Patrol Module has been launched",str _side];
+	diag_log Format["[WFBE (INFORMATION)][frameno:%2 | ticktime:%3] Construction_SmallSite: A %1 Base Patrol Module has been launched",str _side,diag_frameno,diag_tickTime];
 }

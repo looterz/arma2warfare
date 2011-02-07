@@ -1,9 +1,8 @@
-Private["_count","_currentPosition","_direction","_object","_obstacles","_placed","_position","_radius","_retPos","_vehicles"];
+Private["_count","_currentPosition","_direction","_obstacles","_placed","_position","_radius","_retPos","_vehicles"];
 scopeName "PlaceSafe";
 
-_object = _this select 0;
-_position = _this select 1;
-_radius = if (count _this > 2) then {_this select 2} else {35};
+_position = _this select 0;
+_radius = if (count _this > 1) then {_this select 1} else {35};
 _retPos = [];
 
 _currentPosition = _position;

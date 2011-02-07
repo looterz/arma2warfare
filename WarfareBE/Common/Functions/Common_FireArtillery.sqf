@@ -1,56 +1,64 @@
-Private["_ammo","_angle","_arcDistance","_artillery","_destination","_direction","_distance","_minRange","_maxRange","_position","_radius","_shell","_side","_type","_velocity","_weapon","_x","_y"];
+Private["_ammo","_artillery","_destination","_dispersion","_direction","_distance","_gunner","_minRange","_maxRange","_position","_radius","_side","_type","_velocity","_weapon","_x","_y"];
 
-_artillery = _this Select 0;
-_destination = _this Select 1;
-_side = _this Select 2;
-_radius = _this Select 3;
+_artillery = _this select 0;
+_destination = _this select 1;
+_side = _this select 2;
+_radius = _this select 3;
 _index = _this select 4;
 
-if (_index == -1) ExitWith {diag_log Format ["[WFBE (INFORMATION)] Common_FireArtillery.sqf: No artillery types were found for '%1'.",_artillery]};
+_gunner = gunner _artillery;
+if (_index == -1) exitWith {diag_log Format ["[WFBE (INFORMATION)][frameno:%2 | ticktime:%3] Common_FireArtillery.sqf: No artillery types were found for '%1'.",_artillery,diag_frameno,diag_tickTime]};
+if (isNull _gunner) exitWith {diag_log Format ["[WFBE (INFORMATION)][frameno:%2 | ticktime:%3] Common_FireArtillery.sqf: Artillery '%1' gunner is null.",_artillery,diag_frameno,diag_tickTime]};
+if (isPlayer _gunner) exitWith {diag_log Format ["[WFBE (INFORMATION)][frameno:%2 | ticktime:%3] Common_FireArtillery.sqf: Artillery '%1' gunner is player.",_artillery,diag_frameno,diag_tickTime]};
 
-_minRange = artilleryMinRanges Select _index;
-_maxRange = artilleryMaxRanges Select _index;
-_weapon = artilleryWeapons Select _index;
-_ammo = artilleryAmmos Select _index;
-_velocity = artilleryVelocities Select _index;
-_dispersion = artilleryDispersions Select _index;
+_minRange = (Format ["WFBE_%1_ARTILLERY_MINRANGES",_side] Call GetNamespace) select _index;
+_maxRange = (Format ["WFBE_%1_ARTILLERY_MAXRANGES",_side] Call GetNamespace) select _index;
+_weapon = (Format ["WFBE_%1_ARTILLERY_WEAPONS",_side] Call GetNamespace) select _index;
+_ammo = (Format ["WFBE_%1_ARTILLERY_AMMOS",_side] Call GetNamespace) select _index;
+_velocity = (Format ["WFBE_%1_ARTILLERY_VELOCITIES",_side] Call GetNamespace) select _index;
+_dispersion = (Format ["WFBE_%1_ARTILLERY_DISPERSIONS",_side] Call GetNamespace) select _index;
 
-if (IsNull Gunner _artillery) ExitWith {diag_log Format ["[WFBE (INFORMATION)] Common_FireArtillery.sqf: Artillery '%1' gunner is null.",_artillery]};
-if (IsPlayer Gunner _artillery) ExitWith {diag_log Format ["[WFBE (INFORMATION)] Common_FireArtillery.sqf: Artillery '%1' gunner is player.",_artillery]};
-
-_position = GetPos _artillery;
-_x = (_destination Select 0) - (_position Select 0);
-_y = (_destination Select 1) - (_position Select 1);
-
+//--- Artillery Calculations.
+_position = getPos _artillery;
+_x = (_destination select 0) - (_position select 0);
+_y = (_destination select 1) - (_position select 1);
 _direction =  -(((_y atan2 _x) + 270) % 360);
 if (_direction < 0) then {_direction = _direction + 360};
-
 _distance = sqrt ((_x ^ 2) + (_y ^ 2)) - _minRange;
 _angle = _distance / (_maxRange - _minRange) * 100 + 15;
+if (_angle > 70) then {_angle = 70};
+if (_distance < 0 || _distance + _minRange > _maxRange) exitWith {};
 
-if (_angle > 90) then {_angle = 90};
-if (_distance < 0 || _distance + _minRange > _maxRange) ExitWith {};
+_FEH = Call Compile Format ["_artillery addEventHandler ['Fired',{[_this select 4,_this select 6,%1,%2,%3,%4,%5,%6,%7,%8,%9,%10] Spawn HandleArtillery}];",_ammo,_destination,_velocity,_dispersion,_shellpos,getPos _artillery,_distance,_radius,_maxRange,sideJoinedText];
 
-_watchPosition = [(_position Select 0) + (sin _direction) * 50,(_position Select 1) + (cos _direction) * 50,_angle];
-Gunner _artillery DoWatch _watchPosition;
+(_gunner) disableAI "TARGET";
+(_gunner) disableAI "AUTOTARGET";
+_watchPosition = [_destination select 0, _destination select 1, (_artillery distance _destination)/(tan(90-_angle))];
+(_gunner) doWatch _watchPosition;
 
-sleep 2;
-_amount = _artillery Ammo _weapon;
-_artillery Fire _weapon;
+sleep 10;
+if !(alive (_gunner)) exitWith {if !(isNull _artillery) then {_artillery removeEventHandler ['Fired',_FEH]}};
+if !(alive _artillery) exitWith {
+	if (alive (_gunner)) then {
+		(_gunner) enableAI 'TARGET';
+		(_gunner) enableAI 'AUTOTARGET';
+	};
+};
 
-WaitUntil {_artillery Ammo _weapon < _amount};
+_reloadTime = (Format ["WFBE_%1_ARTILLERY_RELOADTIME",_side] Call GetNamespace) select _index;
+_burst = (Format ["WFBE_%1_ARTILLERY_BURST",_side] Call GetNamespace) select _index;
 
-_shell = nearestObject [_artillery,_ammo];
+for [{_i = 0},{_i < _burst},{_i = _i + 1}] do {
+	sleep _reloadTime;
+	if (!alive (_gunner) || !alive _artillery) exitWith {};
+	
+	_artillery fire _weapon;
+};
 
-_shell SetPos [0,0,2000 + Random 20];
-_shell SetVelocity [0,0,0];
-
-_arcDistance = sqrt((_distance ^ 2) * 2);
-
-Gunner _artillery DoWatch _watchPosition;
-
-_distance = Random (_distance / _maxRange * 100) + Random _radius;
-_direction = Random 360;
-_shell SetPos [(_destination Select 0)+((sin _direction)*_distance),(_destination Select 1)+((cos _direction)*_distance),0];
-_destination = [(_destination Select 0)+((sin _direction)*_distance),(_destination Select 1)+((cos _direction)*_distance),0];
-_shell SetVelocity [0,0,-_velocity];
+if (alive (_gunner)) then {
+	(_gunner) enableAI 'TARGET';
+	(_gunner) enableAI 'AUTOTARGET';
+};
+if !(isNull _artillery) then {
+	_artillery removeEventHandler ['Fired',_FEH];
+};

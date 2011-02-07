@@ -15,3 +15,7 @@ if ((typeOf _lifter) in Zeta_Special) then {
 _vehicle setVelocity (velocity _lifter);
 
 _lifter removeAction _actionID;
+
+sleep 1;
+
+if ((getPos _vehicle) select 2 < 0) then {_vehicle setPos [(getPos _vehicle) select 0,(getPos _vehicle) select 1,0];_vehicle setVelocity [0,0,-0.1]};

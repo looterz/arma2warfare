@@ -6,58 +6,58 @@ _i = [];
 
 /* Infantry */
 _c = _c + ['TK_Soldier_EP1'];
-_i = _i + [['','',150,4,-1,0,0,0.71,'Takistani']];
+_i = _i + [['','',150,4,-1,0,0,0.77,'Takistani']];
 
 _c = _c + ['TK_Soldier_B_EP1'];
-_i = _i + [['','',125,4,-1,0,0,0.71,'Takistani']];
+_i = _i + [['','',125,4,-1,0,0,0.77,'Takistani']];
 
 _c = _c + ['TK_Soldier_TWS_EP1'];
-_i = _i + [['','',205,5,-1,0,0,0.76,'Takistani']];
+_i = _i + [['','',205,5,-1,0,0,0.82,'Takistani']];
 
 _c = _c + ['TK_Soldier_Engineer_EP1'];
-_i = _i + [['','',155,5,-1,0,0,0.72,'Takistani']];
+_i = _i + [['','',155,5,-1,0,0,0.78,'Takistani']];
 
 _c = _c + ['TK_Soldier_LAT_EP1'];
-_i = _i + [['','',225,5,-1,0,0,0.72,'Takistani']];
+_i = _i + [['','',225,5,-1,0,0,0.78,'Takistani']];
 
 _c = _c + ['TK_Soldier_AT_EP1'];
-_i = _i + [['','',310,5,-1,1,0,0.74,'Takistani']];
+_i = _i + [['','',310,5,-1,1,0,0.8,'Takistani']];
 
 _c = _c + ['TK_Soldier_HAT_EP1'];
-_i = _i + [['','',620,7,-1,3,0,0.77,'Takistani']];
+_i = _i + [['','',620,7,-1,3,0,0.83,'Takistani']];
 
 _c = _c + ['TK_Soldier_AA_EP1'];
-_i = _i + [['','',425,6,-1,1,0,0.76,'Takistani']];
+_i = _i + [['','',425,6,-1,1,0,0.82,'Takistani']];
 
 _c = _c + ['TK_Soldier_AR_EP1'];
-_i = _i + [['','',210,5,-1,1,0,0.73,'Takistani']];
+_i = _i + [['','',210,5,-1,1,0,0.79,'Takistani']];
 
 _c = _c + ['TK_Soldier_MG_EP1'];
-_i = _i + [['','',220,5,-1,0,0,0.74,'Takistani']];
+_i = _i + [['','',220,5,-1,0,0,0.8,'Takistani']];
 
 _c = _c + ['TK_Soldier_GL_EP1'];
-_i = _i + [['','',160,5,-1,0,0,0.72,'Takistani']];
+_i = _i + [['','',160,5,-1,0,0,0.78,'Takistani']];
 
 _c = _c + ['TK_Soldier_Sniper_EP1'];
-_i = _i + [['','',280,5,-1,1,0,0.8,'Takistani']];
+_i = _i + [['','',280,5,-1,1,0,0.88,'Takistani']];
 
 _c = _c + ['TK_Soldier_Spotter_EP1'];
-_i = _i + [['','',290,5,-1,1,0,0.76,'Takistani']];
+_i = _i + [['','',290,5,-1,1,0,0.82,'Takistani']];
 
 _c = _c + ['TK_Soldier_Medic_EP1'];
-_i = _i + [['','',190,4,-1,0,0,0.75,'Takistani']];
+_i = _i + [['','',190,4,-1,0,0,0.81,'Takistani']];
 
 _c = _c + ['TK_Soldier_Crew_EP1'];
-_i = _i + [['','',120,4,-1,0,0,0.7,'Takistani']];
+_i = _i + [['','',120,4,-1,0,0,0.76,'Takistani']];
 
 _c = _c + ['TK_Soldier_Pilot_EP1'];
-_i = _i + [['','',120,4,-1,0,0,0.71,'Takistani']];
+_i = _i + [['','',120,4,-1,0,0,0.77,'Takistani']];
 
 _c = _c + ['TK_Soldier_Officer_EP1'];
-_i = _i + [['','',240,5,-1,1,0,0.79,'Takistani']];
+_i = _i + [['','',240,5,-1,1,0,0.85,'Takistani']];
 
 _c = _c + ['TK_Soldier_SL_EP1'];
-_i = _i + [['','',220,5,-1,2,0,0.81,'Takistani']];
+_i = _i + [['','',220,5,-1,2,0,0.86,'Takistani']];
 
 /* Light Vehicles */
 _c = _c + ['TT650_TK_EP1'];
@@ -88,13 +88,16 @@ _c = _c + ['V3S_Open_TK_EP1'];
 _i = _i + [['','',250,20,1,0,1,0,'Takistani']];
 
 _c = _c + ['UralRepair_TK_EP1'];
-_i = _i + [['','',425,21,1,0,1,0,'Takistani']];
+_i = _i + [['','',425,17,1,0,1,0,'Takistani']];
+
+_c = _c + ['UralSalvage_TK_EP1'];
+_i = _i + [['','',450,17,1,1,1,0,'Takistani']];
 
 _c = _c + ['UralReammo_TK_EP1'];
-_i = _i + [['','',450,21,1,1,1,0,'Takistani']];
+_i = _i + [['','',450,18,1,1,1,0,'Takistani']];
 
 _c = _c + ['UralRefuel_TK_EP1'];
-_i = _i + [['','',400,21,1,1,1,0,'Takistani']];
+_i = _i + [['','',400,19,1,1,1,0,'Takistani']];
 
 _c = _c + ['UralSupply_TK_EP1'];
 _i = _i + [['','',450,21,1,0,1,0,'Takistani']];
@@ -122,7 +125,7 @@ _c = _c + ['M113_TK_EP1'];
 _i = _i + [['','',1100,22,2,0,2,0,'Takistani']];
 
 _c = _c + ['BMP2_TK_EP1'];
-_i = _i + [['','',2600,25,3,0,2,0,'Takistani']];
+_i = _i + [['','',2600,25,3,if (WF_A2_Arrowhead) then {0} else {1},2,0,'Takistani']];
 
 _c = _c + ['ZSU_TK_EP1'];
 _i = _i + [['','',3400,25,3,1,2,0,'Takistani']];
@@ -227,16 +230,20 @@ _c = _c + ['TKSpecialWeapons_EP1'];
 _i = _i + [['','',7200,0,0,0,'Ammo',0,'Takistani']];
 
 for '_z' from 0 to (count _c)-1 do {
-	_get = (_c select _z) Call GetNamespace;
-	if (isNil '_get') then {
-		if ((_i select _z) select 0 == '') then {(_i select _z) set [0, [_c select _z,'displayName'] Call GetConfigInfo]};
-		if (WF_Debug) then {(_i select _z) set [3,1]};
-		_p = if ((_c select _z) isKindOf 'Man') then {'portrait'} else {'picture'};
-		(_i select _z) set [1, [_c select _z,_p] Call GetConfigInfo];
-		[_c select _z,_i select _z] Call SetNamespace;
+	if (isClass (configFile >> 'CfgVehicles' >> (_c select _z))) then {
+		_get = (_c select _z) Call GetNamespace;
+		if (isNil '_get') then {
+			if ((_i select _z) select 0 == '') then {(_i select _z) set [0, [_c select _z,'displayName'] Call GetConfigInfo]};
+			if (WF_Debug) then {(_i select _z) set [3,1]};
+			_p = if ((_c select _z) isKindOf 'Man') then {'portrait'} else {'picture'};
+			(_i select _z) set [1, [_c select _z,_p] Call GetConfigInfo];
+			[_c select _z,_i select _z] Call SetNamespace;
+		} else {
+			diag_log Format ["[WFBE (INIT)][frameno:%2 | ticktime:%3] Core_TK: Duplicated Element found '%1'",(_c select _z),diag_frameno,diag_tickTime];
+		};
 	} else {
-		diag_log Format ["[WFBE (INIT)] Core_TK: Duplicated Element found '%1'",(_c select _z)];
+		diag_log Format ["[WFBE (ERROR)][frameno:%2 | ticktime:%3] Core_TK: Element '%1' is not a valid class.",(_c select _z),diag_frameno,diag_tickTime];
 	};
 };
 
-diag_log Format ["[WFBE (INIT)] Core_TK: Initialization (%1 Elements) - [Done]",count _c];
+diag_log Format ["[WFBE (INIT)][frameno:%2 | ticktime:%3] Core_TK: Initialization (%1 Elements) - [Done]",count _c,diag_frameno,diag_tickTime];

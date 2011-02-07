@@ -1,14 +1,12 @@
 disableSerialization;
 
-MenuAction = -1;
-mouseButtonUp = -1;
 _display = _this select 0;
 _lastRange = artyRange;
 _lastUpdate = 0;
 
 ctrlEnable [17010,commandInRange];
-SliderSetRange[17005,10,'WFBE_MAXARTILLERYAREA' Call GetNamespace];
-SliderSetPosition[17005,artyRange];
+sliderSetRange[17005,10,'WFBE_MAXARTILLERYAREA' Call GetNamespace];
+sliderSetPosition[17005,artyRange];
 
 _markers = [];
 _FTLocations = [];
@@ -16,35 +14,36 @@ _checks = [];
 _fireTime = 0;
 _status = 0;
 _canFT = false;
+_ft = 'WFBE_FASTTRAVEL' Call GetNamespace;
 _ftr = 'WFBE_FASTTRAVELRANGE' Call GetNamespace;
 _startPoint = objNull;
 
 _marker = "artilleryMarker";
-CreateMarkerLocal [_marker,artyPos];
+createMarkerLocal [_marker,artyPos];
 _marker setMarkerTypeLocal "mil_destroy";
 _marker setMarkerColorLocal "ColorRed";
 _marker setMarkerSizeLocal [1,1];
 
 _area = "artilleryAreaMarker";
-CreateMarkerLocal [_area,artyPos];
+createMarkerLocal [_area,artyPos];
 _area SetMarkerShapeLocal "Ellipse";
 _area setMarkerColorLocal "ColorRed";
 _area setMarkerSizeLocal [artyRange,artyRange];
 
 _map = _display DisplayCtrl 17002;
 _pard = 'WFBE_PARADELAY' Call GetNamespace;
-{lbAdd[17008,_x]} forEach artilleryDescs;
+{lbAdd[17008,_x]} forEach (Format ["WFBE_%1_ARTILLERY_DESC",sideJoinedText] Call GetNamespace);
 lbSetCurSel[17008,0];
 
 _IDCS = [17005,17006,17007,17008];
 if !(paramArty) then {{ctrlEnable [_x,false]} forEach _IDCS};
-if !(paramFastTravel) then {ctrlEnable [17014,false]};
-if !(paramICBM) then {ctrlEnable [17015,false]};
+ctrlEnable [17014,false];
+ctrlEnable [17015,false];
 
-//--- OA Takistanies don't have any UAV.
-if (WF_A2_Arrowhead && sideJoined == east) then {
-	{ctrlEnable [_x,false]} forEach [17012,17013];
-};
+{ctrlEnable [_x, false]} forEach [17010,17011,17012,17013,17017,17018];
+
+MenuAction = -1;
+mouseButtonUp = -1;
 
 while {alive player && dialog} do {
 	if (side player != sideJoined) exitWith {deleteMarkerLocal _marker;deleteMarkerLocal _area;{deleteMarkerLocal _x} forEach _markers;closeDialog 0};
@@ -52,7 +51,8 @@ while {alive player && dialog} do {
 	
 	_currentUpgrades = (sideJoinedText) Call GetSideUpgrades;
 	
-	if (paramFastTravel) then {
+	if (_ft > 0) then {
+		//--- TODO: Travel fee, mod parameter > FT free or pay, do a clt fct.
 		_currentLevel = _currentUpgrades select 12;
 		if (time - _lastUpdate > 15 && _currentLevel > 0) then {
 			{deleteMarkerLocal _x} forEach _markers;
@@ -93,6 +93,8 @@ while {alive player && dialog} do {
 				_locations = towns + _checks;
 				if (alive _base && _isDeployed) then {_locations = _locations + [_base]};
 				_i = 0;
+				_fee = 0;
+				_funds = if (_ft == 2) then {Call GetPlayerFunds} else {0};
 				{
 					if (_x distance player <= ('WFBE_FASTTRAVELMAXRANGE' Call GetNamespace) && _x distance player > _ftr) then {
 						_skip = false;
@@ -101,6 +103,10 @@ while {alive player && dialog} do {
 							_camps = [_x,sideJoined] Call GetFriendlyCamps;
 							_allCamps = _x getVariable "camps";
 							if (_sideID != sideID || (count _camps != count _allCamps)) then {_skip = true};
+							if (_ft == 2) then {
+								_fee = round(((_x distance player)/1000) * ('WFBE_FASTTRAVELPRICEKM' Call GetNamespace));
+								if (_funds < _fee) then {_skip = true};
+							};
 						};
 						if !(_skip) then {
 							_FTLocations = _FTLocations + [_x];
@@ -108,8 +114,18 @@ while {alive player && dialog} do {
 							_markers = _markers + [_markerName];
 							createMarkerLocal [_markerName,getPos _x];
 							_markerName setMarkerTypeLocal "mil_circle";
-							_markerName setMarkerColorLocal "ColorGreen";
+							_markerName setMarkerColorLocal "ColorYellow";
 							_markerName setMarkerSizeLocal [1,1];
+							//--- Fee, Cheap marker stuff, TBD: Add prompt or something.
+							if (_ft == 2) then {
+								_markerName = Format ["FTMarker%1%1",_i];
+								_markers = _markers + [_markerName];
+								createMarkerLocal [_markerName,[(getPos _x select 0)-5,(getPos _x select 1)+75]];
+								_markerName setMarkerTypeLocal "mil_circle";
+								_markerName setMarkerColorLocal "ColorYellow";
+								_markerName setMarkerSizeLocal [0,0];
+								_markerName setMarkerTextLocal Format ["$ %1.",_fee];
+							};
 							_i = _i + 1;
 						};
 					};
@@ -180,6 +196,12 @@ while {alive player && dialog} do {
 				deleteMarkerLocal _area;
 				
 				_destination = _sorted select 0;
+				
+				if (_ft == 2) then {
+					_fee = round(((player distance _destination)/1000) * ('WFBE_FASTTRAVELPRICEKM' Call GetNamespace));
+					-(_fee) Call ChangePlayerFunds;
+				};
+				
 				_travelingWith = [];
 				{if (_x distance _startPoint < _ftr && !(_x in _travelingWith) && canMove _x && !(vehicle _x isKindOf "StaticWeapon") && !stopped _x) then {_travelingWith = _travelingWith + [vehicle _x]}} forEach units (group player);
 				
@@ -283,10 +305,10 @@ while {alive player && dialog} do {
 	//--- Request Fire Mission.
 	if (MenuAction == 2) then {
 		MenuAction = -1;
-		_units = [Group player,GetPos player,false,lbCurSel(17008)] Call GetTeamArtillery;
+		_units = [Group player,GetPos player,false,lbCurSel(17008),sideJoinedText] Call GetTeamArtillery;
 		if (Count _units > 0) then {
 			fireMissionTime = time;
-			[GetMarkerPos "artilleryMarker",lbCurSel(17008)] Spawn RequestFireMission		
+			[GetMarkerPos "artilleryMarker",lbCurSel(17008)] Spawn RequestFireMission;
 		} else {
 			hint (localize "STR_WF_NoArty");
 		};			

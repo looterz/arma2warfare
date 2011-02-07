@@ -14,7 +14,6 @@ while {_comVoteTime > 0} do {
 WF_Logic setVariable [Format["%1CommanderVoteTime",_sideText],_comVoteTime,true];
 
 _commanderTeam = [_side] Call GetCommanderFromVotes;
-
 if (!IsNull _commanderTeam) then {WF_Logic setVariable [Format ["%1CommanderTeam",_sideText],_commanderTeam,true]} else {WF_Logic setVariable [Format ["%1CommanderTeam",_sideText],objNull,true]};
 
 _delay = 0;
@@ -32,7 +31,7 @@ _aibase = Format["WFBE_%1_AIBase",_sideText] Call GetNamespace;
 if (isNull _commanderTeam && paramAIcom && !_aibase) then {[_side] ExecFSM "Server\FSM\aibase.fsm"};
 
 if (isNull _commanderTeam) then {
-	diag_log Format["[WFBE (INFORMATION)] Server_VoteForCommander: %1 Commander = AI Commander.",_sideText];
+	diag_log Format["[WFBE (INFORMATION)][frameno:%2 | ticktime:%3] Server_VoteForCommander: %1 Commander = AI Commander.",_sideText,diag_frameno,diag_tickTime];
 } else {
-	diag_log Format["[WFBE (INFORMATION)] Server_VoteForCommander: %1 Commander = %2.",_sideText,name leader _commanderTeam];
+	diag_log Format["[WFBE (INFORMATION)][frameno:%3 | ticktime:%4] Server_VoteForCommander: %1 Commander = %2.",_sideText,name (leader _commanderTeam),diag_frameno,diag_tickTime];
 };

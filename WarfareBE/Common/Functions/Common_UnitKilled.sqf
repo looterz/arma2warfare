@@ -43,12 +43,21 @@ if (_sideVictim == sideEnemy) then {
 };
 
 //--- Benny's Garbage Collector.
-if (!(isServer) || local player) then {
-	_objects = (WF_Logic getVariable "trash") + [_killed];
-	WF_Logic setVariable ["trash",_objects,true];
+if (WF_A2_Vanilla) then {
+	/* Vanilla use the old garbage system */
+	if (!(isServer) || local player) then {
+		_objects = (WF_Logic getVariable "trash") + [_killed];
+		WF_Logic setVariable ["trash",_objects,true];
+	} else {
+		trashQueu = trashQueu + [_killed];
+		_killed Spawn TrashObject;
+	};
 } else {
-	trashQueu = trashQueu + [_killed];
-	_killed Spawn TrashObject;
+	/* OA use the evolved system which no longer require network variables */
+	if (isServer) then {
+		trashQueu = trashQueu + [_killed];
+		_killed Spawn TrashObject;
+	};
 };
 
 sleep (random(2)+random(4));

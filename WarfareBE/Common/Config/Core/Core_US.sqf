@@ -6,82 +6,82 @@ _i = [];
 
 /* Infantry */
 _c = _c + ['US_Soldier_Light_EP1'];
-_i = _i + [['','',130,4,-1,0,0,0.82,'US']];
+_i = _i + [['','',130,4,-1,0,0,0.86,'US']];
 
 _c = _c + ['US_Soldier_EP1'];
-_i = _i + [['','',150,4,-1,0,0,0.82,'US']];
+_i = _i + [['','',150,4,-1,0,0,0.86,'US']];
 
 _c = _c + ['US_Soldier_B_EP1'];
-_i = _i + [['','',155,4,-1,0,0,0.82,'US']];
+_i = _i + [['','',155,4,-1,0,0,0.86,'US']];
 
 _c = _c + ['US_Soldier_LAT_EP1'];
-_i = _i + [['','',225,5,-1,0,0,0.84,'US']];
+_i = _i + [['','',225,5,-1,0,0,0.88,'US']];
 
 _c = _c + ['US_Soldier_AT_EP1'];
-_i = _i + [['','',350,5,-1,2,0,0.86,'US']];
+_i = _i + [['','',350,5,-1,2,0,0.9,'US']];
 
 _c = _c + ['US_Soldier_HAT_EP1'];
-_i = _i + [['','',800,6,-1,3,0,0.88,'US']];
+_i = _i + [['','',800,6,-1,3,0,0.92,'US']];
 
 _c = _c + ['US_Soldier_AA_EP1'];
-_i = _i + [['','',400,6,-1,2,0,0.87,'US']];
+_i = _i + [['','',400,6,-1,2,0,0.91,'US']];
 
 _c = _c + ['US_Soldier_AR_EP1'];
-_i = _i + [['','',210,5,-1,1,0,0.84,'US']];
+_i = _i + [['','',210,5,-1,1,0,0.88,'US']];
 
 _c = _c + ['US_Soldier_MG_EP1'];
-_i = _i + [['','',220,5,-1,0,0,0.85,'US']];
+_i = _i + [['','',220,5,-1,0,0,0.89,'US']];
 
 _c = _c + ['US_Soldier_GL_EP1'];
-_i = _i + [['','',160,5,-1,0,0,0.83,'US']];
+_i = _i + [['','',160,5,-1,0,0,0.87,'US']];
 
 _c = _c + ['US_Soldier_Sniper_EP1'];
-_i = _i + [['','',320,6,-1,2,0,0.88,'US']];
+_i = _i + [['','',320,6,-1,2,0,0.92,'US']];
 
 _c = _c + ['US_Soldier_SniperH_EP1'];
-_i = _i + [['','',350,6,-1,3,0,0.89,'US']];
+_i = _i + [['','',350,6,-1,3,0,0.93,'US']];
 
 _c = _c + ['US_Soldier_Sniper_NV_EP1'];
-_i = _i + [['','',370,6,-1,3,0,0.90,'US']];
+_i = _i + [['','',370,6,-1,3,0,0.94,'US']];
 
 _c = _c + ['US_Soldier_Marksman_EP1'];
-_i = _i + [['','',330,6,-1,2,0,0.87,'US']];
+_i = _i + [['','',330,6,-1,2,0,0.91,'US']];
 
 _c = _c + ['US_Soldier_Medic_EP1'];
-_i = _i + [['','',190,4,-1,0,0,0.85,'US']];
+_i = _i + [['','',190,4,-1,0,0,0.89,'US']];
 
 _c = _c + ['US_Soldier_Engineer_EP1'];
-_i = _i + [['','',225,5,-1,0,0,0.83,'US']];
+_i = _i + [['','',225,5,-1,0,0,0.87,'US']];
 
 _c = _c + ['US_Soldier_AMG_EP1'];
-_i = _i + [['','',240,6,-1,2,0,0.83,'US']];
+_i = _i + [['','',185,6,-1,2,0,0.87,'US']];
 
 _c = _c + ['US_Soldier_AAR_EP1'];
-_i = _i + [['','',260,6,-1,3,0,0.83,'US']];
+_i = _i + [['','',185,6,-1,3,0,0.87,'US']];
 
 _c = _c + ['US_Soldier_AHAT_EP1'];
-_i = _i + [['','',900,6,-1,3,0,0.85,'US']];
+_i = _i + [['','',185,6,-1,3,0,0.89,'US']];
 
 _c = _c + ['US_Soldier_AAT_EP1'];
-_i = _i + [['','',450,6,-1,3,0,0.84,'US']];
+_i = _i + [['','',320,6,-1,3,0,0.88,'US']];
 
 _c = _c + ['US_Soldier_Spotter_EP1'];
-_i = _i + [['','',320,6,-1,3,0,0.87,'US']];
+_i = _i + [['','',320,6,-1,3,0,0.91,'US']];
 
 _c = _c + ['US_Soldier_Crew_EP1'];
-_i = _i + [['','',120,4,-1,0,0,0.82,'US']];
+_i = _i + [['','',120,4,-1,0,0,0.86,'US']];
 
 _c = _c + ['US_Soldier_Pilot_EP1'];
-_i = _i + [['','',120,4,-1,0,0,0.83,'US']];
+_i = _i + [['','',120,4,-1,0,0,0.87,'US']];
 
 _c = _c + ['US_Soldier_TL_EP1'];
-_i = _i + [['','',240,5,-1,1,0,0.9,'US']];
+_i = _i + [['','',240,5,-1,1,0,0.94,'US']];
 
 _c = _c + ['US_Soldier_SL_EP1'];
-_i = _i + [['','',220,5,-1,2,0,0.89,'US']];
+_i = _i + [['','',220,5,-1,2,0,0.93,'US']];
 
 _c = _c + ['US_Soldier_Officer_EP1'];
-_i = _i + [['','',250,5,-1,1,0,0.88,'US']];
+_i = _i + [['','',250,5,-1,1,0,0.92,'US']];
 
 /* Light Vehicles */
 _c = _c + ['M1030_US_DES_EP1'];
@@ -125,6 +125,9 @@ _i = _i + [['','',725,22,1,2,1,0,'US']];
 
 _c = _c + ['MTVR_DES_EP1'];
 _i = _i + [['','',400,20,1,0,1,0,'US']];
+
+_c = _c + ['MtvrSalvage_DES_EP1'];
+_i = _i + [['','',450,21,1,0,1,0,'US']];
 
 _c = _c + ['MtvrRepair_DES_EP1'];
 _i = _i + [['','',525,22,1,0,1,0,'US']];
@@ -270,16 +273,20 @@ _c = _c + ['USSpecialWeapons_EP1'];
 _i = _i + [['','',7200,0,0,0,'Ammo',0,'US']];
 
 for '_z' from 0 to (count _c)-1 do {
-	_get = (_c select _z) Call GetNamespace;
-	if (isNil '_get') then {
-		if ((_i select _z) select 0 == '') then {(_i select _z) set [0, [_c select _z,'displayName'] Call GetConfigInfo]};
-		if (WF_Debug) then {(_i select _z) set [3,1]};
-		_p = if ((_c select _z) isKindOf 'Man') then {'portrait'} else {'picture'};
-		(_i select _z) set [1, [_c select _z,_p] Call GetConfigInfo];
-		[_c select _z,_i select _z] Call SetNamespace;
+	if (isClass (configFile >> 'CfgVehicles' >> (_c select _z))) then {
+		_get = (_c select _z) Call GetNamespace;
+		if (isNil '_get') then {
+			if ((_i select _z) select 0 == '') then {(_i select _z) set [0, [_c select _z,'displayName'] Call GetConfigInfo]};
+			if (WF_Debug) then {(_i select _z) set [3,1]};
+			_p = if ((_c select _z) isKindOf 'Man') then {'portrait'} else {'picture'};
+			(_i select _z) set [1, [_c select _z,_p] Call GetConfigInfo];
+			[_c select _z,_i select _z] Call SetNamespace;
+		} else {
+			diag_log Format ["[WFBE (INIT)][frameno:%2 | ticktime:%3] Core_US: Duplicated Element found '%1'",(_c select _z),diag_frameno,diag_tickTime];
+		};
 	} else {
-		diag_log Format ["[WFBE (INIT)] Core_US: Duplicated Element found '%1'",(_c select _z)];
+		diag_log Format ["[WFBE (ERROR)][frameno:%2 | ticktime:%3] Core_US: Element '%1' is not a valid class.",(_c select _z),diag_frameno,diag_tickTime];
 	};
 };
 
-diag_log Format ["[WFBE (INIT)] Core_US: Initialization (%1 Elements) - [Done]",count _c];
+diag_log Format ["[WFBE (INIT)][frameno:%2 | ticktime:%3] Core_US: Initialization (%1 Elements) - [Done]",count _c,diag_frameno,diag_tickTime];

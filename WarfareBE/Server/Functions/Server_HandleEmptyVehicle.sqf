@@ -1,9 +1,10 @@
-Private ["_exit","_reset","_timer","_trash","_vehicle"];
+Private ['_abtimer','_exit','_timer','_trash','_vehicle'];
 
 _vehicle = _this;
 
 _exit = false;
 _timer = 0;
+_abtimer = ('WFBE_ABANDONVEHICLETIMER' Call GetNamespace);
 
 while {!_exit} do {
 	sleep 20;
@@ -17,17 +18,15 @@ while {!_exit} do {
 		};
 	};
 	if (!(isNull _vehicle) && !_skip) then {
-		_reset = false;
-		{if (alive _x) then {_reset = true}} forEach Crew _vehicle;
-		if (_reset) then {_timer = 0};
-		if (_timer > ('WFBE_ABANDONVEHICLETIMER' Call GetNamespace)) then {
+		if (({alive _x} count (crew _vehicle)) > 0) then {_timer = 0};
+		if (_timer > _abtimer) then {
 			_exit = true;
 			if (someAmmo _vehicle) then {_vehicle setVehicleAmmo 0};
 			_vehicle setDammage 1;
 			sleep 2;
 			if !(_vehicle in trashQueu) then {
 				trashQueu = trashQueu + [_trash];
-				_trash Spawn TrashObject;
+				(_trash) Spawn TrashObject;
 			};
 		};
 		_timer = _timer + 20;

@@ -11,4 +11,4 @@ if (time - _startAt >= 37 && local player) then {
 	if (count towns == totalTowns) then {townInit = true;('DEBUG: \n\n The towns initialization has been fixed.') Call DebugHint;} else {('DEBUG: \n\n The towns initialization cannot be fixed.') Call DebugHint;sleep 5; failMission "END1"};
 } else {townInit = true};
 
-diag_log "[WFBE (INIT)] Init_Towns: Towns initialization - [Done]";
+diag_log Format["[WFBE (INIT)][frameno:%1 | ticktime:%2] Init_Towns: Towns initialization - [Done]",diag_frameno,diag_tickTime];

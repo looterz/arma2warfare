@@ -47,28 +47,48 @@ if (paramEASA) then {
 };
 
 _effective = [];
+_nearSupport = [];
+_spType = Call Compile Format ["%1SP",sideJoinedText];
+_i = 0;
 {
 	_closestSP = objNull;
 	_add = false;
+	
+	_nearSupport set [_i, []];
+	
+	//--- Service Point.
 	if (count _sp > 0) then {
 		_sorted = [_x,_sp] Call SortByDistance;
 		_closestSP = _sorted select 0;
-	};
-	if !(isNull _closestSP) then {if (_x distance _closestSP < ('WFBE_SUPPORTRANGE' Call GetNamespace)) then {_add = true}};
-	if !(_add) then {
-		_nObjects = nearestObjects [_x, WFDEPOT,('WFBE_SUPPORTRANGE' Call GetNamespace)];
-		_nObject = if (count _nObjects > 0) then {_nObjects select 0} else {objNull};
-		if !(isNull _nObject) then {
-			_sideID = _nObject getVariable "sideID";
-			if !(isNil "_sideID") then {
-				if (_sideID == sideID) then {_add = true};
+		if !(isNull _closestSP) then {
+			if (_x distance _closestSP < ('WFBE_SUPPORTRANGE' Call GetNamespace)) then {
+				_add = true;
+				_nearSupport set [_i,(_nearSupport select _i) + [_closestSP]];
 			};
 		};
-		if !(_add) then {
-			_checks = (getPos _x) nearEntities[_typeRepair,'WFBE_REPAIRTRUCKRANGE' Call GetNamespace];
-			if (count _checks > 0) then {_add = true};
+	};
+
+	//--- Depots.
+	_nObjects = nearestObjects [_x, WFDEPOT,('WFBE_SUPPORTRANGE' Call GetNamespace)];
+	_nObject = if (count _nObjects > 0) then {_nObjects select 0} else {objNull};
+	if !(isNull _nObject) then {
+		_sideID = _nObject getVariable "sideID";
+		if !(isNil "_sideID") then {
+			if (_sideID == sideID) then {
+				_add = true;
+				_nearSupport set [_i,(_nearSupport select _i) + [_nObject]];
+			};
 		};
 	};
+	
+	//--- Repairs Trucks.
+	_checks = (getPos _x) nearEntities[_typeRepair,'WFBE_REPAIRTRUCKRANGE' Call GetNamespace];
+	if (count _checks > 0) then {
+		_add = true;
+		_nearSupport set [_i,(_nearSupport select _i) + _checks];
+	};
+		
+	//--- Add the vehicle ?
 	if (_add) then {
 		_effective = _effective + [_x];
 		_desc = [typeOf _x, 'displayName'] Call GetConfigInfo;
@@ -85,18 +105,23 @@ _effective = [];
 		};
 		_txt = "["+_finalNumber+"] "+ _desc + _isInVehicle;
 		lbAdd[20002,_txt];
+		
+		_i = _i + 1;
 	};
 } forEach _vehi;
 
 _checks = (getPos player) nearEntities[_typeRepair,'WFBE_REPAIRTRUCKRANGE' Call GetNamespace];
 if (count _checks > 0) then {
 	_repair = _checks select 0;
-	_vehi = (getPos _repair) nearEntities[["Car","Motorcycle","Tank","Air","Ship","StaticWeapon"],100];
+	_vehi = ((getPos _repair) nearEntities[["Car","Motorcycle","Tank","Air","Ship","StaticWeapon"],100]) - [_repair];
 	{
 		if !(_x in _effective) then {
 			_effective = _effective + [_x];
+			_nearSupport set [_i,[_repair]];
 			_descVehi = [typeOf (vehicle _x), 'displayName'] Call GetConfigInfo;
 			lbAdd[20002,_descVehi];
+			
+			_i = _i + 1;
 		};
 	} forEach _vehi;
 };
@@ -192,24 +217,264 @@ while {true} do {
 			MenuAction = -1;
 			lastRearm = time;
 			-_rearmPrice Call ChangePlayerFunds;
-			_veh Spawn RearmVehicle;
-			hint (localize "STR_WF_Rearming");
+			
+			//--- Spawn a Rearm thread.
+			[_veh,_nearSupport select _curSel,_typeRepair,_spType] Spawn {
+				Private ['_i','_name','_repairRange','_rearmTime','_spType','_supportRange','_supports','_typeRepair','_veh'];
+				_veh = _this select 0;
+				_supports = _this select 1;
+				_typeRepair = _this select 2;
+				_spType = _this select 3;
+				_supportRange = 'WFBE_SUPPORTRANGE' Call GetNamespace;
+				_repairRange = 'WFBE_REPAIRTRUCKRANGE' Call GetNamespace;
+				
+				//--- Retrieve Informations.
+				_name = [typeOf _veh, 'displayName'] Call GetConfigInfo;
+				_rearmTime = round(('WFBE_SUPPORTREARMTIME' Call GetNamespace)/2);
+				
+				//--- SP?
+				_nearIsSP = false;
+				_nearIsDP = false;
+				_nearIsRT = false;
+				{
+					if ((typeOf _x) == _spType) then {_nearIsSP = true};
+					if ((typeOf _x) in WFDEPOT) then {_nearIsDP = true};
+					if ((typeOf _x) in _typeRepair) then {_nearIsRT = true};
+				} forEach _supports;
+				
+				//--- Coefficient Vary depending on the support type.
+				_airCoef = 1;
+				_artCoef = 1;
+				_heaCoef = 1;
+				_ligCoef = 1;
+				if (_nearIsRT) then {
+					_airCoef = 3.4;
+					_artCoef = 3;
+					_heaCoef = 2.8;
+					_ligCoef = 2.6;
+				};
+				if (_nearIsDP) then {
+					_airCoef = 2.5;
+					_artCoef = 2.4;
+					_heaCoef = 2.2;
+					_ligCoef = 2;
+				};
+				if (_nearIsSP) then {
+					_airCoef = 1.9;
+					_artCoef = 1.7;
+					_heaCoef = 1.5;
+					_ligCoef = 1.2;
+				};
+
+				//--- Class Malus.
+				if (_veh isKindOf 'Air') then {_rearmTime = round(_rearmTime * _airCoef)};
+				if (_veh isKindOf 'StaticWeapon ') then {_rearmTime = round(_rearmTime * _artCoef)};
+				if (_veh isKindOf 'Tank') then {_rearmTime = round(_rearmTime * _heaCoef)};
+				if (_veh isKindOf 'Car' || _veh isKindOf 'Motorcycle') then {_rearmTime = round(_rearmTime * _ligCoef)};
+				
+				//--- Inform the player.
+				hint parseText(Format[localize "STR_WF_Rearming",_name,_rearmTime]);
+				
+				//--- Make sure that we still have something as a support.
+				_cts = 0;
+				_i = 0;
+				while {true} do {
+					sleep 1;
+					
+					//--- Check the distance & alive.
+					_cts = 0;
+					{
+						_distanceMin = if ((typeOf _x) in _typeRepair) then {_repairRange} else {_supportRange};
+						if ((alive _x) && ((_veh distance _x) < _distanceMin)) then {_cts = _cts + 1};
+					} forEach _supports;
+					
+					_i = _i + 1;
+					
+					if (_cts == 0 || !(alive _veh)) exitWith {hint parseText(Format[localize "STR_WF_Rearm_Failed",_name])};
+					if (_i >= _rearmTime) exitWith {hint parseText(Format[localize "STR_WF_Rearm_Success",_name])};
+				};
+				
+				//--- Rearm?
+				if (_cts != 0) then {
+					[_veh,sideJoinedText] Spawn RearmVehicle;
+				};
+			};
 		};	
 		//--- Repair.
 		if (MenuAction == 2) then {
 			MenuAction = -1;
 			lastRepair = time;
 			-_repairPrice Call ChangePlayerFunds;
-			_veh setDammage 0;
-			hint (localize "STR_WF_Repairing");
+			
+			//--- Spawn a Repair thread.
+			[_veh,_nearSupport select _curSel,_typeRepair,_spType] Spawn {
+				Private ['_i','_name','_repairRange','_repTime','_spType','_supportRange','_supports','_typeRepair','_veh'];
+				_veh = _this select 0;
+				_supports = _this select 1;
+				_typeRepair = _this select 2;
+				_spType = _this select 3;
+				_supportRange = 'WFBE_SUPPORTRANGE' Call GetNamespace;
+				_repairRange = 'WFBE_REPAIRTRUCKRANGE' Call GetNamespace;
+				
+				//--- Retrieve Informations.
+				_name = [typeOf _veh, 'displayName'] Call GetConfigInfo;
+				_repTime = round(('WFBE_SUPPORTREPAIRTIME' Call GetNamespace)/2);
+				
+				//--- SP?
+				_nearIsSP = false;
+				_nearIsDP = false;
+				_nearIsRT = false;
+				{
+					if ((typeOf _x) == _spType) then {_nearIsSP = true};
+					if ((typeOf _x) in WFDEPOT) then {_nearIsDP = true};
+					if ((typeOf _x) in _typeRepair) then {_nearIsRT = true};
+				} forEach _supports;
+				
+				//--- Coefficient Vary depending on the support type.
+				_airCoef = 1;
+				_artCoef = 1;
+				_heaCoef = 1;
+				_ligCoef = 1;
+				if (_nearIsRT) then {
+					_airCoef = 3.4;
+					_artCoef = 3;
+					_heaCoef = 2.8;
+					_ligCoef = 2.6;
+				};
+				if (_nearIsDP) then {
+					_airCoef = 2.5;
+					_artCoef = 2.4;
+					_heaCoef = 2.2;
+					_ligCoef = 2;
+				};
+				if (_nearIsSP) then {
+					_airCoef = 1.9;
+					_artCoef = 1.7;
+					_heaCoef = 1.5;
+					_ligCoef = 1.2;
+				};
+				
+				//--- Class Malus.
+				if (_veh isKindOf 'Air') then {_repTime = round(_repTime * _airCoef)};
+				if (_veh isKindOf 'StaticWeapon ') then {_repTime = round(_rearmTime * _artCoef)};
+				if (_veh isKindOf 'Tank') then {_repTime = round(_repTime * _heaCoef)};
+				if (_veh isKindOf 'Car' || _veh isKindOf 'Motorcycle') then {_repTime = round(_repTime * _ligCoef)};
+				
+				//--- Inform the player.
+				hint parseText(Format[localize "STR_WF_Repairing",_name,_repTime]);
+				
+				//--- Make sure that we still have something as a support.
+				_cts = 0;
+				_i = 0;
+				while {true} do {
+					sleep 1;
+					
+					//--- Check the distance & alive.
+					_cts = 0;
+					{
+						_distanceMin = if ((typeOf _x) in _typeRepair) then {_repairRange} else {_supportRange};
+						if ((alive _x) && ((_veh distance _x) < _distanceMin)) then {_cts = _cts + 1};
+					} forEach _supports;
+					
+					_i = _i + 1;
+					
+					if (_cts == 0 || !(alive _veh)) exitWith {hint parseText(Format[localize "STR_WF_Repair_Failed",_name])};
+					if (_i >= _repTime) exitWith {hint parseText(Format[localize "STR_WF_Repair_Success",_name])};
+				};
+				
+				//--- Fix the damages?
+				if (_cts != 0) then {
+					_veh setDammage 0;
+				};
+			};
 		};
 		//--- Refuel.
 		if (MenuAction == 3) then {
 			MenuAction = -1;
 			lastRefuel = time;
 			-_refuelPrice Call ChangePlayerFunds;
-			_veh setFuel 1;
-			hint (localize "STR_WF_Refueling");
+			
+			//--- Spawn a Refuel thread.
+			[_veh,_nearSupport select _curSel,_typeRepair,_spType] Spawn {
+				Private ['_i','_name','_repairRange','_refTime','_spType','_supportRange','_supports','_typeRepair','_veh'];
+				_veh = _this select 0;
+				_supports = _this select 1;
+				_typeRepair = _this select 2;
+				_spType = _this select 3;
+				_supportRange = 'WFBE_SUPPORTRANGE' Call GetNamespace;
+				_repairRange = 'WFBE_REPAIRTRUCKRANGE' Call GetNamespace;
+				
+				//--- Retrieve Informations.
+				_name = [typeOf _veh, 'displayName'] Call GetConfigInfo;
+				_refTime = round(('WFBE_SUPPORTREFUELTIME' Call GetNamespace)/2);
+				
+				//--- SP?
+				_nearIsSP = false;
+				_nearIsDP = false;
+				_nearIsRT = false;
+				{
+					if ((typeOf _x) == _spType) then {_nearIsSP = true};
+					if ((typeOf _x) in WFDEPOT) then {_nearIsDP = true};
+					if ((typeOf _x) in _typeRepair) then {_nearIsRT = true};
+				} forEach _supports;
+				
+				//--- Coefficient Vary depending on the support type.
+				_airCoef = 1;
+				_artCoef = 1;
+				_heaCoef = 1;
+				_ligCoef = 1;
+				if (_nearIsRT) then {
+					_airCoef = 3.4;
+					_artCoef = 3;
+					_heaCoef = 2.8;
+					_ligCoef = 2.6;
+				};
+				if (_nearIsDP) then {
+					_airCoef = 2.5;
+					_artCoef = 2.4;
+					_heaCoef = 2.2;
+					_ligCoef = 2;
+				};
+				if (_nearIsSP) then {
+					_airCoef = 1.9;
+					_artCoef = 1.7;
+					_heaCoef = 1.5;
+					_ligCoef = 1.2;
+				};
+				
+				//--- Class Malus.
+				if (_veh isKindOf 'Air') then {_refTime = round(_refTime * _airCoef)};
+				if (_veh isKindOf 'StaticWeapon ') then {_refTime = round(_rearmTime * _artCoef)};
+				if (_veh isKindOf 'Tank') then {_refTime = round(_refTime * _heaCoef)};
+				if (_veh isKindOf 'Car' || _veh isKindOf 'Motorcycle') then {_refTime = round(_refTime * _ligCoef)};
+				
+				//--- Inform the player.
+				hint parseText(Format[localize "STR_WF_Refueling",_name,_refTime]);
+				
+				//--- Make sure that we still have something as a support.
+				_cts = 0;
+				_i = 0;
+				while {true} do {
+					sleep 1;
+					
+					//--- Check the distance & alive.
+					_cts = 0;
+					{
+						_distanceMin = if ((typeOf _x) in _typeRepair) then {_repairRange} else {_supportRange};
+						if ((alive _x) && ((_veh distance _x) < _distanceMin)) then {_cts = _cts + 1};
+					} forEach _supports;
+					
+					_i = _i + 1;
+					
+					if (_cts == 0 || !(alive _veh)) exitWith {hint parseText(Format[localize "STR_WF_Refueling_Failed",_name])};
+					if (_i >= _refTime) exitWith {hint parseText(Format[localize "STR_WF_Refueling_Success",_name])};
+				};
+				
+				//--- Refuel the vehicle?
+				if (_cts != 0) then {
+					_veh setFuel 1;
+				};
+			};
 		};
 		//--- Heal.
 		if (MenuAction == 5) then {
@@ -225,7 +490,6 @@ while {true} do {
 	} else {
 		{ctrlEnable[_x,false]} forEach [20003,20004,20005,20008];
 	};
-	
 	
 	//--- Respawn Supply Trucks.
 	if (MenuAction == 4) then {

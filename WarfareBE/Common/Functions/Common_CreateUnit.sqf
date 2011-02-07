@@ -6,7 +6,8 @@ _side = _this select 3;
 
 _get = _type Call GetNamespace;
 _skill = if !(isNil '_get') then {_get select QUERYUNITSKILL} else {'WFBE_AISKILL' Call GetNamespace};
-_unit = _team createUnit [_type,_position,[],_skill,"FORM"];
+_unit = _team createUnit [_type,_position,[],0,"FORM"];
+_unit setSkill _skill;
 if (_side != resistance) then {
 	if (paramTrackAI) then {
 		_unit setVehicleInit Format["[this,%1] ExecVM 'Common\Common_InitUnit.sqf';",_side];
@@ -22,6 +23,6 @@ if (_side != resistance) then {
 
 if (paramISIS) then {_unit addEventHandler['handleDamage',{_this Call ISIS_Wound}]};
 
-diag_log Format["[WFBE (INFORMATION)] Common_CreateUnit: A '%1' unit was created and has joined the %2 %3 Team",_type,str _side,_team];
+diag_log Format["[WFBE (INFORMATION)][frameno:%5 | ticktime:%6] Common_CreateUnit: A '%1' unit was created (position: %2) and has joined the %3 %4 Team",_type,_position,str _side,_team,diag_frameno,diag_tickTime];
 
 _unit

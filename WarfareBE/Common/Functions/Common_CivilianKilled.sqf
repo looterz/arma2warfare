@@ -12,10 +12,7 @@ if (_sideKiller == sideEnemy) then {
 };
 
 //--- Benny's Garbage Collector.
-if (!(isServer) || local player) then {
-	_objects = (WF_Logic getVariable "trash") + [_killed];
-	WF_Logic setVariable ["trash",_objects,true];
-} else {
+if (WF_A2_Vanilla) then {
 	trashQueu = trashQueu + [_killed];
 	_killed Spawn TrashObject;
 };

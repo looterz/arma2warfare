@@ -161,9 +161,9 @@ BIS_CONTROL_CAM_Handler = {
 	_limitH = _areasize select 0;
 	_limitV = _areasize select 1;
 
-	_keysCancel		= actionKeys "MenuBack";
+	_keysCancel	= actionKeys "MenuBack";
 
-	_keysBanned		= [1];
+	_keysBanned	= [1];
 	_keyNightVision		= actionKeys "NightVision";
 
 	//--- Mouse DOWN
@@ -190,8 +190,8 @@ BIS_CONTROL_CAM_Handler = {
 			camUseNVG _NVGstate;
 		};
 		
-		//--- Last Built Defense (Ctrl + L).
-		if (_key == 38 && _ctrl && count lastBuilt > 0) then {
+		//--- Last Built Defense (Custom Action #1).
+		if ((_key in (actionKeys "User15")) && count lastBuilt > 0) then {
 			_currentCash = Call GetPlayerFunds;
 			if (_currentCash > (lastBuilt select 2) select 1) then {
 				showCommandingMenu '';
@@ -199,15 +199,15 @@ BIS_CONTROL_CAM_Handler = {
 			};
 		};
 		
-		//--- Manning Defense (Ctrl + M).
-		if (_key == 39 && _ctrl && paramAutoDefense) then {
+		//--- Manning Defense (Custom Action #2).
+		if ((_key in (actionKeys "User16")) && (('WFBE_AIDEFENSE' Call GetNamespace) > 0)) then {
 			if (manningDefense) then {manningDefense = false} else {manningDefense = true};
 			_status = if (manningDefense) then {"Enabled"} else {"Disabled"};
 			_logic setVariable ["WF_RequestUpdate",true];
 		};
 		
-		//--- Sell Defense. (Commander only) (Ctrl + K).
-		if (_key == 37 && _ctrl && !isNull(commanderTeam)) then {
+		//--- Sell Defense. (Commander only) (Custom Action #3).
+		if ((_key in (actionKeys "User17")) && !isNull(commanderTeam)) then {
 			if(commanderTeam == clientTeam) then {
 				_preview = _logic getVariable "BIS_COIN_preview";
 				if (isNil "_preview") then {//--- Proceed when there is no preview.
@@ -215,11 +215,13 @@ BIS_CONTROL_CAM_Handler = {
 					_near = nearestObjects [_targeting,Format["WFBE_%1DEFENSENAMES",sideJoinedText] Call GetNamespace,25];
 					if (count _near > 0) then {
 						_closest = _near select 0;
+						_sold = _closest getVariable 'sold';
 						_closestType = typeOf (_closest);
 						_get = _closestType Call GetNamespace;
-						if !(isNil '_get') then {
+						if (!isNil '_get' && isNil '_sold') then {
+							_closest setVariable ['sold',true];
 							_price = _get select QUERYUNITPRICE;
-							(_price/2) Call ChangePlayerFunds;
+							round(_price/2) Call ChangePlayerFunds;
 							deleteVehicle _closest;
 						};
 					};
@@ -572,17 +574,31 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 					_fundsRemaining = _funds - _itemcost;
 					if (_fundsRemaining < 0) then {_color = _colorRed};
 
-					//--- No Place To Build
-					_isFlat = (position _preview) isFlatEmpty [
-						(sizeof typeof _preview) / _minDist,	//--- Minimal distance from another object
-						0,				//--- If 0, just check position. If >0, select new one
-						_maxGrad,				//--- Max gradient
-						(sizeof typeof _preview),	//--- Gradient area
-						0,				//--- 0 for restricted water, 2 for required water,
-						false,				//--- True if some water can be in 25m radius
-						_preview			//--- Ignored object
-					];
-					if (count _isFlat == 0) then {_color = _colorRed};
+					_skipFlat = false;
+					if !(paramDefenseCollide) then {
+						if !(_itemcategory == 0) then {_skipFlat = true};
+						if (surfaceIsWater(position _preview)) then {_color = _colorRed};
+						if (_color != _colorRed) then {
+							//--- Prevent Wall'in.
+							if (count((position _preview) nearEntities [['Man','Car','Motorcycle','Tank','Air','Ship'],10]) > 0) then {_color = _colorRed};
+						};
+					};
+					
+					//--- Do not control the flatness with strategic & fortifications.
+					if (!_skipFlat) then {
+						_isFlat = (position _preview) isFlatEmpty [
+							(sizeof typeof _preview) / _minDist,	//--- Minimal distance from another object
+							0,				//--- If 0, just check position. If >0, select new one
+							_maxGrad,				//--- Max gradient
+							(sizeof typeof _preview),	//--- Gradient area
+							0,				//--- 0 for restricted water, 2 for required water,
+							false,				//--- True if some water can be in 25m radius
+							_preview			//--- Ignored object
+						];
+						
+						//--- Unable to Place due to the land.
+						if (count _isFlat == 0 || count ((position _preview) nearEntities 10) > 0) then {_color = _colorRed};
+					};
 				};
 				_preview setObjectTexture [0,_color];
 				_preview setVariable ["BIS_COIN_color",_color];
@@ -666,8 +682,8 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 					};
 
 					//--- Execute designer defined code On Construct
-					[_logic,_itemclass,_pos,_dir,_par] spawn {    
-						private ["_class","_defenses","_deployed","_dir","_logic","_par","_pos","_structures"];
+					[_logic,_itemclass,_pos,_dir,_par] call {    
+						private ["_class","_defenses","_deployed","_dir",'_find',"_logic","_par","_pos","_structures"];
 						_logic = _this select 0;
 						_class = _this select 1;
 						_pos = _this select 2;
@@ -676,11 +692,22 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 						_deployed = (sideJoinedText) Call GetSideHQDeployed;
 						_structures = Format["WFBE_%1STRUCTURENAMES",sideJoinedText] Call GetNamespace;
 						_defenses = Format["WFBE_%1DEFENSENAMES",sideJoinedText] Call GetNamespace;
-						if (_class in _structures) then {
+						
+						_find = _structures find _class;
+						if (_find != -1) then {
+							//--- Increment the buildings.
+							if ((_find - 1) > -1) then {
+								_current = Call Compile Format ['%1BuildingsCurrent',sideJoinedText];
+								_current set [_find - 1, (_current select (_find-1)) + 1];
+								Call Compile Format ['%1BuildingsCurrent = _current',sideJoinedText];
+								publicVariable Format ['%1BuildingsCurrent',sideJoinedText];
+							};
+							
 							WFBE_RequestStructure = ['SRVFNCREQUESTSTRUCTURE',[sideJoined,_class,_pos,_dir]];
 							publicVariable 'WFBE_RequestStructure';
 							if (!isMultiplayer || (isServer && local player)) then {['SRVFNCREQUESTSTRUCTURE',[sideJoined,_class,_pos,_dir]] Spawn HandleSPVF};
 						};
+						
 						if (_class in _defenses) then {
 							WFBE_RequestDefense = ['SRVFNCREQUESTDEFENSE',[sideJoined,_class,_pos,_dir,manningDefense]];
 							publicVariable 'WFBE_RequestDefense';
@@ -842,10 +869,10 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 						_find = _buildingsNames find _itemclass;
 						if (_find != -1) then {
 							_buildings = (sideJoinedText) Call GetSideStructures;
-							_checks = [sideJoined, Format ["WFBE_%1%2TYPE",sideJoinedText,(_buildingsType select _find)] Call GetNamespace,_buildings] Call GetFactories;
+							_current = Call Compile Format ['%1BuildingsCurrent',sideJoinedText];
 							_limit = (Format['WFBE_BUILDINGMAX%1',(_buildingsType select _find)]) Call GetNamespace;
-							if (isNil "_limit") then {_limit = 4}; //--- Default.
-							if (count _checks >= _limit) then {_buildLimit = true};
+							if (isNil '_limit') then {_limit = 4}; //--- Default.
+							if ((_current select _find) >= _limit) then {_buildLimit = true};
 						};
 						if (_itemcategory == _i/*_category*/) then {
 							_canAfford = if (_cashValue - _itemcost >= 0 && !_buildLimit) then {1} else {0};

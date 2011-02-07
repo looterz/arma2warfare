@@ -302,14 +302,21 @@ while {alive player && dialog} do {
 			_existingStruct = [_position,_structures] Call SortByDistance;
 			if (count _existingStruct > 0) then {
 				_closest = _existingStruct select 0;
-				if (_closest distance _position < 100) then {//--- 100 meters close only.
+				//--- 100 meters close only.
+				if (_closest distance _position < 100) then {
+					//--- Retrieve Supply cost.
 					_type = typeOf _closest;
 					_id = (Format ["WFBE_%1STRUCTURENAMES",sideJoinedText] Call GetNamespace) find _type;
 					_supplyB = (Format ["WFBE_%1STRUCTURECOSTS",sideJoinedText] Call GetNamespace) select _id;
-					_supplyB = round(_supplyB / 2);//--- 50% of the supply is restored.
+					//--- Give back x % of supply to the team.
+					_supplyB = round((_supplyB * ('WFBE_STRUCTURESELLPERCENT' Call GetNamespace)) / 100);
 					_supply = WF_Logic getVariable Format ["%1Supplies",sideJoinedText];
 					_supply = _supply + _supplyB;
 					WF_Logic setVariable [Format ["%1Supplies",sideJoinedText],_supply,true];
+					//--- Inform the side.
+					WFBE_LocalizeMessage = [sideJoined,'CLTFNCLOCALIZEMESSAGE',['StructureSold',_type]];
+					publicVariable 'WFBE_LocalizeMessage';
+					if (!isMultiplayer || (isServer && local player)) then {[sideJoined,'CLTFNCLOCALIZEMESSAGE',['StructureSold',_type]] Spawn HandlePVF};
 					_closest setDammage 1;
 				};
 			};

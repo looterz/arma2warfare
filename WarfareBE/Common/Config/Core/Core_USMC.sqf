@@ -6,64 +6,64 @@ _i = [];
 
 /* Infantry */
 _c = _c + ['USMC_Soldier'];
-_i = _i + [['','',150,4,-1,0,0,0.76,'USMC']];
+_i = _i + [['','',150,4,-1,0,0,0.83,'USMC']];
 
 _c = _c + ['USMC_Soldier2'];
-_i = _i + [['','',125,4,-1,0,0,0.73,'USMC']];
+_i = _i + [['','',125,4,-1,0,0,0.79,'USMC']];
 
 _c = _c + ['USMC_Soldier_LAT'];
-_i = _i + [['','',225,5,-1,0,0,0.78,'USMC']];
+_i = _i + [['','',225,5,-1,0,0,0.84,'USMC']];
 
 _c = _c + ['USMC_Soldier_AT'];
-_i = _i + [['','',350,5,-1,2,0,0.8,'USMC']];
+_i = _i + [['','',350,5,-1,2,0,0.86,'USMC']];
 
 _c = _c + ['USMC_Soldier_HAT'];
-_i = _i + [['','',800,6,-1,3,0,0.82,'USMC']];
+_i = _i + [['','',800,6,-1,3,0,0.88,'USMC']];
 
 _c = _c + ['USMC_Soldier_AA'];
-_i = _i + [['','',400,6,-1,2,0,0.81,'USMC']];
+_i = _i + [['','',400,6,-1,2,0,0.87,'USMC']];
 
 _c = _c + ['USMC_Soldier_AR'];
-_i = _i + [['','',210,5,-1,1,0,0.78,'USMC']];
+_i = _i + [['','',210,5,-1,1,0,0.84,'USMC']];
 
 _c = _c + ['USMC_Soldier_MG'];
-_i = _i + [['','',220,5,-1,0,0,0.79,'USMC']];
+_i = _i + [['','',220,5,-1,0,0,0.85,'USMC']];
 
 _c = _c + ['USMC_Soldier_GL'];
-_i = _i + [['','',160,5,-1,0,0,77,'USMC']];
+_i = _i + [['','',160,5,-1,0,0,0.83,'USMC']];
 
 _c = _c + ['USMC_SoldierS_Sniper'];
-_i = _i + [['','',320,6,-1,2,0,0.82,'USMC']];
+_i = _i + [['','',320,6,-1,2,0,0.88,'USMC']];
 
 _c = _c + ['USMC_SoldierM_Marksman'];
-_i = _i + [['','',350,6,-1,2,0,0.84,'USMC']];
+_i = _i + [['','',350,6,-1,2,0,0.9,'USMC']];
 
 _c = _c + ['USMC_SoldierS_SniperH'];
-_i = _i + [['','',400,6,-1,3,0,0.86,'USMC']];
+_i = _i + [['','',400,6,-1,3,0,0.92,'USMC']];
 
 _c = _c + ['USMC_Soldier_Medic'];
-_i = _i + [['','',190,4,-1,0,0,0.79,'USMC']];
+_i = _i + [['','',190,4,-1,0,0,0.85,'USMC']];
 
 _c = _c + ['USMC_SoldierS_Engineer'];
-_i = _i + [['','',225,5,-1,0,0,0.77,'USMC']];
+_i = _i + [['','',225,5,-1,0,0,0.83,'USMC']];
 
 _c = _c + ['USMC_SoldierS'];
-_i = _i + [['','',300,7,-1,1,0,0.82,'USMC']];
+_i = _i + [['','',300,7,-1,1,0,0.88,'USMC']];
 
 _c = _c + ['USMC_SoldierS_Spotter'];
-_i = _i + [['','',320,6,-1,3,0,0.83,'USMC']];
+_i = _i + [['','',320,6,-1,3,0,0.89,'USMC']];
 
 _c = _c + ['USMC_Soldier_Crew'];
-_i = _i + [['','',120,4,-1,0,0,0.75,'USMC']];
+_i = _i + [['','',120,4,-1,0,0,0.81,'USMC']];
 
 _c = _c + ['USMC_Soldier_Pilot'];
-_i = _i + [['','',120,4,-1,0,0,0.74,'USMC']];
+_i = _i + [['','',120,4,-1,0,0,0.8,'USMC']];
 
 _c = _c + ['USMC_Soldier_TL'];
-_i = _i + [['','',240,5,-1,1,0,0.87,'USMC']];
+_i = _i + [['','',240,5,-1,1,0,0.83,'USMC']];
 
 _c = _c + ['USMC_Soldier_SL'];
-_i = _i + [['','',220,5,-1,2,0,0.86,'USMC']];
+_i = _i + [['','',220,5,-1,2,0,0.92,'USMC']];
 
 /* Light Vehicles */
 _c = _c + ['MMT_USMC'];
@@ -98,6 +98,9 @@ _i = _i + [['','',725,22,1,2,1,0,'USMC']];
 
 _c = _c + ['MTVR'];
 _i = _i + [['','',400,20,1,0,1,0,'USMC']];
+
+_c = _c + ['WarfareSalvageTruck_USMC'];
+_i = _i + [['','',450,21,1,0,1,0,'USMC']];
 
 _c = _c + ['MtvrRepair'];
 _i = _i + [['','',525,22,1,0,1,0,'USMC']];
@@ -225,16 +228,20 @@ _c = _c + ['USSpecialWeaponsBox'];
 _i = _i + [['','',7200,0,0,0,'Ammo',0,'USMC']];
 
 for '_z' from 0 to (count _c)-1 do {
-	_get = (_c select _z) Call GetNamespace;
-	if (isNil '_get') then {
-		if ((_i select _z) select 0 == '') then {(_i select _z) set [0, [_c select _z,'displayName'] Call GetConfigInfo]};
-		if (WF_Debug) then {(_i select _z) set [3,1]};
-		_p = if ((_c select _z) isKindOf 'Man') then {'portrait'} else {'picture'};
-		(_i select _z) set [1, [_c select _z,_p] Call GetConfigInfo];
-		[_c select _z,_i select _z] Call SetNamespace;
+	if (isClass (configFile >> 'CfgVehicles' >> (_c select _z))) then {
+		_get = (_c select _z) Call GetNamespace;
+		if (isNil '_get') then {
+			if ((_i select _z) select 0 == '') then {(_i select _z) set [0, [_c select _z,'displayName'] Call GetConfigInfo]};
+			if (WF_Debug) then {(_i select _z) set [3,1]};
+			_p = if ((_c select _z) isKindOf 'Man') then {'portrait'} else {'picture'};
+			(_i select _z) set [1, [_c select _z,_p] Call GetConfigInfo];
+			[_c select _z,_i select _z] Call SetNamespace;
+		} else {
+			diag_log Format ["[WFBE (INIT)][frameno:%2 | ticktime:%3] Core_USMC: Duplicated Element found '%1'",(_c select _z),diag_frameno,diag_tickTime];
+		};
 	} else {
-		diag_log Format ["[WFBE (INIT)] Core_USMC: Duplicated Element found '%1'",(_c select _z)];
+		diag_log Format ["[WFBE (ERROR)][frameno:%2 | ticktime:%3] Core_USMC: Element '%1' is not a valid class.",(_c select _z),diag_frameno,diag_tickTime];
 	};
 };
 
-diag_log Format ["[WFBE (INIT)] Core_USMC: Initialization (%1 Elements) - [Done]",count _c];
+diag_log Format ["[WFBE (INIT)][frameno:%2 | ticktime:%3] Core_USMC: Initialization (%1 Elements) - [Done]",count _c,diag_frameno,diag_tickTime];

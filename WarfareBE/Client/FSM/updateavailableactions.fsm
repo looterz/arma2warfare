@@ -1,18 +1,18 @@
 /*%FSM<COMPILE "D:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, updateavailableactions">*/
 /*%FSM<HEAD>*/
 /*
-item0[] = {"Init",0,4346,64.986191,-133.045959,154.986206,-83.046036,0.000000,"Init"};
-item1[] = {"Update_Client_Ac",2,250,-66.836029,-56.267544,23.163887,-6.267582,0.000000,"Update Client" \n "Actions"};
-item2[] = {"End",1,250,-218.006683,15.304325,-128.006653,65.304314,0.000000,"End"};
+item0[] = {"Init",0,250,64.986191,-133.045959,154.986206,-83.046036,0.000000,"Init"};
+item1[] = {"Update_Client_Ac",2,4346,-66.836029,-56.267544,23.163887,-6.267582,0.000000,"Update Client" \n "Actions"};
+item2[] = {"End",1,250,-207.023727,26.287281,-117.023697,76.287277,0.000000,"End"};
 item3[] = {"Loop",4,218,65.605347,-56.267605,155.605377,-6.267574,0.000000,"Loop"};
-item4[] = {"Gameover",4,218,-216.668854,-56.267559,-126.668869,-6.267574,0.000000,"Gameover"};
+item4[] = {"Gameover",4,218,-64.280334,28.850353,25.719648,78.850410,0.000000,"Gameover"};
 link0[] = {0,3};
 link1[] = {1,3};
 link2[] = {1,4};
 link3[] = {3,1};
 link4[] = {4,2};
-globals[] = {0.000000,0,0,0,0,640,480,1,26,6316128,1,-317.581665,500.648590,347.741577,-554.233704,596,657,1};
-window[] = {0,-1,-1,-1,-1,952,175,1435,175,1,614};
+globals[] = {0.000000,0,0,0,0,640,480,1,38,6316128,1,-317.581665,500.648590,697.417725,-204.557556,596,657,1};
+window[] = {0,-1,-1,-1,-1,1002,225,1485,225,1,614};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -26,6 +26,7 @@ class FSM
       init = /*%FSM<STATEINIT""">*/"_lastUpdate = time;" \n
        "_txt = '';" \n
        "_handle = nil;" \n
+       "_ft = 'WFBE_FASTTRAVEL' Call GetNamespace;" \n
        "_ftr = 'WFBE_FASTTRAVELRANGE' Call GetNamespace;" \n
        "_is = 'WFBE_INCOMESYSTEM' Call GetNamespace;" \n
        "_mhqbr = 'WFBE_MHQBUILDINGRANGE' Call GetNamespace;" \n
@@ -127,7 +128,6 @@ class FSM
        "//--- HQ." \n
        "if !(isNull _base) then {hqInRange = if ((player distance _base < _mhqbr)&&(alive _base)&&(player distance _closest > _tpr)) then {true} else {false}};" \n
        "" \n
-       "" \n
        "barracksInRange = (['BARRACKSTYPE',_buildings,_purchaseRange,sideJoined,player] Call BuildingInRange) select 1;" \n
        "gearInRange = (['BARRACKSTYPE',_buildings,_pgr,sideJoined,player] Call BuildingInRange) select 1;" \n
        "if !(gearInRange) then {" \n
@@ -161,12 +161,12 @@ class FSM
        "};" \n
        "" \n
        "//--- Town Depot." \n
-       "_nObjects = nearestObjects [player, WFDEPOT,('WFBE_TOWNPURCHASERANGE' Call GetNamespace)];" \n
+       "_nObjects = nearestObjects [vehicle player, WFDEPOT,('WFBE_TOWNPURCHASERANGE' Call GetNamespace)];" \n
        "_nObject = if (count _nObjects > 0) then {_nObjects select 0} else {objNull};" \n
        "if (!isNull _nObject) then {" \n
        "	_sideID = _nObject getVariable ""sideID"";" \n
        "	if !(isNil ""_sideID"") then {" \n
-       "		if (_sideID == sideID) then {if (player distance _nObject < _tcr) then {serviceInRange = true;depotInRange = true} else {depotInRange = false}};" \n
+       "		if (_sideID == sideID) then {if (vehicle player distance _nObject < _tcr) then {serviceInRange = true;depotInRange = true} else {depotInRange = false}};" \n
        "	};" \n
        "} else {depotInRange = false};" \n
        "" \n
@@ -183,7 +183,7 @@ class FSM
        "};" \n
        "" \n
        "//--- Fast Travel." \n
-       "if (paramFastTravel && commandInRange) then {" \n
+       "if ((_ft > 0) && commandInRange) then {" \n
        "	_fastTravel = false;" \n
        "	_isDeployed = (sideJoinedText) Call GetSideHQDeployed;" \n
        "	if (player distance _base < _ftr && alive _base && _isDeployed) then {_fastTravel = true} else {" \n

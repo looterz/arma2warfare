@@ -35,6 +35,8 @@ _updateMap = true;
 _val = 0;
 _mbu = 'WFBE_MAXGROUPSIZE' Call GetNamespace;
 
+ctrlSetText[12025,localize 'STR_WF_Faction' + ":"];
+
 //--- Get the closest Factory Type in range.
 _break = false;
 _status = [barracksInRange,lightInRange,heavyInRange,aircraftInRange,depotInRange,hangarInRange];
@@ -265,14 +267,22 @@ while {alive player && dialog} do {
 		//--- Our list is not empty.
 		if (_currentRow != -1) then {
 			_currentValue = lnbValue[_listBox,[_currentRow,0]];
-			_currentUnit = (_listUnits select _currentValue) Call GetNamespace;
+			_unit = _listUnits select _currentValue;
+			_currentUnit = _unit Call GetNamespace;
 			ctrlSetText [12009,_currentUnit select QUERYUNITPICTURE];
+			ctrlSetText [12033,_currentUnit select QUERYUNITFACTION];
+			ctrlSetText [12035,str (_currentUnit select QUERYUNITTIME)];
 			_currentCost = _currentUnit select QUERYUNITPRICE;
 			
-			_isInfantry = if ((_listUnits select _currentValue) isKindOf 'Man') then {true} else {false};
+			_isInfantry = if (_unit isKindOf 'Man') then {true} else {false};
 			
 			//--- Update driver-gunner-commander icons.
 			if (!_isInfantry && _type != 'Depot') then {
+				ctrlSetText [12036,"N/A"];
+				ctrlSetText [12037,str (getNumber (configFile >> 'CfgVehicles' >> _unit >> 'transportSoldier'))];
+				ctrlSetText [12038,str (getNumber (configFile >> 'CfgVehicles' >> _unit >> 'maxSpeed'))];
+				ctrlSetText [12039,str (getNumber (configFile >> 'CfgVehicles' >> _unit >> 'armor'))];
+				
 				_slots = _currentUnit select QUERYUNITCREW;
 				_c = 0;
 				_extra = 0;
@@ -323,10 +333,49 @@ while {alive player && dialog} do {
 				//--- Set the 'extra' price.
 				_currentCost = _currentCost + (('WFBE_CREWCOST' Call GetNamespace) * _extra);
 			} else {
+				ctrlSetText [12036,Format ["%1/100",(_currentUnit select QUERYUNITSKILL) * 100]];
+				ctrlSetText [12037,"N/A"];
+				ctrlSetText [12038,"N/A"];
+				ctrlSetText [12039,"N/A"];
+			
 				{ctrlShow [_x,false]} forEach (_IDCSVehi);
 				_driver = false;
 				_gunner = false;
 				_commander = false;
+				
+				//--- Display a unit's loadout.
+				_weapons = (getArray (configFile >> 'CfgVehicles' >> _unit >> 'weapons')) - ['Put','Throw'];
+				_magazines = getArray (configFile >> 'CfgVehicles' >> _unit >> 'magazines');
+				
+				_classMags = [];
+				_classMagsAmount = [];
+				_MagsLabel = [];
+				
+				{
+					_findAt = _classMags find _x;
+					if (_findAt == -1) then {
+						_classMags = _classMags + [_x];
+						_classMagsAmount = _classMagsAmount + [1];
+						_MagsLabel = _MagsLabel + [[_x,'displayName','CfgMagazines'] Call GetConfigInfo];
+					} else {
+						_classMagsAmount set [_findAt, (_classMagsAmount select _findAt) + 1];
+					};
+				} forEach _magazines;
+				//--- localize that!
+				_txt = "<t color='#A7F04F' shadow='2'>" + (localize 'STR_WF_Weapons') + " :</t><br /> <t color='#D3A119' shadow='2'>{</t>";
+				for [{_i = 0},{_i < count _weapons},{_i = _i + 1}] do {
+					_txt = _txt + "<t color='#86C8FF' shadow='2'>" + ([(_weapons select _i),'displayName','CfgWeapons'] Call GetConfigInfo) + "</t>";
+					if ((_i+1) < count _weapons) then {_txt = _txt + "<t color='#D3A119' shadow='2'>,</t> "}; 
+				};
+				_txt = _txt + "<t color='#D3A119' shadow='2'>}</t><br /><br />";	
+				_txt = _txt + "<t color='#A7F04F' shadow='2'>" + (localize 'STR_WF_Magazines') + " :</t><br /> <t color='#D3A119' shadow='2'>{</t>";
+				for [{_i = 0},{_i < count _MagsLabel},{_i = _i + 1}] do {
+					_txt = _txt + "<t color='#86C8FF' shadow='2'>" + ((_MagsLabel select _i) + "</t> <t color='#D057F8' shadow='2'>x</t> <t color='#FB7E7E' shadow='2'>" + str (_classMagsAmount select _i)) + "</t>";
+					if ((_i+1) < count _MagsLabel) then {_txt = _txt + "<t color='#D3A119' shadow='2'>,</t> "}; 
+				};
+				_txt = _txt + "<t color='#D3A119' shadow='2'>}</t>";
+				
+				(_display displayCtrl 12022) ctrlSetStructuredText (parseText _txt);
 			};
 			
 			//--- Lock Icon.
@@ -340,19 +389,19 @@ while {alive player && dialog} do {
 			};
 
 			//--- Long description.
-			_utype = _listUnits select _currentValue;
-			if (isClass (configFile >> 'CfgVehicles' >> _utype >> 'Library')) then {
-				_txt = getText (configFile >> 'CfgVehicles' >> _utype >> 'Library' >> 'libTextDesc');
-				(_display displayCtrl 12022) ctrlSetStructuredText (parseText _txt);
-			} else {
-				(_display displayCtrl 12022) ctrlSetStructuredText (parseText '');
+			if !(_isInfantry) then {
+				if (isClass (configFile >> 'CfgVehicles' >> _unit >> 'Library')) then {
+					_txt = getText (configFile >> 'CfgVehicles' >> _unit >> 'Library' >> 'libTextDesc');
+					(_display displayCtrl 12022) ctrlSetStructuredText (parseText _txt);
+				} else {
+					(_display displayCtrl 12022) ctrlSetStructuredText (parseText '');
+				};
 			};
 			
-			ctrlSetText [12010,Format [localize 'STR_WF_Price',_currentCost]];
+			ctrlSetText [12034,Format ["$ %1.",_currentCost]];
 			_updateDetails = false;
 		} else {
-			ctrlSetText [12009, ''];
-			ctrlSetText [12010, ''];
+			{ctrlSetText [_x , ""]} forEach [12009,12010,12027,12028,12029,12030,12031,12032,12033,12034,12035,12036,12037,12038,12039];
 			(_display displayCtrl 12022) ctrlSetStructuredText (parseText '');
 		};
 	};

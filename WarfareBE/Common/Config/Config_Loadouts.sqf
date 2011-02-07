@@ -2290,4 +2290,4 @@ if (WF_A2_CombinedOps) then {
 	};
 };
 
-diag_log "[WFBE (INIT)] Config_Loadout: Initialization - [Done]";
+diag_log Format ["[WFBE (INIT)][frameno:%1 | ticktime:%2] Config_Loadout: Initialization - [Done]",diag_frameno,diag_tickTime];

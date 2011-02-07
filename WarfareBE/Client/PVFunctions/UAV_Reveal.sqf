@@ -12,7 +12,7 @@ Private ['_marker','_size','_target','_uav'];
 _uav = _this select 0;
 _target = _this select 1;
 
-if (typeName _uav != 'OBJECT' || typeName _target != 'OBJECT') exitWith {diag_log Format ["[WFBE (INFORMATION)] UAV_Reveal: An object is expected for both parameters given (UAV: %1  Target: %2).",_uav,_target]};
+if (typeName _uav != 'OBJECT' || typeName _target != 'OBJECT') exitWith {diag_log Format ["[WFBE (INFORMATION)][frameno:%3 | ticktime:%4] UAV_Reveal: An object is expected for both parameters given (UAV: %1  Target: %2).",_uav,_target,diag_frameno,diag_tickTime]};
 
 _size = round((_uav distance _target) / 16);
 _marker = Format["WFBE_UAV_SPOTTED_%1",unitMarker];

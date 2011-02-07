@@ -3,7 +3,7 @@ _object = _this select 0;
 _safeFromSide = _this select 1;
 _within = if (count _this > 2) then {_this select 2} else {50};
 
-_objects = _object nearEntities[[eastSoldierBaseClass,westSoldierBaseClass,"Car","Motorcycle","Tank","Air"],_within];
+_objects = _object nearEntities[[eastSoldierBaseClass,westSoldierBaseClass,resistanceSoldierBaseClass,"Car","Motorcycle","Tank","Air"],_within];
 _hostiles = 0;
 
 if (typeName _safeFromSide == 'ARRAY') then {

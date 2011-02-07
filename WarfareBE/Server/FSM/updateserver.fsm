@@ -73,7 +73,7 @@ class FSM
     class End
     {
       name = "End";
-      init = /*%FSM<STATEINIT""">*/"diag_log ""[WFBE (OUTRO)] updateserver: Mission end - [Done]"";" \n
+      init = /*%FSM<STATEINIT""">*/"diag_log Format[""[WFBE (OUTRO)][frameno:%1 | ticktime:%2] updateserver.fsm: Mission end - [Done]"",diag_frameno,diag_tickTime];" \n
        "failMission ""END1"";"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links

@@ -108,8 +108,10 @@ if (!(alive _building)|| isNull _building) exitWith {
 	};
 };
 
+_created = objNull;
 if (_isMan) then {
 	_soldier = [_unit,_group,_position,sideJoined] Call CreateMan;
+	_created = _soldier;
 	unitQueu = unitQueu - 1;
 	[sideJoinedText,'UnitsCreated',1] Call UpdateStatistics;
 } else {
@@ -118,6 +120,7 @@ if (_isMan) then {
 	_commander = _vehi select 2;
 	_locked = _vehi select 3;
 	_vehicle = [_unit,_position,sideJoined,_locked] Call CreateVehi;
+	_created = _vehicle;
 	clientTeam reveal _vehicle;
 	_factoryPosition = getPos _building;
 	_vehicle setDir -((((_position select 1) - (_factoryPosition select 1)) atan2 ((_position select 0) - (_factoryPosition select 0))) - 90);
@@ -149,7 +152,7 @@ if (_isMan) then {
 		};
 		processInitCommands;
 	};
-	if (_unit in (Format['WFBE_%1SUPPLYTRUCKS',sideJoinedText] Call GetNamespace)) then {[_vehicle,sideJoined] ExecFSM "Client\FSM\updatesupply.fsm"};
+	if (_unit in (Format['WFBE_%1SUPPLYTRUCKS',sideJoinedText] Call GetNamespace)) then {[_vehicle,sideJoined] ExecFSM 'Client\FSM\updatesupply.fsm'};
 	if (_unit in ('WFBE_CANEJECTCARGO' Call GetNamespace)) then {
 		_vehicle setVehicleInit Format["this AddAction ['HALO','Client\Action\Action_HALO.sqf', [], 97, false, true, '', 'getPos _target select 2 >= %1 && alive _target'];this addAction [localize 'STR_WF_Cargo_Eject','Client\Action\Action_EjectCargo.sqf', [], 99, false, true, '', 'driver _target == _this && alive _target']",('WFBE_HALOJUMPHEIGHT' Call GetNamespace)];
 		processInitCommands
@@ -165,7 +168,16 @@ if (_isMan) then {
 		if (_unit isKindOf "Plane") then {_vehicle addAction [localize "STR_WF_TaxiReverse","Client\Action\Action_TaxiReverse.sqf", [], 92, false, true, "", "driver _target == _this && alive _target && speed _target < 4 && getPos _target select 2 < 4"]};
 		if (_init != "") then {_vehicle setVehicleInit _init; processInitCommands};
 	};
+	
+	/* Balance the unit ? */
 	if (_unit in ('WFBE_BALANCEDUNITS' Call GetNamespace) && paramBalancing) then {[_vehicle] Spawn BalanceInit};
+	
+	/* Salvager? */
+	if (_unit in (Format['WFBE_%1SALVAGETRUCK',sideJoinedText] Call GetNamespace)) then {[_vehicle] ExecFSM 'Client\FSM\updatesalvage.fsm'};
+	
+	/* Are we dealing with an artillery unit ? */
+	_isArtillery = [_unit,sideJoinedText] Call IsArtillery;
+	if (_isArtillery != -1) then {[_vehicle,_isArtillery,sideJoinedText] Call EquipArtillery};
 	//--- Vehicles Init End.
 
 	[sideJoinedText,'VehiclesCreated',1] Call UpdateStatistics;

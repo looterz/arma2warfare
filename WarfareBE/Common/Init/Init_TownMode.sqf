@@ -48,4 +48,4 @@ totalTowns = (WF_Logic getVariable "totalTowns") - (count TownTemplate);
 
 townModeSet = true;
 
-diag_log "[WFBE (INIT)] Init_TownMode: Towns mode initialization - [Done]";
+diag_log Format["[WFBE (INIT)][frameno:%1 | ticktime:%2] Init_TownMode: Towns mode initialization (world: %3) - [Done]",diag_frameno,diag_tickTime,worldName];

@@ -18,6 +18,7 @@ _u = _u		+ ['MTVR_DES_EP1'];
 _u = _u		+ ['MtvrRepair_DES_EP1'];
 _u = _u		+ ['MtvrReammo_DES_EP1'];
 _u = _u		+ ['MtvrRefuel_DES_EP1'];
+_u = _u		+ ['MtvrSalvage_DES_EP1'];
 if (('WFBE_SUPPLYSYSTEM' Call GetNamespace) == 0) then {_u = _u		+ ['MtvrSupply_DES_EP1']};
 if (paramDLCBAF) then {
 	_u = _u		+ ['BAF_ATV_W'];

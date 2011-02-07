@@ -15,6 +15,7 @@ while {!gameOver} do {
 	[str _side,'UnitsCreated',1] Call UpdateStatistics;
 	waitUntil {!alive leader _team || isPlayer leader _team};
 	_deathLoc = getPos (leader _team);
+	diag_log format ["[WFBE (INFORMATION)][frameno:%4 | ticktime:%5] AI_SquadRespawn: AI Team Leader '%1' (Team '%2') is dead at %3",leader _team,_team,_deathLoc,diag_frameno,diag_tickTime];
 	if (isPlayer leader _team) exitWith {};
 	waitUntil {alive leader _team || isPlayer leader _team};
 	if (isPlayer leader _team) exitWith {};
@@ -86,7 +87,7 @@ while {!gameOver} do {
 		_respawnLoc = _availableSpawn select (round(random((count _availableSpawn)-1)));
 	};
 
-	diag_log format ["[WFBE (INFORMATION)] AI_SquadRespawn: AI Team Leader %1 is respawning at: %2 (%3)",leader _team,typeOf _respawnLoc,_respawnLoc];
+	diag_log format ["[WFBE (INFORMATION)][frameno:%4 | ticktime:%5] AI_SquadRespawn: AI Team Leader %1 is respawning at: %2 (%3)",leader _team,typeOf _respawnLoc,_respawnLoc,diag_frameno,diag_tickTime];
 	_pos = [getPos _respawnLoc,20,30] Call GetRandomPosition;
 	_pos set [2,0];
 	_leader setPos _pos;

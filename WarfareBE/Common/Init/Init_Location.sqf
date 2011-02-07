@@ -26,7 +26,7 @@ if (local player) then {
 	_marker setMarkerColorLocal "ColorBlue";
 };
 
-diag_log Format["[WFBE (INIT)] Init_Location: Town '%1' (%2) initialization - [Done]",str _location,_locationName];
+diag_log Format["[WFBE (INIT)][frameno:%3 | ticktime:%4] Init_Location: Town '%1' (%2) initialization - [Done]",str _location,_locationName,diag_frameno,diag_tickTime];
 
 waitUntil {commonInitComplete};
 
@@ -46,6 +46,7 @@ if (isServer) then {
 		_isSet = _location getVariable 'sideID';
 		if (isNil '_isSet') then {_location setVariable ["sideID",RESISTANCEID,true]};
 		_location setVariable ["supplyValue",_startingSupplyValue,true];
+		_location setVariable ["resistanceTypes",_resistanceTeamTypes];
 		sleep (random 1);
 		waitUntil {serverInitComplete && townInit};
 		[_location,_range] ExecFSM "Server\FSM\updatetown.fsm";
@@ -56,6 +57,18 @@ if (isServer) then {
 			{deleteVehicle _x} forEach _defenses;
 		};
 		if (paramOccup) then {[_location,_probability,_range] ExecFSM "Server\FSM\updatetownoccupation.fsm"};
+		
+		//--- UPSMON Area Definition.
+		if (paramUPSMON) then {
+			_marker = Format['UPSMON_TOWN_%1',str _location];
+			createMarkerLocal [_marker, getPos _location];
+			_marker setMarkerColorLocal "ColorBlue";
+			_marker setMarkerShapeLocal "RECTANGLE";
+			_marker setMarkerBrushLocal "BORDER";
+			_size = 'WFBE_UPSMONTOWNAREASIZE' Call GetNamespace;
+			_marker setMarkerSizeLocal [_size select 0,_size select 1];
+			_marker setMarkerAlphaLocal 0;
+		};
 	};
 };
 

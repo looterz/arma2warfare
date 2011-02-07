@@ -15,6 +15,6 @@ if (_side != resistance) then {
 };
 _vehicle lock _lock;
 
-diag_log Format["[WFBE (INFORMATION)] Common_CreateVehicle: A %1 '%2' vehicle has been created",str _side,_type];
+diag_log Format["[WFBE (INFORMATION)][frameno:%4 | ticktime:%5] Common_CreateVehicle: A %1 '%2' vehicle has been created (position: %3)",str _side,_type,_position,diag_frameno,diag_tickTime];
 
 _vehicle

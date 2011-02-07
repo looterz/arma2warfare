@@ -40,7 +40,7 @@ class Mission
 	randomSeed=6848509;
 	class Intel
 	{
-		briefingName="Warfare BE V2.066 Lite CO - Takistan";
+		briefingName="Warfare BE V2.067 Lite CO - Takistan";
 		briefingDescription="By Benny";
 		resistanceWest=0;
 		startWeather=0;
@@ -702,7 +702,7 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={6979.3618,32.957241,12528.9};
+					position[]={7267.4702,279.0787,576.06738};
 					id=34;
 					side="LOGIC";
 					vehicle="LocationLogic";
@@ -829,7 +829,7 @@ class Mission
 				items=1;
 				class Item0
 				{
-					position[]={7267.228,279.05804,576.21362};
+					position[]={7031.7163,44.772465,12468.308};
 					id=45;
 					side="LOGIC";
 					vehicle="LocationLogic";
@@ -3418,7 +3418,5 @@ class OutroLoose
 		minute=20;
 	};
 };
-
-
 
 

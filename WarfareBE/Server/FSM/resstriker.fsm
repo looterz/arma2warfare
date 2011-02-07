@@ -178,7 +178,7 @@ class FSM
        "	if (_x isKindOf ""Man"") then {" \n
        "		_unit = [_x,_team,_position,resistance] Call CreateMan;" \n
        "	} else {" \n
-       "		_type = if (_x isKindOf ""Tank"") then {'WFBE_GUERCREW' Call GetNamespace} else {'WFBE_GUERSOLDIER' Call GetNamespace};" \n
+       "		_type = if (_x isKindOf 'Man') then {'WFBE_GUERSOLDIER' Call GetNamespace} else {if (_x isKindOf 'Air') then {'WFBE_GUERPILOT' Call GetNamespace} else {'WFBE_GUERCREW' Call GetNamespace}};" \n
        "		_vehicle = [_x,_position,resistance,paramResVehLock] Call CreateVehi;" \n
        "		_vehicles = _vehicles + [_vehicle];" \n
        "		_unit = [_type,_team,_position,resistance] Call CreateMan;" \n

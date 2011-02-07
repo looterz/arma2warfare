@@ -3,11 +3,11 @@
 	keep the same _n name
 */
 
-Private ['_resType'];
-_resType = 'WFBE_RESISTANCEFACTION' Call GetNamespace;
-if (isNil '_resType') then {_resType = -1};
 
-if (WF_A2_Vanilla || _resType == 0) then {
+Private ['_civType'];
+_civType = ('WFBE_CIVILIANFACTIONS' Call GetNamespace) select ('WFBE_CIVILIANFACTION' Call GetNamespace);
+
+if (_civType == 'Chernarus Civilians') then {
 	_n		= ["Villagers1"];
 	_u		= ["Villager1"];
 	_u = _u + ["Woodlander1"];
@@ -72,7 +72,7 @@ if (WF_A2_Vanilla || _resType == 0) then {
 	[Format["WFBE_CIV%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
 };
 
-if (WF_A2_Arrowhead || _resType == 1) then {
+if (_civType == 'Takistan Civilians') then {
 	_n 		= ["Villagers1"];
 	_u		= ["TK_CIV_Takistani02_EP1"];
 	_u = _u + ["TK_CIV_Takistani03_EP1"];
@@ -136,4 +136,4 @@ if (WF_A2_Arrowhead || _resType == 1) then {
 	[Format["WFBE_CIV%1UNITS",_n select (count _n - 1)],_u,true] Call SetNamespace;
 };
 
-diag_log "[WFBE (INIT)] Config_Civilians: Intialization - [Done]";
+diag_log Format["[WFBE (INIT)][frameno:%1 | ticktime:%2] Config_Civilians: Intialization - [Done]",diag_frameno,diag_tickTime];

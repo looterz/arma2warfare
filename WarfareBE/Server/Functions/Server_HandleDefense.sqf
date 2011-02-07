@@ -24,16 +24,16 @@ while {alive _defense} do {
 			
 			[str _side,'UnitsCreated',1] Call UpdateStatistics;
 			
-			diag_log Format["[WFBE (INFORMATION)] Server_HandleDefense: A Soldier has been dispatched to the %1 defense %2",str _side,_type];
+			diag_log Format["[WFBE (INFORMATION)][frameno:%3 | ticktime:%4] Server_HandleDefense: A Soldier has been dispatched to the %1 defense %2",str _side,_type,diag_frameno,diag_tickTime];
 			
 			//--- Calculate the average time in function of the distance and the speed.
 			sleep ((((_soldier distance _defense)/(14*1000))*3600)+20);
 			
 			if ((vehicle _soldier != _defense)&& alive _soldier &&(!isNull _soldier)) then {
-				if ((_defense EmptyPositions "gunner" > 0)&& alive _defense &&(!isNull _defense)) then {_soldier MoveInGunner _defense} else {deleteVehicle _soldier};
+				if ((_defense EmptyPositions "gunner" > 0) && alive _defense && (!isNull _defense)) then {_soldier MoveInGunner _defense} else {deleteVehicle _soldier};
 			};
 		} else {
-			diag_log "[WFBE (INFORMATION)] Server_HandleDefense.sqf: Canceled auto manning, the barracks is destroyed.";
+			diag_log Format["[WFBE (INFORMATION)][frameno:%1 | ticktime:%2] Server_HandleDefense.sqf: Canceled auto manning, the barracks is destroyed.",diag_frameno,diag_tickTime];
 		};
 	};
 	sleep 420;

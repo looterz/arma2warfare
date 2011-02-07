@@ -3,6 +3,7 @@ _type = _this select 0;
 _location = if (count _this > 1) then {_this select 1} else {objNull};
 
 switch (_type) do {
+	//--- Complete Towns set initialization.
 	case "TownAddComplete": {
 		//--- Todo: improve the sort by with other digits instead of the first one.
 		sleep 4;
@@ -33,6 +34,7 @@ switch (_type) do {
 		["TownAssignClosest"] Spawn TaskSystem;
 	};
 	
+	//--- Assign the closest town to the player.
 	case "TownAssignClosest": {
 		sleep 4;
 		_next = [player,sideID] Call GetClosestLocationBySide;
@@ -48,6 +50,7 @@ switch (_type) do {
 		};
 	};
 
+	//--- Update a town's value.
 	case "TownUpdate": {
 		_task = _location getVariable 'taskLink';
 		_sideID = _location getVariable "sideID";
@@ -62,6 +65,9 @@ switch (_type) do {
 		}
 	};
 
+	//--- Hint for a new town task.
 	case "TownHintNew": {taskHint [format [localize "str_taskNew" + "\n%1",Format [localize "STR_WF_TaskTown_Display",_location getVariable "name"]], [1,1,1,1], "taskNew"]};
+	
+	//--- Hint for a completed town task.
 	case "TownHintDone": {taskHint [format [localize "str_taskAccomplished" + "\n%1",Format [localize "STR_WF_TaskTown_Display",_location getVariable "name"]], [1,1,1,1], "taskDone"]};
 };

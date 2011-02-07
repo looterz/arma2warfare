@@ -324,9 +324,17 @@ class RscBuyUnits {
 			moving = 1;
 			text = "\ca\ui\data\igui_background_buy_units_ca.paa";
 		};
+		class background1: RscText {
+			x = 0.1975;
+			y = 0.662;
+			w = 0.2975;
+			h = 0.234;
+			colorBackground[] = {0, 0, 0, 0.5};
+		};
 	};
 	
 	class controls {
+		/* Controls */
 		class CA_BuyList : RscListBoxA {
 			idc = 12001;
 			x = 0.043;
@@ -366,6 +374,7 @@ class RscBuyUnits {
 			y = 0.01;
 			colorText[] = subcolor1;
 			SizeEx = 0.03;
+			shadow = 2;
 		};
 		class WF_Con1: RscClickableText {
 			idc = 12005;
@@ -432,9 +441,10 @@ class RscBuyUnits {
 		};
 		class CA_Price: CA_Label {
 			idc = 12010;
-			text = '';
-			x = 0.14;
-			y = 0.128;
+			text = "$STR_WF_Price";
+			x = 0.2;
+			y = 0.69;
+			sizeEx = 0.025;
 		};
 		class WF_Lock: RscClickableText {
 			idc = 12023;
@@ -484,7 +494,7 @@ class RscBuyUnits {
 			w = 0.454;
 			h = 0.452;
 		};
-		class CA_Label_Factory: RscText {
+		class CA_Label_Factory: CA_Label {
 			idc = 12016;
 			text = $STR_WF_Factory;
 			x = 0.5;
@@ -501,7 +511,7 @@ class RscBuyUnits {
 		};
 		class CA_Cash_Label: CA_Label {
 			idc = 12019;
-			text = '';
+			text = "";
 			x = 0.756;
 			y = 0.01;
 		};
@@ -519,9 +529,9 @@ class RscBuyUnits {
 			x = 0.5;
 			y = 0.01;
 		};
-		class CA_Faction: RscText {
+		class CA_Faction: CA_Label {
 			idc = 12025;
-			text = $STR_WF_Faction;
+			text = "";
 			x = 0.105;
 			y = 0.054;
 			colorText[] = subcolor1;
@@ -533,6 +543,96 @@ class RscBuyUnits {
 			w = 0.2;
 			y = 0.054;
 			onLBSelChanged = "MenuAction = 303";
+		};
+		/* Labels */
+		class CA_Faction_Label: CA_Label {
+			idc = 12027;
+			text = $STR_WF_Faction;
+			x = 0.2;
+			y = 0.663641;
+			sizeEx = 0.025;
+		};
+		class CA_Time_Label: CA_Label {
+			idc = 12028;
+			text = $STR_WF_Time;
+			x = 0.2;
+			y = 0.716359;
+			sizeEx = 0.025;
+		};
+		class CA_Skill_Label: CA_Label {
+			idc = 12029;
+			text = $STR_WF_Skill;
+			x = 0.2;
+			y = 0.742718;
+			sizeEx = 0.025;
+		};
+		class CA_TransportCapacity_Label: CA_Label {
+			idc = 12030;
+			text = $STR_WF_Transport_Cability;
+			x = 0.2;
+			y = 0.769077;
+			sizeEx = 0.025;
+		};
+		class CA_MaxSpeed_Label: CA_Label {
+			idc = 12031;
+			text = $STR_WF_MaxSpeed;
+			x = 0.2;
+			y = 0.795436;
+			sizeEx = 0.025;
+		};
+		class CA_Armor_Label: CA_Label {
+			idc = 12032;
+			text = $STR_WF_Armor;
+			x = 0.2;
+			y = 0.821795;
+			sizeEx = 0.025;
+		};
+		/* Values */
+		class CA_Faction_Value: CA_Label {
+			idc = 12033;
+			text = "";
+			x = 0.3;
+			y = 0.663641;
+			w = 0.19;
+			sizeEx = 0.025;
+			style = 1;
+		};
+		class CA_Price_Value: CA_Faction_Value {
+			idc = 12034;
+			text = "";
+			y = 0.69;
+		};
+		class CA_Time_Value: CA_Faction_Value {
+			idc = 12035;
+			text = "";
+			y = 0.716359;
+		};
+		class CA_Skill_Value: CA_Faction_Value {
+			idc = 12036;
+			text = "";
+			y = 0.742718;
+		};
+		class CA_TransportCapacity_Value: CA_Faction_Value {
+			idc = 12037;
+			text = "";
+			y = 0.769077;
+		};
+		class CA_MaxSpeed_Value: CA_Faction_Value {
+			idc = 12038;
+			text = "";
+			y = 0.795436;
+		};
+		class CA_Armor_Value: CA_Faction_Value {
+			idc = 12039;
+			text = "";
+			y = 0.821795;
+		};
+		/* Controls */
+		class CA_Unit_Label: CA_Label {
+			idc = 12040;
+			text = $STR_WF_Unit_Information;
+			y = 0.6225;
+			colorText[] = subcolor1;
 		};
 	};
 };
@@ -1407,6 +1507,7 @@ class RscGear {
 			SizeEx = 0.03;
 			text = "";
 			colorText[] = subcolor1;
+			shadow = 2;
 		};
 		
 		class CA_Cost : CA_Money_Value {
@@ -1755,7 +1856,7 @@ class RscUpgradeMenu {
 			h = 0.002;
 		};
 		class LineTRH9 : LineTRH1 {
-			x = 0.478;
+			x = 0.48;
 			y = 0.37;
 			w = 0.002;
 			h = 0.05;
@@ -1797,7 +1898,7 @@ class RscUpgradeMenu {
 			h = 0.002;
 		};
 		class LineTRH16 : LineTRH1 {
-			x = 0.298;
+			x = 0.3;
 			y = 0.37;
 			w = 0.002;
 			h = 0.05;
@@ -1815,7 +1916,7 @@ class RscUpgradeMenu {
 			h = 0.002;
 		};
 		class LineTRH19 : LineTRH1 {
-			x = 0.658;
+			x = 0.66;
 			y = 0.37;
 			w = 0.002;
 			h = 0.05;
@@ -1867,6 +1968,19 @@ class RscUpgradeMenu {
 			y = 0.47;
 			w = 0.06;
 			h = 0.002;
+		};
+		//--- Shells Line.
+		class LineTRH28 : LineTRH1 {
+			x = 0.63;
+			y = 0.46;
+			w = 0.03;
+			h = 0.002;
+		};
+		class LineTRH29 : LineTRH1 {
+			x = 0.66;
+			y = 0.46;
+			w = 0.002;
+			h = 0.05;
 		};
 		//--- Normal GUI Ctrls.
 		class WF_Con1: RscClickableText {
@@ -2088,6 +2202,19 @@ class RscUpgradeMenu {
 			
 			onMouseMoving = "mouseX = (_this Select 1);mouseY = (_this Select 2)"; 
 			onMouseEnter = "displayUpgrade = 'paradrop'";
+			onMouseExit = "displayUpgrade = ''";
+		};
+		class WF_Con18: RscClickableText {
+			idc = 18018;
+			text = "Client\Images\wf_shl.paa";
+			x = 0.63;
+			y = 0.47;
+			w = 0.064;
+			h = 0.064;
+			action = "MenuAction = 1";
+			
+			onMouseMoving = "mouseX = (_this Select 1);mouseY = (_this Select 2)"; 
+			onMouseEnter = "displayUpgrade = 'shells'";
 			onMouseExit = "displayUpgrade = ''";
 		};
 		class CA_Diff_B_Back : RscShortcutButton {

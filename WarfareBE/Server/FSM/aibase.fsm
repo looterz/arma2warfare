@@ -1,4 +1,4 @@
-/*%FSM<COMPILE "F:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, aibase">*/
+/*%FSM<COMPILE "D:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, aibase">*/
 /*%FSM<HEAD>*/
 /*
 item0[] = {"AI_BASE_Init",0,250,-15.348785,-34.504990,74.651321,15.495049,0.000000,"AI BASE" \n "Init"};
@@ -11,8 +11,8 @@ item6[] = {"Global_Checks",2,250,-16.758400,279.866577,73.241608,329.866577,0.00
 item7[] = {"Player_Commander",4,218,121.742462,280.140930,211.742416,330.140930,10.000000,"Player" \n "Commander?"};
 item8[] = {"Teams_Type",4,218,-164.034988,280.176239,-74.035011,330.176270,1.000000,"Teams Type"};
 item9[] = {"Update_Teams",2,250,-163.247650,207.771179,-73.247955,257.771149,0.000000,"Update Teams"};
-item10[] = {"Upgrades",4,218,-267.920502,327.396942,-177.920532,377.396942,0.000000,"Upgrades"};
-item11[] = {"Do_Upgrades",2,250,-267.724365,207.955505,-177.724365,257.955505,0.000000,"Do Upgrades"};
+item10[] = {"Upgrades",4,218,-215.547272,312.433167,-125.547333,362.433167,0.000000,"Upgrades"};
+item11[] = {"Upgrades",2,250,-267.724365,207.955505,-177.724365,257.955505,0.000000,"Upgrades"};
 item12[] = {"",7,210,-169.994583,128.282928,-161.994583,136.282974,0.000000,""};
 link0[] = {0,2};
 link1[] = {0,3};
@@ -30,8 +30,8 @@ link12[] = {9,12};
 link13[] = {10,11};
 link14[] = {11,12};
 link15[] = {12,5};
-globals[] = {0.000000,0,0,0,0,640,480,1,19,6316128,1,-340.606110,214.050446,413.526428,-75.043388,705,626,1};
-window[] = {0,-1,-1,-1,-1,821,168,1513,80,1,723};
+globals[] = {0.000000,0,0,0,0,640,480,1,21,6316128,1,-428.130035,157.950897,480.503235,-35.746780,705,621,1};
+window[] = {0,-1,-1,-1,-1,866,125,1470,125,1,723};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -182,8 +182,8 @@ class FSM
        "if (!_isDeployed && _HQIsAlive && _canBeDeploy) then {" \n
        "	_pos = getPos _hq;" \n
        "	_pos set [2,0];" \n
-       "	_pos = [_hq,_pos,(('WFBE_AREAHQUNDEPLOYED' Call GetNamespace) select 0)+20] Call GetSafePlace;" \n
-       "	if (count _pos < 1) then {_pos = [_hq,_pos,(('WFBE_AREAHQUNDEPLOYED' Call GetNamespace) select 0)+50] Call GetSafePlace};" \n
+       "	_pos = [_pos,(('WFBE_AREAHQUNDEPLOYED' Call GetNamespace) select 0)+20] Call GetSafePlace;" \n
+       "	if (count _pos < 1) then {_pos = [_pos,(('WFBE_AREAHQUNDEPLOYED' Call GetNamespace) select 0)+50] Call GetSafePlace};" \n
        "	if (count _pos < 1) then {_pos = Call Compile Format [""%1StartingLocation"",_sideText]};" \n
        "	_dir = getDir _hq;" \n
        "	_HQType = _names select _hqt;" \n
@@ -244,9 +244,8 @@ class FSM
        "" \n
        "_lastCheck = time;" \n
        "_hq = (_sideText) Call GetSideHQ;" \n
-       "_HQIsAlive = true;" \n
        "" \n
-       "if !(alive _hq) then {_HQIsAlive = false};" \n
+       "_HQIsAlive = if !(alive _hq) then {false} else {true};" \n
        "if (_structureTimer > 20) then {" \n
        "	_structureTimer = 0;" \n
        "	//--- Base Buildings handling." \n
@@ -483,7 +482,7 @@ class FSM
         class Upgrades
         {
           priority = 0.000000;
-          to="Do_Upgrades";
+          to="Upgrades";
           precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
           condition=/*%FSM<CONDITION""">*/"time - _lastUpgradeCheck > 120 && isNull _commander"/*%FSM</CONDITION""">*/;
           action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
@@ -603,10 +602,10 @@ class FSM
       };
     };
     /*%FSM</STATE>*/
-    /*%FSM<STATE "Do_Upgrades">*/
-    class Do_Upgrades
+    /*%FSM<STATE "Upgrades">*/
+    class Upgrades
     {
-      name = "Do_Upgrades";
+      name = "Upgrades";
       init = /*%FSM<STATEINIT""">*/"_lastUpgradeCheck = time;" \n
        "" \n
        "//--- Command center is needed for upgrades. AI won't upgrade if he's moving around. Don't bother with money atm, only supply." \n

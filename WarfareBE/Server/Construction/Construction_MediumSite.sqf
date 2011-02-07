@@ -55,5 +55,5 @@ if (!IsNull _site) then {
 	if (paramHandleFF) then {Call Compile Format ["_site addEventHandler ['handleDamage',{[_this select 0,_this select 2,_this select 3, %1] Call BuildingHandleDamages}]",_side]};
 	Call Compile Format ["_site AddEventHandler ['killed',{[_this select 0,_this select 1,%1,'%2'] Spawn BuildingKilled}];",_side,_type];
 	
-	diag_log Format["[WFBE (INFORMATION)] Construction_MediumSite: A %1 %2 was constructed",str _side,_type];
+	diag_log Format["[WFBE (INFORMATION)][frameno:%3 | ticktime:%4] Construction_MediumSite: A %1 %2 has been constructed",str _side,_type,diag_frameno,diag_tickTime];
 };

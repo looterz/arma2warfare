@@ -505,7 +505,7 @@ for '_z' from 0 to (count _u)-1 do {
 		} else {
 			//--- Two elements can have the same name, like "Javelin(Weapon) >> Javelin (Magazine)", if two elements are found, we compare the class to see if they're already defined or not.
 			if ((_get select 2) == _config) then {
-				diag_log Format ["[WFBE (INIT)] Core_Vanilla_G: Duplicated Loadout Element found '%1' for class '%2'",_element,_config];
+				diag_log Format ["[WFBE (INIT)][frameno:%3 | ticktime:%4] Core_Vanilla_G: Duplicated Loadout Element found '%1' for class '%2'",_element,_config,diag_frameno,diag_tickTime];
 			} else {
 				//--- Is it a special class?
 				_get = (_element+'_W') Call GetNamespace;
@@ -513,7 +513,7 @@ for '_z' from 0 to (count _u)-1 do {
 					_prefix = '_w';
 					_proceed = true;
 				} else {
-					diag_log Format ["[WFBE (INIT)] Core_Vanilla_G: Duplicated Loadout Element found '%1' for class '%2'",_element,_config];
+					diag_log Format ["[WFBE (INIT)][frameno:%3 | ticktime:%4] Core_Vanilla_G: Duplicated Loadout Element found '%1' for class '%2'",_element,_config,diag_frameno,diag_tickTime];
 				};
 			};
 		};
@@ -540,8 +540,8 @@ for '_z' from 0 to (count _u)-1 do {
 			[_element+_prefix,_info] Call SetNamespace;
 		};
 	} else {
-		diag_log Format ["[WFBE (ERROR)] Core_Vanilla_G: Loadout Element '%1' with class '%2' is not a defined a class!",_element,_config];
+		diag_log Format ["[WFBE (ERROR)][frameno:%3 | ticktime:%4] Core_Vanilla_G: Loadout Element '%1' with class '%2' is not a defined a class!",_element,_config,diag_frameno,diag_tickTime];
 	};
 };
 
-diag_log Format ["[WFBE (INIT)] Core_Vanilla_G: Loadout Initialization (%1 Elements) - [Done]",count _u];
+diag_log Format ["[WFBE (INIT)][frameno:%2 | ticktime:%3] Core_Vanilla_G: Loadout Initialization (%1 Elements) - [Done]",count _u,diag_frameno,diag_tickTime];
