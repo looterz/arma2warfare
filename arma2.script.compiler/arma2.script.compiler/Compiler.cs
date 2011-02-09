@@ -24,6 +24,29 @@ namespace ArmA2.Script
 
             return (j == equal.Length);
         }
+
+        public static int GetEndQuote(this string content, int startPos)
+        {
+            if (startPos == -1)
+                return -1;
+
+            char openCh = content[startPos];
+
+            for (int i = startPos + 1; i < content.Length; i++)
+            {
+                char ch = content.GetSafeChar(i);
+                char chNext = content.GetSafeChar(i + 1);
+
+                //if (ch == '\\' && chNext == openCh) { i++; continue; }     // skip pattern \" 
+                if (ch == openCh && chNext == openCh) { i++; continue; }    // skip pattern ""
+
+                if (ch == openCh)
+                    return i;
+            }
+
+            Logger.Log(LoggingLevel.Error, "Unterminated string: {0}", content.Substring(startPos));
+            return -1;
+        }
     }
 
     public class Compiler
@@ -34,9 +57,6 @@ namespace ArmA2.Script
         public string FileName = string.Empty;
         public bool IsTopFile = true;
         public bool DeclarePrivateVars = true;
-
-        public List<string> Warnings = new List<string>();
-        public List<string> Errors = new List<string>();
 
         public void CompileFile(string fileName)
         {
@@ -193,8 +213,6 @@ namespace ArmA2.Script
             string[] ignoredNames = new[] { "from", "to", "name", "priority", "initstate" };
 
             Compiler compiler = new Compiler();
-            compiler.Warnings = Warnings;
-            compiler.Errors = Errors;
 
             compiler.HideVars = false;
             compiler.FileName = this.FileName;
@@ -206,7 +224,7 @@ namespace ArmA2.Script
             var scripts = groups.OrderByDescending(m => m.Index).Select(m => 
             {
                 int a = m.Index + m.Length - 1;
-                int b = GetStringEnd(content, a);
+                int b = content.GetEndQuote(a);
 
                 string script = string.Empty;
                 a = a + 1; 
@@ -361,7 +379,7 @@ namespace ArmA2.Script
              {
                  if (content[i] == '"' || content[i] == '\'')   // пропускаем строки
                  {
-                     var end = GetStringEnd(content, i);
+                     var end = content.GetEndQuote(i);
                      i = (end != -1) ? end : content.Length;
                      continue;
                  }
@@ -386,8 +404,7 @@ namespace ArmA2.Script
              if (scope != null && openScopes > 0)
              {
                  scope.End = content.Length-1;
-                 Errors.Add(string.Format("Unclosed scope: {0}", scope.ScopeText));
-                 Console.WriteLine("Error: Scope Not Closed: " + scope.ScopeText);
+                 Logger.Log(LoggingLevel.Error, "Unclosed scope: {0}", scope.ScopeText);
              }
 
              return scope;
@@ -404,36 +421,14 @@ namespace ArmA2.Script
             return -1;
         }
 
-        public int GetStringEnd(string content, int startPos)
-        {
-            if (startPos == -1)
-                return -1;
 
-            char openCh = content[startPos];
-
-            for (int i = startPos + 1; i < content.Length; i++)
-            {
-                char ch = content.GetSafeChar(i);
-                char chNext = content.GetSafeChar(i + 1);
-
-                //if (ch == '\\' && chNext == openCh) { i++; continue; }     // skip pattern \" 
-                if (ch == openCh && chNext == openCh) { i++; continue; }    // skip pattern ""
-
-                if (ch == openCh)
-                    return i;
-            }
-
-            Errors.Add(string.Format("Unterminated string: {0}", content.Substring(startPos)));
-            Console.WriteLine("Unterminated string: {0}", content.Substring(startPos));
-            return -1;
-        }
         public string GetNextString(string line, int startPos)
         {
             int strA = GetNextStringStart(line, startPos);
             if (strA == -1)
                 return null;
 
-            int strB = GetStringEnd(line, strA);
+            int strB = line.GetEndQuote(strA);
             if (strB == -1)
                 return null;
 
@@ -449,7 +444,7 @@ namespace ArmA2.Script
             {
                 if (content[i] == '"' || content[i] == '\'')    // skip strings
                 {
-                    var end = GetStringEnd(content, i);
+                    var end = content.GetEndQuote(i);
                     i = (end != -1) ? end : content.Length;
                     continue;
                 }
@@ -476,11 +471,8 @@ namespace ArmA2.Script
             {
                 if ((content[i] == '\'' || content[i] == '"') && openMultiComment == 0)
                 {
-                    if (i == 900)
-                        i = 900;
-
                     int i0 = i;
-                    var end = GetStringEnd(content, i);
+                    var end = content.GetEndQuote(i);
                     i = (end == -1) ? content.Length - 1 : end;
                     //Console.WriteLine("{0}: #{1}#", i0, content.Substring(i0, i-i0+1));
                     continue;
@@ -530,7 +522,7 @@ namespace ArmA2.Script
 
             if (openMultiComment > 0)
             {
-                Errors.Add(string.Format("Some multi-comments are not closed: {0}", content.Substring(s0)));
+                Logger.Log(LoggingLevel.Error, "Some multi-comments are not closed: {0}", content.Substring(s0));
                 content = content.Remove(s0);
             }
 
@@ -553,7 +545,7 @@ namespace ArmA2.Script
                         line = RemoveExtraSpaces(line, startPos, next);
                         next = GetNextStringStart(line, startPos);
                     }
-                    var endStr = GetStringEnd(line, next);
+                    var endStr = line.GetEndQuote(next);
                     startPos = (endStr != -1) ? endStr+1 : line.Length;
                 }
                 else break;
@@ -604,7 +596,7 @@ namespace ArmA2.Script
             {
                 var str1start = GetNextStringStart(line, startPos);
                 startPos = str1start;
-                var str1end = (str1start != -1) ? GetStringEnd(line, str1start) : -1;
+                var str1end = (str1start != -1) ? line.GetEndQuote(str1start) : -1;
 
                 while (str1end != -1)
                 {
@@ -623,12 +615,12 @@ namespace ArmA2.Script
                         { 
                             line = line.Insert(str1end, "\n");
                         }
-                        str1end = GetStringEnd(line, str1start);
+                        str1end = line.GetEndQuote(str1start);
                     }
                     else
                     {
                         str1start = str2start;
-                        str1end = (str1start != -1) ? GetStringEnd(line, str1start) : -1;
+                        str1end = (str1start != -1) ? line.GetEndQuote(str1start) : -1;
                     }
                 }
 

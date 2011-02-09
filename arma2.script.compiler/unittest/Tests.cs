@@ -28,7 +28,7 @@ namespace Obfuscate
                 if (s1 == -1)
                     break;
 
-                s2 = _compiler.GetStringEnd(text, s1);
+                s2 = text.GetEndQuote(s1);
                 var actual1 = _compiler.GetNextString(text, s1);
                 actual1 = actual1.Substring(1, actual1.Length - 2);
                 var actual2 = text.Substring(s1 + 1, (s2 - s1 + 1) - 2);
@@ -49,7 +49,7 @@ namespace Obfuscate
         {
             string text = @"var c= ""var c=0; var c=5""; for(var c=0; c<100; c++)";
             int c1 = _compiler.GetNextStringStart(text, 0);
-            int c2 = _compiler.GetStringEnd(text, c1);
+            int c2 = text.GetEndQuote(c1);
 
             string actual = text.Substring(c1+1, c2 - c1 - 1);
             Assert.AreEqual("var c=0; var c=5", actual);
@@ -71,7 +71,7 @@ namespace Obfuscate
             Assert.AreEqual(@"'var ''c=0;'", actual);
 
             c1 = _compiler.GetNextStringStart(text, 0);
-            c2 = _compiler.GetStringEnd(text, c1);
+            c2 = text.GetEndQuote(c1);
 
             actual = _compiler.GetNextString(text, c2+1);
             Assert.AreEqual(@"'for(var c=0; c<100; c++)'", actual);
@@ -79,7 +79,7 @@ namespace Obfuscate
             //--
             text = @"var c= ""var c=0;"""" var c=5""; for(var c=0; c<100; c++)";
             c1 = _compiler.GetNextStringStart(text, 0);
-            c2 = _compiler.GetStringEnd(text, c1);
+            c2 = text.GetEndQuote(c1);
 
             actual = text.Substring(c1 + 1, c2 - c1 - 1);
             Assert.AreEqual(@"var c=0;"""" var c=5", actual);
@@ -89,7 +89,7 @@ namespace Obfuscate
 
             text = @"var c= ""var c=0;' var c=5""; for(var c=0; c<100; c++)";
             c1 = _compiler.GetNextStringStart(text, 0);
-            c2 = _compiler.GetStringEnd(text, c1);
+            c2 = text.GetEndQuote(c1);
 
             actual = text.Substring(c1 + 1, c2 - c1 - 1);
             Assert.AreEqual(@"var c=0;' var c=5", actual);
@@ -118,6 +118,8 @@ namespace Obfuscate
 
             foreach(var file in files)
             {
+                Logger.Clear();
+
                 //Console.SetOut(new StringWriter(new StringBuilder()));
                 Compiler compiler = new Compiler();
                 compiler.FsmContent = (Path.GetExtension(file).ToLower() == ".fsm");
@@ -132,8 +134,8 @@ namespace Obfuscate
                     contentActual = contentActual;
                 
                 Assert.AreEqual(contentExpected, contentActual, string.Format("{0} - [Failed]", Path.GetFileName(file)));
-                Assert.AreEqual(0, compiler.Errors.Count, string.Format("{0} - [Failed]", Path.GetFileName(file))); 
-                Assert.AreEqual(0, compiler.Warnings.Count, string.Format("{0} - [Failed]", Path.GetFileName(file)));
+                Assert.AreEqual(0, Logger.Errors.Count, string.Format("{0} - [Failed]", Path.GetFileName(file)));
+                Assert.AreEqual(0, Logger.Warnings.Count, string.Format("{0} - [Failed]", Path.GetFileName(file)));
 
                 Console.SetOut(outputBase);
                 Console.WriteLine("{0} - [Done]", Path.GetFileName(file));
@@ -311,10 +313,10 @@ class FSM";
             var result = _compiler.RemoveMultiLineComments(testText);
             Assert.AreEqual("init = \"WF_Logic setVariable [\"\"currentTime\"\",_currentTime,true];\";", result, "");
 
-            _compiler.Errors.Clear();
+            Logger.Clear();
             testText = @"/* This file handle the client's UAV broadcast, a client send info to the others. */var c=0;";
             result = _compiler.RemoveMultiLineComments(testText);
-            Assert.AreEqual(0, _compiler.Errors.Count, "");
+            Assert.AreEqual(0, Logger.Errors.Count, "");
             Assert.AreEqual("var c=0;", result, "");
 
         }
