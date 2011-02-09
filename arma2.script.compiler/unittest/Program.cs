@@ -13,7 +13,7 @@ namespace Obfuscate
         {
             string[] files = args;
             if (args.Length == 0)
-                files = new[] { "aiteam1.fsm" };
+                files = new[] { "uav_interface.sqf" };
 
             foreach (var fileName in files)
             {
@@ -36,6 +36,8 @@ namespace Obfuscate
                 string newFileName = Path.GetFileNameWithoutExtension(fileName) + ".a" + Path.GetExtension(fileName);
                 File.WriteAllText(newFileName, content);
             }
+
+            Console.ReadKey();
         }
     }
 }

@@ -6,10 +6,28 @@ using System.Text.RegularExpressions;
 
 namespace ArmA2.Script
 {
+    public static class stringExtension
+    {
+        public static char GetSafeChar(this string str, int pos)
+        {
+            return (0 <= pos && pos < str.Length) ? str[pos] : (char) 0;
+        }
+
+        public static bool Equal(this string str, string equal, int pos)
+        {
+            int j = 0;
+            for(int i=pos; i>=0 && i< str.Length && j < equal.Length; i++, j++)
+            {
+                if (str[i] != equal[j])
+                    return false;
+            }
+
+            return (j == equal.Length);
+        }
+    }
+
     public class Compiler
     {
-        public static bool WarnStringUnclosed = false;
-
         public bool FsmContent = false;
         public bool HideVars = false;
 
@@ -17,16 +35,17 @@ namespace ArmA2.Script
         public bool IsTopFile = true;
         public bool DeclarePrivateVars = true;
 
-        public static void CompileFile(string fileName, bool showHeader)
+        public List<string> Warnings = new List<string>();
+        public List<string> Errors = new List<string>();
+
+        public void CompileFile(string fileName)
         {
             string content = File.ReadAllText(fileName);
+            FileName = fileName;
+            IsTopFile = false;
+            FsmContent = (Path.GetExtension(fileName).ToLower() == ".fsm");
 
-            var obfuscate = new Compiler();
-            obfuscate.FileName = fileName;
-            obfuscate.IsTopFile = showHeader;
-
-            obfuscate.FsmContent = (Path.GetExtension(fileName).ToLower() == ".fsm");
-            content = obfuscate.Compile(content);
+            content = Compile(content);
             File.WriteAllText(fileName, content);
         }
 
@@ -62,8 +81,17 @@ namespace ArmA2.Script
             strContent = strContent.Replace("\r\n", "\n");
             strContent = strContent.Replace("\r", "\n");
 
+            strContent = RemoveMultiLineComments(strContent);
+
             string[] content = strContent.Split(new[] {"\n"}, StringSplitOptions.RemoveEmptyEntries);
-            var content1 = content.Select(RemoveSingleLineComments);
+            var content1 = content.Select(m => 
+                {
+                    if (!FsmContent)
+                    {
+                        //m = RemoveSingleLineComments(m);
+                    }
+                    return m;
+                });
 
             content1 = content1.Where(m => m.Trim().Length > 0).Select(m => m.Trim());
             if (!FsmContent)
@@ -111,80 +139,6 @@ namespace ArmA2.Script
         }
 
         public delegate string HandleCommand(string commandText);
-        public string ProcessCommands(string content, HandleCommand handleCommand)
-        {
-            var scopes = GetScopes(content, 0, content.Length).OrderByDescending(m => m.Start);
-            scopes.ForEach(m =>
-            {
-                int L = m.End - m.Start;
-                if (L > 0)
-                {
-                    var scopeContent = content.Substring(m.Start+1, L-1);
-                    scopeContent = ProcessCommands(scopeContent, handleCommand);
-                    content = content.Remove(m.Start + 1, L-1);
-                    content = content.Insert(m.Start + 1, scopeContent);
-                }
-            });
-
-            List<Scope> commandScopes = new List<Scope>();
-            int end = content.Length;
-            int start;
-            var scopes1 = GetScopes(content, 0, content.Length).OrderByDescending(m => m.Start).ToArray();
-            for (int i = scopes1.Count()-1; i >= 0; i--)
-            {
-                start = scopes1[i].End;
-                if (start < end && start < content.Length)
-                {
-                    commandScopes.Add(new Scope {Start = start+1, End = end});
-                }
-                end = scopes1[i].Start;
-            }
-
-            start = 0;
-            if (start < end)
-            {
-                commandScopes.Add(new Scope { Start = start, End = end });
-            }
-
-            commandScopes.ForEach(m =>
-            {
-                int L = m.End - m.Start;
-                if (L > 0)
-                {
-                    var scopeContent = content.Substring(m.Start, L);
-                    scopeContent = ProcessCommandLine(scopeContent, handleCommand);
-                    content = content.Remove(m.Start, L);
-                    content = content.Insert(m.Start, scopeContent);
-                }
-            });            
-
-
-            return content;
-        }
-
-
-        private string ProcessCommandLine(string line, HandleCommand handleCommand)
-        {
-            line = line.Trim();
-            Console.WriteLine(line);
-
-            int start = 0;
-            while (true)
-            {
-                int pos = GetNextChar(line, start, ";");
-                int end = (pos == -1) ? line.Length : pos;
-
-                string cmd = line.Substring(start, end - start);
-                handleCommand.Invoke(cmd);
-
-                start = pos+1;
-                if (pos == -1)
-                    break;
-            }
-
-
-            return line;
-        }
 
         private string RemoveLineBreaks(IEnumerable<string> content1)
         {
@@ -239,6 +193,9 @@ namespace ArmA2.Script
             string[] ignoredNames = new[] { "from", "to", "name", "priority", "initstate" };
 
             Compiler compiler = new Compiler();
+            compiler.Warnings = Warnings;
+            compiler.Errors = Errors;
+
             compiler.HideVars = false;
             compiler.FileName = this.FileName;
             compiler.IsTopFile = false;
@@ -249,20 +206,22 @@ namespace ArmA2.Script
             var scripts = groups.OrderByDescending(m => m.Index).Select(m => 
             {
                 int a = m.Index + m.Length - 1;
-                int b = GetNextStringEnd(content, a);
+                int b = GetStringEnd(content, a);
 
-                a = a + 1;
-                b = b - 1;
-
-                var script = content.Substring(a, b - a).Replace("\"\"", "\"").Trim();
-                if (script.Length > 0)
+                string script = string.Empty;
+                a = a + 1; 
+                if (a != b)
                 {
-                    script = compiler.Compile(script);
-                    script = script.Trim();
+                    script = content.Substring(a, b - a).Replace("\"\"", "\"").Trim();
+                    if (script.Length > 0)
+                    {
+                        script = compiler.Compile(script);
+                        script = script.Trim();
+                    }
                 }
 
                 return new {A = a, B = b, Script = script, Key=m.Value};
-            });
+            }).Where(m => m.A < m.B);
 
             if (HideVars)
             {
@@ -384,245 +343,200 @@ namespace ArmA2.Script
             List<Scope> scopes = new List<Scope>();
             while(start != -1 && start < content.Length)
             {
-                int ix1 = GetScopeNext(content, start);
-                if (ix1 == -1 || ix1 > end)
+                var scope = GetScopeNext(content, start);
+                if (scope == null || scope.Start > end)
                     break;
 
-                var ix2 = GetScopeEnd(content, ix1);
-                if (ix2 == -1)
-                    break;
-
-                scopes.Add(new Scope { Start = ix1, End = ix2});
-                start = ix2 + 1;
+                scopes.Add(scope);
+                start = scope.End + 1;
             }
             return scopes;
         }
 
-        public int GetNextChar(string content, int startPos, string ch)
+         public Scope GetScopeNext(string content, int startPos)
+         {
+             Scope scope = null;
+             int openScopes = 0;
+             for (int i = startPos; i < content.Length; i++)
+             {
+                 if (content[i] == '"' || content[i] == '\'')   // пропускаем строки
+                 {
+                     var end = GetStringEnd(content, i);
+                     i = (end != -1) ? end : content.Length;
+                     continue;
+                 }
+
+                 if (content.Equal("{", i))
+                 {
+                     if (openScopes == 0)
+                         scope = new Scope {Start = i, Text = content};
+                     openScopes = openScopes + 1;
+                 }
+                 if (content.Equal("}", i) && openScopes > 0)
+                 {
+                     openScopes--;
+                     if (openScopes == 0)
+                     {
+                         scope.End = i;
+                         break;
+                     }
+                 }
+             }
+
+             if (scope != null && openScopes > 0)
+             {
+                 scope.End = content.Length-1;
+                 Errors.Add(string.Format("Unclosed scope: {0}", scope.ScopeText));
+                 Console.WriteLine("Error: Scope Not Closed: " + scope.ScopeText);
+             }
+
+             return scope;
+         }
+
+        public int GetNextStringStart(string line, int startPos)
         {
-            if (startPos == -1 || startPos >= content.Length)
-                return -1;
-
-            while (true)
-            {
-                int pos = content.IndexOf(ch, startPos);
-                if (pos == -1)
-                    return -1;
-
-                while (true)
-                {
-                    int strA = GetNextStringStart(content, startPos);
-                    if (strA == -1)
-                        return pos;
-
-                    int strB = GetNextStringEnd(content, strA);
-                    if (strB == -1)
-                    {
-                        Console.WriteLine("Warning! Unterminated string: {0}", content.Substring(strA));
-                        return -1;
-                    }
-
-                    if (strA < pos && pos < strB)
-                    {
-                        startPos = strB;    // скобка лежит внутри строки... это недопустимо
-                        break;
-                    }
-                    startPos = strB;    // ищем следующую строку
-                }
-            }
-        }
-
-        public int GetScopeNext(string content, int startPos)
-        {
-            return GetNextChar(content, startPos, "{");
-        }
-
-        public int GetScopeEnd(string content, int startPos)
-        {
-            while (startPos != -1 && startPos < content.Length)
-            {
-                int pos = GetNextChar(content, startPos, "}");
-                int insideScope = GetScopeNext(content, startPos + 1);
-                if (insideScope == -1 || insideScope > pos)
-                    return pos;
-
-                startPos = GetScopeEnd(content, insideScope);
-                if (startPos != -1)
-                    startPos++;
-            }
-            return -1;
-        }
-
-        private int GetQuote(string line, int startPos, char quote)
-        {
-            char[] quotes = new char[]{'\'', '"'};
-            if (quote != 0)
-                quotes = new char[] {quote};
-
             for (int i = startPos; i < line.Length; i++)
             {
                 var ch = line[i];
-                if (quotes.Any(m => m == ch))
-                {
+                if (ch == '"' || ch == '\'')
                     return i;
-                }
             }
             return -1;
         }
-        public int GetEndQuotePos(string line, int startPos)
-        {
-            var withoutEscapes = line.Substring(startPos+1)
-                .Replace("''", "##")         // ''
-                .Replace("\"\"", "##")       // ""
-                .Replace("\\\"", "##");      // \"
 
-            var pos = GetQuote(withoutEscapes, 0, line[startPos]);
-            return (pos != -1) ? startPos + pos + 1 : -1;
-        }
-        public int GetNextStringStart(string line, int startPos)
+        public int GetStringEnd(string content, int startPos)
         {
-            return GetQuote(line, startPos, (char)0);
-        }
-        public int GetNextStringEnd(string line, int startPos)
-        {
-            startPos = GetNextStringStart(line, startPos);
-            return GetStringEnd(line, startPos);
-        }
+            if (startPos == -1)
+                return -1;
 
-        private int GetStringEnd(string line, int startPos)
-        {
-            if (startPos != -1)
+            char openCh = content[startPos];
+
+            for (int i = startPos + 1; i < content.Length; i++)
             {
-                var endPos = GetEndQuotePos(line, startPos);
-                if (endPos == -1)
-                {
-                    if (WarnStringUnclosed)
-                    {
-                        Console.WriteLine("string not closed");
-                        int L = line.Length - startPos;
-                        if (L > 30) L = 30;
-                        Console.WriteLine(line.Substring(startPos, L));
-                    }
-                    endPos = line.Length - 1;
-                }
+                char ch = content.GetSafeChar(i);
+                char chNext = content.GetSafeChar(i + 1);
 
-                return endPos + 1;
+                //if (ch == '\\' && chNext == openCh) { i++; continue; }     // skip pattern \" 
+                if (ch == openCh && chNext == openCh) { i++; continue; }    // skip pattern ""
+
+                if (ch == openCh)
+                    return i;
             }
+
+            Errors.Add(string.Format("Unterminated string: {0}", content.Substring(startPos)));
+            Console.WriteLine("Unterminated string: {0}", content.Substring(startPos));
             return -1;
         }
         public string GetNextString(string line, int startPos)
         {
-            startPos = GetQuote(line, startPos, (char)0);
-            if (startPos != -1)
+            int strA = GetNextStringStart(line, startPos);
+            if (strA == -1)
+                return null;
+
+            int strB = GetStringEnd(line, strA);
+            if (strB == -1)
+                return null;
+
+            return line.Substring(strA, strB - strA + 1);
+        }
+        public string RemoveSingleLineComments(string content)
+        {
+            // delete "//" style comments
+
+            content = content.Trim();
+
+            for (int i = 0; i < content.Length; i++ )
             {
-                var endPos = GetEndQuotePos(line, startPos);
-                if (endPos == -1)
+                if (content[i] == '"' || content[i] == '\'')    // skip strings
                 {
-                    if (WarnStringUnclosed)
-                    {
-                        Console.WriteLine("string not closed");
-                        int L = line.Length - startPos;
-                        if (L > 30) L = 30;
-                        Console.WriteLine(line.Substring(startPos, L));
-                    }
-                    endPos = line.Length - 1;
+                    var end = GetStringEnd(content, i);
+                    i = (end != -1) ? end : content.Length;
+                    continue;
                 }
 
-                return line.Substring(startPos, endPos - startPos + 1);
-            }
-            return null;
-        }
-        public string RemoveSingleLineComments(string line)
-        {
-            line = line.Trim();
-            line = RemoveMultiLineComments(line);
+                if (content.Equal("*/", i))    // exclude select *//* 
+                { i += 1; continue; }
 
-            int startComment;
-            int startPos = 0;
-            while (true)
-            {
-                startComment = line.IndexOf("//", startPos);
-                if (startComment == 0)
-                    break;
-
-                var start = GetNextStringStart(line, startPos);
-                var end = (start != -1) ? GetNextStringEnd(line, startPos) : -1;
-                if (end == -1 || startComment < start)
-                    break;
-
-                startPos = end + 1;
-            }
-
-            while (startPos < line.Length && startPos != -1)
-            {
-                var pos = line.IndexOf("//", startPos);
-                if (pos == -1)
-                    break;
-
-                line = line.Remove(pos);
-                startPos = line.Length;
-            }
-
-            return line.Trim();
-        }
-        public string RemoveMultiLineComments(string line)
-        {
-            line = line.Trim();
-            int l0 = line.Length;
-            
-            int startPos = 0;
-            while (startPos != -1 && startPos < line.Length)
-            {
-                var next = GetNextStringStart(line, startPos);
-                if (next != -1)
+                if (content.Equal("//", i))
                 {
-                    if (next > 0)
+                    content = content.Remove(i);
+                    break;
+                }
+            }
+
+            return content.Trim();
+        }
+        public string RemoveMultiLineComments(string content)
+        {
+            content = content.Trim();
+
+            int s0 = -1;
+            int openMultiComment = 0;
+            for (int i = 0; i < content.Length; i++)
+            {
+                if ((content[i] == '\'' || content[i] == '"') && openMultiComment == 0)
+                {
+                    if (i == 900)
+                        i = 900;
+
+                    int i0 = i;
+                    var end = GetStringEnd(content, i);
+                    i = (end == -1) ? content.Length - 1 : end;
+                    //Console.WriteLine("{0}: #{1}#", i0, content.Substring(i0, i-i0+1));
+                    continue;
+                }
+
+                if (content.Equal("/*", i))
+                {
+                    if (openMultiComment == 0)
+                        s0 = i;
+
+                    openMultiComment++;
+                }
+
+                if (content.Equal("*/", i))
+                {
+                    if (openMultiComment > 0)
                     {
-                        int l1 = line.Length;
-                        line = RemoveMultiLineComment(line, startPos, next - 1);
-                        if (l1 == line.Length)
+                        openMultiComment = openMultiComment - 1;
+                        if (openMultiComment == 0)
                         {
-                            next = GetNextStringStart(line, startPos);
-                            var endStr = GetStringEnd(line, next);
-                            startPos = (endStr != -1) ? endStr : line.Length;
+                            content = content.Remove(s0, (i - s0) + 2);
+                            i = s0 - 1;
                         }
                     }
                     else
                     {
-                        var endStr = GetStringEnd(line, next);
-                        startPos = (endStr != -1) ? endStr : line.Length;
+                        i++;
+                        continue;
                     }
                 }
-                else break;
+
+                if (!FsmContent)
+                {
+                    if (content.Equal("//", i))
+                    {
+                        int endLine = content.IndexOf("\n", i+1);
+                        if (endLine == -1)
+                            endLine = content.Length - 1;
+
+                        content = content.Remove(i, endLine - i + 1);
+                        i--;
+                        continue;
+                    }
+                }
+
             }
 
-            line = RemoveMultiLineComment(line, startPos, line.Length);
-            line = line.Trim();
-
-            if (line.Length != l0)
-                line = RemoveMultiLineComments(line);
-
-            return line.Trim();
-        }
-        public string RemoveMultiLineComment(string line, int startPos, int endPos)
-        {
-            if (startPos >= line.Length)
-                return line;
-
-            var startComment = line.IndexOf("/*", startPos);
-            if (startComment > endPos || startComment == -1)
-                return line;
-
-            line = RemoveMultiLineComment(line, startComment + 2, endPos); // recurse for remove inside comments
-            var endComment = line.IndexOf("*/", startComment);
-
-            if (endComment != -1)
+            if (openMultiComment > 0)
             {
-                endComment = endComment + 2;
-                line = line.Remove(startComment, endComment - startComment);
+                Errors.Add(string.Format("Some multi-comments are not closed: {0}", content.Substring(s0)));
+                content = content.Remove(s0);
             }
-            return line;
+
+            return content.Trim();
         }
+
         public string RemoveExtraSpaces(string line)
         {
             line = line.Trim();
@@ -640,7 +554,7 @@ namespace ArmA2.Script
                         next = GetNextStringStart(line, startPos);
                     }
                     var endStr = GetStringEnd(line, next);
-                    startPos = (endStr != -1) ? endStr : line.Length;
+                    startPos = (endStr != -1) ? endStr+1 : line.Length;
                 }
                 else break;
             }
@@ -694,20 +608,20 @@ namespace ArmA2.Script
 
                 while (str1end != -1)
                 {
-                    var str2start = GetNextStringStart(line, str1end);
+                    var str2start = GetNextStringStart(line, str1end+1);
                     if (str2start == -1)
                     {
-                        startPos = str1end;
+                        startPos = str1end+1;
                         break;
                     }
 
-                    var m = line.Substring(str1end, str2start - str1end).Trim();
+                    var m = line.Substring(str1end+1, str2start - str1end - 1).Trim();
                     if (m == @"\n")
                     {
-                        line = line.Remove(str1end - 1, str2start - str1end + 2);
+                        line = line.Remove(str1end, str2start - str1end + 1);
                         if (this.FsmContent)
                         { 
-                            line = line.Insert(str1end - 1, "\n");
+                            line = line.Insert(str1end, "\n");
                         }
                         str1end = GetStringEnd(line, str1start);
                     }
