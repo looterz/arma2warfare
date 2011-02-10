@@ -4,7 +4,7 @@
 */
 
 
-private ["_x","_skip","_min","_ran","_vehicles","_sorted","_vehicle"];
+private ["_u","_skip","_min","_ran","_vehicles","_sorted","_vehicle"];
 _vehicles = player nearEntities [["Car","Motorcycle","Tank","Ship","Air"],5];
 if (count _vehicles < 1) exitWith {};
 
@@ -18,7 +18,7 @@ if (!locked _vehicle) exitWith {};
 WFBE_SK_V_LastUse_Lockpick = time;
 
 _skip = false;
-for [{_x = 0},{_x < 2},{_x = _x + 1}] do {
+for [{_u = 0},{_u < 2},{_u = _u + 1}] do {
 	sleep 0.5;
 	player playMove "AinvPknlMstpSlayWrflDnon_medic";
 	sleep 0.5;

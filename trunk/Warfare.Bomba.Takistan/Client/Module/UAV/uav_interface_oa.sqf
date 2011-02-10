@@ -1,5 +1,5 @@
 
-private ["_logic","_arguments","_defaultTeamswitch","_uav","_locked","_action_leave","_ppColor","_displayEH_keydown","_displayEH_mousebuttondown","_mapEH_mousebttondown"];
+private ["_logic","_defaultTeamswitch","_uav","_locked","_action_leave","_ppColor","_displayEH_keydown","_displayEH_mousebuttondown","_mapEH_mousebttondown"];
 _logic = _arguments select 0;
 _defaultTeamswitch = teamswitchenabled;
 
