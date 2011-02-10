@@ -1,4 +1,4 @@
-private['_blackListID','_id', '_countd'];
+private['_blackListID','_id', '_countd', '_list'];
 _id = getPlayerUID (_this select 0);
 
 	_countd = {
