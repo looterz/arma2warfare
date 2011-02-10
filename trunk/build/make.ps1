@@ -89,10 +89,11 @@ function preprocess-mission {
 	$files = $files | Where { ($_.FullName -match ".*\\briefing.sqf") -eq $false };
 	foreach($x in $files) {
 
-		Write-Host "Preprocess-file: "$x.FullName;	
+		Write-Host "compile: "$x.FullName;	
 		
 		#-- preprocess-file -fileName $x.FullName;
-		[ArmA2.Script.Compiler]::CompileFile($x.FullName, $false);
+		$compiler = New-Object ArmA2.Script.Compiler
+		$compiler.CompileFile($x.FullName);
 		
 		if ($output.Length -gt 0) { Write-Host $output; }
 		$output.Length = 0;		
