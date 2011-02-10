@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace ArmA2.Script.ScriptProcessor
 {
-    public class Processor
+    public partial class Processor
     {
         public bool ScriptDefinition = true;
         public bool Scope = false;
@@ -84,7 +84,8 @@ namespace ArmA2.Script.ScriptProcessor
                         return i;
                     }
                 }
-                cmdElement.Elements.Add(new CmdSeparator { Text = separator});
+                cmdElement.Elements.Add(new CmdSeparator { Text = separator });
+                ;
 
                 if (separator == ";")
                     return i;

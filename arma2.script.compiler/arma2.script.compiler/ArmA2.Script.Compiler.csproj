@@ -48,6 +48,8 @@
     <Compile Include="ScriptProcessor\Processor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scope.cs" />
+    <Compile Include="ScriptProcessor\Commands.cs" />
+    <Compile Include="ScriptProcessor\Operators.cs" />
     <Compile Include="StringExtension.cs" />
     <Compile Include="Variable.cs" />
   </ItemGroup>

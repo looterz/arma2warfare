@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using ArmA2.Script;
+using ArmA2.Script.ScriptProcessor;
 using NUnit.Framework;
 
 namespace Obfuscate
@@ -11,6 +12,21 @@ namespace Obfuscate
     public class Tests
     {
         readonly Compiler _compiler = new Compiler();
+
+        [Test]
+        public void TestOperatorCommandCollection()
+        {
+            Logger.Clear();
+
+            var commands = Processor.Commands;
+            var operators = Processor.Operators;
+
+            Assert.AreEqual(1217, Processor.Commands.Count);
+            Assert.AreEqual(17, Processor.Operators.Count);
+
+            Assert.AreEqual(0, Logger.Errors.Count);
+            Assert.AreEqual(0, Logger.Warnings.Count);
+        }
 
         [Test]
         public void TestStringSearch2()
