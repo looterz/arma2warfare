@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using ArmA2.Script;
+using ArmA2.Script.ScriptProcessor;
 
 //using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -35,6 +36,9 @@ namespace Obfuscate
 
                 string newFileName = Path.GetFileNameWithoutExtension(fileName) + ".a" + Path.GetExtension(fileName);
                 File.WriteAllText(newFileName, content);
+
+                Processor processor = new Processor();
+                processor.Execute(content);
             }
 
             Console.ReadKey();

@@ -21,6 +21,19 @@ namespace ArmA2.Script
         public static List<string> Warnings = new List<string>();
         public static List<string> Errors = new List<string>();
 
+        private static string _padding = "";
+
+        public static void IncPadding()
+        {
+            _padding = _padding + "    ";
+        }
+
+        public static void DecPadding()
+        {
+            if (_padding.Length >= 4)
+            _padding = _padding.Remove(_padding.Length - 4);
+        }
+
         public static void Clear()
         {
             Errors.Clear();
@@ -32,6 +45,11 @@ namespace ArmA2.Script
             if (args.Length > 0)
                 message = string.Format(message, args);
 
+            message = _padding + message;
+
+            if (level >= LoggingLevel.Trace)
+                message = string.Format("{0}: {1}", level, message); 
+            
             if (level == LoggingLevel.Error)
                 Errors.Add(message);
 
@@ -39,7 +57,7 @@ namespace ArmA2.Script
                 Warnings.Add(message);
 
             if (level >= Level)
-                Console.WriteLine("{0}: {1}", level, message);
+                Console.WriteLine(message);
         }
     }
 }
