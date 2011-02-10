@@ -6,49 +6,6 @@ using System.Text.RegularExpressions;
 
 namespace ArmA2.Script
 {
-    public static class stringExtension
-    {
-        public static char GetSafeChar(this string str, int pos)
-        {
-            return (0 <= pos && pos < str.Length) ? str[pos] : (char) 0;
-        }
-
-        public static bool Equal(this string str, string equal, int pos)
-        {
-            int j = 0;
-            for(int i=pos; i>=0 && i< str.Length && j < equal.Length; i++, j++)
-            {
-                if (str[i] != equal[j])
-                    return false;
-            }
-
-            return (j == equal.Length);
-        }
-
-        public static int GetEndQuote(this string content, int startPos)
-        {
-            if (startPos == -1)
-                return -1;
-
-            char openCh = content[startPos];
-
-            for (int i = startPos + 1; i < content.Length; i++)
-            {
-                char ch = content.GetSafeChar(i);
-                char chNext = content.GetSafeChar(i + 1);
-
-                //if (ch == '\\' && chNext == openCh) { i++; continue; }     // skip pattern \" 
-                if (ch == openCh && chNext == openCh) { i++; continue; }    // skip pattern ""
-
-                if (ch == openCh)
-                    return i;
-            }
-
-            Logger.Log(LoggingLevel.Error, "Unterminated string: {0}", content.Substring(startPos));
-            return -1;
-        }
-    }
-
     public class Compiler
     {
         public bool FsmContent = false;
@@ -377,7 +334,7 @@ namespace ArmA2.Script
              int openScopes = 0;
              for (int i = startPos; i < content.Length; i++)
              {
-                 if (content[i] == '"' || content[i] == '\'')   // пропускаем строки
+                 if (content.IsStartString(i))   // пропускаем строки
                  {
                      var end = content.GetEndQuote(i);
                      i = (end != -1) ? end : content.Length;
@@ -442,7 +399,7 @@ namespace ArmA2.Script
 
             for (int i = 0; i < content.Length; i++ )
             {
-                if (content[i] == '"' || content[i] == '\'')    // skip strings
+                if (content.IsStartString(i))    // skip strings
                 {
                     var end = content.GetEndQuote(i);
                     i = (end != -1) ? end : content.Length;
@@ -469,7 +426,7 @@ namespace ArmA2.Script
             int openMultiComment = 0;
             for (int i = 0; i < content.Length; i++)
             {
-                if ((content[i] == '\'' || content[i] == '"') && openMultiComment == 0)
+                if (content.IsStartString(i) && openMultiComment == 0)
                 {
                     int i0 = i;
                     var end = content.GetEndQuote(i);
