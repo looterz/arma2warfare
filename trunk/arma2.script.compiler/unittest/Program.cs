@@ -6,7 +6,7 @@ using ArmA2.Script.ScriptProcessor;
 
 //using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Obfuscate
+namespace ArmA2.Script.UnitTests
 {
     class Program
     {

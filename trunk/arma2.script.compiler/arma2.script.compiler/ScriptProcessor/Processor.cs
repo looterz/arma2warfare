@@ -5,38 +5,48 @@ namespace ArmA2.Script.ScriptProcessor
 {
     public partial class Processor
     {
-        public bool ScriptDefinition = true;
-        public bool Scope = false;
-
-        public List<string> LocalVars = new List<string>();
-        public List<string> PrivateVars = new List<string>();
-
-        public int StartPosition { get; private set; }
-        public int EndPosition { get; private set; }
-
-        public void Execute(string content)
+        public CmdElement Execute(string content)
         {
             CmdElement root = new CmdElement();
-            int startPos = 0;
+            ProcessCommand(root, content, 0);
 
-            while (startPos < content.Length)
-            {
-                CmdElement script = new CmdElement();
-                root.Elements.Add(script);
-                startPos = ProcessCommand(script, content, startPos) + 1;
-            }
-
-            string test = root.ToString();
-            if (test == content)
-                test = test;
+            GroupSetOp(root);
+            return root;
         }
 
-        private string[] _sep = {"==", ">=", "<=", "!=", "&&", "||",
-                "{", "[", "(", "]", ")", "}", 
-                "!", "=", "*", "+", "-", "/", "^", "&", ",", ":", "\"", "'", ";", " "};
-
-        private int ProcessCommand(CmdElement cmdElement, string content, int startPos)
+        private void GroupSetOp(CmdElement root)
         {
+            var items = root.GetItems();
+            var setOp = items.FirstOrDefault(m => (m is CmdOperator) && ((CmdOperator)m).Text == "=");
+            if (setOp != null)
+            {
+                int id = items.IndexOf(setOp);
+                var valueOp = root.GetItems().Where((m, pos) => pos > id).ToList();
+
+                CmdElement groupOp = new CmdElement();
+                valueOp.ForEach(m => {
+                    groupOp.ChildAdd(m);
+                    items.Remove(m);
+                });
+
+                root.ChildAdd(groupOp);
+            }
+
+            items.Where(m => m is CmdElement).ForEach(m => GroupSetOp((CmdElement) m));
+        }
+
+        private string[] _sep = (new[] {"==", ">=", "<=", "!=", "&&", "||",
+                "{", "[", "(", "]", ")", "}", 
+                " greater ", " greater=", " less ", " less=", " or ", " and ", " plus ",
+                "!", "=", "*", "+", "-", "/", "^", "&", ",", ":", "\"", "'", ";", " "})
+                .OrderByDescending(m => m.Length).ToArray();
+
+        private int ProcessCommand(CmdElement cmdRoot, string content, int startPos)
+        {
+            CmdElement cmdElement = cmdRoot;
+            cmdElement = new CmdElement();
+            cmdRoot.ChildAdd(cmdElement);
+
             int opStart = -1;
             for(int i=startPos; i<content.Length; i++)
             {
@@ -50,10 +60,8 @@ namespace ArmA2.Script.ScriptProcessor
 
                 if (opStart != -1)
                 {
-                    var leftOp = content.Substring(opStart, i - opStart);
-                    if (leftOp.Length != 0)
-                        cmdElement.Elements.Add(new CmdOperator {Text = leftOp});
-
+                    var cmdName = content.Substring(opStart, i - opStart);
+                    cmdElement.CmdAdd(cmdName);
                     opStart = -1;
                 }
 
@@ -64,7 +72,7 @@ namespace ArmA2.Script.ScriptProcessor
                         endP = content.Length - 1;
 
                     var cmdString = new CmdString {Quote = separator, Text = content.Substring(i + 1, endP - i - 1)};
-                    cmdElement.Elements.Add(cmdString);
+                    cmdElement.ChildAdd(cmdString);
                     i = endP;
                     continue;
                 }
@@ -72,40 +80,57 @@ namespace ArmA2.Script.ScriptProcessor
                 if (separator == "[" || separator == "(" || separator == "{")
                 {
                     var array = new CmdScope {OpenCh = separator};
-                    cmdElement.Elements.Add(array);
+                    cmdElement.ChildAdd(array);
                     i = ProcessCommand(array, content, i + 1);
                     continue;
                 }
 
-                if (cmdElement is CmdScope)
+                if (cmdRoot is CmdScope)
                 {
-                    if (separator == ((CmdScope)cmdElement).EndCh)
+                    if (separator == ((CmdScope)cmdRoot).EndCh)
                     {
                         return i;
                     }
                 }
-                cmdElement.Elements.Add(new CmdSeparator { Text = separator });
-                ;
+                cmdElement.SeparatorAdd(separator);
+                if (separator.Length > 1)
+                    i = i + (separator.Length - 1);
 
                 if (separator == ";")
-                    return i;
+                {
+                    var items = cmdElement.GetItems();
+                    if (items.Count == 1)
+                    {
+                        cmdRoot.GetItems().Remove(cmdElement);
+                        cmdRoot.ChildAdd(items.First());
+                    }
+
+                    cmdElement = new CmdElement();
+                    cmdRoot.ChildAdd(cmdElement);
+                    continue;
+                }
             }
 
-            if (cmdElement is CmdScope)
+            if (opStart != -1)
+            {
+                var cmdName = content.Substring(opStart, content.Length - opStart).Trim();
+                cmdElement.CmdAdd(cmdName);
+            }
+
+            var items1 = cmdElement.GetItems();
+            if (items1.Count == 1)
+            {
+                cmdRoot.GetItems().Remove(cmdElement); 
+                cmdRoot.ChildAdd(items1.First());
+            }
+
+            if (cmdRoot is CmdScope)
             {
                 var scope = (CmdScope)cmdElement;
                 Logger.Log(LoggingLevel.Error, "Unclosed scope: {0}", scope.ToString());
             }
 
             return content.Length;
-        }
-
-        private void RegisterVariable(string varName)
-        {
-            if (LocalVars.Any(m => m.ToLower() == varName.ToLower()))
-                return;
-
-            LocalVars.Add(varName);
         }
     }
 }
