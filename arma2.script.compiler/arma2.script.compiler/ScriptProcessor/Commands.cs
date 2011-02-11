@@ -13,23 +13,30 @@ namespace ArmA2.Script.ScriptProcessor
             {
                 if (_commands == null)
                 {
-                    _commands = ReadUniqueItemCollection(_commandList, "Duplicated command");
+                    _commands = ReadUniqueItemCollection(_commandList, "Command");
                 }
                 return _commands;
             }
         }
 
+        public static bool IsCommand(string value)
+        {
+            value = value.ToLower().Trim();
+            return Commands.Any(m => m == value);
+        }
+
         private static List<string> ReadUniqueItemCollection(string content, string warningMessage)
         {
             var groups = content.Split("\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
-                .Select(m => m.Trim())
+                .Select(m => m.Trim().ToLower())
                 .Where(m => m.Length > 0)
                 .GroupBy(m => m);
 
-            groups.Where(m => m.Count() > 0).ForEach(n =>
+            groups.Where(m => m.Count() > 1).ForEach(n => Logger.Log(LoggingLevel.Warning, "{0}: Duplicate '{1}'", warningMessage, n.Key) );
+
+            groups.Where(m => m.Key.Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Count() > 1).ForEach(n =>
             {
-                if (n.Count() > 1)
-                    Logger.Log(LoggingLevel.Warning, "{0}: '{1}'", warningMessage, n.Key);
+                    Logger.Log(LoggingLevel.Warning, "{0}: Spaces are not allowed '{1}'", warningMessage, n.Key);
             });
 
             return groups.Select(m => m.Key)
@@ -252,9 +259,7 @@ createTask
 createTeam
 createTrigger
 createUnit
-createUnit array
 createVehicle
-createVehicle array
 createVehicleLocal
 crew
 ctrlActivate
@@ -309,8 +314,7 @@ ctrlSetFontHeightH3
 ctrlSetFontHeightH4
 ctrlSetFontHeightH5
 ctrlSetFontHeightH6
-ctrlSetFontP height
-ctrlSetFontP name
+ctrlSetFontP
 ctrlSetFontPB
 ctrlSetForegroundColor
 ctrlSetPosition
@@ -365,11 +369,11 @@ deleteTeam
 deleteVehicle
 deleteWaypoint
 detach
-diag fps
-diag fpsmin
-diag frameno
-diag log
-diag tickTime
+diag_fps
+diag_fpsmin
+diag_frameno
+diag_log
+diag_tickTime
 dialog
 diarySubjectExists
 difficultyEnabled
@@ -702,7 +706,6 @@ lockedDriver
 lockedTurret
 lockTurret
 lockWP
-lockWp
 log
 lookAt
 lookAtPos
@@ -750,7 +753,6 @@ moveToFailed
 musicVolume
 
 name
-name location
 nearEntities
 nearestBuilding
 nearestLocation
@@ -820,7 +822,6 @@ playMusic
 playScriptedMission
 playSound
 position
-position location
 posScreenToWorld
 positionCameraToWorld
 posWorldToScreen
@@ -860,7 +861,6 @@ rank
 rankId
 rating
 rectangular
-R cont.
 registeredTasks
 registerTask
 reload
@@ -1114,7 +1114,6 @@ showWarrant
 showWatch
 showWaypoint
 side
-side location
 sideChat
 sideEnemy
 sideFriendly
@@ -1127,7 +1126,6 @@ sin
 size
 sizeOf
 skill
-skill vehicle
 skipTime
 sleep
 sliderPosition
@@ -1152,7 +1150,6 @@ suppressFor
 surfaceIsWater
 surfaceType
 switch
-switch do
 switchableUnits
 switchAction
 switchCamera
@@ -1163,7 +1160,6 @@ synchronizedObjects
 synchronizeObjectsAdd
 synchronizeObjectsRemove
 synchronizeWaypoint
-synchronizeWaypoint trigger
 
 tan
 targetsAggregate
@@ -1186,7 +1182,6 @@ teamSwitchEnabled
 teamType
 terminate
 text
-text location
 textLog
 textLogFormat
 tg

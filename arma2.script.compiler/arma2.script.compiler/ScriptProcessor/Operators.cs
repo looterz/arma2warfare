@@ -13,10 +13,16 @@ namespace ArmA2.Script.ScriptProcessor
             {
                 if (_operators == null)
                 {
-                    _operators = ReadUniqueItemCollection(_operatorList, "Duplicated operator");
+                    _operators = ReadUniqueItemCollection(_operatorList, "Operator");
                 }
                 return _operators;
             }
+        }
+
+        public static bool IsOperator(string value)
+        {
+            value = value.ToLower().Trim();
+            return Operators.Any(m => m == value);
         }
 
         private const string _operatorList = @"
@@ -28,15 +34,20 @@ greater
 greater=
 less
 less=
-*
+or
+and
 plus
+*
 -
 /
 ==
-^
-or
 =
 :
+||
+>=
+<=
+^
+&
 ";
     }
 }

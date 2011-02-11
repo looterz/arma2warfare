@@ -1,32 +1,15 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Text;
 using ArmA2.Script;
-using ArmA2.Script.ScriptProcessor;
 using NUnit.Framework;
 
-namespace Obfuscate
+namespace ArmA2.Script.UnitTests
 {
     [TestFixture]
-    public class Tests
+    public class TestCompiler
     {
         readonly Compiler _compiler = new Compiler();
-
-        [Test]
-        public void TestOperatorCommandCollection()
-        {
-            Logger.Clear();
-
-            var commands = Processor.Commands;
-            var operators = Processor.Operators;
-
-            Assert.AreEqual(1217, Processor.Commands.Count);
-            Assert.AreEqual(17, Processor.Operators.Count);
-
-            Assert.AreEqual(0, Logger.Errors.Count);
-            Assert.AreEqual(0, Logger.Warnings.Count);
-        }
 
         [Test]
         public void TestStringSearch2()
@@ -184,8 +167,8 @@ namespace Obfuscate
             Assert.AreEqual("{ctrlSetText[19007,Format[localize \"STR_WF_CurrentMission\",\"N/A\"]]}", testText.Substring(scope.Start, scope.Length + 1), "");
 
 //            testText = @"{_txt=Format[""DEBUG: \n\n Something might be wrong with the town initialization process... \n\n This could be related to the towns amount set or to the initialization itself, try to rejoin the game if the auto-fix doesn't work...\n\nExtra Info:\ncount towns:%1\ntotalTowns:%2...\n\nThe game will now attempt to fix itself..."",count towns,totalTowns];_txt Call DebugHint;towns = towns - [objNull];if (count towns == totalTowns) then {townInit = true;('DEBUG:\n\nThe towns initialization has been fixed.') Call DebugHint;} else {('DEBUG:\n\nThe towns initialization cannot be fixed.') Call DebugHint;sleep 5; failMission ""END1""};} else {townInit = true};";
- //           var str = _compiler.GetNextString(testText, 0);
-  //          Assert.AreEqual("{ somevar }", testText.Substring(scope.Start, scope.Length + 1), "");
+            //           var str = _compiler.GetNextString(testText, 0);
+            //          Assert.AreEqual("{ somevar }", testText.Substring(scope.Start, scope.Length + 1), "");
 
             testText = @"sometext { somevar ""asda"" { ""abcde"" } ";
             scope = _compiler.GetScopeNext(testText, 0);
