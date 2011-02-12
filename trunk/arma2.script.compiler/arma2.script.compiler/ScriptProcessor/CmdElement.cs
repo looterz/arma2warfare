@@ -1,13 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace ArmA2.Script.ScriptProcessor
 {
-    public class CmdElementCollection: CmdElementCollectionBase<CmdBase>
-    {}
+    public interface IScriptRenderer
+    {
+        void Render(StreamWriter writer);
+    }
 
-    public class CmdElementCollectionBase<T> : List<T> where T : CmdBase
+    public class CmdElementCollection : CmdElementCollectionBase<CmdBase>
+    {
+    }
+
+    public class CmdElementCollectionBase<T> : List<T>, IScriptRenderer where T : CmdBase
     {
         private int _position = 0;
 
@@ -46,13 +55,37 @@ namespace ArmA2.Script.ScriptProcessor
             string txt = "";
             this.ForEach(m => txt = txt + m);
             return txt;
-        }        
+        }
+
+        public void Render(StreamWriter writer)
+        {
+            foreach (var item in this)
+                ((IScriptRenderer)item).Render(writer);
+        }
     }
 
     //[DebuggerTypeProxy(typeof(Flatten))]
-    public class CmdBase
+    public class CmdBase : IScriptRenderer
     {
-        public CmdElement Parent { get; set; }        
+        public CmdElement Parent { get; set; }
+        public virtual void Render(StreamWriter writer)
+        {
+        }
+
+        public override string ToString()
+        {
+            using(var ms = new MemoryStream())
+            {
+                var writer = new StreamWriter(ms);
+                writer.AutoFlush = true;
+                Render(writer);
+                writer.Flush();
+
+                ms.Flush();
+                ms.Position = 0;
+                return (new StreamReader(ms)).ReadToEnd();
+            }
+        }
     }
 
     public class CmdElement : CmdBase
@@ -73,7 +106,12 @@ namespace ArmA2.Script.ScriptProcessor
             {
                 CmdText cmd;
                 if (Processor.IsCommand(cmdName))
-                    cmd = new CmdCommand { Text = cmdName };
+                {
+                    if (cmdName.StartsWith("#"))
+                        cmd = new CmdPreprocessor { Text = cmdName };
+                    else
+                        cmd = new CmdCommand {Text = cmdName};
+                }
                 else if (Processor.IsOperator(cmdName))
                     cmd = new CmdOperator { Text = cmdName };
                 else
@@ -110,18 +148,20 @@ namespace ArmA2.Script.ScriptProcessor
             }
         }
 
-        public override string ToString()
+        public override void Render(StreamWriter writer)
         {
-            return Items.ToString();
+            base.Render(writer);
+            Items.Render(writer);
         }
     }
 
     public class CmdText : CmdBase
     {
         public string Text;
-        public override string ToString()
+        public override void Render(StreamWriter writer)
         {
-            return Text;
+            base.Render(writer);
+            writer.Write(Text);
         }
     }
 
@@ -130,6 +170,17 @@ namespace ArmA2.Script.ScriptProcessor
 
     public class CmdCommand : CmdCommandBase
     { }
+
+    public class CmdPreprocessor : CmdCommand
+    {
+        public override void Render(StreamWriter writer)
+        {
+            if (writer.BaseStream.Length > 0)
+                writer.Write("\n");
+
+            base.Render(writer);
+        }
+    }
 
     public class CmdOperator : CmdCommandBase
     { }
@@ -143,9 +194,11 @@ namespace ArmA2.Script.ScriptProcessor
     public class CmdString : CmdText
     {
         public string Quote;
-        public override string ToString()
+        public override void Render(StreamWriter writer)
         {
-            return Quote + base.ToString() + Quote;
+            writer.Write(Quote);
+            base.Render(writer);
+            writer.Write(Quote);
         }
     }
 
@@ -204,9 +257,11 @@ namespace ArmA2.Script.ScriptProcessor
         public string OpenCh { get; protected set; }
         public string EndCh { get; protected set; }
 
-        public override string ToString()
+        public override void Render(StreamWriter writer)
         {
-            return OpenCh + base.ToString() + EndCh;
+            writer.Write(OpenCh);
+            base.Render(writer);
+            writer.Write(EndCh);
         }
     }
 }

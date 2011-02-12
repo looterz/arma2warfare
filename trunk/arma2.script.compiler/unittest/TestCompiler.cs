@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using ArmA2.Script;
+using ArmA2.Script.ScriptProcessor;
 using NUnit.Framework;
 
 namespace ArmA2.Script.UnitTests
@@ -16,6 +17,22 @@ namespace ArmA2.Script.UnitTests
         {
             string content;
             string result;
+
+            content = "private['_vehicle','_lock'];\n#include \"netsend.h\"\n_vehicle = _this select 0;";
+
+            Processor p = new Processor();
+            var byteCode = p.CompileToByteCode(content);
+
+            result = _compiler.Compile(content);
+            Assert.AreEqual("private['_vehicle'];\n#include \"netsend.h\"\n_vehicle=_this select 0;", result);
+
+            content = @"
+#include ""myfile.h""
+spawn { _myVar = 1; }";
+
+            result = _compiler.Compile(content);
+            Assert.AreEqual("#include \"myfile.h\"\nspawn{private['_myVar'];_myVar=1}", result);
+
             content = @"spawn { _myVar = 1; }";
             result = _compiler.Compile(content);
             Assert.AreEqual("spawn{private['_myVar'];_myVar=1}", result);
@@ -159,7 +176,7 @@ switch (_respawnCampsMode) do {
 
                 string content = File.ReadAllText(file);
                 string expectedFileName = Path.GetDirectoryName(file) + "\\" + Path.GetFileNameWithoutExtension(file) + ".a" + Path.GetExtension(file);
-                string contentExpected = File.ReadAllText(expectedFileName);
+                string contentExpected = File.ReadAllText(expectedFileName).Replace("\r\n", "\n");
 
                 string contentActual = compiler.Compile(content);
                 if (contentActual != contentExpected)

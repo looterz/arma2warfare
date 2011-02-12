@@ -265,7 +265,7 @@ namespace ArmA2.Script
                 }
                 else
                 {
-                    Logger.Log(LogLevel.Error, "'=' must be at expression start", byteCode.ToString());
+                    Logger.Log(LogLevel.Error, "'=' must be at expression start: {0}", byteCode.ToString());
                 }
             }
         }
