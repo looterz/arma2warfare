@@ -17,6 +17,8 @@ namespace ArmA2.Script.UnitTests
             Processor processor = new Processor();
             var byteCode = processor.CompileToByteCode("private['a','b','c','d',if(a>b)then{0}else{1}]");
 
+            var s = byteCode.ToString();
+
             var op = (CmdElement)byteCode.Data[0];
             Assert.AreEqual(2, op.Data.Count);
 
@@ -55,7 +57,7 @@ _myobj call compile preprocess _path2file;";
 #define MYFUNC=""myfunction.h"" \
                MYFUNC2
 _myobj call compile preprocess _path2file;";
-            Assert.AreEqual(byteCode.ToString(), expected.Replace("\r\n", "\n").Trim());
+            Assert.AreEqual(expected.Replace("\r\n", "\n").Trim(), byteCode.ToString()) ;
             Assert.AreEqual(2, byteCode.Data.Count, "must have two operators");
 
         }        
@@ -247,6 +249,7 @@ _myobj call compile preprocess _path2file;";
                 Processor processor = new Processor();
 
                 var cmds = processor.CompileToByteCode(content);
+                content = content.Replace("\r\n", "\n").Trim();
                 
                 Assert.AreEqual(content, cmds.ToString(), string.Format("{0} - [Failed]", Path.GetFileName(file)));
                 Assert.AreEqual(0, Logger.Errors.Count, string.Format("{0} - [Failed]", Path.GetFileName(file)));

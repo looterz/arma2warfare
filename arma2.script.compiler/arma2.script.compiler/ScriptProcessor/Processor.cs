@@ -53,7 +53,7 @@ namespace ArmA2.Script.ScriptProcessor
         private string[] _sep = (new[] {"==", ">=", "<=", "!=", "&&", "||",
                 "{", "[", "(", "]", ")", "}", 
                 " greater ", " greater=", " less ", " less=", " or ", " and ", " plus ",
-                "!", "=", "*", "+", "-", "/", "^", "&", ",", ":", "\"", "'", ";", "\\n", " "})
+                "!", "=", "*", "+", "-", "/", "^", "&", ",", ":", "\"", "'", ";", " "})
                 .OrderByDescending(m => m.Length).ToArray();
 
         private string[] _baseEndCommand = new[] {",", ";"};
@@ -88,18 +88,16 @@ namespace ArmA2.Script.ScriptProcessor
 
                 if (opStart != -1)
                 {
-                    var cmdName = content.Substring(opStart, i - opStart);
+                    var cmdName = content.Substring(opStart, i - opStart).Trim();
+
                     var cmd = cmdElement.CmdAdd(cmdName);
-                    if (cmd != null && cmdElement.Data.Count() == 1 && cmd is CmdCommand)
+                    if (cmd != null && cmdElement.Data.Count() == 1 && cmd is CmdPreprocessor)
                     {
-                        if(cmd.Text.StartsWith("#"))
-                        {
-                            separatorTypes.AddRange(new[] { "\\\n", "\n" });
+                           separatorTypes.AddRange(new[] { "\\\n", "\n" });
                             separatorTypes = separatorTypes.OrderByDescending(m => m.Length).ToList();
 
                             endCommand.AddRange(new[]{"\n"});
                             endCommand = endCommand.OrderByDescending(m => m.Length).ToList();
-                        }
                     }
 
 
