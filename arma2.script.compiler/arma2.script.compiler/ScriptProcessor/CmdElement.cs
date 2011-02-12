@@ -49,17 +49,22 @@ namespace ArmA2.Script.ScriptProcessor
             Items.Add(child);
         }
 
-        public void CmdAdd(string cmdName)
+        public CmdText CmdAdd(string cmdName)
         {
             if (cmdName.Length != 0)
             {
+                CmdText cmd;
                 if (Processor.IsCommand(cmdName))
-                    ChildAdd(new CmdCommand { Text = cmdName });
+                    cmd = new CmdCommand { Text = cmdName };
                 else if (Processor.IsOperator(cmdName))
-                    ChildAdd(new CmdOperator { Text = cmdName });
+                    cmd = new CmdOperator { Text = cmdName };
                 else
-                    ChildAdd(new CmdVariable { Text = cmdName });
+                    cmd = new CmdVariable { Text = cmdName };
+
+                ChildAdd(cmd);
+                return cmd;
             }
+            return null;
         }
 
         public void SeparatorAdd(string separatorName)

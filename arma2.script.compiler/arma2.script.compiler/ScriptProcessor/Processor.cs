@@ -53,11 +53,16 @@ namespace ArmA2.Script.ScriptProcessor
         private string[] _sep = (new[] {"==", ">=", "<=", "!=", "&&", "||",
                 "{", "[", "(", "]", ")", "}", 
                 " greater ", " greater=", " less ", " less=", " or ", " and ", " plus ",
-                "!", "=", "*", "+", "-", "/", "^", "&", ",", ":", "\"", "'", ";", " "})
+                "!", "=", "*", "+", "-", "/", "^", "&", ",", ":", "\"", "'", ";", "\\n", " "})
                 .OrderByDescending(m => m.Length).ToArray();
+
+        private string[] _baseEndCommand = new[] {",", ";"};
 
         private int ProcessCommand(CmdElement cmdRoot, string content, int startPos)
         {
+            List<string> separatorTypes = null;
+            List<string> endCommand = null;
+
             CmdElement cmdElement = cmdRoot;
             cmdElement = new CmdElement();
             cmdRoot.ChildAdd(cmdElement);
@@ -65,18 +70,39 @@ namespace ArmA2.Script.ScriptProcessor
             int opStart = -1;
             for(int i=startPos; i<content.Length; i++)
             {
+                if (endCommand == null)
+                {
+                    separatorTypes = new List<string>(_sep);
+                    separatorTypes.AddRange(_baseEndCommand);
+
+                    endCommand = new List<string>(_baseEndCommand);
+                }
+
                 if (opStart == -1)
                     opStart = i;
 
                 int i1 = i;
-                var separator = _sep.FirstOrDefault(m => content.Equal(m, i1));
+                var separator = separatorTypes.FirstOrDefault(m => content.Equal(m, i1));
                 if (separator == null)
                     continue;
 
                 if (opStart != -1)
                 {
                     var cmdName = content.Substring(opStart, i - opStart);
-                    cmdElement.CmdAdd(cmdName);
+                    var cmd = cmdElement.CmdAdd(cmdName);
+                    if (cmd != null && cmdElement.Data.Count() == 1 && cmd is CmdCommand)
+                    {
+                        if(cmd.Text.StartsWith("#"))
+                        {
+                            separatorTypes.AddRange(new[] { "\\\n", "\n" });
+                            separatorTypes = separatorTypes.OrderByDescending(m => m.Length).ToList();
+
+                            endCommand.AddRange(new[]{"\n"});
+                            endCommand = endCommand.OrderByDescending(m => m.Length).ToList();
+                        }
+                    }
+
+
                     opStart = -1;
                 }
 
@@ -112,9 +138,11 @@ namespace ArmA2.Script.ScriptProcessor
                 if (separator.Length > 1)
                     i = i + (separator.Length - 1);
 
-                if (separator == ";" || separator == ",")
+                if (endCommand.Any(m => m == separator))
                 {
                     ApplySingleChildElement(cmdRoot, cmdElement);
+                    if (separator == "\n")
+                        endCommand = null;
 
                     cmdElement = new CmdElement();
                     cmdRoot.ChildAdd(cmdElement);

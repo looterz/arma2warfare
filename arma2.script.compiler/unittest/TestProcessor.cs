@@ -12,13 +12,45 @@ namespace ArmA2.Script.UnitTests
     public class TestProcessor
     {
         [Test]
+        public void TestByteCodePreProcessor()
+        {
+            Compiler compiler = new Compiler();
+            string content = @"
+#include ""myfunction.h""
+_myobj call compile preprocess _path2file;";
+
+            var result = compiler.Compile(content);
+            Assert.AreEqual(result, "#include \"myfunction.h\"\n_myobj call compile preprocess _path2file;");
+
+            Processor processor = new Processor();
+            var byteCode = processor.CompileToByteCode(content.Replace("\r\n", "\n").Trim());
+            Assert.AreEqual(2, byteCode.Data.Count, "must have two operators");
+
+            content = @"
+#define MYFUNC=""myfunction.h"" \
+               MYFUNC2
+_myobj call compile preprocess _path2file;";
+
+            byteCode = processor.CompileToByteCode(content.Replace("\r\n", "\n").Trim());
+
+            var expected =
+                @"
+#define MYFUNC=""myfunction.h"" \
+               MYFUNC2
+_myobj call compile preprocess _path2file;";
+            Assert.AreEqual(byteCode.ToString(), expected.Replace("\r\n", "\n").Trim());
+            Assert.AreEqual(2, byteCode.Data.Count, "must have two operators");
+
+        }        
+        
+        [Test]
         public void TestCallFormat()
         {
             Compiler compiler = new Compiler();
             string content = "_myobj call compile format[\" _myobj{0} = 12345;   \", westSide];";
 
             content = compiler.Compile(content);
-            //Assert.AreEqual("private['_myobj'];_myobj spawn{_myobj=12345}", content);
+            Assert.AreEqual("_myobj call compile format[\" _myobj{0} = 12345;   \",westSide];", content);
         }
         
         [Test]

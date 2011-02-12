@@ -153,7 +153,7 @@ namespace ArmA2.Script
             content1.ForEach(m =>
             {
                 string line = m.Trim();
-                if (line.StartsWith("#"))
+                if (line.StartsWith("#") && line.Length > 0)
                     contentText = contentText + "\n";
 
                 contentText = contentText + line;
