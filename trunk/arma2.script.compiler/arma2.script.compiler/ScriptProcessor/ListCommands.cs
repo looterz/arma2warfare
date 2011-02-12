@@ -8,6 +8,10 @@ namespace ArmA2.Script.ScriptProcessor
             {
                 new Function { Name="#include",                      OnCompile = null,	OnExecute = null },
                 new Function { Name="#define",                       OnCompile = null,	OnExecute = null },
+                new Function { Name="#ifdef",                        OnCompile = null,	OnExecute = null },
+                new Function { Name="#ifndef",                       OnCompile = null,	OnExecute = null },
+                new Function { Name="#endif",                        OnCompile = null,	OnExecute = null },
+                new Function { Name="#else",                         OnCompile = null,	OnExecute = null },
 
                 new Function { Name="abs",                           OnCompile = null,	OnExecute = null },
                 new Function { Name="accTime",                       OnCompile = null,	OnExecute = null },

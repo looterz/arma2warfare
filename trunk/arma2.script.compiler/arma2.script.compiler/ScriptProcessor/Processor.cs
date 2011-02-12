@@ -106,6 +106,8 @@ namespace ArmA2.Script.ScriptProcessor
                     opStart = -1;
                 }
 
+                var insPos = cmdRoot.Items.Count;
+
                 if (separator == "'" || separator == "\"")
                 {
                     var endP = content.GetEndQuote(i);
@@ -134,7 +136,7 @@ namespace ArmA2.Script.ScriptProcessor
                         return i;
                     }
                 }
-                cmdElement.SeparatorAdd(separator);
+
                 if (separator.Length > 1)
                     i = i + (separator.Length - 1);
 
@@ -144,10 +146,14 @@ namespace ArmA2.Script.ScriptProcessor
                     if (separator == "\n")
                         endCommand = null;
 
+                    cmdRoot.SeparatorAdd(separator);
+
                     cmdElement = new CmdElement();
                     cmdRoot.ChildAdd(cmdElement);
                     continue;
                 }
+
+                cmdElement.SeparatorAdd(separator);
             }
 
             if (opStart != -1)
