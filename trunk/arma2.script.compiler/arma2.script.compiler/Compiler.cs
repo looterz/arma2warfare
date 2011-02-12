@@ -72,14 +72,7 @@ namespace ArmA2.Script
             strContent = RemoveMultiLineComments(strContent);
 
             string[] content = strContent.Split(new[] {"\n"}, StringSplitOptions.RemoveEmptyEntries);
-            var content1 = content.Select(m => 
-                {
-                    if (!FsmContent)
-                    {
-                        //m = RemoveSingleLineComments(m);
-                    }
-                    return m;
-                });
+            var content1 = content.Select(m => m);
 
             content1 = content1.Where(m => m.Trim().Length > 0).Select(m => m.Trim());
             if (!FsmContent)
@@ -141,8 +134,15 @@ namespace ArmA2.Script
                     compile.OnCompile(cmd, this);
             });
 
+            var codeScopes = items.Where(m => m is CmdScopeCode).Select(m => (CmdScopeCode)m);
+
             items.Where(m => m is CmdElement).ForEach(m => ExecuteCode((CmdElement) m));
         }
+
+        public void GetLocalVariables()
+        {
+        }
+
 
         public delegate string HandleCommand(string commandText);
 

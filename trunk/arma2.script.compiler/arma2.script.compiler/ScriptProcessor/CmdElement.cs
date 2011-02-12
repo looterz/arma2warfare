@@ -4,14 +4,6 @@ using System.Linq;
 
 namespace ArmA2.Script.ScriptProcessor
 {
-    public enum CmdScopeType
-    {
-        Unknown,
-        Scope,
-        Array,
-        Expression
-    }
-
     public class CmdElementCollection : List<CmdBase>
     {
         private int _position = 0;
@@ -24,7 +16,7 @@ namespace ArmA2.Script.ScriptProcessor
         public T Get<T>(int offset) where T : CmdBase
         {
             int pos = _position + offset;
-            if (pos < this.Count())
+            if (pos >= 0 && pos < this.Count())
             {
                 CmdBase item = this[pos];
                 if (item is T) 
