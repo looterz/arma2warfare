@@ -6,6 +6,9 @@ namespace ArmA2.Script.ScriptProcessor
     {
         public static Function[] CommandData = new Function[]
             {
+                new Function { Name="#include",                      OnCompile = null,	OnExecute = null },
+                new Function { Name="#define",                       OnCompile = null,	OnExecute = null },
+
                 new Function { Name="abs",                           OnCompile = null,	OnExecute = null },
                 new Function { Name="accTime",                       OnCompile = null,	OnExecute = null },
                 new Function { Name="acos",                          OnCompile = null,	OnExecute = null },
