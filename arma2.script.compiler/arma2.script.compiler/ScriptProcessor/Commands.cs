@@ -21,6 +21,45 @@ namespace ArmA2.Script.ScriptProcessor
         {
         }
 
+        private static void CompileCommand(CmdCommand cmd, Compiler compiler)
+        {
+            var root = (CmdElement)cmd.Parent;
+            var data = root.Data;
+            var opPos = data.IndexOf(cmd);
+
+            var cmd1 = data.Get<CmdCommand>(opPos - 1);
+            bool declarePrivate = (cmd1 != null && cmd1.Text.Equal("call")) ? false : true;
+
+            var arg1 = data.Get<CmdBase>(opPos + 1); 
+            if (arg1 == null)
+            {
+                Logger.Log(LogLevel.Error, "Argument for compile command is not exists: {0}", cmd.Parent.ToString());
+                return;
+            }
+
+            if (arg1 is CmdCommand && ((CmdCommand)arg1).Text.Equal("format"))
+            {
+                Logger.Log(LogLevel.Inform, "Possible performance degradation: {0}", cmd.Parent.ToString());
+                return;
+            }
+
+            if (arg1 is CmdString)
+            {
+                var sarg1 = (CmdString) arg1;
+
+                Processor p = new Processor();
+                var contentPartial = sarg1.Text.Replace("\"\"", "\"");
+
+                bool stateDeclarePrivateVars = compiler.DeclarePrivateVars;
+                    compiler.DeclarePrivateVars = declarePrivate;
+                    contentPartial = compiler.CompilePartial(contentPartial);
+                    compiler.DeclarePrivateVars = stateDeclarePrivateVars;
+
+                sarg1.Text = contentPartial.Replace("\"", "\"\"");
+            }
+
+        }
+
         private static void EventHandler(CmdCommand cmd, Compiler compiler)
         {
             // _player addeventhandler ['killed', _eventHandler];
@@ -29,22 +68,22 @@ namespace ArmA2.Script.ScriptProcessor
             var data = root.Data;
             var opPos = data.IndexOf(cmd);
 
-            var arg2 = data.Get<CmdScopeArray>(opPos + 1);
-            if (arg2.Data.Count < 2)
+            var arg1 = data.Get<CmdScopeArray>(opPos + 1);
+            if (arg1.Data.Count < 2)
                 Logger.Log(LogLevel.Error, "Error: Event Handler is not defined - {0}", cmd.ToString());
 
-            var strEventHanlder = arg2.Data.Get<CmdString>(1);
+            var strEventHanlder = arg1.Data.Get<CmdString>(1);
             if (strEventHanlder != null)
             {
-                var ehString = (CmdString)arg2.Data[1];
+                var ehString = (CmdString)arg1.Data[1];
                 Processor p = new Processor();
 
                 var contentPartial = ehString.Text.Replace("\"\"", "\"");
                 contentPartial = compiler.CompilePartial(contentPartial);
                 var partial = p.CompileToByteCode("{" + contentPartial + "}").Items.Get<CmdScopeCode>(0);
 
-                int id = arg2.Items.IndexOf(ehString);
-                arg2.Items[id] = partial;
+                int id = arg1.Items.IndexOf(ehString);
+                arg1.Items[id] = partial;
             }
         }
 

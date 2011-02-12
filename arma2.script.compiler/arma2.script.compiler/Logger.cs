@@ -5,10 +5,10 @@ namespace ArmA2.Script
 {
     public enum LogLevel
     {
-        Inform,
+        Trace,
         High,
         Medium,
-        Trace,
+        Inform,
         Warning,
         Error,
         None
@@ -40,7 +40,7 @@ namespace ArmA2.Script
             Warnings.Clear();
         }
 
-        public static void Log(LogLevel level, string message, params string[] args)
+        public static void Log(LogLevel level, string message, params object[] args)
         {
             if (args.Length > 0)
                 message = string.Format(message, args);

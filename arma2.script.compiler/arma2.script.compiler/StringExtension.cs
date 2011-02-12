@@ -1,10 +1,17 @@
-﻿namespace ArmA2.Script
+﻿using System;
+
+namespace ArmA2.Script
 {
     public static class StringExtension
     {
         public static char GetSafeChar(this string str, int pos)
         {
             return (0 <= pos && pos < str.Length) ? str[pos] : (char) 0;
+        }
+
+        public static bool Equal(this string str, string equal)
+        {
+            return str.Equals(equal, StringComparison.CurrentCultureIgnoreCase);
         }
 
         public static bool Equal(this string str, string equal, int pos, bool ignoreCase=false)

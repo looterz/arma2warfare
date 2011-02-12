@@ -12,13 +12,37 @@ namespace ArmA2.Script.UnitTests
     public class TestProcessor
     {
         [Test]
+        public void TestCallFormat()
+        {
+            Compiler compiler = new Compiler();
+            string content = "_myobj call compile format[\" _myobj{0} = 12345;   \", westSide];";
+
+            content = compiler.Compile(content);
+            //Assert.AreEqual("private['_myobj'];_myobj spawn{_myobj=12345}", content);
+        }
+        
+        [Test]
+        public void TestCallCompile()
+        {
+            Compiler compiler = new Compiler();
+            string content = "_myobj call compile \" _myobj1 = 12345;   \"";
+
+            content = compiler.Compile(content);
+            Assert.AreEqual("_myobj call compile \"_myobj1=12345;\"", content);
+
+            content = "_myobj spawn compile \" _myobj1 = 12345;   \"";
+            content = compiler.Compile(content);
+            Assert.AreEqual("_myobj spawn compile \"private['_myobj1'];_myobj1=12345;\"", content);
+        }
+
+        [Test]
         public void TestSpawn()
         {
             Compiler compiler = new Compiler();
             string content = "_myobj spawn { _myobj = 12345; }";
 
             content = compiler.Compile(content);
-            Assert.AreEqual("_myobj addeventhandler['fired',{private['_var1'];_var1=_this select 0;}]", content);
+            Assert.AreEqual("private['_myobj'];_myobj spawn{_myobj=12345}", content);
         }
 
         [Test]

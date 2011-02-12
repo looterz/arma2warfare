@@ -178,7 +178,7 @@ namespace ArmA2.Script.ScriptProcessor
                 new Function { Name="commandWatch",                  OnCompile = null,	OnExecute = null },
                 new Function { Name="comment",                       OnCompile = null,	OnExecute = null },
                 new Function { Name="commitOverlay",                 OnCompile = null,	OnExecute = null },
-                new Function { Name="compile",                       OnCompile = null,	OnExecute = null },
+                new Function { Name="compile",                       OnCompile = CompileCommand,	OnExecute = null },
                 new Function { Name="completedFSM",                  OnCompile = null,	OnExecute = null },
                 new Function { Name="composeText",                   OnCompile = null,	OnExecute = null },
                 new Function { Name="configFile",                    OnCompile = null,	OnExecute = null },
