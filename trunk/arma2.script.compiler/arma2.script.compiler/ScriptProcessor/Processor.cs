@@ -5,7 +5,7 @@ namespace ArmA2.Script.ScriptProcessor
 {
     public partial class Processor
     {
-        public CmdElement Execute(string content)
+        public CmdElement CompileToByteCode(string content)
         {
             CmdElement root = new CmdElement();
             ProcessCommand(root, content, 0);
@@ -16,20 +16,35 @@ namespace ArmA2.Script.ScriptProcessor
 
         private void GroupSetOp(CmdElement root)
         {
-            var items = root.GetItems();
-            var setOp = items.FirstOrDefault(m => (m is CmdOperator) && ((CmdOperator)m).Text == "=");
-            if (setOp != null)
+            var items = root.Items;
+
+            var operators =
+                items.Select((m, id) => new { Id = id, Item = m }).Where(m => m.Item is CmdCommandBase).Select(m => new { Id = m.Id, Item = (CmdCommandBase)m.Item, Text = ((CmdCommandBase)m.Item).Text });
+
+            var op = operators.FirstOrDefault();
+
+            if (op != null && !(root is CmdScopeArray))
             {
-                int id = items.IndexOf(setOp);
-                var valueOp = root.GetItems().Where((m, pos) => pos > id).ToList();
+                var nextOp = (op.Text != "=") ? operators.FirstOrDefault(m => m.Id > op.Id) : null; // get next operator - skip if current operator is assignment operator
+                var nextOpId = (nextOp != null) ? nextOp.Id : items.Count();
 
-                CmdElement groupOp = new CmdElement();
-                valueOp.ForEach(m => {
-                    groupOp.ChildAdd(m);
-                    items.Remove(m);
-                });
+                //var valueOp1 = root.GetItems().Where((m, pos) => pos < (op.Id-1)).ToList();
+                var valueOp2 = root.Items.Where((m, pos) => op.Id < pos && pos < nextOpId ).ToList();
 
-                root.ChildAdd(groupOp);
+                if (valueOp2.Where(m => (!(m is CmdSeparator))).Count() > 1)
+                {
+                    CmdElement groupOp2 = new CmdElement();
+                    groupOp2.Parent = root;
+                    valueOp2.ForEach(m => { groupOp2.ChildAdd(m); items.Remove(m); });
+                    items.Insert(op.Id + 1, groupOp2);
+                }
+
+                //if (valueOp1.Count > 1)
+                //{
+                //    CmdElement groupOp1 = new CmdElement();
+                //    valueOp1.ForEach(m => { groupOp1.ChildAdd(m); items.Remove(m); });
+                //    items.Insert(0, groupOp1);
+                //}
             }
 
             items.Where(m => m is CmdElement).ForEach(m => GroupSetOp((CmdElement) m));
@@ -79,16 +94,17 @@ namespace ArmA2.Script.ScriptProcessor
 
                 if (separator == "[" || separator == "(" || separator == "{")
                 {
-                    var array = new CmdScope {OpenCh = separator};
+                    var array = CmdScopeBase.CreateNewScope(separator);
                     cmdElement.ChildAdd(array);
                     i = ProcessCommand(array, content, i + 1);
                     continue;
                 }
 
-                if (cmdRoot is CmdScope)
+                if (cmdRoot is CmdScopeBase)
                 {
-                    if (separator == ((CmdScope)cmdRoot).EndCh)
+                    if (separator == ((CmdScopeBase)cmdRoot).EndCh)
                     {
+                        ApplySingleChildElement(cmdRoot, cmdElement);
                         return i;
                     }
                 }
@@ -96,14 +112,9 @@ namespace ArmA2.Script.ScriptProcessor
                 if (separator.Length > 1)
                     i = i + (separator.Length - 1);
 
-                if (separator == ";")
+                if (separator == ";" || separator == ",")
                 {
-                    var items = cmdElement.GetItems();
-                    if (items.Count == 1)
-                    {
-                        cmdRoot.GetItems().Remove(cmdElement);
-                        cmdRoot.ChildAdd(items.First());
-                    }
+                    ApplySingleChildElement(cmdRoot, cmdElement);
 
                     cmdElement = new CmdElement();
                     cmdRoot.ChildAdd(cmdElement);
@@ -117,20 +128,23 @@ namespace ArmA2.Script.ScriptProcessor
                 cmdElement.CmdAdd(cmdName);
             }
 
-            var items1 = cmdElement.GetItems();
-            if (items1.Count == 1)
+            ApplySingleChildElement(cmdRoot, cmdElement);
+            if (cmdRoot is CmdScopeBase)
             {
-                cmdRoot.GetItems().Remove(cmdElement); 
-                cmdRoot.ChildAdd(items1.First());
-            }
-
-            if (cmdRoot is CmdScope)
-            {
-                var scope = (CmdScope)cmdElement;
-                Logger.Log(LoggingLevel.Error, "Unclosed scope: {0}", scope.ToString());
+                var scope = (CmdScopeBase)cmdElement;
+                Logger.Log(LogLevel.Error, "Unclosed scope: {0}", scope.ToString());
             }
 
             return content.Length;
+        }
+
+        private void ApplySingleChildElement(CmdElement cmdRoot, CmdElement cmdElement)
+        {
+            if (cmdElement.Items.Count == 1)
+            {
+                cmdRoot.Items.Remove(cmdElement);
+                cmdRoot.ChildAdd(cmdElement.Items[0]);
+            }
         }
     }
 }

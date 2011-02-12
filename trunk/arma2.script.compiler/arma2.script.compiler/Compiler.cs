@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using ArmA2.Script.ScriptProcessor;
 
 namespace ArmA2.Script
 {
@@ -41,19 +42,29 @@ namespace ArmA2.Script
             string content = File.ReadAllText(fileName);
             GlobalVars.PublicVariables.ForEach(m => m.UsageCount += m.Regex.Matches(content).Count);
         }
-
         public static List<Variable> GetPublicVarsOrderByUsage()
         {
             return GlobalVars.PublicVariables.OrderByDescending(m => m.UsageCount).ToList();
         }
-
-        public string Compile(string strContent)
+        public string Compile(string content)
         {
             if (IsTopFile)
             {
                 Console.WriteLine("---------------------------------------------");
                 Console.WriteLine("Compile: {0}", FileName);
             }
+
+            content = CompilePartial(content);
+
+            if (IsTopFile)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Done.");
+            }
+            return content;
+        }
+        public string CompilePartial(string strContent)
+        {
             strContent = strContent.Replace("\t", " ");
             strContent = strContent.Replace("\r\n", "\n");
             strContent = strContent.Replace("\r", "\n");
@@ -96,10 +107,10 @@ namespace ArmA2.Script
             if (!FsmContent)
             {
                 contentText = RemoveLineBreaks(contentText.Split(new[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
-                //contentText = ProcessCommands(contentText);
                 contentText = RemoveExtraSpaces(contentText);
                 contentText = ContentCleanup(contentText);
                 contentText = PackVariables(contentText);
+                contentText = ExecuteCode(contentText);
             }
 
 
@@ -107,12 +118,30 @@ namespace ArmA2.Script
             contentText = RemoveLineBreaks(commands);
             contentText = contentText.Replace(";;", ";");
 
-            if (IsTopFile)
-            {
-                Console.WriteLine();
-                Console.WriteLine("Done.");
-            }
             return contentText.Trim();
+        }
+
+        public string ExecuteCode(string content)
+        {
+            Processor p = new Processor();
+            var byteCode = p.CompileToByteCode(content);
+            ExecuteCode(byteCode);
+
+            return byteCode.ToString();
+        }
+        private void ExecuteCode(CmdElement byteCode)
+        {
+            var items = byteCode.Items;
+            var commands = items.Where(m => m is CmdCommand).Select(m => (CmdCommand)m);
+
+            commands.ForEach(cmd =>
+            {
+                var compile = Processor.GetCmd(cmd);
+                if (compile != null && compile.OnCompile != null)
+                    compile.OnCompile(cmd, this);
+            });
+
+            items.Where(m => m is CmdElement).ForEach(m => ExecuteCode((CmdElement) m));
         }
 
         public delegate string HandleCommand(string commandText);
@@ -361,7 +390,7 @@ namespace ArmA2.Script
              if (scope != null && openScopes > 0)
              {
                  scope.End = content.Length-1;
-                 Logger.Log(LoggingLevel.Error, "Unclosed scope: {0}", scope.ScopeText);
+                 Logger.Log(LogLevel.Error, "Unclosed scope: {0}", scope.ScopeText);
              }
 
              return scope;
@@ -479,7 +508,7 @@ namespace ArmA2.Script
 
             if (openMultiComment > 0)
             {
-                Logger.Log(LoggingLevel.Error, "Some multi-comments are not closed: {0}", content.Substring(s0));
+                Logger.Log(LogLevel.Error, "Some multi-comments are not closed: {0}", content.Substring(s0));
                 content = content.Remove(s0);
             }
 

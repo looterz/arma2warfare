@@ -129,8 +129,8 @@ namespace ArmA2.Script.UnitTests
                 string contentExpected = File.ReadAllText(expectedFileName);
 
                 string contentActual = compiler.Compile(content);
-                if (contentActual != contentExpected)
-                    contentActual = contentActual;
+                //if (contentActual != contentExpected)
+                //    contentActual = contentActual;
                 
                 Assert.AreEqual(contentExpected, contentActual, string.Format("{0} - [Failed]", Path.GetFileName(file)));
                 Assert.AreEqual(0, Logger.Errors.Count, string.Format("{0} - [Failed]", Path.GetFileName(file)));

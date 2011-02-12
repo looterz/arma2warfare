@@ -48,7 +48,7 @@
                     return i;
             }
 
-            Logger.Log(LoggingLevel.Error, "Unterminated string: {0}", content.Substring(startPos));
+            Logger.Log(LogLevel.Error, "Unterminated string: {0}", content.Substring(startPos));
             return -1;
         }
     }

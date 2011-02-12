@@ -12,17 +12,43 @@ namespace ArmA2.Script.UnitTests
     public class TestProcessor
     {
         [Test]
+        public void TestSpawn()
+        {
+            Compiler compiler = new Compiler();
+            string content = "_myobj spawn { _myobj = 12345; }";
+
+            content = compiler.Compile(content);
+            Assert.AreEqual("_myobj addeventhandler['fired',{private['_var1'];_var1=_this select 0;}]", content);
+        }
+
+        [Test]
+        public void TestEventHandler()
+        {
+            Compiler compiler = new Compiler();
+            string content = "_myobj addeventhandler['fired',\"_var1 = _this select 0;\"]";
+
+            content = compiler.Compile(content);
+            Assert.AreEqual("_myobj addeventhandler['fired',{private['_var1'];_var1=_this select 0;}]", content);
+        }
+
+        [Test]
         public void TestGroupSetOp()
         {
             Processor processor = new Processor();
             string content;
             content = "_var1=_var2*_var3";
-            var result = processor.Execute(content);
+            var result = processor.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
             Assert.AreEqual(1, result.Data.Count);
 
             var op = (CmdElement) result.Data[0];
             Assert.AreEqual(3, op.Data.Count);
+
+
+            content = "_var1=((sin _var2)*(cos _var3))";
+            result = processor.CompileToByteCode(content);
+            Assert.AreEqual(content, result.ToString());
+            Assert.AreEqual(1, result.Data.Count);
         }
 
 
@@ -32,14 +58,61 @@ namespace ArmA2.Script.UnitTests
             Processor processor = new Processor();
             string content;
             content = "_var1=_var2*_var3";
-            var result = processor.Execute(content);
+            var result = processor.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
             Assert.AreEqual(1, result.Data.Count);
 
             content = "_var1=_var2 plus (_var3 call LogHigh)";
-            result = processor.Execute(content);
+            result = processor.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
             Assert.AreEqual(1, result.Data.Count);
+
+            content = "_myobj addeventhandler['fired',\"_var1 = _this select 0;\"];_myobj2 addeventhandler['fired',\"_var1 = _this select 0;\"]";
+            result = processor.CompileToByteCode(content);
+            Assert.AreEqual(content, result.ToString());
+            Assert.AreEqual(2, result.Data.Count);
+        }
+
+        [Test]
+        public void TestScopeElements001()
+        {
+            Processor processor = new Processor();
+
+            string content;
+            CmdElement result;
+            content = "_myobj addeventhandler['fired',\"_var1 = _this select 0;\"]";
+            result = processor.CompileToByteCode(content);
+            Assert.AreEqual(content, result.ToString());
+            Assert.AreEqual(1, result.Data.Count);
+            Assert.AreEqual(typeof(CmdElement), result.Data[0].GetType());
+
+            var command = result.Data.Get<CmdElement>(0);
+            Assert.AreEqual(3, command.Data.Count);
+            Assert.AreEqual(typeof(CmdScopeArray), command.Data[2].GetType());
+
+            var array = command.Data.Get<CmdElement>(2);
+            Assert.AreEqual(2, array.Data.Count);
+        }
+
+        [Test]
+        public void TestScopeElements002()
+        {
+            Processor processor = new Processor();
+
+            string content;
+            CmdElement result;
+            content = "_myobj addeventhandler['fired',\"_var1 = _this select 0;\"];_myobj=5";
+            result = processor.CompileToByteCode(content);
+            Assert.AreEqual(content, result.ToString());
+            Assert.AreEqual(2, result.Data.Count);
+            Assert.AreEqual(typeof(CmdElement), result.Data[0].GetType());
+
+            var command = result.Data.Get<CmdElement>(0);
+            Assert.AreEqual(3, command.Data.Count);
+            Assert.AreEqual(typeof(CmdScopeArray), command.Data[2].GetType());
+
+            var array = command.Data.Get<CmdElement>(2);
+            Assert.AreEqual(2, array.Data.Count);
         }
 
 
@@ -50,26 +123,26 @@ namespace ArmA2.Script.UnitTests
             Processor processor = new Processor();
             string content;
             content = "{if(WF_DEBUG)then{0}else{1},0,0}";
-            result = processor.Execute(content);
+            result = processor.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
             Assert.AreEqual(1, result.Data.Count);
-            Assert.AreEqual(typeof(CmdScope), result.Data[0].GetType());
+            Assert.AreEqual(typeof(CmdScopeCode), result.Data[0].GetType());
 
             content = "[if(WF_DEBUG)then{0}else{1},0,0]";
-            result = processor.Execute(content);
+            result = processor.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
             Assert.AreEqual(1, result.Data.Count);
-            Assert.AreEqual(typeof(CmdScope), result.Data[0].GetType());
+            Assert.AreEqual(typeof(CmdScopeArray), result.Data[0].GetType());
 
 
             
             content = "_var1=createVehcile['T71',0,0,0];_var2=createVehcile['T72',0,0,0];_var3=createVehcile['T73',0,0,0]";
-            result = processor.Execute(content);
+            result = processor.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
             Assert.AreEqual(3, result.Data.Count);
 
             content = "{_var1=createVehicle['T72',0,0,0];_var2=createVehcile['T72',0,0,0]} call LogHigh;_var4=12345;";
-            result = processor.Execute(content);
+            result = processor.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
 
             Assert.AreEqual(2, result.Data.Count);
@@ -82,7 +155,7 @@ namespace ArmA2.Script.UnitTests
             Assert.AreEqual(3, scope2.Data.Count);  // _var4=12345;
 
             content = "{_var1=createVehicle['T72', if(WF_DEBUG)then{0}else{1},0,0];_var2=createVehcile['T72',0,0,0]} call LogHigh;_var4=12345;";
-            result = processor.Execute(content);
+            result = processor.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
         }
 
@@ -100,7 +173,7 @@ namespace ArmA2.Script.UnitTests
                 string content = File.ReadAllText(file);
                 Processor processor = new Processor();
 
-                var cmds = processor.Execute(content);
+                var cmds = processor.CompileToByteCode(content);
                 
                 Assert.AreEqual(content, cmds.ToString(), string.Format("{0} - [Failed]", Path.GetFileName(file)));
                 Assert.AreEqual(0, Logger.Errors.Count, string.Format("{0} - [Failed]", Path.GetFileName(file)));
@@ -110,20 +183,5 @@ namespace ArmA2.Script.UnitTests
                 Console.WriteLine("{0} - [Done]", Path.GetFileName(file));
             }
         }
-
-        [Test]
-        public void TestOperatorCommandCollection()
-        {
-            Logger.Clear();
-
-            var commands = Processor.Commands;
-            var operators = Processor.Operators;
-
-            Assert.AreEqual(1205, Processor.Commands.Count);
-            Assert.AreEqual(22, Processor.Operators.Count);
-
-            Assert.AreEqual(0, Logger.Errors.Count);
-            Assert.AreEqual(0, Logger.Warnings.Count);
-        }        
     }
 }
