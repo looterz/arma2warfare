@@ -14,6 +14,25 @@ namespace ArmA2.Script.ScriptProcessor
 
     public class CmdElementCollection : List<CmdBase>
     {
+        private int _position = 0;
+
+        public void SetPosition(int position)
+        {
+            _position = position;
+        }
+
+        public T Get<T>(int offset) where T : CmdBase
+        {
+            int pos = _position + offset;
+            if (pos < this.Count())
+            {
+                CmdBase item = this[pos];
+                if (item is T) 
+                    return (T)item;
+            }
+            return null;
+        }
+
         public override string ToString()
         {
             string txt = "";
@@ -30,17 +49,12 @@ namespace ArmA2.Script.ScriptProcessor
 
     public class CmdElement : CmdBase
     {
-        private readonly CmdElementCollection _items = new CmdElementCollection();
+        public readonly CmdElementCollection Items = new CmdElementCollection();
 
         public void ChildAdd(CmdBase child)
         {
             child.Parent = this;
-            _items.Add(child);
-        }
-
-        public List<CmdBase> GetItems()
-        {
-            return _items;
+            Items.Add(child);
         }
 
         public void CmdAdd(string cmdName)
@@ -72,10 +86,9 @@ namespace ArmA2.Script.ScriptProcessor
             get
             {
                 var items = new CmdElementCollection();
-                items.AddRange(_items.Where(m => 
-                    !(m is CmdSeparator && ((CmdSeparator)m).Text == ";"  ) &&
-                    !(m is CmdSeparator && ((CmdSeparator)m).Text == " ") &&
-                    !(m.GetType() == typeof(CmdElement) && ((CmdElement)m)._items.Count == 0)
+                items.AddRange(Items.Where(m => 
+                    !(m is CmdSeparator) &&
+                    !(m.GetType() == typeof(CmdElement) && ((CmdElement)m).Items.Count == 0)
                     ));
                 return items;
             }
@@ -83,7 +96,7 @@ namespace ArmA2.Script.ScriptProcessor
 
         public override string ToString()
         {
-            return _items.ToString();
+            return Items.ToString();
         }
     }
 
@@ -96,14 +109,17 @@ namespace ArmA2.Script.ScriptProcessor
         }
     }
 
-    public class CmdCommand : CmdText
+    public class CmdCommandBase : CmdText
     {}
+
+    public class CmdCommand : CmdCommandBase
+    { }
+
+    public class CmdOperator : CmdCommandBase
+    { }
 
     public class CmdVariable : CmdText
     {}
-
-    public class CmdOperator : CmdText
-    { }
 
     public class CmdSeparator : CmdText
     {}
@@ -117,42 +133,60 @@ namespace ArmA2.Script.ScriptProcessor
         }
     }
 
-    public class CmdScope : CmdElement
+    public class CmdScopeArray : CmdScopeBase
     {
-        public string OpenCh;
-
-        public CmdScopeType Type
+        public CmdScopeArray()
         {
-            get
-            {
-                switch (OpenCh)
-                {
-                    case "[":
-                        return CmdScopeType.Array;
-                    case "{":
-                        return CmdScopeType.Scope;
-                    case "(":
-                        return CmdScopeType.Expression;
-                    default:
-                        return CmdScopeType.Unknown;
-                }               
-            }
+            OpenCh = "[";
+            EndCh = "]";
+        }
+    }
+
+    public class CmdScopeCode : CmdScopeBase
+    {
+        public CmdScopeCode()
+        {
+            OpenCh = "{";
+            EndCh = "}";
+        }
+    }
+
+    public class CmdScopeExpression : CmdScopeBase
+    {
+        public CmdScopeExpression()
+        {
+            OpenCh = "(";
+            EndCh = ")";
+        }
+    }
+
+    public class CmdScopeBase : CmdElement
+    {
+        public CmdScopeBase()
+        {
+            OpenCh = EndCh = string.Empty;
         }
 
-        public string EndCh
+        public static CmdScopeBase CreateNewScope(string openScopeCh)
         {
-            get
+            switch (openScopeCh)
             {
-                switch(OpenCh)
-                {
-                    case "[": return "]";
-                    case "{": return "}";
-                    case "(": return ")";
-                    default:
-                        return "";
-                }
-            }
+                case "[":
+                    return new CmdScopeArray();
+                case "{":
+                    return new CmdScopeCode();
+                case "(":
+                    return new CmdScopeExpression();
+                default:
+                    {
+                        Logger.Log(LogLevel.Warning, "CreateNewScope: Unknown open scope char - '{0}'", openScopeCh);
+                        return new CmdScopeBase();
+                    }
+            } 
         }
+
+        public string OpenCh { get; protected set; }
+        public string EndCh { get; protected set; }
 
         public override string ToString()
         {

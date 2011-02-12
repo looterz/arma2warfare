@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Web;
 using ArmA2.Script;
 using ArmA2.Script.ScriptProcessor;
 
@@ -12,6 +13,8 @@ namespace ArmA2.Script.UnitTests
     {
         static void Main(string[] args)
         {
+            //string s = HttpUtility.UrlEncode("arestic@mail.ru");
+
             string[] files = args;
             if (args.Length == 0)
                 files = new[] { "uav_interface.sqf" };
@@ -38,7 +41,7 @@ namespace ArmA2.Script.UnitTests
                 File.WriteAllText(newFileName, content);
 
                 Processor processor = new Processor();
-                processor.Execute(content);
+                processor.CompileToByteCode(content);
             }
 
             Console.ReadKey();

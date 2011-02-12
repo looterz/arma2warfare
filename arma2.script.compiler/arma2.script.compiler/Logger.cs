@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ArmA2.Script
 {
-    public enum LoggingLevel
+    public enum LogLevel
     {
         Inform,
         High,
@@ -16,7 +16,7 @@ namespace ArmA2.Script
     
     public class Logger
     {
-        public static LoggingLevel Level = LoggingLevel.High;
+        public static LogLevel Level = LogLevel.High;
 
         public static List<string> Warnings = new List<string>();
         public static List<string> Errors = new List<string>();
@@ -40,20 +40,20 @@ namespace ArmA2.Script
             Warnings.Clear();
         }
 
-        public static void Log(LoggingLevel level, string message, params string[] args)
+        public static void Log(LogLevel level, string message, params string[] args)
         {
             if (args.Length > 0)
                 message = string.Format(message, args);
 
             message = _padding + message;
 
-            if (level >= LoggingLevel.Trace)
+            if (level >= LogLevel.Trace)
                 message = string.Format("{0}: {1}", level, message); 
             
-            if (level == LoggingLevel.Error)
+            if (level == LogLevel.Error)
                 Errors.Add(message);
 
-            if (level == LoggingLevel.Warning)
+            if (level == LogLevel.Warning)
                 Warnings.Add(message);
 
             if (level >= Level)
