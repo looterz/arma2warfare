@@ -60,7 +60,7 @@ _value = nil;
 				case 20: { _value = EASTTeam20Vote; };
 				default  { 
 					format["Common_GetTeamVote unknown clientId: %1", _this] call LogError;
-					_value = call Compile Format ["WESTTeam%1Vote", _id];
+					_value = call Compile Format ["EASTTeam%1Vote", _id];
 				};
 			};
 		};
