@@ -12,6 +12,40 @@ namespace ArmA2.Script.UnitTests
         readonly Compiler _compiler = new Compiler();
 
         [Test]
+        public void TestRegisterPrivate()
+        {
+            string content;
+            string result;
+            content = @"spawn { _myVar = 1; }";
+            result = _compiler.Compile(content);
+            Assert.AreEqual("spawn{private['_myVar'];_myVar=1}", result);
+          
+
+            content = @"_fnLocal = { _myVar = 1; }";
+            result = _compiler.Compile(content);
+            Assert.AreEqual("private['_fnLocal'];_fnLocal={private['_myVar'];_myVar=1}", result);
+
+            content = @"{_myVar = 1;}";
+            result = _compiler.Compile(content);
+            Assert.AreEqual("private['_myVar'];{_myVar=1}", result);
+
+            content = @"
+switch (_respawnCampsMode) do {
+	case 1: {
+/* Classic Respawn */
+		_town = [_deathLoc] Call GetClosestLocation;
+    };
+};
+";
+            result = _compiler.Compile(content);
+            Assert.AreEqual("private['_town'];switch(_respawnCampsMode)do{case 1:{_town=[_deathLoc]Call GetClosestLocation}};", result);
+
+            //
+
+
+        } 
+
+        [Test]
         public void TestStringSearch2()
         {
             var expectedData = new[] { "_c", "_u", "_longestlightbuildtime", "Units_Light_", ".sqf", "WFBE_WESTLIGHTUNITS", "LIGHT", "WEST", @"Client\Init\Init_Faction.sqf", "Units_Light_", ".sqf", "WFBE_EASTLIGHTUNITS", "LIGHT", "EAST", @"Client\Init\Init_Faction.sqf", "Units_Light_", ".sqf", "WFBE_GUERLIGHTUNITS", "WFBE_ALLIES", @"Vanilla\Units_Light_CDF.sqf", "WFBE_WESTALLIESLIGHTUNITS", @"Vanilla\Units_Light_INS.sqf", "WFBE_EASTALLIESLIGHTUNITS", "WFBE_WESTALLIESLIGHTUNITS", "WFBE_EASTALLIESLIGHTUNITS", "WFBE_WESTREPAIRTRUCK", "MtvrRepair", "WFBE_WESTSUPPLYTRUCK", "WarfareSupplyTruck_USMC", "WFBE_WESTSALVAGETRUCK", "WarfareSalvageTruck_USMC", "WFBE_WESTAMBULANCES", "HMMWV_Ambulance", "WFBE_EASTREPAIRTRUCK", "KamazRepair", "WFBE_EASTSUPPLYTRUCK", "WarfareSupplyTruck_RU", "WFBE_EASTSALVAGETRUCK", "WarfareSalvageTruck_RU", "WFBE_EASTAMBULANCES", "GAZ_Vodnik_MedEvac", "WFBE_WESTREPAIRTRUCK", "MtvrRepair_DES_EP1", "WFBE_WESTSUPPLYTRUCK", "MtvrSupply_DES_EP1", "WFBE_WESTSALVAGETRUCK", "MtvrSalvage_DES_EP1", "WFBE_WESTAMBULANCES", "HMMWV_Ambulance_DES_EP1", "M1133_MEV_EP1", "WFBE_EASTREPAIRTRUCK", "UralRepair_TK_EP1", "WFBE_EASTSUPPLYTRUCK", "UralSupply_TK_EP1", "WFBE_EASTSALVAGETRUCK", "UralSalvage_TK_EP1", "WFBE_EASTAMBULANCES", "M113Ambul_TK_EP1", "WFBE_WESTREPAIRTRUCK", "MtvrRepair", "MtvrRepair_DES_EP1", "WFBE_WESTSUPPLYTRUCK", "WarfareSupplyTruck_USMC", "MtvrSupply_DES_EP1", "WFBE_WESTSALVAGETRUCK", "WarfareSalvageTruck_USMC", "MtvrSalvage_DES_EP1", "WFBE_WESTAMBULANCES", "HMMWV_Ambulance", "HMMWV_Ambulance_DES_EP1", "M1133_MEV_EP1", "WFBE_EASTREPAIRTRUCK", "KamazRepair", "UralRepair_TK_EP1", "WFBE_EASTSUPPLYTRUCK", "WarfareSupplyTruck_RU", "UralSupply_TK_EP1", "WFBE_EASTSALVAGETRUCK", "WarfareSalvageTruck_RU", "UralSalvage_TK_EP1", "WFBE_EASTAMBULANCES", "GAZ_Vodnik_MedEvac", "M113Ambul_TK_EP1", "WFBE_WESTREPAIRTRUCKS", "MtvrRepair_DES_EP1", "MtvrRepair", "WFBE_WESTSUPPLYTRUCKS", "MtvrSupply_DES_EP1", "WarfareSupplyTruck_USMC", "WFBE_EASTREPAIRTRUCKS", "UralRepair_TK_EP1", "KamazRepair", "WFBE_EASTSUPPLYTRUCKS", "UralSupply_TK_EP1", "WarfareSupplyTruck_RU", "_c", @"Config_LightFactory: '%1' is not defined in the Core files.", "WFBE_EASTLIGHTUNITS", "WFBE_WESTLIGHTUNITS", "WFBE_GUERLIGHTUNITS", "WFBE_LONGESTLIGHTBUILDTIME" };
@@ -97,8 +131,6 @@ namespace ArmA2.Script.UnitTests
             Assert.AreEqual(@"""var c=0;' var c=5""", actual);
         }
 
-
-
         [Test]
         public void TestComplexFilePatterns()
         {
@@ -117,6 +149,7 @@ namespace ArmA2.Script.UnitTests
 
             foreach(var file in files)
             {
+                //var file = @"c:\Users\Evgeny_Zyuzin\Documents\ArmA 2 Other Profiles\Bomba\missions\arma2.script.compiler\unittest\tests\A01.sqf";
                 Logger.Clear();
 
                 //Console.SetOut(new StringWriter(new StringBuilder()));
@@ -129,8 +162,8 @@ namespace ArmA2.Script.UnitTests
                 string contentExpected = File.ReadAllText(expectedFileName);
 
                 string contentActual = compiler.Compile(content);
-                //if (contentActual != contentExpected)
-                //    contentActual = contentActual;
+                if (contentActual != contentExpected)
+                    contentActual = contentActual;
                 
                 Assert.AreEqual(contentExpected, contentActual, string.Format("{0} - [Failed]", Path.GetFileName(file)));
                 Assert.AreEqual(0, Logger.Errors.Count, string.Format("{0} - [Failed]", Path.GetFileName(file)));

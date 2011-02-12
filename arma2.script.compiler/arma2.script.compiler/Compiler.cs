@@ -102,7 +102,7 @@ namespace ArmA2.Script
                 contentText = RemoveLineBreaks(contentText.Split(new[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
                 contentText = RemoveExtraSpaces(contentText);
                 contentText = ContentCleanup(contentText);
-                contentText = PackVariables(contentText);
+                //contentText = PackVariables(contentText);
                 contentText = ExecuteCode(contentText);
             }
 
@@ -120,6 +120,9 @@ namespace ArmA2.Script
             var byteCode = p.CompileToByteCode(content);
             ExecuteCode(byteCode);
 
+            if (DeclarePrivateVars)
+                DeclareVariables(byteCode);
+
             return byteCode.ToString();
         }
         private void ExecuteCode(CmdElement byteCode)
@@ -134,15 +137,138 @@ namespace ArmA2.Script
                     compile.OnCompile(cmd, this);
             });
 
-            var codeScopes = items.Where(m => m is CmdScopeCode).Select(m => (CmdScopeCode)m);
-
             items.Where(m => m is CmdElement).ForEach(m => ExecuteCode((CmdElement) m));
         }
 
-        public void GetLocalVariables()
+        public List<string> DeclareVariables(CmdElement byteCode)
         {
+            bool applyPrivate = (byteCode.Parent == null);
+            if (!applyPrivate)
+            {
+                int pos = byteCode.Parent.Data.IndexOf(byteCode);
+                var op = byteCode.Parent.Data.Get<CmdText>(pos - 1);
+                if (op != null && byteCode is CmdScopeCode &&
+                    (op.Text.Equal("=") || op.Text.Equal("spawn") ))
+                {
+                    applyPrivate = true;
+                }
+            }
+
+            var elements = byteCode.Items.Select<CmdElement>();
+
+            var vars = new List<string>();
+            elements.ForEach(m => AddLocalVar(m, vars));
+
+            var codeScopes = byteCode.Items.Select<CmdElement>();
+            codeScopes.ForEach(m =>
+            {
+                var scopeVars = DeclareVariables(m);
+                if (scopeVars.Count > 0)
+                {
+                    scopeVars.Where(var1 => !vars.Any(var2 => var2.Equal(var1)))
+                        .ForEach(var1 => vars.Add(var1));
+                }
+            });
+
+            var localvars = vars.Where(m => m.StartsWith("_")).ToList();
+
+            // #-- collect private vars defined in scope
+            var privateCmds = elements.Where(m => IsPrivateCommand(m)).ToList();
+
+            var privateVars = new List<string>();
+            privateCmds.ForEach(m => GetPrivateVariables(m, privateVars));
+
+            var unregistered = localvars.Where(var1 => !privateVars.Any(var2 => var2.Equal(var1))).ToList();
+            if (applyPrivate)
+            {
+                // remove all registration private vars
+                privateCmds.ForEach(m => byteCode.Items.Remove(m));
+
+                if (localvars.Count > 0)
+                {
+                    CmdElement privateCmd = new CmdElement { Parent = byteCode };
+                    byteCode.Items.Insert(0, privateCmd);
+
+                    privateCmd.CmdAdd("private");
+
+                    var array = (CmdScopeArray)privateCmd.ChildAdd(new CmdScopeArray());
+                    privateCmd.ChildAdd(new CmdSeparator { Text = ";" });
+
+                    var reg = localvars.OrderBy(m => m).ToList();
+
+                    for (int i = 0; i < reg.Count; i++)
+                    {
+                        array.ChildAdd(new CmdString { Text = reg[i], Quote = "'" });
+                        if (i + 1 != localvars.Count)
+                            array.ChildAdd(new CmdSeparator { Text = "," });
+                    }
+
+                    unregistered.ForEach(m => Logger.Log(LogLevel.Inform, "Variable is not registerd as private '{0}'", m));
+                    unregistered.Clear();
+                }
+            }
+
+            if (localvars.Count > 0)
+                localvars = unregistered;
+
+            return localvars; // return unregistered variables to top scope;
         }
 
+        private bool IsPrivateCommand(CmdElement byteCode)
+        {
+            var data = byteCode.Data;
+            var op = data.Get<CmdCommand>(0);
+            return (op != null && op.Text.Equal("private"));
+        }
+
+        public void GetPrivateVariables(CmdElement byteCode, List<string> vars)
+        {
+            var data = byteCode.Data;
+            var op = data.Get<CmdCommand>(0);
+            var arg1 = data.Get<CmdScopeArray>(1);
+
+            if (op != null && op.Text.Equal("private") && arg1 != null)
+            {
+                var items = arg1.Data.Select<CmdString>();
+                var duplicated = items.Where(m => vars.Any(n => n.Equal(m.Text)));
+                var newvars = items.Where(m => !vars.Any(n => n.Equal(m.Text)));
+                
+                duplicated.ForEach(m => Logger.Log(LogLevel.Warning, "Duplicated registeration private variable '{0}", m.Text));
+                newvars.ForEach(m => vars.Add(m.Text));
+            }
+        }
+
+        public void AddLocalVar(CmdElement byteCode, List<string> vars)
+        {
+            var op1 = byteCode.Data.Get<CmdCommand>(0);
+            if (op1 != null && op1.Text.StartsWith("#"))        //-- ignore preprocessor instructions
+                return;
+
+            var op = (CmdOperator)byteCode.Data.Where(m => m is CmdOperator).FirstOrDefault();
+            if (op != null && op.Text.Equal("="))
+            {
+                if (byteCode.Data.IndexOf(op) == 1)
+                {
+                    var arg1 = byteCode.Data.Get<CmdVariable>(0);
+                    if (arg1 != null)
+                    {
+                        if (!vars.Any(m => m.Equal(arg1.Text)) &&
+                            !ReservedLocalVarNames.Any(m => m.Equal(arg1.Text))) // check is variable not registered yet
+                        {
+                            vars.Add(arg1.Text);
+                        }
+                    }
+                    else
+                    {
+                        Logger.Log(LogLevel.Error, "'=' dont have assignment variable: {0}", byteCode.ToString());
+                    }
+                }
+                else
+                {
+                    Logger.Log(LogLevel.Error, "'=' must be at expression start", byteCode.ToString());
+                }
+            }
+        }
 
         public delegate string HandleCommand(string commandText);
 
@@ -656,13 +782,13 @@ namespace ArmA2.Script
             var vars1 = matches.Cast<Match>().Select(m => m.Groups[1].Value);
 
             var localVars = vars1.Where(m => m.StartsWith("_") && !ReservedLocalVarNames.Any(n => n == m.ToLower()));
-            RegisterVariables(content, localVars, vars, true);
+            DeclareVariables(content, localVars, vars, true);
 
             var globalVars = vars1.Where(m => !m.StartsWith("_") && !ReservedGlobalVarNames.Any(n => n == m.ToLower()));
-            RegisterVariables(content, globalVars, GlobalVars.PublicVariables, false);
+            DeclareVariables(content, globalVars, GlobalVars.PublicVariables, false);
         }
 
-        private void RegisterVariables(string content, IEnumerable<string> vars, List<Variable> varCollection, bool usageStat)
+        private void DeclareVariables(string content, IEnumerable<string> vars, List<Variable> varCollection, bool usageStat)
         {
             vars.GroupBy(m => m.ToLower()).ForEach(m =>
             {

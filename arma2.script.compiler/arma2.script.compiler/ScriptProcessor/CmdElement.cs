@@ -4,13 +4,29 @@ using System.Linq;
 
 namespace ArmA2.Script.ScriptProcessor
 {
-    public class CmdElementCollection : List<CmdBase>
+    public class CmdElementCollection: CmdElementCollectionBase<CmdBase>
+    {}
+
+    public class CmdElementCollectionBase<T> : List<T> where T : CmdBase
     {
         private int _position = 0;
 
         public void SetPosition(int position)
         {
             _position = position;
+        }
+
+        public CmdElementCollectionBase<T1> Select<T1>() where T1 : CmdBase
+        {
+            var items = new CmdElementCollectionBase<T1>();
+
+            foreach(T item in this)
+            {
+                if (item is T1)
+                    items.Add(((T1)(object)item));
+            }
+
+            return items;
         }
 
         public T Get<T>(int offset) where T : CmdBase
@@ -43,10 +59,12 @@ namespace ArmA2.Script.ScriptProcessor
     {
         public readonly CmdElementCollection Items = new CmdElementCollection();
 
-        public void ChildAdd(CmdBase child)
+        public CmdBase ChildAdd(CmdBase child)
         {
             child.Parent = this;
             Items.Add(child);
+
+            return child;
         }
 
         public CmdText CmdAdd(string cmdName)
@@ -67,15 +85,16 @@ namespace ArmA2.Script.ScriptProcessor
             return null;
         }
 
-        public void SeparatorAdd(string separatorName)
+        public CmdBase SeparatorAdd(string separatorName)
         {
             if (separatorName.Length != 0)
             {
                 if (Processor.IsOperator(separatorName))
-                    ChildAdd(new CmdOperator { Text = separatorName });
-                else
-                    ChildAdd(new CmdSeparator { Text = separatorName });
+                    return ChildAdd(new CmdOperator { Text = separatorName });
+
+                return ChildAdd(new CmdSeparator { Text = separatorName });
             }
+            return null;
         }
 
         public CmdElementCollection Data

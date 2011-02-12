@@ -12,6 +12,23 @@ namespace ArmA2.Script.UnitTests
     public class TestProcessor
     {
         [Test]
+        public void TestArrayItems()
+        {
+            Processor processor = new Processor();
+            var byteCode = processor.CompileToByteCode("private['a','b','c','d',if(a>b)then{0}else{1}]");
+
+            var op = (CmdElement)byteCode.Data[0];
+            Assert.AreEqual(2, op.Data.Count);
+
+            var array = (CmdScopeArray)op.Data[1];
+            Assert.AreEqual(5, array.Data.Count);
+
+            Assert.AreEqual(4, array.Data.Select<CmdString>().Count, "must select 4 string items");
+            Assert.AreEqual(1, array.Data.Select<CmdElement>().Count, "must select 1 code element");
+
+        }
+
+        [Test]
         public void TestByteCodePreProcessor()
         {
             Compiler compiler = new Compiler();
@@ -71,10 +88,10 @@ _myobj call compile preprocess _path2file;";
         public void TestSpawn()
         {
             Compiler compiler = new Compiler();
-            string content = "_myobj spawn { _myobj = 12345; }";
+            string content = "_my1 spawn { _myobj = 12345; }";
 
             content = compiler.Compile(content);
-            Assert.AreEqual("private['_myobj'];_myobj spawn{_myobj=12345}", content);
+            Assert.AreEqual("_my1 spawn{private['_myobj'];_myobj=12345}", content);
         }
 
         [Test]
