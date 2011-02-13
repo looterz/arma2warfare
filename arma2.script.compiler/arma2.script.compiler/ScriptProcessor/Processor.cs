@@ -163,7 +163,7 @@ namespace ArmA2.Script.ScriptProcessor
             ApplySingleChildElement(cmdRoot, cmdElement);
             if (cmdRoot is CmdScopeBase)
             {
-                var scope = (CmdScopeBase)cmdElement;
+                var scope = (CmdScopeBase)cmdRoot;
                 Logger.Log(LogLevel.Error, "Unclosed scope: {0}", scope.ToString());
             }
 

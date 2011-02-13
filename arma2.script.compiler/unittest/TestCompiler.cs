@@ -18,11 +18,12 @@ namespace ArmA2.Script.UnitTests
             string content;
             string result;
 
+            content = "private['_vehicle','_lock'];\n#include \"netsend.h\"\n_this select 0;";
+            result = _compiler.Compile(content);
+            Assert.AreEqual("#include \"netsend.h\"\n_this select 0;", result);
+
+
             content = "private['_vehicle','_lock'];\n#include \"netsend.h\"\n_vehicle = _this select 0;";
-
-            Processor p = new Processor();
-            var byteCode = p.CompileToByteCode(content);
-
             result = _compiler.Compile(content);
             Assert.AreEqual("private['_vehicle'];\n#include \"netsend.h\"\n_vehicle=_this select 0;", result);
 
@@ -164,9 +165,9 @@ switch (_respawnCampsMode) do {
 
             var outputBase = Console.Out;
 
-            foreach(var file in files)
+            //foreach(var file in files)
             {
-                //var file = @"c:\Users\Evgeny_Zyuzin\Documents\ArmA 2 Other Profiles\Bomba\missions\arma2.script.compiler\unittest\tests\A01.sqf";
+                var file = @"c:\Users\Evgeny_Zyuzin\Documents\ArmA 2 Other Profiles\Bomba\missions\arma2.script.compiler\unittest\tests\A00.sqf";
                 Logger.Clear();
 
                 //Console.SetOut(new StringWriter(new StringBuilder()));

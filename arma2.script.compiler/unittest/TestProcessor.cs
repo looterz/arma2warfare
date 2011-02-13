@@ -86,6 +86,9 @@ _myobj call compile preprocess _path2file;";
             Assert.AreEqual("_myobj spawn compile \"private['_myobj1'];_myobj1=12345;\"", content);
         }
 
+
+        //
+
         [Test]
         public void TestSpawn()
         {
