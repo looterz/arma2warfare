@@ -41,18 +41,36 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ForEachExt.cs" />
-    <Compile Include="GlobalVars.cs" />
+    <Compile Include="GlobalSettings.cs" />
     <Compile Include="Compiler.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="ScriptProcessor\CmdElement.cs" />
+    <Compile Include="ScriptProcessor\Elements\CmdBase.cs" />
+    <Compile Include="ScriptProcessor\Elements\CmdCommand.cs" />
+    <Compile Include="ScriptProcessor\Elements\CmdCommandBase.cs" />
+    <Compile Include="ScriptProcessor\Elements\CmdElement.cs" />
+    <Compile Include="ScriptProcessor\CmdElementCollection.cs" />
+    <Compile Include="ScriptProcessor\CmdElementCollectionBase.cs" />
+    <Compile Include="ScriptProcessor\Elements\CmdFloat.cs" />
+    <Compile Include="ScriptProcessor\Elements\CmdOperator.cs" />
+    <Compile Include="ScriptProcessor\Elements\CmdPreprocessor.cs" />
+    <Compile Include="ScriptProcessor\Elements\CmdScopeArray.cs" />
+    <Compile Include="ScriptProcessor\Elements\CmdScopeCode.cs" />
+    <Compile Include="ScriptProcessor\Elements\CmdScopeExpression.cs" />
+    <Compile Include="ScriptProcessor\Elements\CmdScopeBase.cs" />
     <Compile Include="ScriptProcessor\Commands.cs" />
+    <Compile Include="ScriptProcessor\Elements\CmdSeparator.cs" />
+    <Compile Include="ScriptProcessor\Elements\CmdString.cs" />
+    <Compile Include="ScriptProcessor\Elements\CmdText.cs" />
+    <Compile Include="ScriptProcessor\Elements\CmdVariable.cs" />
     <Compile Include="ScriptProcessor\FlattenHierarchyProxy.cs" />
+    <Compile Include="ScriptProcessor\IScriptRenderer.cs" />
     <Compile Include="ScriptProcessor\ListBase.cs" />
     <Compile Include="ScriptProcessor\Processor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scope.cs" />
     <Compile Include="ScriptProcessor\ListCommands.cs" />
     <Compile Include="ScriptProcessor\ListOperators.cs" />
+    <Compile Include="ScriptProcessor\ScriptWriter.cs" />
     <Compile Include="StringExtension.cs" />
     <Compile Include="Variable.cs" />
   </ItemGroup>

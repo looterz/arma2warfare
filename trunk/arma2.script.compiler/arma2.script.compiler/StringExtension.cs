@@ -33,7 +33,7 @@ namespace ArmA2.Script
 
         public static bool IsStartString(this string content, int pos)
         {
-            return (content[pos] == '"' || content[pos] == '\'');
+            return (0 <= pos  && pos < content.Length && (content[pos] == '"' || content[pos] == '\''));
         }
 
         public static int GetEndQuote(this string content, int startPos)

@@ -42,7 +42,7 @@ fnSupportHintShow = {
 };
 
 fnSupportHintDisplay = {
-private["_lines", "_str", "_u", "_line", "_text", "_timeout", "_removed"];
+private["_lines", "_str", "_u", "_line", "_text", "_timeout", "_removed", "_active"];
 
 	_str = objNull;
 	_u = count supportHintLines;

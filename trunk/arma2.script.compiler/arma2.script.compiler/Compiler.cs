@@ -29,7 +29,7 @@ namespace ArmA2.Script
 
         public static void ResetPublicUsage()
         {
-            GlobalVars.PublicVariables.ForEach(m =>
+            GlobalSettings.PublicVariables.ForEach(m =>
             {
                 m.Regex = new Regex("\\b" + Regex.Escape(m.VarName) + "\\b", RegexOptions.IgnoreCase);
                 m.UsageCount = 0;
@@ -40,11 +40,11 @@ namespace ArmA2.Script
         public static void AddPublicVariablesUsageStat(string fileName)
         {
             string content = File.ReadAllText(fileName);
-            GlobalVars.PublicVariables.ForEach(m => m.UsageCount += m.Regex.Matches(content).Count);
+            GlobalSettings.PublicVariables.ForEach(m => m.UsageCount += m.Regex.Matches(content).Count);
         }
         public static List<Variable> GetPublicVarsOrderByUsage()
         {
-            return GlobalVars.PublicVariables.OrderByDescending(m => m.UsageCount).ToList();
+            return GlobalSettings.PublicVariables.OrderByDescending(m => m.UsageCount).ToList();
         }
         public string Compile(string content)
         {
@@ -63,32 +63,99 @@ namespace ArmA2.Script
             }
             return content;
         }
-        public string CompilePartial(string strContent)
+
+        public int GetEndMultiComment(string content, int startPos)
         {
-            strContent = strContent.Replace("\t", " ");
-            strContent = strContent.Replace("\r\n", "\n");
-            strContent = strContent.Replace("\r", "\n");
+            for (int i = startPos+2; i < content.Length; i++)
+            {
+                if (content.Equal("/*", i))     // skip internal comments
+                {
+                    var end = GetEndMultiComment(content, i + 2);
+                    i = (end != -1) ? end : content.Length;
+                    continue;
+                }
+                if (content.Equal("*/", i))     // found end
+                    return (i + 1);
+            }
 
-            strContent = RemoveMultiLineComments(strContent);
+            Logger.Log(LogLevel.Error, "Multiline comment is not completed: {0}", content.Substring(startPos));
+            return -1;
+        }
 
-            string[] content = strContent.Split(new[] {"\n"}, StringSplitOptions.RemoveEmptyEntries);
-            var content1 = content.Select(m => m);
+        public string DeleteComments(string content)
+        {
+            string contentNew = string.Empty;
+            int lineStart = -1;
+            for (int i = 0; i < content.Length; i++)
+            {
+                if (lineStart == -1)
+                    lineStart = i;
+
+                if (content.Equal("/*", i)) // skip all comments
+                {
+                    if (i - lineStart > 0)
+                        contentNew = contentNew + content.Substring(lineStart, i - lineStart);
+
+                    var end = GetEndMultiComment(content, i);
+                    i = (end != -1) ? end : content.Length;
+
+                    lineStart = -1;
+                    continue;
+                }
+                if (content.Equal("//", i)) // skip single line comments
+                {
+                    if (i - lineStart > 0)
+                        contentNew = contentNew + content.Substring(lineStart, i - lineStart);
+                    i = content.IndexOf("\n", i);
+                    if (i == -1)
+                        i = content.Length;
+                    lineStart = -1;
+                    continue;
+                }
+
+                if (content.IsStartString(i))   // пропускаем строковые переменные
+                {
+                    var end = content.GetEndQuote(i);
+                    i = (end != -1) ? end : content.Length;
+                    continue;
+                }
+            }
+
+            if (lineStart != -1 && content.Length - lineStart > 0)
+                contentNew = contentNew + content.Substring(lineStart, content.Length - lineStart);
+
+            return contentNew;
+        }
+
+
+        public string CleanupContent(string content)
+        {
+            content = content.Replace("\t", " ");
+            content = content.Replace("\r\n", "\n");
+            content = content.Replace("\r", "\n");
+
+            //content = RemoveMultiLineComments(content);
+
+            if (FsmContent)
+                content = content.Replace("\"\"\">*/", "*/");     // """>*/  to */
+
+            content = DeleteComments(content);
+
+            string[] lines = content.Split(new[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            var content1 = lines.Select(m => m);
+
 
             content1 = content1.Where(m => m.Trim().Length > 0).Select(m => m.Trim());
             if (!FsmContent)
             {
-                content1 = content1.Where(m => !GlobalVars.ExcludeLines.Any(n => new Regex(n).IsMatch(m)));
+                content1 = content1.Where(m => !GlobalSettings.ExcludeLines.Any(n => new Regex(n).IsMatch(m)));
             }
 
             string contentText = "";
             content1.ForEach(m => contentText = contentText + m + "\n");
 
-            if (FsmContent)
-            {
-                contentText = contentText.Replace("\"\"\">*/", "*/");     // """>*/  to */
-            }
 
-            contentText = RemoveMultiLineComments(contentText);
+
             contentText = RemoveStringBreaks(contentText);
             contentText = RemoveExtraSpaces(contentText);
 
@@ -102,16 +169,24 @@ namespace ArmA2.Script
                 contentText = RemoveLineBreaks(contentText.Split(new[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
                 contentText = RemoveExtraSpaces(contentText);
                 contentText = ContentCleanup(contentText);
-                //contentText = PackVariables(contentText);
-                contentText = ExecuteCode(contentText);
+                contentText = RemoveExtraSpaces(contentText);
             }
 
 
             var commands = contentText.Split(new[] {"\n"}, StringSplitOptions.RemoveEmptyEntries);
             contentText = RemoveLineBreaks(commands);
             contentText = contentText.Replace(";;", ";");
-
             return contentText.Trim();
+        }
+
+        public string CompilePartial(string content)
+        {
+            content = CleanupContent(content);
+            if (!FsmContent)
+            {
+                content = ExecuteCode(content);
+            }
+            return content.Replace("\r\n", "\n").Replace("\n\n", "\n").Trim();
         }
 
         public string ExecuteCode(string content)
@@ -205,7 +280,7 @@ namespace ArmA2.Script
 
                     for (int i = 0; i < reg.Count; i++)
                     {
-                        array.ChildAdd(new CmdString { Text = reg[i], Quote = "'" });
+                        array.ChildAdd(new CmdString { Text = reg[i], Quote = GlobalSettings.StringQuote });
                         if (i + 1 != localvars.Count)
                             array.ChildAdd(new CmdSeparator { Text = "," });
                     }
@@ -303,7 +378,7 @@ namespace ArmA2.Script
         {
             contentText = RemoveEmptyLines(contentText);
             string text = contentText;
-            GlobalVars.ExcludePhrases.ForEach(m =>
+            GlobalSettings.ExcludePhrases.ForEach(m =>
             {
                 Regex regex = new Regex(m);
                 text = regex.Replace(text, "");
@@ -326,152 +401,42 @@ namespace ArmA2.Script
 
         private string ProcessFSM(string content)
         {
-            Regex regex = new Regex(@"(\w+?)=[""]");
-            var matches = regex.Matches(content);
+            string[] ignoredNames = new[] { "fsmname", "from", "to", "name", "priority", "initstate" };
 
-            string[] ignoredNames = new[] { "from", "to", "name", "priority", "initstate" };
+            Processor p = new Processor();
+            var code = p.CompileToByteCode(content);
 
-            Compiler compiler = new Compiler();
+            var assignList = code.FlatData.Where(m => m is CmdOperator && ((CmdOperator) m).Text.Equal("="));
 
-            compiler.HideVars = false;
-            compiler.FileName = this.FileName;
-            compiler.IsTopFile = false;
-            compiler.DeclarePrivateVars = false;
+            var prevDeclareVars = DeclarePrivateVars;
+            var prevFsmContent = FsmContent;
 
-            var groups = matches.Cast<Match>().Where(m => !ignoredNames.Any(n => n == m.Groups[1].Value.ToLower()));
+            DeclarePrivateVars = false;
+            FsmContent = false;
 
-            var scripts = groups.OrderByDescending(m => m.Index).Select(m => 
+            foreach(var assign in assignList)
             {
-                int a = m.Index + m.Length - 1;
-                int b = content.GetEndQuote(a);
+                var cmdId = assign.Parent.Items.IndexOf(assign);
+                var name = assign.Parent.Items.Get<CmdText>(cmdId - 1);
+                var value = assign.Parent.Items.Get<CmdString>(cmdId + 1);
 
-                string script = string.Empty;
-                a = a + 1; 
-                if (a != b)
+                if (name == null || value == null)
                 {
-                    script = content.Substring(a, b - a).Replace("\"\"", "\"").Trim();
-                    if (script.Length > 0)
-                    {
-                        script = compiler.Compile(script);
-                        script = script.Trim();
-                    }
+                    continue;
                 }
 
-                return new {A = a, B = b, Script = script, Key=m.Value};
-            }).Where(m => m.A < m.B);
+                if (ignoredNames.Any(m => m.Equal(name.Text)))
+                    continue;
 
-            if (HideVars)
-            {
-                List<Variable> vars = new List<Variable>();
-                scripts.ForEach(m => GetVariables(m.Script, vars));
-
-                var ordered = vars.Where(m => m.VarName.StartsWith("_")).OrderByDescending(m => m.UsageCount).ToList();
-                ordered.ForEach(m =>
-                                    {
-                                        m.Regex = new Regex("\\b" + Regex.Escape(m.VarName) + "\\b",
-                                                            RegexOptions.IgnoreCase);
-                                        m.ObfuscateName = GetNextLocalName();
-                                    });
-
-                ordered = ordered.OrderBy(m => m.VarName).ToList();
-                scripts.ForEach(m => {
-                    var script = m.Script;
-                    ordered.ForEach(var => script = var.Regex.Replace(script, "uzxhgrwq" + var.ObfuscateName + "uzxhgrwq"));
-                });
+                var valueContent = value.Text.Replace("\"\"", "\"");
+                valueContent = this.CompilePartial(valueContent);
+                value.Text = valueContent.Replace("\"", "\"\"");
             }
 
-            scripts.ForEach(m =>
-            {
-                var script = m.Script;
-                script = script.Replace("\"", "\"\"");
-                content = content.Remove(m.A, m.B - m.A);
-                content = content.Insert(m.A, script);
-            });
+            content = code.ToString().Trim();
 
-            if (HideVars)
-                content = content.Replace("uzxhgrwq", "");
-
-            return content;
-        }
-
-        private string PackVariables(string content)
-        {
-            if (!DeclarePrivateVars && !HideVars)
-                return content;
-
-            var vars = new List<Variable>();
-            GetVariables(content, vars);
-            var ordered = vars.Where(m => m.VarName.StartsWith("_")).OrderByDescending(m => m.UsageCount).ToList();
-
-
-            if (HideVars)
-            {
-                ordered.ForEach(var =>
-                {
-                    var.Regex = new Regex("\\b" + Regex.Escape(var.VarName) + "\\b", RegexOptions.IgnoreCase);
-                    var.ObfuscateName = GetNextLocalName();
-                    content = var.Regex.Replace(content, "uzxhgrwq" + var.ObfuscateName + "uzxhgrwq");
-                });
-            }
-            if (ordered.Count() > 0)
-            {
-                if (HideVars)
-                    content = content.Replace("uzxhgrwq", "");
-
-                var localVars = ordered.Select(m => (HideVars) ? m.ObfuscateName : m.VarName);
-
-                Regex regex = new Regex(@"private\[(.+?)\];", RegexOptions.IgnoreCase );
-                var matches = regex.Matches(content);
-
-                List<string> addVars = new List<string>();
-
-                var scopes = GetScopes(content, 0, content.Length);
-
-                var firstDeclare = matches.Cast<Match>()
-                    .Where(m => !scopes.Any(scope => scope.Start <= m.Index && m.Index <= scope.End))
-                    .OrderBy(m => m.Index).FirstOrDefault();
-
-                if (firstDeclare != null)
-                    content = content.Remove(firstDeclare.Index, firstDeclare.Length);
-
-                var privateVars = new List<string>();
-                matches.Cast<Match>().ForEach(m1 =>
-                {
-                    var m = m1.Groups[1].Value;
-                    var vars1 = m.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(n => n.Substring(1, n.Length - 2));
-                    privateVars.AddRange(vars1);
-                    if (m1 == firstDeclare)
-                    {
-                        var used = vars1.Where(var => localVars.Any(local => local.ToLower() == var.ToLower()));
-                        var unused = vars1.Where(var => !localVars.Any(local => local.ToLower() == var.ToLower()));
-                        addVars.AddRange(used);
-
-                        unused.ForEach(var => Console.WriteLine("Warning: var '{0}' declared as private but not used", var));
-                    }
-                });
-
-                var unregistered = localVars.Where(localVar => !privateVars.Any(privateVar => privateVar.ToLower() == localVar.ToLower()));
-                unregistered.ForEach(m => Console.WriteLine("Warning: variable {0} is not private", m));
-
-                addVars.AddRange(unregistered);
-
-                if (addVars.Count() > 0)
-                {
-                    string privateDeclare = "private[";
-
-                    bool firstVar = true;
-                    foreach (var localVar in addVars)
-                    {
-                        privateDeclare = privateDeclare + ((!firstVar) ? "," : "") + string.Format("'{0}'", localVar);
-                        firstVar = false;
-                    }
-                    privateDeclare = privateDeclare + "];";
-                    if (content.StartsWith("#"))
-                        privateDeclare = privateDeclare + "\n";
-                    content = privateDeclare + content;
-                }
-            }
-
+            DeclarePrivateVars = prevDeclareVars;
+            FsmContent = prevFsmContent;
             return content;
         }
 
@@ -552,100 +517,6 @@ namespace ArmA2.Script
                 return null;
 
             return line.Substring(strA, strB - strA + 1);
-        }
-        public string RemoveSingleLineComments(string content)
-        {
-            // delete "//" style comments
-
-            content = content.Trim();
-
-            for (int i = 0; i < content.Length; i++ )
-            {
-                if (content.IsStartString(i))    // skip strings
-                {
-                    var end = content.GetEndQuote(i);
-                    i = (end != -1) ? end : content.Length;
-                    continue;
-                }
-
-                if (content.Equal("*/", i))    // exclude select *//* 
-                { i += 1; continue; }
-
-                if (content.Equal("//", i))
-                {
-                    content = content.Remove(i);
-                    break;
-                }
-            }
-
-            return content.Trim();
-        }
-        public string RemoveMultiLineComments(string content)
-        {
-            content = content.Trim();
-
-            int s0 = -1;
-            int openMultiComment = 0;
-            for (int i = 0; i < content.Length; i++)
-            {
-                if (content.IsStartString(i) && openMultiComment == 0)
-                {
-                    int i0 = i;
-                    var end = content.GetEndQuote(i);
-                    i = (end == -1) ? content.Length - 1 : end;
-                    //Console.WriteLine("{0}: #{1}#", i0, content.Substring(i0, i-i0+1));
-                    continue;
-                }
-
-                if (content.Equal("/*", i))
-                {
-                    if (openMultiComment == 0)
-                        s0 = i;
-
-                    openMultiComment++;
-                }
-
-                if (content.Equal("*/", i))
-                {
-                    if (openMultiComment > 0)
-                    {
-                        openMultiComment = openMultiComment - 1;
-                        if (openMultiComment == 0)
-                        {
-                            content = content.Remove(s0, (i - s0) + 2);
-                            i = s0 - 1;
-                        }
-                    }
-                    else
-                    {
-                        i++;
-                        continue;
-                    }
-                }
-
-                if (!FsmContent)
-                {
-                    if (content.Equal("//", i))
-                    {
-                        int endLine = content.IndexOf("\n", i+1);
-                        if (endLine == -1)
-                            endLine = content.Length - 1;
-
-                        content = content.Remove(i, endLine - i + 1);
-                        i--;
-                        continue;
-                    }
-                }
-
-            }
-
-            if (openMultiComment > 0)
-            {
-                Logger.Log(LogLevel.Error, "Some multi-comments are not closed: {0}", content.Substring(s0));
-                content = content.Remove(s0);
-            }
-
-            return content.Trim();
         }
 
         public string RemoveExtraSpaces(string line)
@@ -779,35 +650,6 @@ namespace ArmA2.Script
                 varName = GetNextLocalName();
 
             return varName;
-        }
-
-        private void GetVariables(string content, List<Variable> vars)
-        {
-            Regex regex = new Regex(@"(\w+?)=[^=]");
-            var matches = regex.Matches(content);
-
-            var vars1 = matches.Cast<Match>().Select(m => m.Groups[1].Value);
-
-            var localVars = vars1.Where(m => m.StartsWith("_") && !ReservedLocalVarNames.Any(n => n == m.ToLower()));
-            DeclareVariables(content, localVars, vars, true);
-
-            var globalVars = vars1.Where(m => !m.StartsWith("_") && !ReservedGlobalVarNames.Any(n => n == m.ToLower()));
-            DeclareVariables(content, globalVars, GlobalVars.PublicVariables, false);
-        }
-
-        private void DeclareVariables(string content, IEnumerable<string> vars, List<Variable> varCollection, bool usageStat)
-        {
-            vars.GroupBy(m => m.ToLower()).ForEach(m =>
-            {
-                var var1 = varCollection.FirstOrDefault(v => v.VarName.ToLower() == m.Key.ToLower());
-                if (var1 == null)
-                {
-                    var1 = new Variable {VarName = m.Key};
-                    varCollection.Add(var1);
-                }
-
-                var1.UsageCount += (usageStat) ? GetUsageStat(content, m.Key) : 0;
-            });
         }
 
         public int GetUsageStat(string content, string varName)

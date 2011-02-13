@@ -79,11 +79,16 @@ namespace ArmA2.Script.ScriptProcessor
                 Processor p = new Processor();
 
                 var contentPartial = ehString.Text.Replace("\"\"", "\"");
-                contentPartial = compiler.CompilePartial(contentPartial);
-                var partial = p.CompileToByteCode("{" + contentPartial + "}").Items.Get<CmdScopeCode>(0);
+                contentPartial = compiler.CleanupContent(contentPartial);
+                var partial = p.CompileToByteCode(contentPartial);
+                compiler.DeclareVariables(partial);
+
+                var codeScope = new CmdScopeCode();
+                codeScope.ChildAdd(partial);
+                codeScope.Parent = arg1;
 
                 int id = arg1.Items.IndexOf(ehString);
-                arg1.Items[id] = partial;
+                arg1.Items[id] = codeScope;
             }
         }
 

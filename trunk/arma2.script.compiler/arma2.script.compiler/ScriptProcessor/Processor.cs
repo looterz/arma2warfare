@@ -53,6 +53,7 @@ namespace ArmA2.Script.ScriptProcessor
         private string[] _sep = (new[] {"==", ">=", "<=", "!=", "&&", "||",
                 "{", "[", "(", "]", ")", "}", 
                 " greater ", " greater=", " less ", " less=", " or ", " and ", " plus ",
+                "<", ">", "|", 
                 "!", "=", "*", "+", "-", "/", "^", "&", ",", ":", "\"", "'", ";", " "})
                 .OrderByDescending(m => m.Length).ToArray();
 
