@@ -12,6 +12,26 @@ namespace ArmA2.Script.UnitTests
     public class TestProcessor
     {
         [Test]
+        public void TestArrayItems1()
+        {
+            Compiler compiler = new Compiler();
+            string content = @"{
+_displayEH_keydown=displayaddeventhandler[""keydown"", ""
+{       
+    while(true) {
+           if(true)
+           {
+                     _var=123;
+           }
+    };
+""])}";
+
+            content = compiler.Compile(content);
+            Assert.AreEqual(content, 
+                "private['_displayEH_keydown'];{_displayEH_keydown=displayaddeventhandler[\"keydown\",{private['_var'];{while(true){if(true){_var=123}};}}])}");
+        }
+
+        [Test]
         public void TestArrayItems()
         {
             Processor processor = new Processor();

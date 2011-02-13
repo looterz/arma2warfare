@@ -152,13 +152,13 @@ switch (_respawnCampsMode) do {
         [Test]
         public void TestComplexFilePatterns()
         {
-            GlobalVars.ExcludeLines.Clear();
-            GlobalVars.ExcludeLines.Add("PROFILER_BEGIN");
-            GlobalVars.ExcludeLines.Add("PROFILER_END");
-            GlobalVars.ExcludeLines.Add(@"profiler.sqf");
-            GlobalVars.ExcludeLines.Add(@"profiler.h");
-            GlobalVars.ExcludeLines.Add(@"!isNil ""initProfiler""");
-            GlobalVars.ExcludeLines.Add(@"call Log(Inform|High|Medium|Warning|Error|Trace|Unexpected|Notify)(?:[^\w])");
+            GlobalSettings.ExcludeLines.Clear();
+            GlobalSettings.ExcludeLines.Add("PROFILER_BEGIN");
+            GlobalSettings.ExcludeLines.Add("PROFILER_END");
+            GlobalSettings.ExcludeLines.Add(@"profiler.sqf");
+            GlobalSettings.ExcludeLines.Add(@"profiler.h");
+            GlobalSettings.ExcludeLines.Add(@"!isNil ""initProfiler""");
+            GlobalSettings.ExcludeLines.Add(@"call Log(Inform|High|Medium|Warning|Error|Trace|Unexpected|Notify)(?:[^\w])");
 
             var path = Path.Combine(Environment.CurrentDirectory, "..\\..\\tests\\");
             var files = Directory.GetFiles(path).Where(m => !Path.GetFileNameWithoutExtension(m).EndsWith(".a"));
@@ -191,13 +191,6 @@ switch (_respawnCampsMode) do {
                 Console.WriteLine("{0} - [Done]", Path.GetFileName(file));
             }
 
-        }
-
-        [Test]
-        public void TestScopeDetectComplex()
-        {
-            var path = Path.Combine(Environment.CurrentDirectory, "..\\..\\tests\\");
-            //Common_SelectCamo.a.sqf 
         }
 
         [Test]
@@ -301,40 +294,44 @@ switch (_respawnCampsMode) do {
         [Test]
         public void TestRemoveMultiLineComment()
         {
-            var testText = @"    var var1 = ""hell/*owor*/ld""; /* old code var /* var1 = ""hellow */orld""   */";
-            var result = _compiler.RemoveMultiLineComments(testText);
-            Assert.AreEqual(@"var var1 = ""hell/*owor*/ld"";", result, "");
+            var testText  = @"    var var1 = ""hell/*owor*/ld""; /* old code var /* var1 = ""hellow */orld""   */";
+            var result = _compiler.DeleteComments(testText);
+            Assert.AreEqual(@"    var var1 = ""hell/*owor*/ld""; ", result, "");
 
             testText = @"*//*%FSM</HEAD>*/";
-            result = _compiler.RemoveMultiLineComments(testText);
-            Assert.AreEqual(@"*/", result, "");
+            result = _compiler.DeleteComments(testText);
+            Assert.AreEqual(@"*", result, "");
 
-            testText = @"    var var1 = ""hell/*owor*/ld""; /* old code var var1 = ""helloworld"" */ var var2 = ""hell/*owor*/ld"";";
-            result = _compiler.RemoveMultiLineComments(testText);
+            testText = @"/*    */abc/*%FSM</HEAD>*/ABC";
+            result = _compiler.DeleteComments(testText);
+            Assert.AreEqual(@"abcABC", result, "");
+
+            testText = @"var var1 = ""hell/*owor*/ld""; /* old code var var1 = ""helloworld"" */ var var2 = ""hell/*owor*/ld"";";
+            result = _compiler.DeleteComments(testText);
             Assert.AreEqual(@"var var1 = ""hell/*owor*/ld"";  var var2 = ""hell/*owor*/ld"";", result, "");
 
-            testText = @"    var var1 = 12345; /* old code var var1 = ""helloworld"" */";
-            result = _compiler.RemoveMultiLineComments(testText);
-            Assert.AreEqual(@"var var1 = 12345;", result, "");
+            testText = @"var var1 = 12345; /* old code var var1 = ""helloworld"" */";
+            result = _compiler.DeleteComments(testText);
+            Assert.AreEqual(@"var var1 = 12345; ", result, "");
 
             testText = @"/*%FSM<COMPILE ""F:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, fasttime"">*/";
-            result = _compiler.RemoveMultiLineComments(testText);
+            result = _compiler.DeleteComments(testText);
             Assert.AreEqual(@"", result, "");
 
             testText = @"/*%FSM<COMPILE ""F:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, fasttime"">*//* next comment */";
-            result = _compiler.RemoveMultiLineComments(testText);
+            result = _compiler.DeleteComments(testText);
             Assert.AreEqual("", result, "");
 
             testText = @"/*%FSM<COMPILE ""F:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, fasttime"">*/ 12345 /* next comment */";
-            result = _compiler.RemoveMultiLineComments(testText);
-            Assert.AreEqual("12345", result, "");     
+            result = _compiler.DeleteComments(testText);
+            Assert.AreEqual(" 12345 ", result, "");     
 
             testText = @"/*%FSM<COMPILE ""F:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, fasttime"">";
-            result = _compiler.RemoveMultiLineComments(testText);
+            result = _compiler.DeleteComments(testText);
             Assert.AreEqual("", result, "");
 
             testText = @"*/%FSM<COMPILE ""F:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, fasttime"">";
-            result = _compiler.RemoveMultiLineComments(testText);
+            result = _compiler.DeleteComments(testText);
             Assert.AreEqual(testText, result, "");
 
             testText = @"
@@ -344,28 +341,28 @@ switch (_respawnCampsMode) do {
 item0[] = {""Init"",0,250,-81.542984,-257.577942,8.457038,-207.578140,0.000000,""Init""};
 *//*%FSM</HEAD>*/
 class FSM";
-            result = _compiler.RemoveMultiLineComments(testText);
-            Assert.AreEqual("class FSM", result, "");
+            result = _compiler.DeleteComments(testText);
+            Assert.AreEqual("class FSM", result.Trim(), "");
 
-            testText = "      init = \"WF_Logic setVariable [\"\"currentTime\"\",_currentTime,true];\"/*%FSM</STATEINIT\"\"\">*/;";
-            result = _compiler.RemoveMultiLineComments(testText);
+            testText = "init = \"WF_Logic setVariable [\"\"currentTime\"\",_currentTime,true];\"/*%FSM</STATEINIT\"\"\">*/;";
+            result = _compiler.DeleteComments(testText);
             Assert.AreEqual("init = \"WF_Logic setVariable [\"\"currentTime\"\",_currentTime,true];\";", result, "");
 
             testText = @"/*  the player's information are stored or retrieved before being updated.*/ TEST";
-            result = _compiler.RemoveMultiLineComments(testText);
-            Assert.AreEqual("TEST", result, "");
+            result = _compiler.DeleteComments(testText);
+            Assert.AreEqual(" TEST", result, "");
         }
 
         [Test]
         public void TestRemoveMultiLineComment2()
         {
             var testText = "      init = \"WF_Logic setVariable [\"\"currentTime\"\",_currentTime,true];\"/*%FSM</STATEINIT\"\"\">*/;";
-            var result = _compiler.RemoveMultiLineComments(testText);
-            Assert.AreEqual("init = \"WF_Logic setVariable [\"\"currentTime\"\",_currentTime,true];\";", result, "");
+            var result = _compiler.DeleteComments(testText);
+            Assert.AreEqual("      init = \"WF_Logic setVariable [\"\"currentTime\"\",_currentTime,true];\";", result, "");
 
             Logger.Clear();
             testText = @"/* This file handle the client's UAV broadcast, a client send info to the others. */var c=0;";
-            result = _compiler.RemoveMultiLineComments(testText);
+            result = _compiler.DeleteComments(testText);
             Assert.AreEqual(0, Logger.Errors.Count, "");
             Assert.AreEqual("var c=0;", result, "");
 
@@ -374,19 +371,31 @@ class FSM";
         [Test]
         public void TestRemoveCommentSingleLine()
         {
-            var result = _compiler.RemoveSingleLineComments("       var mymethod = 12123; // hello world");
-            Assert.AreEqual("var mymethod = 12123;", result, "");
+            var result = _compiler.DeleteComments("       var mymethod = 12123; // hello world");
+            Assert.AreEqual("       var mymethod = 12123; ", result, "");
 
-            result = _compiler.RemoveSingleLineComments("*//*%FSM</HEAD>*//");
-            Assert.AreEqual("*//*%FSM</HEAD>*//", result, "");
+            result = _compiler.DeleteComments("/* *//*%FSM</HEAD>*//");
+            Assert.AreEqual("/", result, "");
 
-            result = _compiler.RemoveSingleLineComments("       var mymethod = 12123; var myText = \"// hello world\";");
-            Assert.AreEqual("var mymethod = 12123; var myText = \"// hello world\";", result, "");
+            result = _compiler.DeleteComments(@"/* 
 
-            result = _compiler.RemoveSingleLineComments("       var mymethod = 12123; var myText = \"// hello world\"; // some my comment");
-            Assert.AreEqual("var mymethod = 12123; var myText = \"// hello world\";", result, "");
+    // mycomment = 1
 
-            result = _compiler.RemoveSingleLineComments("//--- Attempt to get the player's team.");
+*/Hello");
+            Assert.AreEqual("Hello", result, "");
+
+
+
+            result = _compiler.DeleteComments("       var mymethod = 12123; /* hello /* world*/ arma */ var mymethod2 = 12345");
+            Assert.AreEqual("       var mymethod = 12123;  var mymethod2 = 12345", result, "");
+
+            result = _compiler.DeleteComments("var mymethod = 12123; var myText = \"// hello world\";");
+            Assert.AreEqual(result, "var mymethod = 12123; var myText = \"// hello world\";", "");
+
+            result = _compiler.DeleteComments("var mymethod = 12123; var myText = \"// hello world\"; // some my comment");
+            Assert.AreEqual(result, "var mymethod = 12123; var myText = \"// hello world\"; ", "");
+
+            result = _compiler.DeleteComments("//--- Attempt to get the player's team.");
             Assert.AreEqual("", result, "");
         }
     }

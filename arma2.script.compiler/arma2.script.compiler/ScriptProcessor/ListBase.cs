@@ -36,6 +36,11 @@ namespace ArmA2.Script.ScriptProcessor
             return CommandData.Any(m => m.Name.Equals(value, StringComparison.CurrentCultureIgnoreCase));
         }
 
+        public static Function GetCommand(string name)
+        {
+            return CommandData.FirstOrDefault(m => m.Name.Equal(name.Trim()));
+        }
+
         private static List<string> ReadUniqueItemCollection(string content, string warningMessage)
         {
             var items = content.Split("\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(m => m.Split(new[] { ":=" }, StringSplitOptions.RemoveEmptyEntries));
