@@ -1,7 +1,6 @@
 private['_msgId','_msgData','_msgTo'];
 #include "profiler.h"
 PROFILER_BEGIN("NetSend_ToClient");
-	private['_msgId', '_msgData', '_msgTo', '_vehInfo' ];
 	
 	_msgTo    = _this select 0;
 	_msgId    = _this select 1;

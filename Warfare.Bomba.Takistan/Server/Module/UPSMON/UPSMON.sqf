@@ -796,7 +796,7 @@ while {_loop} do {
 	} else {
 		// did the leader die?
 		_npc = [_npc,_members] call MON_getleader;							
-		if (!alive _npc || !canmove _npc || isplayer _npc ) exitwith {exit=true;};	
+		if (!alive _npc || !canmove _npc || isplayer _npc ) exitwith {_exit=true;};	
 	};
 		
 	//exits from loop
@@ -1080,7 +1080,7 @@ while {_loop} do {
 
 			// did the leader die?					
 			_npc = [_npc,_members] call MON_getleader;							
-			if (!alive _npc || !canmove _npc || isplayer _npc ) exitwith {exit=true;};		
+			if (!alive _npc || !canmove _npc || isplayer _npc ) exitwith {_exit=true;};		
 
 			_npc setBehaviour "STEALTH";	
 			_grp setFormation "LINE";
@@ -1158,7 +1158,7 @@ while {_loop} do {
 					}foreach _unitsin;			
 					// did the leader die?
 					_npc = [_npc,_members] call MON_getleader;							
-					if (!alive _npc || !canmove _npc || isplayer _npc ) exitwith {exit=true;};	
+					if (!alive _npc || !canmove _npc || isplayer _npc ) exitwith {_exit=true;};	
 					
 					if (_fightmode == "fight" || _gothit) then {			
 						_npc setBehaviour "AWARE";																		
@@ -1280,7 +1280,7 @@ while {_loop} do {
 
 			// did the leader die?
 			_npc = [_npc,_members] call MON_getleader;							
-			if (!alive _npc || !canmove _npc || isplayer _npc ) exitwith {exit=true;};				
+			if (!alive _npc || !canmove _npc || isplayer _npc ) exitwith {_exit=true;};				
 		
 			// get position of spotted unit in player group, and watch that spot
 			_targetPos = _attackPos;		
@@ -1502,7 +1502,7 @@ while {_loop} do {
 			
 			// did the leader die?
 			_npc = [_npc,_members] call MON_getleader;							
-			if (!alive _npc || !canmove _npc || isplayer _npc ) exitwith {exit=true;};	
+			if (!alive _npc || !canmove _npc || isplayer _npc ) exitwith {_exit=true;};	
 		
 			//If leader is in vehicle will move in  anyway
 			if (vehicle (_npc) != _npc || !_isman) then {
@@ -1598,7 +1598,7 @@ while {_loop} do {
 	if !(_newpos) then {
 		// did the leader die?
 		_npc = [_npc,_members] call MON_getleader;							
-		if (!alive _npc || !canmove _npc || isplayer _npc ) exitwith {exit=true;};		
+		if (!alive _npc || !canmove _npc || isplayer _npc ) exitwith {_exit=true;};		
 		// calculate new distance
 		// if we're waiting at a waypoint, no calculating necessary	
 		_currpos = getpos _npc;		
@@ -1758,7 +1758,7 @@ while {_loop} do {
 	if ((_waiting<=0) && _newpos) then {		
 		// did the leader die?			
 		_npc = [_npc,_members] call MON_getleader;									
-		if (!alive _npc || !canmove _npc || isplayer _npc ) exitwith {exit=true;};	
+		if (!alive _npc || !canmove _npc || isplayer _npc ) exitwith {_exit=true;};	
 		
 		_currPos = getpos _npc;		
 		_newpos = false;
@@ -1817,7 +1817,7 @@ while {_loop} do {
 		
 		// did the leader die?
 		_npc = [_npc,_members] call MON_getleader;	
-		if (!alive _npc || !canmove _npc || isplayer _npc ) exitwith {exit=true;};	
+		if (!alive _npc || !canmove _npc || isplayer _npc ) exitwith {_exit=true;};	
 		
 		//Si no ha sido suprimida continuamos el avance
 		if (alive _npc) then {
@@ -1883,7 +1883,7 @@ while {_loop} do {
 							
 							//Cheks if leader has dead until wait
 							_npc = [_npc,_members] call MON_getleader;							
-							if (!alive _npc || !canmove _npc) exitwith {exit=true;};	
+							if (!alive _npc || !canmove _npc) exitwith {_exit=true;};	
 
 							if ( "Air" countType [vehicle (_npc)]>0) then {											
 								_rnd = (random 2) * 0.1;
@@ -1924,7 +1924,7 @@ while {_loop} do {
 						
 						// did the leader die?
 						_npc = [_npc,_members] call MON_getleader;							
-						if (!alive _npc || !canmove _npc || isplayer _npc ) exitwith {exit=true;};								
+						if (!alive _npc || !canmove _npc || isplayer _npc ) exitwith {_exit=true;};								
 						
 						//Return to combat mode
 						_npc setbehaviour _Behaviour;	
@@ -1957,7 +1957,7 @@ while {_loop} do {
 			
 			// did the leader die?
 			_npc = [_npc,_members] call MON_getleader;							
-			if (!alive _npc || !canmove _npc || isplayer _npc ) exitwith {exit=true;};		
+			if (!alive _npc || !canmove _npc || isplayer _npc ) exitwith {_exit=true;};		
 			
 			//If use statics are enabled leader searches for static weapons near.
 			if (KRON_UPS_useStatics && (vehicle _npc == _npc) && !_GetIn_NearestVehicles && ((_wptype == "HOLD" && (random 100) < 80) || (_wptype != "HOLD" && (random 100) < 60))) then {
@@ -1978,7 +1978,7 @@ while {_loop} do {
 			};		
 			// did the leader die?
 			_npc = [_npc,_members] call MON_getleader;							
-			if (!alive _npc || !canmove _npc || isplayer _npc ) exitwith {exit=true;};		
+			if (!alive _npc || !canmove _npc || isplayer _npc ) exitwith {_exit=true;};		
 			
 			//Buildings usage.
 			if (!_GetIn_NearestVehicles) then {
@@ -1997,7 +1997,7 @@ while {_loop} do {
 			
 			// did the leader die?
 			_npc = [_npc,_members] call MON_getleader;							
-			if (!alive _npc || !canmove _npc) exitwith {exit=true;};			
+			if (!alive _npc || !canmove _npc) exitwith {_exit=true;};			
 		
 			if (isnull _grp || _grp != group _npc) then {
 				_grp = group _npc;
