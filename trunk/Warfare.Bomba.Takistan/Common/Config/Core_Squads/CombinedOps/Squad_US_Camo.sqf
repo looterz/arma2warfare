@@ -196,7 +196,7 @@ if (paramDLCBAF) then {
 } else {
 	_f 		= [true,true,false,false];
 	_l 		= [0,3,0,0];
-}
+};
 
 _aiTeamTemplates = _aiTeamTemplates + [_u];
 _aiTeamTemplateRequires = _aiTeamTemplateRequires + [_f];
