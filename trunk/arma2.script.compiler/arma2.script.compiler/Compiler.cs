@@ -182,7 +182,14 @@ namespace ArmA2.Script
             if (applyPrivate)
             {
                 // remove all registration private vars
-                privateCmds.ForEach(m => byteCode.Items.Remove(m));
+                privateCmds.ForEach(m =>
+                {
+                    int id = byteCode.Items.IndexOf(m);
+                    var sep = byteCode.Items.Get<CmdSeparator>(id + 1);
+                    byteCode.Items.Remove(m);
+                    if (sep != null)
+                        byteCode.Items.Remove(sep);
+                });
 
                 if (localvars.Count > 0)
                 {
@@ -203,7 +210,7 @@ namespace ArmA2.Script
                             array.ChildAdd(new CmdSeparator { Text = "," });
                     }
 
-                    unregistered.ForEach(m => Logger.Log(LogLevel.Inform, "Variable is not registerd as private '{0}'", m));
+                    unregistered.ForEach(m => Logger.Log(LogLevel.Inform, "Variable is not private '{0}'", m));
                     unregistered.Clear();
                 }
             }
@@ -233,7 +240,7 @@ namespace ArmA2.Script
                 var duplicated = items.Where(m => vars.Any(n => n.Equal(m.Text)));
                 var newvars = items.Where(m => !vars.Any(n => n.Equal(m.Text)));
                 
-                duplicated.ForEach(m => Logger.Log(LogLevel.Warning, "Duplicated registeration private variable '{0}", m.Text));
+                duplicated.ForEach(m => Logger.Log(LogLevel.Warning, "Duplicated private variable '{0}", m.Text));
                 newvars.ForEach(m => vars.Add(m.Text));
             }
         }
