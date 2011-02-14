@@ -220,8 +220,8 @@ namespace ArmA2.Script
             bool applyPrivate = (byteCode.Parent == null);
             if (!applyPrivate)
             {
-                int pos = byteCode.Parent.Data.IndexOf(byteCode);
-                var op = byteCode.Parent.Data.Get<CmdText>(pos - 1);
+                int pos = byteCode.Parent.Commands.IndexOf(byteCode);
+                var op = byteCode.Parent.Commands.Get<CmdText>(pos - 1);
                 if (op != null && byteCode is CmdScopeCode &&
                     (op.Text.Equal("=") || op.Text.Equal("spawn") ))
                 {
@@ -298,20 +298,20 @@ namespace ArmA2.Script
 
         private bool IsPrivateCommand(CmdElement byteCode)
         {
-            var data = byteCode.Data;
+            var data = byteCode.Commands;
             var op = data.Get<CmdCommand>(0);
             return (op != null && op.Text.Equal("private"));
         }
 
         public void GetPrivateVariables(CmdElement byteCode, List<string> vars)
         {
-            var data = byteCode.Data;
+            var data = byteCode.Commands;
             var op = data.Get<CmdCommand>(0);
             var arg1 = data.Get<CmdScopeArray>(1);
 
             if (op != null && op.Text.Equal("private") && arg1 != null)
             {
-                var items = arg1.Data.Select<CmdString>();
+                var items = arg1.Commands.Select<CmdString>();
                 var duplicated = items.Where(m => vars.Any(n => n.Equal(m.Text)));
                 var newvars = items.Where(m => !vars.Any(n => n.Equal(m.Text)));
                 
@@ -322,16 +322,16 @@ namespace ArmA2.Script
 
         public void AddLocalVar(CmdElement byteCode, List<string> vars)
         {
-            var op1 = byteCode.Data.Get<CmdCommand>(0);
+            var op1 = byteCode.Commands.Get<CmdCommand>(0);
             if (op1 != null && op1.Text.StartsWith("#"))        //-- ignore preprocessor instructions
                 return;
 
-            var op = (CmdOperator)byteCode.Data.Where(m => m is CmdOperator).FirstOrDefault();
+            var op = (CmdOperator)byteCode.Commands.Where(m => m is CmdOperator).FirstOrDefault();
             if (op != null && op.Text.Equal("="))
             {
-                if (byteCode.Data.IndexOf(op) == 1)
+                if (byteCode.Commands.IndexOf(op) == 1)
                 {
-                    var arg1 = byteCode.Data.Get<CmdVariable>(0);
+                    var arg1 = byteCode.Commands.Get<CmdVariable>(0);
                     if (arg1 != null)
                     {
                         if (!vars.Any(m => m.Equal(arg1.Text)) &&

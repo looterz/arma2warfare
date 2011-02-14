@@ -12,7 +12,11 @@
             }
             base.Render(writer);
             Text = oldCmdName;
-        }        
-        
+        }       
+ 
+        public Function Function
+        {
+            get { return Processor.GetCommand(this.Text); }
+        }
     }
 }

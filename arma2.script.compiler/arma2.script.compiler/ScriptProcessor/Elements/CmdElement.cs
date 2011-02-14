@@ -11,10 +11,15 @@ namespace ArmA2.Script.ScriptProcessor
     {
         public readonly CmdElementCollection Items = new CmdElementCollection();
 
+        public event EventHandler ChildAdded;
+
         public CmdBase ChildAdd(CmdBase child)
         {
             child.Parent = this;
             Items.Add(child);
+
+            if (ChildAdded != null)
+                ChildAdded(this, null);
 
             return child;
         }
@@ -59,7 +64,37 @@ namespace ArmA2.Script.ScriptProcessor
             return null;
         }
 
-        public CmdElementCollection Data
+        public CmdScopeBase ScopeAdd(string openScopeCh)
+        {
+            CmdScopeBase scope;
+            switch (openScopeCh)
+            {
+                case "[":
+                    scope = new CmdScopeArray();
+                    break;
+                case "{":
+                    var lastCmd = Commands.LastOrDefault();
+
+                    bool isFunc = false;
+                    isFunc = (isFunc || (lastCmd is CmdOperator && ((CmdOperator) lastCmd).Text == "="));
+
+                    scope = isFunc
+                        ? new CmdScopeFunction()
+                        : new CmdScopeCode();
+                    break;
+                case "(":
+                    scope = new CmdScopeExpression();
+                    break;
+                default:
+                    Logger.Log(LogLevel.Warning, "CreateNewScope: Unknown open scope char - '{0}'", openScopeCh);
+                    scope = new CmdScopeBase();
+                    break;
+            }
+            ChildAdd(scope);
+            return scope;
+        }
+
+        public CmdElementCollection Commands
         {
             get
             {
@@ -77,7 +112,7 @@ namespace ArmA2.Script.ScriptProcessor
             get
             {
                 var items = new CmdElementCollection();
-                foreach(var item in Data)
+                foreach(var item in Commands)
                 {
                     if (!item.GetType().Equals(typeof(CmdElement)))
                     {

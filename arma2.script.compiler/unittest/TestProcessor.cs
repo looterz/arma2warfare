@@ -39,14 +39,14 @@ _displayEH_keydown=displayaddeventhandler[""keydown"", ""
 
             var s = byteCode.ToString();
 
-            var op = (CmdElement)byteCode.Data[0];
-            Assert.AreEqual(2, op.Data.Count);
+            var op = (CmdElement)byteCode.Commands[0];
+            Assert.AreEqual(2, op.Commands.Count);
 
-            var array = (CmdScopeArray)op.Data[1];
-            Assert.AreEqual(5, array.Data.Count);
+            var array = (CmdScopeArray)op.Commands[1];
+            Assert.AreEqual(5, array.Commands.Count);
 
-            Assert.AreEqual(4, array.Data.Select<CmdString>().Count, "must select 4 string items");
-            Assert.AreEqual(1, array.Data.Select<CmdElement>().Count, "must select 1 code element");
+            Assert.AreEqual(4, array.Commands.Select<CmdString>().Count, "must select 4 string items");
+            Assert.AreEqual(1, array.Commands.Select<CmdElement>().Count, "must select 1 code element");
 
         }
 
@@ -63,7 +63,7 @@ _myobj call compile preprocess _path2file;";
 
             Processor processor = new Processor();
             var byteCode = processor.CompileToByteCode(content.Replace("\r\n", "\n").Trim());
-            Assert.AreEqual(2, byteCode.Data.Count, "must have two operators");
+            Assert.AreEqual(2, byteCode.Commands.Count, "must have two operators");
 
             content = @"
 #define MYFUNC=""myfunction.h"" \
@@ -78,7 +78,7 @@ _myobj call compile preprocess _path2file;";
                MYFUNC2
 _myobj call compile preprocess _path2file;";
             Assert.AreEqual(expected.Replace("\r\n", "\n").Trim(), byteCode.ToString()) ;
-            Assert.AreEqual(2, byteCode.Data.Count, "must have two operators");
+            Assert.AreEqual(2, byteCode.Commands.Count, "must have two operators");
 
         }        
         
@@ -137,16 +137,16 @@ _myobj call compile preprocess _path2file;";
             content = "_var1=_var2*_var3";
             var result = processor.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
-            Assert.AreEqual(1, result.Data.Count);
+            Assert.AreEqual(1, result.Commands.Count);
 
-            var op = (CmdElement) result.Data[0];
-            Assert.AreEqual(3, op.Data.Count);
+            var op = (CmdElement) result.Commands[0];
+            Assert.AreEqual(3, op.Commands.Count);
 
 
             content = "_var1=((sin _var2)*(cos _var3))";
             result = processor.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
-            Assert.AreEqual(1, result.Data.Count);
+            Assert.AreEqual(1, result.Commands.Count);
         }
 
 
@@ -158,17 +158,17 @@ _myobj call compile preprocess _path2file;";
             content = "_var1=_var2*_var3";
             var result = processor.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
-            Assert.AreEqual(1, result.Data.Count);
+            Assert.AreEqual(1, result.Commands.Count);
 
             content = "_var1=_var2 plus (_var3 call LogHigh)";
             result = processor.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
-            Assert.AreEqual(1, result.Data.Count);
+            Assert.AreEqual(1, result.Commands.Count);
 
             content = "_myobj addeventhandler['fired',\"_var1 = _this select 0;\"];_myobj2 addeventhandler['fired',\"_var1 = _this select 0;\"]";
             result = processor.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
-            Assert.AreEqual(2, result.Data.Count);
+            Assert.AreEqual(2, result.Commands.Count);
         }
 
         [Test]
@@ -181,15 +181,15 @@ _myobj call compile preprocess _path2file;";
             content = "_myobj addeventhandler['fired',\"_var1 = _this select 0;\"]";
             result = processor.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
-            Assert.AreEqual(1, result.Data.Count);
-            Assert.AreEqual(typeof(CmdElement), result.Data[0].GetType());
+            Assert.AreEqual(1, result.Commands.Count);
+            Assert.AreEqual(typeof(CmdElement), result.Commands[0].GetType());
 
-            var command = result.Data.Get<CmdElement>(0);
-            Assert.AreEqual(3, command.Data.Count);
-            Assert.AreEqual(typeof(CmdScopeArray), command.Data[2].GetType());
+            var command = result.Commands.Get<CmdElement>(0);
+            Assert.AreEqual(3, command.Commands.Count);
+            Assert.AreEqual(typeof(CmdScopeArray), command.Commands[2].GetType());
 
-            var array = command.Data.Get<CmdElement>(2);
-            Assert.AreEqual(2, array.Data.Count);
+            var array = command.Commands.Get<CmdElement>(2);
+            Assert.AreEqual(2, array.Commands.Count);
         }
 
         [Test]
@@ -202,15 +202,15 @@ _myobj call compile preprocess _path2file;";
             content = "_myobj addeventhandler['fired',\"_var1 = _this select 0;\"];_myobj=5";
             result = processor.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
-            Assert.AreEqual(2, result.Data.Count);
-            Assert.AreEqual(typeof(CmdElement), result.Data[0].GetType());
+            Assert.AreEqual(2, result.Commands.Count);
+            Assert.AreEqual(typeof(CmdElement), result.Commands[0].GetType());
 
-            var command = result.Data.Get<CmdElement>(0);
-            Assert.AreEqual(3, command.Data.Count);
-            Assert.AreEqual(typeof(CmdScopeArray), command.Data[2].GetType());
+            var command = result.Commands.Get<CmdElement>(0);
+            Assert.AreEqual(3, command.Commands.Count);
+            Assert.AreEqual(typeof(CmdScopeArray), command.Commands[2].GetType());
 
-            var array = command.Data.Get<CmdElement>(2);
-            Assert.AreEqual(2, array.Data.Count);
+            var array = command.Commands.Get<CmdElement>(2);
+            Assert.AreEqual(2, array.Commands.Count);
         }
 
 
@@ -223,34 +223,34 @@ _myobj call compile preprocess _path2file;";
             content = "{if(WF_DEBUG)then{0}else{1},0,0}";
             result = processor.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
-            Assert.AreEqual(1, result.Data.Count);
-            Assert.AreEqual(typeof(CmdScopeCode), result.Data[0].GetType());
+            Assert.AreEqual(1, result.Commands.Count);
+            Assert.AreEqual(typeof(CmdScopeCode), result.Commands[0].GetType());
 
             content = "[if(WF_DEBUG)then{0}else{1},0,0]";
             result = processor.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
-            Assert.AreEqual(1, result.Data.Count);
-            Assert.AreEqual(typeof(CmdScopeArray), result.Data[0].GetType());
+            Assert.AreEqual(1, result.Commands.Count);
+            Assert.AreEqual(typeof(CmdScopeArray), result.Commands[0].GetType());
 
 
             
             content = "_var1=createVehcile['T71',0,0,0];_var2=createVehcile['T72',0,0,0];_var3=createVehcile['T73',0,0,0]";
             result = processor.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
-            Assert.AreEqual(3, result.Data.Count);
+            Assert.AreEqual(3, result.Commands.Count);
 
             content = "{_var1=createVehicle['T72',0,0,0];_var2=createVehcile['T72',0,0,0]} call LogHigh;_var4=12345;";
             result = processor.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
 
-            Assert.AreEqual(2, result.Data.Count);
-            var scope1 = (CmdElement) result.Data[0];
-            Assert.AreEqual(3, scope1.Data.Count); // {_var1=createVehcile['T72',0,0,0];_var2=createVehcile['T72',0,0,0]} call LogHigh;
-            var scope1_1 = (CmdElement)scope1.Data[0];
-            Assert.AreEqual(2, scope1_1.Data.Count);  // {_var1=createVehcile['T72',0,0,0];_var2=createVehcile['T72',0,0,0]};
+            Assert.AreEqual(2, result.Commands.Count);
+            var scope1 = (CmdElement) result.Commands[0];
+            Assert.AreEqual(3, scope1.Commands.Count); // {_var1=createVehcile['T72',0,0,0];_var2=createVehcile['T72',0,0,0]} call LogHigh;
+            var scope1_1 = (CmdElement)scope1.Commands[0];
+            Assert.AreEqual(2, scope1_1.Commands.Count);  // {_var1=createVehcile['T72',0,0,0];_var2=createVehcile['T72',0,0,0]};
 
-            var scope2 = (CmdElement)result.Data[1];
-            Assert.AreEqual(3, scope2.Data.Count);  // _var4=12345;
+            var scope2 = (CmdElement)result.Commands[1];
+            Assert.AreEqual(3, scope2.Commands.Count);  // _var4=12345;
 
             content = "{_var1=createVehicle['T72', if(WF_DEBUG)then{0}else{1},0,0];_var2=createVehcile['T72',0,0,0]} call LogHigh;_var4=12345;";
             result = processor.CompileToByteCode(content);
