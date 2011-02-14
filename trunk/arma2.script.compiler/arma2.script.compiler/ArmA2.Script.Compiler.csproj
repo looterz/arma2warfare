@@ -58,6 +58,7 @@
     <Compile Include="ScriptProcessor\Elements\CmdScopeExpression.cs" />
     <Compile Include="ScriptProcessor\Elements\CmdScopeBase.cs" />
     <Compile Include="ScriptProcessor\Commands.cs" />
+    <Compile Include="ScriptProcessor\Elements\CmdScopeFunction.cs" />
     <Compile Include="ScriptProcessor\Elements\CmdSeparator.cs" />
     <Compile Include="ScriptProcessor\Elements\CmdString.cs" />
     <Compile Include="ScriptProcessor\Elements\CmdText.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Scope.cs" />
     <Compile Include="ScriptProcessor\ListCommands.cs" />
     <Compile Include="ScriptProcessor\ListOperators.cs" />
+    <Compile Include="ScriptProcessor\Validation.cs" />
     <Compile Include="ScriptProcessor\ScriptWriter.cs" />
     <Compile Include="StringExtension.cs" />
     <Compile Include="Variable.cs" />

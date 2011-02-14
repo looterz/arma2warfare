@@ -7,11 +7,19 @@ namespace ArmA2.Script.ScriptProcessor
     {
         public CmdElement CompileToByteCode(string content)
         {
-            CmdElement root = new CmdElement();
+            CmdScopeBase root = new CmdScopeBase();
             ProcessCommand(root, content, 0);
 
             GroupSetOp(root);
             return root;
+        }
+
+        public List<string> Validate(CmdElement root)
+        {
+            var validate = new List<string>();
+            Validation.ValidateElement(root, validate);
+
+            return validate;
         }
 
         private void GroupSetOp(CmdElement root)
@@ -28,7 +36,6 @@ namespace ArmA2.Script.ScriptProcessor
                 var nextOp = (op.Text != "=") ? operators.FirstOrDefault(m => m.Id > op.Id) : null; // get next operator - skip if current operator is assignment operator
                 var nextOpId = (nextOp != null) ? nextOp.Id : items.Count();
 
-                //var valueOp1 = root.GetItems().Where((m, pos) => pos < (op.Id-1)).ToList();
                 var valueOp2 = root.Items.Where((m, pos) => op.Id < pos && pos < nextOpId ).ToList();
 
                 if (valueOp2.Where(m => (!(m is CmdSeparator))).Count() > 1)
@@ -38,19 +45,12 @@ namespace ArmA2.Script.ScriptProcessor
                     valueOp2.ForEach(m => { groupOp2.ChildAdd(m); items.Remove(m); });
                     items.Insert(op.Id + 1, groupOp2);
                 }
-
-                //if (valueOp1.Count > 1)
-                //{
-                //    CmdElement groupOp1 = new CmdElement();
-                //    valueOp1.ForEach(m => { groupOp1.ChildAdd(m); items.Remove(m); });
-                //    items.Insert(0, groupOp1);
-                //}
             }
 
             items.Where(m => m is CmdElement).ForEach(m => GroupSetOp((CmdElement) m));
         }
 
-        private string[] _sep = (new[] {"==", ">=", "<=", "!=", "&&", "||",
+        private readonly string[] _sep = (new[] {"==", ">=", "<=", "!=", "&&", "||",
                 "{", "[", "(", "]", ")", "}", 
                 " greater ", " greater=", " less ", " less=", " or ", " and ", " plus ",
                 "<", ">", "|", 
@@ -92,7 +92,7 @@ namespace ArmA2.Script.ScriptProcessor
                     var cmdName = content.Substring(opStart, i - opStart).Trim();
 
                     var cmd = cmdElement.CmdAdd(cmdName);
-                    if (cmd != null && cmdElement.Data.Count() == 1 && cmd is CmdPreprocessor)
+                    if (cmd != null && cmdElement.Commands.Count() == 1 && cmd is CmdPreprocessor)
                     {
                            separatorTypes.AddRange(new[] { "\\\n", "\n" });
                             separatorTypes = separatorTypes.OrderByDescending(m => m.Length).ToList();
@@ -100,12 +100,8 @@ namespace ArmA2.Script.ScriptProcessor
                             endCommand.AddRange(new[]{"\n"});
                             endCommand = endCommand.OrderByDescending(m => m.Length).ToList();
                     }
-
-
                     opStart = -1;
                 }
-
-                var insPos = cmdRoot.Items.Count;
 
                 if (separator == "'" || separator == "\"")
                 {
@@ -121,9 +117,8 @@ namespace ArmA2.Script.ScriptProcessor
 
                 if (separator == "[" || separator == "(" || separator == "{")
                 {
-                    var array = CmdScopeBase.CreateNewScope(separator);
-                    cmdElement.ChildAdd(array);
-                    i = ProcessCommand(array, content, i + 1);
+                    var scope  = cmdElement.ScopeAdd(separator);;
+                    i = ProcessCommand(scope, content, i + 1);
                     continue;
                 }
 
@@ -162,7 +157,7 @@ namespace ArmA2.Script.ScriptProcessor
             }
 
             ApplySingleChildElement(cmdRoot, cmdElement);
-            if (cmdRoot is CmdScopeBase)
+            if (cmdRoot is CmdScopeBase && !string.IsNullOrEmpty(((CmdScopeBase)cmdRoot).OpenCh))
             {
                 var scope = (CmdScopeBase)cmdRoot;
                 Logger.Log(LogLevel.Error, "Unclosed scope: {0}", scope.ToString());

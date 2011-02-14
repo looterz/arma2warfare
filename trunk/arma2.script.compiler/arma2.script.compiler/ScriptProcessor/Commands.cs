@@ -7,12 +7,14 @@ namespace ArmA2.Script.ScriptProcessor
 {
     public delegate void CompileHandler(CmdCommand cmd, Compiler compiler);
     public delegate void ExecuteHandler(CmdCommand cmd, Compiler compiler);
+    public delegate void ValidateHandler(CmdCommand cmd, List<string> validate);
 
     public class Function
     {
         public string Name;
         public CompileHandler OnCompile;
         public ExecuteHandler OnExecute;
+        public ValidateHandler OnValidate;
     }
 
     public partial class Processor
@@ -24,7 +26,7 @@ namespace ArmA2.Script.ScriptProcessor
         private static void CompileCommand(CmdCommand cmd, Compiler compiler)
         {
             var root = (CmdElement)cmd.Parent;
-            var data = root.Data;
+            var data = root.Commands;
             var opPos = data.IndexOf(cmd);
 
             var cmd1 = data.Get<CmdCommand>(opPos - 1);
@@ -65,17 +67,17 @@ namespace ArmA2.Script.ScriptProcessor
             // _player addeventhandler ['killed', _eventHandler];
 
             var root = (CmdElement) cmd.Parent;
-            var data = root.Data;
+            var data = root.Commands;
             var opPos = data.IndexOf(cmd);
 
             var arg1 = data.Get<CmdScopeArray>(opPos + 1);
-            if (arg1.Data.Count < 2)
+            if (arg1.Commands.Count < 2)
                 Logger.Log(LogLevel.Error, "Error: Event Handler is not defined - {0}", cmd.ToString());
 
-            var strEventHanlder = arg1.Data.Get<CmdString>(1);
+            var strEventHanlder = arg1.Commands.Get<CmdString>(1);
             if (strEventHanlder != null)
             {
-                var ehString = (CmdString)arg1.Data[1];
+                var ehString = (CmdString)arg1.Commands[1];
                 Processor p = new Processor();
 
                 var contentPartial = ehString.Text.Replace("\"\"", "\"");
