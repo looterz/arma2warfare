@@ -43,7 +43,9 @@
     <Compile Include="ForEachExt.cs" />
     <Compile Include="GlobalSettings.cs" />
     <Compile Include="Compiler.cs" />
-    <Compile Include="Logger.cs" />
+    <Compile Include="Logging\Logger.cs" />
+    <Compile Include="Logging\LogLevel.cs" />
+    <Compile Include="Logging\ErrCode.cs" />
     <Compile Include="ScriptProcessor\Elements\CmdBase.cs" />
     <Compile Include="ScriptProcessor\Elements\CmdCommand.cs" />
     <Compile Include="ScriptProcessor\Elements\CmdCommandBase.cs" />
@@ -63,6 +65,7 @@
     <Compile Include="ScriptProcessor\Elements\CmdString.cs" />
     <Compile Include="ScriptProcessor\Elements\CmdText.cs" />
     <Compile Include="ScriptProcessor\Elements\CmdVariable.cs" />
+    <Compile Include="ScriptProcessor\Elements\UniqueVarList.cs" />
     <Compile Include="ScriptProcessor\FlattenHierarchyProxy.cs" />
     <Compile Include="ScriptProcessor\IScriptRenderer.cs" />
     <Compile Include="ScriptProcessor\ListBase.cs" />

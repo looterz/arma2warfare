@@ -12,6 +12,26 @@ namespace ArmA2.Script.UnitTests
     public class TestProcessor
     {
         [Test]
+        public void TestPreprocessor()
+        {
+            string content = @"	
+#define LOG_STAT(side) \
+_created = WF_Logic getVariable format[""%1VehiclesCreated"", ##side]; \
+_lost    = WF_Logic getVariable format[""%1VehiclesLost"", ##side]; \
+if (isNil ""_created"") then { _created = 0; }; \
+if (isNil ""_lost"") then { _lost = 0; };
+_var1=myVar1;
+";
+
+            Processor p = new Processor();
+            var code = p.CompileToByteCode(content);
+
+            var result = code.ToString();
+            Assert.AreEqual(result.Trim().Replace("\r\n", "\n"), content.Trim().Replace("\r\n", "\n"));
+
+        }
+
+        [Test]
         public void TestArrayItems1()
         {
             Compiler compiler = new Compiler();

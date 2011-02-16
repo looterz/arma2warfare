@@ -196,7 +196,12 @@ namespace ArmA2.Script
             ExecuteCode(byteCode);
 
             if (DeclarePrivateVars)
+            {
                 DeclareVariables(byteCode);
+                ExecuteCmdBase(byteCode);
+            }
+
+            
 
             return byteCode.ToString();
         }
@@ -214,6 +219,144 @@ namespace ArmA2.Script
 
             items.Where(m => m is CmdElement).ForEach(m => ExecuteCode((CmdElement) m));
         }
+
+
+        public void ExecuteElement(CmdElement element)
+        {
+            var cmd = element.Commands.Get<CmdPreprocessor>(0);
+            if (cmd != null)
+                return;
+
+            var op = element.Items.Get<CmdOperator>(1);
+
+            if (op != null && op.Text == "=")
+            {
+                var id = element.Items.IndexOf(op);
+                element.Items
+                    .Where((m, id1) => id1 > id)
+                    .ForEach(op1 => ExecuteCmdBase(op1));
+
+                var prevOp = op.NextCmd(-1);
+
+                if (op.NextCmd(-1) is CmdVariable)
+                {
+                    var varName = ((CmdVariable)op.NextCmd(-1)).Text;
+                    if (varName.StartsWith("_"))
+                    {
+                        bool declared = ReservedLocalVarNames.Any(m => m.Equal(varName));
+
+                        if (declared)
+                        {
+                            Logger.Log(LogLevel.Warning, ErrCode.WarningAssigmentToReserved, "Assignment to reserved variable: {0}",
+                                    element.ShortTerm);
+                        }
+
+                        declared = (declared || element.Scope.LocalVars.Any(m => m.Equal(varName)));
+
+                        if (!declared)
+                        {
+                            element.Scope.LocalVars.Add(varName);
+                        }
+                    }
+                }
+                else if (prevOp != null)
+                {
+                    Logger.Log(LogLevel.Error, "Left operator is not variable: {0}",
+                            element.ShortTerm);  
+                }
+                else
+                {
+                    Logger.Log(LogLevel.Error, "Assignment variable not found: {0}",
+                            element.ShortTerm);    
+                }
+            }
+            else
+            {
+                element.Items.ForEach(op1 => ExecuteCmdBase(op1));
+            }
+        }
+
+        public void ExecuteCmdBase(CmdBase cmdBase)
+        {
+            if (cmdBase is CmdElement)
+            {
+                ExecuteElement((CmdElement)cmdBase);
+                if (cmdBase is CmdScopeCode)
+                {
+                    var nextCmd = cmdBase.NextCmd(1);
+                    if (nextCmd != null)
+                    {
+                        bool bClosed = false;
+                        if (nextCmd is CmdCommand)
+                        {
+                            string[] scopeCommands = new[] { "do", "then", "else", "foreach", "count" };
+
+                            CmdCommand cmd1 = (CmdCommand)nextCmd;
+                            bClosed = bClosed | scopeCommands.Any(m => m.Equal(cmd1.Text));
+                        }
+
+                        if (cmdBase.Parent is CmdScopeArray)
+                        {
+                            var nextCmd1 = cmdBase.Parent.NextCmd(-1);
+                            if (nextCmd1 is CmdCommand && ((CmdCommand)nextCmd1).Text == "for")
+                                bClosed = true;
+                        }
+
+                        if (!bClosed)
+                        {
+                            Logger.Log(LogLevel.Error, "Missing ; at end scope\nAt scope {0}",
+                                    cmdBase.ShortTerm);
+                        }
+                    }
+                }
+                return;
+            }
+            if (cmdBase is CmdVariable)
+            {
+                var varName = ((CmdVariable) cmdBase).Text;
+                if (varName.StartsWith("_"))
+                {
+                    if (!cmdBase.Scope.LocalVars.IsDeclared(varName))
+                    {
+                        if (cmdBase.Scope.IsDeclaredInOuterScope(varName))
+                        {
+                            Logger.Log(LogLevel.Warning, ErrCode.WarningOutOfScopeDeclaration,
+                                "Variable '{0}' declared at outer scope, possible errors.\nAt scope:{1}",
+                                       varName, cmdBase.Scope.ShortTerm);
+                        }
+                        else
+                        {
+                            Logger.Log(LogLevel.Error, "Use undeclared variable '{0}'\nAt scope:{1}",
+                                       varName, cmdBase.Scope.ShortTerm);
+                        }
+                        cmdBase.Scope.LocalVars.VarAdd(varName);
+                    }
+                }
+            }
+            if (cmdBase is CmdCommand)
+            {
+                CmdCommand cmd = (CmdCommand) cmdBase;
+                if (cmd.Text.Equal("for") &&            // for '_z' from 0 to (count _c)-1 do
+                    cmd.NextCmd(1) is CmdString && 
+                    cmd.NextCmd(2) is CmdCommand)
+                {
+                    var cmd2 = (CmdCommand) cmd.NextCmd(2);
+                    if (cmd2.Text == "from")
+                    {
+                        var varName = ((CmdString)cmd.NextCmd(1)).Text;
+                        cmdBase.Scope.LocalVars.VarAdd(varName);
+                    }
+                }
+
+                if (cmd.Text.Equal("if") &&                 // if (a) then
+                    cmd.NextCmd(1) is CmdScopeBase && 
+                    cmd.NextCmd(2) is CmdCommand)
+                {
+                }
+
+            }
+        }
+
 
         public List<string> DeclareVariables(CmdElement byteCode)
         {
@@ -256,6 +399,15 @@ namespace ArmA2.Script
             var unregistered = localvars.Where(var1 => !privateVars.Any(var2 => var2.Equal(var1))).ToList();
             if (applyPrivate)
             {
+                if (unregistered.Count > 0)
+                {
+                    string list = "Not declared as private: ";
+                    unregistered.ForEach(m => list = list + string.Format("'{0}' ", m));
+
+                    list = list + "\nAt Scope: " + byteCode.ShortTerm + "\n";
+                    Logger.Log(LogLevel.Warning, ErrCode.WarningVariableNotDeclared, list);
+                }
+                
                 // remove all registration private vars
                 privateCmds.ForEach(m =>
                 {
@@ -285,7 +437,6 @@ namespace ArmA2.Script
                             array.ChildAdd(new CmdSeparator { Text = "," });
                     }
 
-                    unregistered.ForEach(m => Logger.Log(LogLevel.Inform, "Variable is not private '{0}'", m));
                     unregistered.Clear();
                 }
             }
@@ -314,8 +465,16 @@ namespace ArmA2.Script
                 var items = arg1.Commands.Select<CmdString>();
                 var duplicated = items.Where(m => vars.Any(n => n.Equal(m.Text)));
                 var newvars = items.Where(m => !vars.Any(n => n.Equal(m.Text)));
-                
-                duplicated.ForEach(m => Logger.Log(LogLevel.Warning, "Duplicated private variable '{0}", m.Text));
+
+                if (duplicated.Count() > 0)
+                {
+                    string list = "Duplicate declare as private: ";
+                    duplicated.ForEach(m => list = list + string.Format("'{0}' ", m));
+
+                    list = list + "\nAt Scope: " + byteCode.ShortTerm + "\n";
+                    Logger.Log(LogLevel.Inform, list);
+                }
+
                 newvars.ForEach(m => vars.Add(m.Text));
             }
         }
