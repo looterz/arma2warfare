@@ -49,6 +49,24 @@ namespace ArmA2.Script.ScriptProcessor
             return (0 <= id && id < Parent.Commands.Count) ? Parent.Commands[id] : null;
         }
 
+        public string ShortTerm
+        {
+            get 
+            { 
+                string s = ToString();
+                return (s.Length > 150) ? s.Remove(150)+"\n..." : s;
+            }
+        }
+
+        public string ShortTermEnd
+        {
+            get
+            {
+                string s = ToString();
+                return (s.Length > 150) ? "\n..." + s.Substring(s.Length - 150) : s;
+            }
+        }
+
         public override string ToString()
         {
             using(var ms = new MemoryStream())

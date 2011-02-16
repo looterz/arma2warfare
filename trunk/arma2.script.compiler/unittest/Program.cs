@@ -17,7 +17,7 @@ namespace ArmA2.Script.UnitTests
 
             string[] files = args;
             if (args.Length == 0)
-                files = new[] { "uav_interface.sqf" };
+                files = new[] { "ServerMonitorProc.sqf" };
 
             foreach (var fileName in files)
             {
@@ -43,9 +43,9 @@ namespace ArmA2.Script.UnitTests
                 string newFileName = Path.GetFileNameWithoutExtension(fileName) + ".a" + Path.GetExtension(fileName);
                 File.WriteAllText(newFileName, content);
 
-                //Processor processor = new Processor();
-                //var code = processor.CompileToByteCode(content);
-                //content = code.ToString();
+                Processor processor = new Processor();
+                var code = processor.CompileToByteCode(content);
+                content = code.ToString();
             }
 
             Console.ReadKey();

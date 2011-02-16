@@ -1,22 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ArmA2.Script
 {
-    public enum LogLevel
-    {
-        Trace,
-        High,
-        Medium,
-        Inform,
-        Warning,
-        Error,
-        None
-    }
-    
     public class Logger
     {
         public static LogLevel Level = LogLevel.High;
+
+        public static List<int> WarningDisabled = new List<int>();
 
         public static List<string> Warnings = new List<string>();
         public static List<string> Errors = new List<string>();
@@ -42,14 +34,27 @@ namespace ArmA2.Script
 
         public static void Log(LogLevel level, string message, params object[] args)
         {
+            Log(level, ErrCode.None, message, args);
+        }
+
+        public static void Log(LogLevel level, ErrCode errCode, string message, params object[] args)
+        {
+            if (level == LogLevel.Warning && WarningDisabled.Any(m => m == (int)errCode))
+                return;
+            
             if (args.Length > 0)
                 message = string.Format(message, args);
 
             message = _padding + message;
 
             if (level >= LogLevel.Trace)
-                message = string.Format("{0}: {1}", level, message); 
-            
+            {
+                if (errCode == ErrCode.None)
+                    message = string.Format("{0}: {1}", level.ToString().ToUpper(), message);
+                else
+                    message = string.Format("{0}{1:d4}: {2}", level.ToString().ToUpper(), (int)errCode, message);
+            }
+
             if (level == LogLevel.Error)
                 Errors.Add(message);
 

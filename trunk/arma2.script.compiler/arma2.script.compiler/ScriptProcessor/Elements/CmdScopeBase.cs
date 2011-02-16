@@ -5,21 +5,43 @@ namespace ArmA2.Script.ScriptProcessor
 {
     public class CmdScopeBase : CmdElement
     {
-        private List<string> _privateVars = null;
+        private UniqueVarList _privateVars = null;
 
         public bool HasLocalVars
         {
             get { return (_privateVars != null && _privateVars.Count != 0); }
         }
 
-        public List<string> LocalVars
+        public bool IsFunctionScope()
+        {
+            if (!(this is CmdScopeCode))
+                return false;
+
+            var op = NextCmd(-1);
+            return (op is CmdOperator && ((CmdOperator) op).Text == "=" && NextCmd(1) == null);
+        }
+
+        public bool IsDeclaredInOuterScope(string varName)
+        {
+            var scope = this.Scope;
+            while(scope != null)
+            {
+                if (scope.LocalVars.IsDeclared(varName))
+                    return true;
+
+                scope = scope.Scope;
+            }
+            return false;
+        }
+
+        public UniqueVarList LocalVars
         {
             get
             {
-                if (Parent == null || this is CmdScopeFunction)
+                if (Parent == null || IsFunctionScope())
                 {
                     if (_privateVars == null)
-                        _privateVars = new List<string>();
+                        _privateVars = new UniqueVarList();
 
                     return _privateVars;
                 }
