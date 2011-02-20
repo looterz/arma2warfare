@@ -1,8 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Support_ParaVehicles");
 
-private['_args','_side','_pilot','_ranpos','_grp','_ran','_exit','_cargovehicle','_bd','_randir','_vehiclecoord','_positioncoord','_playerteam','_timestart','_cargo'];
-
+private['_args', '_bd', '_cargo', '_cargoVehicle', '_exit', '_grp', '_pilot', '_playerTeam', '_positionCoord', '_ran', '_ranDir', '_ranPos', '_side', '_timeStart', '_vehicle', '_vehicleCoord'];
 _args = _this;
 _side = _args select 1;
 
@@ -56,8 +55,9 @@ while {!_exit} do {
 	if (_vehicleCoord distance _positionCoord < 100) then {_exit = true};
 };
 detach _cargoVehicle;
-[_cargoVehicle,_side] Spawn {
-	Private ['_chute','_side','_vehicle'];
+[_cargoVehicle, _side]spawn
+{
+    private['_chute', '_side', '_vehicle'];
 	_vehicle = _this select 0;
 	_side = _this select 1;
 	sleep 2;

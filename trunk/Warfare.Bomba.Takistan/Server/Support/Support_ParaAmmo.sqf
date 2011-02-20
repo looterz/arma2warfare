@@ -1,29 +1,27 @@
 #include "profiler.h"
 PROFILER_BEGIN("Support_ParaAmmo");
 
-private['_args','_side','_vehicle','_pilot','_ranpos','_grp','_ran','_exit','_bd','_randir','_vehiclecoord','_positioncoord','_ammos','_playerteam','_timestart','_built','_cargo'];
-
+private['_args', '_bd', '_cargo', '_exit', '_grp', '_pilot', '_playerTeam', '_positionCoord', '_ran', '_ranDir', '_ranPos', '_side', '_timeStart', '_vehicle', '_vehicleCoord'];
 _args = _this;
 _side = _args select 1;
-
 _playerTeam = (_args select 3);
 Format["Server_HandleSpecial: The %1 %2 Team (Leader: %3) has called an Ammunition Paradroping",str _side,_playerTeam,name leader _playerTeam] call LogInform;
 
-_ranPos = [];
-_ranDir = [];
-if (paramBoundaries) then {
-	_bd = 'WFBE_BOUNDARIESXY' Call GetNamespace;
-	_ranPos = [
-		[0+random(200),0+random(200),400+random(200)],
-		[0+random(200),_bd-random(200),400+random(200)],
-		[_bd-random(200),_bd-random(200),400+random(200)],
-		[_bd-random(200),0+random(200),400+random(200)]
-	];
-	_ranDir = [45,145,225,315];
-} else {
-	_ranPos = [[0+random(200),0+random(200),400+random(200)],[15000+random(200),0+random(200),400+random(200)]];
-	_ranDir = [45,315];
-};
+	_ranPos = [];
+	_ranDir = [];
+	if (paramBoundaries) then {
+		_bd = 'WFBE_BOUNDARIESXY' Call GetNamespace;
+		_ranPos = [
+			[0+random(200),0+random(200),400+random(200)],
+			[0+random(200),_bd-random(200),400+random(200)],
+			[_bd-random(200),_bd-random(200),400+random(200)],
+			[_bd-random(200),0+random(200),400+random(200)]
+		];
+		_ranDir = [45,145,225,315];
+	} else {
+		_ranPos = [[0+random(200),0+random(200),400+random(200)],[15000+random(200),0+random(200),400+random(200)]];
+		_ranDir = [45,315];
+	};
 	_timeStart = time;
 	_ran = round(random((count _ranPos)-1));
 	_grp = createGroup _side;
@@ -36,7 +34,6 @@ if (paramBoundaries) then {
 	_grp setCombatMode 'STEALTH';
 	_pilot disableAI 'AUTOTARGET';
 	_pilot disableAI 'TARGET';
-	_built = _built + 1;
 	[_grp,(_args select 2),"MOVE",10] Call AIMoveTo;
 
 	_vehicle flyInHeight (200 + random(20));
@@ -53,8 +50,9 @@ while {!_exit} do {
 	if (_vehicleCoord distance _positionCoord < 100) then {_exit = true};
 };
 
-[_vehicle,_side] Spawn {
-	Private ['_chopper','_chute','_side'];
+[_vehicle, _side]spawn
+{
+    private['_ammo', '_ammos', '_chopper', '_side'];
 	_chopper = _this select 0;
 	_side = _this select 1;
 	
@@ -65,9 +63,9 @@ while {!_exit} do {
 	
 	{
 		_ammo = _x createVehicle [0,0,0];
-		
-		[_chopper,_ammo,_side] Spawn {
-			Private ['_ammo','_chopper','_chute','_pos','_type'];
+        [_chopper, _ammo, _side] spawn
+        {
+            private['_ammo', '_chopper', '_chute', '_pos', '_side', '_type'];
 			_chopper = _this select 0;
 			_ammo = _this select 1;
 			_side = _this select 2;
