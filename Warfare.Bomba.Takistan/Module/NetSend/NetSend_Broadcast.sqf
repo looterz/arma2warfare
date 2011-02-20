@@ -1,6 +1,5 @@
 #include "profiler.h"
 PROFILER_BEGIN("NetSend_Broadcast");
-	private['_clientId', '_msgId', '_msgData', '_clientId', '_vehInfo' ];
 	
 	//--- _msgId    = _this select 0;
 	//--- _msgData  = _this select 1;
