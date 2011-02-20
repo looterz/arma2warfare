@@ -3,7 +3,7 @@ private['_vehicle','_upgrades','_magazines','_mag','_isselectedmagazineflare'];
 	_vehicle = _this;
 
 	_IsSelectedMagazineFlare = {
-	private['_weapon','_types','_status','_flaretypes','_magazine'];
+	private['_status','_flaretypes','_magazine'];
 
 		_flareTypes = [ 	(configFile >> "CfgMagazines" >> "60Rnd_CMFlareMagazine")
 					];
