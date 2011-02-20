@@ -36,7 +36,7 @@ namespace ArmA2.Script.ScriptProcessor
             return CommandData.Any(m => m.Name.Equals(value, StringComparison.CurrentCultureIgnoreCase));
         }
 
-        public static Function GetCommand(string name)
+        public static Function GetFunction(string name)
         {
             return CommandData.FirstOrDefault(m => m.Name.Equal(name.Trim()));
         }

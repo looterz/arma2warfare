@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using ArmA2.Script.ScriptProcessor.Commands;
 
 namespace ArmA2.Script.ScriptProcessor
 {
@@ -35,10 +36,18 @@ namespace ArmA2.Script.ScriptProcessor
                     if (cmdName.StartsWith("#"))
                         cmd = new CmdPreprocessor { Text = cmdName };
                     else
-                        cmd = new CmdCommand {Text = cmdName};
+                    {
+                        cmd = Processor.GetFunction(cmdName).GetCmdCompile() ?? new CmdCommand();
+                        cmd.Text = cmdName;
+                    }
                 }
                 else if (Processor.IsOperator(cmdName))
-                    cmd = new CmdOperator { Text = cmdName };
+                {
+                    if (cmdName == "=")
+                        cmd = new CmdOperatorSet {Text = cmdName};
+                    else
+                        cmd = new CmdOperator {Text = cmdName};
+                }
                 else if (double.TryParse(cmdName, out value))
                 {
                     cmd = new CmdFloat { Text = cmdName };
@@ -57,7 +66,7 @@ namespace ArmA2.Script.ScriptProcessor
             if (separatorName.Length != 0)
             {
                 if (Processor.IsOperator(separatorName))
-                    return ChildAdd(new CmdOperator { Text = separatorName });
+                    return CmdAdd(separatorName);
 
                 return ChildAdd(new CmdSeparator { Text = separatorName });
             }
@@ -73,14 +82,7 @@ namespace ArmA2.Script.ScriptProcessor
                     scope = new CmdScopeArray();
                     break;
                 case "{":
-                    var lastCmd = Commands.LastOrDefault();
-
-                    bool isFunc = false;
-                    isFunc = (isFunc || (lastCmd is CmdOperator && ((CmdOperator) lastCmd).Text == "="));
-
-                    scope = isFunc
-                        ? new CmdScopeFunction()
-                        : new CmdScopeCode();
+                    scope = new CmdScopeCode();
                     break;
                 case "(":
                     scope = new CmdScopeExpression();
@@ -132,6 +134,24 @@ namespace ArmA2.Script.ScriptProcessor
         {
             base.Render(writer);
             Items.Render(writer);
+        }
+
+        protected override void CompileInternal(Compiler compiler)
+        {
+            base.CompileInternal(compiler);
+
+            var cmd = Commands.Get<CmdPreprocessor>(0);
+            if (cmd != null)
+                return;
+
+            var op = Commands.Get<CmdOperatorSet>(1);
+            if (op != null)
+            {
+                op.Compile(compiler);
+                return;
+            }
+
+            Items.ForEach(op1 => op1.CompileSafe(compiler));
         }
     }
 }

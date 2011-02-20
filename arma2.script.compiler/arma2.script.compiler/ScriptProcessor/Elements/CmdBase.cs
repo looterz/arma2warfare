@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace ArmA2.Script.ScriptProcessor
 {
@@ -43,10 +44,18 @@ namespace ArmA2.Script.ScriptProcessor
             return (0 <= id && id < Parent.Items.Count) ? Parent.Items[id] : null;
         }
 
-        public CmdBase NextCmd(int pos)
+        public CmdBase NextElement(int pos)
         {
             var id = CmdId + pos;
-            return (0 <= id && id < Parent.Commands.Count) ? Parent.Commands[id] : null;
+            return (Parent != null && 0 <= id && id < Parent.Commands.Count) ? Parent.Commands[id] : null;
+        }
+
+        public T NextElement<T>(int pos) where T : CmdBase
+        {
+            var id = CmdId + pos;
+            CmdBase base1 = (0 <= id && id < Parent.Commands.Count) ? Parent.Commands[id] : null;
+
+            return (base1 is T) ? (T)base1 : null;
         }
 
         public string ShortTerm
@@ -79,6 +88,30 @@ namespace ArmA2.Script.ScriptProcessor
                 ms.Flush();
                 ms.Position = 0;
                 return (new StreamReader(ms)).ReadToEnd();
+            }
+        }
+
+        protected virtual void CompileInternal(Compiler compiler)
+        {
+        }
+
+        public void Compile(Compiler compiler)
+        {
+            CompileInternal(compiler);
+        }
+
+        public void CompileSafe(Compiler compiler)
+        {
+            try
+            {
+                CompileInternal(compiler);
+            }
+            catch (CompileException e)
+            {
+                if (e.Throwable)
+                    throw;
+
+                e.WriteToLog();
             }
         }
     }
