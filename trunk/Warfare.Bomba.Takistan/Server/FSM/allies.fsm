@@ -53,11 +53,11 @@ class FSM
        "" \n
        "for [{_count = 0},{_count < (count _types)},{_count = _count + 1}] do {" \n
        "	_type = _types select _count;" \n
-       "	_x = getPos _allysLoc select 0;" \n
-       "	_y = getPos _allysLoc select 1;" \n
+       "	_xPos = getPos _allysLoc select 0;" \n
+       "	_yPos = getPos _allysLoc select 1;" \n
        "	_pos = [];" \n
-       "	_pos set [0,((_structureRelPos select _count) select 0) + _x];" \n
-       "	_pos set [1,((_structureRelPos select _count) select 1) + _y];" \n
+       "	_pos set [0,((_structureRelPos select _count) select 0) + _xPos];" \n
+       "	_pos set [1,((_structureRelPos select _count) select 1) + _yPos];" \n
        "	_newPos = [0,0,0];" \n
        "	_roads = [];" \n
        "	_continue = true;" \n

@@ -1,4 +1,4 @@
-/*%FSM<COMPILE "D:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, basepatrol">*/
+/*%FSM<COMPILE "scriptedFSM.cfg, basepatrol">*/
 /*%FSM<HEAD>*/
 /*
 item0[] = {"Init_Patrol",0,250,-55.645832,-232.443039,34.354168,-182.443039,0.000000,"Init Patrol"};
@@ -38,8 +38,8 @@ link16[] = {13,9};
 link17[] = {14,15};
 link18[] = {15,16};
 link19[] = {16,9};
-globals[] = {0.000000,0,0,0,0,640,480,1,61,6316128,1,-265.668091,546.403687,327.217163,-287.807800,640,515,1};
-window[] = {0,-1,-1,-1,-1,785,150,1449,150,1,658};
+globals[] = {0.000000,0,0,0,0,640,480,1,61,6316128,1,-265.668091,546.403687,327.217163,-287.807800,640,494,1};
+window[] = {0,-1,-1,-1,-1,708,562,1861,73,1,658};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -243,7 +243,7 @@ class FSM
        "};" \n
        "" \n
        "[_building,_side,_group,(Format['WFBE_%1BASEPATROLS_%2',_side,_currentLevel]) Call GetNamespace] Spawn {" \n
-       "	Private ['_direction','_distance','_group','_index','_position','_side','_site','_type','_units'];" \n
+       "	Private ['_created','_soldier','_direction','_distance','_group','_index','_position','_side','_site','_type','_units'];" \n
        "	_site = _this select 0;" \n
        "	_side = _this select 1;" \n
        "	_group = _this select 2;" \n

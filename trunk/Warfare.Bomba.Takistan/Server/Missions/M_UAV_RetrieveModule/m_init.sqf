@@ -1,4 +1,4 @@
-private['_attempts','_uav','_randompos','_markersize','_wteamrunning','_eteamrunning','_saferadius','_waitfor','_wteam','_eteam','_size','_targets','_objects','_wcomplete','_ecomplete','_near','_ran','_boundariesxy','_wteamname','_completelist','_uniquelabel','_uniqueindex','_eastuav','_crashed','_spawnunits','_returned','_end','_wspos','_espos','_nearuav','_westuav','_target','_jiphandler','_update','_eteamname','_completelisttr','_uavmodel','_list','_defensepos','_oldplayerlist','_west','_east','_resistance','_unit','_craters'];
+private['_attempts', '_boundariesxy', '_completeList', '_completeListTr', '_crashed', '_craters', '_defensePos', '_east', '_eastUAV', '_ecomplete', '_end', '_espos', '_eteam', '_eteamname', '_eteamrunning', '_jipHandler', '_list', '_markerSize', '_near', '_nearUav', '_pos', '_ran', '_randomPos', '_resistance', '_returned', '_safeRadius', '_size', '_spawnUnits', '_team', '_uav', '_uavModel', '_uniqueIndex', '_uniqueLabel', '_unit', '_units', '_vehicles', '_waitFor', '_wcomplete', '_west', '_westUAV', '_wspos', '_wteam', '_wteamname', '_wteamrunning'];
 
 /* UAV  Retrieve Module Script */
 
@@ -127,10 +127,11 @@ if (random 100 > 35) then {
 	_units = _returned select 0;
 	_vehicles = _returned select 1;
 	_team = _returned select 2;
-	
-	//--- Start the hunt/guard script.
-	_spawnUnits = [_units,_vehicles,_randomPos,_markerSize] Spawn {
-		Private ['_area','_guard','_units','_vehicles'];
+
+    //--- Start the hunt/guard script.
+    _spawnUnits = [_units, _vehicles, _randomPos, _markerSize]spawn
+    {
+        private['_area', '_guard', '_objects', '_target', '_targets', '_units', '_vehicles'];
 		_units = _this select 0;
 		_vehicles = _this select 1;
 		_guard = _this select 2;
@@ -159,9 +160,12 @@ if (random 100 > 35) then {
 //--- Send to client, task, size, etc.
 WFBE_M_UAV_RetrieveModule = [nil,'CLTFNCM_UAV_RETRIEVEMODULE',[_markerSize,_uniqueLabel,_uniqueIndex,_uav]];
 publicVariable 'WFBE_M_UAV_RetrieveModule';
-if (!isMultiplayer || (isServer && local player) || local player) then {[nil,'CLTFNCM_UAV_RETRIEVEMODULE',[_markerSize,_uniqueLabel,_uniqueIndex,_uav]] Spawn HandlePVF};
-_jipHandler = [_markerSize,_uniqueLabel,_uniqueIndex,_uav] Spawn {
-	while {true} do {
+if(!isMultiplayer || (isServer && local player) || local player)then{[nil, 'CLTFNCM_UAV_RETRIEVEMODULE', [_markerSize, _uniqueLabel, _uniqueIndex, _uav]]spawn HandlePVF};
+_jipHandler = [_markerSize, _uniqueLabel, _uniqueIndex, _uav]spawn
+{
+    private['_oldPlayerList', '_update'];
+    while{true}do
+    {
 		_oldPlayerList = playableUnits;
 		sleep 15;
 		_update = false;

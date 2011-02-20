@@ -1,4 +1,4 @@
-/*%FSM<COMPILE "D:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, queryhandler">*/
+/*%FSM<COMPILE "scriptedFSM.cfg, queryhandler">*/
 /*%FSM<HEAD>*/
 /*
 item0[] = {"Init",0,250,67.883751,-127.533096,157.883820,-77.533165,0.000000,"Init"};
@@ -15,8 +15,8 @@ link3[] = {3,1};
 link4[] = {4,5};
 link5[] = {5,6};
 link6[] = {6,2};
-globals[] = {0.000000,0,0,0,0,640,480,1,21,6316128,1,-421.780701,421.779755,226.237854,-325.234192,748,514,1};
-window[] = {0,-1,-1,-1,-1,659,25,1285,25,1,766};
+globals[] = {0.000000,0,0,0,0,640,480,1,21,6316128,1,-421.780701,421.779755,226.237854,-325.234192,748,493,1};
+window[] = {0,-1,-1,-1,-1,661,598,1858,27,1,766};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -113,8 +113,7 @@ class FSM
     class End_Check
     {
       name = "End_Check";
-      init = /*%FSM<STATEINIT""">*/"[] Spawn {" \n
-       "	{" \n
+      init = /*%FSM<STATEINIT""">*/"	{" \n
        "		if (isPlayer(leader _x)) then {" \n
        "			sleep 0.3;" \n
        "			" \n
@@ -126,7 +125,7 @@ class FSM
        "			};" \n
        "		};" \n
        "	} forEach (('WFBE_EASTTEAMS' Call GetNamespace)+('WFBE_WESTTEAMS' Call GetNamespace));" \n
-       "};"/*%FSM</STATEINIT""">*/;
+       ""/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
