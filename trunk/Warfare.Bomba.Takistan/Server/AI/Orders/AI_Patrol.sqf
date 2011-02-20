@@ -22,10 +22,10 @@ _u = _maxWayPoints;
 _radius2 = _radius * 2;
 _pos = [];
 
-while { !(_u == 0) } do {
+while { _u != 0 } do {
 	_u = _u - 1;
 	
-	_pos = [_townPos, 5, _radius] call GetRandomPosition;
+	_pos = [_destination, 5, _radius] call GetRandomPosition;
 
 	_type = if (_u != 0) then {'MOVE'} else {'CYCLE'};
 	_wps = _wps + [[_pos,_type,35,40]];
