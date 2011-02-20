@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Init_Towns");
 
-private['_initied','_towns','_neartownsw','_near','_camps','_neartownse','_require','_wstart','_defenses','_town','_estart','_limit','_half','_total'];
+private['_initied','_towns','_neartownsw','_near','_camps','_neartownse','_require','_wstart','_defenses','_town','_estart','_limit','_half','_total','_u'];
 
 waitUntil { !isNil "initJIP" };
 waitUntil {townInit};
@@ -47,12 +47,12 @@ switch ('WFBE_TOWNSTARTINGMODE' Call GetNamespace) do {
 		
 		_near = [_wStart,towns] Call SortByDistance;
 		if (count _near > 0) then {
-			for [{_x = 0},{_x < _limit},{_x = _x + 1}] do {_nearTownsW = _nearTownsW + [_near select _x]};
+			for [{_u = 0},{_u < _limit},{_u = _u + 1}] do {_nearTownsW = _nearTownsW + [_near select _u]};
 		};
 		
 		_near = [_eStart,(towns - _nearTownsW)] Call SortByDistance;
 		if (count _near > 0) then {
-			for [{_x = 0},{_x < _limit},{_x = _x + 1}] do {_nearTownsE = _nearTownsE + [_near select _x]};
+			for [{_u = 0},{_u < _limit},{_u = _u + 1}] do {_nearTownsE = _nearTownsE + [_near select _u]};
 		};
 		
 		{
