@@ -9,7 +9,9 @@ PROFILER_BEGIN("Service_ServerMonitorProc");
 	diag_log format["ServerMonitor: Managed Units: %1", (count ManagedUnitList)];
 	diag_log format["ServerMonitor: Managed EmptyVehicles: %1", (count WBE_HandleEmptyVehicleCollection)];
 	diag_log format["ServerMonitor: Managed TrashObjects: %1", (count WBE_TrashObjectCollection)];	
-	diag_log format["ServerMonitor: AISquadRespawn: %1", (count WBE_AISQUAD_RESPAWN)];	
+	diag_log format["ServerMonitor: AISquadRespawn: %1", (count WBE_AISQUAD_RESPAWN)];
+	_created = 0;
+	_lost = 0;	// just for disable compiler warning
 	
 	#define LOG_STAT(side) \
 		_created = WF_Logic getVariable format["%1VehiclesCreated", ##side]; \
