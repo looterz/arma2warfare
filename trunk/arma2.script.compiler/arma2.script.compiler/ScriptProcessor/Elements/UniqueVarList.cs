@@ -7,7 +7,7 @@ namespace ArmA2.Script.ScriptProcessor
     {
         public bool IsDeclared(string varName)
         {
-            bool declared = Compiler.ReservedLocalVarNames.Any(m => StringExtension.Equal(m, varName));
+            bool declared = Compiler.ReservedLocalVarNames.Any(m => m.Equal(varName));
             return (declared || this.Any(m => m.Equal(varName)));
         }
 

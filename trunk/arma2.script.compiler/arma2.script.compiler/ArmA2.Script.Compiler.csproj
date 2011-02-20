@@ -45,7 +45,18 @@
     <Compile Include="Compiler.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Logging\LogLevel.cs" />
-    <Compile Include="Logging\ErrCode.cs" />
+    <Compile Include="Logging\CompileCode.cs" />
+    <Compile Include="ScriptProcessor\Commands\CmdCommandOne.cs" />
+    <Compile Include="ScriptProcessor\Commands\CmdCommandTwo.cs" />
+    <Compile Include="ScriptProcessor\Commands\CmdCompile.cs" />
+    <Compile Include="ScriptProcessor\Commands\CmdEventHandlerPV.cs" />
+    <Compile Include="ScriptProcessor\Commands\CmdFor.cs" />
+    <Compile Include="ScriptProcessor\Commands\CmdForEach.cs" />
+    <Compile Include="ScriptProcessor\Commands\CmdOperatorSet.cs" />
+    <Compile Include="ScriptProcessor\Commands\CmdPrivate.cs" />
+    <Compile Include="ScriptProcessor\Commands\CmdEventHandler.cs" />
+    <Compile Include="ScriptProcessor\Commands\ICmdCompile.cs" />
+    <Compile Include="ScriptProcessor\Elements\CmdArgument.cs" />
     <Compile Include="ScriptProcessor\Elements\CmdBase.cs" />
     <Compile Include="ScriptProcessor\Elements\CmdCommand.cs" />
     <Compile Include="ScriptProcessor\Elements\CmdCommandBase.cs" />
@@ -57,6 +68,7 @@
     <Compile Include="ScriptProcessor\Elements\CmdPreprocessor.cs" />
     <Compile Include="ScriptProcessor\Elements\CmdScopeArray.cs" />
     <Compile Include="ScriptProcessor\Elements\CmdScopeCode.cs" />
+    <Compile Include="ScriptProcessor\Elements\CmdScopeCodeRoot.cs" />
     <Compile Include="ScriptProcessor\Elements\CmdScopeExpression.cs" />
     <Compile Include="ScriptProcessor\Elements\CmdScopeBase.cs" />
     <Compile Include="ScriptProcessor\Commands.cs" />
@@ -65,6 +77,7 @@
     <Compile Include="ScriptProcessor\Elements\CmdString.cs" />
     <Compile Include="ScriptProcessor\Elements\CmdText.cs" />
     <Compile Include="ScriptProcessor\Elements\CmdVariable.cs" />
+    <Compile Include="ScriptProcessor\Elements\CompileException.cs" />
     <Compile Include="ScriptProcessor\Elements\UniqueVarList.cs" />
     <Compile Include="ScriptProcessor\FlattenHierarchyProxy.cs" />
     <Compile Include="ScriptProcessor\IScriptRenderer.cs" />
@@ -74,7 +87,6 @@
     <Compile Include="Scope.cs" />
     <Compile Include="ScriptProcessor\ListCommands.cs" />
     <Compile Include="ScriptProcessor\ListOperators.cs" />
-    <Compile Include="ScriptProcessor\Validation.cs" />
     <Compile Include="ScriptProcessor\ScriptWriter.cs" />
     <Compile Include="StringExtension.cs" />
     <Compile Include="Variable.cs" />

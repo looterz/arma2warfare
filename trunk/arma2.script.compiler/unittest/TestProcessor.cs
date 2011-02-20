@@ -21,13 +21,13 @@ _lost    = WF_Logic getVariable format[""%1VehiclesLost"", ##side]; \
 if (isNil ""_created"") then { _created = 0; }; \
 if (isNil ""_lost"") then { _lost = 0; };
 _var1=myVar1;
-";
+".Replace("\r\n", "\n");
 
             Processor p = new Processor();
             var code = p.CompileToByteCode(content);
 
             var result = code.ToString();
-            Assert.AreEqual(result.Trim().Replace("\r\n", "\n"), content.Trim().Replace("\r\n", "\n"));
+            Assert.AreEqual(content.Trim().Replace("\r\n", "\n"), result.Trim().Replace("\r\n", "\n"));
 
         }
 
@@ -36,7 +36,7 @@ _var1=myVar1;
         {
             Compiler compiler = new Compiler();
             string content = @"{
-_displayEH_keydown=displayaddeventhandler[""keydown"", ""
+_displayEH_keydown=_display1 displayaddeventhandler[""keydown"", ""
 {       
     while(true) {
            if(true)
@@ -47,8 +47,8 @@ _displayEH_keydown=displayaddeventhandler[""keydown"", ""
 ""])}";
 
             content = compiler.Compile(content);
-            Assert.AreEqual(content, 
-                "private['_displayEH_keydown'];{_displayEH_keydown=displayaddeventhandler[\"keydown\",{private['_var'];{while(true){if(true){_var=123}};}}])}");
+            Assert.AreEqual("private['_displayEH_keydown'];{_displayEH_keydown=_display1 displayaddeventhandler[\"keydown\",{private['_var'];{while(true){if(true){_var=123}};}}])}",
+                content);
         }
 
         [Test]
@@ -84,7 +84,15 @@ _myobj call compile preprocess _path2file;";
             Processor processor = new Processor();
             var byteCode = processor.CompileToByteCode(content.Replace("\r\n", "\n").Trim());
             Assert.AreEqual(2, byteCode.Commands.Count, "must have two operators");
+        }
 
+        [Test]
+        public void TestPreprocessor2()
+        {
+            Processor processor = new Processor();
+
+            string content;
+            CmdElement byteCode;
             content = @"
 #define MYFUNC=""myfunction.h"" \
                MYFUNC2
@@ -99,9 +107,8 @@ _myobj call compile preprocess _path2file;";
 _myobj call compile preprocess _path2file;";
             Assert.AreEqual(expected.Replace("\r\n", "\n").Trim(), byteCode.ToString()) ;
             Assert.AreEqual(2, byteCode.Commands.Count, "must have two operators");
+        }
 
-        }        
-        
         [Test]
         public void TestCallFormat()
         {

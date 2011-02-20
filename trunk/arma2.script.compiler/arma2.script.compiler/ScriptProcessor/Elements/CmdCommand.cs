@@ -1,4 +1,6 @@
-﻿namespace ArmA2.Script.ScriptProcessor
+﻿using System;
+
+namespace ArmA2.Script.ScriptProcessor
 {
     public class CmdCommand : CmdCommandBase
     {
@@ -7,7 +9,7 @@
             string oldCmdName = Text;
             if (!GlobalSettings.AllowMinimize)
             {
-                var cmd = Processor.GetCommand(Text);
+                var cmd = Processor.GetFunction(Text);
                 Text = cmd.Name;
             }
             base.Render(writer);
@@ -16,7 +18,7 @@
  
         public Function Function
         {
-            get { return Processor.GetCommand(this.Text); }
+            get { return Processor.GetFunction(this.Text); }
         }
     }
 }

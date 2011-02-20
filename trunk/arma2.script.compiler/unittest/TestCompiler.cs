@@ -188,7 +188,7 @@ switch (_respawnCampsMode) do {
                 //Assert.AreEqual(0, Logger.Warnings.Count, string.Format("{0} - [Failed]", Path.GetFileName(file)));
 
                 Console.SetOut(outputBase);
-                Console.WriteLine("{0} - [Done]", Path.GetFileName(file));
+                //Console.WriteLine("{0} - [Done]", Path.GetFileName(file));
             }
 
         }

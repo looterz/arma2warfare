@@ -7,19 +7,11 @@ namespace ArmA2.Script.ScriptProcessor
     {
         public CmdElement CompileToByteCode(string content)
         {
-            CmdScopeBase root = new CmdScopeBase();
+            CmdScopeCodeRoot root = new CmdScopeCodeRoot();
             ProcessCommand(root, content, 0);
 
             GroupSetOp(root);
             return root;
-        }
-
-        public List<string> Validate(CmdElement root)
-        {
-            var validate = new List<string>();
-            Validation.ValidateElement(root, validate);
-
-            return validate;
         }
 
         private void GroupSetOp(CmdElement root)
@@ -87,6 +79,12 @@ namespace ArmA2.Script.ScriptProcessor
                 if (separator == null)
                     continue;
 
+                if (cmdElement.Commands.Count() >= 1 && cmdElement.Commands.Get<CmdPreprocessor>(0) != null && separator == "\\\n")
+                {
+                    i += 1;
+                    continue;
+                }
+
                 if (opStart != -1)
                 {
                     var cmdName = content.Substring(opStart, i - opStart).Trim();
@@ -94,11 +92,12 @@ namespace ArmA2.Script.ScriptProcessor
                     var cmd = cmdElement.CmdAdd(cmdName);
                     if (cmd != null && cmdElement.Commands.Count() == 1 && cmd is CmdPreprocessor)
                     {
-                           separatorTypes.AddRange(new[] { "\\\n", "\n" });
-                            separatorTypes = separatorTypes.OrderByDescending(m => m.Length).ToList();
+                        separatorTypes.Clear();
+                        separatorTypes.AddRange(new[] { "\\\n", "\n" });
+                        separatorTypes = separatorTypes.OrderByDescending(m => m.Length).ToList();
 
-                            endCommand.AddRange(new[]{"\n"});
-                            endCommand = endCommand.OrderByDescending(m => m.Length).ToList();
+                        endCommand.AddRange(new[]{"\n"});
+                        endCommand = endCommand.OrderByDescending(m => m.Length).ToList();
                     }
                     opStart = -1;
                 }

@@ -34,12 +34,12 @@ namespace ArmA2.Script
 
         public static void Log(LogLevel level, string message, params object[] args)
         {
-            Log(level, ErrCode.None, message, args);
+            Log(level, CompileCode.None, message, args);
         }
 
-        public static void Log(LogLevel level, ErrCode errCode, string message, params object[] args)
+        public static void Log(LogLevel level, CompileCode compileCode, string message, params object[] args)
         {
-            if (level == LogLevel.Warning && WarningDisabled.Any(m => m == (int)errCode))
+            if (level == LogLevel.Warning && WarningDisabled.Any(m => m == (int)compileCode))
                 return;
             
             if (args.Length > 0)
@@ -49,10 +49,19 @@ namespace ArmA2.Script
 
             if (level >= LogLevel.Trace)
             {
-                if (errCode == ErrCode.None)
+                if (compileCode == CompileCode.None)
                     message = string.Format("{0}: {1}", level.ToString().ToUpper(), message);
                 else
-                    message = string.Format("{0}{1:d4}: {2}", level.ToString().ToUpper(), (int)errCode, message);
+                {
+                    int code = 0;
+                    if (compileCode >= CompileCode.Error)
+                        code = compileCode - CompileCode.Error;
+
+                    else if (compileCode >= CompileCode.Warning)
+                        code = compileCode - CompileCode.Warning;
+
+                    message = string.Format("{0}-{1:d4}: {2}", level.ToString().ToUpper(), code, message);
+                }
             }
 
             if (level == LogLevel.Error)
