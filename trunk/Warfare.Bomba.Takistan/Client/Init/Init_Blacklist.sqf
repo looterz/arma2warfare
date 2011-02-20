@@ -1,6 +1,7 @@
 private['_blackListID','_id', '_countd', '_list'];
 _id = getPlayerUID (_this select 0);
 
+	_countd = objNull;	// just fix compile warning about use undeclared variable
 	_countd = {
 		private ["_count", "_i", "_cfg"];
 		_count = 0;
@@ -23,7 +24,9 @@ _id = getPlayerUID (_this select 0);
 	if (((configFile / "CfgVehicles" / "Man" / "UserActions") call _countd) != 0) then { _list = _list + ["UserActions"]; };
 
 	if (count _list != 0) exitwith {
-		[] spawn {
+		_list spawn {
+			private["_list"];
+			_list = _this;		
 			disableUserInput true;
 			waitUntil { !isNil "NetSend_ToServer" };
 			[30, [ player, _list ]] call NetSend_ToServer;
