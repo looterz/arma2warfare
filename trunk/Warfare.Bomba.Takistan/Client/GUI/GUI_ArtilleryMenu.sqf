@@ -48,8 +48,17 @@ MenuAction = -1;
 mouseButtonUp = -1;
 
 while {alive player && dialog} do {
-	if (side player != sideJoined) exitWith {deleteMarkerLocal _marker;deleteMarkerLocal _area;{deleteMarkerLocal _x} forEach _markers;closeDialog 0};
-	if (!dialog) exitWith {deleteMarkerLocal _marker;deleteMarkerLocal _area;{deleteMarkerLocal _x} forEach _markers};
+	if (side player != sideJoined) exitWith {
+		deleteMarkerLocal _marker;
+		deleteMarkerLocal _area;
+		{deleteMarkerLocal _x} forEach _markers;
+		closeDialog 0
+	};
+	if (!dialog) exitWith {
+		deleteMarkerLocal _marker;
+		deleteMarkerLocal _area;
+		{deleteMarkerLocal _x} forEach _markers
+	};
 	
 	_currentUpgrades = (sideJoinedText) Call GetSideUpgrades;
 	

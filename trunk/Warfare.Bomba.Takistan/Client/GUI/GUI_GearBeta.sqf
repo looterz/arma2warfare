@@ -425,7 +425,9 @@ while {alive player && dialog} do {
 					_currentMagazines = _tempMags;
 					_currentSpecials = _tempSpecs;
 					_currentSpecialCost = 0;
-					for [{_x = 0},{_x < 2},{_x = _x + 1}] do {ctrlSetText[_specialIDC + _x,'\Ca\UI\Data\ui_gear_eq_gs.paa']};
+					for [{_u = 0},{_u < 2},{_u = _u + 1}] do {
+						ctrlSetText[_specialIDC + _u,'\Ca\UI\Data\ui_gear_eq_gs.paa']
+					};
 					_u = 0;
 					{
 						_get = _x Call GetNamespace;
@@ -628,7 +630,9 @@ while {alive player && dialog} do {
 			if (_slot < Count _currentSpecials) then {
 				_currentSpecialCost = 0;
 				_currentSpecials = _currentSpecials - [_currentSpecials select _slot];
-				for [{_x = 0},{_x < 2},{_x = _x + 1}] do {ctrlSetText[_specialIDC + _x,'\Ca\UI\Data\ui_gear_eq_gs.paa']};
+				for [{_u = 0},{_u < 2},{_u = _u + 1}] do {
+					ctrlSetText[_specialIDC + _u,'\Ca\UI\Data\ui_gear_eq_gs.paa']
+				};
 				_u = 0;
 				{
 					_get = _x Call GetNamespace;
@@ -723,7 +727,9 @@ while {alive player && dialog} do {
 					_currentMagazines = respawnAmmo;
 					_currentSpecialCost = 0;
 					
-					for [{_x = 0},{_x < 2},{_x = _x + 1}] do {ctrlSetText[_specialIDC + _x,'\Ca\UI\Data\ui_gear_eq_gs.paa']};
+					for [{_u = 0},{_u < 2},{_u = _u + 1}] do {
+						ctrlSetText[_specialIDC + _u,'\Ca\UI\Data\ui_gear_eq_gs.paa']
+					};
 					
 					_u = 0;
 					{
@@ -753,7 +759,9 @@ while {alive player && dialog} do {
 				ctrlSetText [_primaryIDC,'\ca\ui\data\ui_gear_gun_gs.paa'];
 				ctrlSetText [_secondaryIDC,'\ca\ui\data\ui_gear_sec_gs.paa'];
 				ctrlSetText [_sidearmIDC,'\ca\ui\data\ui_gear_hgun_gs.paa'];
-				for [{_x = 0},{_x < 2},{_x = _x + 1}] do {ctrlSetText[_specialIDC + _x,'\Ca\UI\Data\ui_gear_eq_gs.paa']};
+				for [{_u = 0},{_u < 2},{_u = _u + 1}] do {
+					ctrlSetText[_specialIDC + _u,'\Ca\UI\Data\ui_gear_eq_gs.paa']
+				};
 				_displayInv = true;
 			};
 			case 'backpack': {

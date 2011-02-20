@@ -1,4 +1,4 @@
-private['_aircoef','_artcoef','_heacoef','_ligcoef','_nearsupport','_enabled','_healprice','_get','_nearissp','_nearisdp','_nearisrt','_sorted','_effective','_add','_vehi','_repairprice','_refuelprice','_rearmprice','_checks','_cursel','_funds','_type','_lastveh','_sp','_closestsp','_canbeused','_csp','_nobject','_descvehi','_repair','_lastuse','_sheal','_srearm','_srefuel','_srepair','_lastdmg','_lastfue','_enable','_nobjects','_sideid','_amount','_val','_val2','_isinvehicle','_iscommander','_crews','_active','_alives','_ss','_buildings','_currentupgrades','_easalevel','_pura','_desc','_ainumber','_finalnumber','_fuel'];
+private['_typeRepair','_spType','_i','_text','_txt','_veh','_nearsupport','_enabled','_healprice','_get','_sorted','_effective','_add','_vehi','_repairprice','_refuelprice','_rearmprice','_checks','_cursel','_funds','_type','_lastveh','_sp','_closestsp','_canbeused','_csp','_nobject','_descvehi','_repair','_lastuse','_sheal','_srearm','_srefuel','_srepair','_lastdmg','_lastfue','_enable','_nobjects','_sideid','_amount','_val','_val2','_isinvehicle','_iscommander','_crews','_alives','_ss','_buildings','_currentupgrades','_easalevel','_pura','_desc','_ainumber','_finalnumber','_fuel'];
 
 MenuAction = -1;
 
@@ -25,7 +25,7 @@ private["_hint", "_text"];
 };
 
 fnSupportHintRemove = {
-private["_hint", "_text"];
+private["_hint"];
 	_hint = _this;
 	_hint set [2, false];
 };
@@ -42,7 +42,7 @@ fnSupportHintShow = {
 };
 
 fnSupportHintDisplay = {
-private["_lines", "_str", "_u", "_line", "_text", "_timeout", "_removed", "_active"];
+private["_lines", "_str", "_u", "_line", "_text", "_timeout", "_active"];
 
 	_str = objNull;
 	_u = count supportHintLines;
@@ -357,7 +357,8 @@ while {true} do {
 			
 			//--- Spawn a Rearm thread.
 			[_veh,_nearSupport select _curSel,_typeRepair,_spType] Spawn {
-				Private ['_i','_name','_repairRange','_rearmTime','_spType','_supportRange','_supports','_typeRepair','_veh'];
+				Private ['_nearIsSP','_nearIsDP','_nearIsRT','_airCoef','_artCoef','_heaCoef','_ligCoef','_success',
+				'_name','_repairRange','_rearmTime','_spType','_supportRange','_supports','_typeRepair','_veh'];
 				_veh = _this select 0;
 				_supports = _this select 1;
 				_typeRepair = _this select 2;
@@ -425,7 +426,7 @@ while {true} do {
 			
 			//--- Spawn a Repair thread.
 			[_veh,_nearSupport select _curSel,_typeRepair,_spType] Spawn {
-				Private ['_i','_name','_repairRange','_repTime','_spType','_supportRange','_supports','_typeRepair','_veh'];
+				Private ['_nearIsSP','_nearIsDP','_nearIsRT','_airCoef','_artCoef','_heaCoef','_ligCoef','_success','_name','_repairRange','_repTime','_spType','_supportRange','_supports','_typeRepair','_veh'];
 				_veh = _this select 0;
 				_supports = _this select 1;
 				_typeRepair = _this select 2;
@@ -473,7 +474,7 @@ while {true} do {
 				
 				//--- Class Malus.
 				if (_veh isKindOf 'Air') then {_repTime = round(_repTime * _airCoef)};
-				if (_veh isKindOf 'StaticWeapon ') then {_repTime = round(_rearmTime * _artCoef)};
+				if (_veh isKindOf 'StaticWeapon ') then {_repTime = round(_repTime * _artCoef)};
 				if (_veh isKindOf 'Tank') then {_repTime = round(_repTime * _heaCoef)};
 				if (_veh isKindOf 'Car' || _veh isKindOf 'Motorcycle') then {_repTime = round(_repTime * _ligCoef)};
 				
@@ -491,7 +492,7 @@ while {true} do {
 			
 			//--- Spawn a Refuel thread.
 			[_veh,_nearSupport select _curSel,_typeRepair,_spType] Spawn {
-				Private ['_i','_name','_repairRange','_refTime','_spType','_supportRange','_supports','_typeRepair','_veh'];
+				Private ['_nearIsSP','_nearIsDP','_nearIsRT','_airCoef','_artCoef','_heaCoef','_ligCoef','_success','_name','_repairRange','_refTime','_spType','_supportRange','_supports','_typeRepair','_veh'];
 				_veh = _this select 0;
 				_supports = _this select 1;
 				_typeRepair = _this select 2;
@@ -539,7 +540,7 @@ while {true} do {
 				
 				//--- Class Malus.
 				if (_veh isKindOf 'Air') then {_refTime = round(_refTime * _airCoef)};
-				if (_veh isKindOf 'StaticWeapon ') then {_refTime = round(_rearmTime * _artCoef)};
+				if (_veh isKindOf 'StaticWeapon ') then {_refTime = round(_refTime * _artCoef)};
 				if (_veh isKindOf 'Tank') then {_refTime = round(_refTime * _heaCoef)};
 				if (_veh isKindOf 'Car' || _veh isKindOf 'Motorcycle') then {_refTime = round(_refTime * _ligCoef)};
 				

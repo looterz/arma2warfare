@@ -1,4 +1,4 @@
-private['_get','_currentweapons','_index','_currentmagazines','_currentspecials','_currentitem','_currentitems','_filler','_cwep','_currentsecondary','_currentspecialcost','_u','_currentvalue','_currentprimary','_currentsidearm','_displayinv','_data','_inventoryclick','_desc','_currentprimarycost','_currentsecondarycost','_currentsidearmcost','_slot','_specialidc','_query','_upgradecost','_template','_templatecosts','_templatepictures','_templatenames','_templatemags','_templateitems','_templatespecs','_templateupgrades','_templateallowed','_lb','_primaryidc','_secondaryidc','_sidearmidc','_currentdata','_cost','_primary','_secondary','_sidearm','_currentmags','_sidegear','_temp','_misc','_currentunit','_found','_pict','_callow','_upgr','_inventoryslots','_miscitemslots','_sidearminventoryslots','_currentcost','_unitlist','_type','_updatefiller','_lbm','_currentrow','_getpp','_getss','_get2','_zt','_updateunit','_display','_filleridc','_id','_list','_old','_inrange','_text','_skip','_sskip','_fillertypes','_lastfiller','_nobjects','_nobject','_sideid','_amount','_val','_val2','_changed','_mainaction','_actionse','_issecoallowtwo','_isprimallowtwo','_loadout','_funds','_pallow','_sallow','_magazine','_all','_totalweapons','_slistmagazines','_disp','_buildings','_check','_ainumber','_txt','_unitswap','_slist','_oldmags','_tempweapons','_tempitems','_tempmags','_tempspecs','_currentmagvalue','_currentmag'];
+private['_tfil','_get','_currentweapons','_index','_currentmagazines','_currentspecials','_currentitem','_currentitems','_filler','_cwep','_currentsecondary','_currentspecialcost','_u','_currentvalue','_currentprimary','_currentsidearm','_displayinv','_data','_inventoryclick','_desc','_currentprimarycost','_currentsecondarycost','_currentsidearmcost','_slot','_specialidc','_query','_upgradecost','_template','_templatecosts','_templatepictures','_templatenames','_templatemags','_templateitems','_templatespecs','_templateupgrades','_templateallowed','_lb','_primaryidc','_secondaryidc','_sidearmidc','_currentdata','_cost','_primary','_secondary','_sidearm','_currentmags','_sidegear','_temp','_misc','_currentunit','_found','_pict','_callow','_upgr','_inventoryslots','_miscitemslots','_sidearminventoryslots','_currentcost','_unitlist','_type','_updatefiller','_lbm','_currentrow','_getpp','_getss','_get2','_zt','_updateunit','_display','_filleridc','_id','_list','_old','_inrange','_text','_skip','_sskip','_fillertypes','_lastfiller','_nobjects','_nobject','_sideid','_amount','_val','_val2','_changed','_mainaction','_actionse','_issecoallowtwo','_isprimallowtwo','_loadout','_funds','_pallow','_sallow','_magazine','_all','_totalweapons','_slistmagazines','_disp','_buildings','_check','_ainumber','_txt','_unitswap','_slist','_oldmags','_tempweapons','_tempitems','_tempmags','_tempspecs','_currentmagvalue','_currentmag'];
 
 /* Important, use +array if you plan to use Setters */
 _primary = +(WF_Logic getVariable 'primaryClasses');
@@ -45,6 +45,7 @@ _secondaryIDC = 3501;
 _sidearmIDC = 3502;
 _specialIDC = 3535;
 _display = _this select 0;
+_tfil = '';
 
 _totalWeapons = count _primary + count _secondary + count _sidearm;
 
@@ -314,7 +315,9 @@ while {alive player && dialog} do {
 					_currentMagazines = _tempMags;
 					_currentSpecials = _tempSpecs;
 					_currentSpecialCost = 0;
-					for [{_x = 0},{_x < 2},{_x = _x + 1}] do {ctrlSetText[_specialIDC + _x,'\Ca\UI\Data\ui_gear_eq_gs.paa']};
+					for [{_u = 0},{_u < 2},{_u = _u + 1}] do {
+						ctrlSetText[_specialIDC + _u,'\Ca\UI\Data\ui_gear_eq_gs.paa']
+					};
 					_u = 0;
 					{
 						_get = _x Call GetNamespace;
@@ -464,7 +467,9 @@ while {alive player && dialog} do {
 			if (_slot < Count _currentSpecials) then {
 				_currentSpecialCost = 0;
 				_currentSpecials = _currentSpecials - [_currentSpecials select _slot];
-				for [{_x = 0},{_x < 2},{_x = _x + 1}] do {ctrlSetText[_specialIDC + _x,'\Ca\UI\Data\ui_gear_eq_gs.paa']};
+				for [{_u = 0},{_u < 2},{_u = _u + 1}] do {
+					ctrlSetText[_specialIDC + _u,'\Ca\UI\Data\ui_gear_eq_gs.paa']
+				};
 				_u = 0;
 				{
 					_get = _x Call GetNamespace;
@@ -530,7 +535,9 @@ while {alive player && dialog} do {
 					_currentMagazines = respawnAmmo;
 					_currentSpecialCost = 0;
 					
-					for [{_x = 0},{_x < 2},{_x = _x + 1}] do {ctrlSetText[_specialIDC + _x,'\Ca\UI\Data\ui_gear_eq_gs.paa']};
+					for [{_u = 0},{_u < 2},{_u = _u + 1}] do {
+						ctrlSetText[_specialIDC + _u,'\Ca\UI\Data\ui_gear_eq_gs.paa']
+					};
 					
 					_u = 0;
 					{
@@ -559,7 +566,9 @@ while {alive player && dialog} do {
 				ctrlSetText [_primaryIDC,'\ca\ui\data\ui_gear_gun_gs.paa'];
 				ctrlSetText [_secondaryIDC,'\ca\ui\data\ui_gear_sec_gs.paa'];
 				ctrlSetText [_sidearmIDC,'\ca\ui\data\ui_gear_hgun_gs.paa'];
-				for [{_x = 0},{_x < 2},{_x = _x + 1}] do {ctrlSetText[_specialIDC + _x,'\Ca\UI\Data\ui_gear_eq_gs.paa']};
+				for [{_u = 0},{_u < 2},{_u = _u + 1}] do {
+					ctrlSetText[_specialIDC + _u,'\Ca\UI\Data\ui_gear_eq_gs.paa']
+				};
 				_displayInv = true;
 			};
 		};

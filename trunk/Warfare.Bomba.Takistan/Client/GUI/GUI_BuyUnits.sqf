@@ -1,4 +1,4 @@
-private['_extra','_txt','_currentcost','_unit','_driver','_gunner','_commander','_sorted','_currentidc','_display','_update','_con','_currentunit','_idcs','_isinfantry','_updatedetails','_val','_cpt','_factories','_currentrow','_skip','_updatemap','_classmagsamount','_magslabel','_listunits','_islocked','_lastcheck','_updatelist','_mbu','_tmplistunits','_cost','_maxout','_countalive','_idclock','_idcsvehi','_map','_break','_costdiscount','_currentvalue','_buildings','_color','_weapons','_classmags','_findat','_disabledcolor','_enabledcolor','_lastsel','_lasttype','_combofaction','_status','_statuslabel','_statusvals','_baseprice','_funds','_size','_factsel','_nobjects','_neardepotlist','_neardepot','_slots','_show','_filllist','_changefactioncombo','_params','_nearest','_countqueue','_magazines'];
+private['_extra','_txt','_currentcost','_unit','_driver','_gunner','_commander','_sorted','_currentidc','_display','_update','_con','_currentunit','_idcs','_isinfantry','_updatedetails','_val','_cpt','_factories','_currentrow','_skip','_updatemap','_classmagsamount','_magslabel','_listunits','_islocked','_lastcheck','_updatelist','_mbu','_maxout','_countalive','_idclock','_idcsvehi','_map','_break','_costdiscount','_currentvalue','_buildings','_color','_weapons','_classmags','_findat','_disabledcolor','_enabledcolor','_lastsel','_lasttype','_combofaction','_status','_statuslabel','_statusvals','_funds','_size','_factsel','_nobjects','_neardepotlist','_neardepot','_slots','_show','_filllist','_changefactioncombo','_params','_nearest','_countqueue','_magazines','_closest','_closestFactory', '_listBox','_type','_i','_nearTown','_c' ];
 
 disableSerialization;
 
@@ -71,7 +71,7 @@ _IDCS = _IDCS - [_currentIDC];
 
 //--- Fill the list function.
 _fillList = {
-	Private ['_addin','_c','_currentUpgrades','_filler','_filter','_i','_listBox','_listNames','_u','_value'];
+	Private ['_costDiscount', '_tmplistUnits', '_basePrice', '_cost', '_addin','_c','_currentUpgrades','_filler','_filter','_i','_listBox','_listNames','_u','_value'];
 	_listNames = _this select 0;
 	_filler = _this select 1;
 	_listBox = _this select 2;
