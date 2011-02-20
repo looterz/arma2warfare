@@ -17,7 +17,7 @@ namespace ArmA2.Script.UnitTests
 
             string[] files = args;
             if (args.Length == 0)
-                files = new[] { "ServerMonitorProc.sqf" };
+                files = new[] { "aiteam.fsm" };
 
             foreach (var fileName in files)
             {

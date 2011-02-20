@@ -149,6 +149,7 @@ window[] = {0,-1,-1,-1,-1,762,25,1317,25,1,725};
 class FSM
 {
   fsmName = "aiteam";
+  initState="Init";
   class States
   {
     /*%FSM<STATE "Init">*/

@@ -7,14 +7,14 @@ namespace ArmA2.Script.ScriptProcessor
     {
         public CmdElement CompileToByteCode(string content)
         {
-            return CompileToByteCode(content, new CmdScopeCodeRoot());
+            return CompileToByteCode(content, null);
         }
 
         public CmdElement CompileToByteCode(string content, CmdScopeBase rootScope)
         {
             CmdScopeBase scope;
             if (rootScope == null)
-                scope = new CmdScopeCodeRoot();
+                scope = new CmdScopeCodeRoot(this);
             else
             {
                 scope = new CmdScopeBase();
@@ -22,36 +22,7 @@ namespace ArmA2.Script.ScriptProcessor
             }
 
             ProcessCommand(scope, content, 0);
-            GroupSetOp(scope);
             return scope;
-        }
-
-        private void GroupSetOp(CmdElement root)
-        {
-            var items = root.Items;
-
-            var operators =
-                items.Select((m, id) => new { Id = id, Item = m }).Where(m => m.Item is CmdCommandBase).Select(m => new { Id = m.Id, Item = (CmdCommandBase)m.Item, Text = ((CmdCommandBase)m.Item).Text });
-
-            var op = operators.FirstOrDefault();
-
-            if (op != null && !(root is CmdScopeArray))
-            {
-                var nextOp = (op.Text != "=") ? operators.FirstOrDefault(m => m.Id > op.Id) : null; // get next operator - skip if current operator is assignment operator
-                var nextOpId = (nextOp != null) ? nextOp.Id : items.Count();
-
-                var valueOp2 = root.Items.Where((m, pos) => op.Id < pos && pos < nextOpId ).ToList();
-
-                if (valueOp2.Where(m => (!(m is CmdSeparator))).Count() > 1)
-                {
-                    CmdElement groupOp2 = new CmdElement();
-                    groupOp2.Parent = root;
-                    valueOp2.ForEach(m => { groupOp2.ChildAdd(m); items.Remove(m); });
-                    items.Insert(op.Id + 1, groupOp2);
-                }
-            }
-
-            items.Where(m => m is CmdElement).ForEach(m => GroupSetOp((CmdElement) m));
         }
 
         private readonly string[] _sep = (new[] {"==", ">=", "<=", "!=", "&&", "||",

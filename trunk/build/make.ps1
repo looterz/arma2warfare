@@ -12,8 +12,11 @@ function EntryPoint
 	
 	cls
 	$root = [System.IO.Path]::GetFullPath($currentDirectory + "\..");
-	
 	$source = "$root\Warfare.Bomba.Takistan";
+	
+	#-- $root1 = [System.IO.Path]::GetFullPath($currentDirectory + "\..\..");
+	#-- $source = "$root1\WarfareBE";
+	
 	$versionDir = "$root\version\";
 	$tmpfolder = [System.IO.Path]::GetTempPath() + "buildwarfare";
 
@@ -64,19 +67,24 @@ function preprocess-mission {
 	dir -Path $tmpfolder -Recurse | Where {$_.Name -eq "profiler.h"} | Foreach-Object { Remove-Item $_.FullName };
 	Remove-Item $tmpfolder\profiler.sqf
 	
-	[ArmA2.Script.GlobalVars]::PublicVariables.Clear();
-	[ArmA2.Script.GlobalVars]::ExcludePhrases.Clear();
-	[ArmA2.Script.GlobalVars]::ExcludeLines.Clear();
+	[ArmA2.Script.GlobalSettings]::AllowMinimize = $false;
 	
-     [ArmA2.Script.GlobalVars]::ExcludeLines.Add("PROFILER_BEGIN");
-     [ArmA2.Script.GlobalVars]::ExcludeLines.Add("PROFILER_END");
-     [ArmA2.Script.GlobalVars]::ExcludeLines.Add("profiler.sqf");
-     [ArmA2.Script.GlobalVars]::ExcludeLines.Add("profiler.h");
-     [ArmA2.Script.GlobalVars]::ExcludeLines.Add("!isNil `"initProfiler`"");
-	 [ArmA2.Script.GlobalVars]::ExcludeLines.Add("!isNil `"LogInited`"");
-	 [ArmA2.Script.GlobalVars]::ExcludeLines.Add("logging.h");
-	 [ArmA2.Script.GlobalVars]::ExcludeLines.Add("logging.sqf");
-	 [ArmA2.Script.GlobalVars]::ExcludeLines.Add("call Log(Inform|High|Medium|Warning|Error|Trace|Unexpected|Notify)(?:[^\w])");
+	[ArmA2.Script.Logger]::WarningDisabled.Clear();
+	[ArmA2.Script.Logger]::WarningDisabled.Add([ArmA2.Script.CompileCode]::PerfomanceIssue);
+	
+	[ArmA2.Script.GlobalSettings]::PublicVariables.Clear();
+	[ArmA2.Script.GlobalSettings]::ExcludePhrases.Clear();
+	[ArmA2.Script.GlobalSettings]::ExcludeLines.Clear();
+	
+     [ArmA2.Script.GlobalSettings]::ExcludeLines.Add("PROFILER_BEGIN");
+     [ArmA2.Script.GlobalSettings]::ExcludeLines.Add("PROFILER_END");
+     [ArmA2.Script.GlobalSettings]::ExcludeLines.Add("profiler.sqf");
+     [ArmA2.Script.GlobalSettings]::ExcludeLines.Add("profiler.h");
+     [ArmA2.Script.GlobalSettings]::ExcludeLines.Add("!isNil `"initProfiler`"");
+	 [ArmA2.Script.GlobalSettings]::ExcludeLines.Add("!isNil `"LogInited`"");
+	 [ArmA2.Script.GlobalSettings]::ExcludeLines.Add("logging.h");
+	 [ArmA2.Script.GlobalSettings]::ExcludeLines.Add("logging.sqf");
+	 [ArmA2.Script.GlobalSettings]::ExcludeLines.Add("call Log(Inform|High|Medium|Warning|Error|Trace|Unexpected|Notify)(?:[^\w])");
 	 
      #-- [ArmA2.Script.GlobalVars]::ExcludePhrases.Add("format[\[].+?[\]]\s* call Log(Inform|High|Medium|Warning|Error|Trace|Unexpected|Notify)");
      #-- [ArmA2.Script.GlobalVars]::ExcludePhrases.Add("`"(?:[^`"\\]|\\.|\`"\`")*""\s*call Log(Inform|High|Medium|Warning|Error|Trace|Unexpected|Notify)");
@@ -89,7 +97,7 @@ function preprocess-mission {
 	$files = $files | Where { ($_.FullName -match ".*\\briefing.sqf") -eq $false };
 	foreach($x in $files) {
 
-		Write-Host "compile: "$x.FullName;	
+		Write-Host "Compile: "$x.FullName;	
 		
 		#-- preprocess-file -fileName $x.FullName;
 		$compiler = New-Object ArmA2.Script.Compiler

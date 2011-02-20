@@ -6,6 +6,8 @@ namespace ArmA2.Script.ScriptProcessor
 {
     public partial class Processor
     {
+        private List<Function> _functions;
+
         private static List<string> _operators; 
         public static List<string> Operators
         {
@@ -19,9 +21,16 @@ namespace ArmA2.Script.ScriptProcessor
             }
         }
 
-        public static Function GetCmd(CmdCommand cmd)
+        public List<Function> Functions
         {
-            return CommandData.FirstOrDefault(m => cmd.Text.Equals(m.Name, StringComparison.CurrentCultureIgnoreCase));
+            get
+            {
+                if (_functions == null)
+                {
+                    _functions = new List<Function>(CommandData);
+                }
+                return _functions;
+            }
         }
 
         public static bool IsOperator(string value)
@@ -30,15 +39,16 @@ namespace ArmA2.Script.ScriptProcessor
             return Operators.Any(m => m == value);
         }
 
-        public static bool IsCommand(string value)
+        public bool IsCommand(string value)
         {
             value = value.ToLower().Trim();
-            return CommandData.Any(m => m.Name.Equals(value, StringComparison.CurrentCultureIgnoreCase));
+            return Functions.Any(m => m.Name.Equals(value, StringComparison.CurrentCultureIgnoreCase));
         }
 
-        public static Function GetFunction(string name)
+        public Function GetFunction(string name)
         {
-            return CommandData.FirstOrDefault(m => m.Name.Equal(name.Trim()));
+            name = name.Trim();
+            return Functions.FirstOrDefault(m => m.Name.Equal(name));
         }
 
         private static List<string> ReadUniqueItemCollection(string content, string warningMessage)
