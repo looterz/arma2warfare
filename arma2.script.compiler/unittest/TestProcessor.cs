@@ -161,17 +161,9 @@ _myobj call compile preprocess _path2file;";
         {
             Processor processor = new Processor();
             string content;
-            content = "_var1=_var2*_var3";
-            var result = processor.CompileToByteCode(content);
-            Assert.AreEqual(content, result.ToString());
-            Assert.AreEqual(1, result.Commands.Count);
-
-            var op = (CmdElement) result.Commands[0];
-            Assert.AreEqual(3, op.Commands.Count);
-
 
             content = "_var1=((sin _var2)*(cos _var3))";
-            result = processor.CompileToByteCode(content);
+            var result = processor.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
             Assert.AreEqual(1, result.Commands.Count);
         }

@@ -5,10 +5,18 @@ namespace ArmA2.Script.ScriptProcessor
 {
     public class CmdScopeCodeRoot : CmdScopeBase
     {
-        public CmdScopeCodeRoot()
+        private Processor _processor;
+
+        public CmdScopeCodeRoot(Processor p)
         {
+            _processor = p;
             OpenCh = "";
             EndCh = "";
+        }
+
+        public override Processor Processor
+        {
+            get { return _processor ?? base.Processor; }
         }
 
         protected override void CompileInternal(Compiler compiler)
@@ -32,7 +40,8 @@ namespace ArmA2.Script.ScriptProcessor
             if (unused.Count() > 0)
             {
                 string list = "Unused, but declared as private: ";
-                unused.ForEach(m => list = list + string.Format("'{0}' ", m));
+                int i = 0;
+                unused.ForEach(m => list = list + ((i++ == 0) ? "" : ",") + string.Format("'{0}'", m));
 
                 list = list + "\nAt Scope: " + ShortTerm + "\n";
                 var warn = new CompileException(CompileCode.PrivateVarUnused, list);
@@ -42,7 +51,8 @@ namespace ArmA2.Script.ScriptProcessor
             if (undeclared.Count() > 0)
             {
                 string list = "Not declared as private: ";
-                undeclared.ForEach(m => list = list + string.Format("'{0}' ", m));
+                int i = 0;
+                undeclared.ForEach(m => list = list + ((i++ == 0) ? "" : ",") + string.Format("'{0}'", m));
 
                 list = list + "\nAt Scope: " + ShortTerm + "\n";
                 var warn = new CompileException(CompileCode.PrivateVarUndeclared, list);
@@ -51,13 +61,13 @@ namespace ArmA2.Script.ScriptProcessor
 
             var privateCmds = Items.Select<CmdElement>().Where(m => m.Items.Get<CmdPrivate>(0) != null);
             privateCmds.ForEach(m =>
-                                {
-                                    var sep = m.NextItem(1);
-                                    if (sep is CmdSeparator && ((CmdSeparator)sep).Text == ";")
-                                        sep.Parent.Items.Remove(sep);
+            {
+                var sep = m.NextItem(1);
+                if (sep is CmdSeparator && ((CmdSeparator)sep).Text == ";")
+                    sep.Parent.Items.Remove(sep);
 
-                                    m.Parent.Items.Remove(m);
-                                });
+                m.Parent.Items.Remove(m);
+            });
 
             if (LocalVars.Count > 0)
             {

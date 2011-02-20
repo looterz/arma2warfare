@@ -15,6 +15,13 @@
         UseUndeclaredVariable,
         InvalidArrayElement,
         CommandInvalidArgument,
-        MissingSeparator
+        MissingSeparator,
+
+        /// <summary>
+        /// FSM Заголовок не найден
+        /// </summary>
+        FsmMissedProperty,
+        FsmMissedClass,
+        FsmInvalidValueType
     }
 }

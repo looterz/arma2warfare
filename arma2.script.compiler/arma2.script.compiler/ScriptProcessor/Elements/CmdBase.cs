@@ -28,6 +28,11 @@ namespace ArmA2.Script.ScriptProcessor
         {
         }
 
+        public virtual Processor Processor
+        {
+            get { return Parent.Processor; }
+        }
+
         public int IndexId
         {
             get { return (Parent != null) ? Parent.Items.IndexOf(this) : -1; }

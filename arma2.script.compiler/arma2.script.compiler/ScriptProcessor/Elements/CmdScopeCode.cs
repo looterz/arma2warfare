@@ -5,7 +5,7 @@ namespace ArmA2.Script.ScriptProcessor
 {
     public class CmdScopeCode : CmdScopeCodeRoot
     {
-        public CmdScopeCode()
+        public CmdScopeCode() : base(null)
         {
             OpenCh = "{";
             EndCh = "}";

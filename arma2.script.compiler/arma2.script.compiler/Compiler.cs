@@ -127,7 +127,24 @@ namespace ArmA2.Script
         }
 
 
-        public string CleanupContent(string content)
+        private string CleanupContent(string content)
+        {
+            try
+            {
+                return CleanupContentInternal(content);
+
+            }
+            catch (CompileException e)
+            {
+                if (e.Throwable)
+                    throw;
+
+                e.WriteToLog();
+            }
+            return content;
+        }
+
+        private string CleanupContentInternal(string content)
         {
             content = content.Replace("\t", " ");
             content = content.Replace("\r\n", "\n");
@@ -242,36 +259,66 @@ namespace ArmA2.Script
             string[] ignoredNames = new[] { "fsmname", "from", "to", "name", "priority", "initstate" };
 
             Processor p = new Processor();
+            p.Functions.Clear();
+            p.Functions.Add(new Function { Name = "class"});
+
             var code = p.CompileToByteCode(content);
+            FsmClass rootScope = new FsmClass((CmdScopeBase)code);
+
+
+            var fsmClass = rootScope.ClassList["FSM"];
+            if (fsmClass == null)
+                throw new CompileException(CompileCode.FsmMissedClass, "root Class FSM not found");
+
+            var statesClass = fsmClass.ClassList["States"];
+            if (statesClass == null)
+                throw new CompileException(CompileCode.FsmMissedClass, "statesClass Class not found");
+
+            fsmClass.States = statesClass;
+
+            var propInit = fsmClass.PropertyList["InitState"];
+            if (propInit == null)
+                throw new CompileException(CompileCode.FsmMissedProperty, "InitState property not found");
+
+            var initClassName = propInit.GetValue<CmdString>();
+            if (initClassName == null)
+                throw new CompileException(CompileCode.FsmInvalidValueType, "InitState invalid value type must be string");
+
+            var initClass = fsmClass.States.ClassList[initClassName.Text];
+            if (initClass == null)
+                throw new CompileException(CompileCode.FsmMissedClass, "class '{0}' not found", initClassName.Text);
+
 
             var assignList = code.FlatData.Where(m => m is CmdOperator && ((CmdOperator) m).Text.Equal("="));
 
             var prevDeclareVars = ApplyPrivateVars;
             var prevFsmContent = FsmContent;
 
-            ApplyPrivateVars = false;
+            ApplyPrivateVars = true;
             FsmContent = false;
 
-            CmdScopeCodeRoot scopeRoot = new CmdScopeCodeRoot();
-            foreach(var assign in assignList)
-            {
-                var cmdId = assign.Parent.Items.IndexOf(assign);
-                var name = assign.Parent.Items.Get<CmdText>(cmdId - 1);
-                var value = assign.Parent.Items.Get<CmdString>(cmdId + 1);
+            CmdScopeCodeRoot scopeRoot = new CmdScopeCodeRoot(new Processor());
+            initClass.Compile(this, scopeRoot, "** ");
 
-                if (name == null || value == null)
-                {
-                    continue;
-                }
+            //foreach(var assign in assignList)
+            //{
+            //    var cmdId = assign.Parent.Items.IndexOf(assign);
+            //    var name = assign.Parent.Items.Get<CmdText>(cmdId - 1);
+            //    var value = assign.Parent.Items.Get<CmdString>(cmdId + 1);
 
-                if (ignoredNames.Any(m => m.Equal(name.Text)))
-                    continue;
+            //    if (name == null || value == null)
+            //    {
+            //        continue;
+            //    }
 
-                var valueContent = value.Text.Replace("\"\"", "\"");
-                //this.ApplyPrivateVars = false;
-                valueContent = this.CompilePartial(valueContent, scopeRoot);
-                value.Text = valueContent.Replace("\"", "\"\"");
-            }
+            //    if (ignoredNames.Any(m => m.Equal(name.Text)))
+            //        continue;
+
+            //    var valueContent = value.Text.Replace("\"\"", "\"");
+            //    //this.ApplyPrivateVars = false;
+            //    valueContent = this.CompilePartial(valueContent, scopeRoot);
+            //    value.Text = valueContent.Replace("\"", "\"\"");
+            //}
 
             content = code.ToString().Trim();
 
@@ -459,7 +506,7 @@ namespace ArmA2.Script
         }
 
         private int _count = 0;
-        public static string[] ReservedLocalVarNames = { "_this", "_x", "_sv" };
+        public static string[] ReservedLocalVarNames = { "_this", "_x" };
         public static string[] ReservedGlobalVarNames = 
         { "image", "shadow", "color", "fps", "valign", "1", "isplayer" };
         private readonly char[] _allowedVarChars = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
