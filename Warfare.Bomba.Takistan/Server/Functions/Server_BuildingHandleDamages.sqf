@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Server_BuildingHandleDamages");
 
-private['_building','_dammages','_origin','_side','_side','_stones','_killerId','_sideKiller','_funds','_totaldamage','_lastdamagetime','_sidebuilding','_currentstones','_dt','_delta'];
+private['_building','_dammages','_origin','_side','_stones','_killerId','_sideKiller','_funds','_totaldamage','_lastdamagetime','_sidebuilding','_currentstones','_dt','_delta'];
 
 _building = _this select 0;
 _dammages = _this select 1;

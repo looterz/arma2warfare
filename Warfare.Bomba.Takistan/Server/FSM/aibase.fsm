@@ -198,7 +198,7 @@ class FSM
        "};" \n
        "" \n
        "_CommanderUpgrade = {" \n
-       "	Private [""_index"",""_index2"",""_name"",""_side"",""_sideText"",""_time""];" \n
+       "	Private [""_upgrades"",""_index"",""_index2"",""_name"",""_side"",""_sideText"",""_time""];" \n
        "	_time = _this select 0;" \n
        "	_index = _this select 1;" \n
        "	_index2 = _this select 2;" \n
