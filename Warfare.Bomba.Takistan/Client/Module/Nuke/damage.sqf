@@ -10,12 +10,12 @@ _destroy = _array;
 {_bo = "BO_GBU12_LGB" createVehicle [random 1000,random 1000,500];_bo setPos [getPos _x select 0, getPos _x select 1, getPos _x select 2]} forEach _destroy;
 
 [_target] Spawn {
-	private ["_dammageable","_dammages","_range","_target","_x","_array"];
+	private ["_dammageable","_dammages","_range","_target","_array","_u"];
 	_target = _this select 0;
 	_dammageable = ["Man","Car","Motorcycle","Tank","Ship","Air","StaticWeapon"];
 	_range = 800;
 	_dammages = 1;
-	for [{_x = 0},{_x < 4},{_x = _x + 1}] do {
+	for [{_u = 0},{_u < 4},{_u = _u + 1}] do {
 		_array = _target nearEntities [_dammageable, _range];
 		{
 			_x setDammage (getDammage _x + _dammages);

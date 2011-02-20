@@ -138,6 +138,7 @@ scriptName "UAV\data\scripts\uav_interface.sqf: IGUI Update";
 
 //--- Detect pressed keys (temporary solution)
 _displayEH_keydown = (finddisplay 46) displayaddeventhandler ["keydown","
+private['_key','_uav','_ppInversion','_id','_worldpos','_marker','_markertime','_level'];
 	_key = _this select 1;
 
 	comment '--- END';

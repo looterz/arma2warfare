@@ -1,4 +1,4 @@
-private['_base','_hqradio','_oc','_votetime','_weat','_lo','_buildings','_idbl','_txt','_commanderteam','_team','_isdeployed'];
+private['_base','_hqradio','_oc','_votetime','_weat','_buildings','_idbl','_team','_isdeployed'];
 
 waitUntil { !isNil "initJIP" };
 
@@ -88,7 +88,16 @@ if (_weat == 3) then {
 if (paramVolumClouds) then {[] Exec "CA\Modules\clouds\data\scripts\bis_cloudsystem.sqs"};
 
 _idbl = [player] Call Compile preprocessFile "Client\Init\Init_Blacklist.sqf";
-if (_idbl) exitWith {[] Spawn {_txt = "INFORMATION:\n\n You are currently blacklisted.";_txt Call DebugHint;sleep 5; disableUserInput true; sleep 60; disableUserInput false; failMission "END1"}};
+if (_idbl) exitWith {
+private["_txt"];
+	_txt = "INFORMATION:\n\n You are currently blacklisted.";
+	_txt Call DebugHint;
+	sleep 5; 
+	disableUserInput true; 
+	sleep 60; 
+	disableUserInput false; 
+	failMission "END1"
+};
 
 //--- Global Client Variables.
 sideJoined = side player;

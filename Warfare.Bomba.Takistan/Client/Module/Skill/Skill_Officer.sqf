@@ -1,4 +1,4 @@
-private['_exist','_skip','_type','_array','_toworld','_tent'];
+private['_exist','_skip','_type','_array','_toworld','_tent','_u'];
 
 /*
 	Script: Officer Skill System by Benny.
@@ -12,7 +12,7 @@ if !(isNull _exist) then {deleteVehicle _exist};
 WFBE_SK_V_LastUse_MASH = time;
 
 _skip = false;
-for [{_x = 0},{_x < 7},{_x = _x + 1}] do {
+for [{_u = 0},{_u < 7},{_u = _u + 1}] do {
 	sleep 0.5;
 	player playMove "AinvPknlMstpSlayWrflDnon_medic";
 	sleep 0.5;

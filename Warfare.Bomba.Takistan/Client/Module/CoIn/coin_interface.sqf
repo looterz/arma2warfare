@@ -38,7 +38,7 @@ if (paramBaseArea) then {
 };
 
 _fnCountFreePlaceObjects = {
-private['_position', '_radius', '_count', '_classType' ];
+private['_position', '_radius', '_count' ];
 
 	_position = _this select 0;
 	_radius = _this select 1;
@@ -156,7 +156,7 @@ private ["_params","_logic"];
 //--- Border - temporary solution //TODO: move border if position of logic changes (eg. by placing hq)
 _createBorder = {
 	
-     private ["_dir","_xpos","_ypos","_zpos","_a","_border","_logic","_startpos","_oldBorder","_center","_size","_width","_pi","_perimeter","_wallcount","_total"];
+     private ["_i","_dir","_xpos","_ypos","_zpos","_a","_border","_logic","_startpos","_oldBorder","_center","_size","_width","_pi","_perimeter","_wallcount","_total"];
 	_logic = _this select 0;
 	_startpos = _this select 1;
 	_oldBorder = missionNamespace getVariable "BIS_COIN_border";
@@ -204,7 +204,7 @@ _createBorderScope = [_logic,_startpos] spawn _createBorder;
 if !(isNil "BIS_CONTROL_CAM_Handler") exitWith {endLoadingScreen};
 
 BIS_CONTROL_CAM_Handler = {
-    private ["_terminate","_key","_NVGstate","_currentCash","_price","_closest","_closestType","_get","_targeting","_near","_preview",
+    private ['_camera','_areasize','_limitH','_limitV','_status','_sold','_crewCount','_defenseName','_sellForMoney','_txt','_selled','_repairName','_tryFoldToVehicle','_state','_dammage',"_terminate","_key","_NVGstate","_currentCash","_price","_closest","_closestType","_get","_targeting","_near","_preview",
     "_ctrl","_menu","_player","_border","_mode","_input",
     "_logic","_keysCancel","_keysBanned","_keyNightVision"];
 	_mode = _this select 0;
@@ -622,6 +622,7 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 					missionNamespace setVariable ["BIS_COIN_border",nil];
 					
 					[] Spawn {
+						private['_start','_mhq'];
 						_start = time;
 						waitUntil {!((sideJoinedText) Call GetSideHQDeployed) || time - _start > 15};
 						if (time - _start < 15) then {

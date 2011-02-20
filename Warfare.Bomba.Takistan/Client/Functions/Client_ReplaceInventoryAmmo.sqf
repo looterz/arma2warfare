@@ -1,4 +1,4 @@
-private['_get','_limit','_magazines','_newMag','_newMagIsSide','_newMagSpace','_oldMags','_presentMags','_replacement','_size','_spaceToReduce','_totaltoreplace','_futurespace','_freespace'];
+private['_u', '_get','_limit','_magazines','_newMag','_newMagIsSide','_newMagSpace','_oldMags','_presentMags','_replacement','_size','_spaceToReduce','_totaltoreplace','_futurespace','_freespace'];
 _newMag = _this select 0;
 _oldMags = _this select 1;
 _magazines = _this select 2;
@@ -56,7 +56,9 @@ while {(_futureSpace + _freeSpace) > _limit} do {
 	_futureSpace = _totalToReplace * _newMagSpace;
 };
 
-for [{_x = 0},{_x < _totalToReplace},{_x = _x + 1}] do {_replacement = _replacement + [_newMag]};
+for [{_u = 0},{_u < _totalToReplace},{_u = _u + 1}] do {
+	_replacement = _replacement + [_newMag]
+};
 
 _magazines = (_magazines - _presentMags) + _replacement;
 

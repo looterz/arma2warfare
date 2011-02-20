@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Market_SetContainerItems");
 
-private['_container','_items','_storage','_u','_u','_volume'];
+private['_container','_items','_storage','_u','_volume'];
 
 	_container = _this select 0;
 	_items = _this select 1;

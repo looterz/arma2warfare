@@ -1,7 +1,7 @@
 ﻿#include "profiler.h"
 PROFILER_BEGIN("Market_NormalizePrices");
 
-private['_market','_u','_marketSellCost','_u','_sorted','_tax','_townbuycost','_nearest','_dist','_markets','_townsellcost','_dsell','_dbuy','_marketprices','_townprices','_marketprice','_updated'];
+private['_market','_u','_marketSellCost','_sorted','_tax','_townbuycost','_nearest','_dist','_markets','_townsellcost','_dsell','_dbuy','_marketprices','_townprices','_marketprice','_updated'];
 
 	_market = _this;
 	
