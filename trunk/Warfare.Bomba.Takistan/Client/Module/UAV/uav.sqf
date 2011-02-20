@@ -1,4 +1,4 @@
-private['_uav','_add','_logic','_wp','_wpcount','_step','_radius','_dir','_lastwp','_lastwppos','_closest','_pos','_checks','_group','_cw','_spawn','_waypoints','_currentwp','_varname','_buildings','_sorted','_uavsetup','_driver','_gunner','_id','_logicmarta'];
+private['_d','_uav','_add','_logic','_wp','_wpcount','_step','_radius','_dir','_lastwp','_lastwppos','_closest','_pos','_checks','_group','_cw','_spawn','_waypoints','_varname','_buildings','_sorted','_uavsetup','_driver','_gunner','_id','_logicmarta'];
 
 _logic = UAVL;
 
@@ -68,7 +68,13 @@ _step = 360 / _wpcount;
 _add = 0;
 _cw = true;
 _dir = 0;
-if (!isNil "_lastWP") then {deletewaypoint _lastWP};
+if (isNil "_lastWP") then {
+	_lastWP = objNull;
+};
+
+if (!(isNull _lastWP)) then {
+	deletewaypoint _lastWP
+};
 
 //--- No need to preprocess those.
 if (WF_A2_Vanilla) then {
@@ -100,6 +106,7 @@ while {alive _uav} do {
 	};
 
 	_spawn = [_uav,_add,_step,_lastWPpos,_radius,_dir] spawn {
+		private['_uav','_add','_step','_lastWPpos','_radius','_dir','_currentWP','_pos','_wp'];
 		scriptname "UAV Route planning";
 		_uav = _this select 0;
 		_add = _this select 1;

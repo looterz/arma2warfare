@@ -1,4 +1,4 @@
-private['_vehicle','_dammages','_vehicles','_skip','_sorted'];
+private['_vehicle','_dammages','_vehicles','_skip','_sorted','_u'];
 /*
 	Script: Engineer Skill System by Benny.
 	Description: Add special skills to the defined engineer.
@@ -15,7 +15,7 @@ if (_dammages <= 0) exitWith {};
 WFBE_SK_V_LastUse_Repair = time;
 
 _skip = false;
-for [{_x = 0},{_x < 5},{_x = _x + 1}] do {
+for [{_u = 0},{_u < 5},{_u = _u + 1}] do {
 	sleep 0.5;
 	player playMove "AinvPknlMstpSlayWrflDnon_medic";
 	sleep 0.5;

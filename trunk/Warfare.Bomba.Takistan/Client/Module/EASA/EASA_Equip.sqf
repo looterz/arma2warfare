@@ -1,4 +1,4 @@
-private['_data','_get','_i','_index','_j','_old','_override','_tar','_tindex','_vehicle','_type'];
+private['_data','_dataItem','_get','_i','_index','_j','_old','_override','_tar','_tindex','_vehicle','_type'];
 _vehicle = _this select 0;
 _index = _this select 1;
 _tindex = _index;
@@ -33,12 +33,12 @@ if (_type != -1) then {
 	_data = (('WFBE_EASA_Loadouts' Call GetNamespace) select _type) select _tindex;
 
 	for [{_j = 2},{_j < count(_data)},{_j = _j + 1}] do {
-		_x = _data select _j;
-		for [{_i = count(_x)-1},{_i >= 0},{_i = _i - 1}] do {
+		_dataItem = _data select _j;
+		for [{_i = count(_dataItem)-1},{_i >= 0},{_i = _i - 1}] do {
 			if (_i > 0) then {
-				_vehicle addMagazine (_x select _i);
+				_vehicle addMagazine (_dataItem select _i);
 			} else {
-				_vehicle addWeapon (_x select _i);
+				_vehicle addWeapon (_dataItem select _i);
 			};
 		};
 	};

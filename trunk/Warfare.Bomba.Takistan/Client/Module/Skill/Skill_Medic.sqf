@@ -1,4 +1,4 @@
-private['_unit','_dammages','_units','_skip'];
+private['_unit','_dammages','_units','_skip','_u'];
 
 /*
 	Script: Medic Skill System by Bomba.
@@ -20,7 +20,7 @@ if (_dammages <= 0) exitWith {};
 WFBE_SK_V_LastUse_Medic = time;
 
 _skip = false;
-for [{_x = 0},{_x < 2},{_x = _x + 1}] do {
+for [{_u = 0},{_u < 2},{_u = _u + 1}] do {
 	sleep 0.5;
 	player playMove "AinvPknlMstpSlayWrflDnon_medic";
 	sleep 0.5;

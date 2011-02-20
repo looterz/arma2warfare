@@ -1,4 +1,4 @@
-﻿private['_u','_weight','_defensetypes','_productinfo','_cost','_productid','_max','_fninitdefenseproduct','_d','_product','_prodspeed'];
+﻿private['_u','_defensetypes','_productinfo','_fninitdefenseproduct'];
 
 #include "profiler.h"
 PROFILER_BEGIN("Market_Init");
@@ -55,13 +55,14 @@ waitUntil { commonInitComplete };
 
 format["Init_Market: %1", ("WFBE_WESTDEFENSENAMES" Call GetNamespace)] call LogHigh;
 
-
+_defenseTypes = [];
 
 _fnInitDefenseProduct = {
-	private["_defenses", "_sideId"];
+	private['_productId','_product','_d','_cost','_defenseTypes','_max','_prodSpeed','_weight',"_defenses", "_sideId", "_defenseTypes"];
 	
 	_defenses = _this select 0;
 	_sideId = _this select 1;
+	_defenseTypes = _this select 2;
 	
 	{
 			_productId = _defenseTypes find _x;
@@ -97,7 +98,6 @@ _fnInitDefenseProduct = {
 	
 };
 
-_defenseTypes = [];
 ["WFBE_WESTDEFENSENAMES" Call GetNamespace, WESTID, _defenseTypes] call _fnInitDefenseProduct;
 ["WFBE_EASTDEFENSENAMES" Call GetNamespace, EASTID, _defenseTypes] call _fnInitDefenseProduct;
 
