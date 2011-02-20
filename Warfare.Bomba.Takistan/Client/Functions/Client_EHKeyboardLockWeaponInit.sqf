@@ -7,7 +7,7 @@ EH_KeyboardLockWeaponTypes =
 ];
 
 EH_KeyboardLockWeapon = {
-private['_weapon','_types','_status'];
+private['_weapon','_status'];
 
 	_weapon = configFile >> "CfgWeapons" >> (currentWeapon (vehicle player));
 	_status = false;
