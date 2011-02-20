@@ -1,7 +1,7 @@
 #include "profiler.h"
 PROFILER_BEGIN("Service_TrackMapMarkerSetName");
 
-private['_marker','_markerText','_amount','_val','_val2','_ainumber','_markerText','_markerName','_tracked'];
+private['_marker','_markerText','_amount','_val','_val2','_ainumber','_markerName','_tracked'];
 
 	_marker = _this;
 	_markerText = _marker select 3;
