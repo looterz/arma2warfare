@@ -24,7 +24,7 @@
 
                 bool oldApplyPrivate = compiler.ApplyPrivateVars;
                 compiler.ApplyPrivateVars = applyPrivate;
-                contentPartial = compiler.CompilePartial(contentPartial);
+                contentPartial = compiler.CompilePartial(contentPartial, null);
                 compiler.ApplyPrivateVars = oldApplyPrivate;
 
                 arg1.Text = contentPartial.Replace("\"", "\"\"");
