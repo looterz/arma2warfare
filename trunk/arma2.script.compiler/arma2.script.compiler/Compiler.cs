@@ -54,7 +54,7 @@ namespace ArmA2.Script
                 Console.WriteLine("Compile: {0}", FileName);
             }
 
-            content = CompilePartial(content);
+            content = CompilePartial(content, null);
 
             if (IsTopFile)
             {
@@ -178,26 +178,19 @@ namespace ArmA2.Script
             return contentText.Trim();
         }
 
-        public string CompilePartial(string content)
+        public string CompilePartial(string content, CmdScopeBase rootScope)
         {
             content = CleanupContent(content);
             if (!FsmContent)
             {
-                content = PreprocessByteCode(content);
+                Processor p = new Processor();
+                var byteCode = p.CompileToByteCode(content, rootScope);
+
+                byteCode.CompileSafe(this);
+                content = byteCode.ToString();
             }
             return content.Replace("\r\n", "\n").Replace("\n\n", "\n").Trim();
         }
-
-        public string PreprocessByteCode(string content)
-        {
-            Processor p = new Processor();
-            var byteCode = p.CompileToByteCode(content);
-
-            byteCode.CompileSafe(this);
-            return byteCode.ToString();
-        }
-
-        public delegate string HandleCommand(string commandText);
 
         private string RemoveLineBreaks(IEnumerable<string> content1)
         {
@@ -259,6 +252,7 @@ namespace ArmA2.Script
             ApplyPrivateVars = false;
             FsmContent = false;
 
+            CmdScopeCodeRoot scopeRoot = new CmdScopeCodeRoot();
             foreach(var assign in assignList)
             {
                 var cmdId = assign.Parent.Items.IndexOf(assign);
@@ -274,8 +268,8 @@ namespace ArmA2.Script
                     continue;
 
                 var valueContent = value.Text.Replace("\"\"", "\"");
-                this.ApplyPrivateVars = false;
-                valueContent = this.CompilePartial(valueContent);
+                //this.ApplyPrivateVars = false;
+                valueContent = this.CompilePartial(valueContent, scopeRoot);
                 value.Text = valueContent.Replace("\"", "\"\"");
             }
 

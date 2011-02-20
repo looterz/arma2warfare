@@ -7,11 +7,23 @@ namespace ArmA2.Script.ScriptProcessor
     {
         public CmdElement CompileToByteCode(string content)
         {
-            CmdScopeCodeRoot root = new CmdScopeCodeRoot();
-            ProcessCommand(root, content, 0);
+            return CompileToByteCode(content, new CmdScopeCodeRoot());
+        }
 
-            GroupSetOp(root);
-            return root;
+        public CmdElement CompileToByteCode(string content, CmdScopeBase rootScope)
+        {
+            CmdScopeBase scope;
+            if (rootScope == null)
+                scope = new CmdScopeCodeRoot();
+            else
+            {
+                scope = new CmdScopeBase();
+                rootScope.ChildAdd(scope);
+            }
+
+            ProcessCommand(scope, content, 0);
+            GroupSetOp(scope);
+            return scope;
         }
 
         private void GroupSetOp(CmdElement root)

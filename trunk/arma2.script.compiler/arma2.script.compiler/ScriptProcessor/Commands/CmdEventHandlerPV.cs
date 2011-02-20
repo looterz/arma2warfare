@@ -24,7 +24,7 @@ namespace ArmA2.Script.ScriptProcessor
 
                 var applyPrivate = compiler.ApplyPrivateVars;
                 compiler.ApplyPrivateVars = true;
-                contentPartial = compiler.CompilePartial(contentPartial);
+                contentPartial = compiler.CompilePartial(contentPartial, null);
                 compiler.ApplyPrivateVars = applyPrivate;
 
                 var partial = p.CompileToByteCode(contentPartial);
