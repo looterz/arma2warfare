@@ -270,11 +270,11 @@ class FSM
        "		" \n
        "				//--- AI Can build." \n
        "				if (_pursue) then {" \n
-       "					_x = getPos _hq select 0;" \n
-       "					_y = getPos _hq select 1;" \n
+       "					_xpos = getPos _hq select 0;" \n
+       "					_ypos = getPos _hq select 1;" \n
        "					_pos = [];" \n
-       "					_pos set [0,((_structureRelPos select _count) select 0) + _x];" \n
-       "					_pos set [1,((_structureRelPos select _count) select 1) + _y];" \n
+       "					_pos set [0,((_structureRelPos select _count) select 0) + _xpos];" \n
+       "					_pos set [1,((_structureRelPos select _count) select 1) + _ypos];" \n
        "					_newPos = [0,0,0];" \n
        "					_roads = [];" \n
        "					/* Retrieve the AI Spawn area */" \n
@@ -631,8 +631,8 @@ class FSM
        "	_index = -1;" \n
        "	_supplyLevel = -1;" \n
        "	" \n
-       "	for [{_x = 0},{_x < (count _upgrord) && !_break},{_x = _x + 1}] do {" \n
-       "		_index = _upgrord select _x;" \n
+       "	for [{_u = 0},{_u < (count _upgrord) && !_break},{_u = _u + 1}] do {" \n
+       "		_index = _upgrord select _u;" \n
        "		_canUpgrade = _upgrcond select _index;" \n
        "		//--- Can we use that upgrade?." \n
        "		if (_canUpgrade) then {" \n

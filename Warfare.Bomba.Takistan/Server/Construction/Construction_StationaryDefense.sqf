@@ -4,7 +4,7 @@ PROFILER_BEGIN("Server_ConstructionStationaryDefense");
 //*****************************************************************************************
 //Description: Creates Defenses.
 //*****************************************************************************************
-private['_defense','_direction','_index','_manned','_position','_side','_type','_noammo','_c','_toworld','_h','_array','_minetype','_mine','_team','_check','_alives','_buildings','_closest','_barracknearby','_isveh'];
+private['_u','_defense','_direction','_index','_manned','_position','_side','_type','_noammo','_c','_toworld','_h','_array','_minetype','_mine','_team','_check','_alives','_buildings','_closest','_barracknearby','_isveh'];
 _type = _this select 0;
 _side = _this select 1;
 _position = _this select 2;
@@ -28,7 +28,7 @@ if (_type == 'Sign_Danger') exitWith {
 	_mineType = if (_side == east) then {'MineMineE'} else {'MineMine'};
 	_h = -4;
 	_c = 0;
-	for [{_x=0}, {_x<9}, {_x=_x+1}] do{
+	for [{_u=0}, {_u<9}, {_u=_u+1}] do{
 		_array = [((_defense worldToModel (getPos _defense)) select 0) - 16 +_c,((_defense worldToModel (getPos _defense)) select 1) + _h];
 		_toWorld = _defense modelToWorld _array;
 		_toWorld set[2,0];
@@ -38,7 +38,7 @@ if (_type == 'Sign_Danger') exitWith {
 
 	_h = 0;
 	_c = 2;
-	for [{_x=0}, {_x<8}, {_x=_x+1}] do{
+	for [{_u=0}, {_u<8}, {_u=_u+1}] do{
 		_array = [((_defense worldToModel (getPos _defense)) select 0) - 16 +_c,((_defense worldToModel (getPos _defense)) select 1) + _h];
 		_toWorld = _defense modelToWorld _array;
 		_toWorld set[2,0];
@@ -48,7 +48,7 @@ if (_type == 'Sign_Danger') exitWith {
 
 	_h = 4;
 	_c = 0;
-	for [{_x=0}, {_x<9}, {_x=_x+1}] do{
+	for [{_u=0}, {_u<9}, {_u=_u+1}] do{
 		_array = [((_defense worldToModel (getPos _defense)) select 0) - 16 +_c,((_defense worldToModel (getPos _defense)) select 1) + _h];
 		_toWorld = _defense modelToWorld _array;
 		_toWorld set[2,0];
