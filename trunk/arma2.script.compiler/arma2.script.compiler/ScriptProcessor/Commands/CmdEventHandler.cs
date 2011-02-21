@@ -51,7 +51,7 @@ namespace ArmA2.Script.ScriptProcessor
                 var codeScope = new CmdScopeCode();
                 codeScope.Parent = arg1;
                 partial.Items.ForEach(m => codeScope.ChildAdd(m));
-                codeScope.ApplyPrivate = true;
+                codeScope.TopPrivateScope = true;
 
                 int id = arg1.Items.IndexOf(ehString);
                 arg1.Items[id] = codeScope;

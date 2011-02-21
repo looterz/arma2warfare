@@ -286,7 +286,7 @@ _myobj call compile preprocess _path2file;";
 
             foreach(var file in files)
             {
-                Logger.Clear();
+                Logger.ResetError();
                 string content = File.ReadAllText(file);
                 Processor processor = new Processor();
 

@@ -26,7 +26,7 @@ namespace ArmA2.Script
             _padding = _padding.Remove(_padding.Length - 4);
         }
 
-        public static void Clear()
+        public static void ResetError()
         {
             Errors.Clear();
             Warnings.Clear();

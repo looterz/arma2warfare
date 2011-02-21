@@ -21,20 +21,31 @@ namespace ArmA2.Script.ScriptProcessor
 
         protected override void CompileInternal(Compiler compiler)
         {
+            // учитывать переменные объявленные в родительском скопе
+            bool considerParent = false;
+
             var op = NextElement(-1);
-            bool applyPrivate = (Parent == null || ApplyPrivate);
-            applyPrivate = applyPrivate | (op is CmdOperatorSet && NextElement(1) == null);
-            ApplyPrivate = applyPrivate | (op is CmdCommand && ((CmdCommand)op).Text.Equal("spawn"));
+            bool topPrivateScope = (Parent == null || TopPrivateScope);
+            if (op is CmdOperatorSet && NextElement(1) == null)
+            {
+                var varName = NextElement<CmdVariable>(-2);
+                topPrivateScope = topPrivateScope | (varName != null && !varName.IsLocal);    // декларируем скоп как глобальный, если назначается глобальная функция
+            }
+            //applyPrivate = applyPrivate | (op is CmdCommand && ((CmdCommand)op).Text.Equal("spawn"));
+
+            TopPrivateScope = topPrivateScope;
 
             base.CompileInternal(compiler);
-
-            if (ApplyPrivate && compiler.ApplyPrivateVars)
-                ApplyPrivateVar();
         }
 
-        public void ApplyPrivateVar()
+        protected override void CompilePrivateVar(Compiler compiler)
         {
-            var undeclared = LocalVars.Where(localVar => !PrivateVars.IsDeclared(localVar));
+            var op = NextElement(-1);
+            var varName = NextElement<CmdVariable>(-2);
+            bool considerParent = (varName != null && varName.IsLocal);
+            considerParent = considerParent | (op is CmdCommand && ((CmdCommand)op).Text.Equal("spawn"));
+            considerParent = considerParent | (op is CmdCommand && ((CmdCommand)op).Text.Equal("call"));
+
             var unused = PrivateVars.Where(localVar => !LocalVars.IsDeclared(localVar));
 
             if (unused.Count() > 0)
@@ -47,6 +58,33 @@ namespace ArmA2.Script.ScriptProcessor
                 var warn = new CompileException(CompileCode.PrivateVarUnused, list);
                 warn.WriteToLog();
             }
+
+            if ((TopPrivateScope || considerParent) && compiler.ApplyPrivateVars)
+                ApplyPrivateVar(considerParent);
+
+            base.CompilePrivateVar(compiler);
+        }
+
+        public void ApplyPrivateVar(bool considerParent)
+        {
+            UniqueVarList considerLocals = new UniqueVarList();
+            if (considerParent)
+            {
+                var parentScope = this.Scope;
+                while (parentScope != null)
+                {
+                    if (parentScope.HasLocalVars)
+                    {
+                        parentScope.LocalVars.ForEach(var => considerLocals.VarAdd(var));
+                    }
+
+                    if (parentScope.TopPrivateScope)
+                        break;
+                    parentScope = parentScope.Scope;
+                }
+            }
+
+            var undeclared = LocalVars.Where(localVar => !PrivateVars.IsDeclared(localVar) && !considerLocals.IsDeclared(localVar));
 
             if (undeclared.Count() > 0)
             {
@@ -69,7 +107,9 @@ namespace ArmA2.Script.ScriptProcessor
                 m.Parent.Items.Remove(m);
             });
 
-            if (LocalVars.Count > 0)
+
+            var localVars = LocalVars.Where(localVar => PrivateVars.IsDeclared(localVar) || !considerLocals.IsDeclared(localVar));
+            if (localVars.Count() > 0)
             {
                 CmdElement privateCmd = new CmdElement { Parent = this };
                 Items.Insert(0, privateCmd);
@@ -79,7 +119,7 @@ namespace ArmA2.Script.ScriptProcessor
                 var array = (CmdScopeArray)privateCmd.ChildAdd(new CmdScopeArray());
                 privateCmd.SeparatorAdd(";");
 
-                var reg = LocalVars.OrderBy(m => m).ToList();
+                var reg = localVars.OrderBy(m => m).ToList();
 
                 for (int i = 0; i < reg.Count; i++)
                 {
@@ -88,6 +128,9 @@ namespace ArmA2.Script.ScriptProcessor
                         array.SeparatorAdd(",");
                 }
             }
+
+            PrivateVars.Clear();
+            LocalVars.ForEach(m => PrivateVars.VarAdd(m));
         }
     }
 }

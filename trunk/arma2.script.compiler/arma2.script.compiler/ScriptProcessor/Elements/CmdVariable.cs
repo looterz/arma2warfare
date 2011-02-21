@@ -17,13 +17,24 @@
                 {
                     if (Scope.IsDeclaredInOuterScope(Text))
                     {
-                        throw new CompileException(CompileCode.OutOfScopeDeclaration,
-                                   "Variable '{0}' declared at outer scope, possible errors.\nAt scope:{1}",
-                                   Text, Scope.ShortTerm);
+                        return;
+                        //throw new CompileException(CompileCode.OutOfScopeDeclaration,
+                        //           "Variable '{0}' declared at outer scope, possible errors.\nAt scope:{1}",
+                        //           Text, Scope.ShortTerm);
                     }
-                    throw new CompileException(CompileCode.UseUndeclaredVariable,
-                          "Use undeclared variable '{0}'\nAt scope:{1}",
-                          Text, Scope.ShortTerm);
+
+                    if (!Scope.CompileProperties.ContainsKey("UndeclaredVars"))
+                        Scope.CompileProperties.Add("UndeclaredVars", new UniqueVarList());
+
+                    UniqueVarList varList = (UniqueVarList)Scope.CompileProperties["UndeclaredVars"];
+
+                    if (!varList.IsDeclared(Text))
+                    {
+                        varList.VarAdd(Text);
+                        throw new CompileException(CompileCode.UseUndeclaredVariable,
+                                                   "Use undeclared variable '{0}'\nAt scope:{1}",
+                                                   Text, Scope.ShortTerm);
+                    }
                 }
             }
         }
