@@ -13,6 +13,22 @@ namespace ArmA2.Script.UnitTests
         readonly Compiler _compiler = new Compiler();
 
         [Test]
+        public void TestErrors()
+        {
+            string content;
+            string result;
+
+            content =
+@"private['_count'];for [{_count = 0},{_count < 12},{_count = _count + 1}] do {
+    CtrlSetText[_count,123]
+};";
+            Logger.ResetError();
+            result = _compiler.Compile(content);
+            Assert.AreEqual(0, Logger.Errors.Count() + Logger.Warnings.Count());
+        }
+
+
+        [Test]
         public void TestRegisterPrivate()
         {
             string content;
@@ -21,7 +37,6 @@ namespace ArmA2.Script.UnitTests
             content = "private['_vehicle','_lock'];\n#include \"netsend.h\"\n_this select 0;";
             result = _compiler.Compile(content);
             Assert.AreEqual("#include \"netsend.h\"\n_this select 0;", result);
-
 
             content = "private['_vehicle','_lock'];\n#include \"netsend.h\"\n_vehicle = _this select 0;";
             result = _compiler.Compile(content);
@@ -37,11 +52,34 @@ spawn { _myVar = 1; }";
             content = @"spawn { _myVar = 1; }";
             result = _compiler.Compile(content);
             Assert.AreEqual("spawn{private['_myVar'];_myVar=1}", result);
-          
+
+
+            content = @"fnLocal = { _myVar = 1; }";
+            result = _compiler.Compile(content);
+            Assert.AreEqual("fnLocal={private['_myVar'];_myVar=1}", result);
+
+            content = @"_fnLocal = {private['_myVar'];_myVar = 1; }";
+            result = _compiler.Compile(content);
+            Assert.AreEqual("private['_fnLocal'];_fnLocal={private['_myVar'];_myVar=1}", result);
+
 
             content = @"_fnLocal = { _myVar = 1; }";
             result = _compiler.Compile(content);
             Assert.AreEqual("private['_fnLocal'];_fnLocal={private['_myVar'];_myVar=1}", result);
+
+            content = @"_myVar=0;_fnLocal={private['_myVar'];_myVar=1}";
+            result = _compiler.Compile(content);
+            Assert.AreEqual("private['_fnLocal','_myVar'];_myVar=0;_fnLocal={private['_myVar'];_myVar=1}", result);
+
+
+            content = @"_myVar=0;fnLocal={_myVar=1}";
+            result = _compiler.Compile(content);
+            Assert.AreEqual("private['_myVar'];_myVar=0;fnLocal={private['_myVar'];_myVar=1}", result);
+
+            
+            content = @"_myVar = 0; _fnLocal = { _myVar = 1; }";
+            result = _compiler.Compile(content);
+            Assert.AreEqual("private['_fnLocal','_myVar'];_myVar=0;_fnLocal={_myVar=1}", result);
 
             content = @"{_myVar = 1;}";
             result = _compiler.Compile(content);
@@ -168,7 +206,7 @@ switch (_respawnCampsMode) do {
             foreach(var file in files)
             {
                 //var file = @"c:\Users\Evgeny_Zyuzin\Documents\ArmA 2 Other Profiles\Bomba\missions\arma2.script.compiler\unittest\tests\A00.sqf";
-                Logger.Clear();
+                Logger.ResetError();
 
                 //Console.SetOut(new StringWriter(new StringBuilder()));
                 Compiler compiler = new Compiler();
@@ -360,7 +398,7 @@ class FSM";
             var result = _compiler.DeleteComments(testText);
             Assert.AreEqual("      init = \"WF_Logic setVariable [\"\"currentTime\"\",_currentTime,true];\";", result, "");
 
-            Logger.Clear();
+            Logger.ResetError();
             testText = @"/* This file handle the client's UAV broadcast, a client send info to the others. */var c=0;";
             result = _compiler.DeleteComments(testText);
             Assert.AreEqual(0, Logger.Errors.Count, "");

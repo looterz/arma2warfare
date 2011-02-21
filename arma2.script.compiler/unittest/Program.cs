@@ -17,7 +17,7 @@ namespace ArmA2.Script.UnitTests
 
             string[] files = args;
             if (args.Length == 0)
-                files = new[] { "aiteam.fsm" };
+                files = new[] { "uav_interface.sqf" };
 
             foreach (var fileName in files)
             {

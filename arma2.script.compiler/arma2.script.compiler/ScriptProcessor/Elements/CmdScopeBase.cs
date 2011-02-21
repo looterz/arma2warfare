@@ -8,7 +8,9 @@ namespace ArmA2.Script.ScriptProcessor
         private UniqueVarList _localVars = null;
         private UniqueVarList _privateVars = null;
 
-        public bool ApplyPrivate { get; set; }
+        public bool TopPrivateScope { get; set; }
+
+        public Dictionary<string, object> CompileProperties = new Dictionary<string, object>();
 
         public bool HasLocalVars
         {
@@ -17,30 +19,20 @@ namespace ArmA2.Script.ScriptProcessor
 
         public bool IsDeclaredInOuterScope(string varName)
         {
-            var scope = this.Scope;
-            while(scope != null)
-            {
-                if (scope.LocalVars.IsDeclared(varName))
-                    return true;
+            if (LocalVars.IsDeclared(varName))
+                return true;
 
-                scope = scope.Scope;
-            }
-            return false;
+            return (Scope != null && !TopPrivateScope) ? Scope.IsDeclaredInOuterScope(varName) : false;
         }
 
         public UniqueVarList PrivateVars
         {
             get
             {
-                if (Parent == null || ApplyPrivate)
-                {
-                    if (_privateVars == null)
-                        _privateVars = new UniqueVarList();
+                if (_privateVars == null)
+                    _privateVars = new UniqueVarList();
 
-                    return _privateVars;
-                }
-
-                return Scope.PrivateVars;
+                return _privateVars;
             }
         }
 
@@ -48,15 +40,10 @@ namespace ArmA2.Script.ScriptProcessor
         {
             get
             {
-                if (Parent == null || ApplyPrivate)
-                {
-                    if (_localVars == null)
-                        _localVars = new UniqueVarList();
+                if (_localVars == null)
+                    _localVars = new UniqueVarList();
 
-                    return _localVars;
-                }
-
-                return Scope.LocalVars;
+                return _localVars;
             }
         }
 
@@ -67,6 +54,21 @@ namespace ArmA2.Script.ScriptProcessor
 
         public string OpenCh { get; protected set; }
         public string EndCh { get; protected set; }
+
+        protected override void CompileInternal(Compiler compiler)
+        {
+            base.CompileInternal(compiler);
+            CompilePrivateVar(compiler);
+        }
+
+        protected virtual void CompilePrivateVar(Compiler compiler)
+        {
+            if (this.Scope != null)
+            {
+                var undeclared = LocalVars.Where(localVar => !PrivateVars.IsDeclared(localVar));
+                undeclared.ForEach(n => this.Scope.LocalVars.VarAdd(n));
+            }
+        }
 
         public override void Render(ScriptWriter writer)
         {
