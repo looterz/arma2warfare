@@ -22,10 +22,15 @@
 
                 var contentPartial = arg1.Text.Replace("\"\"", "\"");
 
-                bool oldApplyPrivate = compiler.ApplyPrivateVars;
+                var stateApplyPrivate = compiler.ApplyPrivateVars;
+                var stateApplyMinimize = GlobalSettings.ApplyMinimize;
+                GlobalSettings.ApplyMinimize = true;
+
                 compiler.ApplyPrivateVars = applyPrivate;
                 contentPartial = compiler.CompilePartial(contentPartial, null);
-                compiler.ApplyPrivateVars = oldApplyPrivate;
+
+                compiler.ApplyPrivateVars = stateApplyPrivate;
+                GlobalSettings.ApplyMinimize = stateApplyMinimize;
 
                 arg1.Text = contentPartial.Replace("\"", "\"\"");
             }

@@ -129,7 +129,14 @@ namespace ArmA2.Script.ScriptProcessor
                     continue;
                 }
 
-                cmdElement.SeparatorAdd(separator);
+                if (separator == " " && cmdElement.Items.Count > 0 && cmdElement.NextElement<CmdSeparator>(-1) != null)
+                {
+                    // dont add trailing spaces
+                }
+                else
+                {
+                    cmdElement.SeparatorAdd(separator);    
+                }
             }
 
             if (opStart != -1)

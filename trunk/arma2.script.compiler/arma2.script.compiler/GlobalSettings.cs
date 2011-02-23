@@ -5,7 +5,7 @@ namespace ArmA2.Script
 {
     public class GlobalSettings
     {
-        public static bool AllowMinimize = true;
+        public static bool ApplyMinimize = true;
         public static string StringQuote = "'";
 
         public static List<Variable> PublicVariables = new List<Variable>();

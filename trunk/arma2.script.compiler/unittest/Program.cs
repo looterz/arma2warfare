@@ -36,7 +36,7 @@ namespace ArmA2.Script.UnitTests
                 obfuscate.HideVars = false;
                 obfuscate.FsmContent = (Path.GetExtension(fileName).ToLower() == ".fsm");
 
-                GlobalSettings.AllowMinimize = false;
+                GlobalSettings.ApplyMinimize = false;
                 GlobalSettings.StringQuote = "\"";
                 content = obfuscate.Compile(content);
 

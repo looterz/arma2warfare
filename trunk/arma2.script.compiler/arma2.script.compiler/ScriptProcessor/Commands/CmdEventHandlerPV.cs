@@ -22,10 +22,15 @@ namespace ArmA2.Script.ScriptProcessor
 
                 var contentPartial = ehString.Text.Replace("\"\"", "\"");
 
-                var applyPrivate = compiler.ApplyPrivateVars;
-                compiler.ApplyPrivateVars = true;
-                contentPartial = compiler.CompilePartial(contentPartial, null);
-                compiler.ApplyPrivateVars = applyPrivate;
+                var stateApplyPrivate = compiler.ApplyPrivateVars;
+                var stateApplyMinimize = GlobalSettings.ApplyMinimize;
+
+                    GlobalSettings.ApplyMinimize = true;
+                    compiler.ApplyPrivateVars = true;
+                    contentPartial = compiler.CompilePartial(contentPartial, null);
+
+                    compiler.ApplyPrivateVars = stateApplyPrivate;
+                    GlobalSettings.ApplyMinimize = stateApplyMinimize;
 
                 var partial = p.CompileToByteCode(contentPartial);
 
