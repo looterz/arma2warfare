@@ -14,7 +14,7 @@ namespace ArmA2.Script.ScriptProcessor
             if (args.Length > 0)
                 content = string.Format(content, args);
 
-            if (!GlobalSettings.AllowMinimize && !Minimized && allowIdent)
+            if (!GlobalSettings.ApplyMinimize && !Minimized && allowIdent)
             {
                 base.WriteLine();
                 var indent = Indent;

@@ -199,7 +199,8 @@ switch (_respawnCampsMode) do {
             GlobalSettings.ExcludeLines.Add(@"call Log(Inform|High|Medium|Warning|Error|Trace|Unexpected|Notify)(?:[^\w])");
 
             var path = Path.Combine(Environment.CurrentDirectory, "..\\..\\tests\\");
-            var files = Directory.GetFiles(path).Where(m => !Path.GetFileNameWithoutExtension(m).EndsWith(".a"));
+            var files = Directory.GetFiles(path).Where(m => !Path.GetFileNameWithoutExtension(m).EndsWith(".a") && 
+                                                            (Path.GetExtension(m).Equal(".fsm") || Path.GetExtension(m).Equal(".sqf")));
 
             var outputBase = Console.Out;
 
