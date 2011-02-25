@@ -1,4 +1,4 @@
-private['_uav','_newalt','_control','_ppinversion','_newspeed','_ppcolor','_ppblur','_ppgrain','_display','_controls','_defaultvalue','_controlhint','_defaultteamswitch','_locked','_alt','_speed','_displayeh_keydown','_displayeh_mousebuttondown','_displayeh_mousezchanged','_mapeh_mousebttondown','_logic','_igui_update'];
+private['_uav','_newalt','_ppinversion','_newspeed','_ppcolor','_ppblur','_ppgrain','_defaultvalue','_defaultteamswitch','_locked','_alt','_speed','_displayeh_keydown','_displayeh_mousebuttondown','_displayeh_mousezchanged','_mapeh_mousebttondown','_logic','_igui_update'];
 
 _logic = _this select 0;
 _defaultTeamswitch = teamswitchenabled;
@@ -227,6 +227,7 @@ private['_key','_uav','_ppInversion','_id','_worldpos','_marker','_markertime','
 
 //--- Detect pressed mouse buttons
 _displayEH_mousebuttondown = (finddisplay 46) displayaddeventhandler ["mousebuttondown","
+private['_button','_display','_controls','_control'];
 	disableserialization;
 	_button = _this select 1;
 	if (_button == 007 && !visiblemap) then {comment 'DISABLED';
@@ -243,6 +244,7 @@ _displayEH_mousebuttondown = (finddisplay 46) displayaddeventhandler ["mousebutt
 
 //--- Detect mouse wheel rotation
 _displayEH_mousezchanged = (finddisplay 46) displayaddeventhandler ["mousezchanged","
+private['_zchange','_oldAperture','_zChangeFinal','_aperture'];
 	_zchange = _this select 1;
 	_oldAperture = BIS_UAV_PLANE getvariable 'BIS_UAV_aperture';
 	_zChangeFinal = _zChange / 2;
@@ -257,6 +259,7 @@ _displayEH_mousezchanged = (finddisplay 46) displayaddeventhandler ["mousezchang
 "];
 
 _mapEH_mousebttondown = ((findDisplay 12) displayCtrl 51) ctrladdeventhandler ["mousebuttondown", "
+private['_button','_uav','_worldpos','_wp'];
 	_button = _this select 1;
 	if (_button == 0) then {
 		_uav = BIS_UAV_PLANE;

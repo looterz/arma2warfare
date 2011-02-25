@@ -1,4 +1,4 @@
-private['_d','_uav','_add','_logic','_wp','_wpcount','_step','_radius','_dir','_lastwp','_lastwppos','_closest','_pos','_checks','_group','_cw','_spawn','_waypoints','_varname','_buildings','_sorted','_uavsetup','_driver','_gunner','_id','_logicmarta'];
+private['_d','_uav','_add','_logic','_wpcount','_step','_radius','_dir','_lastwp','_lastwppos','_closest','_checks','_group','_cw','_spawn','_waypoints','_varname','_buildings','_sorted','_uavsetup','_driver','_gunner','_id','_logicmarta'];
 
 _logic = UAVL;
 
@@ -96,6 +96,7 @@ while {alive _uav} do {
 	deletewaypoint _lastWP;
 	for "_d" from 0 to (360-_step) step _step do
 	{
+		private['_pos','_wp'];
 		_add = _d;
 		if !(_cw) then {_add = -_d};
 		_pos = [_lastWPpos, _radius, _dir+_add] call bis_fnc_relPos;
