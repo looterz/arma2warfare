@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace ArmA2.Script.ScriptProcessor
 {
-    public partial class Processor
+    internal partial class Processor
     {
         private List<Function> _functions;
 
         private static List<string> _operators; 
-        public static List<string> Operators
+        internal static List<string> Operators
         {
             get
             {
@@ -21,7 +21,7 @@ namespace ArmA2.Script.ScriptProcessor
             }
         }
 
-        public List<Function> Functions
+        internal List<Function> Functions
         {
             get
             {
@@ -33,19 +33,19 @@ namespace ArmA2.Script.ScriptProcessor
             }
         }
 
-        public static bool IsOperator(string value)
+        internal static bool IsOperator(string value)
         {
             value = value.ToLower().Trim();
             return Operators.Any(m => m == value);
         }
 
-        public bool IsCommand(string value)
+        internal bool IsCommand(string value)
         {
             value = value.ToLower().Trim();
             return Functions.Any(m => m.Name.Equals(value, StringComparison.CurrentCultureIgnoreCase));
         }
 
-        public Function GetFunction(string name)
+        internal Function GetFunction(string name)
         {
             name = name.Trim();
             return Functions.FirstOrDefault(m => m.Name.Equal(name));

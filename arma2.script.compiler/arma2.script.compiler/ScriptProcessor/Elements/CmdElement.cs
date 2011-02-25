@@ -8,13 +8,13 @@ namespace ArmA2.Script.ScriptProcessor
 {
     //[DebuggerTypeProxy(typeof(Flatten))]
 
-    public class CmdElement : CmdBase
+    internal class CmdElement : CmdBase
     {
-        public readonly CmdElementCollection Items = new CmdElementCollection();
+        internal readonly CmdElementCollection Items = new CmdElementCollection();
 
-        public event EventHandler ChildAdded;
+        internal event EventHandler ChildAdded;
 
-        public CmdBase ChildAdd(CmdBase child)
+        internal CmdBase ChildAdd(CmdBase child)
         {
             child.Parent = this;
             Items.Add(child);
@@ -25,7 +25,7 @@ namespace ArmA2.Script.ScriptProcessor
             return child;
         }
 
-        public CmdText CmdAdd(string cmdName)
+        internal CmdText CmdAdd(string cmdName)
         {
             if (cmdName.Length != 0)
             {
@@ -61,7 +61,7 @@ namespace ArmA2.Script.ScriptProcessor
             return null;
         }
 
-        public CmdBase SeparatorAdd(string separatorName)
+        internal CmdBase SeparatorAdd(string separatorName)
         {
             if (separatorName.Length != 0)
             {
@@ -73,7 +73,7 @@ namespace ArmA2.Script.ScriptProcessor
             return null;
         }
 
-        public CmdScopeBase ScopeAdd(string openScopeCh)
+        internal CmdScopeBase ScopeAdd(string openScopeCh)
         {
             CmdScopeBase scope;
             switch (openScopeCh)
@@ -96,7 +96,7 @@ namespace ArmA2.Script.ScriptProcessor
             return scope;
         }
 
-        public CmdElementCollection Commands
+        internal CmdElementCollection Commands
         {
             get
             {
@@ -109,7 +109,7 @@ namespace ArmA2.Script.ScriptProcessor
             }
         }
 
-        public CmdElementCollection FlatData
+        internal CmdElementCollection FlatData
         {
             get
             {

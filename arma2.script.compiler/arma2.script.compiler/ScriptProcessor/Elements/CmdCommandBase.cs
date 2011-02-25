@@ -1,5 +1,5 @@
 ﻿namespace ArmA2.Script.ScriptProcessor
 {
-    public class CmdCommandBase : CmdText
+    internal class CmdCommandBase : CmdText
     {}
 }

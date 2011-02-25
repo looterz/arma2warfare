@@ -3,21 +3,21 @@ using System.Linq;
 
 namespace ArmA2.Script.ScriptProcessor
 {
-    public class CmdScopeBase : CmdElement
+    internal class CmdScopeBase : CmdElement
     {
         private UniqueVarList _localVars = null;
         private UniqueVarList _privateVars = null;
 
-        public bool TopPrivateScope { get; set; }
+        internal bool TopPrivateScope { get; set; }
 
-        public Dictionary<string, object> CompileProperties = new Dictionary<string, object>();
+        internal Dictionary<string, object> CompileProperties = new Dictionary<string, object>();
 
-        public bool HasLocalVars
+        internal bool HasLocalVars
         {
             get { return (_localVars != null && _localVars.Count != 0); }
         }
 
-        public bool IsDeclaredInOuterScope(string varName)
+        internal bool IsDeclaredInOuterScope(string varName)
         {
             if (LocalVars.IsDeclared(varName))
                 return true;
@@ -25,7 +25,7 @@ namespace ArmA2.Script.ScriptProcessor
             return (Scope != null && !TopPrivateScope) ? Scope.IsDeclaredInOuterScope(varName) : false;
         }
 
-        public UniqueVarList PrivateVars
+        internal UniqueVarList PrivateVars
         {
             get
             {
@@ -36,7 +36,7 @@ namespace ArmA2.Script.ScriptProcessor
             }
         }
 
-        public UniqueVarList LocalVars
+        internal UniqueVarList LocalVars
         {
             get
             {
@@ -47,7 +47,7 @@ namespace ArmA2.Script.ScriptProcessor
             }
         }
 
-        public CmdScopeBase()
+        internal CmdScopeBase()
         {
             OpenCh = EndCh = string.Empty;
         }

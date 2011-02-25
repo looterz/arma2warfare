@@ -1,8 +1,8 @@
 ﻿namespace ArmA2.Script.ScriptProcessor.Commands
 {
-    public class CmdCommandOne : CmdCommand
+    internal class CmdCommandOne : CmdCommand
     {
-        public CmdBase Arg1;
+        internal CmdBase Arg1;
 
         protected override void CompileInternal(Compiler compiler)
         {

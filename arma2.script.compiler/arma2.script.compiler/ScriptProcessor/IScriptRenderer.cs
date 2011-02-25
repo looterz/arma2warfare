@@ -1,6 +1,6 @@
 ﻿namespace ArmA2.Script.ScriptProcessor
 {
-    public interface IScriptRenderer
+    internal interface IScriptRenderer
     {
         void Render(ScriptWriter writer);
     }

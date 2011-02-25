@@ -9,9 +9,9 @@ namespace ArmA2.Script
 {
     public class Compiler
     {
-        public static string[] ReservedLocalVarNames = {"_this", "_x"};
+        internal static string[] ReservedLocalVarNames = {"_this", "_x"};
 
-        public static string[] ReservedGlobalVarNames =
+        internal static string[] ReservedGlobalVarNames =
             {"image", "shadow", "color", "fps", "valign", "1", "isplayer"};
 
         private readonly char[] _allowedVarChars = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
@@ -38,9 +38,9 @@ namespace ArmA2.Script
             PopSettings();
         }
 
-        public static void ResetPublicUsage()
+        internal static void ResetinternalUsage()
         {
-            GlobalSettings.PublicVariables.ForEach(m =>
+            GlobalSettings.internalVariables.ForEach(m =>
                                                        {
                                                            m.Regex = new Regex("\\b" + Regex.Escape(m.VarName) + "\\b",
                                                                                RegexOptions.IgnoreCase);
@@ -50,15 +50,15 @@ namespace ArmA2.Script
         }
 
 
-        public static void AddPublicVariablesUsageStat(string fileName)
+        internal static void AddPrivateVariablesUsageStat(string fileName)
         {
             string content = File.ReadAllText(fileName);
-            GlobalSettings.PublicVariables.ForEach(m => m.UsageCount += m.Regex.Matches(content).Count);
+            GlobalSettings.internalVariables.ForEach(m => m.UsageCount += m.Regex.Matches(content).Count);
         }
 
-        public static List<Variable> GetPublicVarsOrderByUsage()
+        internal static List<Variable> GetPrivateVarsOrderByUsage()
         {
-            return GlobalSettings.PublicVariables.OrderByDescending(m => m.UsageCount).ToList();
+            return GlobalSettings.internalVariables.OrderByDescending(m => m.UsageCount).ToList();
         }
 
         public string Compile(string content)
@@ -78,7 +78,7 @@ namespace ArmA2.Script
             return content;
         }
 
-        public int GetEndMultiComment(string content, int startPos)
+        internal int GetEndMultiComment(string content, int startPos)
         {
             for (int i = startPos + 2; i < content.Length; i++)
             {
@@ -96,7 +96,7 @@ namespace ArmA2.Script
             return -1;
         }
 
-        public string DeleteComments(string content)
+        internal string DeleteComments(string content)
         {
             string contentNew = string.Empty;
             int lineStart = -1;
@@ -208,7 +208,7 @@ namespace ArmA2.Script
             return contentText.Trim();
         }
 
-        public string CompilePartial(string content, CmdScopeBase rootScope)
+        internal string CompilePartial(string content, CmdScopeBase rootScope)
         {
             content = CleanupContent(content);
             if (!Settings.FsmContent)
@@ -321,72 +321,18 @@ namespace ArmA2.Script
             return content;
         }
 
-        public void PushSettings()
+        internal void PushSettings()
         {
             _settingsStack.Push(Settings);
             Settings = Settings.Clone();
         }
 
-        public void PopSettings()
+        internal void PopSettings()
         {
             Settings = _settingsStack.Pop();
         }
 
-        public List<Scope> GetScopes(string content, int start, int end)
-        {
-            var scopes = new List<Scope>();
-            while (start != -1 && start < content.Length)
-            {
-                Scope scope = GetScopeNext(content, start);
-                if (scope == null || scope.Start > end)
-                    break;
-
-                scopes.Add(scope);
-                start = scope.End + 1;
-            }
-            return scopes;
-        }
-
-        public Scope GetScopeNext(string content, int startPos)
-        {
-            Scope scope = null;
-            int openScopes = 0;
-            for (int i = startPos; i < content.Length; i++)
-            {
-                if (content.IsStartString(i)) // пропускаем строки
-                {
-                    int end = content.GetEndQuote(i);
-                    i = (end != -1) ? end : content.Length;
-                    continue;
-                }
-
-                if (content.Equal("{", i))
-                {
-                    if (openScopes == 0)
-                        scope = new Scope {Start = i, Text = content};
-                    openScopes = openScopes + 1;
-                }
-                if (content.Equal("}", i) && openScopes > 0)
-                {
-                    openScopes--;
-                    if (openScopes == 0)
-                    {
-                        scope.End = i;
-                        break;
-                    }
-                }
-            }
-
-            if (scope != null && openScopes > 0)
-            {
-                scope.End = content.Length - 1;
-                Logger.Log(LogLevel.Error, "Unclosed scope: {0}", scope.ScopeText);
-            }
-
-            return scope;
-        }
-
-        public int GetNextStringStart(string line, int startPos)
+        internal int GetNextStringStart(string line, int startPos)
         {
             for (int i = startPos; i < line.Length; i++)
             {
@@ -398,7 +344,7 @@ namespace ArmA2.Script
         }
 
 
-        public string GetNextString(string line, int startPos)
+        internal string GetNextString(string line, int startPos)
         {
             int strA = GetNextStringStart(line, startPos);
             if (strA == -1)
@@ -411,7 +357,7 @@ namespace ArmA2.Script
             return line.Substring(strA, strB - strA + 1);
         }
 
-        public string RemoveExtraSpaces(string line)
+        internal string RemoveExtraSpaces(string line)
         {
             line = line.Trim();
             int l0 = line.Length;
@@ -440,7 +386,7 @@ namespace ArmA2.Script
             return line.Trim();
         }
 
-        public string RemoveExtraSpaces(string line, int startPos, int endPos)
+        internal string RemoveExtraSpaces(string line, int startPos, int endPos)
         {
             var removed = new[]
                               {
@@ -473,7 +419,7 @@ namespace ArmA2.Script
             return strA + data + strB;
         }
 
-        public string RemoveStringBreaks(string line)
+        internal string RemoveStringBreaks(string line)
         {
             line = line.Trim();
             int startPos = 0;
@@ -531,7 +477,7 @@ namespace ArmA2.Script
             return name;
         }
 
-        public string GetNextLocalName()
+        internal string GetNextLocalName()
         {
             string varName = "_" + GetVarName(_count++).ToLower();
 
@@ -541,7 +487,7 @@ namespace ArmA2.Script
             return varName;
         }
 
-        public int GetUsageStat(string content, string varName)
+        internal int GetUsageStat(string content, string varName)
         {
             var usage = new Regex("\\b" + varName + "\\b", RegexOptions.IgnoreCase);
             return usage.Matches(content).Count;

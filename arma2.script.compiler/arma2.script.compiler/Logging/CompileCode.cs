@@ -1,6 +1,6 @@
 ﻿namespace ArmA2.Script
 {
-    public enum CompileCode
+    internal enum CompileCode
     {
         None,
         Warning = 5000,

@@ -15,12 +15,12 @@ namespace ArmA2.Script
 
         private static string _padding = "";
 
-        public static void IncPadding()
+        internal static void IncPadding()
         {
             _padding = _padding + "    ";
         }
 
-        public static void DecPadding()
+        internal static void DecPadding()
         {
             if (_padding.Length >= 4)
             _padding = _padding.Remove(_padding.Length - 4);
@@ -32,12 +32,12 @@ namespace ArmA2.Script
             Warnings.Clear();
         }
 
-        public static void Log(LogLevel level, string message, params object[] args)
+        internal static void Log(LogLevel level, string message, params object[] args)
         {
             Log(level, CompileCode.None, message, args);
         }
 
-        public static void Log(LogLevel level, CompileCode compileCode, string message, params object[] args)
+        internal static void Log(LogLevel level, CompileCode compileCode, string message, params object[] args)
         {
             if (level == LogLevel.Warning && WarningDisabled.Any(m => m == (int)compileCode))
                 return;

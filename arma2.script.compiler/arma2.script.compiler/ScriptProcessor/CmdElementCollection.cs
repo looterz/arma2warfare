@@ -1,6 +1,6 @@
 ﻿namespace ArmA2.Script.ScriptProcessor
 {
-    public class CmdElementCollection : CmdElementCollectionBase<CmdBase>
+    internal class CmdElementCollection : CmdElementCollectionBase<CmdBase>
     {
     }
 }

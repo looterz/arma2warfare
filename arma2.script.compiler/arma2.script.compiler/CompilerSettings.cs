@@ -11,7 +11,7 @@
         public bool ScriptMinimized = true;
         public string StringQuote = "'";
 
-        public CompilerSettings Clone()
+        internal CompilerSettings Clone()
         {
             return (CompilerSettings) MemberwiseClone();
         }

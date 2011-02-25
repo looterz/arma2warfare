@@ -40,7 +40,7 @@ namespace ArmA2.Script.ScriptProcessor
             }
         }
 
-        public Flatten(object target)
+        internal Flatten(object target)
         {
             _target = target;
         }

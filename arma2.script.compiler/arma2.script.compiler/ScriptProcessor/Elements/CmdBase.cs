@@ -3,12 +3,12 @@ using System.IO;
 
 namespace ArmA2.Script.ScriptProcessor
 {
-    public class CmdBase : IScriptRenderer
+    internal class CmdBase : IScriptRenderer
     {
         /// <summary>
         /// Скоп которому принадлежит элемент {}, [], ()
         /// </summary>
-        public CmdScopeBase Scope
+        internal CmdScopeBase Scope
         {
             get
             {
@@ -23,39 +23,39 @@ namespace ArmA2.Script.ScriptProcessor
             }
         }
 
-        public CmdElement Parent { get; set; }
+        internal CmdElement Parent { get; set; }
         public virtual void Render(ScriptWriter writer)
         {
         }
 
-        public virtual Processor Processor
+        internal virtual Processor Processor
         {
             get { return Parent.Processor; }
         }
 
-        public int IndexId
+        internal int IndexId
         {
             get { return (Parent != null) ? Parent.Items.IndexOf(this) : -1; }
         }
 
-        public int CmdId
+        internal int CmdId
         {
             get { return (Parent != null) ? Parent.Commands.IndexOf(this) : -1; }
         }
 
-        public CmdBase NextItem(int pos)
+        internal CmdBase NextItem(int pos)
         {
             var id = IndexId + pos;
             return (0 <= id && id < Parent.Items.Count) ? Parent.Items[id] : null;
         }
 
-        public CmdBase NextElement(int pos)
+        internal CmdBase NextElement(int pos)
         {
             var id = CmdId + pos;
             return (Parent != null && 0 <= id && id < Parent.Commands.Count) ? Parent.Commands[id] : null;
         }
 
-        public T NextElement<T>(int pos) where T : CmdBase
+        internal T NextElement<T>(int pos) where T : CmdBase
         {
             var id = CmdId + pos;
             CmdBase base1 = (0 <= id && id < Parent.Commands.Count) ? Parent.Commands[id] : null;
@@ -63,7 +63,7 @@ namespace ArmA2.Script.ScriptProcessor
             return (base1 is T) ? (T)base1 : null;
         }
 
-        public string ShortTerm
+        internal string ShortTerm
         {
             get
             {
@@ -72,7 +72,7 @@ namespace ArmA2.Script.ScriptProcessor
             }
         }
 
-        public string ShortTermEnd
+        internal string ShortTermEnd
         {
             get
             {
@@ -81,7 +81,7 @@ namespace ArmA2.Script.ScriptProcessor
             }
         }
 
-        public string GetScript(bool minimized)
+        internal string GetScript(bool minimized)
         {
             using(var ms = new MemoryStream())
             {
@@ -105,12 +105,12 @@ namespace ArmA2.Script.ScriptProcessor
         {
         }
 
-        public void Compile(Compiler compiler)
+        internal void Compile(Compiler compiler)
         {
             CompileInternal(compiler);
         }
 
-        public void CompileSafe(Compiler compiler)
+        internal void CompileSafe(Compiler compiler)
         {
             try
             {

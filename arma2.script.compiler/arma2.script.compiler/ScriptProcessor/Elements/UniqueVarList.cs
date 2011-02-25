@@ -3,15 +3,15 @@ using System.Linq;
 
 namespace ArmA2.Script.ScriptProcessor
 {
-    public class UniqueVarList : List<string>
+    internal class UniqueVarList : List<string>
     {
-        public bool IsDeclared(string varName)
+        internal bool IsDeclared(string varName)
         {
             bool declared = Compiler.ReservedLocalVarNames.Any(m => m.Equal(varName));
             return (declared || this.Any(m => m.Equal(varName)));
         }
 
-        public void VarAdd(string varName)
+        internal void VarAdd(string varName)
         {
             if (!IsDeclared(varName))
             {

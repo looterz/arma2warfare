@@ -1,8 +1,8 @@
 ﻿namespace ArmA2.Script.ScriptProcessor
 {
-    public class CmdString : CmdText
+    internal class CmdString : CmdText
     {
-        public string Quote;
+        internal string Quote;
         public override void Render(ScriptWriter writer)
         {
             writer.Write(Quote);

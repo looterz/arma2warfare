@@ -2,7 +2,7 @@
 
 namespace ArmA2.Script.ScriptProcessor
 {
-    public class CmdCommand : CmdCommandBase
+    internal class CmdCommand : CmdCommandBase
     {
         public override void Render(ScriptWriter writer)
         {
@@ -16,7 +16,7 @@ namespace ArmA2.Script.ScriptProcessor
             Text = oldCmdName;
         }       
  
-        public Function Function
+        internal Function Function
         {
             get { return Processor.GetFunction(this.Text); }
         }

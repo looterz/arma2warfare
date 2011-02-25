@@ -1,6 +1,6 @@
 ﻿namespace ArmA2.Script.ScriptProcessor.Commands
 {
-    public class CmdFor : CmdCommand
+    internal class CmdFor : CmdCommand
     {
         protected override void CompileInternal(Compiler compiler)
         {

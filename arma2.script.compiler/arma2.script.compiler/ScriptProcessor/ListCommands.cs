@@ -4,9 +4,9 @@ using ArmA2.Script.ScriptProcessor.Elements;
 
 namespace ArmA2.Script.ScriptProcessor
 {
-    public partial class Processor
+    internal partial class Processor
     {
-        public static Function[] CommandData = new Function[]
+        internal static Function[] CommandData = new Function[]
             {
                 new Function { Name="#include",                      },
                 new Function { Name="#define",                       },
@@ -41,7 +41,7 @@ namespace ArmA2.Script.ScriptProcessor
                 new Function { Name="addMenu",                       },
                 new Function { Name="addMenuItem",                   },
                 new Function { Name="addMPEventHandler",             Command = typeof(CmdEventHandler)},
-                new Function { Name="addPublicVariableEventHandler", Command = typeof(CmdEventHandlerPV)},
+                new Function { Name="addinternalVariableEventHandler", Command = typeof(CmdEventHandlerPV)},
                 new Function { Name="addRating",                     },
                 new Function { Name="addResources",                  },
                 new Function { Name="addScore",                      },
@@ -800,7 +800,7 @@ namespace ArmA2.Script.ScriptProcessor
                 new Function { Name="progressLoadingScreen",         },
                 new Function { Name="progressPosition",              },
                 new Function { Name="progressSetPosition",           },
-                new Function { Name="publicVariable",                },
+                new Function { Name="internalVariable",                },
                 new Function { Name="putWeaponPool",                 },
                 new Function { Name="queryMagazinePool",             },
                 new Function { Name="queryWeaponPool",               },

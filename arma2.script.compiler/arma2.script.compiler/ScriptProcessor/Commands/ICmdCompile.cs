@@ -1,6 +1,6 @@
 ﻿namespace ArmA2.Script.ScriptProcessor
 {
-    public interface ICmdCompile
+    internal interface ICmdCompile
     {
         void Compile(Compiler compiler);
     }
