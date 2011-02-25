@@ -41,7 +41,7 @@
             if (Scope.PrivateVars.IsDeclared(varName.Text))
                 throw new CompileException(CompileCode.PrivateVarDuplicate,
                                            "Duplicated '{0}' in private array\nAt scope:{1}",
-                                           item, Scope.ShortTerm);
+                                           varName.Text, Scope.ShortTerm);
 
             Scope.PrivateVars.VarAdd(varName.Text);
         }
