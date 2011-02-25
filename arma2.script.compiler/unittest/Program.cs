@@ -42,10 +42,6 @@ namespace ArmA2.Script.UnitTests
 
                 string newFileName = Path.GetFileNameWithoutExtension(fileName) + ".a" + Path.GetExtension(fileName);
                 File.WriteAllText(newFileName, content);
-
-                Processor processor = new Processor();
-                var code = processor.CompileToByteCode(content);
-                content = code.ToString();
             }
 
             Console.ReadKey();

@@ -34,12 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework">
-      <HintPath>NUnit\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.mocks">
-      <HintPath>NUnit\nunit.mocks.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -51,12 +45,36 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestCompiler.cs" />
-    <Compile Include="TestProcessor.cs" />
-    <Compile Include="TestValidation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="arma2.snk" />
+    <None Include="tests\A01.a.sqf" />
+    <None Include="tests\A01.sqf" />
+    <None Include="tests\Action_ToggleLock.a.sqf" />
+    <None Include="tests\Action_ToggleLock.sqf" />
+    <None Include="tests\aiteam1.a.fsm" />
+    <None Include="tests\aiteam1.fsm" />
+    <None Include="tests\Common_GetRespawnCamps.a.sqf" />
+    <None Include="tests\Common_GetRespawnCamps.sqf" />
+    <None Include="tests\Common_SelectCamo.a.sqf" />
+    <None Include="tests\Common_SelectCamo.sqf" />
+    <None Include="tests\Config_LightFactory.a.sqf" />
+    <None Include="tests\Config_LightFactory.sqf" />
+    <None Include="tests\GUI_MissionTasks.a.sqf" />
+    <None Include="tests\GUI_MissionTasks.sqf" />
+    <None Include="tests\hq.a.fsm.off" />
+    <None Include="tests\hq.fsm.off" />
+    <None Include="tests\Init_Common.a.sqf" />
+    <None Include="tests\Init_Common.sqf" />
+    <None Include="tests\Init_Towns.a.sqf" />
+    <None Include="tests\Init_Towns.sqf" />
+    <None Include="tests\Services.a.sqf" />
+    <None Include="tests\Services.sqf" />
+    <None Include="tests\uav_interface.a.sqf" />
+    <None Include="tests\uav_interface.sqf" />
+    <None Include="tests\updateavailableactions.a.fsm" />
+    <None Include="tests\updateavailableactions.fsm" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\arma2.script.compiler\ArmA2.Script.Compiler.csproj">
