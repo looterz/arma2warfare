@@ -3,13 +3,13 @@ using ArmA2.Script.ScriptProcessor.Commands;
 
 namespace ArmA2.Script.ScriptProcessor
 {
-    public class CmdEventHandlerPV : CmdCommandTwo
+    internal class CmdEventHandlerPV : CmdCommandTwo
     {
         protected override void CompileInternal(Compiler compiler)
         {
             base.CompileInternal(compiler);
 
-            // "NETSEND_BROADCAST" addPublicVariableEventHandler {(_this select 1) spawn NetSend_HandleMessage; };
+            // "NETSEND_BROADCAST" addinternalVariableEventHandler {(_this select 1) spawn NetSend_HandleMessage; };
             if ((Arg1 is CmdString || Arg1 is CmdScopeCode) == false)
             throw new CompileException(CompileCode.CommandInvalidArgument,
                                        "arg2 EventHandler argument must be scope array or string\nAt scope:{0}",

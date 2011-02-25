@@ -3,26 +3,26 @@ using System.Linq;
 
 namespace ArmA2.Script.ScriptProcessor
 {
-    public partial class Processor
+    internal partial class Processor
     {
-        public Compiler Compiler { get; private set; }
+        internal Compiler Compiler { get; private set; }
 
-        public Processor()
+        internal Processor()
         {
             Compiler = new Compiler();
         }
 
-        public Processor(Compiler compiler)
+        internal Processor(Compiler compiler)
         {
             Compiler = compiler;
         }
 
-        public CmdElement CompileToByteCode(string content)
+        internal CmdElement CompileToByteCode(string content)
         {
             return CompileToByteCode(content, null);
         }
 
-        public CmdElement CompileToByteCode(string content, CmdScopeBase rootScope)
+        internal CmdElement CompileToByteCode(string content, CmdScopeBase rootScope)
         {
             CmdScopeBase scope;
             if (rootScope == null)

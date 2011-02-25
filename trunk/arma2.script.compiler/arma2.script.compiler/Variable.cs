@@ -8,7 +8,7 @@ namespace ArmA2.Script
         public string ObfuscateName;
         public int UsageCount = 0;
 
-        public Regex Regex;
+        internal Regex Regex;
 
         public override string ToString()
         {

@@ -2,18 +2,18 @@
 
 namespace ArmA2.Script.ScriptProcessor.Elements
 {
-    public class CmdArgument
+    internal class CmdArgument
     {
-        public int Position { get; set; }
-        public virtual Type ParameterType
+        internal int Position { get; set; }
+        internal virtual Type ParameterType
         {
             get { return null; }
         }
     }
 
-    public class CmdArgument<T> : CmdArgument
+    internal class CmdArgument<T> : CmdArgument
     {
-        public override Type ParameterType
+        internal override Type ParameterType
         {
             get { return typeof(T); }
         }

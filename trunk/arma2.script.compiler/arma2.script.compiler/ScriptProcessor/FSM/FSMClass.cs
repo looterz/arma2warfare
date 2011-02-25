@@ -4,26 +4,26 @@ using System.Linq;
 
 namespace ArmA2.Script.ScriptProcessor
 {
-    public class FsmClass : INamedItem
+    internal class FsmClass : INamedItem
     {
         private FsmClass _states;
 
-        public CmdCommand Command { get; private set; }
-        public string Name { get; private set; }
+        internal CmdCommand Command { get; private set; }
+        internal string Name { get; private set; }
 
-        public CmdScopeBase Scope { get; private set; }
+        internal CmdScopeBase Scope { get; private set; }
 
-        public bool IsValid { get; private set; }
-        public FsmClass Parent { get; private set; }
+        internal bool IsValid { get; private set; }
+        internal FsmClass Parent { get; private set; }
 
-        public bool Compiled { get; set; }
+        internal bool Compiled { get; set; }
 
-        public FsmClass(CmdScopeBase scope)
+        internal FsmClass(CmdScopeBase scope)
         {
             Scope = scope;
         }
 
-        public FsmClass States { 
+        internal FsmClass States { 
             get
             {
                 if (_states == null)
@@ -34,7 +34,7 @@ namespace ArmA2.Script.ScriptProcessor
             set { _states = value; }
         }
 
-        public FsmClass(CmdElement node)
+        internal FsmClass(CmdElement node)
         {
             IsValid = false;
 
@@ -55,7 +55,7 @@ namespace ArmA2.Script.ScriptProcessor
         }
 
         private NamedList<FsmClass> _classList;
-        public NamedList<FsmClass> ClassList
+        internal NamedList<FsmClass> ClassList
         {
             get
             {
@@ -78,7 +78,7 @@ namespace ArmA2.Script.ScriptProcessor
         }
 
         private NamedList<FsmProperty> _propertyList;
-        public NamedList<FsmProperty> PropertyList
+        internal NamedList<FsmProperty> PropertyList
         {
             get
             {
@@ -113,7 +113,7 @@ namespace ArmA2.Script.ScriptProcessor
 
         static string[] IgnoredProperty = new[] { "fsmname", "from", "to", "name", "priority", "initstate" };
 
-        public void Compile(Compiler compiler, CmdScopeCodeRoot fsmCodeScope, string path)
+        internal void Compile(Compiler compiler, CmdScopeCodeRoot fsmCodeScope, string path)
         {
             if (Compiled)
             {

@@ -3,15 +3,15 @@ using ArmA2.Script.ScriptProcessor.Commands;
 
 namespace ArmA2.Script.ScriptProcessor
 {
-    public class FsmProperty : INamedItem
+    internal class FsmProperty : INamedItem
     {
-        public bool IsValid { get; private set; }
-        public string Name { get; private set; }
-        public CmdBase Value { get; private set; }
+        internal bool IsValid { get; private set; }
+        internal string Name { get; private set; }
+        internal CmdBase Value { get; private set; }
 
-        public FsmClass Parent;
+        internal FsmClass Parent;
 
-        public T GetValue<T>() where T : CmdBase
+        internal T GetValue<T>() where T : CmdBase
         {
             if (Value is T)
                 return (T) Value;
@@ -19,7 +19,7 @@ namespace ArmA2.Script.ScriptProcessor
             return null;
         }
         
-        public FsmProperty(CmdElement node)
+        internal FsmProperty(CmdElement node)
         {
             IsValid = false;
 

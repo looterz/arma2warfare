@@ -5,10 +5,10 @@ namespace ArmA2.Script
 {
     public class GlobalSettings
     {
-        //public static bool ApplyMinimize = true;
-        //public static string StringQuote = "'";
+        //internal static bool ApplyMinimize = true;
+        //internal static string StringQuote = "'";
 
-        public static List<Variable> PublicVariables = new List<Variable>();
+        public static List<Variable> internalVariables = new List<Variable>();
         public static List<string> ExcludePhrases = new List<string>();
         public static List<string> ExcludeLines = new List<string>();
     }

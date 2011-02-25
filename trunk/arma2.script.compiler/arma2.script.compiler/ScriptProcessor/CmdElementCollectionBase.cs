@@ -4,21 +4,21 @@ using System.Linq;
 
 namespace ArmA2.Script.ScriptProcessor
 {
-    public class CmdElementCollectionBase<T> :List<T>, IScriptRenderer where T : CmdBase
+    internal class CmdElementCollectionBase<T> :List<T>, IScriptRenderer where T : CmdBase
     {
         private int _position = 0;
 
-        public void SetPosition(int position)
+        internal void SetPosition(int position)
         {
             _position = position;
         }
 
-        //public void AddRange(IEnumerable<T> items)
+        //internal void AddRange(IEnumerable<T> items)
         //{
         //    items.ForEach(m => this.Add(m));
         //}
 
-        public CmdElementCollectionBase<T1> Select<T1>() where T1 : CmdBase
+        internal CmdElementCollectionBase<T1> Select<T1>() where T1 : CmdBase
         {
             var items = new CmdElementCollectionBase<T1>();
 
@@ -31,7 +31,7 @@ namespace ArmA2.Script.ScriptProcessor
             return items;
         }
 
-        public T1 Get<T1>(int offset) where T1 : CmdBase
+        internal T1 Get<T1>(int offset) where T1 : CmdBase
         {
             int pos = _position + offset;
             if (pos >= 0 && pos < this.Count())

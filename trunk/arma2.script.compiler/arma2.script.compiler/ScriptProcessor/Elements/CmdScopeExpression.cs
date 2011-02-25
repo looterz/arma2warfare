@@ -1,8 +1,8 @@
 ﻿namespace ArmA2.Script.ScriptProcessor
 {
-    public class CmdScopeExpression : CmdScopeBase
+    internal class CmdScopeExpression : CmdScopeBase
     {
-        public CmdScopeExpression()
+        internal CmdScopeExpression()
         {
             OpenCh = "(";
             EndCh = ")";

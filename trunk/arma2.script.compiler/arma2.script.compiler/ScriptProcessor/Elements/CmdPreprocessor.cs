@@ -1,6 +1,6 @@
 ﻿namespace ArmA2.Script.ScriptProcessor
 {
-    public class CmdPreprocessor : CmdCommand
+    internal class CmdPreprocessor : CmdCommand
     {
         public override void Render(ScriptWriter writer)
         {

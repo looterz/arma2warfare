@@ -3,9 +3,9 @@ using ArmA2.Script.ScriptProcessor.Commands;
 
 namespace ArmA2.Script.ScriptProcessor
 {
-    public class CmdScopeCode : CmdScopeCodeRoot
+    internal class CmdScopeCode : CmdScopeCodeRoot
     {
-        public CmdScopeCode() : base(null)
+        internal CmdScopeCode() : base(null)
         {
             OpenCh = "{";
             EndCh = "}";

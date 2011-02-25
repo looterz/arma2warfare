@@ -2,9 +2,9 @@
 
 namespace System.Linq
 {
-    public static class ForEachExt
+    internal static class ForEachExt
     {
-        public static IEnumerable<T> ForEach<T>(this IEnumerable<T> enumeration, Action<T> action)
+        internal static IEnumerable<T> ForEach<T>(this IEnumerable<T> enumeration, Action<T> action)
         {
             foreach (var item in enumeration)
             {

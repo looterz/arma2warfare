@@ -6,12 +6,12 @@ using ArmA2.Script.ScriptProcessor.Elements;
 
 namespace ArmA2.Script.ScriptProcessor
 {
-    public class Function
+    internal class Function
     {
-        public string Name;
+        internal string Name;
 
-        public Type Command;
-        public CmdCommand GetCmdCompile()
+        internal Type Command;
+        internal CmdCommand GetCmdCompile()
         {
             if (Command != null)
             {
@@ -21,7 +21,7 @@ namespace ArmA2.Script.ScriptProcessor
         }
     }
 
-    public partial class Processor
+    internal partial class Processor
     {
         private static void PVEventHandler(CmdCommand cmd, Compiler compiler)
         {

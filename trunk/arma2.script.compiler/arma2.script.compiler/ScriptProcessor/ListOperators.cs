@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ArmA2.Script.ScriptProcessor
 {
-    public partial class Processor
+    internal partial class Processor
     {
         private const string _operatorList = @"
 !

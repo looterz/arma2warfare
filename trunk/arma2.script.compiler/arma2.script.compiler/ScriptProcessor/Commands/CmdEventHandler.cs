@@ -3,7 +3,7 @@ using ArmA2.Script.ScriptProcessor.Commands;
 
 namespace ArmA2.Script.ScriptProcessor
 {
-    public class CmdEventHandler : CmdCommandTwo
+    internal class CmdEventHandler : CmdCommandTwo
     {
         protected override void CompileInternal(Compiler compiler)
         {

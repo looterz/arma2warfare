@@ -2,7 +2,7 @@
 
 namespace ArmA2.Script.ScriptProcessor.Commands
 {
-    public class CmdOperatorSet : CmdOperator
+    internal class CmdOperatorSet : CmdOperator
     {
         protected override void CompileInternal(Compiler compiler)
         {

@@ -3,18 +3,18 @@ using ArmA2.Script.ScriptProcessor.Commands;
 
 namespace ArmA2.Script.ScriptProcessor
 {
-    public class CmdScopeCodeRoot : CmdScopeBase
+    internal class CmdScopeCodeRoot : CmdScopeBase
     {
         private Processor _processor;
 
-        public CmdScopeCodeRoot(Processor p)
+        internal CmdScopeCodeRoot(Processor p)
         {
             _processor = p;
             OpenCh = "";
             EndCh = "";
         }
 
-        public override Processor Processor
+        internal override Processor Processor
         {
             get { return _processor ?? base.Processor; }
         }
@@ -62,7 +62,7 @@ namespace ArmA2.Script.ScriptProcessor
             base.CompilePrivateVar(compiler);
         }
 
-        public void ApplyPrivateVar(bool considerParent, Compiler compiler)
+        internal void ApplyPrivateVar(bool considerParent, Compiler compiler)
         {
             UniqueVarList considerLocals = new UniqueVarList();
             if (considerParent)

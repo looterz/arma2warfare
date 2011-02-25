@@ -1,6 +1,6 @@
 ﻿namespace ArmA2.Script.ScriptProcessor
 {
-    public class CmdSeparator : CmdText
+    internal class CmdSeparator : CmdText
     {
         public override void Render(ScriptWriter writer)
         {

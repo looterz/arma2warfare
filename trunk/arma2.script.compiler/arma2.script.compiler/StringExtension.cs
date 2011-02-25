@@ -2,19 +2,19 @@
 
 namespace ArmA2.Script
 {
-    public static class StringExtension
+    internal static class StringExtension
     {
-        public static char GetSafeChar(this string str, int pos)
+        internal static char GetSafeChar(this string str, int pos)
         {
             return (0 <= pos && pos < str.Length) ? str[pos] : (char) 0;
         }
 
-        public static bool Equal(this string str, string equal)
+        internal static bool Equal(this string str, string equal)
         {
             return str.Equals(equal, StringComparison.CurrentCultureIgnoreCase);
         }
 
-        public static bool Equal(this string str, string equal, int pos, bool ignoreCase=false)
+        internal static bool Equal(this string str, string equal, int pos, bool ignoreCase=false)
         {
             int j = 0;
             for(int i=pos; i>=0 && i< str.Length && j < equal.Length; i++, j++)
@@ -31,12 +31,12 @@ namespace ArmA2.Script
             return (j == equal.Length);
         }
 
-        public static bool IsStartString(this string content, int pos)
+        internal static bool IsStartString(this string content, int pos)
         {
             return (0 <= pos  && pos < content.Length && (content[pos] == '"' || content[pos] == '\''));
         }
 
-        public static int GetEndQuote(this string content, int startPos)
+        internal static int GetEndQuote(this string content, int startPos)
         {
             if (startPos == -1)
                 return -1;

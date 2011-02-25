@@ -1,8 +1,8 @@
 ﻿namespace ArmA2.Script.ScriptProcessor
 {
-    public class CmdVariable : CmdText
+    internal class CmdVariable : CmdText
     {
-        public bool IsLocal
+        internal bool IsLocal
         {
             get { return (string.IsNullOrEmpty(Text)) ? false : Text.StartsWith("_"); }
         }

@@ -1,6 +1,6 @@
 ﻿namespace ArmA2.Script.ScriptProcessor
 {
-    public interface INamedItem
+    internal interface INamedItem
     {
         string GetName();
     }
