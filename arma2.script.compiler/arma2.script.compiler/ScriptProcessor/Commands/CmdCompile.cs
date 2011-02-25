@@ -22,15 +22,14 @@
 
                 var contentPartial = arg1.Text.Replace("\"\"", "\"");
 
-                var stateApplyPrivate = compiler.ApplyPrivateVars;
-                var stateApplyMinimize = GlobalSettings.ApplyMinimize;
-                GlobalSettings.ApplyMinimize = true;
+                compiler.PushSettings();
 
-                compiler.ApplyPrivateVars = applyPrivate;
-                contentPartial = compiler.CompilePartial(contentPartial, null);
+                    compiler.Settings.ApplyPrivateVars = applyPrivate;
+                    compiler.Settings.ScriptMinimized = true;
 
-                compiler.ApplyPrivateVars = stateApplyPrivate;
-                GlobalSettings.ApplyMinimize = stateApplyMinimize;
+                    contentPartial = compiler.CompilePartial(contentPartial, null);
+
+                compiler.PopSettings();
 
                 arg1.Text = contentPartial.Replace("\"", "\"\"");
             }

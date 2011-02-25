@@ -21,9 +21,6 @@ namespace ArmA2.Script.ScriptProcessor
 
         protected override void CompileInternal(Compiler compiler)
         {
-            // учитывать переменные объявленные в родительском скопе
-            bool considerParent = false;
-
             var op = NextElement(-1);
             bool topPrivateScope = (Parent == null || TopPrivateScope);
             if (op is CmdOperatorSet && NextElement(1) == null)
@@ -59,13 +56,13 @@ namespace ArmA2.Script.ScriptProcessor
                 warn.WriteToLog();
             }
 
-            if ((TopPrivateScope || considerParent) && compiler.ApplyPrivateVars)
-                ApplyPrivateVar(considerParent);
+            if ((TopPrivateScope || considerParent) && compiler.Settings.ApplyPrivateVars)
+                ApplyPrivateVar(considerParent, compiler);
 
             base.CompilePrivateVar(compiler);
         }
 
-        public void ApplyPrivateVar(bool considerParent)
+        public void ApplyPrivateVar(bool considerParent, Compiler compiler)
         {
             UniqueVarList considerLocals = new UniqueVarList();
             if (considerParent)
@@ -123,7 +120,7 @@ namespace ArmA2.Script.ScriptProcessor
 
                 for (int i = 0; i < reg.Count; i++)
                 {
-                    array.ChildAdd(new CmdString { Text = reg[i], Quote = GlobalSettings.StringQuote });
+                    array.ChildAdd(new CmdString { Text = reg[i], Quote = compiler.Settings.StringQuote });
                     if (i + 1 != LocalVars.Count)
                         array.SeparatorAdd(",");
                 }

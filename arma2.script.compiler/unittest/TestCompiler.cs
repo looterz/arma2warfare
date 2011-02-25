@@ -211,8 +211,8 @@ switch (_respawnCampsMode) do {
 
                 //Console.SetOut(new StringWriter(new StringBuilder()));
                 Compiler compiler = new Compiler();
-                compiler.FsmContent = (Path.GetExtension(file).ToLower() == ".fsm");
-                compiler.FileName = Path.GetFileName(file);
+                compiler.Settings.FsmContent = (Path.GetExtension(file).ToLower() == ".fsm");
+                compiler.Settings.FileName = Path.GetFileName(file);
 
                 string content = File.ReadAllText(file);
                 string expectedFileName = Path.GetDirectoryName(file) + "\\" + Path.GetFileNameWithoutExtension(file) + ".a" + Path.GetExtension(file);

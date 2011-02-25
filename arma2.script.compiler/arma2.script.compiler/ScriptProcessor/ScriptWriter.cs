@@ -6,6 +6,8 @@ namespace ArmA2.Script.ScriptProcessor
     {
         private int _indent = 0;
 
+        public bool ApplyMinimize = false;
+
         public int Indent { get { return _indent; } set { _indent = (value >= 0) ? value : 0; } }
         public bool Minimized = false;
 
@@ -14,7 +16,7 @@ namespace ArmA2.Script.ScriptProcessor
             if (args.Length > 0)
                 content = string.Format(content, args);
 
-            if (!GlobalSettings.ApplyMinimize && !Minimized && allowIdent)
+            if (!ApplyMinimize && !Minimized && allowIdent)
             {
                 base.WriteLine();
                 var indent = Indent;
@@ -24,7 +26,9 @@ namespace ArmA2.Script.ScriptProcessor
             base.Write(content);
         }
 
-        public ScriptWriter(Stream stream) : base(stream)
-        {}
+        public ScriptWriter(Stream stream, bool renderMinimized) : base(stream)
+        {
+            ApplyMinimize = renderMinimized;
+        }
     }
 }

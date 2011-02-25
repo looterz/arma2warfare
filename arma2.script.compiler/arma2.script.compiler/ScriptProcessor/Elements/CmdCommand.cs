@@ -7,7 +7,7 @@ namespace ArmA2.Script.ScriptProcessor
         public override void Render(ScriptWriter writer)
         {
             string oldCmdName = Text;
-            if (!GlobalSettings.ApplyMinimize)
+            if (!writer.ApplyMinimize)
             {
                 var cmd = Processor.GetFunction(Text);
                 Text = cmd.Name;

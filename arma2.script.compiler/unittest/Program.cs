@@ -31,14 +31,14 @@ namespace ArmA2.Script.UnitTests
                 GlobalSettings.ExcludeLines.Add(@"call Log(High|Inform|Medium|Warning|Trace)");
                 GlobalSettings.ExcludeLines.Add(@"""(?:[^""\\]|\\.|\""\"")*""\s*call Log(High|Inform|Medium|Warning|Trace)");
                 GlobalSettings.ExcludeLines.Add(@"'(?:[^'\\]|\\.|'')*'\s*call Log(High|Inform|Medium|Warning|Trace)");
-                Compiler obfuscate = new Compiler();
-                obfuscate.FileName = fileName;
-                obfuscate.HideVars = false;
-                obfuscate.FsmContent = (Path.GetExtension(fileName).ToLower() == ".fsm");
+                Compiler compiler = new Compiler();
+                compiler.Settings.FileName = fileName;
+                compiler.Settings.HideVars = false;
+                compiler.Settings.FsmContent = (Path.GetExtension(fileName).ToLower() == ".fsm");
+                compiler.Settings.ScriptMinimized = false;
+                compiler.Settings.StringQuote = "\"";
 
-                GlobalSettings.ApplyMinimize = false;
-                GlobalSettings.StringQuote = "\"";
-                content = obfuscate.Compile(content);
+                content = compiler.Compile(content);
 
                 string newFileName = Path.GetFileNameWithoutExtension(fileName) + ".a" + Path.GetExtension(fileName);
                 File.WriteAllText(newFileName, content);
