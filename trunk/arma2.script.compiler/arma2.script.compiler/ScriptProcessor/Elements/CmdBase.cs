@@ -65,9 +65,9 @@ namespace ArmA2.Script.ScriptProcessor
 
         public string ShortTerm
         {
-            get 
-            { 
-                string s = ToString();
+            get
+            {
+                string s = GetScript(false);
                 return (s.Length > 150) ? s.Remove(150)+"\n..." : s;
             }
         }
@@ -76,7 +76,7 @@ namespace ArmA2.Script.ScriptProcessor
         {
             get
             {
-                string s = ToString();
+                string s = GetScript(false);
                 return (s.Length > 150) ? "\n..." + s.Substring(s.Length - 150) : s;
             }
         }

@@ -54,13 +54,20 @@ namespace ArmA2.Script
                 else
                 {
                     int code = 0;
+                    string hint = level.ToString().ToUpper() + "-";
                     if (compileCode >= CompileCode.Error)
+                    {
                         code = compileCode - CompileCode.Error;
+                        hint = "Error E";
+                    }
 
                     else if (compileCode >= CompileCode.Warning)
+                    {
                         code = compileCode - CompileCode.Warning;
+                        hint = "Warning W";
+                    }
 
-                    message = string.Format("{0}-{1:d4}: {2}", level.ToString().ToUpper(), code, message);
+                    message = string.Format("{0}{1:d4}({2}): {3}", hint, code, compileCode, message);
                 }
             }
 
