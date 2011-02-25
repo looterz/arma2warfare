@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CEE7043E-72AA-4022-8F76-75E4CFBE014F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UnitTesting</RootNamespace>
+    <AssemblyName>Arma2.Script.Compiler.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\arma2.script.compiler\arma2.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>Lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.mocks">
+      <HintPath>Lib\nunit.mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestCompiler.cs" />
+    <Compile Include="TestProcessor.cs" />
+    <Compile Include="TestValidation.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\arma2.script.compiler\ArmA2.Script.Compiler.csproj">
+      <Project>{4A0FB0DF-2585-4FB9-9865-11A6023B8D1E}</Project>
+      <Name>ArmA2.Script.Compiler</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\arma2.script.compiler\arma2.snk">
+      <Link>arma2.snk</Link>
+    </None>
+    <None Include="tests\A01.a.sqf" />
+    <None Include="tests\A01.sqf" />
+    <None Include="tests\Action_ToggleLock.a.sqf" />
+    <None Include="tests\Action_ToggleLock.sqf" />
+    <None Include="tests\aiteam1.a.fsm" />
+    <None Include="tests\aiteam1.fsm" />
+    <None Include="tests\Common_GetRespawnCamps.a.sqf" />
+    <None Include="tests\Common_GetRespawnCamps.sqf" />
+    <None Include="tests\Common_SelectCamo.a.sqf" />
+    <None Include="tests\Common_SelectCamo.sqf" />
+    <None Include="tests\Config_LightFactory.a.sqf" />
+    <None Include="tests\Config_LightFactory.sqf" />
+    <None Include="tests\GUI_MissionTasks.a.sqf" />
+    <None Include="tests\GUI_MissionTasks.sqf" />
+    <None Include="tests\hq.a.fsm.off" />
+    <None Include="tests\hq.fsm.off" />
+    <None Include="tests\Init_Common.a.sqf" />
+    <None Include="tests\Init_Common.sqf" />
+    <None Include="tests\Init_Towns.a.sqf" />
+    <None Include="tests\Init_Towns.sqf" />
+    <None Include="tests\Services.a.sqf" />
+    <None Include="tests\Services.sqf" />
+    <None Include="tests\uav_interface.a.sqf" />
+    <None Include="tests\uav_interface.sqf" />
+    <None Include="tests\updateavailableactions.a.fsm" />
+    <None Include="tests\updateavailableactions.fsm" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
