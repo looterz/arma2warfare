@@ -13,7 +13,7 @@
 
             if (IsLocal)
             {
-                if (!Scope.LocalVars.IsDeclared(Text) && compiler.ApplyPrivateVars)
+                if (!Scope.LocalVars.IsDeclared(Text) && compiler.Settings.ApplyPrivateVars)
                 {
                     if (Scope.IsDeclaredInOuterScope(Text))
                     {

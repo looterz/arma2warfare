@@ -81,11 +81,11 @@ namespace ArmA2.Script.ScriptProcessor
             }
         }
 
-        public override string ToString()
+        public string GetScript(bool minimized)
         {
             using(var ms = new MemoryStream())
             {
-                var writer = new ScriptWriter(ms);
+                var writer = new ScriptWriter(ms, minimized);
                 writer.AutoFlush = true;
                 Render(writer);
                 writer.Flush();
@@ -94,6 +94,11 @@ namespace ArmA2.Script.ScriptProcessor
                 ms.Position = 0;
                 return (new StreamReader(ms)).ReadToEnd();
             }
+        }
+
+        public override string ToString()
+        {
+            return GetScript(this.Processor.Compiler.Settings.ScriptMinimized);
         }
 
         protected virtual void CompileInternal(Compiler compiler)

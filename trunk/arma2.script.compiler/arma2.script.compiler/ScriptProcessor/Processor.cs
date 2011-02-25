@@ -5,6 +5,18 @@ namespace ArmA2.Script.ScriptProcessor
 {
     public partial class Processor
     {
+        public Compiler Compiler { get; private set; }
+
+        public Processor()
+        {
+            Compiler = new Compiler();
+        }
+
+        public Processor(Compiler compiler)
+        {
+            Compiler = compiler;
+        }
+
         public CmdElement CompileToByteCode(string content)
         {
             return CompileToByteCode(content, null);

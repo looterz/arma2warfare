@@ -37,19 +37,18 @@ namespace ArmA2.Script.ScriptProcessor
             if (eventHanlder is CmdString)
             {
                 var ehString = (CmdString) eventHanlder;
-                Processor p = new Processor();
+                Processor p = new Processor(compiler);
 
                 var contentPartial = ehString.Text.Replace("\"\"", "\"");
 
-                var stateApplyPrivate = compiler.ApplyPrivateVars;
-                var stateApplyMinimize = GlobalSettings.ApplyMinimize;
-                GlobalSettings.ApplyMinimize = true;
-                compiler.ApplyPrivateVars = true;
-                
-                contentPartial = compiler.CompilePartial(contentPartial, null);
 
-                compiler.ApplyPrivateVars = stateApplyPrivate;
-                GlobalSettings.ApplyMinimize = stateApplyMinimize;
+                compiler.PushSettings();
+                    compiler.Settings.ScriptMinimized = true;
+                    compiler.Settings.ApplyPrivateVars = true;
+
+                    contentPartial = compiler.CompilePartial(contentPartial, null);
+                compiler.PopSettings();
+
 
                 var partial = p.CompileToByteCode(contentPartial);
 

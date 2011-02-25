@@ -6,7 +6,7 @@
         {
             bool addSpace = false;
 
-            if (!GlobalSettings.ApplyMinimize)
+            if (!writer.ApplyMinimize)
             {
                 var id = Parent.Items.IndexOf(this);
                 var item = Parent.Items.Get<CmdBase>(id - 1);

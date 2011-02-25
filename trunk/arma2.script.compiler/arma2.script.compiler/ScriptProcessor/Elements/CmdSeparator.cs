@@ -9,7 +9,7 @@
                 writer.WriteIndent(true, "");
             else
             {
-                if (!GlobalSettings.ApplyMinimize && Text != " ")
+                if (!writer.ApplyMinimize && Text != " ")
                     writer.Write(" ");
             }
         }        

@@ -9,54 +9,69 @@ namespace ArmA2.Script
 {
     public class Compiler
     {
-        public bool FsmContent = false;
-        public bool HideVars = false;
+        public static string[] ReservedLocalVarNames = {"_this", "_x"};
 
-        public string FileName = string.Empty;
-        public bool IsTopFile = true;
-        public bool ApplyPrivateVars = true;
+        public static string[] ReservedGlobalVarNames =
+            {"image", "shadow", "color", "fps", "valign", "1", "isplayer"};
+
+        private readonly char[] _allowedVarChars = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
+        private readonly Stack<CompilerSettings> _settingsStack = new Stack<CompilerSettings>();
+        private int _count;
+        public CompilerSettings Settings { get; set; }
+
+        public Compiler()
+        {
+            Settings = new CompilerSettings();
+        }
 
         public void CompileFile(string fileName)
         {
+            PushSettings();
             string content = File.ReadAllText(fileName);
-            FileName = fileName;
-            IsTopFile = false;
-            FsmContent = (Path.GetExtension(fileName).ToLower() == ".fsm");
+
+            Settings.FileName = fileName;
+            Settings.IsTopFile = false;
+            Settings.FsmContent = (Path.GetExtension(fileName).ToLower() == ".fsm");
 
             content = Compile(content);
             File.WriteAllText(fileName, content);
+            PopSettings();
         }
 
         public static void ResetPublicUsage()
         {
             GlobalSettings.PublicVariables.ForEach(m =>
-            {
-                m.Regex = new Regex("\\b" + Regex.Escape(m.VarName) + "\\b", RegexOptions.IgnoreCase);
-                m.UsageCount = 0;
-            }
-            );
+                                                       {
+                                                           m.Regex = new Regex("\\b" + Regex.Escape(m.VarName) + "\\b",
+                                                                               RegexOptions.IgnoreCase);
+                                                           m.UsageCount = 0;
+                                                       }
+                );
         }
+
 
         public static void AddPublicVariablesUsageStat(string fileName)
         {
             string content = File.ReadAllText(fileName);
             GlobalSettings.PublicVariables.ForEach(m => m.UsageCount += m.Regex.Matches(content).Count);
         }
+
         public static List<Variable> GetPublicVarsOrderByUsage()
         {
             return GlobalSettings.PublicVariables.OrderByDescending(m => m.UsageCount).ToList();
         }
+
         public string Compile(string content)
         {
-            if (IsTopFile)
+            if (Settings.IsTopFile)
             {
                 Console.WriteLine("---------------------------------------------");
-                Console.WriteLine("Compile: {0}", FileName);
+                Console.WriteLine("Compile: {0}", Settings.FileName);
             }
 
             content = CompilePartial(content, null);
 
-            if (IsTopFile)
+            if (Settings.IsTopFile)
             {
                 Console.WriteLine();
             }
@@ -65,15 +80,15 @@ namespace ArmA2.Script
 
         public int GetEndMultiComment(string content, int startPos)
         {
-            for (int i = startPos+2; i < content.Length; i++)
+            for (int i = startPos + 2; i < content.Length; i++)
             {
-                if (content.Equal("/*", i))     // skip internal comments
+                if (content.Equal("/*", i)) // skip internal comments
                 {
-                    var end = GetEndMultiComment(content, i + 2);
+                    int end = GetEndMultiComment(content, i + 2);
                     i = (end != -1) ? end : content.Length;
                     continue;
                 }
-                if (content.Equal("*/", i))     // found end
+                if (content.Equal("*/", i)) // found end
                     return (i + 1);
             }
 
@@ -95,7 +110,7 @@ namespace ArmA2.Script
                     if (i - lineStart > 0)
                         contentNew = contentNew + content.Substring(lineStart, i - lineStart);
 
-                    var end = GetEndMultiComment(content, i);
+                    int end = GetEndMultiComment(content, i);
                     i = (end != -1) ? end : content.Length;
 
                     lineStart = -1;
@@ -112,9 +127,9 @@ namespace ArmA2.Script
                     continue;
                 }
 
-                if (content.IsStartString(i))   // пропускаем строковые переменные
+                if (content.IsStartString(i)) // пропускаем строковые переменные
                 {
-                    var end = content.GetEndQuote(i);
+                    int end = content.GetEndQuote(i);
                     i = (end != -1) ? end : content.Length;
                     continue;
                 }
@@ -132,7 +147,6 @@ namespace ArmA2.Script
             try
             {
                 return CleanupContentInternal(content);
-
             }
             catch (CompileException e)
             {
@@ -152,17 +166,17 @@ namespace ArmA2.Script
 
             //content = RemoveMultiLineComments(content);
 
-            if (FsmContent)
-                content = content.Replace("\"\"\">*/", "*/");     // """>*/  to */
+            if (Settings.FsmContent)
+                content = content.Replace("\"\"\">*/", "*/"); // """>*/  to */
 
             content = DeleteComments(content);
 
-            string[] lines = content.Split(new[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
-            var content1 = lines.Select(m => m);
+            string[] lines = content.Split(new[] {"\n"}, StringSplitOptions.RemoveEmptyEntries);
+            IEnumerable<string> content1 = lines.Select(m => m);
 
 
             content1 = content1.Where(m => m.Trim().Length > 0).Select(m => m.Trim());
-            if (!FsmContent)
+            if (!Settings.FsmContent)
             {
                 content1 = content1.Where(m => !GlobalSettings.ExcludeLines.Any(n => new Regex(n).IsMatch(m)));
             }
@@ -171,25 +185,24 @@ namespace ArmA2.Script
             content1.ForEach(m => contentText = contentText + m + "\n");
 
 
-
             contentText = RemoveStringBreaks(contentText);
             contentText = RemoveExtraSpaces(contentText);
 
-            if (FsmContent)
+            if (Settings.FsmContent)
             {
                 contentText = ProcessFSM(contentText);
             }
 
-            if (!FsmContent)
+            if (!Settings.FsmContent)
             {
-                contentText = RemoveLineBreaks(contentText.Split(new[] { "\n" }, StringSplitOptions.RemoveEmptyEntries));
+                contentText = RemoveLineBreaks(contentText.Split(new[] {"\n"}, StringSplitOptions.RemoveEmptyEntries));
                 contentText = RemoveExtraSpaces(contentText);
                 contentText = ContentCleanup(contentText);
                 contentText = RemoveExtraSpaces(contentText);
             }
 
 
-            var commands = contentText.Split(new[] {"\n"}, StringSplitOptions.RemoveEmptyEntries);
+            string[] commands = contentText.Split(new[] {"\n"}, StringSplitOptions.RemoveEmptyEntries);
             contentText = RemoveLineBreaks(commands);
             contentText = contentText.Replace(";;", ";");
             return contentText.Trim();
@@ -198,13 +211,13 @@ namespace ArmA2.Script
         public string CompilePartial(string content, CmdScopeBase rootScope)
         {
             content = CleanupContent(content);
-            if (!FsmContent)
+            if (!Settings.FsmContent)
             {
-                Processor p = new Processor();
-                var byteCode = p.CompileToByteCode(content, rootScope);
+                var p = new Processor(this);
+                CmdElement byteCode = p.CompileToByteCode(content, rootScope);
 
                 byteCode.CompileSafe(this);
-                content = byteCode.ToString();
+                content = byteCode.GetScript(Settings.ScriptMinimized);
             }
             return content.Replace("\r\n", "\n").Replace("\n\n", "\n").Trim();
         }
@@ -214,18 +227,19 @@ namespace ArmA2.Script
             string contentText = "";
             bool nextLineReturn = false;
             content1.ForEach(m =>
-            {
-                string line = m.Trim();
-                if (line.StartsWith("#") && line.Length > 0)
-                    contentText = contentText + "\n";
+                                 {
+                                     string line = m.Trim();
+                                     if (line.StartsWith("#") && line.Length > 0)
+                                         contentText = contentText + "\n";
 
-                contentText = contentText + line;
+                                     contentText = contentText + line;
 
-                if (nextLineReturn || line.StartsWith("#"))
-                    contentText = contentText + "\n";
+                                     if (nextLineReturn || line.StartsWith("#"))
+                                         contentText = contentText + "\n";
 
-                nextLineReturn = (line.StartsWith("#define") || nextLineReturn) && line.EndsWith("\\");
-            });
+                                     nextLineReturn = (line.StartsWith("#define") || nextLineReturn) &&
+                                                      line.EndsWith("\\");
+                                 });
             return contentText;
         }
 
@@ -234,10 +248,10 @@ namespace ArmA2.Script
             contentText = RemoveEmptyLines(contentText);
             string text = contentText;
             GlobalSettings.ExcludePhrases.ForEach(m =>
-            {
-                Regex regex = new Regex(m);
-                text = regex.Replace(text, "");
-            });
+                                                      {
+                                                          var regex = new Regex(m);
+                                                          text = regex.Replace(text, "");
+                                                      });
             contentText = RemoveEmptyLines(text);
             return contentText;
         }
@@ -256,83 +270,74 @@ namespace ArmA2.Script
 
         private string ProcessFSM(string content)
         {
-            string[] ignoredNames = new[] { "fsmname", "from", "to", "name", "priority", "initstate" };
+            var ignoredNames = new[] {"fsmname", "from", "to", "name", "priority", "initstate"};
 
-            Processor p = new Processor();
+            var p = new Processor(this);
             p.Functions.Clear();
-            p.Functions.Add(new Function { Name = "class"});
+            p.Functions.Add(new Function {Name = "class"});
 
-            var code = p.CompileToByteCode(content);
-            FsmClass rootScope = new FsmClass((CmdScopeBase)code);
+            CmdElement code = p.CompileToByteCode(content);
+            var rootScope = new FsmClass((CmdScopeBase) code);
 
 
-            var fsmClass = rootScope.ClassList["FSM"];
+            FsmClass fsmClass = rootScope.ClassList["FSM"];
             if (fsmClass == null)
                 throw new CompileException(CompileCode.FsmMissedClass, "root Class FSM not found");
 
-            var statesClass = fsmClass.ClassList["States"];
+            FsmClass statesClass = fsmClass.ClassList["States"];
             if (statesClass == null)
                 throw new CompileException(CompileCode.FsmMissedClass, "statesClass Class not found");
 
             fsmClass.States = statesClass;
 
-            var propInit = fsmClass.PropertyList["InitState"];
+            FsmProperty propInit = fsmClass.PropertyList["InitState"];
             if (propInit == null)
                 throw new CompileException(CompileCode.FsmMissedProperty, "InitState property not found");
 
             var initClassName = propInit.GetValue<CmdString>();
             if (initClassName == null)
-                throw new CompileException(CompileCode.FsmInvalidValueType, "InitState invalid value type must be string");
+                throw new CompileException(CompileCode.FsmInvalidValueType,
+                                           "InitState invalid value type must be string");
 
-            var initClass = fsmClass.States.ClassList[initClassName.Text];
+            FsmClass initClass = fsmClass.States.ClassList[initClassName.Text];
             if (initClass == null)
                 throw new CompileException(CompileCode.FsmMissedClass, "class '{0}' not found", initClassName.Text);
 
 
-            var assignList = code.FlatData.Where(m => m is CmdOperator && ((CmdOperator) m).Text.Equal("="));
+            IEnumerable<CmdBase> assignList =
+                code.FlatData.Where(m => m is CmdOperator && ((CmdOperator) m).Text.Equal("="));
 
-            var prevDeclareVars = ApplyPrivateVars;
-            var prevFsmContent = FsmContent;
+            PushSettings();
 
-            ApplyPrivateVars = true;
-            FsmContent = false;
+            Settings.ApplyPrivateVars = true;
+            Settings.FsmContent = false;
 
-            CmdScopeCodeRoot scopeRoot = new CmdScopeCodeRoot(new Processor());
+            var scopeRoot = new CmdScopeCodeRoot(new Processor(this));
             initClass.Compile(this, scopeRoot, "** ");
 
-            //foreach(var assign in assignList)
-            //{
-            //    var cmdId = assign.Parent.Items.IndexOf(assign);
-            //    var name = assign.Parent.Items.Get<CmdText>(cmdId - 1);
-            //    var value = assign.Parent.Items.Get<CmdString>(cmdId + 1);
+            content = code.GetScript(Settings.ScriptMinimized);
 
-            //    if (name == null || value == null)
-            //    {
-            //        continue;
-            //    }
-
-            //    if (ignoredNames.Any(m => m.Equal(name.Text)))
-            //        continue;
-
-            //    var valueContent = value.Text.Replace("\"\"", "\"");
-            //    //this.ApplyPrivateVars = false;
-            //    valueContent = this.CompilePartial(valueContent, scopeRoot);
-            //    value.Text = valueContent.Replace("\"", "\"\"");
-            //}
-
-            content = code.ToString().Trim();
-
-            ApplyPrivateVars = prevDeclareVars;
-            FsmContent = prevFsmContent;
+            PopSettings();
             return content;
+        }
+
+        public void PushSettings()
+        {
+            _settingsStack.Push(Settings);
+            Settings = Settings.Clone();
+        }
+
+        public void PopSettings()
+        {
+            Settings = _settingsStack.Pop();
         }
 
         public List<Scope> GetScopes(string content, int start, int end)
         {
-            List<Scope> scopes = new List<Scope>();
-            while(start != -1 && start < content.Length)
+            var scopes = new List<Scope>();
+            while (start != -1 && start < content.Length)
             {
-                var scope = GetScopeNext(content, start);
+                Scope scope = GetScopeNext(content, start);
                 if (scope == null || scope.Start > end)
                     break;
 
@@ -342,50 +347,50 @@ namespace ArmA2.Script
             return scopes;
         }
 
-         public Scope GetScopeNext(string content, int startPos)
-         {
-             Scope scope = null;
-             int openScopes = 0;
-             for (int i = startPos; i < content.Length; i++)
-             {
-                 if (content.IsStartString(i))   // пропускаем строки
-                 {
-                     var end = content.GetEndQuote(i);
-                     i = (end != -1) ? end : content.Length;
-                     continue;
-                 }
+        public Scope GetScopeNext(string content, int startPos)
+        {
+            Scope scope = null;
+            int openScopes = 0;
+            for (int i = startPos; i < content.Length; i++)
+            {
+                if (content.IsStartString(i)) // пропускаем строки
+                {
+                    int end = content.GetEndQuote(i);
+                    i = (end != -1) ? end : content.Length;
+                    continue;
+                }
 
-                 if (content.Equal("{", i))
-                 {
-                     if (openScopes == 0)
-                         scope = new Scope {Start = i, Text = content};
-                     openScopes = openScopes + 1;
-                 }
-                 if (content.Equal("}", i) && openScopes > 0)
-                 {
-                     openScopes--;
-                     if (openScopes == 0)
-                     {
-                         scope.End = i;
-                         break;
-                     }
-                 }
-             }
+                if (content.Equal("{", i))
+                {
+                    if (openScopes == 0)
+                        scope = new Scope {Start = i, Text = content};
+                    openScopes = openScopes + 1;
+                }
+                if (content.Equal("}", i) && openScopes > 0)
+                {
+                    openScopes--;
+                    if (openScopes == 0)
+                    {
+                        scope.End = i;
+                        break;
+                    }
+                }
+            }
 
-             if (scope != null && openScopes > 0)
-             {
-                 scope.End = content.Length-1;
-                 Logger.Log(LogLevel.Error, "Unclosed scope: {0}", scope.ScopeText);
-             }
+            if (scope != null && openScopes > 0)
+            {
+                scope.End = content.Length - 1;
+                Logger.Log(LogLevel.Error, "Unclosed scope: {0}", scope.ScopeText);
+            }
 
-             return scope;
-         }
+            return scope;
+        }
 
         public int GetNextStringStart(string line, int startPos)
         {
             for (int i = startPos; i < line.Length; i++)
             {
-                var ch = line[i];
+                char ch = line[i];
                 if (ch == '"' || ch == '\'')
                     return i;
             }
@@ -414,7 +419,7 @@ namespace ArmA2.Script
             int startPos = 0;
             while (startPos < line.Length)
             {
-                var next = GetNextStringStart(line, startPos);
+                int next = GetNextStringStart(line, startPos);
                 if (next != -1)
                 {
                     if (next > 0)
@@ -422,8 +427,8 @@ namespace ArmA2.Script
                         line = RemoveExtraSpaces(line, startPos, next);
                         next = GetNextStringStart(line, startPos);
                     }
-                    var endStr = line.GetEndQuote(next);
-                    startPos = (endStr != -1) ? endStr+1 : line.Length;
+                    int endStr = line.GetEndQuote(next);
+                    startPos = (endStr != -1) ? endStr + 1 : line.Length;
                 }
                 else break;
             }
@@ -437,11 +442,14 @@ namespace ArmA2.Script
 
         public string RemoveExtraSpaces(string line, int startPos, int endPos)
         {
-            var removed = new[] { ">", "<", ">=", "<=", "!=", "==", "=", ",", ";", ":", "!", "(", ")", 
-                                  "{", "}", "[", "]", "+", "-", "*", "/","&&","||","|","&", "\\n"};
+            var removed = new[]
+                              {
+                                  ">", "<", ">=", "<=", "!=", "==", "=", ",", ";", ":", "!", "(", ")",
+                                  "{", "}", "[", "]", "+", "-", "*", "/", "&&", "||", "|", "&", "\\n"
+                              };
 
-            var strA = (startPos > 0) ? line.Substring(0, startPos) : string.Empty;
-            var strB = line.Substring(endPos);
+            string strA = (startPos > 0) ? line.Substring(0, startPos) : string.Empty;
+            string strB = line.Substring(endPos);
 
             string data = string.Empty;
             if (startPos != endPos)
@@ -453,9 +461,9 @@ namespace ArmA2.Script
                 {
                     length = data.Length;
                     data = data.Replace("  ", " ");
-                    removed.ForEach(m => data = data.Replace(" " + m, m).Replace(" " + m + " ", m).Replace(m + " ", m) );
+                    removed.ForEach(m => data = data.Replace(" " + m, m).Replace(" " + m + " ", m).Replace(m + " ", m));
 
-                    if (!FsmContent)
+                    if (!Settings.FsmContent)
                     {
                         data = data.Replace(";}", "}");
                     }
@@ -464,6 +472,7 @@ namespace ArmA2.Script
             }
             return strA + data + strB;
         }
+
         public string RemoveStringBreaks(string line)
         {
             line = line.Trim();
@@ -471,25 +480,25 @@ namespace ArmA2.Script
 
             while (startPos != -1)
             {
-                var str1start = GetNextStringStart(line, startPos);
+                int str1start = GetNextStringStart(line, startPos);
                 startPos = str1start;
-                var str1end = (str1start != -1) ? line.GetEndQuote(str1start) : -1;
+                int str1end = (str1start != -1) ? line.GetEndQuote(str1start) : -1;
 
                 while (str1end != -1)
                 {
-                    var str2start = GetNextStringStart(line, str1end+1);
+                    int str2start = GetNextStringStart(line, str1end + 1);
                     if (str2start == -1)
                     {
-                        startPos = str1end+1;
+                        startPos = str1end + 1;
                         break;
                     }
 
-                    var m = line.Substring(str1end+1, str2start - str1end - 1).Trim();
+                    string m = line.Substring(str1end + 1, str2start - str1end - 1).Trim();
                     if (m == @"\n")
                     {
                         line = line.Remove(str1end, str2start - str1end + 1);
-                        if (this.FsmContent)
-                        { 
+                        if (Settings.FsmContent)
+                        {
                             line = line.Insert(str1end, "\n");
                         }
                         str1end = line.GetEndQuote(str1start);
@@ -500,16 +509,9 @@ namespace ArmA2.Script
                         str1end = (str1start != -1) ? line.GetEndQuote(str1start) : -1;
                     }
                 }
-
             }
             return line.Trim();
         }
-
-        private int _count = 0;
-        public static string[] ReservedLocalVarNames = { "_this", "_x" };
-        public static string[] ReservedGlobalVarNames = 
-        { "image", "shadow", "color", "fps", "valign", "1", "isplayer" };
-        private readonly char[] _allowedVarChars = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
 
         private string GetVarName(int varId)
         {
@@ -519,7 +521,7 @@ namespace ArmA2.Script
             while (true)
             {
                 int ch1 = varId/max;
-                var ch = varId - ch1*max;
+                int ch = varId - ch1*max;
 
                 name = name + _allowedVarChars[ch];
                 if (ch1 == 0)
@@ -531,7 +533,7 @@ namespace ArmA2.Script
 
         public string GetNextLocalName()
         {
-            var varName = "_" + GetVarName(_count++).ToLower();
+            string varName = "_" + GetVarName(_count++).ToLower();
 
             if (ReservedLocalVarNames.Any(m => m == varName))
                 varName = GetNextLocalName();
