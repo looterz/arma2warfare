@@ -58,16 +58,16 @@ namespace ArmA2.Script
                     if (compileCode >= CompileCode.Error)
                     {
                         code = compileCode - CompileCode.Error;
-                        hint = "Error E";
+                        hint = "Error";
                     }
 
                     else if (compileCode >= CompileCode.Warning)
                     {
                         code = compileCode - CompileCode.Warning;
-                        hint = "Warning W";
+                        hint = "Warning";
                     }
 
-                    message = string.Format("{0}{1:d4}({2}): {3}", hint, code, compileCode, message);
+                    message = string.Format("{0} ({2}): {3}", hint, code, compileCode, message);
                 }
             }
 
