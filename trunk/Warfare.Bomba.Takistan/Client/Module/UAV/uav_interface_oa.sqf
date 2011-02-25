@@ -95,10 +95,14 @@ private ["_id","_worldpos","_marker","_markertime","_newHeight","_key","_uav"];
 		_uav flyinheight _newHeight;
 	};
 };
-_displayEH_keydown = (finddisplay 46) displayaddeventhandler ["keydown","_sqf = _this spawn BIS_UAV_HELI_keydown"];
+_displayEH_keydown = (finddisplay 46) displayaddeventhandler ["keydown","
+private['_sqf'];
+_sqf = _this spawn BIS_UAV_HELI_keydown
+"];
 
 //--- Detect pressed mouse buttons
 _displayEH_mousebuttondown = (finddisplay 46) displayaddeventhandler ["mousebuttondown","
+private['_button','_display','_controls','_control'];
 	disableserialization;
 	_button = _this select 1;
 	if (_button == 007 && !visiblemap) then {comment 'DISABLED';
@@ -116,6 +120,7 @@ _displayEH_mousebuttondown = (finddisplay 46) displayaddeventhandler ["mousebutt
 //_display = findDisplay 12;
 //_map = _display displayCtrl 51;
 _mapEH_mousebttondown = ((findDisplay 12) displayCtrl 51) ctrladdeventhandler ["mousebuttondown", "
+private['_button','_uav','_worldpos','_wp'];
 	_button = _this select 1;
 	if (_button == 0) then {
 		_uav = BIS_UAV_PLANE;
