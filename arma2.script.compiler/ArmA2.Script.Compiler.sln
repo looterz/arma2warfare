@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "program", "unittest\program
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArmA2.Script.Compiler", "arma2.script.compiler\ArmA2.Script.Compiler.csproj", "{4A0FB0DF-2585-4FB9-9865-11A6023B8D1E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTesting", "UnitTesting\UnitTesting.csproj", "{CEE7043E-72AA-4022-8F76-75E4CFBE014F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,16 @@ Global
 		{4A0FB0DF-2585-4FB9-9865-11A6023B8D1E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{4A0FB0DF-2585-4FB9-9865-11A6023B8D1E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{4A0FB0DF-2585-4FB9-9865-11A6023B8D1E}.Release|x86.ActiveCfg = Release|Any CPU
+		{CEE7043E-72AA-4022-8F76-75E4CFBE014F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEE7043E-72AA-4022-8F76-75E4CFBE014F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEE7043E-72AA-4022-8F76-75E4CFBE014F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CEE7043E-72AA-4022-8F76-75E4CFBE014F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CEE7043E-72AA-4022-8F76-75E4CFBE014F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CEE7043E-72AA-4022-8F76-75E4CFBE014F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEE7043E-72AA-4022-8F76-75E4CFBE014F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEE7043E-72AA-4022-8F76-75E4CFBE014F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CEE7043E-72AA-4022-8F76-75E4CFBE014F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{CEE7043E-72AA-4022-8F76-75E4CFBE014F}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
