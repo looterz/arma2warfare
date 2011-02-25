@@ -13,6 +13,9 @@
                 addSpace = (item == null || item is CmdSeparator) ? false : true;
             }
 
+            if (addSpace && Text == "!")
+                addSpace = false;
+
             if (addSpace)
                 writer.Write(" "); 
             

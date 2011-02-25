@@ -40,7 +40,7 @@ namespace ArmA2.Script
 
         internal static void ResetinternalUsage()
         {
-            GlobalSettings.internalVariables.ForEach(m =>
+            GlobalSettings.PublicVariables.ForEach(m =>
                                                        {
                                                            m.Regex = new Regex("\\b" + Regex.Escape(m.VarName) + "\\b",
                                                                                RegexOptions.IgnoreCase);
@@ -53,12 +53,12 @@ namespace ArmA2.Script
         internal static void AddPrivateVariablesUsageStat(string fileName)
         {
             string content = File.ReadAllText(fileName);
-            GlobalSettings.internalVariables.ForEach(m => m.UsageCount += m.Regex.Matches(content).Count);
+            GlobalSettings.PublicVariables.ForEach(m => m.UsageCount += m.Regex.Matches(content).Count);
         }
 
         internal static List<Variable> GetPrivateVarsOrderByUsage()
         {
-            return GlobalSettings.internalVariables.OrderByDescending(m => m.UsageCount).ToList();
+            return GlobalSettings.PublicVariables.OrderByDescending(m => m.UsageCount).ToList();
         }
 
         public string Compile(string content)
