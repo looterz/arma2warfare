@@ -13,7 +13,7 @@ namespace ArmA2.Script.ScriptProcessor
             if ((Arg1 is CmdString || Arg1 is CmdScopeCode) == false)
             throw new CompileException(CompileCode.CommandInvalidArgument,
                                        "arg2 EventHandler argument must be scope array or string\nAt scope:{0}",
-                                       Scope.ShortTerm);
+                                       ParentScope.ShortTerm);
 
             if (Arg1 is CmdString)
             {

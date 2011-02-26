@@ -5,7 +5,6 @@ namespace ArmA2.Script.ScriptProcessor
     internal class CmdSeparator : CmdText
     {
         private static string[] IgnoredOnRender = {" ", "\n"};
-        public static int pos = 0;
 
         public override void Render(ScriptWriter writer)
         {

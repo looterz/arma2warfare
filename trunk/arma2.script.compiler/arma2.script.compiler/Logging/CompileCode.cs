@@ -12,7 +12,7 @@
         PrivateVarUnused,
 
         Error = 10000,
-        UseUndeclaredVariable,
+        UsedNotAssigned,
         InvalidArrayElement,
         CommandInvalidArgument,
         MissingSeparator,

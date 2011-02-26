@@ -29,11 +29,11 @@ namespace ArmA2.Script.ScriptProcessor.Commands
                                    Parent.ShortTerm);
                     }
 
-                    declared = (declared || Parent.Scope.LocalVars.Any(m => m.Equal(varName.Text)));
+                    declared = (declared || Parent.ParentScope.LocalVars.Any(m => m.Equal(varName.Text)));
 
                     if (!declared)
                     {
-                        Parent.Scope.LocalVars.Add(varName.Text);
+                        Parent.ParentScope.LocalVars.Add(varName.Text);
                     }
                 }
             }

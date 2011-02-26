@@ -10,7 +10,7 @@
             if (data == null)
                 throw new CompileException(CompileCode.CommandInvalidArgument,
                                           "Private argument must be array with string names of local variables\nAt scope:{0}",
-                                          Scope.ShortTerm);
+                                          ParentScope.ShortTerm);
            
             foreach (var item in data.Commands)
             {
@@ -34,16 +34,16 @@
             if (item is CmdString == false)
                 throw new CompileException(CompileCode.InvalidArrayElement,
                                            "Element in private array is not string '{0}'\nAt scope:{1}",
-                                           item, Scope.ShortTerm);
+                                           item, ParentScope.ShortTerm);
 
             var varName = (CmdString)item;
 
-            if (Scope.PrivateVars.IsDeclared(varName.Text))
+            if (ParentScope.PrivateVars.IsDeclared(varName.Text))
                 throw new CompileException(CompileCode.PrivateVarDuplicate,
                                            "Duplicated '{0}' in private array\nAt scope:{1}",
-                                           varName.Text, Scope.ShortTerm);
+                                           varName.Text, ParentScope.ShortTerm);
 
-            Scope.PrivateVars.VarAdd(varName.Text);
+            ParentScope.PrivateVars.VarAdd(varName.Text);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace ArmA2.Script.UnitTests
 
             string[] files = args;
             if (args.Length == 0)
-                files = new[] { "1.sqf" };
+                files = new[] { "GUI_Market.sqf" };
 
             foreach (var fileName in files)
             {
