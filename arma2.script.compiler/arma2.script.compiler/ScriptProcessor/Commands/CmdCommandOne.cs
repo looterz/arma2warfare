@@ -11,7 +11,7 @@
 
             if (Arg1 == null)
                 throw new CompileException(CompileCode.CommandInvalidArgument,
-                                           "'{0}' arg1: arg1 is not defined\nAt scope:{1}", this.Text, Scope.ShortTerm);       
+                                           "'{0}' arg1: arg1 is not defined\nAt scope:{1}", this.Text, ParentScope.ShortTerm);       
         }
     }
 }

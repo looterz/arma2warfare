@@ -13,13 +13,13 @@
                 var arg1 = NextElement<CmdBase>(1);
                 if ((arg1 is CmdString || arg1 is CmdVariable) == false)
                     throw new CompileException(CompileCode.CommandInvalidArgument,
-                                               "for '_var' from, _var is not string or variable\nAt scope:{0}",
-                                               Scope.ShortTerm);
+                                               "Command \"for '_var' from\" _var must be string or variable\nAt scope:{0}",
+                                               ParentScope.ShortTerm);
 
                 if (arg1 is CmdString)
                 {
                     var varName = ((CmdString) NextElement(1)).Text;
-                    Scope.LocalVars.VarAdd(varName);
+                    ParentScope.LocalVars.VarAdd(varName);
                 }
             }
         }

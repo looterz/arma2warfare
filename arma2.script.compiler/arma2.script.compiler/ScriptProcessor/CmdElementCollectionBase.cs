@@ -13,11 +13,6 @@ namespace ArmA2.Script.ScriptProcessor
             _position = position;
         }
 
-        //internal void AddRange(IEnumerable<T> items)
-        //{
-        //    items.ForEach(m => this.Add(m));
-        //}
-
         internal CmdElementCollectionBase<T1> Select<T1>() where T1 : CmdBase
         {
             var items = new CmdElementCollectionBase<T1>();

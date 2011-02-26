@@ -8,7 +8,7 @@ namespace ArmA2.Script.ScriptProcessor
         /// <summary>
         /// Скоп которому принадлежит элемент {}, [], ()
         /// </summary>
-        internal CmdScopeBase Scope
+        internal CmdScopeBase ParentScope
         {
             get
             {

@@ -22,7 +22,7 @@ namespace ArmA2.Script.ScriptProcessor
             if (LocalVars.IsDeclared(varName))
                 return true;
 
-            return (Scope != null && !TopPrivateScope) ? Scope.IsDeclaredInOuterScope(varName) : false;
+            return (ParentScope != null && !TopPrivateScope) ? ParentScope.IsDeclaredInOuterScope(varName) : false;
         }
 
         internal UniqueVarList PrivateVars
@@ -63,10 +63,26 @@ namespace ArmA2.Script.ScriptProcessor
 
         protected virtual void CompilePrivateVar(Compiler compiler)
         {
-            if (this.Scope != null)
+            if (CompileProperties.ContainsKey("UseUndeclaredVars"))
+            {
+                UniqueVarList useUndeclaredVars = (UniqueVarList)CompileProperties["UseUndeclaredVars"];
+
+                if (useUndeclaredVars.Count() > 0)
+                {
+                    string list = "Variables used, but not have assigned: ";
+                    int i = 0;
+                    useUndeclaredVars.ForEach(m => list = list + ((i++ == 0) ? "" : ",") + string.Format("'{0}'", m));
+
+                    list = list + "\nAt Scope: " + ShortTerm + "\n";
+                    var warn = new CompileException(CompileCode.UsedNotAssigned, list);
+                    warn.WriteToLog();
+                }
+            }
+
+            if (this.ParentScope != null)
             {
                 var undeclared = LocalVars.Where(localVar => !PrivateVars.IsDeclared(localVar));
-                undeclared.ForEach(n => this.Scope.LocalVars.VarAdd(n));
+                undeclared.ForEach(n => this.ParentScope.LocalVars.VarAdd(n));
             }
         }
 
@@ -82,6 +98,9 @@ namespace ArmA2.Script.ScriptProcessor
                 writer.Minimized = false;
 
             bool addIndent = !writer.Minimized;
+            if (this is CmdScopeCodeRoot && this.Parent == null)
+                addIndent = false;
+
             writer.WriteIndent(true, OpenCh);
             if (addIndent) 
                 writer.Indent++;

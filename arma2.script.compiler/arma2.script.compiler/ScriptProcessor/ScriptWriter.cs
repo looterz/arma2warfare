@@ -4,12 +4,25 @@ namespace ArmA2.Script.ScriptProcessor
 {
     internal class ScriptWriter : StreamWriter
     {
-        private int _indent = 0;
+        internal bool ApplyMinimize;
 
-        internal bool ApplyMinimize = false;
+        internal bool Minimized;
+        private int _indent;
 
-        internal int Indent { get { return _indent; } set { _indent = (value >= 0) ? value : 0; } }
-        internal bool Minimized = false;
+        internal ScriptWriter(Stream stream, bool renderMinimized) : base(stream)
+        {
+            NewLine = "\n";
+            ApplyMinimize = renderMinimized;
+        }
+
+        internal int Indent
+        {
+            get { return _indent; }
+            set
+            {
+                _indent = (value >= 0) ? value : 0;
+            }
+        }
 
         internal void WriteIndent(bool allowIdent, string content, params object[] args)
         {
@@ -24,17 +37,11 @@ namespace ArmA2.Script.ScriptProcessor
             if (!ApplyMinimize && !Minimized && allowIdent)
             {
                 base.WriteLine();
-                var indent = Indent;
+                int indent = Indent;
                 while (indent-- > 0)
                     base.Write("    ");
             }
             base.Write(content);
-        }
-
-        internal ScriptWriter(Stream stream, bool renderMinimized) : base(stream)
-        {
-            NewLine = "\n";
-            ApplyMinimize = renderMinimized;
         }
     }
 }

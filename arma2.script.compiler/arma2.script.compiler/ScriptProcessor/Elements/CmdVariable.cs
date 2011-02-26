@@ -13,9 +13,9 @@
 
             if (IsLocal)
             {
-                if (!Scope.LocalVars.IsDeclared(Text) && compiler.Settings.ApplyPrivateVars)
+                if (!ParentScope.LocalVars.IsDeclared(Text) && compiler.Settings.ApplyPrivateVars)
                 {
-                    if (Scope.IsDeclaredInOuterScope(Text))
+                    if (ParentScope.IsDeclaredInOuterScope(Text))
                     {
                         return;
                         //throw new CompileException(CompileCode.OutOfScopeDeclaration,
@@ -23,17 +23,17 @@
                         //           Text, Scope.ShortTerm);
                     }
 
-                    if (!Scope.CompileProperties.ContainsKey("UndeclaredVars"))
-                        Scope.CompileProperties.Add("UndeclaredVars", new UniqueVarList());
+                    if (!ParentScope.CompileProperties.ContainsKey("UseUndeclaredVars"))
+                        ParentScope.CompileProperties.Add("UseUndeclaredVars", new UniqueVarList());
 
-                    UniqueVarList varList = (UniqueVarList)Scope.CompileProperties["UndeclaredVars"];
+                    UniqueVarList varList = (UniqueVarList)ParentScope.CompileProperties["UseUndeclaredVars"];
 
                     if (!varList.IsDeclared(Text))
                     {
                         varList.VarAdd(Text);
-                        throw new CompileException(CompileCode.UseUndeclaredVariable,
-                                                   "Use undeclared variable '{0}'\nAt scope:{1}",
-                                                   Text, Scope.ShortTerm);
+                        //throw new CompileException(CompileCode.UsedNotAssigned,
+                        //                           "Use undeclared variable '{0}'\nAt scope:{1}",
+                        //                           Text, ParentScope.ShortTerm);
                     }
                 }
             }

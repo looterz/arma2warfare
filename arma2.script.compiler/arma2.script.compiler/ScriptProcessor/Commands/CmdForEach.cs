@@ -12,7 +12,7 @@
 
             if (!(Arg2 is CmdScopeCode || Arg2 is CmdVariable))
                 throw new CompileException(CompileCode.CommandInvalidArgument,
-                    "arg2 {0} arg1: arg2 must be code scope or variable\nAt scope:{1}", Text, Scope.ShortTerm);
+                    "arg2 {0} arg1: arg2 must be code scope or variable\nAt scope:{1}", Text, ParentScope.ShortTerm);
         }
     }
 }

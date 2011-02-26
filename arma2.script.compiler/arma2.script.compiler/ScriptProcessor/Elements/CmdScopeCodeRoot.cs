@@ -67,7 +67,7 @@ namespace ArmA2.Script.ScriptProcessor
             UniqueVarList considerLocals = new UniqueVarList();
             if (considerParent)
             {
-                var parentScope = this.Scope;
+                var parentScope = this.ParentScope;
                 while (parentScope != null)
                 {
                     if (parentScope.HasLocalVars)
@@ -77,7 +77,7 @@ namespace ArmA2.Script.ScriptProcessor
 
                     if (parentScope.TopPrivateScope)
                         break;
-                    parentScope = parentScope.Scope;
+                    parentScope = parentScope.ParentScope;
                 }
             }
 
