@@ -16,7 +16,7 @@ namespace ArmA2.Script.ScriptProcessor.Commands
             {
                 var arg1 = NextElement<CmdBase>(1);
                 if ((arg1 is CmdString || arg1 is CmdVariable) == false)
-                    throw new CompileException(CompileCode.CommandInvalidArgument,
+                    throw new CompileException(CState.CommandInvalidArgument,
                                                "Command \"for '_var' from\" _var must be string or variable\nAt scope:{0}",
                                                ParentScope.ShortTerm);
 

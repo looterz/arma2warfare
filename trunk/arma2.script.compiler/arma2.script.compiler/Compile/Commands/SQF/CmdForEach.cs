@@ -15,7 +15,7 @@ namespace ArmA2.Script.ScriptProcessor.Commands
             //        "arg2 {0} arg1: arg1 must be array|expression|code scope|variable\nAt scope:{1}", Text, Scope.ShortTerm);
 
             if (!(Arg2 is CmdScopeCode || Arg2 is CmdVariable))
-                throw new CompileException(CompileCode.CommandInvalidArgument,
+                throw new CompileException(CState.CommandInvalidArgument,
                     "arg2 {0} arg1: arg2 must be code scope or variable\nAt scope:{1}", Text, ParentScope.ShortTerm);
         }
     }

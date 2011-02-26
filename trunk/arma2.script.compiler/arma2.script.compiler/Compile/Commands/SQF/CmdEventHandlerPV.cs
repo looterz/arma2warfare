@@ -14,7 +14,7 @@ namespace ArmA2.Script.ScriptProcessor
 
             // "NETSEND_BROADCAST" addinternalVariableEventHandler {(_this select 1) spawn NetSend_HandleMessage; };
             if ((Arg1 is CmdString || Arg1 is CmdScopeCode) == false)
-            throw new CompileException(CompileCode.CommandInvalidArgument,
+            throw new CompileException(CState.CommandInvalidArgument,
                                        "arg2 EventHandler argument must be scope array or string\nAt scope:{0}",
                                        ParentScope.ShortTerm);
 

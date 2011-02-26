@@ -11,7 +11,7 @@ namespace ArmA2.Script.ScriptProcessor.Commands
 
             if (Arg1 is CmdCommand && ((CmdCommand)Arg1).Text.Equal("format"))
             {
-                Logger.Log(LogLevel.Warning, CompileCode.PerfomanceIssue,
+                Logger.Log(LogLevel.Warning, CState.PerfomanceIssue,
                     "Possible performance degradation: {0}", Parent.ToString());
                 return;
             }

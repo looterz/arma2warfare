@@ -21,7 +21,7 @@ namespace ArmA2.Script.ScriptProcessor.Commands
 
             if (Arg2 == null)
             {
-                throw new CompileException(CompileCode.CommandInvalidArgument,
+                throw new CompileException(CState.CommandInvalidArgument,
                                            "arg2 {0} arg1: arg2 is not defined\nAt scope:{1}", Text,
                                            ParentScope.ShortTerm);
             }

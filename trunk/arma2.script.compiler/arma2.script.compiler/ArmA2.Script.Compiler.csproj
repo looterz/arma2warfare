@@ -68,7 +68,7 @@
     <Compile Include="Compile\Compiler.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Logging\LogLevel.cs" />
-    <Compile Include="Logging\CompileCode.cs" />
+    <Compile Include="Compile\CState.cs" />
     <Compile Include="Compile\Commands\SQF\CmdCommandOne.cs" />
     <Compile Include="Compile\Commands\SQF\CmdCommandTwo.cs" />
     <Compile Include="Compile\Commands\SQF\CmdCompile.cs" />

@@ -321,13 +321,13 @@ namespace ArmA2.Script.Compile
             FsmClass fsmClass = rootScope.ClassList["FSM"];
             if (fsmClass == null)
             {
-                throw new CompileException(CompileCode.FsmMissedClass, "root Class FSM not found");
+                throw new CompileException(CState.FsmMissedClass, "root Class FSM not found");
             }
 
             FsmClass statesClass = fsmClass.ClassList["States"];
             if (statesClass == null)
             {
-                throw new CompileException(CompileCode.FsmMissedClass, "statesClass Class not found");
+                throw new CompileException(CState.FsmMissedClass, "statesClass Class not found");
             }
 
             fsmClass.States = statesClass;
@@ -335,20 +335,20 @@ namespace ArmA2.Script.Compile
             FsmProperty propInit = fsmClass.PropertyList["InitState"];
             if (propInit == null)
             {
-                throw new CompileException(CompileCode.FsmMissedProperty, "InitState property not found");
+                throw new CompileException(CState.FsmMissedProperty, "InitState property not found");
             }
 
             var initClassName = propInit.GetValue<CmdString>();
             if (initClassName == null)
             {
-                throw new CompileException(CompileCode.FsmInvalidValueType,
+                throw new CompileException(CState.FsmInvalidValueType,
                                            "InitState invalid value type must be string");
             }
 
             FsmClass initClass = fsmClass.States.ClassList[initClassName.Text];
             if (initClass == null)
             {
-                throw new CompileException(CompileCode.FsmMissedClass, "class '{0}' not found", initClassName.Text);
+                throw new CompileException(CState.FsmMissedClass, "class '{0}' not found", initClassName.Text);
             }
 
             IEnumerable<CmdBase> assignList =

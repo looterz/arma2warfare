@@ -12,7 +12,7 @@ namespace ArmA2.Script.ScriptProcessor.Commands
 
             var data = NextElement<CmdScopeArray>(1);
             if (data == null)
-                throw new CompileException(CompileCode.CommandInvalidArgument,
+                throw new CompileException(CState.CommandInvalidArgument,
                                           "Private argument must be array with string names of local variables\nAt scope:{0}",
                                           ParentScope.ShortTerm);
            
@@ -36,14 +36,14 @@ namespace ArmA2.Script.ScriptProcessor.Commands
         private void CompilePrivateArrayItem(CmdBase item)
         {
             if (item is CmdString == false)
-                throw new CompileException(CompileCode.InvalidArrayElement,
+                throw new CompileException(CState.InvalidArrayElement,
                                            "Element in private array is not string '{0}'\nAt scope:{1}",
                                            item, ParentScope.ShortTerm);
 
             var varName = (CmdString)item;
 
             if (ParentScope.PrivateVars.IsDeclared(varName.Text))
-                throw new CompileException(CompileCode.PrivateVarDuplicate,
+                throw new CompileException(CState.PrivateVarDuplicate,
                                            "Duplicated '{0}' in private array\nAt scope:{1}",
                                            varName.Text, ParentScope.ShortTerm);
 

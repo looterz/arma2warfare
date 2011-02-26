@@ -17,14 +17,14 @@ namespace ArmA2.Script.ScriptProcessor
             var arg1 = NextElement<CmdScopeArray>(1);
             if (arg1 == null)
             {
-                throw new CompileException(CompileCode.CommandInvalidArgument,
+                throw new CompileException(CState.CommandInvalidArgument,
                                            "EventHandler argument must be array\nAt scope:{0}",
                                            ParentScope.ShortTerm);
             }
 
             if (arg1.Commands.Count < 2)
             {
-                throw new CompileException(CompileCode.CommandInvalidArgument,
+                throw new CompileException(CState.CommandInvalidArgument,
                                            "EventHandler array must have at least 2 arguments\nAt scope:{0}",
                                            ParentScope.ShortTerm);
             }
@@ -34,14 +34,14 @@ namespace ArmA2.Script.ScriptProcessor
 
             if (!(eventName is CmdString || eventName is CmdVariable))
             {
-                throw new CompileException(CompileCode.CommandInvalidArgument,
+                throw new CompileException(CState.CommandInvalidArgument,
                                            "EventHandler argument 1 must be string or variable\nAt scope:{0}",
                                            ParentScope.ShortTerm);
             }
 
             if (!(eventHanlder is CmdString || eventHanlder is CmdVariable || eventHanlder is CmdScopeCode))
             {
-                throw new CompileException(CompileCode.CommandInvalidArgument,
+                throw new CompileException(CState.CommandInvalidArgument,
                                            "EventHandler argument 1 must be string, variable or code scope\nAt scope:{0}",
                                            ParentScope.ShortTerm);
             }

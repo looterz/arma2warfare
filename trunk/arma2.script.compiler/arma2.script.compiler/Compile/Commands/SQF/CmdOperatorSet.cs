@@ -27,7 +27,7 @@ namespace ArmA2.Script.ScriptProcessor.Commands
 
                     if (declared)
                     {
-                        Logger.Log(LogLevel.Warning, CompileCode.AssigmentToReserved, "Assignment to reserved variable: {0}",
+                        Logger.Log(LogLevel.Warning, CState.AssigmentToReserved, "Assignment to reserved variable: {0}",
                                    Parent.ShortTerm);
                     }
 
