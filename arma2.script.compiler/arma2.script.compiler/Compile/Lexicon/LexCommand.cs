@@ -1,5 +1,5 @@
-﻿using ArmA2.Script.ScriptProcessor;
-using ArmA2.Script.ScriptProcessor.Commands;
+﻿using ArmA2.Script.Compile.Commands.SQF;
+using ArmA2.Script.ScriptProcessor;
 
 namespace ArmA2.Script.Compile.Lexicon
 {

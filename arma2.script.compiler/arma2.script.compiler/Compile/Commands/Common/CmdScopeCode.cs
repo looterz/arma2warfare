@@ -37,7 +37,7 @@ namespace ArmA2.Script.Compile.Commands.Common
 
                 if (!bClosed)
                 {
-                    throw new CompileException(CState.MissingSeparator,
+                    throw new CompileException(CompileCode.MissingSeparator,
                         "Missing ; at end scope\nAt scope {0}",
                         ShortTerm);
                 }

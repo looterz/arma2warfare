@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using ArmA2.Script.Compile.Collections;
+using ArmA2.Script.Compile.Commands.SQF;
 using ArmA2.Script.Compile.TextWriters;
 using ArmA2.Script.ScriptProcessor;
-using ArmA2.Script.ScriptProcessor.Commands;
 
 namespace ArmA2.Script.Compile.Commands.Common
 {
