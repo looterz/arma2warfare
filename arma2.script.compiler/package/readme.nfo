@@ -1,0 +1,71 @@
+ArmA2 Script Compiler, Version 0.1 
+(C) Evgeny Zyuzin, 2011. All rights reserved 
+
+The solution is designed as standalone script compiler/syntax checker for ArmA2. 
+This is partial syntax checker, so it not cover checking all function arguments and arguments types;
+
+Allowed file types: .sqf, .fsm 
+FSM path tracing - all avaible paths routing and script checking.
+FSM extract script definition and check it as regular .sqf and check in common context of FSM file;
+
+
+REQUIREMENTS 
+------------
+Microsoft .NET Framework 3.5 
+PowerShell 2.0 (required to launch an example) 
+
+USAGE 
+-----
+Examine the file sample.ps1, it contains a typical usage: a compilation set of scripts from ArmA2 mission folder 
+
+Run the file compile.bat or .\sample.ps1 from PowerShell console
+By default will compiled mission scripts from folder sampleMission
+
+warning:
+Script sample.ps1 not signed with certificate, so you propably get PowerShell error about restriction to run unsigned scripts. 
+
+To resolve this issue, execute follow the command with administrator privileges in powershell console
+Set-ExecutionPolicytionPolicy-ExecutionPolicy ByPass 
+
+or sign a file sample.ps1 with your trusted certificate.
+
+CHECKED WARNING AND ERRORS:
+---------------------------
+* Possible Perfomance Degradade
+* Out Of Function Scope Variable Declaration
+* Assigment To Reserved Variable Name,
+* Not declared as Private Var
+* Duplicate declaration as Private Var
+* Declared as private but never Used
+
+* Variable used but not have assign prior
+* Invalid Array ElementType for some operations
+* Command Invalid Argument,
+* Missing Separator
+
+* FsmMissedProperty,
+* FsmMissedClass,
+* FsmInvalidValueType
+
+COMPILE RESULT SAMPLE
+------------------------
+ArmA2 Script Compiler, Version 0.1
+(C) Evgeny Zyuzin, 2011. All rights reserved
+
+Compile: C:\Users\Administrator\AppData\Local\Temp\_sampleM ission.compiled\initJIPCompatible.sqf
+warning CS104: PrivateVarUndeclared
+Not declared as private: '_u'
+At Scope: 
+if(!isServer || local player)then
+{
+waitUntil{!isNull(player)};
+12452 cutText[(localize 'STR_WF_Loading') + "...", "BLACK FADED", 0]
+};
+setVi
+...
+
+DOWNLOADS:
+ - http://code.google.com/p/arma2warfare/downloads/list
+ 
+CONTACT:
+ - mailto: eaz@nm.ru
