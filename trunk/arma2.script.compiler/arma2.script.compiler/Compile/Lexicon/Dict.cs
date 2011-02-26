@@ -5,18 +5,18 @@ using ArmA2.Script.Compile.Lexicon;
 
 namespace ArmA2.Script.Compile
 {
-    internal partial class Processor
+    internal class Dict
     {
         #region Поля класса
 
-        private static List<string> _operators;
+        private List<string> _operators;
         private List<Function> _functions;
 
         #endregion
 
         #region Свойства класса
 
-        internal static List<string> Operators
+        internal List<string> Operators
         {
             get
             {
@@ -44,7 +44,7 @@ namespace ArmA2.Script.Compile
 
         #region Методы класса
 
-        internal static bool IsOperator(string value)
+        internal bool IsOperator(string value)
         {
             value = value.ToLower().Trim();
             return Operators.Any(m => m == value);
@@ -62,7 +62,7 @@ namespace ArmA2.Script.Compile
             return Functions.FirstOrDefault(m => m.Name.Equal(name));
         }
 
-        private static List<string> ReadUniqueItemCollection(string content, string warningMessage)
+        private List<string> ReadUniqueItemCollection(string content, string warningMessage)
         {
             IEnumerable<string[]> items =
                 content.Split("\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(

@@ -8,18 +8,18 @@ namespace ArmA2.Script.Compile.Commands.Common
 {
     internal class CmdScopeCodeRoot : CmdScopeBase
     {
-        private readonly Processor _processor;
+        private readonly Parser _parser;
 
-        internal CmdScopeCodeRoot(Processor p)
+        internal CmdScopeCodeRoot(Parser p)
         {
-            _processor = p;
+            _parser = p;
             OpenCh = "";
             EndCh = "";
         }
 
-        internal override Processor Processor
+        internal override Parser Parser
         {
-            get { return _processor ?? base.Processor; }
+            get { return _parser ?? base.Parser; }
         }
 
         protected override void CompileInternal(Compiler compiler)
@@ -67,7 +67,7 @@ namespace ArmA2.Script.Compile.Commands.Common
 
         internal void ApplyPrivateVar(bool considerParent, Compiler compiler)
         {
-            UniqueVarList considerLocals = new UniqueVarList(Processor.Compiler);
+            UniqueVarList considerLocals = new UniqueVarList(Parser.Compiler);
             if (considerParent)
             {
                 var parentScope = this.ParentScope;

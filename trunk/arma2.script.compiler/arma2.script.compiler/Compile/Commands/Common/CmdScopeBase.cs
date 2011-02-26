@@ -34,7 +34,7 @@ namespace ArmA2.Script.Compile.Commands.Common
             get
             {
                 if (_privateVars == null)
-                    _privateVars = new UniqueVarList(Processor.Compiler);
+                    _privateVars = new UniqueVarList(Parser.Compiler);
 
                 return _privateVars;
             }
@@ -45,7 +45,7 @@ namespace ArmA2.Script.Compile.Commands.Common
             get
             {
                 if (_localVars == null)
-                    _localVars = new UniqueVarList(Processor.Compiler);
+                    _localVars = new UniqueVarList(Parser.Compiler);
 
                 return _localVars;
             }

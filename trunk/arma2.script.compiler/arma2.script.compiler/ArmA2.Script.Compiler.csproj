@@ -107,8 +107,8 @@
     <Compile Include="Compile\Collections\INamedItem.cs" />
     <Compile Include="Compile\Collections\NamedList.cs" />
     <Compile Include="Compile\TextWriters\IScriptRenderer.cs" />
-    <Compile Include="Compile\ListBase.cs" />
-    <Compile Include="Compile\Processor.cs" />
+    <Compile Include="Compile\Lexicon\Dict.cs" />
+    <Compile Include="Compile\Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Compile\Lexicon\LexCommand.cs" />
     <Compile Include="Compile\Lexicon\LexOperator.cs" />
@@ -119,9 +119,7 @@
   <ItemGroup>
     <None Include="arma2.snk" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ScriptProcessor\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
