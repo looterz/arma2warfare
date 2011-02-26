@@ -1,14 +1,10 @@
-﻿using ArmA2.Script.Compile;
-
-namespace ArmA2.Script
+﻿namespace ArmA2.Script
 {
-    public class CompileSettings
+    public class CompilerSettings
     {
         #region Поля класса
 
         internal bool ApplyPrivateVars = true;
-
-        public CompileContext CompileContext = new CompileContext();
 
         public string FileName = string.Empty;
         public bool FsmContent;
@@ -45,9 +41,9 @@ namespace ArmA2.Script
 
         #region Методы класса
 
-        internal CompileSettings Clone()
+        internal CompilerSettings Clone()
         {
-            return (CompileSettings) MemberwiseClone();
+            return (CompilerSettings) MemberwiseClone();
         }
 
         #endregion
