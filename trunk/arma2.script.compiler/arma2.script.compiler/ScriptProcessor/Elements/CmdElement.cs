@@ -134,6 +134,9 @@ namespace ArmA2.Script.ScriptProcessor
         {
             base.Render(writer);
             Items.Render(writer);
+
+            //if (Items.Any(m => m is CmdPreprocessor))
+            //    writer.WriteIndent(true, "");
         }
 
         protected override void CompileInternal(Compiler compiler)
