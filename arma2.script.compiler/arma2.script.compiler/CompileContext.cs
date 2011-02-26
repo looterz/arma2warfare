@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace ArmA2.Script
 {
-    public class GlobalSettings
+    public class CompileContext
     {
         public static List<Variable> PublicVariables = new List<Variable>();
         public static List<string> ExcludePhrases = new List<string>();
