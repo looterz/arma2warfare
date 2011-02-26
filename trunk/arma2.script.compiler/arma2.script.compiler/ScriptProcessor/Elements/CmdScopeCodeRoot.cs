@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using ArmA2.Script.Compile;
 using ArmA2.Script.ScriptProcessor.Commands;
 
 namespace ArmA2.Script.ScriptProcessor
@@ -56,7 +57,7 @@ namespace ArmA2.Script.ScriptProcessor
                 warn.WriteToLog();
             }
 
-            if ((TopPrivateScope || considerParent) && compiler.Settings.ApplyPrivateVars)
+            if ((TopPrivateScope || considerParent) && compiler.Settings.UpdatePrivateVars)
                 ApplyPrivateVar(considerParent, compiler);
 
             base.CompilePrivateVar(compiler);

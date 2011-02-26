@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using ArmA2.Script.Compile;
 using ArmA2.Script.ScriptProcessor.Elements;
 
 namespace ArmA2.Script.ScriptProcessor

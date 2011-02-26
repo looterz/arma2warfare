@@ -1,4 +1,6 @@
-﻿namespace ArmA2.Script.ScriptProcessor.Commands
+﻿using ArmA2.Script.Compile;
+
+namespace ArmA2.Script.ScriptProcessor.Commands
 {
     internal class CmdCompile : CmdCommandOne
     {
@@ -24,7 +26,7 @@
 
                 compiler.PushSettings();
 
-                    compiler.Settings.ApplyPrivateVars = applyPrivate;
+                    compiler.Settings.UpdatePrivateVars = applyPrivate;
                     compiler.Settings.ScriptMinimized = true;
 
                     contentPartial = compiler.CompilePartial(contentPartial, null);

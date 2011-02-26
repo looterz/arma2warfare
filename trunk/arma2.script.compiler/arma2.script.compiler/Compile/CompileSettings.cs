@@ -1,10 +1,10 @@
-﻿namespace ArmA2.Script
+﻿namespace ArmA2.Script.Compile
 {
     public class CompileSettings
     {
         #region Поля класса
 
-        internal bool ApplyPrivateVars = true;
+        internal bool UpdatePrivateVars = true;
 
         public string FileName = string.Empty;
         public bool FsmContent;

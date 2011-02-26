@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Text.RegularExpressions;
 
-namespace ArmA2.Script
+namespace ArmA2.Script.Compile
 {
     public class CompileContext
     {

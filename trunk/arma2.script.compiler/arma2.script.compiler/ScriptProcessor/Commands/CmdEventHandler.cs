@@ -1,4 +1,5 @@
-﻿using ArmA2.Script.ScriptProcessor.Commands;
+﻿using ArmA2.Script.Compile;
+using ArmA2.Script.ScriptProcessor.Commands;
 
 namespace ArmA2.Script.ScriptProcessor
 {
@@ -52,7 +53,7 @@ namespace ArmA2.Script.ScriptProcessor
 
                 compiler.PushSettings();
                 compiler.Settings.ScriptMinimized = true;
-                compiler.Settings.ApplyPrivateVars = true;
+                compiler.Settings.UpdatePrivateVars = true;
 
                 contentPartial = compiler.CompilePartial(contentPartial, null);
                 compiler.PopSettings();

@@ -1,4 +1,6 @@
-﻿namespace ArmA2.Script.ScriptProcessor.Commands
+﻿using ArmA2.Script.Compile;
+
+namespace ArmA2.Script.ScriptProcessor.Commands
 {
     internal class CmdCommandOne : CmdCommand
     {
