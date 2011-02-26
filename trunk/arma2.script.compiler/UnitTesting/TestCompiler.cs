@@ -190,13 +190,14 @@ switch (_respawnCampsMode) do {
         [Test]
         public void TestComplexFilePatterns()
         {
-            GlobalSettings.ExcludeLines.Clear();
-            GlobalSettings.ExcludeLines.Add("PROFILER_BEGIN");
-            GlobalSettings.ExcludeLines.Add("PROFILER_END");
-            GlobalSettings.ExcludeLines.Add(@"profiler.sqf");
-            GlobalSettings.ExcludeLines.Add(@"profiler.h");
-            GlobalSettings.ExcludeLines.Add(@"!isNil ""initProfiler""");
-            GlobalSettings.ExcludeLines.Add(@"call Log(Inform|High|Medium|Warning|Error|Trace|Unexpected|Notify)(?:[^\w])");
+            CompileContext ctx = new CompileContext();
+            ctx.ExcludeLines.Clear();
+            ctx.ExcludeLines.Add("PROFILER_BEGIN");
+            ctx.ExcludeLines.Add("PROFILER_END");
+            ctx.ExcludeLines.Add(@"profiler.sqf");
+            ctx.ExcludeLines.Add(@"profiler.h");
+            ctx.ExcludeLines.Add(@"!isNil ""initProfiler""");
+            ctx.ExcludeLines.Add(@"call Log(Inform|High|Medium|Warning|Error|Trace|Unexpected|Notify)(?:[^\w])");
 
             var path = Path.Combine(Environment.CurrentDirectory, "..\\..\\tests\\");
             var files = Directory.GetFiles(path).Where(m => !Path.GetFileNameWithoutExtension(m).EndsWith(".a") && 
@@ -206,11 +207,10 @@ switch (_respawnCampsMode) do {
 
             foreach(var file in files)
             {
-                //var file = @"c:\Users\Evgeny_Zyuzin\Documents\ArmA 2 Other Profiles\Bomba\missions\arma2.script.compiler\unittest\tests\A00.sqf";
                 Logger.ResetError();
 
-                //Console.SetOut(new StringWriter(new StringBuilder()));
                 Compiler compiler = new Compiler();
+                compiler.Context = ctx;
                 compiler.Settings.FsmContent = (Path.GetExtension(file).ToLower() == ".fsm");
                 compiler.Settings.FileName = Path.GetFileName(file);
 

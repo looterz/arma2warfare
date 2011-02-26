@@ -22,16 +22,19 @@ namespace ArmA2.Script.UnitTests
             foreach (var fileName in files)
             {
                 string content = File.ReadAllText(fileName);
-                GlobalSettings.ExcludeLines.Add("PROFILER_BEGIN");
-                GlobalSettings.ExcludeLines.Add("PROFILER_END");
-                GlobalSettings.ExcludeLines.Add(@"profiler.sqf");
-                GlobalSettings.ExcludeLines.Add(@"profiler.h");
-                GlobalSettings.ExcludeLines.Add(@"!isNil ""initProfiler""");
-
-                GlobalSettings.ExcludeLines.Add(@"call Log(High|Inform|Medium|Warning|Trace)");
-                GlobalSettings.ExcludeLines.Add(@"""(?:[^""\\]|\\.|\""\"")*""\s*call Log(High|Inform|Medium|Warning|Trace)");
-                GlobalSettings.ExcludeLines.Add(@"'(?:[^'\\]|\\.|'')*'\s*call Log(High|Inform|Medium|Warning|Trace)");
                 Compiler compiler = new Compiler();
+                var excluded = compiler.Context.ExcludeLines;
+
+                excluded.Add("PROFILER_BEGIN");
+                excluded.Add("PROFILER_END");
+                excluded.Add(@"profiler.sqf");
+                excluded.Add(@"profiler.h");
+                excluded.Add(@"!isNil ""initProfiler""");
+
+                excluded.Add(@"call Log(High|Inform|Medium|Warning|Trace)");
+                excluded.Add(@"""(?:[^""\\]|\\.|\""\"")*""\s*call Log(High|Inform|Medium|Warning|Trace)");
+                excluded.Add(@"'(?:[^'\\]|\\.|'')*'\s*call Log(High|Inform|Medium|Warning|Trace)");
+
                 compiler.Settings.FileName = fileName;
                 compiler.Settings.FsmContent = (Path.GetExtension(fileName).ToLower() == ".fsm");
                 compiler.Settings.EnableMinimization = false;

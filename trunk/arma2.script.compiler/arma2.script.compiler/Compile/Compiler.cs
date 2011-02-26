@@ -11,9 +11,6 @@ namespace ArmA2.Script
     {
         #region Поля класса
 
-        internal static string[] ReservedGlobalVarNames =
-            {"image", "shadow", "color", "fps", "valign", "1", "isplayer"};
-
         internal static string[] ReservedLocalVarNames = {"_this", "_x"};
 
         private readonly char[] _allowedVarChars = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
@@ -24,6 +21,8 @@ namespace ArmA2.Script
 
         #region Свойства класса
 
+        public CompileContext Context { get; set; }
+
         public CompileSettings Settings { get; set; }
 
         #endregion
@@ -33,6 +32,7 @@ namespace ArmA2.Script
         public Compiler()
         {
             Settings = new CompileSettings();
+            Context = new CompileContext();
         }
 
         #endregion
@@ -60,9 +60,9 @@ namespace ArmA2.Script
             }
         }
 
-        internal static void ResetinternalUsage()
+        internal void ResetinternalUsage()
         {
-            CompileContext.PublicVariables.ForEach(m =>
+            Context.PublicVariables.ForEach(m =>
             {
                 m.Regex = new Regex("\\b" + Regex.Escape(m.VarName) + "\\b",
                                     RegexOptions.IgnoreCase);
@@ -70,15 +70,15 @@ namespace ArmA2.Script
             });
         }
 
-        internal static void AddPrivateVariablesUsageStat(string fileName)
+        internal void AddPrivateVariablesUsageStat(string fileName)
         {
             string content = File.ReadAllText(fileName);
-            CompileContext.PublicVariables.ForEach(m => m.UsageCount += m.Regex.Matches(content).Count);
+            Context.PublicVariables.ForEach(m => m.UsageCount += m.Regex.Matches(content).Count);
         }
 
-        internal static List<Variable> GetPrivateVarsOrderByUsage()
+        internal List<Variable> GetPrivateVarsOrderByUsage()
         {
-            return CompileContext.PublicVariables.OrderByDescending(m => m.UsageCount).ToList();
+            return Context.PublicVariables.OrderByDescending(m => m.UsageCount).ToList();
         }
 
         public string Compile(string content)
@@ -212,7 +212,7 @@ namespace ArmA2.Script
             content1 = content1.Where(m => m.Trim().Length > 0).Select(m => m.Trim());
             if (!Settings.FsmContent)
             {
-                content1 = content1.Where(m => !CompileContext.ExcludeLines.Any(n => new Regex(n).IsMatch(m)));
+                content1 = content1.Where(m => !Context.ExcludeLines.Any(n => new Regex(n).IsMatch(m)));
             }
 
             string contentText = "";
@@ -283,7 +283,7 @@ namespace ArmA2.Script
         {
             contentText = RemoveEmptyLines(contentText);
             string text = contentText;
-            CompileContext.ExcludePhrases.ForEach(m =>
+            Context.ExcludePhrases.ForEach(m =>
             {
                 var regex = new Regex(m);
                 text = regex.Replace(text, "");
