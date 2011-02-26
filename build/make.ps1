@@ -57,194 +57,67 @@ function EntryPoint
 
 function preprocess-mission {
 
-	Remove-Item -path $tmpfolder -Recurse -Force -ErrorAction SilentlyContinue;
-	$null = new-item -type directory -path $tmpfolder;
+	Write-Host --- ([DateTime]::Now.ToLongTimeString()) Compile Started: ([IO.Path]::GetFileName($source))
+	Write-Host ---
 
-	#-- copy source files to build folder
-	copy-files -source $source -destination $tmpfolder;
+	Write-Host "Copy mission files to temporary folder... " -NoNewline
+		Remove-Item -path $tmpfolder -Recurse -Force -ErrorAction SilentlyContinue;
+		$null = new-item -type directory -path $tmpfolder;
 
-	#-- remove debug files
-	dir -Path $tmpfolder -Recurse | Where {$_.Name -eq "profiler.h"} | Foreach-Object { Remove-Item $_.FullName };
-	Remove-Item $tmpfolder\profiler.sqf
+		#-- copy source files to build folder
+		copy-files -source $source -destination $tmpfolder;
+
+		#-- remove debug files
+		dir -Path $tmpfolder -Recurse | Where {$_.Name -eq "profiler.h"} | Foreach-Object { Remove-Item $_.FullName };
+		Remove-Item $tmpfolder\profiler.sqf
+	Write-Host Done
+	Write-Host 
+
+	[ArmA2.Script.Logger]::Clear();
+	[ArmA2.Script.Logger]::EnableLogToFile = $true;
+	[ArmA2.Script.Logger]::LogFileName = "arma2.script.compile.log";
 	
-
+	$compiler = New-Object ArmA2.Script.Compile.Compiler;
+	$compiler.Settings.EnableMinimization = $false;
+	
 	[ArmA2.Script.Logger]::WarningDisabled.Clear();
-	[ArmA2.Script.Logger]::WarningDisabled.Add([ArmA2.Script.CompileCode]::PerfomanceIssue);
+	[ArmA2.Script.Logger]::WarningDisabled.Add([ArmA2.Script.Compile.CompileCode]::PerfomanceIssue);
 	
-	[ArmA2.Script.GlobalSettings]::PublicVariables.Clear();
-	[ArmA2.Script.GlobalSettings]::ExcludePhrases.Clear();
-	[ArmA2.Script.GlobalSettings]::ExcludeLines.Clear();
+	$context = $compiler.Context;
 	
-     [ArmA2.Script.GlobalSettings]::ExcludeLines.Add("PROFILER_BEGIN");
-     [ArmA2.Script.GlobalSettings]::ExcludeLines.Add("PROFILER_END");
-     [ArmA2.Script.GlobalSettings]::ExcludeLines.Add("profiler.sqf");
-     [ArmA2.Script.GlobalSettings]::ExcludeLines.Add("profiler.h");
-     [ArmA2.Script.GlobalSettings]::ExcludeLines.Add("!isNil `"initProfiler`"");
-	 [ArmA2.Script.GlobalSettings]::ExcludeLines.Add("!isNil `"LogInited`"");
-	 [ArmA2.Script.GlobalSettings]::ExcludeLines.Add("logging.h");
-	 [ArmA2.Script.GlobalSettings]::ExcludeLines.Add("logging.sqf");
-	 [ArmA2.Script.GlobalSettings]::ExcludeLines.Add("call Log(Inform|High|Medium|Warning|Error|Trace|Unexpected|Notify)(?:[^\w])");
+	$context.PublicVariables.Clear();
+	$context.ExcludePhrases.Clear();
+	$context.ExcludeLines.Clear();
+	
+    $context.ExcludeLines.Add("PROFILER_BEGIN");
+    $context.ExcludeLines.Add("PROFILER_END");
+    $context.ExcludeLines.Add("profiler.sqf");
+    $context.ExcludeLines.Add("profiler.h");
+    $context.ExcludeLines.Add("!isNil `"initProfiler`"");
+	$context.ExcludeLines.Add("!isNil `"LogInited`"");
+	$context.ExcludeLines.Add("logging.h");
+	$context.ExcludeLines.Add("logging.sqf");
+	$context.ExcludeLines.Add("call Log(Inform|High|Medium|Warning|Error|Trace|Unexpected|Notify)(?:[^\w])");
 	 
-     #-- [ArmA2.Script.GlobalVars]::ExcludePhrases.Add("format[\[].+?[\]]\s* call Log(Inform|High|Medium|Warning|Error|Trace|Unexpected|Notify)");
-     #-- [ArmA2.Script.GlobalVars]::ExcludePhrases.Add("`"(?:[^`"\\]|\\.|\`"\`")*""\s*call Log(Inform|High|Medium|Warning|Error|Trace|Unexpected|Notify)");
-     #-- [ArmA2.Script.GlobalVars]::ExcludePhrases.Add("'(?:[^'\\]|\\.|'')*'\s*call Log(Inform|High|Medium|Warning|Error|Trace|Unexpected|Notify)");	
-	
-	
-	#-- first pass remove comments, debug scripts, obfuscate local variables
-	#
+	if ($output.Length -gt 0) { Write-Host $output; }
+	$output.Length = 0; 
+	 
 	$files = dir -Path $tmpfolder -Recurse -Include "*.sqf", "*.fsm" | Where {($_.psIsContainer -eq $false) -and (($_.FullName -match ".*\\mando_missiles\\.*") -ne $true) };
 	$files = $files | Where { ($_.FullName -match ".*\\briefing.sqf") -eq $false };
 	foreach($x in $files) {
 
 		$filePath = $x.FullName.Replace($tmpfolder+"\","").Trim();
 		Write-Host Compile: $filePath;	
-		
-		#-- preprocess-file -fileName $x.FullName;
-		$compiler = New-Object ArmA2.Script.Compiler;
-		$compiler.Settings.ScriptMinimized = $false;
 		$compiler.CompileFile($x.FullName);
 		
 		if ($output.Length -gt 0) { Write-Host $output; }
 		$output.Length = 0;		
 	}
-
-	#-- $publicVars = [ArmA2.Script.Compiler]::GetPublicVarsOrderByUsage();	
-	#-- foreach($x in $publicVars) { 
-	#-- 		write-host $x;
-	#-- }
-
-	#-- second pass. collect stats about how often public variable used
-	#
-	#-- [ArmA2.Script.Compiler]::ResetPublicUsage();
-	#-- foreach($x in $files) {
-	#--   	[ArmA2.Script.Compiler]::AddPublicVariablesUsageStat($x.FullName);
-	#-- }	
 	
-	#-- $publicVars = [ArmA2.Script.Compiler]::GetPublicVarsOrderByUsage();	
-	#-- foreach($x in $publicVars) { 
-	#-- 		write-host $x;
-	#-- }
+	Write-Host ---
+	Write-Host --- ([DateTime]::Now.ToLongTimeString()) Compile Done.
+	Write-Host
 }
-
-function preprocess-file {
-	param ([string]$fileName)
-
-
-
-
-	
-	$fileInfo = Get-ChildItem -Path $fileName;
-    if( $fileInfo.GetType().Name -eq 'FileInfo')
-    {
-		$prevEmpty = $true;
-		$lines = (Get-Content $fileInfo.FullName) | 
-			Foreach-Object { return (preprocess-fileline -fileLine $_); } |
-			where { 
-				$ppEmpty = $prevEmpty;
-				if ($_.Trim().Length -eq 0) { return $false; };
-				return ($_ -ne "@PREPROCESS-EXCLUDE"); 
-		};
-
-		#if ( ($fileName -match ".*\.fsm") -eq $false) 
-		if ($false)
-		{
-			$mergedLines = @();
-			$textLine = "";
-			foreach($line in $lines) {
-				
-				$processed = $false;
-				if ($line -match "#ifdef" -or
-					$line -match "#endif" -or
-					$line -match "#include" -or
-					$line -match "#define")
-					{
-						$textLine = $textLine.Trim();
-						if ($textLine.Length -ne 0) {
-							$mergedLines += $textLine;
-						}
-						$mergedLines += $line;
-						$textLine = "";
-						$processed = $true;
-				}
-				
-				if ($processed -eq $false)
-				{
-					$textLine = $textLine + $line;
-				}			
-			}
-			$mergedLines += $textLine;
-			$lines = $mergedLines;
-			$lines = $lines | Foreach-Object { return (obfuscate-fileline -fileLine $_); };
-		}		
-
-		$lines | Set-Content $fileInfo.FullName;
-	}	
-}
-
-function preprocess-fileline {
-	param ([string]$fileLine)
-	
-	#$regexOption = [System.Text.RegularExpressions.RegexOptions]::Compiled -or [System.Text.RegularExpressions.RegexOptions]::IgnoreCase 
-	#	-or [System.Text.RegularExpressions.RegexOptions]::IgnorePatternWhitespace;	
-	
-	if ($fileLine -match "PROFILER_BEGIN" -or 
-	    $fileLine -match "PROFILER_END" -or
-		$fileLine -match "!isNil ""LogInited""" -or
-		
-		$fileLine -match "logging.sqf" -or
-		$fileLine -match "profiler.sqf" -or
-		$fileLine -match "profiler.h" -or
-		$fileLine -match "!isNil ""initProfiler"""
-		)
-	{	
-		$fileLine = "@PREPROCESS-EXCLUDE"; 
-	}		
-	
-	#-- remove all logger references
-	if ($fileLine -match "call Log") {
-		
-		$fileLine = $fileLine -replace "format\s*\[.*\]\s*call\s\s*Log.+?;", "";	#-- format [] call Log*;
-		
-		$fileLine = $fileLine -replace "`"`"`">\*/`"", "@FSMSYS@"; #-- logger in fsm
-		$fileLine = $fileLine -replace "`"`".+?`"`"\s*call\s\s*Log.+?;", ""; #-- logger in fsm
-		$fileLine = $fileLine -replace "@FSMSYS@", "`"`"`">*/`""; #-- logger in fsm
-		
-		$fileLine = $fileLine -replace "`".+?`"\s*call\s\s*Log.+?;", "";
-		$fileLine = $fileLine -replace "'.+?'\s*call\s\s*Log.+?;", "";
-	}
-	
-	#$fileLine = $fileLine -replace "\/\/\s.*", "";	#-- remove comments
-	#$fileLine = $fileLine -replace "\/\/-.*", "";	#-- remove comments
-	#$fileLine = $fileLine -replace "\/\*.+?\*/", "";	#-- remove comments
-	
-	
-	return $fileLine;	
-};	
-
-
-function obfuscate-fileline {
-	param ([string]$fileLine)	
-	
-	$syschars = @( "=", "(", ")", "[", "]", "{", "}", "==", "!=", "||", "&&", "+", "-", "/", "*", ",", ";", ":", ">", "<", "<=", ">=" );
-	
-	foreach($ch in $syschars) {
-	
-		$regex = "\s*" + [System.Text.RegularExpressions.Regex]::Escape($ch) + "\s*";
-		$fileLine = $fileLine -replace $regex, $ch;
-	}
-	
-	$fileLine = $fileLine -replace ";\s*;", ";";
-	
-	$fileLine = $fileLine -replace ",\s*}", "}";
-	$fileLine = $fileLine -replace ",\s*]", "]";
-	$fileLine = $fileLine -replace "\/\*.+?\*/", "";	#-- remove comments
-
-	$fileLine = $fileLine -replace "`"\s*\\n\s*`"", "";		#-- "   \n   "
-	$fileLine = $fileLine.Trim();
-	
-	return $fileLine;	
-	
-};
 
 function compile-version {
 	param ([string]$world, [string]$gamever, [int]$numplayers, [string]$desc, [string]$missionMods)
