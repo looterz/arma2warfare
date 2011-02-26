@@ -63,7 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Compile\CompileSettings.cs" />
-    <Compile Include="ForEachExt.cs" />
+    <Compile Include="Utility\ForEachExt.cs" />
     <Compile Include="Compile\CompileContext.cs" />
     <Compile Include="Compile\Compiler.cs" />
     <Compile Include="Logging\Logger.cs" />
@@ -101,7 +101,7 @@
     <Compile Include="Compile\Commands\Common\CmdVariable.cs" />
     <Compile Include="Compile\Exceptions\CompileException.cs" />
     <Compile Include="Compile\Collections\UniqueVarList.cs" />
-    <Compile Include="ScriptProcessor\FlattenHierarchyProxy.cs" />
+    <Compile Include="Utility\FlattenHierarchyProxy.cs" />
     <Compile Include="Compile\Commands\FSM\FSMClass.cs" />
     <Compile Include="Compile\Commands\FSM\FsmProperty.cs" />
     <Compile Include="Compile\Collections\INamedItem.cs" />
@@ -113,7 +113,7 @@
     <Compile Include="ScriptProcessor\ListCommands.cs" />
     <Compile Include="ScriptProcessor\ListOperators.cs" />
     <Compile Include="Compile\ScriptWriter.cs" />
-    <Compile Include="StringExtension.cs" />
+    <Compile Include="Utility\StringExtension.cs" />
     <Compile Include="Variable.cs" />
   </ItemGroup>
   <ItemGroup>
