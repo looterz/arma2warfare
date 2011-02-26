@@ -30,9 +30,9 @@ namespace ArmA2.Script.Compile.Commands.Common
         {
         }
 
-        internal virtual Processor Processor
+        internal virtual Parser Parser
         {
-            get { return Parent.Processor; }
+            get { return Parent.Parser; }
         }
 
         internal int IndexId
@@ -100,7 +100,7 @@ namespace ArmA2.Script.Compile.Commands.Common
 
         public override string ToString()
         {
-            return GetScript(this.Processor.Compiler.Settings.ScriptMinimized);
+            return GetScript(this.Parser.Compiler.Settings.ScriptMinimized);
         }
 
         protected virtual void CompileInternal(Compiler compiler)

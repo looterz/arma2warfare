@@ -35,11 +35,11 @@ namespace ArmA2.Script.Compile.Commands.Common
 
             if (writer.BaseStream.Length > 0)
             {
-                if (Processor.Compiler.Settings.ScriptMinimized)
+                if (Parser.Compiler.Settings.ScriptMinimized)
                 {
                     writer.Write("\n");
                 };
-                if (!Processor.Compiler.Settings.ScriptMinimized)
+                if (!Parser.Compiler.Settings.ScriptMinimized)
                 {
                     writer.WriteIndent(true, "");
 
@@ -50,7 +50,7 @@ namespace ArmA2.Script.Compile.Commands.Common
             
             base.Render(writer);
 
-            if (this.Text.Equal("#endif") && !Processor.Compiler.Settings.ScriptMinimized)
+            if (this.Text.Equal("#endif") && !Parser.Compiler.Settings.ScriptMinimized)
                 writer.WriteIndent(true, "");
             
             if (this.Text.Equal("#ifdef") ||

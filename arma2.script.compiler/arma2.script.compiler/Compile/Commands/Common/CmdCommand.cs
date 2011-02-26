@@ -11,7 +11,7 @@ namespace ArmA2.Script.Compile.Commands.Common
             string oldCmdName = Text;
             if (!writer.ApplyMinimize)
             {
-                var cmd = Processor.GetFunction(Text);
+                var cmd = Parser.Dict.GetFunction(Text);
                 Text = cmd.Name;
             }
             base.Render(writer);
@@ -20,7 +20,7 @@ namespace ArmA2.Script.Compile.Commands.Common
  
         internal Function Function
         {
-            get { return Processor.GetFunction(this.Text); }
+            get { return Parser.Dict.GetFunction(this.Text); }
         }
     }
 }

@@ -49,7 +49,7 @@ namespace ArmA2.Script.ScriptProcessor
             if (eventHanlder is CmdString)
             {
                 var ehString = (CmdString) eventHanlder;
-                var p = new Processor(compiler);
+                var p = new Parser(compiler);
 
                 string contentPartial = ehString.Text.Replace("\"\"", "\"");
 

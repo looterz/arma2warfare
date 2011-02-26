@@ -246,7 +246,7 @@ namespace ArmA2.Script.Compile
             content = CleanupContent(content);
             if (!Settings.FsmContent)
             {
-                var p = new Processor(this);
+                var p = new Parser(this);
                 CmdGroup byteCode = p.CompileToByteCode(content, rootScope);
 
                 byteCode.CompileSafe(this);
@@ -311,9 +311,9 @@ namespace ArmA2.Script.Compile
         {
             var ignoredNames = new[] {"fsmname", "from", "to", "name", "priority", "initstate"};
 
-            var p = new Processor(this);
-            p.Functions.Clear();
-            p.Functions.Add(new Function {Name = "class"});
+            var p = new Parser(this);
+            p.Dict.Functions.Clear();
+            p.Dict.Functions.Add(new Function { Name = "class" });
 
             CmdGroup code = p.CompileToByteCode(content);
             var rootScope = new FsmClass((CmdScopeBase) code);
@@ -359,7 +359,7 @@ namespace ArmA2.Script.Compile
             Settings.UpdatePrivateVars = true;
             Settings.FsmContent = false;
 
-            var scopeRoot = new CmdScopeCodeRoot(new Processor(this));
+            var scopeRoot = new CmdScopeCodeRoot(new Parser(this));
             initClass.Compile(this, scopeRoot, "** ");
 
             content = code.GetScript(Settings.ScriptMinimized);

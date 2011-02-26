@@ -32,17 +32,17 @@ namespace ArmA2.Script.Compile.Commands.Common
             {
                 double value;
                 CmdText cmd;
-                if (Processor.IsCommand(cmdName))
+                if (Parser.Dict.IsCommand(cmdName))
                 {
                     if (cmdName.StartsWith("#"))
                         cmd = new CmdPreprocessor { Text = cmdName };
                     else
                     {
-                        cmd = Processor.GetFunction(cmdName).GetCmdCompile() ?? new CmdCommand();
+                        cmd = Parser.Dict.GetFunction(cmdName).GetCmdCompile() ?? new CmdCommand();
                         cmd.Text = cmdName;
                     }
                 }
-                else if (Processor.IsOperator(cmdName))
+                else if (Parser.Dict.IsOperator(cmdName))
                 {
                     if (cmdName == "=")
                         cmd = new CmdOperatorSet {Text = cmdName};
@@ -66,7 +66,7 @@ namespace ArmA2.Script.Compile.Commands.Common
         {
             if (separatorName.Length != 0)
             {
-                if (Processor.IsOperator(separatorName))
+                if (Parser.Dict.IsOperator(separatorName))
                     return CmdAdd(separatorName);
 
                 return ChildAdd(new CmdSeparator { Text = separatorName });

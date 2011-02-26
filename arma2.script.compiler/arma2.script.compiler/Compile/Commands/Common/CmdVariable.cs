@@ -27,7 +27,7 @@ namespace ArmA2.Script.Compile.Commands.Common
                     }
 
                     if (!ParentScope.CompileProperties.ContainsKey("UseUndeclaredVars"))
-                        ParentScope.CompileProperties.Add("UseUndeclaredVars", new UniqueVarList(Processor.Compiler));
+                        ParentScope.CompileProperties.Add("UseUndeclaredVars", new UniqueVarList(Parser.Compiler));
 
                     UniqueVarList varList = (UniqueVarList)ParentScope.CompileProperties["UseUndeclaredVars"];
 
