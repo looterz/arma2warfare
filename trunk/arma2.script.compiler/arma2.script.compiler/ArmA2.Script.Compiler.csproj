@@ -62,9 +62,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompilerSettings.cs" />
+    <Compile Include="CompileSettings.cs" />
     <Compile Include="ForEachExt.cs" />
-    <Compile Include="GlobalSettings.cs" />
+    <Compile Include="CompileContext.cs" />
     <Compile Include="Compiler.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Logging\LogLevel.cs" />
@@ -119,6 +119,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="arma2.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Compile\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

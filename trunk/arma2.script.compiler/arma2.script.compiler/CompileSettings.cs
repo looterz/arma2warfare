@@ -1,6 +1,6 @@
 ﻿namespace ArmA2.Script
 {
-    public class CompilerSettings
+    public class CompileSettings
     {
         #region Поля класса
 
@@ -41,9 +41,9 @@
 
         #region Методы класса
 
-        internal CompilerSettings Clone()
+        internal CompileSettings Clone()
         {
-            return (CompilerSettings) MemberwiseClone();
+            return (CompileSettings) MemberwiseClone();
         }
 
         #endregion
