@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using ArmA2.Script.Compile.Commands.Common;
 using ArmA2.Script.Compile.Commands.FSM;
@@ -35,6 +36,12 @@ namespace ArmA2.Script.Compile
         {
             Settings = new CompileSettings();
             Context = new CompileContext();
+
+            var version = AssemblyName.GetAssemblyName(Assembly.GetExecutingAssembly().Location).Version;
+
+            Logger.Log(LogLevel.None, "ArmA2 Script Compiler, Version {0}.{1}", version.Major, version.Minor);
+            Logger.Log(LogLevel.None, "(C) Evgeny Zyuzin, 2011. All rights reserved");
+            Logger.Log(LogLevel.None, "");
         }
 
         #endregion
@@ -85,17 +92,14 @@ namespace ArmA2.Script.Compile
 
         public string Compile(string content)
         {
-            if (Settings.IsTopFile)
-            {
-                Console.WriteLine("---------------------------------------------");
-                Console.WriteLine("Compile: {0}", Settings.FileName);
-            }
+            var logFlag = (Settings.IsTopFile) ? LogFlag.LogToFile | LogFlag.LogToConsole : LogFlag.LogToFile;
+            Logger.Log(LogLevel.Inform, logFlag, "Compile: {0}", Settings.FileName);
 
             content = CompilePartial(content, null);
 
             if (Settings.IsTopFile)
             {
-                Console.WriteLine();
+                //Logger.Log(LogLevel.Inform, "");
             }
             return content;
         }

@@ -1,12 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using ArmA2.Script.Compile;
 
 namespace ArmA2.Script
 {
+    [Flags]
+    internal enum LogFlag
+    {
+        LogToFile,
+        LogToConsole
+    }
+
     public class Logger
     {
+        public static string LogFileName = "arma2.script.compile.log";
+        public static bool EnableLogToFile = true;
+
+        private static StreamWriter _fileWriter;
         public static LogLevel Level = LogLevel.High;
 
         public static List<int> WarningDisabled = new List<int>();
@@ -15,6 +28,28 @@ namespace ArmA2.Script
         public static List<string> Errors = new List<string>();
 
         private static string _padding = "";
+
+        internal static StreamWriter FileWriter
+        {
+            get
+            {
+                if (_fileWriter == null)
+                {
+                    _fileWriter = new StreamWriter(LogFileName, false, Encoding.UTF8);
+                }
+                return _fileWriter;
+            }
+        }
+
+        public static void Clear()
+        {
+            if (_fileWriter != null)
+            {
+                _fileWriter.Dispose();
+                _fileWriter = null;
+            }
+            File.Delete(LogFileName);
+        }
 
         internal static void IncPadding()
         {
@@ -33,12 +68,22 @@ namespace ArmA2.Script
             Warnings.Clear();
         }
 
+        internal static void Log(LogLevel level, LogFlag flag, string message, params object[] args)
+        {
+            Log(level, CompileCode.None, flag, message, args);
+        }
+
         internal static void Log(LogLevel level, string message, params object[] args)
         {
             Log(level, CompileCode.None, message, args);
         }
 
         internal static void Log(LogLevel level, CompileCode cstate, string message, params object[] args)
+        {
+            Log(level, cstate, LogFlag.LogToConsole | LogFlag.LogToFile, message, args);
+        }
+
+        internal static void Log(LogLevel level, CompileCode cstate, LogFlag flag, string message, params object[] args)
         {
             if (level == LogLevel.Warning && WarningDisabled.Any(m => m == (int)cstate))
                 return;
@@ -51,7 +96,9 @@ namespace ArmA2.Script
             if (level >= LogLevel.Trace)
             {
                 if (cstate == CompileCode.None)
-                    message = string.Format("{0}: {1}", level.ToString().ToUpper(), message);
+                {
+                    message = string.Format("{0}", message);
+                }
                 else
                 {
                     string strCode = "";
@@ -82,7 +129,16 @@ namespace ArmA2.Script
                 Warnings.Add(message);
 
             if (level >= Level)
-                Console.WriteLine(message);
+            {
+                if ((flag & LogFlag.LogToConsole) == LogFlag.LogToConsole)
+                {
+                    Console.WriteLine(message);
+                }
+                if (EnableLogToFile && (flag & LogFlag.LogToFile) == LogFlag.LogToFile)
+                {
+                    FileWriter.WriteLine(message);
+                }
+            }
         }
     }
 }
