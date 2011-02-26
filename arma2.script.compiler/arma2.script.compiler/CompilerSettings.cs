@@ -2,24 +2,50 @@
 {
     public class CompilerSettings
     {
-        private bool _scriptMinimize;
+        #region Поля класса
 
-        public bool ApplyPrivateVars = true;
+        internal bool ApplyPrivateVars = true;
+
         public string FileName = string.Empty;
         public bool FsmContent;
-        public bool HideVars;
+        internal bool HideVars;
 
         public bool IsTopFile = true;
-        public bool ScriptMinimized
-        {
-            get { return _scriptMinimize; }
-            set { _scriptMinimize = value; }
-        }
+        internal bool ScriptMinimized;
+
         public string StringQuote = "'";
+
+        #endregion
+
+        #region Свойства класса
+
+        public bool EnableMinimization
+        {
+            get
+            {
+                #if !DISABLEMINIMIZE
+                    return ScriptMinimized;
+                #else
+                    return false;
+                #endif
+            }
+            set
+            {
+                #if !DISABLEMINIMIZE
+                    ScriptMinimized = value;
+                #endif            
+            }
+        }
+
+        #endregion
+
+        #region Методы класса
 
         internal CompilerSettings Clone()
         {
             return (CompilerSettings) MemberwiseClone();
         }
+
+        #endregion
     }
 }

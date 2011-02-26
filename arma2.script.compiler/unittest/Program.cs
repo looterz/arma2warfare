@@ -33,9 +33,8 @@ namespace ArmA2.Script.UnitTests
                 GlobalSettings.ExcludeLines.Add(@"'(?:[^'\\]|\\.|'')*'\s*call Log(High|Inform|Medium|Warning|Trace)");
                 Compiler compiler = new Compiler();
                 compiler.Settings.FileName = fileName;
-                compiler.Settings.HideVars = false;
                 compiler.Settings.FsmContent = (Path.GetExtension(fileName).ToLower() == ".fsm");
-                compiler.Settings.ScriptMinimized = false;
+                compiler.Settings.EnableMinimization = false;
                 compiler.Settings.StringQuote = "\"";
 
                 content = compiler.Compile(content);
