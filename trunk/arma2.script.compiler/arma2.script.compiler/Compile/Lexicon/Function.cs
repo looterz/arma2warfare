@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using ArmA2.Script.Compile;
 using ArmA2.Script.Compile.Commands.Common;
 
-namespace ArmA2.Script.ScriptProcessor
+namespace ArmA2.Script.Compile.Lexicon
 {
-    internal class Function
+    public class Function
     {
-        internal string Name;
+        public string Name;
+        public Type Command;
 
-        internal Type Command;
         internal CmdCommand GetCmdCompile()
         {
             if (Command != null)

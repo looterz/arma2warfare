@@ -1,11 +1,11 @@
-﻿using System.IO;
+﻿using ArmA2.Script.ScriptProcessor;
 using ArmA2.Script.ScriptProcessor.Commands;
 
-namespace ArmA2.Script.ScriptProcessor
+namespace ArmA2.Script.Compile.Lexicon
 {
-    internal class LexiconFunc
+    public class LexCommand
     {
-        internal static Function[] CommandData = new Function[]
+        public static Function[] List = new[]
             {
                 new Function { Name="#include",                      },
                 new Function { Name="#define",                       },

@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using ArmA2.Script.Compile;
 using ArmA2.Script.Compile.Commands.Common;
 
-namespace ArmA2.Script.ScriptProcessor
+namespace ArmA2.Script.Compile
 {
     internal partial class Processor
     {

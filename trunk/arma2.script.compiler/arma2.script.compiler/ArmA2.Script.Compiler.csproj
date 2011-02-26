@@ -93,7 +93,7 @@
     <Compile Include="Compile\Commands\Common\CmdScopeCodeRoot.cs" />
     <Compile Include="Compile\Commands\Common\CmdScopeExpression.cs" />
     <Compile Include="Compile\Commands\Common\CmdScopeBase.cs" />
-    <Compile Include="ScriptProcessor\Function.cs" />
+    <Compile Include="Compile\Lexicon\Function.cs" />
     <Compile Include="Compile\Commands\Common\CmdScopeFunction.cs" />
     <Compile Include="Compile\Commands\Common\CmdSeparator.cs" />
     <Compile Include="Compile\Commands\Common\CmdString.cs" />
@@ -107,11 +107,11 @@
     <Compile Include="Compile\Collections\INamedItem.cs" />
     <Compile Include="Compile\Collections\NamedList.cs" />
     <Compile Include="Compile\TextWriters\IScriptRenderer.cs" />
-    <Compile Include="ScriptProcessor\ListBase.cs" />
-    <Compile Include="ScriptProcessor\Processor.cs" />
+    <Compile Include="Compile\ListBase.cs" />
+    <Compile Include="Compile\Processor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Compile\Syntax\ListCommands.cs" />
-    <Compile Include="ScriptProcessor\ListOperators.cs" />
+    <Compile Include="Compile\Lexicon\LexCommand.cs" />
+    <Compile Include="Compile\Lexicon\LexOperator.cs" />
     <Compile Include="Compile\TextWriters\ScriptWriter.cs" />
     <Compile Include="Utility\StringExtension.cs" />
     <Compile Include="Variable.cs" />
@@ -119,7 +119,9 @@
   <ItemGroup>
     <None Include="arma2.snk" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ScriptProcessor\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
