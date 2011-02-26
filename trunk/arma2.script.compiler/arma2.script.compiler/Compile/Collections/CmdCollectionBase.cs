@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using ArmA2.Script.Compile;
 using ArmA2.Script.Compile.Commands.Common;
+using ArmA2.Script.ScriptProcessor;
 
-namespace ArmA2.Script.ScriptProcessor
+namespace ArmA2.Script.Compile.Collections
 {
-    internal class CmdElementCollectionBase<T> :List<T>, IScriptRenderer where T : CmdBase
+    internal class CmdCollectionBase<T> :List<T>, IScriptRenderer where T : CmdBase
     {
         private int _position = 0;
 
@@ -15,9 +14,9 @@ namespace ArmA2.Script.ScriptProcessor
             _position = position;
         }
 
-        internal CmdElementCollectionBase<T1> Select<T1>() where T1 : CmdBase
+        internal CmdCollectionBase<T1> Select<T1>() where T1 : CmdBase
         {
-            var items = new CmdElementCollectionBase<T1>();
+            var items = new CmdCollectionBase<T1>();
 
             foreach(T item in this)
             {

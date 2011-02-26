@@ -83,8 +83,8 @@
     <Compile Include="Compile\Commands\Common\CmdCommand.cs" />
     <Compile Include="Compile\Commands\Common\CmdCommandBase.cs" />
     <Compile Include="Compile\Commands\Common\CmdGroup.cs" />
-    <Compile Include="ScriptProcessor\CmdElementCollection.cs" />
-    <Compile Include="ScriptProcessor\CmdElementCollectionBase.cs" />
+    <Compile Include="Compile\Collections\CmdCollection.cs" />
+    <Compile Include="Compile\Collections\CmdCollectionBase.cs" />
     <Compile Include="Compile\Commands\Common\CmdFloat.cs" />
     <Compile Include="Compile\Commands\Common\CmdOperator.cs" />
     <Compile Include="Compile\Commands\Common\CmdPreprocessor.cs" />
