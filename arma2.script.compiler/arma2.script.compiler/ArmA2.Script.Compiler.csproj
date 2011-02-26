@@ -104,8 +104,8 @@
     <Compile Include="ScriptProcessor\FlattenHierarchyProxy.cs" />
     <Compile Include="Compile\Commands\FSM\FSMClass.cs" />
     <Compile Include="Compile\Commands\FSM\FsmProperty.cs" />
-    <Compile Include="Compile\Commands\FSM\INamedItem.cs" />
-    <Compile Include="Compile\Commands\FSM\NamedList.cs" />
+    <Compile Include="Compile\Collections\INamedItem.cs" />
+    <Compile Include="Compile\Collections\NamedList.cs" />
     <Compile Include="ScriptProcessor\IScriptRenderer.cs" />
     <Compile Include="ScriptProcessor\ListBase.cs" />
     <Compile Include="ScriptProcessor\Processor.cs" />

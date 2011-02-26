@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArmA2.Script.Compile;
+using ArmA2.Script.Compile.Collections;
 using ArmA2.Script.Compile.Commands.Common;
 using ArmA2.Script.Compile.Exceptions;
 
