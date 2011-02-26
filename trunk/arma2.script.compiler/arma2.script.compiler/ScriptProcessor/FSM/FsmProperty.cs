@@ -19,7 +19,7 @@ namespace ArmA2.Script.ScriptProcessor
             return null;
         }
         
-        internal FsmProperty(CmdElement node)
+        internal FsmProperty(CmdGroup node)
         {
             IsValid = false;
 

@@ -18,12 +18,12 @@ namespace ArmA2.Script.ScriptProcessor
             Compiler = compiler;
         }
 
-        internal CmdElement CompileToByteCode(string content)
+        internal CmdGroup CompileToByteCode(string content)
         {
             return CompileToByteCode(content, null);
         }
 
-        internal CmdElement CompileToByteCode(string content, CmdScopeBase rootScope)
+        internal CmdGroup CompileToByteCode(string content, CmdScopeBase rootScope)
         {
             CmdScopeBase scope;
             if (rootScope == null)
@@ -47,14 +47,14 @@ namespace ArmA2.Script.ScriptProcessor
 
         private string[] _baseEndCommand = new[] {",", ";"};
 
-        private int ProcessCommand(CmdElement cmdRoot, string content, int startPos)
+        private int ProcessCommand(CmdGroup cmdRoot, string content, int startPos)
         {
             List<string> separatorTypes = null;
             List<string> endCommand = null;
 
-            CmdElement cmdElement = cmdRoot;
-            cmdElement = new CmdElement();
-            cmdRoot.ChildAdd(cmdElement);
+            CmdGroup cmdGroup = cmdRoot;
+            cmdGroup = new CmdGroup();
+            cmdRoot.ChildAdd(cmdGroup);
 
             int opStart = -1;
             for(int i=startPos; i<content.Length; i++)
@@ -75,7 +75,7 @@ namespace ArmA2.Script.ScriptProcessor
                 if (separator == null)
                     continue;
 
-                if (cmdElement.Commands.Count() >= 1 && cmdElement.Commands.Get<CmdPreprocessor>(0) != null && separator == "\\\n")
+                if (cmdGroup.Commands.Count() >= 1 && cmdGroup.Commands.Get<CmdPreprocessor>(0) != null && separator == "\\\n")
                 {
                     i += 1;
                     continue;
@@ -85,8 +85,8 @@ namespace ArmA2.Script.ScriptProcessor
                 {
                     var cmdName = content.Substring(opStart, i - opStart).Trim();
 
-                    var cmd = cmdElement.CmdAdd(cmdName);
-                    if (cmd != null && cmdElement.Commands.Count() == 1 && cmd is CmdPreprocessor)
+                    var cmd = cmdGroup.CmdAdd(cmdName);
+                    if (cmd != null && cmdGroup.Commands.Count() == 1 && cmd is CmdPreprocessor)
                     {
                         separatorTypes.Clear();
                         separatorTypes.AddRange(new[] { "\\\n", "\n" });
@@ -105,14 +105,14 @@ namespace ArmA2.Script.ScriptProcessor
                         endP = content.Length - 1;
 
                     var cmdString = new CmdString {Quote = separator, Text = content.Substring(i + 1, endP - i - 1)};
-                    cmdElement.ChildAdd(cmdString);
+                    cmdGroup.ChildAdd(cmdString);
                     i = endP;
                     continue;
                 }
 
                 if (separator == "[" || separator == "(" || separator == "{")
                 {
-                    var scope  = cmdElement.ScopeAdd(separator);;
+                    var scope  = cmdGroup.ScopeAdd(separator);;
                     i = ProcessCommand(scope, content, i + 1);
                     continue;
                 }
@@ -121,7 +121,7 @@ namespace ArmA2.Script.ScriptProcessor
                 {
                     if (separator == ((CmdScopeBase)cmdRoot).EndCh)
                     {
-                        ApplySingleChildElement(cmdRoot, cmdElement);
+                        ApplySingleChildElement(cmdRoot, cmdGroup);
                         return i;
                     }
                 }
@@ -131,34 +131,34 @@ namespace ArmA2.Script.ScriptProcessor
 
                 if (endCommand.Any(m => m == separator))
                 {
-                    ApplySingleChildElement(cmdRoot, cmdElement);
+                    ApplySingleChildElement(cmdRoot, cmdGroup);
                     if (separator == "\n")
                         endCommand = null;
 
                     cmdRoot.SeparatorAdd(separator);
 
-                    cmdElement = new CmdElement();
-                    cmdRoot.ChildAdd(cmdElement);
+                    cmdGroup = new CmdGroup();
+                    cmdRoot.ChildAdd(cmdGroup);
                     continue;
                 }
 
-                if (separator == " " && cmdElement.Items.Count > 0 && cmdElement.NextElement<CmdSeparator>(-1) != null)
+                if (separator == " " && cmdGroup.Items.Count > 0 && cmdGroup.NextElement<CmdSeparator>(-1) != null)
                 {
                     // dont add trailing spaces
                 }
                 else
                 {
-                    cmdElement.SeparatorAdd(separator);    
+                    cmdGroup.SeparatorAdd(separator);    
                 }
             }
 
             if (opStart != -1)
             {
                 var cmdName = content.Substring(opStart, content.Length - opStart).Trim();
-                cmdElement.CmdAdd(cmdName);
+                cmdGroup.CmdAdd(cmdName);
             }
 
-            ApplySingleChildElement(cmdRoot, cmdElement);
+            ApplySingleChildElement(cmdRoot, cmdGroup);
             if (cmdRoot is CmdScopeBase && !string.IsNullOrEmpty(((CmdScopeBase)cmdRoot).OpenCh))
             {
                 var scope = (CmdScopeBase)cmdRoot;
@@ -168,12 +168,12 @@ namespace ArmA2.Script.ScriptProcessor
             return content.Length;
         }
 
-        private void ApplySingleChildElement(CmdElement cmdRoot, CmdElement cmdElement)
+        private void ApplySingleChildElement(CmdGroup cmdRoot, CmdGroup cmdGroup)
         {
-            if (cmdElement.Items.Count == 1)
+            if (cmdGroup.Items.Count == 1)
             {
-                cmdRoot.Items.Remove(cmdElement);
-                cmdRoot.ChildAdd(cmdElement.Items[0]);
+                cmdRoot.Items.Remove(cmdGroup);
+                cmdRoot.ChildAdd(cmdGroup.Items[0]);
             }
         }
     }

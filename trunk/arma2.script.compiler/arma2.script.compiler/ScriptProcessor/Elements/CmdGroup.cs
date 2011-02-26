@@ -9,7 +9,7 @@ namespace ArmA2.Script.ScriptProcessor
 {
     //[DebuggerTypeProxy(typeof(Flatten))]
 
-    internal class CmdElement : CmdBase
+    internal class CmdGroup : CmdBase
     {
         internal readonly CmdElementCollection Items = new CmdElementCollection();
 
@@ -104,7 +104,7 @@ namespace ArmA2.Script.ScriptProcessor
                 var items = new CmdElementCollection();
                 items.AddRange(Items.Where(m => 
                     !(m is CmdSeparator) &&
-                    !(m.GetType() == typeof(CmdElement) && ((CmdElement)m).Items.Count == 0)
+                    !(m.GetType() == typeof(CmdGroup) && ((CmdGroup)m).Items.Count == 0)
                     ));
                 return items;
             }
@@ -117,14 +117,14 @@ namespace ArmA2.Script.ScriptProcessor
                 var items = new CmdElementCollection();
                 foreach(var item in Commands)
                 {
-                    if (!item.GetType().Equals(typeof(CmdElement)))
+                    if (!item.GetType().Equals(typeof(CmdGroup)))
                     {
                         items.Add(item);
                     }
                     
-                    if (item is CmdElement)
+                    if (item is CmdGroup)
                     {
-                        items.AddRange(((CmdElement)item).FlatData);
+                        items.AddRange(((CmdGroup)item).FlatData);
                     }
                 }
                 return items;

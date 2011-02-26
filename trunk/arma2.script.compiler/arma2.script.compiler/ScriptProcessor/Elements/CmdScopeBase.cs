@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ArmA2.Script.Compile;
+using ArmA2.Script.Compile.Collections;
+using ArmA2.Script.Compile.Exceptions;
 
 namespace ArmA2.Script.ScriptProcessor
 {
-    internal class CmdScopeBase : CmdElement
+    internal class CmdScopeBase : CmdGroup
     {
         private UniqueVarList _localVars = null;
         private UniqueVarList _privateVars = null;
@@ -31,7 +33,7 @@ namespace ArmA2.Script.ScriptProcessor
             get
             {
                 if (_privateVars == null)
-                    _privateVars = new UniqueVarList();
+                    _privateVars = new UniqueVarList(Processor.Compiler);
 
                 return _privateVars;
             }
@@ -42,7 +44,7 @@ namespace ArmA2.Script.ScriptProcessor
             get
             {
                 if (_localVars == null)
-                    _localVars = new UniqueVarList();
+                    _localVars = new UniqueVarList(Processor.Compiler);
 
                 return _localVars;
             }

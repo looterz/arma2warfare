@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using ArmA2.Script.Compile;
 
 namespace ArmA2.Script.ScriptProcessor
 {

@@ -1,4 +1,4 @@
-private['_preview','_get','_itemclass','_params','_funds','_key','_itemcost','_camera','_width','_startpos','_closest','_nvgstate','_border','_color','_mhq','_cashvalues','_categories','_a','_itemcash','_colorgui','_input','_itemcategory','_canbuild','_size','_perimeter','_mode','_areasize','_player','_canaffordcount','_keys','_helper','_array','_noammo','_current','_cashtext','_text','_buildingsnames','_buildingstype','_limith','_defensename','_repairname','_state','_loaded','_tooltip','_tooltiptype','_colorred','_colorgray','_itemname','_itemclass_preview','_hqdeployed','_filepicture','_fundsdescription','_cashvaluesold','_cashpos','_source','_freeplaceclasses','_center','_terminate','_limitv','_crewcount','_sellformoney','_selled','_dammage','_colorgreen','_b','_type','_fileicon','_cashlines','_cashvalue','_cashdescription','_categoriesmenu','_arraynames','_arraynameslong','_arrayenable','_arrayparams','_limit','_canafford','_freeplacetypenames','_toofar','_bns','_createborder','_oldborder','_pi','_total','_xpos','_ypos','_keyscancel','_keysbanned','_near','_tryfoldtovehicle','_canaffordcountold','_oldmenu','_limithold','_limitvold','_localtime','_selected','_start','_gdir','_direction','_npos','_iscommander','_checkplacezone','_buildformoney','_textheader','_textpicture','_restart','_cashvaluescount','_buildlimit','_defenseid','_nearlog','_fncountfreeplaceobjects','_fnisfreeplaceclass','_logicgrp','_logicasl','_greenlist','_wallcount','_zpos','_createborderscope','_keynightvision','_ctrl','_currentcash','_targeting','_sold','_closesttype','_txt','_menu','_itemfunds','_structs','_isbuilding','_new','_structurescosts','_distance','_fundsremaining','_oldtooltip','_text1','_text2','_text3','_texthint','_textcontrols','_cashsize','_upgrades','_items','_category','_maxgrad','_mindist','_y','_shift','_alt','_buildings'];
+private['_a', '_alt', '_areasize', '_array', '_arrayEnable', '_arrayNames', '_arrayNamesLong', '_arrayParams', '_b', '_bns', '_border', '_buildings', '_buildingsNames', '_buildingsType', '_buildLimit', '_camera', '_canAfford', '_canAffordCount', '_canAffordCountOld', '_canBuild', '_cashDescription', '_cashLines', '_cashPos', '_cashSize', '_cashText', '_cashValue', '_cashValues', '_cashValuesCount', '_cashValuesOld', '_categories', '_categoriesMenu', '_category', '_checkPlaceZone', '_color', '_colorGray', '_colorGreen', '_colorGUI', '_colorRed', '_count', '_createBorder', '_createBorderScope', '_ctrl', '_current', '_defenseId', '_dir', '_direction', '_distance', '_fileIcon', '_filePicture', '_find', '_fnCountFreePlaceObjects', '_fnIsFreePlaceClass', '_freePlaceClasses', '_freePlaceTypeNames', '_funds', '_fundsDescription', '_fundsRemaining', '_gdir', '_get', '_greenList', '_helper', '_hqDeployed', '_i', '_index', '_isBuilding', '_isCommander', '_itemcash', '_itemcategory', '_itemclass', '_itemclass_preview', '_itemcost', '_itemFunds', '_itemname', '_items', '_keys', '_keysBanned', '_keysCancel', '_limit', '_limitH', '_limitHOld', '_limitV', '_limitVOld', '_loaded', '_localtime', '_logic', '_logicASL', '_logicGrp', '_maxGrad', '_mhq', '_minDist', '_mode', '_nearLog', '_new', '_npos', '_nvgstate', '_oldMenu', '_oldTooltip', '_params', '_player', '_pos', '_preview', '_restart', '_selected', '_shift', '_source', '_startPos', '_status', '_structs', '_structuresCosts', '_supply', '_text', '_text1', '_text2', '_text3', '_textControls', '_textHeader', '_textHint', '_textPicture', '_tooFar', '_tooltip', '_tooltipType', '_type', '_upgrades', '_y'];
 
 _logic = _this select 3;
 _startPos = _this select 4;
@@ -156,7 +156,7 @@ private ["_params","_logic"];
 //--- Border - temporary solution //TODO: move border if position of logic changes (eg. by placing hq)
 _createBorder = {
 	
-     private ["_i","_dir","_xpos","_ypos","_zpos","_a","_border","_logic","_startpos","_oldBorder","_center","_size","_width","_pi","_perimeter","_wallcount","_total"];
+     private ["_i","_border","_logic","_startpos","_oldBorder","_center","_size","_width","_pi","_perimeter","_wallcount","_total"];
 	_logic = _this select 0;
 	_startpos = _this select 1;
 	_oldBorder = missionNamespace getVariable "BIS_COIN_border";
@@ -186,6 +186,7 @@ _createBorder = {
 	_total = _wallcount;
 
 	for "_i" from 1 to _total do {
+		private['_dir','_xpos','_ypos','_zpos','_a'];
 		_dir = (360 / _total) * _i;
         _xpos = (_center select 0) + (sin _dir) * _size;
         _ypos = (_center select 1) + (cos _dir) * _size;
@@ -751,8 +752,7 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 
 				//--- Execute designer defined code
 				[_logic,_itemclass,_pos,_dir,_params] spawn {
-					
-                      private ["_hqDeployed","_structures","_get","_logic","_itemclass","_pos","_dir","_par"];
+                    private ["_logic","_itemclass","_pos","_dir","_par","_noammo"];
 					_logic = _this select 0;
 					_itemclass = _this select 1;
 					_pos = _this select 2;
@@ -766,7 +766,7 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 
 					//--- On Purchase.
 					[_logic,_itemclass] call {
-						Private["_cash","_class","_costs","_index","_logic","_price","_supply"];
+						Private['_structures','_defenses','_buildForMoney','_repairName','_defenseName','_state',"_class","_costs","_index","_logic","_price","_supply"];
 						_logic = _this select 0;
 						_class = _this select 1;
 						_structures = Format["WFBE_%1STRUCTURENAMES",sideJoinedText] Call GetNamespace;
@@ -823,7 +823,7 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 
 					//--- Execute designer defined code On Construct
 					[_logic,_itemclass,_pos,_dir,_par, _noammo] call {    
-						private ["_class","_defenses","_deployed","_dir",'_find',"_logic","_par","_pos","_structures"];
+						private ['_current',"_class","_defenses","_deployed","_dir",'_find',"_logic","_par","_pos","_structures"];
 						_logic = _this select 0;
 						_class = _this select 1;
 						_pos = _this select 2;

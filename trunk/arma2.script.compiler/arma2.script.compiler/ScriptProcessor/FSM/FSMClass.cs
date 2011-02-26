@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ArmA2.Script.Compile;
+using ArmA2.Script.Compile.Exceptions;
 
 namespace ArmA2.Script.ScriptProcessor
 {
@@ -35,7 +36,7 @@ namespace ArmA2.Script.ScriptProcessor
             set { _states = value; }
         }
 
-        internal FsmClass(CmdElement node)
+        internal FsmClass(CmdGroup node)
         {
             IsValid = false;
 
@@ -62,10 +63,10 @@ namespace ArmA2.Script.ScriptProcessor
             {
                 if (_classList == null)
                 {
-                    var nodes = Scope.Commands.Where(m => m is CmdElement);
+                    var nodes = Scope.Commands.Where(m => m is CmdGroup);
                     var classes = nodes.Select(m =>
                                                {
-                                                   var n = new FsmClass((CmdElement) m);
+                                                   var n = new FsmClass((CmdGroup) m);
                                                    n.Parent = this;
                                                    return n;
                                                });
@@ -85,10 +86,10 @@ namespace ArmA2.Script.ScriptProcessor
             {
                 if (_propertyList == null)
                 {
-                    var nodes = Scope.Commands.Where(m => m is CmdElement);
+                    var nodes = Scope.Commands.Where(m => m is CmdGroup);
                     var classes = nodes.Select(m =>
                                                {
-                                                   var prop = new FsmProperty((CmdElement) m);
+                                                   var prop = new FsmProperty((CmdGroup) m);
                                                    prop.Parent = this;
                                                    return prop;
                                                });

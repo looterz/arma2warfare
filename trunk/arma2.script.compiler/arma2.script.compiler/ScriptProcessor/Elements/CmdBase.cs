@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using ArmA2.Script.Compile;
+using ArmA2.Script.Compile.Exceptions;
 
 namespace ArmA2.Script.ScriptProcessor
 {
@@ -24,7 +25,7 @@ namespace ArmA2.Script.ScriptProcessor
             }
         }
 
-        internal CmdElement Parent { get; set; }
+        internal CmdGroup Parent { get; set; }
         public virtual void Render(ScriptWriter writer)
         {
         }

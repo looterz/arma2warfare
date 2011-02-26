@@ -1,4 +1,5 @@
 ﻿using ArmA2.Script.Compile;
+using ArmA2.Script.Compile.Collections;
 
 namespace ArmA2.Script.ScriptProcessor
 {
@@ -26,7 +27,7 @@ namespace ArmA2.Script.ScriptProcessor
                     }
 
                     if (!ParentScope.CompileProperties.ContainsKey("UseUndeclaredVars"))
-                        ParentScope.CompileProperties.Add("UseUndeclaredVars", new UniqueVarList());
+                        ParentScope.CompileProperties.Add("UseUndeclaredVars", new UniqueVarList(Processor.Compiler));
 
                     UniqueVarList varList = (UniqueVarList)ParentScope.CompileProperties["UseUndeclaredVars"];
 

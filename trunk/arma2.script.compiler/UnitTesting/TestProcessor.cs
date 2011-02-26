@@ -60,14 +60,14 @@ _displayEH_keydown=_display1 displayaddeventhandler[""keydown"", ""
 
             var s = byteCode.ToString();
 
-            var op = (CmdElement)byteCode.Commands[0];
+            var op = (CmdGroup)byteCode.Commands[0];
             Assert.AreEqual(2, op.Commands.Count);
 
             var array = (CmdScopeArray)op.Commands[1];
             Assert.AreEqual(5, array.Commands.Count);
 
             Assert.AreEqual(4, array.Commands.Select<CmdString>().Count, "must select 4 string items");
-            Assert.AreEqual(1, array.Commands.Select<CmdElement>().Count, "must select 1 code element");
+            Assert.AreEqual(1, array.Commands.Select<CmdGroup>().Count, "must select 1 code element");
 
         }
 
@@ -93,7 +93,7 @@ _myobj call compile preprocess _path2file;";
             Processor processor = new Processor();
 
             string content;
-            CmdElement byteCode;
+            CmdGroup byteCode;
             content = @"
 #define MYFUNC=""myfunction.h"" \
                MYFUNC2
@@ -197,18 +197,18 @@ _myobj call compile preprocess _path2file;";
             Processor processor = new Processor();
 
             string content;
-            CmdElement result;
+            CmdGroup result;
             content = "_myobj addeventhandler['fired',\"_var1 = _this select 0;\"]";
             result = processor.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
             Assert.AreEqual(1, result.Commands.Count);
-            Assert.AreEqual(typeof(CmdElement), result.Commands[0].GetType());
+            Assert.AreEqual(typeof(CmdGroup), result.Commands[0].GetType());
 
-            var command = result.Commands.Get<CmdElement>(0);
+            var command = result.Commands.Get<CmdGroup>(0);
             Assert.AreEqual(3, command.Commands.Count);
             Assert.AreEqual(typeof(CmdScopeArray), command.Commands[2].GetType());
 
-            var array = command.Commands.Get<CmdElement>(2);
+            var array = command.Commands.Get<CmdGroup>(2);
             Assert.AreEqual(2, array.Commands.Count);
         }
 
@@ -218,18 +218,18 @@ _myobj call compile preprocess _path2file;";
             Processor processor = new Processor();
 
             string content;
-            CmdElement result;
+            CmdGroup result;
             content = "_myobj addeventhandler['fired',\"_var1 = _this select 0;\"];_myobj=5";
             result = processor.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
             Assert.AreEqual(2, result.Commands.Count);
-            Assert.AreEqual(typeof(CmdElement), result.Commands[0].GetType());
+            Assert.AreEqual(typeof(CmdGroup), result.Commands[0].GetType());
 
-            var command = result.Commands.Get<CmdElement>(0);
+            var command = result.Commands.Get<CmdGroup>(0);
             Assert.AreEqual(3, command.Commands.Count);
             Assert.AreEqual(typeof(CmdScopeArray), command.Commands[2].GetType());
 
-            var array = command.Commands.Get<CmdElement>(2);
+            var array = command.Commands.Get<CmdGroup>(2);
             Assert.AreEqual(2, array.Commands.Count);
         }
 
@@ -237,7 +237,7 @@ _myobj call compile preprocess _path2file;";
         [Test]
         public void TestSplitToCommands()
         {
-            CmdElement result;
+            CmdGroup result;
             Processor processor = new Processor();
             string content;
             content = "{if(WF_DEBUG)then{0}else{1},0,0}";
@@ -264,12 +264,12 @@ _myobj call compile preprocess _path2file;";
             Assert.AreEqual(content, result.ToString());
 
             Assert.AreEqual(2, result.Commands.Count);
-            var scope1 = (CmdElement) result.Commands[0];
+            var scope1 = (CmdGroup) result.Commands[0];
             Assert.AreEqual(3, scope1.Commands.Count); // {_var1=createVehcile['T72',0,0,0];_var2=createVehcile['T72',0,0,0]} call LogHigh;
-            var scope1_1 = (CmdElement)scope1.Commands[0];
+            var scope1_1 = (CmdGroup)scope1.Commands[0];
             Assert.AreEqual(2, scope1_1.Commands.Count);  // {_var1=createVehcile['T72',0,0,0];_var2=createVehcile['T72',0,0,0]};
 
-            var scope2 = (CmdElement)result.Commands[1];
+            var scope2 = (CmdGroup)result.Commands[1];
             Assert.AreEqual(3, scope2.Commands.Count);  // _var4=12345;
 
             content = "{_var1=createVehicle['T72', if(WF_DEBUG)then{0}else{1},0,0];_var2=createVehcile['T72',0,0,0]} call LogHigh;_var4=12345;";
