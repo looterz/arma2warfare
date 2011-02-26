@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using ArmA2.Script;
 using ArmA2.Script.Compile;
+using ArmA2.Script.Compile.Commands.Common;
 using ArmA2.Script.ScriptProcessor;
 using NUnit.Framework;
 

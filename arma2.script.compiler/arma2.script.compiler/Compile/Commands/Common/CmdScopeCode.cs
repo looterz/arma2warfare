@@ -1,9 +1,8 @@
 ﻿using System.Linq;
-using ArmA2.Script.Compile;
 using ArmA2.Script.Compile.Exceptions;
-using ArmA2.Script.ScriptProcessor.Commands;
+using ArmA2.Script.ScriptProcessor;
 
-namespace ArmA2.Script.ScriptProcessor
+namespace ArmA2.Script.Compile.Commands.Common
 {
     internal class CmdScopeCode : CmdScopeCodeRoot
     {

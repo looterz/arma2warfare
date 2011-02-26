@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using ArmA2.Script.Compile;
-using ArmA2.Script.Compile.Commands;
+using ArmA2.Script.ScriptProcessor;
 using ArmA2.Script.ScriptProcessor.Commands;
 
-namespace ArmA2.Script.ScriptProcessor
+namespace ArmA2.Script.Compile.Commands.Common
 {
     //[DebuggerTypeProxy(typeof(Flatten))]
 
