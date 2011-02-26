@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using ArmA2.Script.Compile.Collections;
 using ArmA2.Script.ScriptProcessor;
 using ArmA2.Script.ScriptProcessor.Commands;
 
@@ -9,7 +10,7 @@ namespace ArmA2.Script.Compile.Commands.Common
 
     internal class CmdGroup : CmdBase
     {
-        internal readonly CmdElementCollection Items = new CmdElementCollection();
+        internal readonly CmdCollection Items = new CmdCollection();
 
         internal event EventHandler ChildAdded;
 
@@ -95,11 +96,11 @@ namespace ArmA2.Script.Compile.Commands.Common
             return scope;
         }
 
-        internal CmdElementCollection Commands
+        internal CmdCollection Commands
         {
             get
             {
-                var items = new CmdElementCollection();
+                var items = new CmdCollection();
                 items.AddRange(Items.Where(m => 
                     !(m is CmdSeparator) &&
                     !(m.GetType() == typeof(CmdGroup) && ((CmdGroup)m).Items.Count == 0)
@@ -108,11 +109,11 @@ namespace ArmA2.Script.Compile.Commands.Common
             }
         }
 
-        internal CmdElementCollection FlatData
+        internal CmdCollection FlatData
         {
             get
             {
-                var items = new CmdElementCollection();
+                var items = new CmdCollection();
                 foreach(var item in Commands)
                 {
                     if (!item.GetType().Equals(typeof(CmdGroup)))
