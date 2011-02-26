@@ -62,10 +62,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompileSettings.cs" />
+    <Compile Include="Compile\CompileSettings.cs" />
     <Compile Include="ForEachExt.cs" />
-    <Compile Include="CompileContext.cs" />
-    <Compile Include="Compiler.cs" />
+    <Compile Include="Compile\CompileContext.cs" />
+    <Compile Include="Compile\Compiler.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Logging\LogLevel.cs" />
     <Compile Include="Logging\CompileCode.cs" />
@@ -120,9 +120,7 @@
   <ItemGroup>
     <None Include="arma2.snk" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Compile\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
