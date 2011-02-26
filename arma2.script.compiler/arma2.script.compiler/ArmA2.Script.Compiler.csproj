@@ -106,13 +106,13 @@
     <Compile Include="Compile\Commands\FSM\FsmProperty.cs" />
     <Compile Include="Compile\Collections\INamedItem.cs" />
     <Compile Include="Compile\Collections\NamedList.cs" />
-    <Compile Include="ScriptProcessor\IScriptRenderer.cs" />
+    <Compile Include="Compile\TextWriters\IScriptRenderer.cs" />
     <Compile Include="ScriptProcessor\ListBase.cs" />
     <Compile Include="ScriptProcessor\Processor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Compile\Syntax\ListCommands.cs" />
     <Compile Include="ScriptProcessor\ListOperators.cs" />
-    <Compile Include="Compile\ScriptWriter.cs" />
+    <Compile Include="Compile\TextWriters\ScriptWriter.cs" />
     <Compile Include="Utility\StringExtension.cs" />
     <Compile Include="Variable.cs" />
   </ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using ArmA2.Script.Compile.TextWriters;
 
 namespace ArmA2.Script.Compile.Commands.Common
 {

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace ArmA2.Script.Compile
+namespace ArmA2.Script.Compile.TextWriters
 {
     internal class ScriptWriter : StreamWriter
     {
