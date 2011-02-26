@@ -79,27 +79,27 @@
     <Compile Include="ScriptProcessor\Commands\CmdPrivate.cs" />
     <Compile Include="ScriptProcessor\Commands\CmdEventHandler.cs" />
     <Compile Include="ScriptProcessor\Commands\ICmdCompile.cs" />
-    <Compile Include="ScriptProcessor\Elements\CmdArgument.cs" />
-    <Compile Include="ScriptProcessor\Elements\CmdBase.cs" />
-    <Compile Include="ScriptProcessor\Elements\CmdCommand.cs" />
-    <Compile Include="ScriptProcessor\Elements\CmdCommandBase.cs" />
-    <Compile Include="ScriptProcessor\Elements\CmdGroup.cs" />
+    <Compile Include="Compile\Commands\CmdArgument.cs" />
+    <Compile Include="Compile\Commands\CmdBase.cs" />
+    <Compile Include="Compile\Commands\CmdCommand.cs" />
+    <Compile Include="Compile\Commands\CmdCommandBase.cs" />
+    <Compile Include="Compile\Commands\CmdGroup.cs" />
     <Compile Include="ScriptProcessor\CmdElementCollection.cs" />
     <Compile Include="ScriptProcessor\CmdElementCollectionBase.cs" />
-    <Compile Include="ScriptProcessor\Elements\CmdFloat.cs" />
-    <Compile Include="ScriptProcessor\Elements\CmdOperator.cs" />
-    <Compile Include="ScriptProcessor\Elements\CmdPreprocessor.cs" />
-    <Compile Include="ScriptProcessor\Elements\CmdScopeArray.cs" />
-    <Compile Include="ScriptProcessor\Elements\CmdScopeCode.cs" />
-    <Compile Include="ScriptProcessor\Elements\CmdScopeCodeRoot.cs" />
-    <Compile Include="ScriptProcessor\Elements\CmdScopeExpression.cs" />
-    <Compile Include="ScriptProcessor\Elements\CmdScopeBase.cs" />
+    <Compile Include="Compile\Commands\CmdFloat.cs" />
+    <Compile Include="Compile\Commands\CmdOperator.cs" />
+    <Compile Include="Compile\Commands\CmdPreprocessor.cs" />
+    <Compile Include="Compile\Commands\CmdScopeArray.cs" />
+    <Compile Include="Compile\Commands\CmdScopeCode.cs" />
+    <Compile Include="Compile\Commands\CmdScopeCodeRoot.cs" />
+    <Compile Include="Compile\Commands\CmdScopeExpression.cs" />
+    <Compile Include="Compile\Commands\CmdScopeBase.cs" />
     <Compile Include="ScriptProcessor\Commands.cs" />
-    <Compile Include="ScriptProcessor\Elements\CmdScopeFunction.cs" />
-    <Compile Include="ScriptProcessor\Elements\CmdSeparator.cs" />
-    <Compile Include="ScriptProcessor\Elements\CmdString.cs" />
-    <Compile Include="ScriptProcessor\Elements\CmdText.cs" />
-    <Compile Include="ScriptProcessor\Elements\CmdVariable.cs" />
+    <Compile Include="Compile\Commands\CmdScopeFunction.cs" />
+    <Compile Include="Compile\Commands\CmdSeparator.cs" />
+    <Compile Include="Compile\Commands\CmdString.cs" />
+    <Compile Include="Compile\Commands\CmdText.cs" />
+    <Compile Include="Compile\Commands\CmdVariable.cs" />
     <Compile Include="Compile\Exceptions\CompileException.cs" />
     <Compile Include="Compile\Collections\UniqueVarList.cs" />
     <Compile Include="ScriptProcessor\FlattenHierarchyProxy.cs" />
@@ -120,7 +120,9 @@
   <ItemGroup>
     <None Include="arma2.snk" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ScriptProcessor\Elements\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
