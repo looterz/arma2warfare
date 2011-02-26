@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ArmA2.Script.ScriptProcessor.Elements
+namespace ArmA2.Script.Compile.Commands
 {
     internal class CmdArgument
     {

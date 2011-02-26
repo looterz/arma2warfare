@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using ArmA2.Script.ScriptProcessor.Commands;
-using ArmA2.Script.ScriptProcessor.Elements;
 
 namespace ArmA2.Script.ScriptProcessor
 {
