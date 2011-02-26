@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using ArmA2.Script.Compile;
+using ArmA2.Script.Compile.Collections;
+using ArmA2.Script.Compile.Exceptions;
 using ArmA2.Script.ScriptProcessor.Commands;
 
 namespace ArmA2.Script.ScriptProcessor
@@ -65,7 +67,7 @@ namespace ArmA2.Script.ScriptProcessor
 
         internal void ApplyPrivateVar(bool considerParent, Compiler compiler)
         {
-            UniqueVarList considerLocals = new UniqueVarList();
+            UniqueVarList considerLocals = new UniqueVarList(Processor.Compiler);
             if (considerParent)
             {
                 var parentScope = this.ParentScope;
@@ -95,7 +97,7 @@ namespace ArmA2.Script.ScriptProcessor
                 warn.WriteToLog();
             }
 
-            var privateCmds = Items.Select<CmdElement>().Where(m => m.Items.Get<CmdPrivate>(0) != null);
+            var privateCmds = Items.Select<CmdGroup>().Where(m => m.Items.Get<CmdPrivate>(0) != null);
             privateCmds.ForEach(m =>
             {
                 var sep = m.NextItem(1);
@@ -109,7 +111,7 @@ namespace ArmA2.Script.ScriptProcessor
             var localVars = LocalVars.Where(localVar => PrivateVars.IsDeclared(localVar) || !considerLocals.IsDeclared(localVar));
             if (localVars.Count() > 0)
             {
-                CmdElement privateCmd = new CmdElement { Parent = this };
+                CmdGroup privateCmd = new CmdGroup { Parent = this };
                 Items.Insert(0, privateCmd);
 
                 privateCmd.CmdAdd("private");

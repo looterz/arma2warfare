@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using ArmA2.Script.Compile.Exceptions;
 using ArmA2.Script.ScriptProcessor;
 
 namespace ArmA2.Script.Compile
@@ -10,8 +11,6 @@ namespace ArmA2.Script.Compile
     public class Compiler
     {
         #region Поля класса
-
-        internal static string[] ReservedLocalVarNames = {"_this", "_x"};
 
         private readonly char[] _allowedVarChars = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
         private readonly Stack<CompileSettings> _settingsStack = new Stack<CompileSettings>();
@@ -246,7 +245,7 @@ namespace ArmA2.Script.Compile
             if (!Settings.FsmContent)
             {
                 var p = new Processor(this);
-                CmdElement byteCode = p.CompileToByteCode(content, rootScope);
+                CmdGroup byteCode = p.CompileToByteCode(content, rootScope);
 
                 byteCode.CompileSafe(this);
                 content = byteCode.GetScript(Settings.ScriptMinimized);
@@ -314,7 +313,7 @@ namespace ArmA2.Script.Compile
             p.Functions.Clear();
             p.Functions.Add(new Function {Name = "class"});
 
-            CmdElement code = p.CompileToByteCode(content);
+            CmdGroup code = p.CompileToByteCode(content);
             var rootScope = new FsmClass((CmdScopeBase) code);
 
             FsmClass fsmClass = rootScope.ClassList["FSM"];
@@ -539,7 +538,7 @@ namespace ArmA2.Script.Compile
         {
             string varName = "_" + GetVarName(_count++).ToLower();
 
-            if (ReservedLocalVarNames.Any(m => m == varName))
+            if (Context.ReservedNameLocalVariable.Any(m => m == varName))
             {
                 varName = GetNextLocalName();
             }

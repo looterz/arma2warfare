@@ -22,7 +22,7 @@ namespace ArmA2.Script.ScriptProcessor.Commands
 
                 if (varName.IsLocal)
                 {
-                    bool declared = Compiler.ReservedLocalVarNames.Any(m => m.Equal(varName.Text));
+                    bool declared = compiler.Context.ReservedNameLocalVariable.Any(m => m.Equal(varName.Text));
 
                     if (declared)
                     {

@@ -67,8 +67,7 @@ function preprocess-mission {
 	dir -Path $tmpfolder -Recurse | Where {$_.Name -eq "profiler.h"} | Foreach-Object { Remove-Item $_.FullName };
 	Remove-Item $tmpfolder\profiler.sqf
 	
-	[ArmA2.Script.GlobalSettings]::AllowMinimize = $false;
-	
+
 	[ArmA2.Script.Logger]::WarningDisabled.Clear();
 	[ArmA2.Script.Logger]::WarningDisabled.Add([ArmA2.Script.CompileCode]::PerfomanceIssue);
 	
@@ -97,10 +96,12 @@ function preprocess-mission {
 	$files = $files | Where { ($_.FullName -match ".*\\briefing.sqf") -eq $false };
 	foreach($x in $files) {
 
-		Write-Host "Compile: "$x.FullName;	
+		$filePath = $x.FullName.Replace($tmpfolder+"\","").Trim();
+		Write-Host Compile: $filePath;	
 		
 		#-- preprocess-file -fileName $x.FullName;
-		$compiler = New-Object ArmA2.Script.Compiler
+		$compiler = New-Object ArmA2.Script.Compiler;
+		$compiler.Settings.ScriptMinimized = $false;
 		$compiler.CompileFile($x.FullName);
 		
 		if ($output.Length -gt 0) { Write-Host $output; }
@@ -253,7 +254,7 @@ function compile-version {
 	Copy-Item "$source\briefing.sqf" "$tmpfolder" -Force
 	
 	Copy-Item "$versionDir\$gamever@$numplayers.$world\*" "$tmpfolder" -Force
-	Write-Host "Compile $projectName.pbo" -NoNewline
+	Write-Host "Package $projectName.pbo" -NoNewline
 	
 	$mission = "[$numplayers]Warfare $projectVer Bomba Edition $desc"
 	

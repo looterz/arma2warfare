@@ -1,4 +1,5 @@
 ﻿using ArmA2.Script.Compile;
+using ArmA2.Script.Compile.Exceptions;
 using ArmA2.Script.ScriptProcessor.Commands;
 
 namespace ArmA2.Script.ScriptProcessor
@@ -58,7 +59,7 @@ namespace ArmA2.Script.ScriptProcessor
                 contentPartial = compiler.CompilePartial(contentPartial, null);
                 compiler.PopSettings();
 
-                CmdElement partial = p.CompileToByteCode(contentPartial);
+                CmdGroup partial = p.CompileToByteCode(contentPartial);
 
                 var codeScope = new CmdScopeCode();
                 codeScope.Parent = arg1;

@@ -18,13 +18,12 @@ private['_pid'];
 };
 
 ProfilerEnd = {
-private['_pid'];
 	_this set [1, (time - (_this select 1))];
 	_this set [2, 1];
 };
 
 profilerRegisterProcedureCall = {
-private['_funcName', '_dT', '_data', '_u', '_bFound', '_tmp'];	
+private['_funcName', '_dT', '_data'];	
 	
 	_dT  = time;
 	waitUntil { (_this select 2)== 1 || (time - _dT) > 15 };
@@ -55,7 +54,7 @@ private['_funcName', '_dT', '_data', '_u', '_bFound', '_tmp'];
 
 
 ProfilerLogStats = {
-private['_data', '_u', '_fnName', '_data'];
+private['_data', '_u', '_fnName'];
 
 	diag_log "--------------------------------------------------";
 	diag_log format["ProfilerLogStats | Total entries = %1", count PROFILER_FUNC_NAMES];
