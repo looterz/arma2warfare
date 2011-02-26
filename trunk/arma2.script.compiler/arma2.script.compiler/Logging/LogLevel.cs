@@ -5,9 +5,9 @@
         Trace,
         High,
         Medium,
-        Inform,
         Warning,
         Error,
+        Inform, 
         None
     }
 }
