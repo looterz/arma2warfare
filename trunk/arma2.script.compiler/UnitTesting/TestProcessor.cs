@@ -25,7 +25,7 @@ if (isNil ""_lost"") then { _lost = 0; };
 _var1=myVar1;
 ".Replace("\r\n", "\n");
 
-            Processor p = new Processor();
+            Parser p = new Parser();
             var code = p.CompileToByteCode(content);
 
             var result = code.ToString();
@@ -56,8 +56,8 @@ _displayEH_keydown=_display1 displayaddeventhandler[""keydown"", ""
         [Test]
         public void TestArrayItems()
         {
-            Processor processor = new Processor();
-            var byteCode = processor.CompileToByteCode("private['a','b','c','d',if(a>b)then{0}else{1}]");
+            Parser parser = new Parser();
+            var byteCode = parser.CompileToByteCode("private['a','b','c','d',if(a>b)then{0}else{1}]");
 
             var s = byteCode.ToString();
 
@@ -83,15 +83,15 @@ _myobj call compile preprocess _path2file;";
             var result = compiler.Compile(content);
             Assert.AreEqual(result, "#include \"myfunction.h\"\n_myobj call compile preprocess _path2file;");
 
-            Processor processor = new Processor();
-            var byteCode = processor.CompileToByteCode(content.Replace("\r\n", "\n").Trim());
+            Parser parser = new Parser();
+            var byteCode = parser.CompileToByteCode(content.Replace("\r\n", "\n").Trim());
             Assert.AreEqual(2, byteCode.Commands.Count, "must have two operators");
         }
 
         [Test]
         public void TestPreprocessor2()
         {
-            Processor processor = new Processor();
+            Parser parser = new Parser();
 
             string content;
             CmdGroup byteCode;
@@ -100,7 +100,7 @@ _myobj call compile preprocess _path2file;";
                MYFUNC2
 _myobj call compile preprocess _path2file;";
 
-            byteCode = processor.CompileToByteCode(content.Replace("\r\n", "\n").Trim());
+            byteCode = parser.CompileToByteCode(content.Replace("\r\n", "\n").Trim());
 
             var expected =
                 @"
@@ -161,11 +161,11 @@ _myobj call compile preprocess _path2file;";
         [Test]
         public void TestGroupSetOp()
         {
-            Processor processor = new Processor();
+            Parser parser = new Parser();
             string content;
 
             content = "_var1=((sin _var2)*(cos _var3))";
-            var result = processor.CompileToByteCode(content);
+            var result = parser.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
             Assert.AreEqual(1, result.Commands.Count);
         }
@@ -174,20 +174,20 @@ _myobj call compile preprocess _path2file;";
         [Test]
         public void TestSplitExpression()
         {
-            Processor processor = new Processor();
+            Parser parser = new Parser();
             string content;
             content = "_var1=_var2*_var3";
-            var result = processor.CompileToByteCode(content);
+            var result = parser.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
             Assert.AreEqual(1, result.Commands.Count);
 
             content = "_var1=_var2 plus (_var3 call LogHigh)";
-            result = processor.CompileToByteCode(content);
+            result = parser.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
             Assert.AreEqual(1, result.Commands.Count);
 
             content = "_myobj addeventhandler['fired',\"_var1 = _this select 0;\"];_myobj2 addeventhandler['fired',\"_var1 = _this select 0;\"]";
-            result = processor.CompileToByteCode(content);
+            result = parser.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
             Assert.AreEqual(2, result.Commands.Count);
         }
@@ -195,12 +195,12 @@ _myobj call compile preprocess _path2file;";
         [Test]
         public void TestScopeElements001()
         {
-            Processor processor = new Processor();
+            Parser parser = new Parser();
 
             string content;
             CmdGroup result;
             content = "_myobj addeventhandler['fired',\"_var1 = _this select 0;\"]";
-            result = processor.CompileToByteCode(content);
+            result = parser.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
             Assert.AreEqual(1, result.Commands.Count);
             Assert.AreEqual(typeof(CmdGroup), result.Commands[0].GetType());
@@ -216,12 +216,12 @@ _myobj call compile preprocess _path2file;";
         [Test]
         public void TestScopeElements002()
         {
-            Processor processor = new Processor();
+            Parser parser = new Parser();
 
             string content;
             CmdGroup result;
             content = "_myobj addeventhandler['fired',\"_var1 = _this select 0;\"];_myobj=5";
-            result = processor.CompileToByteCode(content);
+            result = parser.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
             Assert.AreEqual(2, result.Commands.Count);
             Assert.AreEqual(typeof(CmdGroup), result.Commands[0].GetType());
@@ -239,16 +239,16 @@ _myobj call compile preprocess _path2file;";
         public void TestSplitToCommands()
         {
             CmdGroup result;
-            Processor processor = new Processor();
+            Parser parser = new Parser();
             string content;
             content = "{if(WF_DEBUG)then{0}else{1},0,0}";
-            result = processor.CompileToByteCode(content);
+            result = parser.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
             Assert.AreEqual(1, result.Commands.Count);
             Assert.AreEqual(typeof(CmdScopeCode), result.Commands[0].GetType());
 
             content = "[if(WF_DEBUG)then{0}else{1},0,0]";
-            result = processor.CompileToByteCode(content);
+            result = parser.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
             Assert.AreEqual(1, result.Commands.Count);
             Assert.AreEqual(typeof(CmdScopeArray), result.Commands[0].GetType());
@@ -256,12 +256,12 @@ _myobj call compile preprocess _path2file;";
 
             
             content = "_var1=createVehcile['T71',0,0,0];_var2=createVehcile['T72',0,0,0];_var3=createVehcile['T73',0,0,0]";
-            result = processor.CompileToByteCode(content);
+            result = parser.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
             Assert.AreEqual(3, result.Commands.Count);
 
             content = "{_var1=createVehicle['T72',0,0,0];_var2=createVehcile['T72',0,0,0]} call LogHigh;_var4=12345;";
-            result = processor.CompileToByteCode(content);
+            result = parser.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
 
             Assert.AreEqual(2, result.Commands.Count);
@@ -274,7 +274,7 @@ _myobj call compile preprocess _path2file;";
             Assert.AreEqual(3, scope2.Commands.Count);  // _var4=12345;
 
             content = "{_var1=createVehicle['T72', if(WF_DEBUG)then{0}else{1},0,0];_var2=createVehcile['T72',0,0,0]} call LogHigh;_var4=12345;";
-            result = processor.CompileToByteCode(content);
+            result = parser.CompileToByteCode(content);
             Assert.AreEqual(content, result.ToString());
         }
 
@@ -290,9 +290,9 @@ _myobj call compile preprocess _path2file;";
             {
                 Logger.ResetError();
                 string content = File.ReadAllText(file);
-                Processor processor = new Processor();
+                Parser parser = new Parser();
 
-                var cmds = processor.CompileToByteCode(content);
+                var cmds = parser.CompileToByteCode(content);
                 content = content.Replace("\r\n", "\n").Trim();
                 
                 Assert.AreEqual(content, cmds.ToString(), string.Format("{0} - [Failed]", Path.GetFileName(file)));
