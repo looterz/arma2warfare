@@ -1,4 +1,5 @@
 ﻿using System;
+using ArmA2.Script.Compile.Collections;
 using ArmA2.Script.Compile.Commands.Common;
 using ArmA2.Script.ScriptProcessor.Commands;
 
