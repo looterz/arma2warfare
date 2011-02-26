@@ -1,9 +1,9 @@
-﻿namespace ArmA2.Script
+﻿namespace ArmA2.Script.Compile
 {
-    public enum CompileCode
+    public enum CState
     {
         None,
-        Warning = 5000,
+        Warning = 100,
         PerfomanceIssue,
         OutOfScopeDeclaration,
         AssigmentToReserved,
@@ -11,7 +11,7 @@
         PrivateVarDuplicate,
         PrivateVarUnused,
 
-        Error = 10000,
+        Error = 500,
         UsedNotAssigned,
         InvalidArrayElement,
         CommandInvalidArgument,

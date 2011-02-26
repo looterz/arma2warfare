@@ -33,11 +33,13 @@ namespace ArmA2.Script.Compile
         internal Parser()
         {
             Compiler = new Compiler();
+            Dict = new Dict();
         }
 
         internal Parser(Compiler compiler)
         {
             Compiler = compiler;
+            Dict = new Dict();
         }
 
         #endregion

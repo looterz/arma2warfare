@@ -159,11 +159,11 @@ namespace ArmA2.Script.ScriptProcessor
             {
                 var nextClassName = next.GetValue<CmdString>();
                 if (nextClassName == null)
-                    throw new CompileException(CompileCode.FsmInvalidValueType, "Property value must be string: {0}", next.ToString());
+                    throw new CompileException(CState.FsmInvalidValueType, "Property value must be string: {0}", next.ToString());
 
                 var nextClass = States.ClassList[nextClassName.Text];
                 if (nextClass == null)
-                    throw new CompileException(CompileCode.FsmMissedClass, "Next Class '{0}' not found: {1}", nextClassName.Text, next.ToString());
+                    throw new CompileException(CState.FsmMissedClass, "Next Class '{0}' not found: {1}", nextClassName.Text, next.ToString());
 
                 nextClass.Compile(compiler, fsmCodeScope, path);
             }
@@ -176,7 +176,7 @@ namespace ArmA2.Script.ScriptProcessor
         {
             var value = property.GetValue<CmdString>();
             if (value == null)
-                throw new CompileException(CompileCode.FsmInvalidValueType, "Property value must be string: {0}", property.ToString());
+                throw new CompileException(CState.FsmInvalidValueType, "Property value must be string: {0}", property.ToString());
 
             var valueContent = value.Text.Replace("\"\"", "\"");
             valueContent = compiler.CompilePartial(valueContent, fsmCodeScope);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ArmA2.Script.Compile;
 
 namespace ArmA2.Script
 {
@@ -34,12 +35,12 @@ namespace ArmA2.Script
 
         internal static void Log(LogLevel level, string message, params object[] args)
         {
-            Log(level, CompileCode.None, message, args);
+            Log(level, CState.None, message, args);
         }
 
-        internal static void Log(LogLevel level, CompileCode compileCode, string message, params object[] args)
+        internal static void Log(LogLevel level, CState cstate, string message, params object[] args)
         {
-            if (level == LogLevel.Warning && WarningDisabled.Any(m => m == (int)compileCode))
+            if (level == LogLevel.Warning && WarningDisabled.Any(m => m == (int)cstate))
                 return;
             
             if (args.Length > 0)
@@ -49,28 +50,28 @@ namespace ArmA2.Script
 
             if (level >= LogLevel.Trace)
             {
-                if (compileCode == CompileCode.None)
+                if (cstate == CState.None)
                     message = string.Format("{0}: {1}", level.ToString().ToUpper(), message);
                 else
                 {
                     string strCode = "";
                     int code = 0;
                     string hint = level.ToString().ToUpper() + "-";
-                    if (compileCode >= CompileCode.Error)
+                    if (cstate >= CState.Error)
                     {
-                        code = compileCode - CompileCode.Error;
-                        hint = "Error";
-                        strCode = "E" + string.Format("{0:D3}", code);
+                        code = (int)cstate;// -CState.Error;
+                        hint = "error";
+                        strCode = "CS" + string.Format("{0:D3}", code);
                     }
 
-                    else if (compileCode >= CompileCode.Warning)
+                    else if (cstate >= CState.Warning)
                     {
-                        code = compileCode - CompileCode.Warning;
-                        hint = "Warning";
-                        strCode = "W" + string.Format("{0:D3}", code);
+                        code = (int)cstate;// -CState.Warning;
+                        hint = "warning";
+                        strCode = "CS" + string.Format("{0:D3}", code);
                     }
 
-                    message = string.Format("{0} {1}: {2}\n{3}", hint.ToUpper(), strCode, compileCode, message);
+                    message = string.Format("{0} {1}: {2}\n{3}", hint, strCode, cstate, message);
                 }
             }
 
