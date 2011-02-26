@@ -1,9 +1,8 @@
-﻿using System;
-using System.IO;
-using ArmA2.Script.Compile;
+﻿using System.IO;
 using ArmA2.Script.Compile.Exceptions;
+using ArmA2.Script.ScriptProcessor;
 
-namespace ArmA2.Script.ScriptProcessor
+namespace ArmA2.Script.Compile.Commands.Common
 {
     internal class CmdBase : IScriptRenderer
     {

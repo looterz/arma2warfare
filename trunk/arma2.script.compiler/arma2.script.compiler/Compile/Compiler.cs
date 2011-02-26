@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using ArmA2.Script.Compile.Commands.Common;
 using ArmA2.Script.Compile.Exceptions;
 using ArmA2.Script.ScriptProcessor;
 

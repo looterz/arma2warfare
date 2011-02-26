@@ -1,14 +1,14 @@
 ﻿using System.Linq;
-using ArmA2.Script.Compile;
 using ArmA2.Script.Compile.Collections;
 using ArmA2.Script.Compile.Exceptions;
+using ArmA2.Script.ScriptProcessor;
 using ArmA2.Script.ScriptProcessor.Commands;
 
-namespace ArmA2.Script.ScriptProcessor
+namespace ArmA2.Script.Compile.Commands.Common
 {
     internal class CmdScopeCodeRoot : CmdScopeBase
     {
-        private Processor _processor;
+        private readonly Processor _processor;
 
         internal CmdScopeCodeRoot(Processor p)
         {

@@ -1,4 +1,5 @@
 ﻿using ArmA2.Script.Compile;
+using ArmA2.Script.Compile.Commands.Common;
 
 namespace ArmA2.Script.ScriptProcessor.Commands
 {

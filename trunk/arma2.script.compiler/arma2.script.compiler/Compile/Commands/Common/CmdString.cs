@@ -1,6 +1,4 @@
-﻿using ArmA2.Script.Compile;
-
-namespace ArmA2.Script.ScriptProcessor
+﻿namespace ArmA2.Script.Compile.Commands.Common
 {
     internal class CmdString : CmdText
     {
