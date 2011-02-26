@@ -21,11 +21,4 @@ namespace ArmA2.Script.ScriptProcessor
             return null;
         }
     }
-
-    internal partial class Processor
-    {
-        private static void PVEventHandler(CmdCommand cmd, Compiler compiler)
-        {
-        }
-    }
 }

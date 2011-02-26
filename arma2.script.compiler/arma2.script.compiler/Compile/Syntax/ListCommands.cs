@@ -3,7 +3,7 @@ using ArmA2.Script.ScriptProcessor.Commands;
 
 namespace ArmA2.Script.ScriptProcessor
 {
-    internal partial class Processor
+    internal class LexiconFunc
     {
         internal static Function[] CommandData = new Function[]
             {
