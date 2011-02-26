@@ -78,7 +78,7 @@ namespace ArmA2.Script.Compile.Commands.Common
                     useUndeclaredVars.ForEach(m => list = list + ((i++ == 0) ? "" : ",") + string.Format("'{0}'", m));
 
                     list = list + "\nAt Scope: " + ShortTerm + "\n";
-                    var warn = new CompileException(CState.UsedNotAssigned, list);
+                    var warn = new CompileException(CompileCode.UsedNotAssigned, list);
                     warn.WriteToLog();
                 }
             }

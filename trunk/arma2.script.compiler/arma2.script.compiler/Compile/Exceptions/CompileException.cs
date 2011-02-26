@@ -7,18 +7,18 @@ namespace ArmA2.Script.Compile.Exceptions
         #region Свойства класса
 
         internal bool Throwable { get; set; }
-        internal CState CState { get; private set; }
+        internal CompileCode CompileCode { get; private set; }
 
         internal LogLevel Level
         {
             get
             {
-                if (CState >= CState.Error)
+                if (CompileCode >= CompileCode.Error)
                 {
                     return LogLevel.Error;
                 }
 
-                if (CState >= CState.Warning)
+                if (CompileCode >= CompileCode.Warning)
                 {
                     return LogLevel.Warning;
                 }
@@ -31,10 +31,10 @@ namespace ArmA2.Script.Compile.Exceptions
 
         #region Конструкторы класса
 
-        internal CompileException(CState code, string text, params object[] args)
+        internal CompileException(CompileCode code, string text, params object[] args)
             : base((args != null && args.Length > 0) ? string.Format(text, args) : text)
         {
-            CState = code;
+            CompileCode = code;
             Throwable = false;
         }
 
@@ -44,7 +44,7 @@ namespace ArmA2.Script.Compile.Exceptions
 
         internal void WriteToLog()
         {
-            Logger.Log(Level, CState, Message);
+            Logger.Log(Level, CompileCode, Message);
         }
 
         #endregion

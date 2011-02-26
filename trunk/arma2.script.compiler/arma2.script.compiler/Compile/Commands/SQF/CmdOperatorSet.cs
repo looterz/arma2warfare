@@ -1,8 +1,7 @@
 ﻿using System.Linq;
-using ArmA2.Script.Compile;
 using ArmA2.Script.Compile.Commands.Common;
 
-namespace ArmA2.Script.ScriptProcessor.Commands
+namespace ArmA2.Script.Compile.Commands.SQF
 {
     internal class CmdOperatorSet : CmdOperator
     {
@@ -27,7 +26,7 @@ namespace ArmA2.Script.ScriptProcessor.Commands
 
                     if (declared)
                     {
-                        Logger.Log(LogLevel.Warning, CState.AssigmentToReserved, "Assignment to reserved variable: {0}",
+                        Logger.Log(LogLevel.Warning, CompileCode.AssigmentToReserved, "Assignment to reserved variable: {0}",
                                    Parent.ShortTerm);
                     }
 

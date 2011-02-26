@@ -1,9 +1,8 @@
-﻿using System;
-using ArmA2.Script.Compile.Collections;
+﻿using ArmA2.Script.Compile.Collections;
 using ArmA2.Script.Compile.Commands.Common;
-using ArmA2.Script.ScriptProcessor.Commands;
+using ArmA2.Script.Compile.Commands.SQF;
 
-namespace ArmA2.Script.ScriptProcessor
+namespace ArmA2.Script.Compile.Commands.FSM
 {
     internal class FsmProperty : INamedItem
     {

@@ -1,10 +1,7 @@
-﻿using System;
-using ArmA2.Script.Compile;
-using ArmA2.Script.Compile.Commands.Common;
+﻿using ArmA2.Script.Compile.Commands.Common;
 using ArmA2.Script.Compile.Exceptions;
-using ArmA2.Script.ScriptProcessor.Commands;
 
-namespace ArmA2.Script.ScriptProcessor
+namespace ArmA2.Script.Compile.Commands.SQF
 {
     internal class CmdEventHandlerPV : CmdCommandTwo
     {
@@ -14,7 +11,7 @@ namespace ArmA2.Script.ScriptProcessor
 
             // "NETSEND_BROADCAST" addinternalVariableEventHandler {(_this select 1) spawn NetSend_HandleMessage; };
             if ((Arg1 is CmdString || Arg1 is CmdScopeCode) == false)
-            throw new CompileException(CState.CommandInvalidArgument,
+            throw new CompileException(CompileCode.CommandInvalidArgument,
                                        "arg2 EventHandler argument must be scope array or string\nAt scope:{0}",
                                        ParentScope.ShortTerm);
 

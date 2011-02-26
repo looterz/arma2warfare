@@ -68,7 +68,7 @@
     <Compile Include="Compile\Compiler.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Logging\LogLevel.cs" />
-    <Compile Include="Compile\CState.cs" />
+    <Compile Include="Compile\CompileCode.cs" />
     <Compile Include="Compile\Commands\SQF\CmdCommandOne.cs" />
     <Compile Include="Compile\Commands\SQF\CmdCommandTwo.cs" />
     <Compile Include="Compile\Commands\SQF\CmdCompile.cs" />
@@ -78,7 +78,7 @@
     <Compile Include="Compile\Commands\SQF\CmdOperatorSet.cs" />
     <Compile Include="Compile\Commands\SQF\CmdPrivate.cs" />
     <Compile Include="Compile\Commands\SQF\CmdEventHandler.cs" />
-    <Compile Include="Compile\Commands\SQF\ICmdCompile.cs" />
+    <Compile Include="Compile\Commands\Common\ICmdCompile.cs" />
     <Compile Include="Compile\Commands\Common\CmdBase.cs" />
     <Compile Include="Compile\Commands\Common\CmdCommand.cs" />
     <Compile Include="Compile\Commands\Common\CmdCommandBase.cs" />

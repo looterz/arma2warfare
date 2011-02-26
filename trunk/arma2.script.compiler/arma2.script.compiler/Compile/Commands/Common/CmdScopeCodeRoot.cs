@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using ArmA2.Script.Compile.Collections;
+using ArmA2.Script.Compile.Commands.SQF;
 using ArmA2.Script.Compile.Exceptions;
 using ArmA2.Script.ScriptProcessor;
-using ArmA2.Script.ScriptProcessor.Commands;
 
 namespace ArmA2.Script.Compile.Commands.Common
 {
@@ -55,7 +55,7 @@ namespace ArmA2.Script.Compile.Commands.Common
                 unused.ForEach(m => list = list + ((i++ == 0) ? "" : ",") + string.Format("'{0}'", m));
 
                 list = list + "\nAt Scope: " + ShortTerm + "\n";
-                var warn = new CompileException(CState.PrivateVarUnused, list);
+                var warn = new CompileException(CompileCode.PrivateVarUnused, list);
                 warn.WriteToLog();
             }
 
@@ -93,7 +93,7 @@ namespace ArmA2.Script.Compile.Commands.Common
                 undeclared.ForEach(m => list = list + ((i++ == 0) ? "" : ",") + string.Format("'{0}'", m));
 
                 list = list + "\nAt Scope: " + ShortTerm + "\n";
-                var warn = new CompileException(CState.PrivateVarUndeclared, list);
+                var warn = new CompileException(CompileCode.PrivateVarUndeclared, list);
                 warn.WriteToLog();
             }
 

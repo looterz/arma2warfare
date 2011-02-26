@@ -35,10 +35,10 @@ namespace ArmA2.Script
 
         internal static void Log(LogLevel level, string message, params object[] args)
         {
-            Log(level, CState.None, message, args);
+            Log(level, CompileCode.None, message, args);
         }
 
-        internal static void Log(LogLevel level, CState cstate, string message, params object[] args)
+        internal static void Log(LogLevel level, CompileCode cstate, string message, params object[] args)
         {
             if (level == LogLevel.Warning && WarningDisabled.Any(m => m == (int)cstate))
                 return;
@@ -50,21 +50,21 @@ namespace ArmA2.Script
 
             if (level >= LogLevel.Trace)
             {
-                if (cstate == CState.None)
+                if (cstate == CompileCode.None)
                     message = string.Format("{0}: {1}", level.ToString().ToUpper(), message);
                 else
                 {
                     string strCode = "";
                     int code = 0;
                     string hint = level.ToString().ToUpper() + "-";
-                    if (cstate >= CState.Error)
+                    if (cstate >= CompileCode.Error)
                     {
                         code = (int)cstate;// -CState.Error;
                         hint = "error";
                         strCode = "CS" + string.Format("{0:D3}", code);
                     }
 
-                    else if (cstate >= CState.Warning)
+                    else if (cstate >= CompileCode.Warning)
                     {
                         code = (int)cstate;// -CState.Warning;
                         hint = "warning";

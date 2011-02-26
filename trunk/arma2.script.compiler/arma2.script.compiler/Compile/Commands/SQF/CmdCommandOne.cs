@@ -1,8 +1,7 @@
-﻿using ArmA2.Script.Compile;
-using ArmA2.Script.Compile.Commands.Common;
+﻿using ArmA2.Script.Compile.Commands.Common;
 using ArmA2.Script.Compile.Exceptions;
 
-namespace ArmA2.Script.ScriptProcessor.Commands
+namespace ArmA2.Script.Compile.Commands.SQF
 {
     internal class CmdCommandOne : CmdCommand
     {
@@ -14,7 +13,7 @@ namespace ArmA2.Script.ScriptProcessor.Commands
             Arg1 = NextElement(1);
 
             if (Arg1 == null)
-                throw new CompileException(CState.CommandInvalidArgument,
+                throw new CompileException(CompileCode.CommandInvalidArgument,
                                            "'{0}' arg1: arg1 is not defined\nAt scope:{1}", this.Text, ParentScope.ShortTerm);       
         }
     }

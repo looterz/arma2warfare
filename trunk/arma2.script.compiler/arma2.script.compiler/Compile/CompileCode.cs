@@ -1,6 +1,6 @@
 ﻿namespace ArmA2.Script.Compile
 {
-    public enum CState
+    public enum CompileCode
     {
         None,
         Warning = 100,

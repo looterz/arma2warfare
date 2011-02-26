@@ -1,7 +1,6 @@
-﻿using ArmA2.Script.Compile;
-using ArmA2.Script.Compile.Commands.Common;
+﻿using ArmA2.Script.Compile.Commands.Common;
 
-namespace ArmA2.Script.ScriptProcessor.Commands
+namespace ArmA2.Script.Compile.Commands.SQF
 {
     internal class CmdCompile : CmdCommandOne
     {
@@ -11,7 +10,7 @@ namespace ArmA2.Script.ScriptProcessor.Commands
 
             if (Arg1 is CmdCommand && ((CmdCommand)Arg1).Text.Equal("format"))
             {
-                Logger.Log(LogLevel.Warning, CState.PerfomanceIssue,
+                Logger.Log(LogLevel.Warning, CompileCode.PerfomanceIssue,
                     "Possible performance degradation: {0}", Parent.ToString());
                 return;
             }
