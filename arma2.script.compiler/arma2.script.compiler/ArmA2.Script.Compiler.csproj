@@ -102,10 +102,10 @@
     <Compile Include="Compile\Exceptions\CompileException.cs" />
     <Compile Include="Compile\Collections\UniqueVarList.cs" />
     <Compile Include="ScriptProcessor\FlattenHierarchyProxy.cs" />
-    <Compile Include="ScriptProcessor\FSM\FSMClass.cs" />
-    <Compile Include="ScriptProcessor\FSM\FsmProperty.cs" />
-    <Compile Include="ScriptProcessor\FSM\INamedItem.cs" />
-    <Compile Include="ScriptProcessor\FSM\NamedList.cs" />
+    <Compile Include="Compile\Commands\FSM\FSMClass.cs" />
+    <Compile Include="Compile\Commands\FSM\FsmProperty.cs" />
+    <Compile Include="Compile\Commands\FSM\INamedItem.cs" />
+    <Compile Include="Compile\Commands\FSM\NamedList.cs" />
     <Compile Include="ScriptProcessor\IScriptRenderer.cs" />
     <Compile Include="ScriptProcessor\ListBase.cs" />
     <Compile Include="ScriptProcessor\Processor.cs" />
