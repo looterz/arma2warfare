@@ -1,4 +1,6 @@
-﻿namespace ArmA2.Script.Compile.Commands.Common
+﻿using ArmA2.Script.Compile.TextWriters;
+
+namespace ArmA2.Script.Compile.Commands.Common
 {
     internal class CmdText : CmdBase
     {

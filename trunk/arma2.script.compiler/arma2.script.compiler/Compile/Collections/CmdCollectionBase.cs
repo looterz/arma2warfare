@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ArmA2.Script.Compile.Commands.Common;
+using ArmA2.Script.Compile.TextWriters;
 using ArmA2.Script.ScriptProcessor;
 
 namespace ArmA2.Script.Compile.Collections

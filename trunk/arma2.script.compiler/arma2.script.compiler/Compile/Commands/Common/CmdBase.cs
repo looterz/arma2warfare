@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using ArmA2.Script.Compile.Exceptions;
+using ArmA2.Script.Compile.TextWriters;
 using ArmA2.Script.ScriptProcessor;
 
 namespace ArmA2.Script.Compile.Commands.Common
