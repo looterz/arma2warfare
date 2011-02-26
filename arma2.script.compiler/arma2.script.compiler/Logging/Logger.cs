@@ -17,7 +17,7 @@ namespace ArmA2.Script
     public class Logger
     {
         public static string LogFileName = "arma2.script.compile.log";
-        public static bool EnableLogToFile = false;
+        public static bool EnableLogToFile = true;
 
         private static StreamWriter _fileWriter;
         public static LogLevel Level = LogLevel.High;
@@ -36,6 +36,7 @@ namespace ArmA2.Script
                 if (_fileWriter == null)
                 {
                     _fileWriter = new StreamWriter(LogFileName, false, Encoding.UTF8);
+                    _fileWriter.AutoFlush = true;
                 }
                 return _fileWriter;
             }
@@ -134,7 +135,7 @@ namespace ArmA2.Script
                 {
                     Console.WriteLine(message);
                 }
-                if (EnableLogToFile && (flag & LogFlag.LogToFile) == LogFlag.LogToFile)
+                //if (EnableLogToFile && (flag & LogFlag.LogToFile) == LogFlag.LogToFile)
                 {
                     FileWriter.WriteLine(message);
                 }
