@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Web;
 using ArmA2.Script;
+using ArmA2.Script.Compile;
 using ArmA2.Script.ScriptProcessor;
 
 //using Microsoft.VisualStudio.TestTools.UnitTesting;

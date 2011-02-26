@@ -1,4 +1,5 @@
-﻿using ArmA2.Script.ScriptProcessor;
+﻿using ArmA2.Script.Compile;
+using ArmA2.Script.ScriptProcessor;
 using NUnit.Framework;
 
 namespace ArmA2.Script.UnitTests

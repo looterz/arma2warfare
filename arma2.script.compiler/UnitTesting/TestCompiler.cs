@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using ArmA2.Script;
+using ArmA2.Script.Compile;
 using ArmA2.Script.ScriptProcessor;
 using NUnit.Framework;
 

@@ -1,4 +1,6 @@
-﻿namespace ArmA2.Script.ScriptProcessor
+﻿using ArmA2.Script.Compile;
+
+namespace ArmA2.Script.ScriptProcessor
 {
     internal class CmdVariable : CmdText
     {
@@ -13,7 +15,7 @@
 
             if (IsLocal)
             {
-                if (!ParentScope.LocalVars.IsDeclared(Text) && compiler.Settings.ApplyPrivateVars)
+                if (!ParentScope.LocalVars.IsDeclared(Text) && compiler.Settings.UpdatePrivateVars)
                 {
                     if (ParentScope.IsDeclaredInOuterScope(Text))
                     {

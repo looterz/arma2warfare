@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using ArmA2.Script.ScriptProcessor;
 
-namespace ArmA2.Script
+namespace ArmA2.Script.Compile
 {
     public class Compiler
     {
@@ -355,7 +355,7 @@ namespace ArmA2.Script
 
             PushSettings();
 
-            Settings.ApplyPrivateVars = true;
+            Settings.UpdatePrivateVars = true;
             Settings.FsmContent = false;
 
             var scopeRoot = new CmdScopeCodeRoot(new Processor(this));
