@@ -17,7 +17,7 @@ namespace ArmA2.Script
     public class Logger
     {
         public static string LogFileName = "arma2.script.compile.log";
-        public static bool EnableLogToFile = true;
+        public static bool EnableLogToFile = false;
 
         private static StreamWriter _fileWriter;
         public static LogLevel Level = LogLevel.High;
