@@ -41,7 +41,7 @@ namespace ArmA2.Script.ScriptProcessor
                 "{", "[", "(", "]", ")", "}", 
                 " greater ", " greater=", " less ", " less=", " or ", " and ", " plus ",
                 "<", ">", "|", 
-                "!", "=", "*", "+", "-", "/", "^", "&", ",", ":", "\"", "'", ";", " "})
+                "!", "=", "*", "+", "-", "/", "^", "&", ",", ":", "\"", "'", ";", " ", "\n"})
                 .OrderByDescending(m => m.Length).ToArray();
 
         private string[] _baseEndCommand = new[] {",", ";"};

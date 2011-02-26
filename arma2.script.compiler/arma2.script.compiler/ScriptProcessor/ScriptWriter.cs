@@ -13,6 +13,11 @@ namespace ArmA2.Script.ScriptProcessor
 
         internal void WriteIndent(bool allowIdent, string content, params object[] args)
         {
+            WriteIndent(allowIdent, true, content, args);
+        }
+
+        internal void WriteIndent(bool allowIdent, bool newLine, string content, params object[] args)
+        {
             if (args.Length > 0)
                 content = string.Format(content, args);
 
@@ -28,6 +33,7 @@ namespace ArmA2.Script.ScriptProcessor
 
         internal ScriptWriter(Stream stream, bool renderMinimized) : base(stream)
         {
+            NewLine = "\n";
             ApplyMinimize = renderMinimized;
         }
     }
