@@ -8,20 +8,20 @@ namespace ArmA2.Script.Compile.Lexicon
     {
         #region Поля класса
 
-        private List<string> _operators;
+        private List<Function> _operators;
         private List<Function> _functions;
 
         #endregion
 
         #region Свойства класса
 
-        internal List<string> Operators
+        internal List<Function> Operators
         {
             get
             {
                 if (_operators == null)
                 {
-                    _operators = ReadUniqueItemCollection(LexOperator.List, "Operator");
+                    _operators = (new List<Function>(LexOperator.List)).OrderByDescending(m => m.Name).ToList();
                 }
                 return _operators;
             }
@@ -33,7 +33,7 @@ namespace ArmA2.Script.Compile.Lexicon
             {
                 if (_functions == null)
                 {
-                    _functions = new List<Function>(LexCommand.List);
+                    _functions = (new List<Function>(LexCommand.List)).OrderByDescending(m => m.Name).ToList();
                 }
                 return _functions;
             }
@@ -46,7 +46,7 @@ namespace ArmA2.Script.Compile.Lexicon
         internal bool IsOperator(string value)
         {
             value = value.ToLower().Trim();
-            return Operators.Any(m => m == value);
+            return Operators.Any(m => m.Name.Equal(value));
         }
 
         internal bool IsCommand(string value)

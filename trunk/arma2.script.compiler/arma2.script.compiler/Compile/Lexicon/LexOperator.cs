@@ -2,32 +2,24 @@
 {
     public class LexOperator
     {
-        public static string List = @"
-!
-!=
-%
-&&
-greater
-greater=
-less
-less=
-or
-and
-plus
-*
-+
--
-/
-==
-=
-:
-||
->=
-<=
-<
->
-^
-&
-";
-    }
+        public static Function[] List = {
+                                            new Function {Name = "!",},
+                                            new Function {Name = "!=",},
+                                            new Function {Name = "&&",},
+                                            new Function {Name = "*",},
+                                            new Function {Name = "+",},
+                                            new Function {Name = "-",},
+                                            new Function {Name = "/",},
+                                            new Function {Name = "==",},
+                                            new Function {Name = "=",},
+                                            new Function {Name = ":",},
+                                            new Function {Name = "||",},
+                                            new Function {Name = ">=",},
+                                            new Function {Name = "<=",},
+                                            new Function {Name = "<",},
+                                            new Function {Name = ">",},
+                                            new Function {Name = "^",},
+                                            new Function {Name = "&",}
+                                        };
+    };
 }

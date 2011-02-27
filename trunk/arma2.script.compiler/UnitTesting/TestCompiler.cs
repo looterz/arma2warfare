@@ -212,6 +212,7 @@ switch (_respawnCampsMode) do {
 
                 Compiler compiler = new Compiler();
                 compiler.Context = ctx;
+                compiler.Settings.EnableMinimization = true;
                 compiler.Settings.FsmContent = (Path.GetExtension(file).ToLower() == ".fsm");
                 compiler.Settings.FileName = Path.GetFileName(file);
 
