@@ -11,7 +11,12 @@
         internal bool HideVars;
 
         public bool IsTopFile = true;
-        internal bool ScriptMinimized;
+
+        #if !DISABLEMINIMIZE
+            internal bool ScriptMinimized = true;
+        #else
+            internal bool ScriptMinimized = false;
+        #endif
 
         public string StringQuote = "'";
 
