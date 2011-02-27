@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ArmA2.Script.Compile.Lexicon;
 
-namespace ArmA2.Script.Compile
+namespace ArmA2.Script.Compile.Lexicon
 {
     internal class Dict
     {
