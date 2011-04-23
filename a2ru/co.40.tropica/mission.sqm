@@ -6,7 +6,7 @@ class Mission
 	randomSeed=15385064;
 	class Intel
 	{
-		briefingName="Warfare BE V2.068 Lite CO - Tropica";
+		briefingName="$MISSIONNAME CO $MAXPLAYER - Tropica";
 		briefingDescription="By Benny www.hs-clan.com Isle by ADO Old Bear/ported by UTF";
 		resistanceWest=0;
 		startWeather=0.03127569;

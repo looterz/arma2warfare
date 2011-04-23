@@ -6,7 +6,7 @@ class Mission
 	randomSeed=4029172;
 	class Intel
 	{
-		briefingName="Warfare BE V2.068 Lite CO - Lingor";
+		briefingName="$MISSIONNAME CO $MAXPLAYER - Lingor";
 		briefingDescription="By Benny-map by Icebreakr/ported by UTF";
 		resistanceWest=0;
 		startWeather=0.08517003;
