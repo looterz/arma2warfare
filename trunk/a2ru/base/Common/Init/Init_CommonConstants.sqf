@@ -68,8 +68,8 @@ if (WF_A2_CombinedOps) then {
 ['WFBE_BASEAREAMAX',2,false] Call SetNamespace;
 //--- Bounty Coefficient Modifier (Blood money).
 ['WFBE_BOUNTYMODIFIER',0.25,true] Call SetNamespace;
-//--- Building Damage Reduction (Damage given / x, 1 = normal).
-['WFBE_BUILDINGDAMAGEREDUCTION',5,true] Call SetNamespace;
+//--- Building Damage Reduction (Current damage given / x, 1 = normal).
+['WFBE_BUILDINGDAMAGEREDUCTION',8,true] Call SetNamespace;
 //--- Building Limits.
 ['WFBE_BUILDINGMAXBARRACKS',3,false] Call SetNamespace;
 ['WFBE_BUILDINGMAXLIGHT',3,false] Call SetNamespace;
@@ -635,7 +635,8 @@ if (('WFBE_INCOMESYSTEM' Call GetNamespace) == 3) then {
 	//--- Town Multiplicator Coefficient (SV * x).
 	['WFBE_INC_COEFFICIENT',10, true] Call SetNamespace;
 	//--- Prevent commander from being a millionaire, and add the rest to the players pool.
-	['WFBE_INC_DIVIDE_COM',2.75, true] Call SetNamespace;
+	//--- setup max percent to 13%
+	['WFBE_INC_DIVIDE_COM', 100/ 13, true] Call SetNamespace;
 	
 	//--- Commander Income %.
 	if (isNil "EastCommanderPercent") then {EastCommanderPercent = 50};
