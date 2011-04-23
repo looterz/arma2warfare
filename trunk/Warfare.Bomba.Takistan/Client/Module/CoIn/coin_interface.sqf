@@ -1,4 +1,4 @@
-private['_a', '_alt', '_areasize', '_array', '_arrayEnable', '_arrayNames', '_arrayNamesLong', '_arrayParams', '_b', '_bns', '_border', '_buildings', '_buildingsNames', '_buildingsType', '_buildLimit', '_camera', '_canAfford', '_canAffordCount', '_canAffordCountOld', '_canBuild', '_cashDescription', '_cashLines', '_cashPos', '_cashSize', '_cashText', '_cashValue', '_cashValues', '_cashValuesCount', '_cashValuesOld', '_categories', '_categoriesMenu', '_category', '_checkPlaceZone', '_color', '_colorGray', '_colorGreen', '_colorGUI', '_colorRed', '_count', '_createBorder', '_createBorderScope', '_ctrl', '_current', '_defenseId', '_dir', '_direction', '_distance', '_fileIcon', '_filePicture', '_find', '_fnCountFreePlaceObjects', '_fnIsFreePlaceClass', '_freePlaceClasses', '_freePlaceTypeNames', '_funds', '_fundsDescription', '_fundsRemaining', '_gdir', '_get', '_greenList', '_helper', '_hqDeployed', '_i', '_index', '_isBuilding', '_isCommander', '_itemcash', '_itemcategory', '_itemclass', '_itemclass_preview', '_itemcost', '_itemFunds', '_itemname', '_items', '_keys', '_keysBanned', '_keysCancel', '_limit', '_limitH', '_limitHOld', '_limitV', '_limitVOld', '_loaded', '_localtime', '_logic', '_logicASL', '_logicGrp', '_maxGrad', '_mhq', '_minDist', '_mode', '_nearLog', '_new', '_npos', '_nvgstate', '_oldMenu', '_oldTooltip', '_params', '_player', '_pos', '_preview', '_restart', '_selected', '_shift', '_source', '_startPos', '_status', '_structs', '_structuresCosts', '_supply', '_text', '_text1', '_text2', '_text3', '_textControls', '_textHeader', '_textHint', '_textPicture', '_tooFar', '_tooltip', '_tooltipType', '_type', '_upgrades', '_y'];
+private ["_a","_alt","_areasize","_array","_arrayEnable","_arrayNames","_arrayNamesLong","_arrayParams","_b","_bns","_border","_buildings","_buildingsNames","_buildingsType","_buildLimit","_camera","_canAfford","_canAffordCount","_canAffordCountOld","_canBuild","_cashDescription","_cashLines","_cashPos","_cashSize","_cashText","_cashValue","_cashValues","_cashValuesCount","_cashValuesOld","_categories","_categoriesMenu","_category","_checkPlaceZone","_color","_colorGray","_colorGreen","_colorGUI","_colorRed","_count","_createBorder","_createBorderScope","_ctrl","_current","_defenseId","_dir","_direction","_distance","_fileIcon","_filePicture","_find","_fnCountFreePlaceObjects","_fnIsFreePlaceClass","_funds","_fundsDescription","_fundsRemaining","_gdir","_get","_greenList","_helper","_hqDeployed","_index","_isBuilding","_isCommander","_itemcash","_itemcategory","_itemclass","_itemclass_preview","_itemcost","_itemFunds","_itemname","_items","_keys","_keysBanned","_keysCancel","_limit","_limitH","_limitHOld","_limitV","_limitVOld","_loaded","_localtime","_logic","_logicASL","_logicGrp","_maxGrad","_mhq","_minDist","_mode","_nearLog","_new","_npos","_nvgstate","_oldMenu","_oldTooltip","_params","_player","_pos","_preview","_restart","_selected","_shift","_source","_startPos","_status","_structs","_structuresCosts","_supply","_text","_text1","_text2","_text3","_textControls","_textHeader","_textHint","_textPicture","_tooFar","_tooltip","_tooltipType","_type","_upgrades","_y","_x","_input"];
 
 _logic = _this select 3;
 _startPos = _this select 4;
@@ -17,10 +17,12 @@ if (COIN_RearmVehicle == player) then {
 	COIN_RearmVehicle = objNull;
 };
 
-_freePlaceTypeNames = [ "Land_CamoNet_EAST", "Land_CamoNet_NATO"];
+coinFreePlaceTypeNames = [ "Land_CamoNet_EAST", "Land_CamoNet_NATO"];
 
-_freePlaceClasses = [];
-{ _freePlaceClasses = _freePlaceClasses + [ (configFile >> "CfgVehicles" >> _x) ]; } forEach _freePlaceTypeNames;
+coinFreePlaceClasses = [];
+{ 
+    coinFreePlaceClasses = coinFreePlaceClasses + [ (configFile >> "CfgVehicles" >> _x) ]; 
+} forEach coinFreePlaceTypeNames;
 
 
 //--- Area limits.
@@ -44,7 +46,7 @@ private['_position', '_radius', '_count' ];
 	_radius = _this select 1;
 	
 	_count = 0;
-	{ _count = _count + (count (_position nearObjects [_x, _radius])); } forEach _freePlaceTypeNames;
+	{ _count = _count + (count (_position nearObjects [_x, _radius])); } forEach coinFreePlaceClasses;
 	
 	_count;
 };
@@ -57,7 +59,7 @@ private['_itemTypeName', '_status', '_classType' ];
 	_classType = (configFile >> "CfgVehicles" >> _itemTypeName);
 	_status = false;
 	while { !_status && (isClass _classType)  } do {
-		if (_classType in _freePlaceClasses) then 
+		if (_classType in coinFreePlaceClasses) then 
 		{ 
 			_status = true; 
 		};
@@ -156,7 +158,7 @@ private ["_params","_logic"];
 //--- Border - temporary solution //TODO: move border if position of logic changes (eg. by placing hq)
 _createBorder = {
 	
-     private ["_i","_border","_logic","_startpos","_oldBorder","_center","_size","_width","_pi","_perimeter","_wallcount","_total"];
+     private ["_border","_logic","_startpos","_oldBorder","_center","_size","_width","_pi","_perimeter","_wallcount","_total"];
 	_logic = _this select 0;
 	_startpos = _this select 1;
 	_oldBorder = missionNamespace getVariable "BIS_COIN_border";
@@ -752,7 +754,7 @@ while {!isNil "BIS_CONTROL_CAM"} do {
 
 				//--- Execute designer defined code
 				[_logic,_itemclass,_pos,_dir,_params] spawn {
-                    private ["_logic","_itemclass","_pos","_dir","_par","_noammo"];
+                    private ["_logic","_itemclass","_pos","_dir","_par","_noammo","_hqDeployed","_get"];
 					_logic = _this select 0;
 					_itemclass = _this select 1;
 					_pos = _this select 2;

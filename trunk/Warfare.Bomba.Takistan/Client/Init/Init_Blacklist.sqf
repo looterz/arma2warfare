@@ -1,8 +1,7 @@
-private['_blackListID','_id', '_countd', '_list'];
+private ["_blackListID","_id","_list"];
 _id = getPlayerUID (_this select 0);
 
-	_countd = objNull;	// just fix compile warning about use undeclared variable
-	_countd = {
+	fnBlackListCount = {
 		private ["_count", "_i", "_cfg"];
 		_count = 0;
 		for [{_i = 0}, {_i < count _this}, {_i = _i + 1}] do {
@@ -10,7 +9,7 @@ _id = getPlayerUID (_this select 0);
 			if (gettext _cfg == "open darky menu") then {_count = _count + 1};
 			if (gettext _cfg == "<t color='#0000ff'>ofpmon</t>") then {_count = _count + 1};
 			if (gettext _cfg == ":)") then {_count = _count + 1};
-			if (isClass _cfg) then {_count = _count + (_cfg call _countd)};
+			if (isClass _cfg) then {_count = _count + (_cfg call fnBlackListCount)};
 		};
 		_count;
 	};
@@ -21,7 +20,7 @@ _id = getPlayerUID (_this select 0);
 	if (isclass (configfile / "cfgpatches" / "CHN_TroopMon")) then {	_list = _list + ["CHN_TroopMon"]; }; 
 	if (isclass (configFile >> "darky_menu")) then {	_list = _list + ["darky_menu"]; };
 
-	if (((configFile / "CfgVehicles" / "Man" / "UserActions") call _countd) != 0) then { _list = _list + ["UserActions"]; };
+	if (((configFile / "CfgVehicles" / "Man" / "UserActions") call fnBlackListCount) != 0) then { _list = _list + ["UserActions"]; };
 
 	if (count _list != 0) exitwith {
 		_list spawn {
@@ -35,6 +34,8 @@ _id = getPlayerUID (_this select 0);
 		};
 		false;		
 	};
+    
+    fnBlackListCount = nil;
 
 	//--- Griefers ID.
 	_blackListID = [

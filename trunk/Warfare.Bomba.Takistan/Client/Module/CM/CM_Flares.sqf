@@ -1,5 +1,5 @@
 //--- ArmA 2 countermeasures, by Maddmatt.
-private['_i','_emmiters','_flare','_flares','_flarecount','_launchercount','_muzzzlevel','_vehicle','_dirpos','_li','_relpos','_sm','_sp','_div','_flarevel','_vvel'];
+private ["_emmiters","_flare","_flares","_flarecount","_launchercount","_muzzzlevel","_vehicle","_dirpos","_li","_relpos","_sm","_sp","_div","_flarevel","_vvel"];
 
 _vehicle = _this select 0;
 _flares = [];

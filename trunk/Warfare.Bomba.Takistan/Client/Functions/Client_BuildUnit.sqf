@@ -1,4 +1,4 @@
-Private ["_building", "_unitType", "_vehInfo", "_cpt", "_isMan", "_driver", "_gunner", "_commander"];
+private ["_building","_unitType","_vehInfo","_cpt","_driver","_gunner","_commander"];
 _building = _this select 0;
 _unitType = _this select 1;
 _vehInfo = _this select 2;
@@ -6,10 +6,8 @@ _vehInfo = _this select 2;
 waitUntil { !isNil "initJIP" };
 
 _cpt = 0;
-_isMan = false;
-if (_unit isKindOf "Man") then {
+if (_unitType isKindOf "Man") then {
 	_cpt = 1;
-	_isMan = true;
 } else {
 	_driver = _vehInfo select 0;
 	_gunner = _vehInfo select 1;

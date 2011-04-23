@@ -44,7 +44,7 @@ fnSupportHintShow = {
 fnSupportHintDisplay = {
 private["_lines", "_str", "_u", "_line", "_text", "_timeout", "_active"];
 
-	_str = objNull;
+	_str = "";
 	_u = count supportHintLines;
 	_lines = 0;
 	
@@ -59,7 +59,7 @@ private["_lines", "_str", "_u", "_line", "_text", "_timeout", "_active"];
 		format["%1", _line] call LogHigh;
 		
 	   if (_active && time < _timeout) then { 
-			_str = if (_lines == 0) then { _text } else { _str + _text };
+           _str = if (_lines == 0) then { _text } else { _str + _text };
 			_str = _str + "<br/>";
 			_lines = _lines + 1;
 		} else { 

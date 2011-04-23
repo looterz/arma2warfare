@@ -36,6 +36,7 @@ private['_funcName', '_dT', '_data'];
 	_funcName = _this select 0;
 	_dT = _this select 1;
 	
+    _data = nil;
 	call compile format["_data = PERF_FN_%1", _funcName];
 	if (isNil "_data") then {
 		_data = [0, 0];
@@ -65,6 +66,7 @@ private['_data', '_u', '_fnName'];
 	while { _u != 0 } do {
 		_u = _u - 1;			
 		_fnName = PROFILER_FUNC_NAMES select _u;
+         _data = nil;
 		call compile format["_data = PERF_FN_%1", _fnName];
 		diag_log format["ProfilerLogStats | %1 | %2 | %3", _fnName, (_data select 0), (_data select 1)];		
 	};	

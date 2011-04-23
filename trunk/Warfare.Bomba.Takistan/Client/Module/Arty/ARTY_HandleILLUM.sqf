@@ -1,5 +1,5 @@
 /* ILLUM Handler, Battlefield light bringer */
-private['_destination','_shell','_targetToHit','_velocity','_deploypos','_flare'];
+private ["_destination","_shell","_velocity","_deploypos","_flare"];
 _shell = _this select 0;
 _destination = _this select 1;
 _velocity = _this select 2;
@@ -9,7 +9,7 @@ _destination set [2, 1000];
 
 //--- Positionate the shell in the air.
 _shell setPos _destination;
-_targetToHit = objNull;
+//_targetToHit = objNull;
 
 //--- Fall straigh.
 _shell setVelocity [0,0,-_velocity];

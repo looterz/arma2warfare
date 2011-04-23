@@ -1,11 +1,11 @@
-private['_pressedButton','_pressedShift','_pressedControl','_pressedAlt','_keyhandled'];
+private ["_pressedButton","_keyhandled"];
 
 // ------------------ Parse Arguments -----------------
 
 _pressedButton = _this select 1;
-_pressedShift = _this select 2;
-_pressedControl = _this select 3;
-_pressedAlt = _this select 4;
+//_pressedShift = _this select 2;
+//_pressedControl = _this select 3;
+//_pressedAlt = _this select 4;
 
 _keyHandled = false;
 //--- _userKeyMessage = "";

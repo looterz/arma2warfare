@@ -1,7 +1,7 @@
-private['_vehicle','_units','_currentvd','_text','_transferamount','_amount','_val','_val2','_isinvehicle','_timer','_cursel','_curunitsel','_funds','_i','_desc','_ainumber','_finalnumber','_descvehi','_txt','_destroy','_is','_lastvd','_lasttg','_objects','_vehi','_xtra','_pos','_display'];
+private ["_vehicle","_units","_currentvd","_text","_transferamount","_amount","_val","_val2","_isinvehicle","_timer","_cursel","_curunitsel","_funds","_i","_desc","_ainumber","_finalnumber","_descvehi","_txt","_destroy","_is","_lastvd","_lasttg","_objects","_vehi","_xtra","_pos"];
 disableSerialization;
 
-_display = _this select 0;
+//_display = _this select 0;
 MenuAction = -1;
 _is = 'WFBE_INCOMESYSTEM' Call GetNamespace;
 
@@ -89,7 +89,7 @@ while {alive player && dialog} do {
 		MenuAction = -1;
 		_vehicle = vehicle player;
 		if (player != _vehicle) then {
-			if (getPos _vehicle select 2 > 3 && !surfaceIsWater (getPos _x)) then {
+			if (getPos _vehicle select 2 > 3 && !surfaceIsWater (getPos _vehicle)) then {
 				[_vehicle, getPos _vehicle, 15] Call PlaceSafe;
 			} else {
 				_vehicle setPos [getPos _vehicle select 0, getPos _vehicle select 1, 0.5];
