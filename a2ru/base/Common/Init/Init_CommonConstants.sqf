@@ -69,7 +69,7 @@ if (WF_A2_CombinedOps) then {
 //--- Bounty Coefficient Modifier (Blood money).
 ['WFBE_BOUNTYMODIFIER',0.25,true] Call SetNamespace;
 //--- Building Damage Reduction (Current damage given / x, 1 = normal).
-['WFBE_BUILDINGDAMAGEREDUCTION',8,true] Call SetNamespace;
+['WFBE_BUILDINGDAMAGEREDUCTION',4,true] Call SetNamespace;
 //--- Building Limits.
 ['WFBE_BUILDINGMAXBARRACKS',3,false] Call SetNamespace;
 ['WFBE_BUILDINGMAXLIGHT',3,false] Call SetNamespace;
