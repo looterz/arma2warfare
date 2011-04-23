@@ -6,7 +6,7 @@ class Mission
 	randomSeed=14557381;
 	class Intel
 	{
-		briefingName="Warfare BE V2.068 Lite CO - Yapal";
+		briefingName="$MISSIONNAME CO $MAXPLAYER - Yapal";
 		briefingDescription="by Benny";
 		resistanceWest=0;
 		startWeather=0.07745522;
