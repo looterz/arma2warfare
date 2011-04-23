@@ -1318,7 +1318,7 @@ class Mission
 				class Item0
 				{
 					id=69;
-					text="WestSlot16";
+					text="WestSlot17";
 					position[]={4907.054, 4.523586, 761.2438};
 					vehicle="US_Delta_Force_EP1";
 					side="WEST";
@@ -1338,7 +1338,7 @@ class Mission
 				class Item0
 				{
 					id=70;
-					text="WestSlot17";
+					text="WestSlot18";
 					position[]={4908.054, 4.523586, 761.2438};
 					vehicle="US_Delta_Force_EP1";
 					side="WEST";
@@ -1358,7 +1358,7 @@ class Mission
 				class Item0
 				{
 					id=71;
-					text="WestSlot18";
+					text="WestSlot19";
 					position[]={4909.054, 4.523586, 761.2438};
 					vehicle="US_Delta_Force_EP1";
 					side="WEST";
@@ -1378,7 +1378,7 @@ class Mission
 				class Item0
 				{
 					id=72;
-					text="WestSlot19";
+					text="WestSlot20";
 					position[]={4910.054, 4.523586, 761.2438};
 					vehicle="US_Delta_Force_EP1";
 					side="WEST";
@@ -1398,7 +1398,7 @@ class Mission
 				class Item0
 				{
 					id=73;
-					text="EastSlot16";
+					text="EastSlot17";
 					position[]={4458.326, 6.82386, 800.8424};
 					vehicle="RUS_Soldier1";
 					side="EAST";
@@ -1418,7 +1418,7 @@ class Mission
 				class Item0
 				{
 					id=74;
-					text="EastSlot17";
+					text="EastSlot18";
 					position[]={4459.326, 6.82386, 800.8424};
 					vehicle="RUS_Soldier1";
 					side="EAST";
@@ -1438,7 +1438,7 @@ class Mission
 				class Item0
 				{
 					id=75;
-					text="EastSlot18";
+					text="EastSlot19";
 					position[]={4460.326, 6.82386, 800.8424};
 					vehicle="RUS_Soldier1";
 					side="EAST";
@@ -1458,7 +1458,7 @@ class Mission
 				class Item0
 				{
 					id=76;
-					text="EastSlot19";
+					text="EastSlot20";
 					position[]={4461.326, 6.82386, 800.8424};
 					vehicle="RUS_Soldier1";
 					side="EAST";
