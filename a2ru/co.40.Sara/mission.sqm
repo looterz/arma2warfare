@@ -19,7 +19,7 @@ class Mission
 	};
 	class Groups
 	{
-		items=77;
+		items=76;
 		class Item0
 		{
 			side="WEST";
@@ -1460,26 +1460,6 @@ class Mission
 					id=76;
 					text="EastSlot20";
 					position[]={11153, 64.14413, 7270.381};
-					vehicle="RUS_Soldier1";
-					side="EAST";
-					player="PLAY CDG";
-					leader=1;
-					rank="LIEUTENANT";
-					skill=0.6;
-				};
-			};
-		};
-		class Item76
-		{
-			side="EAST";
-			class Vehicles
-			{
-				items=1;
-				class Item0
-				{
-					id=77;
-					text="EastSlot21";
-					position[]={11144, 64.14413, 7269.381};
 					vehicle="RUS_Soldier1";
 					side="EAST";
 					player="PLAY CDG";
