@@ -1,4 +1,4 @@
-private['_extra','_txt','_currentcost','_unit','_driver','_gunner','_commander','_sorted','_currentidc','_display','_update','_con','_currentunit','_idcs','_isinfantry','_updatedetails','_val','_cpt','_factories','_currentrow','_skip','_updatemap','_classmagsamount','_magslabel','_listunits','_islocked','_lastcheck','_updatelist','_mbu','_maxout','_countalive','_idclock','_idcsvehi','_map','_break','_costdiscount','_currentvalue','_buildings','_color','_weapons','_classmags','_findat','_disabledcolor','_enabledcolor','_lastsel','_lasttype','_combofaction','_status','_statuslabel','_statusvals','_funds','_size','_factsel','_nobjects','_neardepotlist','_neardepot','_slots','_show','_filllist','_changefactioncombo','_params','_nearest','_countqueue','_magazines','_closest','_closestFactory', '_listBox','_type','_i','_nearTown','_c' ];
+private ["_extra","_txt","_currentcost","_unit","_driver","_gunner","_commander","_sorted","_currentidc","_display","_update","_con","_currentunit","_idcs","_isinfantry","_updatedetails","_val","_cpt","_factories","_currentrow","_skip","_updatemap","_classmagsamount","_magslabel","_listunits","_islocked","_lastcheck","_updatelist","_mbu","_maxout","_countalive","_idclock","_idcsvehi","_map","_break","_costdiscount","_currentvalue","_buildings","_color","_weapons","_classmags","_findat","_disabledcolor","_enabledcolor","_lastsel","_lasttype","_combofaction","_status","_statuslabel","_statusvals","_funds","_size","_factsel","_nobjects","_neardepotlist","_neardepot","_slots","_show","_filllist","_changefactioncombo","_params","_nearest","_countqueue","_magazines","_closest","_listBox","_type","_i","_nearTown","_c","_closestFactory","_fnBuyUnitGetDiscount"];
 
 disableSerialization;
 
@@ -69,64 +69,8 @@ _IDCS = _IDCS - [_currentIDC];
 	_con ctrlSetTextColor [0.4, 0.4, 0.4, 1];
 } forEach _IDCS;
 
-//--- Fill the list function.
-_fillList = {
-	Private ['_costDiscount', '_tmplistUnits', '_basePrice', '_cost', '_addin','_c','_currentUpgrades','_filler','_filter','_i','_listBox','_listNames','_u','_value'];
-	_listNames = _this select 0;
-	_filler = _this select 1;
-	_listBox = _this select 2;
-	_value = _this select 3;
-	_u = 0;
-	_i = 0;
-	
-	_currentUpgrades = (sideJoinedText) Call GetSideUpgrades;
-	_filter = Format["WFBE_%1%2CURRENTFACTIONSELECTED",sideJoinedText,_filler] Call GetNamespace;
-	if (isNil '_filter') then {_filter = "nil"} else {
-		if (_filter == 0) then {
-			_filter = 'nil';
-		} else {
-			_filter = ((Format["WFBE_%1%2FACTIONS",sideJoinedText,_filler] Call GetNamespace) select _filter);
-		};
-	};
-	
-	_costDiscount = [_type, _closest] call fnGetDiscount;
-	_tmplistUnits = [];
-	{
-		_addin = true;
-		_c = _x Call GetNamespace;
-		if (_filter != "nil") then {
-			if ((_c select QUERYUNITFACTION) != _filter) then {_addin = false};
-		};
-		if ((_c select QUERYUNITUPGRADE) <= (_currentUpgrades select _value) && _addin) then {
-		
-			_basePrice = if (_x isKindOf "Man") then { _x call GetUnitEquipmentPrice; } else { _c select QUERYUNITPRICE; };
-			
-			_cost = _basePrice;
-			_cost = (ceil(_basePrice * _costDiscount / 5))*5;		
-			if (_cost < 5) then { _cost = 5; };
-			
-			_tmplistUnits = _tmplistUnits + [ [ ('$'+str (_cost)), (_c select QUERYUNITLABEL), _filler, _u] ];
-			_i = _i + 1;
-		};
-		_u = _u + 1;
-	} forEach _listNames;
-	
-	_u = 0;
-	lnbClear _listBox;
-	{
-		lnbAddRow [_listBox, [(_x select 0), (_x select 1)] ];
-		lnbSetData [_listBox,[_u,0], (_x select 2)];
-		lnbSetValue [_listBox,[_u,0], (_x select 3)];
-		_u = _u + 1;
-	} forEach _tmplistUnits;
-	
-	_tmplistUnits = nil;
-	
-	if (_i > 0) then {lnbSetCurSelRow [_listBox,0]} else {lnbSetCurSelRow [_listBox,-1]};
-};
-
-fnGetDiscount = {
-private['_costCoefficient', '_closestFactory', '_type', '_closest', '_discount', '_buildings1', '_factories1', '_sorted1', '_range', '_depotNearFactory', '_nearTown', '_sideID', '_supplyValue', '_maxSV', '_dist', '_k'  ];		
+_fnBuyUnitGetDiscount = {
+private['_costCoefficient', '_type', '_closest', '_discount', '_buildings1', '_factories1', '_sorted1', '_range', '_depotNearFactory', '_nearTown', '_sideID', '_supplyValue', '_maxSV', '_dist', '_k'  ];		
 
 		_type = _this select 0;
 		_closest = _this select 1;
@@ -192,6 +136,69 @@ private['_costCoefficient', '_closestFactory', '_type', '_closest', '_discount',
 		};
 		_costCoefficient;
 };
+
+//--- Fill the list function.
+_fillList = {
+	private ["_fraction","_costDiscount","_tmplistUnits","_basePrice","_cost","_addin","_c","_currentUpgrades","_filler","_filter","_i","_listBox","_listNames","_u","_value","_type","_closest","_ns","_factions"];
+	_listNames = _this select 0;
+	_filler = _this select 1;
+	_listBox = _this select 2;
+	_value = _this select 3;
+	_u = 0;
+	_i = 0;
+	
+	_currentUpgrades = (sideJoinedText) Call GetSideUpgrades;
+    _ns = format["WFBE_%1%2CURRENTFACTIONSELECTED",sideJoinedText,_filler];
+    
+    
+    _filter = "nil";
+    _fraction = (_ns) Call GetNamespace;
+	if !(isNil '_fraction') then 
+    {
+		if (_fraction == 0) then{
+			_filter = 'nil';
+		} else {
+             _factions = Format["WFBE_%1%2FACTIONS",sideJoinedText,_filler] Call GetNamespace;
+             _filter = _factions select _filter;
+		};
+	};
+	
+	_costDiscount = [_type, _closest] call _fnBuyUnitGetDiscount;
+	_tmplistUnits = [];
+	{
+		_addin = true;
+		_c = _x Call GetNamespace;
+		if (_filter != "nil") then {
+			if ((_c select QUERYUNITFACTION) != _filter) then {_addin = false};
+		};
+		if ((_c select QUERYUNITUPGRADE) <= (_currentUpgrades select _value) && _addin) then {
+		
+			_basePrice = if (_x isKindOf "Man") then { _x call GetUnitEquipmentPrice; } else { _c select QUERYUNITPRICE; };
+			
+			_cost = _basePrice;
+			_cost = (ceil(_basePrice * _costDiscount / 5))*5;		
+			if (_cost < 5) then { _cost = 5; };
+			
+			_tmplistUnits = _tmplistUnits + [ [ ('$'+str (_cost)), (_c select QUERYUNITLABEL), _filler, _u] ];
+			_i = _i + 1;
+		};
+		_u = _u + 1;
+	} forEach _listNames;
+	
+	_u = 0;
+	lnbClear _listBox;
+	{
+		lnbAddRow [_listBox, [(_x select 0), (_x select 1)] ];
+		lnbSetData [_listBox,[_u,0], (_x select 2)];
+		lnbSetValue [_listBox,[_u,0], (_x select 3)];
+		_u = _u + 1;
+	} forEach _tmplistUnits;
+	
+	_tmplistUnits = nil;
+	
+	if (_i > 0) then {lnbSetCurSelRow [_listBox,0]} else {lnbSetCurSelRow [_listBox,-1]};
+};
+
 
 _changeFactionCombo = {
 	Private['_get','_lb','_type'];
@@ -516,7 +523,7 @@ while {alive player && dialog} do {
 			
 			(_display displayCtrl 12022) ctrlSetStructuredText (parseText _txt);
 			
-			_costDiscount = [_type, _closest] call fnGetDiscount;
+			_costDiscount = [_type, _closest] call _fnBuyUnitGetDiscount;
 			_currentCost = (ceil(_currentCost * _costDiscount / 5))*5;		
 			if (_currentCost < 5) then { _currentCost = 5; };				
 			

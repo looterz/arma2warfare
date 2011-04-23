@@ -14,7 +14,7 @@ _currentUpgrades = (sideJoinedText) Call GetSideUpgrades;
 {
 	if ((_listUpgrades select _u) <= (_currentUpgrades select 13)) then {
 		_add = true;
-		if (gearRestriction && !gearInRange) then {
+		if (paramGearRestriction && !gearInRange) then {
 			if !(_listAllowed select _u) then {_add = false};
 		};
 		if (_add) then {

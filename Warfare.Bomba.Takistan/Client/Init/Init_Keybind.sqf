@@ -1,8 +1,8 @@
 /* Gear keybinding */
 WF_Gear_Hotkeys = {
-	Private ['_ctrl','_key'];
+	private ["_key"];
 	_key = _this select 1;
-	_ctrl = _this select 3;
+	//_ctrl = _this select 3;
 
 	if (_key in (actionKeys "User15")) then {
 		WF_Logic setVariable ['filler','all'];

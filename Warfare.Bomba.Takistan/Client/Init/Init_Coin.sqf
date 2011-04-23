@@ -1,12 +1,12 @@
-private['_area','_coin','_d','_extra','_isHQdeployed','_i','_coinitemarray','_indexcategory','_structures','_coincategories','_defenses','_structurecosts','_structuredescriptions','_curid','_defensecosts','_defensedescriptions','_defensecategories','_updatedefenses','_updatestructures','_emptystructures','_fix','_repairtruck','_price'];
+private ["_area","_coin","_d","_extra","_isHQdeployed","_i","_coinitemarray","_indexcategory","_structures","_coincategories","_defenses","_structurecosts","_structuredescriptions","_curid","_defensecosts","_defensedescriptions","_defensecategories","_updatedefenses","_updatestructures","_emptystructures","_fix","_price"];
 
 _area = _this select 0;
 _isHQdeployed = _this select 1;
 _coin = _this select 2;
 _extra = "";
-_repairTruck = objNull;
+//_repairTruck = objNull;
 if (count _this > 3) then {_extra = _this select 3};
-if (count _this > 4) then { _repairTruck = _this select 4};
+//if (count _this > 4) then { _repairTruck = _this select 4};
 
 _coin setVariable ["BIS_COIN_areasize", _area];
 _coin setVariable ["BIS_COIN_fundsDescription",["$"]];
