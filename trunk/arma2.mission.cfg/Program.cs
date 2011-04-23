@@ -64,7 +64,7 @@ namespace ConsoleApplication2
             for (int i = maxSlots; i < westSlots.Count(); i++)
                 ((ConfigClass) groups.Entry).Remove(westSlots[i].Entry);
 
-            for (int i = eastSlots.Length; i < maxSlots; i++)
+            for (int i = maxSlots; i < eastSlots.Length; i++)
                 ((ConfigClass) groups.Entry).Remove(eastSlots[i].Entry);
 
             //;
