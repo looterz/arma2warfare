@@ -633,7 +633,7 @@ class Params {
 			title = "$STR_WF_Gameplay_Reinforcement_Type";
 			values[] = {0,1};
 			texts[] = {"Private Military Company","Takistani Locals"};
-			default = 1;
+			default = 0;
 		};
 	#endif
 	#ifdef COMBINEDOPS
@@ -641,7 +641,7 @@ class Params {
 			title = "$STR_WF_Gameplay_Reinforcement_Type";
 			values[] = {0,1,2};
 			texts[] = {"Guerillas","Private Military Company","Takistani Locals"};
-			default = 2;
+			default = 1;
 		};
 	#endif
 	class townsResistanceReinforcement {
