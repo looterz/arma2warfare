@@ -15,10 +15,10 @@ namespace ConsoleApplication2
         static void Main(string[] args)
         {
             string sourceFile =
-                @"c:\Users\Evgeny_Zyuzin\Documents\ArmA 2 Other Profiles\Bomba\missions\a2ru\co.40.chernarus\mission.sqm.bak";
+                @"c:\Users\Evgeny_Zyuzin\Documents\ArmA 2 Other Profiles\Bomba\missions\a2ru\co.40.Sara\mission.sqm";
 
             var missionFiles = Directory.GetFiles(@"c:\Users\Evgeny_Zyuzin\Documents\ArmA 2 Other Profiles\Bomba\missions\a2ru\",
-                               "mission.sqm.bak", SearchOption.AllDirectories);
+                               "mission.sqm", SearchOption.AllDirectories);
 
             //var missionFile = sourceFile;
             foreach (var missionFile in missionFiles)
@@ -26,11 +26,14 @@ namespace ConsoleApplication2
                 var path = Path.GetDirectoryName(missionFile);
 
                 string newName = path + "\\mission.sqm";
-                if (File.Exists(newName))
-                    File.Delete(newName);
+                
 
                 if (newName != missionFile)
+                {
+                    if (File.Exists(newName))
+                        File.Delete(newName);
                     File.Move(missionFile, newName);
+                }
 
                 ProcessMissionFile(newName);
             }
@@ -55,14 +58,33 @@ namespace ConsoleApplication2
                 AddSlot(groups, ((dynamic)eastSlots[0]).Vehicles.Item(0), i);
 
 
+            westSlots = groups.Where(m => IsPlayerSlot("WestSlot", m)).OrderBy(m => GetSlotId(m)).ToArray();
+            eastSlots = groups.Where(m => IsPlayerSlot("EastSlot", m)).OrderBy(m => GetSlotId(m)).ToArray();
+
+            for (int i = maxSlots; i < westSlots.Count(); i++)
+                ((ConfigClass) groups.Entry).Remove(westSlots[i].Entry);
+
+            for (int i = eastSlots.Length; i < maxSlots; i++)
+                ((ConfigClass) groups.Entry).Remove(eastSlots[i].Entry);
+
+            //;
+
             NormalizePosition(groups, "WestSlot", maxSlots);
             NormalizePosition(groups, "EastSlot", maxSlots);
 
             var textualize = new Textualiser();
             var s = textualize.Visit(cfgClass);
 
-            File.Move(sourceFile, sourceFile + ".bak");
+            //File.Move(sourceFile, sourceFile + ".bak");
             File.WriteAllText(sourceFile, s);
+        }
+
+        private static int GetSlotId(EasyConfigEntry m)
+        {
+            var slotName = (string)((dynamic)m).Vehicles.Item(0).text;
+            string slotId = slotName.Substring(8);
+
+            return int.Parse(slotId);
         }
 
         private static void NormalizePosition(EasyConfigEntry groups, string slotName, int maxSlots)
@@ -72,13 +94,15 @@ namespace ConsoleApplication2
 
             int row = 0;
             int maxrow = maxSlots / 2;
-            int id = 0;
+            int id = 1;
 
             groups.Where(m => IsPlayerSlot(slotName, m)).ForEach(m =>
             {
+                ((dynamic) m).Vehicles.Item(0).text = slotName + id;
+
                 var position = (ArrayProperty) ((dynamic) m).Vehicles.Item(0).position().Entry;
 
-                if (id++ == 0)
+                if (id++ == 1)
                 {
                     x0 = Convert.ToDouble(position[0]);
                     y0 = Convert.ToDouble(position[1]);
