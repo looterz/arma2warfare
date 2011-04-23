@@ -106,7 +106,7 @@ _c = _c + ['BAF_Apache_AH1_D'];
 _i = _i + [['','',49500,60,2,2,3,0,'British']];
 
 _c = _c + ['AW159_Lynx_BAF'];
-_i = _i + [['','',39500,35,2,1,3,0,'British']];
+_i = _i + [['','',39500,35,2,2,3,0,'British']];
 
 for '_z' from 0 to (count _c)-1 do {
 	if (isClass (configFile >> 'CfgVehicles' >> (_c select _z))) then {

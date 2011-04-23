@@ -22,6 +22,7 @@ _lastPurchase = -5;
 _income = 0;
 _updateComboWorker = true;
 _hasStarted = true;
+_divisor = 'WFBE_INC_DIVIDE_COM' Call GetNamespace;
 
 if (_incomeSystem == 3) then {
 	sliderSetRange[23010,0,100];
@@ -39,7 +40,7 @@ while {alive player && dialog} do {
 	
 	//--- Income System.
 	if (_incomeSystem == 3) then {
-		ctrlSetText[23011, Format["%1%2",_income,"%"]];
+		ctrlSetText[23011, Format["%1%2", round(_income / _divisor),"%"]];
 		_currentPercent = Call Compile Format["%1CommanderPercent",sideJoined];
 		
 		_income = floor(sliderPosition 23010);
@@ -49,14 +50,19 @@ while {alive player && dialog} do {
 		_calInc = 0;
 		{
 			if ((_x getVariable "sideID") == sideID) then	{
-				_calInc = _calInc + ((_x getVariable "supplyValue")*_incomeCoef);
+				_calInc = _calInc + (_x getVariable "supplyValue");
 			};
 		} forEach towns;
 		
 		if (_currentPercent != _income || _hasStarted) then {
 			if (_hasStarted) then {_hasStarted = false};
-			ctrlSetText [23013, localize 'STR_WF_Income_Sys_Com' + ": $" + str(round((_calInc * (_income/100)) / _incomeDividision)) + "."];
-			ctrlSetText [23014, localize 'STR_WF_Income_Sys_Ply' + ": $" + str(round(_calInc * (((100 - _income)/100)/maxPlayers))) + "."];
+			
+			_sidePerc = (100 - (_income / _incomeDividision)) / 100;
+			_ply_income = round(_calInc * _sidePerc);
+			_com_income = _ply_income + round(maxplayers * _ply_income * (1 - _sidePerc ));
+			
+			ctrlSetText [23013, localize 'STR_WF_Income_Sys_Com' + ": $" + str(_com_income) + "."];
+			ctrlSetText [23014, localize 'STR_WF_Income_Sys_Ply' + ": $" + str(_ply_income) + "."];
 		};
 		
 		if (MenuAction == 3) then {

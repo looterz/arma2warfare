@@ -34,15 +34,15 @@ class Params {
 	#ifndef VANILLA
 		class artilleryComputer {
 			title = "$STR_WF_Gameplay_ArtilleryComputer";
-			values[] = {0};
-			texts[] = {"$STR_WF_Disabled"};
+			values[] = {0,1};
+			texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 			default = 0;
 		};	
 	#endif
 	class artilleryUI {
 		title = "$STR_WF_Gameplay_ArtilleryUI";
-		values[] = {0};
-		texts[] = {"$STR_WF_Disabled"};
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
 		default = 0;
 	};
 	class artilleryRange {
@@ -118,7 +118,7 @@ class Params {
 		title = "$STR_WF_Gameplay_HQDeployCost";
 		values[] = {100,200,300,400,500,600,700,800,900,1000,1500,2000,2500,3000,3500,4000,5000,6000,7000,8000,9000,10000};
 		texts[] = {"S 100.","S 200.","S 300.","S 400.","S 500.","S 600.","S 700.","S 800.","S 900.","S 1000.","S 1500.","S 2000.","S 2500.","S 3000.","S 3500.","S 4000.","S 5000.","S 6000.","S 7000.","S 8000.","S 9000.","S 10000"};
-		default = 100;
+		default = 500;
 	};
 	class baseHQDeployRange {
 		title = "$STR_WF_Gameplay_HQDeployRange";
@@ -164,33 +164,33 @@ class Params {
 	};
 	class economyIncomeSystem {
 		title = "$STR_WF_Gameplay_IncomeSystem";
-		values[] = {1,2};
-		texts[] = {"$STR_WF_Gameplay_IncomeSystem_Full","$STR_WF_Gameplay_IncomeSystem_Half"};
-		default = 1;
+		values[] = {1,2,3};
+		texts[] = {"$STR_WF_Gameplay_IncomeSystem_Full","$STR_WF_Gameplay_IncomeSystem_Half","$STR_WF_Income_Sys_Param"};
+		default = 3;
 	};
 	class economyStartingFundsEast {
 		title = "$STR_WF_Gameplay_Funds_East";
-		values[] = {800,1600,2400,3200,4000,4800,6400,8000,12800,25600,51200,102400,204800};
-		texts[] = {"$ 800.","$ 1600.","$ 2400.","$ 3200.","$ 4000.","$ 4800.","$ 6400.","$ 8000.","$ 12800.","$ 25600.","$ 51200.","$ 102400.","$ 204800."};
+		values[] = {800,1600,2400,3200,4000,4800,819200};
+		texts[] = {"$ 800.","$ 1600.","$ 2400.","$ 3200.","$ 4000.","$ 4800.","$ 819200."};
 		default = 4800;
 	};
 	class economyStartingFundsWest {
 		title = "$STR_WF_Gameplay_Funds_West";
-		values[] = {800,1600,2400,3200,4000,4800,6400,8000,12800,25600,51200,102400,204800};
-		texts[] = {"$ 800.","$ 1600.","$ 2400.","$ 3200.","$ 4000.","$ 4800.","$ 6400.","$ 8000.","$ 12800.","$ 25600.","$ 51200.","$ 102400.","$ 204800."};
+		values[] = {800,1600,2400,3200,4000,4800,819200};
+		texts[] = {"$ 800.","$ 1600.","$ 2400.","$ 3200.","$ 4000.","$ 4800.","$ 819200."};
 		default = 4800;
 	};
 	class economyStartingSupplyEast {
 		title = "$STR_WF_Gameplay_Supply_East";
 		values[] = {1200,2400,3600,4800,6000,7200,8400,9600,19200,38400,76800};
 		texts[] = {"S 1200.","S 2400.","S 3600.","S 4800.","S 6000.","S 7200.","S 8400.","S 9600.","S 19200.","S 38400.","S 76800."};
-		default = 4800;
+		default = 8400;
 	};
 	class economyStartingSupplyWest {
 		title = "$STR_WF_Gameplay_Supply_West";
 		values[] = {1200,2400,3600,4800,6000,7200,8400,9600,19200,38400,76800};
 		texts[] = {"S 1200.","S 2400.","S 3600.","S 4800.","S 6000.","S 7200.","S 8400.","S 9600.","S 19200.","S 38400.","S 76800."};
-		default = 4800;
+		default = 8400;
 	};
 	class economySupplySystem {
 		title = "$STR_WF_Gameplay_SupplySystem";
@@ -295,7 +295,7 @@ class Params {
 		title = "$STR_WF_Gameplay_MandoMissiles";
 		values[] = {0,1};
 		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 0;
+		default = 1;
 	};
 	class gameplayMapColoration {
 		title = "$STR_WF_Gameplay_Coloration";

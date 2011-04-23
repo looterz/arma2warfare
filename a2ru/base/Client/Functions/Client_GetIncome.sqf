@@ -10,22 +10,24 @@ if (_incomeSystem == 3) then {_incomeCoef = 'WFBE_INC_COEFFICIENT' Call GetNames
 
 {
 	if ((_x getVariable "sideID") == _sideID) then	{
-		switch (_incomeSystem) do {
-			case 1: {_income = _income + (_x getVariable "supplyValue")};
-			case 3: {_income = _income + ((_x getVariable "supplyValue")*_incomeCoef)};
-		};
+		_income = _income + (_x getVariable "supplyValue");
 	};
 } forEach towns;
 
 switch (_incomeSystem) do {
 	case 2: {_income = round(_income /2)};
 	case 3: {
+		_divisor = 'WFBE_INC_DIVIDE_COM' Call GetNamespace;
+		_commPerc = Call Compile Format ["%1CommanderPercent",_side];
+		_sidePerc = (100 - (_commPerc / _divisor)) / 100;
+		_ply_income = round(_income * _sidePerc);
+	
 		_commanderTeam = (_side) Call GetCommanderTeam;
 		if (isNull _commanderTeam) then {_commanderTeam = grpNull};
 		if (_commanderTeam != group player) then {
-			_income = round(_income * (((100 - (Call Compile Format ["%1CommanderPercent",_side]))/100)/maxPlayers));
+			_income = _ply_income;
 		} else {
-			_income = round((_income * ((Call Compile Format ["%1CommanderPercent",_side])/100)) / ('WFBE_INC_DIVIDE_COM' Call GetNamespace));
+			_income = _ply_income + round(maxplayers * _ply_income * (1 - _sidePerc ));
 		};
 	};
 };

@@ -101,7 +101,7 @@ _c = _c + ['Fort_RazorWire'];
 _i = _i + [['','',25,0,0,0,'Fortification',0,'Takistani Civilians']];
 
 _c = _c + ['Concrete_Wall_EP1'];
-_i = _i + [['','',20,0,0,0,'Fortification',0,'Takistani Civilians']];
+_i = _i + [['','',1500,0,0,0,'Fortification',0,'Takistani Civilians']];
 
 for '_z' from 0 to (count _c)-1 do {
 	if (isClass (configFile >> 'CfgVehicles' >> (_c select _z))) then {

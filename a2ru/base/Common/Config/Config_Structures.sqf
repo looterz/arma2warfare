@@ -42,7 +42,7 @@ if (WF_A2_Vanilla) then {
 	_v = _v		+ ["Barracks"];
 	_n = _n		+ [WESTBAR];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-	_c = _c		+ [200];
+	_c = _c		+ [600];
 	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [18];
@@ -51,7 +51,7 @@ if (WF_A2_Vanilla) then {
 	_v = _v		+ ["Light"];
 	_n = _n		+ [WESTLVF];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-	_c = _c		+ [600];
+	_c = _c		+ [1800];
 	_t = _t		+ [if (WF_Debug) then {1} else {90}];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [25];
@@ -60,7 +60,7 @@ if (WF_A2_Vanilla) then {
 	_v = _v		+ ["CommandCenter"];
 	_n = _n		+ [WESTCC];
 	_d = _d		+ [localize "STR_WF_CommandCenter_USMC"];
-	_c = _c		+ [1200];
+	_c = _c		+ [2400];
 	_t = _t		+ [if (WF_Debug) then {1} else {110}];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [20];
@@ -69,7 +69,7 @@ if (WF_A2_Vanilla) then {
 	_v = _v		+ ["Heavy"];
 	_n = _n		+ [WESTHEAVY];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-	_c = _c		+ [2800];
+	_c = _c		+ [5600];
 	_t = _t		+ [if (WF_Debug) then {1} else {130}];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [25];
@@ -78,7 +78,7 @@ if (WF_A2_Vanilla) then {
 	_v = _v		+ ["Aircraft"];
 	_n = _n		+ [WESTAIR];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-	_c = _c		+ [4400];
+	_c = _c		+ [8800];
 	_t = _t		+ [if (WF_Debug) then {1} else {150}];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [31];
@@ -87,7 +87,7 @@ if (WF_A2_Vanilla) then {
 	_v = _v		+ ["ServicePoint"];
 	_n = _n		+ [WESTSP];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-	_c = _c		+ [700];
+	_c = _c		+ [1400];
 	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [21];
@@ -97,7 +97,7 @@ if (WF_A2_Vanilla) then {
 		_v = _v		+ ["AARadar"];
 		_n = _n		+ [WESTAAR];
 		_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-		_c = _c		+ [3200];
+		_c = _c		+ [6400];
 		_t = _t		+ [if (WF_Debug) then {1} else {280}];
 		_s = _s		+ ["MediumSite"];
 		_dis = _dis	+ [21];
@@ -194,7 +194,7 @@ if (WF_A2_Vanilla) then {
 	_v = _v		+ ["Barracks"];
 	_n = _n		+ [EASTBAR];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-	_c = _c		+ [200];
+	_c = _c		+ [600];
 	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [18];
@@ -203,7 +203,7 @@ if (WF_A2_Vanilla) then {
 	_v = _v		+ ["Light"];
 	_n = _n		+ [EASTLVF];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-	_c = _c		+ [600];
+	_c = _c		+ [1800];
 	_t = _t		+ [if (WF_Debug) then {1} else {90}];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [25];
@@ -212,7 +212,7 @@ if (WF_A2_Vanilla) then {
 	_v = _v		+ ["CommandCenter"];
 	_n = _n		+ [EASTCC];
 	_d = _d		+ [localize "STR_WF_CommandCenter_RU"];
-	_c = _c		+ [1200];
+	_c = _c		+ [2400];
 	_t = _t		+ [if (WF_Debug) then {1} else {110}];
 	_s = _s		+ ["SmallSite"];
 
@@ -222,7 +222,7 @@ if (WF_A2_Vanilla) then {
 	_v = _v		+ ["Heavy"];
 	_n = _n		+ [EASTHEAVY];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-	_c = _c		+ [2800];
+	_c = _c		+ [5600];
 	_t = _t		+ [if (WF_Debug) then {1} else {130}];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [25];
@@ -231,7 +231,7 @@ if (WF_A2_Vanilla) then {
 	_v = _v		+ ["Aircraft"];
 	_n = _n		+ [EASTAIR];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-	_c = _c		+ [4400];
+	_c = _c		+ [8800];
 	_t = _t		+ [if (WF_Debug) then {1} else {150}];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [21];
@@ -240,7 +240,7 @@ if (WF_A2_Vanilla) then {
 	_v = _v		+ ["ServicePoint"];
 	_n = _n		+ [EASTSP];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-	_c = _c		+ [700];
+	_c = _c		+ [1400];
 	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [21];
@@ -250,7 +250,7 @@ if (WF_A2_Vanilla) then {
 		_v = _v		+ ["AARadar"];
 		_n = _n		+ [EASTAAR];
 		_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-		_c = _c		+ [3200];
+		_c = _c		+ [6400];
 		_t = _t		+ [if (WF_Debug) then {1} else {280}];
 		_s = _s		+ ["MediumSite"];
 		_dis = _dis	+ [21];
@@ -365,7 +365,7 @@ if (WF_A2_Arrowhead) then {
 	_v = _v		+ ["Barracks"];
 	_n = _n		+ [WESTBAR];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-	_c = _c		+ [200];
+	_c = _c		+ [600];
 	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [18];
@@ -374,7 +374,7 @@ if (WF_A2_Arrowhead) then {
 	_v = _v		+ ["Light"];
 	_n = _n		+ [WESTLVF];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-	_c = _c		+ [600];
+	_c = _c		+ [1800];
 	_t = _t		+ [if (WF_Debug) then {1} else {90}];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [25];
@@ -383,7 +383,7 @@ if (WF_A2_Arrowhead) then {
 	_v = _v		+ ["CommandCenter"];
 	_n = _n		+ [WESTCC];
 	_d = _d		+ [localize "STR_WF_CommandCenter_USMC"];
-	_c = _c		+ [1200];
+	_c = _c		+ [2400];
 	_t = _t		+ [if (WF_Debug) then {1} else {110}];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [20];
@@ -392,7 +392,7 @@ if (WF_A2_Arrowhead) then {
 	_v = _v		+ ["Heavy"];
 	_n = _n		+ [WESTHEAVY];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-	_c = _c		+ [2800];
+	_c = _c		+ [5600];
 	_t = _t		+ [if (WF_Debug) then {1} else {130}];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [25];
@@ -401,7 +401,7 @@ if (WF_A2_Arrowhead) then {
 	_v = _v		+ ["Aircraft"];
 	_n = _n		+ [WESTAIR];
 	_d = _d		+ [localize "STR_WF_AircraftFactory"];
-	_c = _c		+ [4400];
+	_c = _c		+ [8800];
 	_t = _t		+ [if (WF_Debug) then {1} else {150}];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [31];
@@ -410,7 +410,7 @@ if (WF_A2_Arrowhead) then {
 	_v = _v		+ ["ServicePoint"];
 	_n = _n		+ [WESTSP];
 	_d = _d		+ [localize "STR_WF_ServicePoint"];
-	_c = _c		+ [700];
+	_c = _c		+ [1400];
 	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [21];
@@ -420,7 +420,7 @@ if (WF_A2_Arrowhead) then {
 		_v = _v		+ ["AARadar"];
 		_n = _n		+ [WESTAAR];
 		_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-		_c = _c		+ [3200];
+		_c = _c		+ [6400];
 		_t = _t		+ [if (WF_Debug) then {1} else {280}];
 		_s = _s		+ ["MediumSite"];
 		_dis = _dis	+ [21];
@@ -522,7 +522,7 @@ if (WF_A2_Arrowhead) then {
 	_v = _v		+ ["Barracks"];
 	_n = _n		+ [EASTBAR];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-	_c = _c		+ [200];
+	_c = _c		+ [600];
 	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [18];
@@ -531,7 +531,7 @@ if (WF_A2_Arrowhead) then {
 	_v = _v		+ ["Light"];
 	_n = _n		+ [EASTLVF];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-	_c = _c		+ [600];
+	_c = _c		+ [1800];
 	_t = _t		+ [if (WF_Debug) then {1} else {90}];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [25];
@@ -540,7 +540,7 @@ if (WF_A2_Arrowhead) then {
 	_v = _v		+ ["CommandCenter"];
 	_n = _n		+ [EASTCC];
 	_d = _d		+ [localize "STR_WF_CommandCenter_RU"];
-	_c = _c		+ [1200];
+	_c = _c		+ [2400];
 	_t = _t		+ [if (WF_Debug) then {1} else {110}];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [20];
@@ -549,7 +549,7 @@ if (WF_A2_Arrowhead) then {
 	_v = _v		+ ["Heavy"];
 	_n = _n		+ [EASTHEAVY];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-	_c = _c		+ [2800];
+	_c = _c		+ [5600];
 	_t = _t		+ [if (WF_Debug) then {1} else {130}];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [25];
@@ -558,7 +558,7 @@ if (WF_A2_Arrowhead) then {
 	_v = _v		+ ["Aircraft"];
 	_n = _n		+ [EASTAIR];
 	_d = _d		+ [localize "STR_WF_AircraftFactory"];
-	_c = _c		+ [4400];
+	_c = _c		+ [8800];
 	_t = _t		+ [if (WF_Debug) then {1} else {150}];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [21];
@@ -567,7 +567,7 @@ if (WF_A2_Arrowhead) then {
 	_v = _v		+ ["ServicePoint"];
 	_n = _n		+ [EASTSP];
 	_d = _d		+ [localize "STR_WF_ServicePoint"];
-	_c = _c		+ [700];
+	_c = _c		+ [1400];
 	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [21];
@@ -577,7 +577,7 @@ if (WF_A2_Arrowhead) then {
 		_v = _v		+ ["AARadar"];
 		_n = _n		+ [EASTAAR];
 		_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-		_c = _c		+ [3200];
+		_c = _c		+ [6400];
 		_t = _t		+ [if (WF_Debug) then {1} else {280}];
 		_s = _s		+ ["MediumSite"];
 		_dis = _dis	+ [21];
@@ -691,7 +691,7 @@ if (WF_A2_CombinedOps) then {
 	_v = _v		+ ["Barracks"];
 	_n = _n		+ [WESTBAR];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-	_c = _c		+ [200];
+	_c = _c		+ [600];
 	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [18];
@@ -700,7 +700,7 @@ if (WF_A2_CombinedOps) then {
 	_v = _v		+ ["Light"];
 	_n = _n		+ [WESTLVF];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-	_c = _c		+ [600];
+	_c = _c		+ [1800];
 	_t = _t		+ [if (WF_Debug) then {1} else {90}];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [25];
@@ -709,7 +709,7 @@ if (WF_A2_CombinedOps) then {
 	_v = _v		+ ["CommandCenter"];
 	_n = _n		+ [WESTCC];
 	_d = _d		+ [localize "STR_WF_CommandCenter_USMC"];
-	_c = _c		+ [1200];
+	_c = _c		+ [2400];
 	_t = _t		+ [if (WF_Debug) then {1} else {110}];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [20];
@@ -718,7 +718,7 @@ if (WF_A2_CombinedOps) then {
 	_v = _v		+ ["Heavy"];
 	_n = _n		+ [WESTHEAVY];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-	_c = _c		+ [2800];
+	_c = _c		+ [5600];
 	_t = _t		+ [if (WF_Debug) then {1} else {130}];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [25];
@@ -727,7 +727,7 @@ if (WF_A2_CombinedOps) then {
 	_v = _v		+ ["Aircraft"];
 	_n = _n		+ [WESTAIR];
 	_d = _d		+ [localize "STR_WF_AircraftFactory"];
-	_c = _c		+ [4400];
+	_c = _c		+ [8800];
 	_t = _t		+ [if (WF_Debug) then {1} else {150}];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [31];
@@ -736,7 +736,7 @@ if (WF_A2_CombinedOps) then {
 	_v = _v		+ ["ServicePoint"];
 	_n = _n		+ [WESTSP];
 	_d = _d		+ [localize "STR_WF_ServicePoint"];
-	_c = _c		+ [700];
+	_c = _c		+ [1400];
 	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [21];
@@ -746,7 +746,7 @@ if (WF_A2_CombinedOps) then {
 		_v = _v		+ ["AARadar"];
 		_n = _n		+ [WESTAAR];
 		_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-		_c = _c		+ [3200];
+		_c = _c		+ [6400];
 		_t = _t		+ [if (WF_Debug) then {1} else {280}];
 		_s = _s		+ ["MediumSite"];
 		_dis = _dis	+ [21];
@@ -848,7 +848,7 @@ if (WF_A2_CombinedOps) then {
 	_v = _v		+ ["Barracks"];
 	_n = _n		+ [EASTBAR];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-	_c = _c		+ [200];
+	_c = _c		+ [600];
 	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [18];
@@ -857,7 +857,7 @@ if (WF_A2_CombinedOps) then {
 	_v = _v		+ ["Light"];
 	_n = _n		+ [EASTLVF];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-	_c = _c		+ [600];
+	_c = _c		+ [1800];
 	_t = _t		+ [if (WF_Debug) then {1} else {90}];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [25];
@@ -866,7 +866,7 @@ if (WF_A2_CombinedOps) then {
 	_v = _v		+ ["CommandCenter"];
 	_n = _n		+ [EASTCC];
 	_d = _d		+ [localize "STR_WF_CommandCenter_RU"];
-	_c = _c		+ [1200];
+	_c = _c		+ [2400];
 	_t = _t		+ [if (WF_Debug) then {1} else {110}];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [20];
@@ -875,7 +875,7 @@ if (WF_A2_CombinedOps) then {
 	_v = _v		+ ["Heavy"];
 	_n = _n		+ [EASTHEAVY];
 	_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-	_c = _c		+ [2800];
+	_c = _c		+ [5600];
 	_t = _t		+ [if (WF_Debug) then {1} else {130}];
 	_s = _s		+ ["MediumSite"];
 	_dis = _dis	+ [25];
@@ -884,7 +884,7 @@ if (WF_A2_CombinedOps) then {
 	_v = _v		+ ["Aircraft"];
 	_n = _n		+ [EASTAIR];
 	_d = _d		+ [localize "STR_WF_AircraftFactory"];
-	_c = _c		+ [4400];
+	_c = _c		+ [8800];
 	_t = _t		+ [if (WF_Debug) then {1} else {150}];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [21];
@@ -893,7 +893,7 @@ if (WF_A2_CombinedOps) then {
 	_v = _v		+ ["ServicePoint"];
 	_n = _n		+ [EASTSP];
 	_d = _d		+ [localize "STR_WF_ServicePoint"];
-	_c = _c		+ [700];
+	_c = _c		+ [1400];
 	_t = _t		+ [if (WF_Debug) then {1} else {70}];
 	_s = _s		+ ["SmallSite"];
 	_dis = _dis	+ [21];
@@ -903,7 +903,7 @@ if (WF_A2_CombinedOps) then {
 		_v = _v		+ ["AARadar"];
 		_n = _n		+ [EASTAAR];
 		_d = _d		+ [getText (configFile >> "CfgVehicles" >> (_n select (count _n - 1)) >> "displayName")];
-		_c = _c		+ [3200];
+		_c = _c		+ [6400];
 		_t = _t		+ [if (WF_Debug) then {1} else {280}];
 		_s = _s		+ ["MediumSite"];
 		_dis = _dis	+ [21];
