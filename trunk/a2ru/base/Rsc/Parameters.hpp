@@ -118,7 +118,7 @@ class Params {
 		title = "$STR_WF_Gameplay_HQDeployCost";
 		values[] = {100,200,300,400,500,600,700,800,900,1000,1500,2000,2500,3000,3500,4000,5000,6000,7000,8000,9000,10000};
 		texts[] = {"S 100.","S 200.","S 300.","S 400.","S 500.","S 600.","S 700.","S 800.","S 900.","S 1000.","S 1500.","S 2000.","S 2500.","S 3000.","S 3500.","S 4000.","S 5000.","S 6000.","S 7000.","S 8000.","S 9000.","S 10000"};
-		default = 500;
+		default = 100;
 	};
 	class baseHQDeployRange {
 		title = "$STR_WF_Gameplay_HQDeployRange";
@@ -486,7 +486,7 @@ class Params {
 		title = "$STR_WF_Gameplay_TownsAmount";
 		values[] = {0,1,2,3,4};
 		texts[] = {"$STR_WF_Extra_Small","$STR_WF_Small","$STR_WF_Medium","$STR_WF_Large","$STR_WF_Full"};
-		default = 3;
+		default = 4;
 	};
 	class townsStrikerMax {
 		title = "$STR_WF_Gameplay_MaxResStriker";
