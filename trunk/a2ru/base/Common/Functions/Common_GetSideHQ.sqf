@@ -1,1 +1,0 @@
-Call Compile Format ["%1MHQ",_this]
