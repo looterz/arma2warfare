@@ -1,4 +1,4 @@
-Private ['_camps','_location','_locationName','_marker','_maxSupplyValue','_probability','_range','_resistanceTeamTypes','_startingSupplyValue'];
+Private ['_camps','_location','_locationName','_marker','_maxSupplyValue','_probability','_range','_resistanceTeamTypes','_startingSupplyValue','_tcarm', '_campRange'];
 
 _location = _this select 0;
 _locationName = _this select 1;
@@ -19,10 +19,25 @@ if (isNull _location) exitWith {};
 _camps = _location getVariable "camps";
 if (isNil "_camps") then {_location setVariable ["camps",[]]};
 
+_campRange = 0;
+{
+	_dist = _location distance _x;
+	if (_dist > _campRange) then {
+		_campRange = _dist;
+	};	
+} forEach _camps;
+
+if (_campRange != 0) then {
+	_tcarm = 'WFBE_TOWNCAPTUREASSISTRANGEMODIFIER' Call GetNamespace;
+	_range = _campRange / _tcarm;
+};
+
 _location setVariable ["name",_locationName];
 _location setVariable ["range",_range];
 _location setVariable ["startingSupplyValue",_startingSupplyValue];
 _location setVariable ["maxSupplyValue",_maxSupplyValue];
+
+diag_log Format["Init_Location: Town '%1' range = %2", _locationName, _range];
 
 diag_log Format["[WFBE (INIT)][frameno:%3 | ticktime:%4] Init_Location: Town '%1' (%2) initialization - [Done]",str _location,_locationName,diag_frameno,diag_tickTime];
 
