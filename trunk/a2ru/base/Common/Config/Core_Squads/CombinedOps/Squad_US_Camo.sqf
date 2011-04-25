@@ -296,9 +296,11 @@ _d = _d	+ ["Air - AV8B Squadron"];
 _u		= ["AV8B2"];
 _u = _u + ["AV8B2"];
 _f 		= [false,false,false,true];
+_l 		= [0,0,0,3];
 
 _aiTeamTemplates = _aiTeamTemplates + [_u];
 _aiTeamTemplateRequires = _aiTeamTemplateRequires + [_f];
 _aiTeamTypes = _aiTeamTypes + [3];
+_aiTeamUpgrades = _aiTeamUpgrades + [_l];
 
 [_aiTeamTemplates,_aiTeamTemplateRequires,_aiTeamTypes,_aiTeamUpgrades,_d]
