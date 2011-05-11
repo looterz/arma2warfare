@@ -6,6 +6,11 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
 {
     partial class SqfMethodBodyWriter
 	{
+        void OpCodeIsInst(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
+        {
+            WriteOperatorAs(p, i, s[0]);
+        }
+
 		void WriteOperatorIs(ILBlock.Prestatement prestatement, ILInstruction instruction, ILFlowStackItem stackItem)
 		{
 			var stackInstruction = stackItem.SingleStackInstruction;
@@ -25,7 +30,7 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
 
 		void WriteOperatorAs(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem s)
 		{
-			Action<Action> Write =
+			Action<Action> write =
 				expression =>
 				{
 					_writer.Write("(");
@@ -34,7 +39,7 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
 					{
 						_writer.Write("typeof");
 						_writer.WriteSpace();
-						expression();
+						expression.Invoke();
 						_writer.WriteSpace();
 						_writer.Write("==");
 						_writer.WriteSpace();
@@ -58,7 +63,7 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
 
 					// this should be a variable
 
-					expression();
+					expression.Invoke();
 
 
 					_writer.WriteSpace();
@@ -72,7 +77,7 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
 
 			if (s.SingleStackInstruction.IsLoadLocal)
 			{
-				Write(
+				write(
 					delegate
 					{
 						OpCodeHandler(p, i, s);
@@ -97,7 +102,7 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
 
 				_writer.Write("return ");
 
-				Write(
+				write(
 					delegate
 					{
 						_writer.Write(f);
@@ -111,10 +116,6 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
 			}
 		}
 
-        void OpCodeIsInst(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
-		{
-			WriteOperatorAs(p, i, s[0]);
-		}
 	}
 
 }
