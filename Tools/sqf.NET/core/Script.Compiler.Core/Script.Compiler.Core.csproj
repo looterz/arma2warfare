@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>
     </DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -116,6 +117,14 @@
     <Compile Include="Attributes\ScriptMethodThrows.cs" />
     <Compile Include="Attributes\ScriptParameterByRefAttribute.cs" />
     <Compile Include="Attributes\ScriptParameterByValAttribute.cs" />
+    <Compile Include="CodeModel\ILBlock.cs" />
+    <Compile Include="CodeModel\ILFlow.cs" />
+    <Compile Include="CodeModel\ILInstruction.cs" />
+    <Compile Include="CodeModel\ILInstruction.InlineIfElseConstruct.cs" />
+    <Compile Include="CodeModel\ILLoopConstruct.cs" />
+    <Compile Include="CodeModel\OpCodeExtensions.cs" />
+    <Compile Include="CodeModel\TypeInfo.cs" />
+    <Compile Include="CodeModel\VariableInfo.cs" />
     <Compile Include="CSharp\Extensions\EmbeddedResourcesExtensions.ToManifestResourceStream.cs" />
     <Compile Include="CSharp\Extensions\ScriptAttributeExtensions.cs" />
     <Compile Include="CSharp\Extensions\StringToSByteArray.cs" />
@@ -144,6 +153,10 @@
     <Compile Include="Attributes\TypeOfByNameOverrideAttribute.cs" />
     <Compile Include="Attributes\SwitchToCLRContextAttribute.cs" />
     <Compile Include="ScriptWriter\IScriptWriter.cs" />
+    <Compile Include="Utility\Extensions.cs" />
+    <Compile Include="Utility\Helper.cs" />
+    <Compile Include="Utility\RecursionGuard.cs" />
+    <Compile Include="Utility\Task.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="neutronic.snk" />

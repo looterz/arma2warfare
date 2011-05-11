@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Reflection.Emit;
 using jsc;
+using Script.Compiler.Core.Utility;
 using Script.Compiler.Tools;
 using ScriptCoreLib;
 

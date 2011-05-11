@@ -2,9 +2,9 @@ using System;
 using System.Diagnostics;
 using jsc;
 
-namespace Script.Compiler.Tools
+namespace Script.Compiler.Core.Utility
 {
-    class Task : IDisposable
+    public class Task : IDisposable
     {
         class Color : IDisposable   
         {
