@@ -489,7 +489,7 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
             OpCodeCallOverride(p, i, s, GetImplementation(m.DeclaringType, m));
         }
 
-        private void OpCode_ldstr(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
+        private void OpCodeLDSTR(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
         {
             /*var @break = i.TargetLiteral == "jsc.break";
 
@@ -499,7 +499,7 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
             _writer.WriteLiteral(i.TargetLiteral);
         }
 
-        private void OpCode_ldc(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
+        private void OpCodeLDC(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
         {
             if (i == OpCodes.Ldc_R4)
             {
@@ -530,7 +530,7 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
             _writer.Write(n.Value);
         }
 
-        private void OpCode_br(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
+        private void OpCodeBR(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
         {
             if (i.TargetFlow.Branch == OpCodes.Ret)
             {
@@ -797,12 +797,12 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
             _writer.Write("null");
         }
 
-        private void OpCodeLdvirtftn(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
+        private void OpCodeLdVirtFtn(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
         {
-            OpCodeLDFTN(p, i, s);
+            OpCodeLdFtn(p, i, s);
         }
 
-        private void OpCodeLDTOKEN(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
+        private void OpCodeLdToken(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
         {
             _writer.Write("LDTOKEN:");
 
@@ -823,14 +823,14 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
             _writer.Write(")");
         }
 
-        private void OpCodeLDFTN(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
+        private void OpCodeLdFtn(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
         {
             IScriptMethod method = GetImplementation(i.TargetMethod.DeclaringType, i.TargetMethod);
 
             _writer.Write(method.Name);
         }
 
-        private void OpCodeINITOBJ(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
+        private void OpCodeInitObj(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
         {
             // we can only initobj a variable. we cannot init a generic type parameter
             if (i.Prev.TargetVariable == null)
@@ -1135,7 +1135,7 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
             Debugger.Break();
         }
 
-        private void OpCodeCastclass(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
+        private void OpCodeCastClass(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
         {
             // runtime check?
 
