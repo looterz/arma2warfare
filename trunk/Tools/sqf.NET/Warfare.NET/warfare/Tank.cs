@@ -54,7 +54,7 @@ namespace WarfareBE
         public Tank()
         {
             var speeds = new[]{ 100, 200, 500, 1000, 0 };
-            for (int i = 0; i < speeds.Length; i++ )
+            for (int i = 0; i < speeds.Length; i = i + 1 )
             {
                 Speed = speeds[i*2];
             }
@@ -74,6 +74,7 @@ namespace WarfareBE
         }
 
         public Tank(int maxSpeed, int maxHeight)
+            : this(maxSpeed)
         {
             int[] speeds = { 100, 200, 500, 1000, 0 };
             foreach (int speed in speeds)
@@ -89,6 +90,10 @@ namespace WarfareBE
             if (c)
             {
                 _speed = (_speed < 100) ? 500 : 100;
+            }
+            else
+            {
+                _speed = 50;
             }
         }
     }
