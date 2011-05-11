@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace ScriptCoreLib
+namespace ScriptCoreLib.Attributes
 {
 	/// <summary>
 	/// Renames a native namespace. For example java.lang.String could be written as ScriptCoreLibJava.java.lang.String.

@@ -118,11 +118,10 @@
     <Compile Include="CSharp\Extensions\EmbeddedResourcesExtensions.ToManifestResourceStream.cs" />
     <Compile Include="CSharp\Extensions\ScriptAttributeExtensions.cs" />
     <Compile Include="CSharp\Extensions\StringToSByteArray.cs" />
-    <Compile Include="IEntryPoint.cs" />
     <Compile Include="Attributes\ScriptVersionAttribute.cs" />
-    <Compile Include="ScriptNamespaceRenameAttribute.cs" />
+    <Compile Include="Attributes\ScriptNamespaceRenameAttribute.cs" />
     <Compile Include="ScriptType.cs" />
-    <Compile Include="ScriptTypeFilterAttribute.cs" />
+    <Compile Include="Attributes\ScriptTypeFilterAttribute.cs" />
     <Compile Include="Attributes\EmbedGetFileNamesAttribute.cs" />
     <Compile Include="CSharp\Extensions\EmbeddedResourcesExtensions.cs" />
     <Compile Include="Helper.cs" />
@@ -132,10 +131,9 @@
     <Compile Include="Attributes\ScriptApplicationEntryPointAttribute.cs" />
     <Compile Include="Attributes\ScriptAttribute.cs" />
     <Compile Include="Attributes\ScriptImportsTypeAttribute.cs" />
-    <Compile Include="ScriptLanguageProvider.cs" />
     <Compile Include="Attributes\ScriptResourcesAttribute.cs" />
     <Compile Include="Attributes\TypeOfByNameOverrideAttribute.cs" />
-    <Compile Include="SwitchToCLRContextAttribute.cs" />
+    <Compile Include="Attributes\SwitchToCLRContextAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="neutronic.snk" />
