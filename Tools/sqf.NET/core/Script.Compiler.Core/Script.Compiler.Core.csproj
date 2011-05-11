@@ -144,7 +144,6 @@
     <Compile Include="CSharp\Extensions\EmbeddedResourcesExtensions.cs" />
     <Compile Include="SharedHelper.cs" />
     <Compile Include="Attributes\HexAttribute.cs" />
-    <Compile Include="ITextWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Attributes\ScriptApplicationEntryPointAttribute.cs" />
     <Compile Include="Attributes\ScriptAttribute.cs" />
@@ -154,7 +153,6 @@
     <Compile Include="Attributes\SwitchToCLRContextAttribute.cs" />
     <Compile Include="ScriptWriter\IScriptWriter.cs" />
     <Compile Include="Utility\Extensions.cs" />
-    <Compile Include="Utility\Helper.cs" />
     <Compile Include="Utility\RecursionGuard.cs" />
     <Compile Include="Utility\Task.cs" />
   </ItemGroup>

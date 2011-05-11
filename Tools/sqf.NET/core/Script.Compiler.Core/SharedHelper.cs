@@ -16,49 +16,6 @@ namespace Script.Compiler.Core
 	/// </summary>
 	public static class SharedHelper
 	{
-
-		public static void DefineSpawnPoint(ITextWriter w, string alias, string data)
-		{
-			w.WriteLine("<input type='hidden' value='" + Convert.ToBase64String(Encoding.ASCII.GetBytes(data)) + "' class='" + alias + "' />");
-		}
-
-		public static void DefineScript(ITextWriter w, string[] Modules)
-		{
-			foreach (var v in Modules)
-				DefineScript(w, v);
-		}
-
-
-		public static void DefineScript(StreamWriter w, string[] Modules)
-		{
-			foreach (var v in Modules)
-				DefineScript(w, v);
-		}
-
-		public static void DefineScript(StreamWriter w, string src)
-		{
-			if (!src.EndsWith(".js"))
-				src += ".js";
-
-			w.WriteLine("<script type='text/javascript' src='" + src + "'></script>");
-		}
-
-		public static void PHPInclude(ITextWriter e, string src)
-		{
-			if (!src.EndsWith(".php"))
-				src += ".php";
-
-			e.WriteLine("require_once '" + src + "';");
-		}
-
-		public static void DefineScript(ITextWriter w, string src)
-		{
-			if (!src.EndsWith(".js"))
-				src += ".js";
-
-			w.WriteLine("<script type='text/javascript' src='" + src + "'></script>");
-		}
-
         public static Type[] LoadScriptTypes(ScriptType type, Assembly assemblyLoaded)
         {
             List<Type> types = new List<Type>();
@@ -77,23 +34,6 @@ namespace Script.Compiler.Core
             }
             return types.ToArray();
         }
-
-		static IEnumerable<Assembly> LoadReferencedAssemblies(Assembly a)
-		{
-			foreach (AssemblyName z in a.GetReferencedAssemblies())
-			{
-				var x = AppDomain.CurrentDomain.Load(z);
-
-				if (ScriptAttribute.Of(x) == null)
-					continue;
-
-				yield return x;
-
-				foreach (Assembly c in LoadReferencedAssemblies(x))
-					yield return c;
-			}
-
-		}
 
 		class LoadDependenciesValue
 		{
@@ -270,13 +210,6 @@ namespace Script.Compiler.Core
 				return LocalModulesOf(Assembly.GetCallingAssembly());
 
 			}
-		}
-
-
-		public static void PHPInclude(ITextWriter w, string[] Modules)
-		{
-			foreach (var v in Modules)
-				PHPInclude(w, v);
 		}
 	}
 }
