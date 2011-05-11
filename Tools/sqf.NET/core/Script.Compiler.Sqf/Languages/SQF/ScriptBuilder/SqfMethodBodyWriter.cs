@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using jsc;
 using Script.Compiler.Core.ScriptModel;
 using Script.Compiler.Core.ScriptWriter;
+using Script.Compiler.Tools;
 using ScriptCoreLib;
 using ScriptCoreLib.CSharp.Extensions;
 

@@ -1,9 +1,7 @@
 using System;
 using System.Diagnostics;
-using System.Collections.Generic;
-using System.Text;
 
-namespace jsc
+namespace Script.Compiler.Tools
 {
     public class RecursionGuard : IDisposable
     {

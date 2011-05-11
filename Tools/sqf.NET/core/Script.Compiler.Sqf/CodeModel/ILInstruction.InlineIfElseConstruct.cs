@@ -1,5 +1,6 @@
 using System;
 using System.Reflection.Emit;
+using Script.Compiler.Tools;
 
 namespace jsc
 {

@@ -9,6 +9,7 @@ using System.Reflection.Emit;
 
 using jsc.CodeModel;
 using Script.Compiler;
+using Script.Compiler.Tools;
 using ScriptCoreLib;
 
 namespace jsc

@@ -105,7 +105,6 @@
     <Compile Include="Languages\SQF\SqfParameterVariable.cs" />
     <Compile Include="Languages\SQF\SqfSysVariable.cs" />
     <Compile Include="Languages\SQF\StringTools.cs" />
-    <Compile Include="Languages\StringToSByteArrayProvider.cs" />
     <Compile Include="Loader\LoaderStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\Extensions.cs" />
