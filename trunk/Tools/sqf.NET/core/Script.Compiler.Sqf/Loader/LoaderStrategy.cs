@@ -5,6 +5,7 @@ using System.Text;
 using System.Reflection;
 using System.IO;
 using Script.Compiler;
+using Script.Compiler.Core.Utility;
 using ScriptCoreLib;
 using ScriptCoreLib.Attributes;
 
