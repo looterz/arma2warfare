@@ -14,8 +14,17 @@ _currency = if !(paramMoneyOnly) then {(sideJoined) Call GetSideSupply} else {Ca
 _currencySym = if !(paramMoneyOnly) then {"S"} else {"$"};
 if (_currency < _repairPrice) exitWith {hint Format [localize "STR_WF_Repair_MHQ_Funds",_currencySym,_repairPrice - _currency]};
 
+_repairCount = WF_Logic getVariable Format ["%1MHQRepairCount",sideJoinedText];
+if (isNil "_repairCount") then {
+	_repairCount = 1;
+};
+
+_repairPrice = floor(_repairPrice * (1 + (0.5*(_repairCount - 1))));
+WF_Logic setVariable [format ["%1MHQRepairCoef",sideJoinedText], _repairCount + 1, true];
+
+
 if !(paramMoneyOnly) then {
-	[sideJoined,-_repairPrice] Call ChangeSideSupply;
+	[sideJoined, -_repairPrice] Call ChangeSideSupply;
 } else {
 	-(_repairPrice) Call ChangePlayerFunds;
 };

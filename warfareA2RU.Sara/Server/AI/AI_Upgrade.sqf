@@ -8,6 +8,10 @@ _sideText = Str _side;
 
 Call Compile Format ["WFBE_%1_Upgrading = true; publicVariable 'WFBE_%1_Upgrading';",_sideText];
 
+if (WF_DEBUG) then {
+	_time = 2;
+};
+
 sleep _time;
 
 _upgrades = (_sideText) Call GetSideUpgrades;

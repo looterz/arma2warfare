@@ -213,8 +213,8 @@ if !(isNil "paramsArray") then {
 
 //--- Debug.
 if (WF_Debug) then {
-	paramUpgradesEast = false;
-	paramUpgradesWest = false;
+	//paramUpgradesEast = false;
+	//paramUpgradesWest = false;
 	paramRes = false;
 	paramOccup = false;
 };
