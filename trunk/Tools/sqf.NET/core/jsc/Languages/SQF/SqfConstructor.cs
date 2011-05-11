@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
+using Script.Compiler.Core.ScriptModel;
+using Script.Compiler.Core.ScriptWriter;
 
-namespace jsc.Languages.SQF
+namespace Script.Compiler.Languages.SQF
 {
     class SqfConstructor : SqfMethod
     {
@@ -9,7 +11,7 @@ namespace jsc.Languages.SQF
         {
         }
 
-        public override void RenderMethodCode(ScriptWriter writer)
+        public override void RenderMethodCode(IScriptWriter writer)
         {
             writer.WriteLine("_this = 'objectBase' createVehicle [0, 0, 0];");
             base.RenderMethodCode(writer);

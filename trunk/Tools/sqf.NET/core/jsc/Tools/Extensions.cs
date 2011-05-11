@@ -4,14 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using ScriptCoreLib;
 using ScriptCoreLib.CSharp.Extensions;
 
-namespace jsc //.Extensions
+namespace Script.Compiler
 {
 	public static class Extensions
 	{
@@ -27,24 +26,6 @@ namespace jsc //.Extensions
 			var z_NonPrimitiveValueType = z_Implements != null && z_Implements.IsValueType && !z_Implements.IsPrimitive;
 
 			return z_NonPrimitiveValueType;
-		}
-
-		internal static void ForEach<T>(this IEnumerable<T> source, Action<T, int> f)
-		{
-			int c = 0;
-			foreach (var k in source)
-			{
-				f(k, c);
-				c++;
-			}
-		}
-
-		internal static void ForEach<T>(this IEnumerable<T> source, Action<T> f)
-		{
-			foreach (var k in source)
-			{
-				f(k);
-			}
 		}
 
 		/// <summary>

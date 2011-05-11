@@ -4,12 +4,11 @@ using System.Text;
 using System.IO;
 using System.Reflection;
 using System.Linq;
+using ScriptCoreLib;
 using ScriptCoreLib.Attributes;
 
-namespace ScriptCoreLib
+namespace Script.Compiler.Core
 {
-
-
 	/// <summary>
 	/// this class is shared among scriptcorelib assemblies 
 	/// and provides pre runtime information, to build static
@@ -59,6 +58,25 @@ namespace ScriptCoreLib
 
 			w.WriteLine("<script type='text/javascript' src='" + src + "'></script>");
 		}
+
+        public static Type[] LoadScriptTypes(ScriptType type, Assembly assemblyLoaded)
+        {
+            List<Type> types = new List<Type>();
+
+            types.AddRange(ScriptAttribute.FindTypes(assemblyLoaded, type));
+
+            foreach (Assembly xa in SharedHelper.LoadReferencedAssemblies(assemblyLoaded, false))
+            {
+                ScriptAttribute sa = ScriptAttribute.OfProvider(xa);
+
+                if (sa == null)
+                {
+                    continue;
+                }
+                types.AddRange(ScriptAttribute.FindTypes(xa, type));
+            }
+            return types.ToArray();
+        }
 
 		static IEnumerable<Assembly> LoadReferencedAssemblies(Assembly a)
 		{

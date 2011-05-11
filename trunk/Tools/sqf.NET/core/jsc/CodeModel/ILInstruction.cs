@@ -8,7 +8,7 @@ using System.Linq;
 using System.Reflection.Emit;
 
 using jsc.CodeModel;
-
+using Script.Compiler;
 using ScriptCoreLib;
 
 namespace jsc

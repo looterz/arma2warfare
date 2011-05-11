@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using Script.Compiler.Core.ScriptModel;
 
-namespace jsc.Languages.SQF
+namespace Script.Compiler.Languages.SQF
 {
     class SqfParameterVariable : IParameterVariable
     {

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Script.Compiler.Core.ScriptWriter;
 
-namespace jsc.Languages.SQF
+namespace Script.Compiler.Core.ScriptModel
 {
     public interface IScriptClass
     {
@@ -12,6 +13,6 @@ namespace jsc.Languages.SQF
         IScriptCompiler Compiler { get; }
         List<IFieldVariable> Fields { get; }
         IScriptMethod GetScriptMethod(MethodBase methodBase);
-        void Render(ScriptWriter writer);
+        void Render(IScriptWriter writer);
     }
 }

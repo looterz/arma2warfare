@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace jsc.Languages.SQF
+namespace Script.Compiler.Core.ScriptModel
 {
     public interface IScriptCompiler
     {

@@ -1,4 +1,4 @@
-﻿namespace jsc.Languages.SQF
+﻿namespace Script.Compiler.Languages.SQF
 {
     public static class Extension
     {

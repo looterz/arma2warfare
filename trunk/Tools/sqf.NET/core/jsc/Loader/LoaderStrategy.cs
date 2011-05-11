@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.IO;
+using Script.Compiler;
 using ScriptCoreLib;
 using ScriptCoreLib.Attributes;
 

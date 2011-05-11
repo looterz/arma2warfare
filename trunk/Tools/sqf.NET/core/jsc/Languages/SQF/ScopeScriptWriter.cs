@@ -1,6 +1,7 @@
 ﻿using System;
+using Script.Compiler.Languages.SQF;
 
-namespace jsc.Languages.SQF
+namespace Script.Compiler.Languages.SQF
 {
     public class ScopeScriptWriter : IDisposable
     {

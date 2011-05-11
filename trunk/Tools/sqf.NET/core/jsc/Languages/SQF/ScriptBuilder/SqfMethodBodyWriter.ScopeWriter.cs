@@ -2,9 +2,10 @@
 using System.Diagnostics;
 using System.Reflection;
 using System.Reflection.Emit;
+using jsc;
 using ScriptCoreLib;
 
-namespace jsc.Languages.SQF.ScriptBuilder
+namespace Script.Compiler.Languages.SQF.ScriptBuilder
 {
     public partial class SqfMethodBodyWriter
     {

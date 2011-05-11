@@ -1,6 +1,6 @@
 ﻿using System.Reflection.Emit;
 
-namespace jsc.Languages.SQF.ScriptBuilder
+namespace Script.Compiler.Languages.SQF.ScriptBuilder
 {
     public class OperationHandlers
     {

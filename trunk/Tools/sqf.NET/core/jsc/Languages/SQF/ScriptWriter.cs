@@ -1,9 +1,11 @@
 ﻿using System.IO;
 using System.Text;
+using Script.Compiler.Core.ScriptWriter;
+using Script.Compiler.Languages.SQF;
 
-namespace jsc.Languages.SQF
+namespace Script.Compiler.Languages.SQF
 {
-    public class ScriptWriter : StreamWriter
+    public class ScriptWriter : StreamWriter, IScriptWriter
     {
         public class ScriptScopeWriter : ScriptWriter
         {
@@ -74,13 +76,13 @@ namespace jsc.Languages.SQF
              Write(" ");
          }
 
-        public ScriptWriter GetScopeWriter()
-        {
+         public IScriptWriter GetScopeWriter()
+         {
             var writer1 = new ScriptScopeWriter(this, new MemoryStream());
             writer1.Ident = this.Ident;
 
             return writer1;
-        }
+         }
 
         public virtual void Commit()
         {
@@ -88,9 +90,9 @@ namespace jsc.Languages.SQF
         }
 
 
-        public ScopeScriptWriter Scope(string openChar = null, string closeChar = null)
+        public IScriptWriter Scope(string openChar = null, string closeChar = null)
         {
-            return new ScopeScriptWriter(this, openChar, closeChar);
+            return (IScriptWriter)new ScopeScriptWriter(this, openChar, closeChar);
         }
 
         public void WriteIdent()

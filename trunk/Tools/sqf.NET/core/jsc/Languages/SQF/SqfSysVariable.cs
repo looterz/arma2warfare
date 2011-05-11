@@ -1,4 +1,6 @@
-﻿namespace jsc.Languages.SQF
+﻿using Script.Compiler.Core.ScriptModel;
+
+namespace Script.Compiler.Languages.SQF
 {
     class SqfSysVariable : IScriptVariable
     {
