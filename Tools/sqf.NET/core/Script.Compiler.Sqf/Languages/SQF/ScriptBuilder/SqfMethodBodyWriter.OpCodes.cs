@@ -10,7 +10,7 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
             Handlers[OpCodes.Leave_S, OpCodes.Leave] = new OpCodeHandler(OpCodeLeave);
 
             Handlers[OpCodes.Br_S,
-                     OpCodes.Br] = new OpCodeHandler(OpCode_br);
+                     OpCodes.Br] = new OpCodeHandler(OpCodeBR);
 
             Handlers[OpCodes.Ldarg_0,
                      OpCodes.Ldarg_1,
@@ -82,9 +82,9 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
                      OpCodes.Ldc_R4,
                      OpCodes.Ldc_R8,
                      OpCodes.Ldc_I8,
-                     OpCodes.Ldc_I4_M1] = new OpCodeHandler(OpCode_ldc);
+                     OpCodes.Ldc_I4_M1] = new OpCodeHandler(OpCodeLDC);
 
-            Handlers[OpCodes.Ldstr] = new OpCodeHandler(OpCode_ldstr);
+            Handlers[OpCodes.Ldstr] = new OpCodeHandler(OpCodeLDSTR);
 
             Handlers[OpCodes.Call] = new OpCodeHandler(OpCodeCall);
             Handlers[OpCodes.Callvirt] = new OpCodeHandler(OpCodeCall);
@@ -100,7 +100,7 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
             // fixme: leace_S my leave function
 
             Handlers[OpCodes.Box] = new OpCodeHandler(OpCodeBox);
-            Handlers[OpCodes.Castclass] = new OpCodeHandler(OpCodeCastclass);
+            Handlers[OpCodes.Castclass] = new OpCodeHandler(OpCodeCastClass);
             Handlers[OpCodes.Endfinally] = new OpCodeHandler(OpCodeEndFinally);
 
             Handlers[
@@ -135,13 +135,13 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
             Handlers[OpCodes.Pop] = new OpCodeHandler(OpCodePop);
             Handlers[OpCodes.Newarr] = new OpCodeHandler(OpCodeNewArr);
             Handlers[OpCodes.Newobj] = new OpCodeHandler(OpCodeNewobj);
-            Handlers[OpCodes.Initobj] = new OpCodeHandler(OpCodeINITOBJ);
+            Handlers[OpCodes.Initobj] = new OpCodeHandler(OpCodeInitObj);
 
             Handlers[OpCodes.Ldlen] = new OpCodeHandler(OpCodeLdlen);
             Handlers[OpCodes.Ldnull] = new OpCodeHandler(OpCode_ldnull);
-            Handlers[OpCodes.Ldftn] = new OpCodeHandler(OpCodeLDFTN);
-            Handlers[OpCodes.Ldvirtftn] = OpCodeLdvirtftn;
-            Handlers[OpCodes.Ldtoken] = OpCodeLDTOKEN;
+            Handlers[OpCodes.Ldftn] = new OpCodeHandler(OpCodeLdFtn);
+            Handlers[OpCodes.Ldvirtftn] = OpCodeLdVirtFtn;
+            Handlers[OpCodes.Ldtoken] = OpCodeLdToken;
 
             Handlers[OpCodes.Stelem,
                      OpCodes.Stelem_Ref,
