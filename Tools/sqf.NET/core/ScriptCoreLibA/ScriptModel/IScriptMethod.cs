@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using Script.Compiler.Core.ScriptWriter;
 
-namespace jsc.Languages.SQF
+namespace Script.Compiler.Core.ScriptModel
 {
     public interface IScriptMethod
     {
@@ -9,7 +10,7 @@ namespace jsc.Languages.SQF
         string Name { get; }
         IScriptClass Class { get; }
         List<IScriptVariable> Locals { get; }
-        void Render(ScriptWriter writer);
+        void Render(IScriptWriter writer);
         ILocalVariable GetVariable(LocalVariableInfo localVariableInfo);
         IParameterVariable GetVariable(ParameterInfo parameterInfo);
     }

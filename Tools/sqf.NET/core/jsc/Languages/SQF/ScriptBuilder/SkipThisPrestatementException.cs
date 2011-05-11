@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace jsc.Languages.SQF.ScriptBuilder
+namespace Script.Compiler.Languages.SQF.ScriptBuilder
 {
     [Serializable]
     public class SkipThisPrestatementException : Exception

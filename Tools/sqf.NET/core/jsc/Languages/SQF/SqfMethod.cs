@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using jsc.Languages.SQF.ScriptBuilder;
+using Script.Compiler.Core.ScriptModel;
+using Script.Compiler.Core.ScriptWriter;
+using Script.Compiler.Languages.SQF.ScriptBuilder;
 
-namespace jsc.Languages.SQF
+namespace Script.Compiler.Languages.SQF
 {
     class SqfMethod : IScriptMethod
     {
@@ -66,7 +68,7 @@ namespace jsc.Languages.SQF
             }
         }
 
-        public void Render(ScriptWriter writer)
+        public void Render(IScriptWriter writer)
         {
             writer.WriteLine("/// <summary>");
             writer.WriteLine("/// {0}.{1}({2})", (Class.Type.FullName), Method.Name, GetArguments());
@@ -87,12 +89,12 @@ namespace jsc.Languages.SQF
             writer.WriteLine();
         }
 
-        public SqfMethodBodyWriter GetBodyWriter(ScriptWriter writer)
+        public SqfMethodBodyWriter GetBodyWriter(IScriptWriter writer)
         {
             return new SqfMethodBodyWriter(Class.Compiler, writer);
         }
 
-        public virtual void RenderMethodCode(ScriptWriter writer)
+        public virtual void RenderMethodCode(IScriptWriter writer)
         {
             GetBodyWriter(writer).EmitBody(Method, false);
         }
@@ -114,7 +116,7 @@ namespace jsc.Languages.SQF
 
         public static string[] IgnoredLocalNames = {"_this"};
 
-        public void RenderPrivateVariables(ScriptWriter writer)
+        public void RenderPrivateVariables(IScriptWriter writer)
         {
             if (Locals.Count() > 0)
             {
@@ -141,7 +143,7 @@ namespace jsc.Languages.SQF
             }
         }
 
-        public void RenderArguments(ScriptWriter writer)
+        public void RenderArguments(IScriptWriter writer)
         {
             string dataName = "_this";
 
@@ -163,7 +165,7 @@ namespace jsc.Languages.SQF
             }
         }
 
-        private void RenderArguments(ScriptWriter writer, string dataName)
+        private void RenderArguments(IScriptWriter writer, string dataName)
         {
             int id = 0;
             Locals.Where(m => m is IParameterVariable).ForEach(param => 

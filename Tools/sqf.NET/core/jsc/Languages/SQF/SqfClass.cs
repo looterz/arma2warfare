@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Script.Compiler.Core.ScriptModel;
+using Script.Compiler.Core.ScriptWriter;
 
-namespace jsc.Languages.SQF
+namespace Script.Compiler.Languages.SQF
 {
     class SqfClass : IScriptClass
     {
@@ -63,7 +65,7 @@ namespace jsc.Languages.SQF
             }
         }
 
-        public void Render(ScriptWriter writer)
+        public void Render(IScriptWriter writer)
         {
             Methods.ForEach(methods => methods.Render(writer));
         }

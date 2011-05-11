@@ -1,4 +1,4 @@
-﻿namespace jsc.Languages.SQF
+﻿namespace Script.Compiler.Core.ScriptModel
 {
     public interface IScriptVariable
     {

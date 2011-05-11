@@ -5,17 +5,20 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
+using jsc;
+using Script.Compiler.Core.ScriptModel;
+using Script.Compiler.Core.ScriptWriter;
 using ScriptCoreLib;
 using ScriptCoreLib.CSharp.Extensions;
 
-namespace jsc.Languages.SQF.ScriptBuilder
+namespace Script.Compiler.Languages.SQF.ScriptBuilder
 {
     public partial class SqfMethodBodyWriter
     {
         #region Поля класса
 
         private readonly OperationHandlers _handlers;
-        private readonly ScriptWriter _writer;
+        private readonly IScriptWriter _writer;
 
         #endregion
 
@@ -32,7 +35,7 @@ namespace jsc.Languages.SQF.ScriptBuilder
 
         #region Конструкторы класса
 
-        public SqfMethodBodyWriter(IScriptCompiler compiler, ScriptWriter writer)
+        public SqfMethodBodyWriter(IScriptCompiler compiler, IScriptWriter writer)
         {
             _writer = writer;
             ScriptCompiler = compiler;

@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.IO;
 using System.Threading;
 
-namespace jsc
+namespace Script.Compiler
 {
     public sealed class Helper
     {

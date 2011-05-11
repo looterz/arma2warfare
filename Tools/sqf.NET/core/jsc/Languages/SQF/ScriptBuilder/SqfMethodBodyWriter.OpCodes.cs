@@ -1,6 +1,7 @@
 using System.Reflection.Emit;
+using jsc;
 
-namespace jsc.Languages.SQF.ScriptBuilder
+namespace Script.Compiler.Languages.SQF.ScriptBuilder
 {
     using ilbp = ILBlock.Prestatement;
     using ili = ILInstruction;
