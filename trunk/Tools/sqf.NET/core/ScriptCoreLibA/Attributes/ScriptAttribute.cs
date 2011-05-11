@@ -14,14 +14,14 @@ namespace ScriptCoreLib
 	[global::System.AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = false)]
 	public sealed partial class ScriptAttribute : Attribute
 	{
-		public const string InternalConstructorDefault = "InternalConstructor";
+		public const string INTERNAL_CONSTRUCTOR_DEFAULT = "InternalConstructor";
 
-		public const string Prototype = "prototype";
+		public const string PROTOTYPE = "prototype";
 
-		public const string MetadataMember = "$0";
+		public const string METADATA_MEMBER = "$0";
 
-		public const string MetadataMemberTypeName = "$0";
-		public const string MetadataMemberDefaultConstructor = "$1";
+		public const string METADATA_MEMBER_TYPE_NAME = "$0";
+		public const string METADATA_MEMBER_DEFAULT_CONSTRUCTOR = "$1";
 
 		/// <summary>
 		/// When set to true, another class must define the implementation. This is useful when there is a shared class for several languages but its implementation varies within supported languages.
@@ -107,7 +107,7 @@ namespace ScriptCoreLib
 		public string GetConstructorAlias()
 		{
 			if (InternalConstructor)
-				return InternalConstructorDefault;
+				return INTERNAL_CONSTRUCTOR_DEFAULT;
 
 			return null;
 		}

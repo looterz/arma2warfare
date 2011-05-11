@@ -28,7 +28,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\ScriptCoreLibA.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -109,30 +110,31 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AttributeUsageFieldTypeContractAttribute.cs" />
-    <Compile Include="ScriptAttribute.Implements.cs" />
+    <Compile Include="Attributes\ScriptAttribute.Implements.cs" />
+    <Compile Include="Attributes\ScriptDelegateDataHintAttribute.cs" />
+    <Compile Include="Attributes\ScriptMethodThrows.cs" />
+    <Compile Include="Attributes\ScriptParameterByRefAttribute.cs" />
+    <Compile Include="Attributes\ScriptParameterByValAttribute.cs" />
     <Compile Include="CSharp\Extensions\EmbeddedResourcesExtensions.ToManifestResourceStream.cs" />
     <Compile Include="CSharp\Extensions\ScriptAttributeExtensions.cs" />
     <Compile Include="CSharp\Extensions\StringToSByteArray.cs" />
     <Compile Include="IEntryPoint.cs" />
-    <Compile Include="OtherAttributes.cs" />
+    <Compile Include="Attributes\ScriptVersionAttribute.cs" />
     <Compile Include="ScriptNamespaceRenameAttribute.cs" />
     <Compile Include="ScriptType.cs" />
     <Compile Include="ScriptTypeFilterAttribute.cs" />
-    <Compile Include="Shared\EmbedGetFileNamesAttribute.cs" />
+    <Compile Include="Attributes\EmbedGetFileNamesAttribute.cs" />
     <Compile Include="CSharp\Extensions\EmbeddedResourcesExtensions.cs" />
-    <Compile Include="GoogleGadget.cs" />
     <Compile Include="Helper.cs" />
-    <Compile Include="HexAttribute.cs" />
+    <Compile Include="Attributes\HexAttribute.cs" />
     <Compile Include="ITextWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScriptApplicationEntryPointAttribute.cs" />
-    <Compile Include="ScriptAttribute.cs" />
-    <Compile Include="ScriptImportsTypeAttribute.cs" />
+    <Compile Include="Attributes\ScriptApplicationEntryPointAttribute.cs" />
+    <Compile Include="Attributes\ScriptAttribute.cs" />
+    <Compile Include="Attributes\ScriptImportsTypeAttribute.cs" />
     <Compile Include="ScriptLanguageProvider.cs" />
-    <Compile Include="Shared\PlatformInvocationServices.cs" />
-    <Compile Include="Shared\ScriptResourcesAttribute.cs" />
-    <Compile Include="Shared\TypeOfByNameOverrideAttribute.cs" />
+    <Compile Include="Attributes\ScriptResourcesAttribute.cs" />
+    <Compile Include="Attributes\TypeOfByNameOverrideAttribute.cs" />
     <Compile Include="SwitchToCLRContextAttribute.cs" />
   </ItemGroup>
   <ItemGroup>

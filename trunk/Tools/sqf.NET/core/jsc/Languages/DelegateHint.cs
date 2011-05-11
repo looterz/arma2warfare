@@ -2,22 +2,23 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
+using ScriptCoreLib.Attributes;
 
 namespace jsc.Languages
 {
 	// in the long run this type will not be needed
     static class DelegateHint
     {
-        static IEnumerable<KeyValuePair<ScriptCoreLib.ScriptDelegateDataHintAttribute, FieldInfo>> ToArray(Type e)
+        static IEnumerable<KeyValuePair<ScriptDelegateDataHintAttribute, FieldInfo>> ToArray(Type e)
         {
 
             foreach (FieldInfo v in e.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly))
             {
-                object[] vhint = v.GetCustomAttributes(typeof(ScriptCoreLib.ScriptDelegateDataHintAttribute), false);
+                object[] vhint = v.GetCustomAttributes(typeof(ScriptDelegateDataHintAttribute), false);
 
                 if (vhint.Length == 1)
                 {
-                    yield return new KeyValuePair<ScriptCoreLib.ScriptDelegateDataHintAttribute, FieldInfo>((ScriptCoreLib.ScriptDelegateDataHintAttribute)vhint[0], v);
+                    yield return new KeyValuePair<ScriptDelegateDataHintAttribute, FieldInfo>((ScriptDelegateDataHintAttribute)vhint[0], v);
                 }
             }
         }
@@ -32,17 +33,17 @@ namespace jsc.Languages
             FieldTarget = null;
             FieldMethod = null;
 
-            foreach (KeyValuePair<ScriptCoreLib.ScriptDelegateDataHintAttribute, FieldInfo> v in ToArray(MulticastDelegate))
+            foreach (KeyValuePair<ScriptDelegateDataHintAttribute, FieldInfo> v in ToArray(MulticastDelegate))
             {
-                if (v.Key.Value == ScriptCoreLib.ScriptDelegateDataHintAttribute.FieldType.List)
+                if (v.Key.Value == ScriptDelegateDataHintAttribute.FieldType.List)
                     FieldList = v.Value;
             }
 
-            foreach (KeyValuePair<ScriptCoreLib.ScriptDelegateDataHintAttribute, FieldInfo> v in ToArray(Delegate))
+            foreach (KeyValuePair<ScriptDelegateDataHintAttribute, FieldInfo> v in ToArray(Delegate))
             {
-                if (v.Key.Value == ScriptCoreLib.ScriptDelegateDataHintAttribute.FieldType.Target)
+                if (v.Key.Value == ScriptDelegateDataHintAttribute.FieldType.Target)
                     FieldTarget = v.Value;
-                if (v.Key.Value == ScriptCoreLib.ScriptDelegateDataHintAttribute.FieldType.Method)
+                if (v.Key.Value == ScriptDelegateDataHintAttribute.FieldType.Method)
                     FieldMethod = v.Value;
             }
 
