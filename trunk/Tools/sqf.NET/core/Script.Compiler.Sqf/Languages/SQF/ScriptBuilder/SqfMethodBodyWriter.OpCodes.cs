@@ -1,13 +1,7 @@
 using System.Reflection.Emit;
-using jsc;
 
 namespace Script.Compiler.Languages.SQF.ScriptBuilder
 {
-    using ilbp = ILBlock.Prestatement;
-    using ili = ILInstruction;
-    using ilfsi = ILFlowStackItem;
-
-
     partial class SqfMethodBodyWriter
     {
         private void CreateInstructionHandlers()
