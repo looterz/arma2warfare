@@ -1,4 +1,4 @@
-/*%FSM<COMPILE "D:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, aicommander">*/
+/*%FSM<COMPILE "scriptedFSM.cfg, aicommander">*/
 /*%FSM<HEAD>*/
 /*
 item0[] = {"Init",0,250,29.117783,-243.242416,119.117828,-193.242630,0.000000,"Init"};
@@ -16,7 +16,7 @@ item11[] = {"Deployed",4,218,298.503387,29.438709,388.503357,79.438721,0.000000,
 item12[] = {"Check_Repair",2,250,296.539734,-230.131653,386.539734,-180.131622,0.000000,"Check" \n "Repair"};
 item13[] = {"Repair_Moving",4,218,429.166107,-228.948074,519.166382,-178.948105,0.000000,"Repair" \n "Moving"};
 item14[] = {"Repair_Null",4,218,429.329987,-153.716705,519.330261,-103.716690,0.000000,"Repair" \n "Null"};
-item15[] = {"Check_Status",2,250,563.136597,-243.488693,653.136597,-193.488678,0.000000,"Check" \n "Status"};
+item15[] = {"Check_Status",2,4346,563.136597,-243.488693,653.136597,-193.488678,0.000000,"Check" \n "Status"};
 item16[] = {"Check_Light",2,250,562.396851,-183.315887,652.396851,-133.315872,0.000000,"Check" \n "Light"};
 item17[] = {"Alive",4,218,715.106934,-184.222443,805.106934,-134.222443,0.000000,"Alive"};
 item18[] = {"Dead",4,218,715.106995,-243.430771,805.106995,-193.430771,0.000000,"Dead"};
@@ -52,7 +52,7 @@ item47[] = {"Check_Upgrades",2,250,-683.420288,273.342194,-593.420410,323.342194
 item48[] = {"Update",4,218,-508.776093,300.503662,-418.775909,350.503662,0.000000,"Update"};
 item49[] = {"Skip",4,218,-508.776093,233.530121,-418.775909,283.530151,0.000000,"Skip"};
 item50[] = {"Skip_3",2,250,-329.947998,234.610321,-239.947815,284.610352,0.000000,"Skip"};
-item51[] = {"Update_Upgrades",2,4346,-329.947998,301.583862,-239.947693,351.583862,0.000000,"Update" \n "Upgrades"};
+item51[] = {"Update_Upgrades",2,250,-329.947998,301.583862,-239.947693,351.583862,0.000000,"Update" \n "Upgrades"};
 item52[] = {"_",8,218,-167.467773,275.580872,-136.814941,296.500732,0.000000,""};
 item53[] = {"Check_Types",2,250,-197.088531,386.316132,-107.088661,436.316132,0.000000,"Check Types"};
 item54[] = {"Update",4,218,-22.444336,413.477600,67.555847,463.477600,0.000000,"Update"};
@@ -164,8 +164,8 @@ link84[] = {71,72};
 link85[] = {72,73};
 link86[] = {73,22};
 link87[] = {74,69};
-globals[] = {0.000000,0,0,0,0,640,480,1,103,6316128,1,-397.886902,1132.447266,903.021790,-418.166901,900,772,1};
-window[] = {0,-1,-1,-1,-1,963,148,1600,71,1,918};
+globals[] = {0.000000,0,0,0,0,640,480,1,103,6316128,1,-175.219482,1355.114746,597.511108,-523.137329,1214,889,1};
+window[] = {2,-1,-1,-1,-1,1019,233,1685,127,3,1232};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -472,7 +472,16 @@ class FSM
        "if (_repairTruck distance _hq < 75) then {" \n
        "	if (isEngineOn _repairTruck) then {_repairTruck engineOn false};" \n
        "	_currency = if !(paramMoneyOnly) then {(_side) Call GetSideSupply} else {(_side) Call GetAICommanderFunds};" \n
+       "" \n
+       "      _repairCount = WF_Logic getVariable Format [""%1MHQRepairCount"", _side];" \n
+       "      if (isNil ""_repairCount"") then {" \n
+       "	     _repairCount = 1;" \n
+       "      };" \n
+       "     _repairPrice = _repairPrice * (1 + (0.5*(_repairCount - 1)));" \n
+       "" \n
        "	if (_currency >= _repairPrice) then {" \n
+       "           WF_Logic setVariable [format [""%1MHQRepairCoef"", _side], _repairCount + 1, true];" \n
+       "" \n
        "		if !(paramMoneyOnly) then {" \n
        "			[_side,-_repairPrice] Call ChangeSideSupply;" \n
        "		} else {" \n

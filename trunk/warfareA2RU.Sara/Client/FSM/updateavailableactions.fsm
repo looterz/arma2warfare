@@ -1,4 +1,4 @@
-/*%FSM<COMPILE "F:\ArmA2\FSM Editor Personal Edition\scriptedFSM.cfg, updateavailableactions">*/
+/*%FSM<COMPILE "scriptedFSM.cfg, updateavailableactions">*/
 /*%FSM<HEAD>*/
 /*
 item0[] = {"Init",0,250,64.986191,-133.045959,154.986206,-83.046036,0.000000,"Init"};
@@ -11,8 +11,8 @@ link1[] = {1,3};
 link2[] = {1,4};
 link3[] = {3,1};
 link4[] = {4,2};
-globals[] = {0.000000,0,0,0,0,640,480,1,38,6316128,1,-317.581665,500.648590,697.417725,-204.557556,596,662,1};
-window[] = {0,-1,-1,-1,-1,893,88,1348,116,1,614};
+globals[] = {0.000000,0,0,0,0,640,480,1,38,6316128,1,-317.581665,500.648590,697.417725,-204.557556,596,632,1};
+window[] = {0,-1,-1,-1,-1,802,25,1285,25,1,614};
 *//*%FSM</HEAD>*/
 class FSM
 {
@@ -68,7 +68,11 @@ class FSM
        """\ca\ui\data\icon_wf_support_uav_ca.paa""   //UAV" \n
        "];" \n
        "" \n
-       "_buildings = (sideJoinedText) Call GetSideStructures;"/*%FSM</STATEINIT""">*/;
+       "_buildings = (sideJoinedText) Call GetSideStructures;" \n
+       "" \n
+       "_lastArtyCompEnabled = false;" \n
+       "enableEngineArtillery false;" \n
+       ""/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
       class Links
       {
@@ -206,6 +210,18 @@ class FSM
        "	};" \n
        "	_c = _c + 1;" \n
        "}forEach _usable;" \n
+       "" \n
+       "" \n
+       "if (paramArtyComputer && !WF_A2_Vanilla) then {" \n
+       "" \n
+       "	_artyUpgradeLevel = ((sideJoinedText) Call GetSideUpgrades select 10);" \n
+       "      _artyCompEnabled = if (_artyUpgradeLevel >= 3) then { true } else { false };" \n
+       "" \n
+       "      if (_artyCompEnabled && !_lastArtyCompEnabled) then { " \n
+       "    	      enableEngineArtillery _artyCompEnabled;" \n
+       "            _lastArtyCompEnabled = true;" \n
+       "      };" \n
+       "};" \n
        "" \n
        "_lastUpdate = time;"/*%FSM</STATEINIT""">*/;
       precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
