@@ -5,6 +5,7 @@ using System.Reflection;
 using Script.Compiler.Core.ExtensionMethods;
 using Script.Compiler.Core.ScriptModel;
 using Script.Compiler.Core.ScriptWriter;
+using Script.Compiler.Languages.SQF.ScriptBuilder;
 
 namespace Script.Compiler.Languages.SQF
 {
@@ -30,10 +31,12 @@ namespace Script.Compiler.Languages.SQF
                 .ForEach(ctor => Methods.Add(new SqfConstructor(ctor, this)));
 
             Type.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance)
+                .Where(method => method.DeclaringType.Equals(type))
                 .ForEach(ctor => Methods.Add(new SqfMethod(ctor, this)));
 
             Type.GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance)
-                .ForEach(m => Fields.Add(new SqfFieldVariable(m, this)));
+                .Where(field => field.DeclaringType.Equals(type))
+                .ForEach(field => Fields.Add(new SqfFieldVariable(field, this)));
         }
 
         public IScriptMethod GetScriptMethod(MethodBase methodBase)
@@ -77,6 +80,31 @@ namespace Script.Compiler.Languages.SQF
 
         public void Render(IScriptWriter writer)
         {
+            var staticFields = Fields.Where(m => m.FieldInfo.IsStatic);
+
+            if (staticFields.Count() > 0)
+            {
+                writer.WriteLine("///<summary>");
+                writer.WriteLine("/// Static Fields Declaration");
+                writer.WriteLine("///<summary>");
+                Fields.Where(m => m.FieldInfo.IsStatic).ForEach(staticField =>
+                {
+                    var value = staticField.FieldInfo.GetValue(null);
+                    if (value != null && value is string)
+                    {
+                        writer.WriteLine("{0} = \"{1}\";", staticField.Name, value);
+                    }
+                    else
+                    {
+                        if (value == null)
+                            value = "objNull";
+
+                        writer.WriteLine("{0} = {1};", staticField.Name, value);
+                    }
+                });
+                writer.WriteLine("");
+            }
+
             Methods.ForEach(methods => methods.Render(writer));
         }
     }

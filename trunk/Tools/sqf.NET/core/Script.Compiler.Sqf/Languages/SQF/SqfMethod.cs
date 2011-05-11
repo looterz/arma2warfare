@@ -46,20 +46,21 @@ namespace Script.Compiler.Languages.SQF
 
         public void SetTypeName()
         {
-            string name = Method.Name.Replace(".", "");
+            string name = Method.Name;
+
+            if (name == ".ctor")
+            {
+                name = "Create";
+            }
+            if (name == ".cctor")
+            {
+                name = "InitStaticFields";
+            }
 
             name = name.Replace("_", "");
-
             name = char.ToUpper(name[0]) + name.Substring(1);
-            if (name == "Ctor")
-            {
-                name = Class.Name + "Create";
-            }
-            else
-            {
-                name = Class.Name + name;
-            }
 
+            name = Class.Name + name;
             Name = name;
             int id = 0;
             while (Class.Methods.Any(m => m.Name == Name))
@@ -84,7 +85,7 @@ namespace Script.Compiler.Languages.SQF
                     scope.Commit();
                 }
 
-                RenderMethodCode(writer);
+                RenderMethodBody(writer);
             }
             writer.WriteLine();
         }
@@ -94,7 +95,7 @@ namespace Script.Compiler.Languages.SQF
             return new SqfMethodBodyWriter(Class.Compiler, writer);
         }
 
-        public virtual void RenderMethodCode(IScriptWriter writer)
+        public virtual void RenderMethodBody(IScriptWriter writer)
         {
             GetBodyWriter(writer).EmitBody(Method, false);
         }
@@ -145,31 +146,19 @@ namespace Script.Compiler.Languages.SQF
 
         public void RenderArguments(IScriptWriter writer)
         {
-            string dataName = "_this";
-
             var paramList = Method.GetParameters();
-            if (Method.IsConstructor || Method.IsStatic)
+            if (paramList.Length > 0)
             {
-                RenderArguments(writer, "_this");
-            }
-            else
-            {
-                if (paramList.Length > 0)
-                {
-                    writer.WriteLine("_args = _this select 1;");
-                    Locals.Add(new SqfSysVariable("_args", this));
-
-                    RenderArguments(writer, "_args");
-                    writer.WriteLine("_this = _this select 0;");
-                }
+                RenderArguments(writer, 1);
+                writer.WriteLine("_this = _this select 0;");
             }
         }
 
-        private void RenderArguments(IScriptWriter writer, string dataName)
+        private void RenderArguments(IScriptWriter writer, int index)
         {
             int id = 0;
-            Locals.Where(m => m is IParameterVariable).ForEach(param => 
-                writer.WriteLine("{0} = {1} select {2};", param.Name, dataName, id++));
+            Locals.Where(m => m is IParameterVariable).ForEach(param =>
+                writer.WriteLine("{0} = _this select {1};", param.Name, index++));
         }
     }
 }

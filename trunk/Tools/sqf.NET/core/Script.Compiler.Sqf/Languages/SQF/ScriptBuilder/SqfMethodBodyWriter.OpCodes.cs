@@ -4,6 +4,8 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
 {
     partial class SqfMethodBodyWriter
     {
+        #region Методы класса
+
         private void CreateInstructionHandlers()
         {
             Handlers[OpCodes.Ret] = new OpCodeHandler(OpCodeRet);
@@ -19,10 +21,9 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
                      OpCodes.Ldarg,
                      OpCodes.Ldarg_S,
                      OpCodes.Ldarga_S,
-                     OpCodes.Ldarga] = new OpCodeHandler(OpCodeLDARG);
+                     OpCodes.Ldarga] = new OpCodeHandler(OpCodeLdArg);
 
-
-            Handlers[OpCodes.Starg_S] = new OpCodeHandler(OpCodeSTARG);
+            Handlers[OpCodes.Starg_S] = new OpCodeHandler(OpCodeStArg);
 
             Handlers[OpCodes.Ldloc_0,
                      OpCodes.Ldloc_1,
@@ -31,42 +32,40 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
                      OpCodes.Ldloc_S,
                      OpCodes.Ldloca,
                      OpCodes.Ldloca_S,
-                     OpCodes.Ldloc] = new OpCodeHandler(OpCodeLDLOC);
-
+                     OpCodes.Ldloc] = new OpCodeHandler(OpCodeLdLoc);
 
             Handlers[OpCodes.Stloc_0,
                      OpCodes.Stloc_1,
                      OpCodes.Stloc_2,
                      OpCodes.Stloc_3,
                      OpCodes.Stloc_S,
-                     OpCodes.Stloc] = new OpCodeHandler(OpCodeSTLOC);
+                     OpCodes.Stloc] = new OpCodeHandler(OpCodeStLoc);
 
             Handlers[
-                     OpCodes.Sub,
-                     OpCodes.Sub_Ovf,
-                     OpCodes.Add,
-                     OpCodes.Add_Ovf,
-                     OpCodes.Add_Ovf_Un,
-                     OpCodes.Div,
-                     OpCodes.Div_Un,
-                     OpCodes.Mul,
-                     OpCodes.Rem,
-                     OpCodes.Rem_Un,
-                     OpCodes.And,
-                     OpCodes.Or,
-                     OpCodes.Xor,
-                     OpCodes.Not,
-                     OpCodes.Shl,
-                     OpCodes.Shr,
-                     OpCodes.Shr_Un,
-                     OpCodes.Neg,
-                     OpCodes.Ceq,
-                     OpCodes.Cgt,
-                     OpCodes.Cgt_Un,
-                     OpCodes.Clt,
-                     OpCodes.Clt_Un
-                     ] = new OpCodeHandler(OpCodeLogicOperators);
-
+                OpCodes.Sub,
+                OpCodes.Sub_Ovf,
+                OpCodes.Add,
+                OpCodes.Add_Ovf,
+                OpCodes.Add_Ovf_Un,
+                OpCodes.Div,
+                OpCodes.Div_Un,
+                OpCodes.Mul,
+                OpCodes.Rem,
+                OpCodes.Rem_Un,
+                OpCodes.And,
+                OpCodes.Or,
+                OpCodes.Xor,
+                OpCodes.Not,
+                OpCodes.Shl,
+                OpCodes.Shr,
+                OpCodes.Shr_Un,
+                OpCodes.Neg,
+                OpCodes.Ceq,
+                OpCodes.Cgt,
+                OpCodes.Cgt_Un,
+                OpCodes.Clt,
+                OpCodes.Clt_Un
+                ] = new OpCodeHandler(OpCodeLogicOperators);
 
             Handlers[OpCodes.Ldc_I4,
                      OpCodes.Ldc_I4_S,
@@ -88,7 +87,6 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
 
             Handlers[OpCodes.Call] = new OpCodeHandler(OpCodeCall);
             Handlers[OpCodes.Callvirt] = new OpCodeHandler(OpCodeCall);
-
 
             Handlers[OpCodes.Beq_S] = new OpCodeHandler(OpCodeBeq);
             Handlers[OpCodes.Bgt_S] = new OpCodeHandler(OpCodeBgt);
@@ -118,13 +116,9 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
                 OpCodes.Conv_U,
                 OpCodes.Conv_U1,
                 OpCodes.Conv_Ovf_I
-                    ] = new OpCodeHandler(OpCodeConv);
+                ] = new OpCodeHandler(OpCodeConv);
 
-            Handlers[
-                     OpCodes.Unbox_Any,
-
-
-
+            Handlers[OpCodes.Unbox_Any,
                      OpCodes.Nop,
                      OpCodes.Constrained] = new OpCodeHandler(OpCodeDoNothing);
 
@@ -137,8 +131,8 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
             Handlers[OpCodes.Newobj] = new OpCodeHandler(OpCodeNewobj);
             Handlers[OpCodes.Initobj] = new OpCodeHandler(OpCodeInitObj);
 
-            Handlers[OpCodes.Ldlen] = new OpCodeHandler(OpCodeLdlen);
-            Handlers[OpCodes.Ldnull] = new OpCodeHandler(OpCode_ldnull);
+            Handlers[OpCodes.Ldlen] = new OpCodeHandler(OpCodeLdLen);
+            Handlers[OpCodes.Ldnull] = new OpCodeHandler(OpCodeLdNull);
             Handlers[OpCodes.Ldftn] = new OpCodeHandler(OpCodeLdFtn);
             Handlers[OpCodes.Ldvirtftn] = OpCodeLdVirtFtn;
             Handlers[OpCodes.Ldtoken] = OpCodeLdToken;
@@ -154,26 +148,25 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
 
             Handlers[OpCodes.Ldobj] = OpCodeLdobj;
 
-
             Handlers[OpCodes.Ldelem_Ref,
-                OpCodes.Ldelem_U1,
-                OpCodes.Ldelem_U2,
-                OpCodes.Ldelem_U4,
-                OpCodes.Ldelem_I1,
-                OpCodes.Ldelem_I4,
-                OpCodes.Ldelem_R8,
-                OpCodes.Ldelema,
-                OpCodes.Ldelem
-                     ] = new OpCodeHandler(OpCodeLdelem);
+                     OpCodes.Ldelem_U1,
+                     OpCodes.Ldelem_U2,
+                     OpCodes.Ldelem_U4,
+                     OpCodes.Ldelem_I1,
+                     OpCodes.Ldelem_I4,
+                     OpCodes.Ldelem_R8,
+                     OpCodes.Ldelema,
+                     OpCodes.Ldelem
+                ] = new OpCodeHandler(OpCodeLdelem);
 
             Handlers[OpCodes.Stfld,
                      OpCodes.Stsfld] = new OpCodeHandler(OpCodeStfld);
 
             Handlers[OpCodes.Ldfld,
                      OpCodes.Ldflda,
-                     OpCodes.Ldsfld] = new OpCodeHandler(OpCodeLDFLD);
+                     OpCodes.Ldsfld] = new OpCodeHandler(OpCodeLdFld);
         }
 
+        #endregion
     }
-
 }

@@ -15,7 +15,19 @@ namespace Script.Compiler.Languages.SQF
             Class = scriptClass;
             FieldInfo = fieldInfo;
 
-            string name = "_" + fieldInfo.Name;
+            string name = fieldInfo.Name;
+            if (fieldInfo.IsStatic)
+            {
+                name = scriptClass.Name + "_" + name;
+            }
+
+            if (name.EndsWith("k__BackingField")) {
+                name = name.Replace("k__BackingField", "").Replace("<", "").Replace(">", "");
+            }
+
+            if (!fieldInfo.IsStatic && !name.StartsWith("_"))
+                name = "_" + name;
+
             Name = name;
             int id = 0;
             while (Class.Fields.Any(m => m.Name == Name))
