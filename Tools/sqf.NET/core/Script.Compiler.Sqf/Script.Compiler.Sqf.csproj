@@ -8,7 +8,7 @@
     <ProjectGuid>{77861F2D-D284-4913-B9E9-D906C7262219}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Script.Compiler.Sqf</RootNamespace>
+    <RootNamespace>Script.Compiler</RootNamespace>
     <AssemblyName>Script.Compiler.Sqf</AssemblyName>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <ApplicationIcon>
@@ -83,7 +83,6 @@
     <Compile Include="CodeModel\TypeInfo.cs" />
     <Compile Include="CodeModel\VariableInfo.cs" />
     <Compile Include="Languages\EventDetector.cs" />
-    <Compile Include="Languages\DelegateHint.cs" />
     <Compile Include="CodeModel\ILBlock.cs" />
     <Compile Include="CodeModel\ILFlow.cs" />
     <Compile Include="CodeModel\ILInstruction.cs" />
