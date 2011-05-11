@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Diagnostics;
 using System.Reflection.Emit;
 using jsc;
+using Script.Compiler.Tools;
 using ScriptCoreLib;
 
 namespace Script.Compiler.Languages.SQF.ScriptBuilder

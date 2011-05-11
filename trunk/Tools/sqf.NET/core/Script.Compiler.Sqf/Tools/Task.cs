@@ -1,10 +1,8 @@
 using System;
-using System.Threading;
 using System.Diagnostics;
-using System.Collections.Generic;
-using System.Text;
+using jsc;
 
-namespace jsc
+namespace Script.Compiler.Tools
 {
     class Task : IDisposable
     {
