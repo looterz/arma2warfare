@@ -15,7 +15,7 @@ namespace Script.Compiler.Core.ScriptWriter
         void WriteSpace();
         IScriptWriter GetScopeWriter();
         void Commit();
-        IScriptWriter Scope(string openChar = null, string closeChar = null);
+        IScriptScope Scope(string openChar = null, string closeChar = null);
         void WriteIdent();
         void Write(string value, params object[] args);
         void WriteLine(string value, params object[] args);

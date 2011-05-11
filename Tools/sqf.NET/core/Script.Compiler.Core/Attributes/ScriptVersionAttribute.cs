@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ScriptCoreLib.Attributes
+namespace Script.Compiler.Core.Attributes
 {
     /// <summary>
     /// allows the compiler to detect wether it is out of date. If this value is higher than the one from the compiler the compile proccess fill halt with an error.

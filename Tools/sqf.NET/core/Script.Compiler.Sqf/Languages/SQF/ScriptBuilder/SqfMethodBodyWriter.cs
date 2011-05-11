@@ -6,10 +6,11 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using jsc;
+using Script.Compiler.Core.Attributes;
+using Script.Compiler.Core.ExtensionMethods;
 using Script.Compiler.Core.ScriptModel;
 using Script.Compiler.Core.ScriptWriter;
 using Script.Compiler.Core.Utility;
-using Script.Compiler.Tools;
 using ScriptCoreLib;
 using ScriptCoreLib.CSharp.Extensions;
 

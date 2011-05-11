@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace ScriptCoreLib.Shared
+namespace Script.Compiler.Core.Attributes
 {
 	/// <summary>
 	/// allows a project to have embedded resources, which are to be extracted on the compile time when jsc compiler is finished.

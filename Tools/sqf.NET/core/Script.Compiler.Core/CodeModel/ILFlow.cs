@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 using System.Reflection;
 using System.Reflection.Emit;
 using Script.Compiler.Core.Utility;
-using Script.Compiler.Tools;
 
 namespace jsc
 {

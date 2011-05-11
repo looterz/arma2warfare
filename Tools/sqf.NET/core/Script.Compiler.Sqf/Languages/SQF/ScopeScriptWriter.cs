@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Script.Compiler.Core.ScriptWriter;
 using Script.Compiler.Languages.SQF;
 
 namespace Script.Compiler.Languages.SQF
 {
-    public class ScopeScriptWriter : IDisposable
+    public class ScopeScriptWriter : IScriptScope
     {
         private ScriptWriter _writer;
         private string _openCh, _closeCh;

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace ScriptCoreLib
+﻿namespace Script.Compiler.Core
 {
 	/// <summary>
 	/// A class can be marked to be translated into a target language

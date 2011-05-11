@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics;
 
-namespace Script.Compiler.Tools
+namespace Script.Compiler.Core.Utility
 {
     public class RecursionGuard : IDisposable
     {

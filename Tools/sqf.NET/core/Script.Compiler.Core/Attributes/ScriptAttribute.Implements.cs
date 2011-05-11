@@ -1,20 +1,16 @@
-using System.Runtime.CompilerServices;
-
 using System;
-using System.Reflection;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
 
-using ScriptCoreLib.CSharp.Extensions;
-
-namespace ScriptCoreLib
+namespace Script.Compiler.Core.Attributes
 {
     partial class ScriptAttribute
     {
+        #region Поля класса
+
         internal Type InternalImplements;
 
+        #endregion
 
+        #region Свойства класса
 
         /// <summary>
         /// Supports redirecting BCLImplementation.
@@ -24,20 +20,19 @@ namespace ScriptCoreLib
             get
             {
                 if (InternalImplements == null)
-                    if (!string.IsNullOrEmpty(this.ImplementsViaAssemblyQualifiedName))
+                {
+                    if (!string.IsNullOrEmpty(ImplementsViaAssemblyQualifiedName))
                     {
                         // yay.
-                        this.InternalImplements = Type.GetType(this.ImplementsViaAssemblyQualifiedName);
-                        this.ImplementsViaAssemblyQualifiedName = null;
+                        InternalImplements = Type.GetType(ImplementsViaAssemblyQualifiedName);
+                        ImplementsViaAssemblyQualifiedName = null;
                         // cannot be both!
                     }
+                }
 
                 return InternalImplements;
             }
-            set
-            {
-                InternalImplements = value;
-            }
+            set { InternalImplements = value; }
         }
 
         /// <summary>
@@ -47,8 +42,6 @@ namespace ScriptCoreLib
         /// </summary>
         public string ImplementsViaAssemblyQualifiedName { get; set; }
 
+        #endregion
     }
-
-
-
 }

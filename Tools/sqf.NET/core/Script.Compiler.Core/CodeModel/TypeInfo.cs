@@ -3,7 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-
+using Script.Compiler.Core.Attributes;
 using ScriptCoreLib;
 
 namespace jsc.CodeModel

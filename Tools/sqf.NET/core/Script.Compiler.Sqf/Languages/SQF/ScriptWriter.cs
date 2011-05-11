@@ -90,9 +90,9 @@ namespace Script.Compiler.Languages.SQF
         }
 
 
-        public IScriptWriter Scope(string openChar = null, string closeChar = null)
+        public IScriptScope Scope(string openChar = null, string closeChar = null)
         {
-            return (IScriptWriter)new ScopeScriptWriter(this, openChar, closeChar);
+            return new ScopeScriptWriter(this, openChar, closeChar);
         }
 
         public void WriteIdent()

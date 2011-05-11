@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Script.Compiler.Core.ExtensionMethods;
 using Script.Compiler.Core.ScriptModel;
 using Script.Compiler.Core.ScriptWriter;
 
@@ -37,7 +38,16 @@ namespace Script.Compiler.Languages.SQF
 
         public IScriptMethod GetScriptMethod(MethodBase methodBase)
         {
-            return Methods.First(m => m.Method.Equals(methodBase));
+            var method = Methods.FirstOrDefault(m => m.Method.EqualsSignature(methodBase));
+            if (method == null && Type.BaseType != null)
+            {
+                method = Compiler.GetScriptClass(Type.BaseType).GetScriptMethod(methodBase);
+            }
+
+            if (method == null)
+                throw new MissingMethodException(this.Type.FullName, methodBase.Name);
+
+            return method;
         }
 
         public void SetTypeName()

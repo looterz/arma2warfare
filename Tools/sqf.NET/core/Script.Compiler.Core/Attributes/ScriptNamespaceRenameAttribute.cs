@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ScriptCoreLib.Attributes
+namespace Script.Compiler.Core.Attributes
 {
 	/// <summary>
 	/// Renames a native namespace. For example java.lang.String could be written as ScriptCoreLibJava.java.lang.String.
