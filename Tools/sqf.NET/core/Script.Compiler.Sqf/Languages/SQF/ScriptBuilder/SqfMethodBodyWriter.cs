@@ -121,7 +121,7 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
 
             if (logic.hint == ILBlockInlineLogicSpecialType.IfClause)
             {
-                _writer.Write("(");
+                _writer.Write("if");
 
                 if (logic.IsNegative)
                 {
@@ -143,7 +143,9 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
                 _writer.Write(")");
 
                 _writer.WriteSpace();
-                _writer.Write("?");
+                _writer.Write("then");
+                _writer.WriteSpace();
+                _writer.Write("{");
                 _writer.WriteSpace();
 
                 ILBlock.PrestatementBlock block;
@@ -162,7 +164,11 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
                     );
 
                 _writer.WriteSpace();
-                _writer.Write(":");
+                _writer.Write("}");
+                _writer.WriteSpace();
+                _writer.Write("else");
+                _writer.WriteSpace();
+                _writer.Write("{");
                 _writer.WriteSpace();
 
                 block = p.Owner.ExtractBlock(
@@ -176,7 +182,8 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
                               null
                     );
 
-                _writer.Write(")");
+                _writer.WriteSpace();
+                _writer.Write("}");
 
                 return;
             }
@@ -193,7 +200,15 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
         {
             if (s.StackInstructions.Length == 1)
             {
+                bool isMethodCall = (s.SingleStackInstruction.OpCode.FlowControl == FlowControl.Call);
+
+                if (isMethodCall)
+                    _writer.Write("(");
+
                 OpCodeHandler(p, s.SingleStackInstruction, null);
+
+                if (isMethodCall)
+                    _writer.Write(")");            
             }
             else
             {
@@ -305,50 +320,33 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
             }
             else
             {
-                if (m.IsStatic)
-                {
-                    IScriptMethod scriptMethod = GetImplementation(m.DeclaringType, m);
-                    _writer.Write(scriptMethod.Name, scriptMethod);
-                }
-                else
-                {
                     // target
                     if (m.GetParameters().Length > 0)
                     {
                         _writer.Write("[");
-                        OpCodeHandler(prestatement, ilInstruction, stackItems[0]);
-                        _writer.Write(", [");
+                        if (!m.IsStatic)
+                        {
+                            OpCodeHandler(prestatement, ilInstruction, stackItems[0]);
+                            _writer.Write(", ");
+                        }
                         WriteParameters(prestatement, ilInstruction, stackItems, m.IsStatic ? 0 : 1, m);
-                        _writer.Write("]]");
+                        _writer.Write("]");
+                        _writer.WriteSpace();
                     }
                     else
                     {
-                        OpCodeHandler(prestatement, ilInstruction, stackItems[0]);
+                        if (!m.IsStatic)
+                        {
+                            OpCodeHandler(prestatement, ilInstruction, stackItems[0]);
+                            _writer.Write("]");
+                        }
                     }
 
-                    _writer.WriteSpace();
                     _writer.Write("call ");
 
-                    // method);
-                    if (sqt != null && (sqt.ExternalTarget != null || sqt.HasNoPrototype))
-                    {
-                        _writer.Write(m.Name);
-                    }
-                    else
-                    {
-                        if (sq != null && sq.ExternalTarget != null)
-                        {
-                            _writer.Write(sq.ExternalTarget);
-                        }
-                        else
-                        {
-                            IScriptMethod scriptMethod =
-                                ScriptCompiler.GetScriptClass(m.DeclaringType).GetScriptMethod(m);
-                            _writer.Write(scriptMethod.Name);
-                        }
-                    }
-                }
-
+                    IScriptMethod scriptMethod =
+                        ScriptCompiler.GetScriptClass(m.DeclaringType).GetScriptMethod(m);
+                    _writer.Write(scriptMethod.Name);
             }
         }
 
@@ -614,48 +612,21 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
             }
         }
 
-        private void OpCodeLDFLD(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
+        private void OpCodeLdFld(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
         {
             if (i == OpCodes.Ldfld || i == OpCodes.Ldflda)
             {
+                _writer.Write("(");
                 OpCodeHandler(p, i, s[0]);
+                _writer.Write(" getVariable \"");
+                OpCodeDecorateField(p, i, s);
+                _writer.Write("\")");
             }
-
-            if (i == OpCodes.Ldsfld)
+            else
             {
-                object[] o = i.TargetField.DeclaringType.GetCustomAttributes(typeof (ScriptAttribute), true);
-
-                if (o.Length == 1)
-                {
-                    var sa = o[0] as ScriptAttribute;
-
-                    if (sa.ExternalTarget != null)
-                    {
-                        Debugger.Break();
-
-                        _writer.Write(sa.ExternalTarget);
-
-                        goto skip;
-                    }
-                }
-
-                o = i.TargetField.GetCustomAttributes(typeof (ScriptAttribute), true);
-
-                if (o.Length == 1)
-                {
-                    var sa = o[0] as ScriptAttribute;
-
-                    if (sa.ExternalTarget != null)
-                    {
-                        _writer.Write(sa.ExternalTarget);
-
-                        return;
-                    }
-                }
+                //render static field;
+                OpCodeDecorateField(p, i, s);
             }
-
-            skip:
-            OpCodeDecorateField(p, i, s);
         }
 
         private void OpCodeDecorateField(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
@@ -679,42 +650,38 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
         {
             if (i == OpCodes.Stfld)
             {
+                // field assignment
                 OpCodeHandler(p, i, s[0]);
-            }
+                _writer.Write(" setVariable[\"");
+                OpCodeDecorateField(p, i, s);
+                _writer.Write("\", ");
 
-            if (i == OpCodes.Stsfld)
-            {
-                object[] o = i.TargetField.DeclaringType.GetCustomAttributes(typeof (ScriptAttribute), true);
-
-                if (o.Length == 1)
+                if (OpCodeEmitStringEnum(s[1], i.TargetField.FieldType))
                 {
-                    var sa = o[0] as ScriptAttribute;
+                }
+                else
+                {
+                    OpCodeHandler(p, i, s[1]);
+                }
+               _writer.Write("]");
+            }
+            else
+            {
+                //static field assignment
+                OpCodeDecorateField(p, i, s);
 
-                    if (sa.ExternalTarget != null)
-                    {
-                        Debugger.Break();
+                _writer.WriteSpace();
+                _writer.Write("=");
+                _writer.WriteSpace();
 
-                        _writer.Write(sa.ExternalTarget);
-
-                        goto skip;
-                    }
+                if (OpCodeEmitStringEnum(s[0], i.TargetField.FieldType))
+                {
+                }
+                else
+                {
+                    OpCodeHandler(p, i, s[0]);
                 }
             }
-
-            skip:
-
-            OpCodeDecorateField(p, i, s);
-
-            _writer.WriteSpace();
-            _writer.Write("=");
-            _writer.WriteSpace();
-
-            if (OpCodeEmitStringEnum(s[s.Length - 1], i.TargetField.FieldType))
-            {
-                return;
-            }
-
-            OpCodeHandler(p, i, s[s.Length - 1]);
         }
 
         internal bool OpCodeEmitStringEnum(ILFlowStackItem s, Type type)
@@ -755,23 +722,24 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
 
         private void OpCodeLdelem(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
         {
+            _writer.Write("(");
             OpCodeHandler(p, i, s[0]);
-            _writer.Write("[");
+            _writer.Write(" select ");
             OpCodeHandler(p, i, s[1]);
-            _writer.Write("]");
+            _writer.Write(")");
         }
 
         private void OpCodeStelem(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
         {
             OpCodeHandler(p, i, s[0]);
+            _writer.Write(" set");
+            _writer.WriteSpace();
             _writer.Write("[");
             OpCodeHandler(p, i, s[1]);
-            _writer.Write("]");
+            _writer.Write(",");
             _writer.WriteSpace();
-            _writer.Write("=");
-            _writer.WriteSpace();
-
             OpCodeHandler(p, i, s[2]);
+            _writer.Write("]");
         }
 
         private void OpCodeStobj(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
@@ -788,15 +756,16 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
             OpCodeHandler(p, i, s[0]);
         }
 
-        private void OpCodeLdlen(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
+        private void OpCodeLdLen(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
         {
+            _writer.Write("(count ");
             OpCodeHandler(p, i, s[0]);
-            _writer.Write(".length");
+            _writer.Write(")");
         }
 
-        private void OpCode_ldnull(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
+        private void OpCodeLdNull(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
         {
-            _writer.Write("null");
+            _writer.Write("objNull");
         }
 
         private void OpCodeLdVirtFtn(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
@@ -1418,7 +1387,7 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
             _writer.Write(")");
         }
 
-        private void OpCodeLDARG(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
+        private void OpCodeLdArg(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
         {
             if (i.OwnerMethod.IsStatic)
             {
@@ -1439,7 +1408,7 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
             }
         }
 
-        private void OpCodeLDLOC(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
+        private void OpCodeLdLoc(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
         {
             if (p.Owner.IsCompound)
             {
@@ -1467,7 +1436,7 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
             }
         }
 
-        private void OpCodeSTLOC(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
+        private void OpCodeStLoc(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
         {
             var variable = ScriptCompiler.GetVariable(i.OwnerMethod, i.TargetVariable);
             _writer.Write(variable.Name);
@@ -1503,7 +1472,7 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
             }
         }
 
-        private void OpCodeSTARG(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
+        private void OpCodeStArg(ILBlock.Prestatement p, ILInstruction i, ILFlowStackItem[] s)
         {
             if (i.TargetParameter == null)
             {

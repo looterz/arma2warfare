@@ -13,5 +13,6 @@ namespace Script.Compiler.Core.ScriptModel
         void Render(IScriptWriter writer);
         ILocalVariable GetVariable(LocalVariableInfo localVariableInfo);
         IParameterVariable GetVariable(ParameterInfo parameterInfo);
+        void RenderMethodBody(IScriptWriter writer);
     }
 }
