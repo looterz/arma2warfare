@@ -534,11 +534,6 @@ namespace jsc //.Extensions
 			return e.Replace(u + " ", u);
 		}
 
-		public static string SerializeToJSON(this object e)
-		{
-			return ScriptCoreLib.Tools.JSONSerializer.Serialize(e);
-		}
-
 		public static string SerializeToXML(this object e)
 		{
 			if (e == null)

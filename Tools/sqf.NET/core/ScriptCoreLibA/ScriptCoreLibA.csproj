@@ -109,26 +109,17 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ActionScript\DynamicTypeAttribute.cs" />
-    <Compile Include="ActionScript\EmbedByFileNameAttribute.cs" />
-    <Compile Include="ActionScript\EmbedFieldsAttribute.cs" />
-    <Compile Include="ActionScript\EmbedResourcesAttribute.cs" />
-    <Compile Include="ActionScript\GenericTypeDefinitionAttribute.cs" />
     <Compile Include="AttributeUsageFieldTypeContractAttribute.cs" />
     <Compile Include="ScriptAttribute.Implements.cs" />
-    <Compile Include="CSharp\Extensions\CodeWriterExtensions.cs" />
     <Compile Include="CSharp\Extensions\EmbeddedResourcesExtensions.ToManifestResourceStream.cs" />
     <Compile Include="CSharp\Extensions\ScriptAttributeExtensions.cs" />
     <Compile Include="CSharp\Extensions\StringToSByteArray.cs" />
     <Compile Include="IEntryPoint.cs" />
-    <Compile Include="Library\CodeWriter.cs" />
-    <Compile Include="Library\ProtectiveFileStream.cs" />
     <Compile Include="OtherAttributes.cs" />
     <Compile Include="ScriptNamespaceRenameAttribute.cs" />
     <Compile Include="ScriptType.cs" />
     <Compile Include="ScriptTypeFilterAttribute.cs" />
     <Compile Include="Shared\EmbedGetFileNamesAttribute.cs" />
-    <Compile Include="ActionScript\EmbedMimeTypes.cs" />
     <Compile Include="CSharp\Extensions\EmbeddedResourcesExtensions.cs" />
     <Compile Include="GoogleGadget.cs" />
     <Compile Include="Helper.cs" />
@@ -143,7 +134,6 @@
     <Compile Include="Shared\ScriptResourcesAttribute.cs" />
     <Compile Include="Shared\TypeOfByNameOverrideAttribute.cs" />
     <Compile Include="SwitchToCLRContextAttribute.cs" />
-    <Compile Include="Tools\JSONSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="neutronic.snk" />
@@ -158,6 +148,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>mkdir "c:\util\jsc\bin"
