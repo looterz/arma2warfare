@@ -6,7 +6,7 @@ using Script.Compiler.Core.ScriptModel;
 
 namespace Script.Compiler.Languages.SQF
 {
-    class SqfCompiler : IScriptCompiler
+    public class SqfCompiler : IScriptCompiler
     {
         #region Методы класса
 

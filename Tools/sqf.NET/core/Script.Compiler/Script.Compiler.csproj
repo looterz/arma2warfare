@@ -44,18 +44,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\jsc\Script.Compiler.Sqf.csproj">
+    <ProjectReference Include="..\Script.Compiler.Sqf\Script.Compiler.Sqf.csproj">
       <Project>{77861F2D-D284-4913-B9E9-D906C7262219}</Project>
       <Name>Script.Compiler.Sqf</Name>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\ScriptCoreLibA\Script.Compiler.Core.csproj">
+    <ProjectReference Include="..\Script.Compiler.Core\Script.Compiler.Core.csproj">
       <Project>{477C5608-F5CD-436F-935D-66675988F1D9}</Project>
       <Name>Script.Compiler.Core</Name>
       <Private>True</Private>
