@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-
+using ScriptCoreLib.Attributes;
 using ScriptCoreLib.CSharp.Extensions;
 
 namespace ScriptCoreLib

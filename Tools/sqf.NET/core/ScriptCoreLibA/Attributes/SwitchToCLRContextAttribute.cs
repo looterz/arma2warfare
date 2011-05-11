@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace ScriptCoreLib
+namespace ScriptCoreLib.Attributes
 {
     /// <summary>
     /// While running under different virtual machine this 

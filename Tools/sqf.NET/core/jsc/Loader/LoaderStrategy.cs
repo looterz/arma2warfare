@@ -5,6 +5,7 @@ using System.Text;
 using System.Reflection;
 using System.IO;
 using ScriptCoreLib;
+using ScriptCoreLib.Attributes;
 
 namespace jsc.Loader
 {
