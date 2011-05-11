@@ -211,11 +211,8 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
                             _writer.Write(" < ");
                             OpCodeHandler(p, iif.Branch, iif.Branch.StackBeforeStrict[1]);
                             _writer.Write(")");
-                            _writer.WriteLine();
 
                             EmitScope(p.Owner.ExtractBlock(iif.BodyFalseFirst, iif.BodyFalseLast), true);
-
-                            _writer.WriteLine();
                             continue;
                         }
 
@@ -277,22 +274,20 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
                         Task.Fail(null);
                     }
 
-                    _writer.WriteLine();
-
-                    //_writer.WriteCommentLine(iif.Branch.ToString());
+                    _writer.WriteSpace();
+                    _writer.Write("then");
+                    _writer.WriteSpace();
 
                     EmitScope(p.Owner.ExtractBlock(iif.BodyTrueFirst, iif.BodyTrueLast), true);
 
                     if (iif.HasElseClause)
                     {
-                        _writer.WriteIdent();
-                        _writer.WriteLine("else");
-
+                        _writer.WriteSpace();
+                        _writer.Write("else");
+                        _writer.WriteSpace();
+                        
                         EmitScope(p.Owner.ExtractBlock(iif.BodyFalseFirst, iif.BodyFalseLast), true);
                     }
-
-                    _writer.WriteLine();
-
                     continue;
                 }
 
@@ -420,13 +415,18 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
 
         private void WriteForStatement(ILBlock.Prestatement p)
         {
+            //for [{_count = 0},{_count < 12},{_count = _count + 1}] do 
+            //{
+            //};
+
             _writer.WriteLine();
             _writer.WriteIdent();
-            _writer.Write("for (");
+            _writer.Write("for[");
 
+            _writer.Write("{");
             OpCodeHandler(p);
+            _writer.Write("}, {");
 
-            _writer.Write("; ");
 
             ILLoopConstruct loop = p.Next.Instruction.InlineLoopConstruct;
 
@@ -444,25 +444,18 @@ namespace Script.Compiler.Languages.SQF.ScriptBuilder
                               block.LastPrestatement.Instruction.StackBeforeStrict[0]);
             }
 
-            _writer.Write("; ");
+            _writer.Write("}, {");
 
             ILBlock.PrestatementBlock wblock = p.Owner.ExtractBlock(loop.BodyFirst, loop.BodyLast);
 
             OpCodeHandler(wblock.LastPrestatement);
 
-            _writer.WriteLine(")");
-
-            _writer.WriteBeginScope();
-
-            EmitPrestatementBlock(wblock,
-                                  delegate(ILBlock.Prestatement xxp)
-                                  {
-                                      return xxp == wblock.LastPrestatement;
-                                  }
-                );
-            _writer.WriteEndScope();
-
-            _writer.WriteLine();
+            _writer.WriteLine("}] do {");
+            using (_writer.Scope())
+            {
+                EmitPrestatementBlock(wblock, xxp => xxp == wblock.LastPrestatement);
+            }
+            _writer.WriteLine("};");
         }
 
         public void EmitBody(MethodBase i, bool defineSelf)

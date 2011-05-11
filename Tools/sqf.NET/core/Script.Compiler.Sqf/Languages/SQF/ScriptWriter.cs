@@ -61,7 +61,8 @@ namespace Script.Compiler.Languages.SQF
 
         public void WriteBeginScope()
         {
-            WriteLine("{");
+            Write("{");
+            WriteLine();
             Ident++;
         }
 
@@ -106,12 +107,22 @@ namespace Script.Compiler.Languages.SQF
 
         public override void Write(string value)
         {
+            if (value.Contains("for"))
+            {
+                int c = 0;
+            }
+
             WriteIdent();
             base.Write(value);
         }
 
         public override void Write(string value, params object[] args)
         {
+            if (value.Contains("for"))
+            {
+                int c = 0;
+            }
+
             WriteIdent();
 
             if (args.Length > 0)
