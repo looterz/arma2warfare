@@ -82,11 +82,9 @@
     <Compile Include="CodeModel\OpCodeExtensions.cs" />
     <Compile Include="CodeModel\TypeInfo.cs" />
     <Compile Include="CodeModel\VariableInfo.cs" />
-    <Compile Include="Languages\EventDetector.cs" />
     <Compile Include="CodeModel\ILBlock.cs" />
     <Compile Include="CodeModel\ILFlow.cs" />
     <Compile Include="CodeModel\ILInstruction.cs" />
-    <Compile Include="Languages\PropertyDetector.cs" />
     <Compile Include="Languages\SQF\Extension.cs" />
     <Compile Include="Languages\SQF\ScriptBuilder\OperationHandlers.cs" />
     <Compile Include="Languages\SQF\ScriptBuilder\SkipThisPrestatementException.cs" />
