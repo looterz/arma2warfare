@@ -5,7 +5,7 @@ using System.Text;
 using System.Reflection;
 using System.IO;
 using Script.Compiler.Core;
-using ScriptCoreLib.Shared;
+using Script.Compiler.Core.Attributes;
 
 namespace ScriptCoreLib.CSharp.Extensions
 {

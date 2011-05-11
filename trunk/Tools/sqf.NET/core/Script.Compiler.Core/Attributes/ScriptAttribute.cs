@@ -1,17 +1,14 @@
 using System.Runtime.CompilerServices;
-
 using System;
 using System.Reflection;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
-using ScriptCoreLib.Attributes;
 using ScriptCoreLib.CSharp.Extensions;
 
-namespace ScriptCoreLib
+namespace Script.Compiler.Core.Attributes
 {
 	// AllowMultiple should be set
-	[global::System.AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = false)]
+	[AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = false)]
 	public sealed partial class ScriptAttribute : Attribute
 	{
 		public const string INTERNAL_CONSTRUCTOR_DEFAULT = "InternalConstructor";
@@ -593,7 +590,7 @@ namespace ScriptCoreLib
 				return OfProvider(type);
 		}
 
-		public static global::ScriptCoreLib.ScriptAttribute OfTypeMember(Type type, string name)
+		public static global::Script.Compiler.Core.Attributes.ScriptAttribute OfTypeMember(Type type, string name)
 		{
 			MemberInfo[] mi = type.GetMember(name);
 

@@ -6,8 +6,9 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Linq;
 using Script.Compiler;
+using Script.Compiler.Core.Attributes;
+using Script.Compiler.Core.ExtensionMethods;
 using Script.Compiler.Core.Utility;
-using Script.Compiler.Tools;
 using ScriptCoreLib;
 
 using jsc.CodeModel;

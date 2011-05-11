@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ScriptCoreLib.Attributes
+namespace Script.Compiler.Core.Attributes
 {
     /// <summary>
     /// While running under different virtual machine this 

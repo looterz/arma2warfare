@@ -1,28 +1,28 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.IO;
-using System.Reflection;
 using System.Linq;
+using System.Reflection;
+using Script.Compiler.Core.Attributes;
 using ScriptCoreLib;
-using ScriptCoreLib.Attributes;
 
 namespace Script.Compiler.Core
 {
-	/// <summary>
-	/// this class is shared among scriptcorelib assemblies 
-	/// and provides pre runtime information, to build static
-	/// files
-	/// </summary>
-	public static class SharedHelper
-	{
+    /// <summary>
+    /// this class is shared among scriptcorelib assemblies 
+    /// and provides pre runtime information, to build static
+    /// files
+    /// </summary>
+    public static class SharedHelper
+    {
+        #region Методы класса
+
         public static Type[] LoadScriptTypes(ScriptType type, Assembly assemblyLoaded)
         {
-            List<Type> types = new List<Type>();
+            var types = new List<Type>();
 
             types.AddRange(ScriptAttribute.FindTypes(assemblyLoaded, type));
 
-            foreach (Assembly xa in SharedHelper.LoadReferencedAssemblies(assemblyLoaded, false))
+            foreach (Assembly xa in LoadReferencedAssemblies(assemblyLoaded, false))
             {
                 ScriptAttribute sa = ScriptAttribute.OfProvider(xa);
 
@@ -35,181 +35,148 @@ namespace Script.Compiler.Core
             return types.ToArray();
         }
 
-		class LoadDependenciesValue
-		{
-			public Assembly Assembly;
-			public Assembly[] Dependencies = new Assembly[] { };
+        private static IEnumerable<LoadDependenciesValue> LoadDependencies(Assembly context, Assembly a, bool includethis, Action<Assembly> h)
+        {
+            var r = new LoadDependenciesValue();
 
-			public class EqualityComparer : IEqualityComparer<LoadDependenciesValue>
-			{
+            r.Assembly = a;
 
-				#region IEqualityComparer<LoadDependenciesValue> Members
+            Action<Assembly> Add =
+                n =>
+                {
+                    r.Dependencies = r.Dependencies.Concat(new[] {n}).ToArray();
 
-				public bool Equals(LoadDependenciesValue x, LoadDependenciesValue y)
-				{
-					return x.Assembly == y.Assembly;
-				}
+                    if (h != null)
+                    {
+                        h(n);
+                    }
+                };
 
-				public int GetHashCode(LoadDependenciesValue obj)
-				{
-					return obj.Assembly.GetHashCode();
-				}
+            IEnumerable<Assembly> ReferencedAssemblies = a.GetReferencedAssemblies().Select(k => AppDomain.CurrentDomain.Load(k));
 
-				#endregion
-			}
+            ScriptAttribute _as = ScriptAttribute.OfProvider(a);
+            if (_as != null)
+            {
+                if (_as.ScriptLibraries != null)
+                {
+                    ReferencedAssemblies = ReferencedAssemblies.Concat(_as.ScriptLibraries.Select(k => k.Assembly));
+                }
+            }
 
-		}
+            foreach (Assembly x in ReferencedAssemblies)
+            {
+                if (ScriptAttribute.Of(x) == null)
+                {
+                    // either it is not a script library
+                    // or it is in regards to context
 
-		static IEnumerable<LoadDependenciesValue> LoadDependencies(Assembly context, Assembly a, bool includethis, Action<Assembly> h)
-		{
-			var r = new LoadDependenciesValue();
+                    ScriptAttribute cs = ScriptAttribute.OfProvider(context);
 
-			r.Assembly = a;
+                    if (cs != null)
+                    {
+                        if (cs.ScriptLibraries != null)
+                        {
+                            if (cs.ScriptLibraries.Any(k => k.Assembly == x))
+                            {
+                                goto ContinueAdd;
+                            }
+                        }
+                    }
 
-			Action<Assembly> Add =
-				n =>
-				{
-					r.Dependencies = r.Dependencies.Concat(new[] { n }).ToArray();
+                    continue;
+                }
 
-					if (h != null)
-						h(n);
-				};
+                ContinueAdd:
+                Add(x);
 
-			var ReferencedAssemblies = a.GetReferencedAssemblies().Select(k => AppDomain.CurrentDomain.Load(k));
+                foreach (LoadDependenciesValue v in LoadDependencies(context, x, true, Add))
+                {
+                    yield return v;
+                }
+            }
 
-			var _as = ScriptAttribute.OfProvider(a);
-			if (_as != null)
-				if (_as.ScriptLibraries != null)
-					ReferencedAssemblies = ReferencedAssemblies.Concat(_as.ScriptLibraries.Select(k => k.Assembly));
+            if (includethis)
+            {
+                yield return r;
+            }
+        }
 
+        public static Assembly[] LoadReferencedAssemblies(Assembly a, bool includethis)
+        {
+            Dictionary<Assembly, Assembly[]> r = LoadDependencies(a, a, includethis, null).Distinct(
+                new LoadDependenciesValue.EqualityComparer()
+                ).ToArray().ToDictionary(i => i.Assembly, i => i.Dependencies.Distinct().ToArray());
+            Assembly[] k = r.Keys.OrderByDescending(
+                kk =>
+                {
+                    // fixme: we should apply namespace filters here
+                    bool any = kk.GetTypes().Any(
+                        kkk =>
+                        {
+                            ScriptAttribute sa = ScriptAttribute.OfProvider(kkk);
 
+                            if (sa == null)
+                            {
+                                return false;
+                            }
 
+                            // if the implements type is in the same assembly
+                            // we skip this rule!
+                            if (sa.Implements == null)
+                            {
+                                return false;
+                            }
 
-			foreach (var x in ReferencedAssemblies)
-			{
-				if (ScriptAttribute.Of(x) == null)
-				{
-					// either it is not a script library
-					// or it is in regards to context
+                            return kkk.Assembly != sa.Implements.Assembly;
+                        }
+                        );
 
-					var cs = ScriptAttribute.OfProvider(context);
+                    return any;
+                }
+                ).ToArray();
 
-					if (cs != null)
-						if (cs.ScriptLibraries != null)
-							if (cs.ScriptLibraries.Any(k => k.Assembly == x))
-								goto ContinueAdd;
+            return k;
+        }
 
-					continue;
-				}
+        #endregion
 
-			ContinueAdd:
-				Add(x);
+        #region Nested type: LoadDependenciesValue
 
-				foreach (var v in LoadDependencies(context, x, true, Add))
-				{
-					yield return v;
-				}
-			}
+        private class LoadDependenciesValue
+        {
+            #region Поля класса
 
-			if (includethis)
-				yield return r;
-		}
+            public Assembly Assembly;
+            public Assembly[] Dependencies = new Assembly[] {};
 
+            #endregion
 
+            #region Nested type: EqualityComparer
 
-		public static Assembly[] LoadReferencedAssemblies(Assembly a, bool includethis)
-		{
-			var r = LoadDependencies(a, a, includethis, null).Distinct(
-				new LoadDependenciesValue.EqualityComparer()
-			).ToArray().ToDictionary(i => i.Assembly, i => i.Dependencies.Distinct().ToArray());
-			var k = r.Keys.OrderByDescending(
-				kk =>
-				{
-	
+            public class EqualityComparer : IEqualityComparer<LoadDependenciesValue>
+            {
+                #region Интерфейсы класса
 
-					// fixme: we should apply namespace filters here
-					var any = kk.GetTypes().Any(
-						kkk =>
-						{
-							var sa = ScriptAttribute.OfProvider(kkk);
+                #region IEqualityComparer<LoadDependenciesValue> Members
 
-							if (sa == null)
-								return false;
+                public bool Equals(LoadDependenciesValue x, LoadDependenciesValue y)
+                {
+                    return x.Assembly == y.Assembly;
+                }
 
-							// if the implements type is in the same assembly
-							// we skip this rule!
-							if (sa.Implements == null)
-								return false;
+                public int GetHashCode(LoadDependenciesValue obj)
+                {
+                    return obj.Assembly.GetHashCode();
+                }
 
-							return kkk.Assembly != sa.Implements.Assembly;
-						}
-					);
+                #endregion
 
-					return any;
-				}
-			).ToArray();
+                #endregion
+            }
 
-			// this is almost in the correct order
-			// we need to consider that some assemlies are out of band
-			// which mean they are only after the BCLImplementation 
-			// assemblies
+            #endregion
+        }
 
-			return k;
-
-
-		}
-
-		/// <summary>
-		/// returns the names of the modules needed to run a assembly including a
-		/// </summary>
-		/// <param name="a"></param>
-		/// <returns></returns>
-		public static string[] ModulesOf(Assembly a)
-		{
-			return (from e in LoadReferencedAssemblies(a, true)
-					select e.ManifestModule.FullyQualifiedName).ToArray();
-		}
-
-		public static string[] ModulesOf(Assembly a, ScriptType type)
-		{
-			return (from e in LoadReferencedAssemblies(a, true)
-					let filters = (ScriptTypeFilterAttribute[])e.GetCustomAttributes(typeof(ScriptTypeFilterAttribute), false)
-					where filters.Any(k => k.Type == type)
-					select e.ManifestModule.FullyQualifiedName).ToArray();
-		}
-
-		public static string[] Modules
-		{
-			get
-			{
-				return ModulesOf(Assembly.GetCallingAssembly());
-			}
-		}
-
-		public static string[] LocalModulesOf(Assembly e)
-		{
-			return
-				(from i in ModulesOf(e)
-				 let f = new FileInfo(i)
-				 select f.Name).Distinct().ToArray();
-		}
-
-		public static string[] LocalModulesOf(Assembly e, ScriptType type)
-		{
-			return
-				(from i in ModulesOf(e, type)
-				 let f = new FileInfo(i)
-				 select f.Name).Distinct().ToArray();
-		}
-
-
-		public static string[] LocalModules
-		{
-			get
-			{
-				return LocalModulesOf(Assembly.GetCallingAssembly());
-
-			}
-		}
-	}
+        #endregion
+    }
 }

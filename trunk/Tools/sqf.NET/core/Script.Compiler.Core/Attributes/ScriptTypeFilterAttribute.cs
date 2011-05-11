@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace ScriptCoreLib.Attributes
+namespace Script.Compiler.Core.Attributes
 {
 
 	[global::System.AttributeUsage(AttributeTargets.Assembly, Inherited = false, AllowMultiple = true)]

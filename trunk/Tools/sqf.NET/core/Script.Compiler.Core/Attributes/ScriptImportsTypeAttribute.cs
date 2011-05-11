@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace ScriptCoreLib
+namespace Script.Compiler.Core.Attributes
 {
     /// <summary>
     /// Defines an external type to be imported with current class definition. To be used with native source code injection.

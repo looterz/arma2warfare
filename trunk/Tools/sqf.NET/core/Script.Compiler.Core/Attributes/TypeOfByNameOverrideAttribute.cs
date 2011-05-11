@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ScriptCoreLib.Attributes
+namespace Script.Compiler.Core.Attributes
 {
 	[global::System.AttributeUsage(AttributeTargets.Method | AttributeTargets.Constructor , Inherited = false, AllowMultiple = true)]
 	public class TypeOfByNameOverrideAttribute : Attribute

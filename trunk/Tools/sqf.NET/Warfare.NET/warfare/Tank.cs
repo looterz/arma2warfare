@@ -1,10 +1,13 @@
 ﻿//using System.Linq;
-
-using ScriptCoreLib;
+using Script.Compiler.Core.Attributes;
 
 namespace WarfareBE
 {
-    [Script, ScriptApplicationEntryPoint]
+    [Script]
+    public class M1A1 : Tank
+    {}
+
+    [Script]
     public class Tank
     {
         private double _speed;

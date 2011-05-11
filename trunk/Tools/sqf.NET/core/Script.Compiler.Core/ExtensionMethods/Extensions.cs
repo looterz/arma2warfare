@@ -6,10 +6,8 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Xml;
 using System.Xml.Serialization;
-using ScriptCoreLib;
-using ScriptCoreLib.CSharp.Extensions;
 
-namespace Script.Compiler.Core.Utility
+namespace Script.Compiler.Core.ExtensionMethods
 {
 	public static class Extensions
 	{
@@ -18,7 +16,27 @@ namespace Script.Compiler.Core.Utility
 			return e.IsConstructor && !e.IsStatic;
 		}
 
-        public static ushort[] StructAsUInt16Array(this object data)
+        public static bool EqualsSignature(this MethodBase methodBase, MethodBase methodBaseA)
+        {
+            if (methodBase.Name != methodBaseA.Name)
+                return false;
+
+            var paramsA = methodBase.GetParameters();
+            var paramsB = methodBaseA.GetParameters();
+
+            if (paramsA.Count() != paramsB.Count())
+                return false;
+
+            for (int i = 0; i < paramsA.Count(); i++)
+            {
+                if (paramsA[i].ParameterType.Equals(paramsB[i].ParameterType) == false)
+                    return false;
+            }
+
+            return true;
+        }
+
+	    public static ushort[] StructAsUInt16Array(this object data)
         {
             // http://www.vsj.co.uk/articles/display.asp?id=501
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace ScriptCoreLib.Attributes
+namespace Script.Compiler.Core.Attributes
 {
     [global::System.AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
     public sealed class ScriptMethodThrows : Attribute

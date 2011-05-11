@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ScriptCoreLib.Attributes
+namespace Script.Compiler.Core.Attributes
 {
     /// <summary>
     /// Indicates that the integer value assigned to a parameter should be represented
