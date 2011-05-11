@@ -491,16 +491,10 @@ namespace jsc
                 }
             }
 
-
-            void VisitInstructions(ILInstruction i)
-            {
-                VisitInstructions(i, null);
-            }
-
             void VisitInstructions(ILInstruction i, Predicate<ILInstruction> p)
             {
-                Helper.Invoke(p, i);
-
+                if (p != null)
+                    p.Invoke(i);
 
                 Index[i.Index]++;
 
@@ -2537,7 +2531,7 @@ namespace jsc
 
         public bool IsOpCodeOf(params OpCode[] e)
         {
-            return Helper.InArray(this.OpCode, e);
+            return e.Contains(OpCode);
         }
 
         public bool IsLoadInstruction
