@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "arma2.compiler", "core\Arma2.Compiler\arma2.compiler.csproj", "{FCDC4F87-6F42-4703-A194-14B911F0A372}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arma2.Script", "core\Arma2.Script\Arma2.Script.csproj", "{8144A502-7CA8-4012-AF83-74EB57FA4DDF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "arma2.core", "arma2.core", "{000FDE8B-27EE-4D1B-AE23-70A935D11993}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "arma2.mission", "arma2.mission", "{C7C609B8-87AB-48F0-ABAD-6F847D44EB45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "a2mission", "missions\a2mission\a2mission.csproj", "{7A9CD689-ED4C-4805-B12A-535F4338AF29}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FCDC4F87-6F42-4703-A194-14B911F0A372}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{FCDC4F87-6F42-4703-A194-14B911F0A372}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{FCDC4F87-6F42-4703-A194-14B911F0A372}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{FCDC4F87-6F42-4703-A194-14B911F0A372}.Debug|x86.ActiveCfg = Debug|x86
+		{FCDC4F87-6F42-4703-A194-14B911F0A372}.Debug|x86.Build.0 = Debug|x86
+		{FCDC4F87-6F42-4703-A194-14B911F0A372}.Release|Any CPU.ActiveCfg = Release|x86
+		{FCDC4F87-6F42-4703-A194-14B911F0A372}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{FCDC4F87-6F42-4703-A194-14B911F0A372}.Release|Mixed Platforms.Build.0 = Release|x86
+		{FCDC4F87-6F42-4703-A194-14B911F0A372}.Release|x86.ActiveCfg = Release|x86
+		{FCDC4F87-6F42-4703-A194-14B911F0A372}.Release|x86.Build.0 = Release|x86
+		{8144A502-7CA8-4012-AF83-74EB57FA4DDF}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{8144A502-7CA8-4012-AF83-74EB57FA4DDF}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{8144A502-7CA8-4012-AF83-74EB57FA4DDF}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{8144A502-7CA8-4012-AF83-74EB57FA4DDF}.Debug|x86.ActiveCfg = Debug|x86
+		{8144A502-7CA8-4012-AF83-74EB57FA4DDF}.Debug|x86.Build.0 = Debug|x86
+		{8144A502-7CA8-4012-AF83-74EB57FA4DDF}.Release|Any CPU.ActiveCfg = Release|x86
+		{8144A502-7CA8-4012-AF83-74EB57FA4DDF}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{8144A502-7CA8-4012-AF83-74EB57FA4DDF}.Release|Mixed Platforms.Build.0 = Release|x86
+		{8144A502-7CA8-4012-AF83-74EB57FA4DDF}.Release|x86.ActiveCfg = Release|x86
+		{8144A502-7CA8-4012-AF83-74EB57FA4DDF}.Release|x86.Build.0 = Release|x86
+		{7A9CD689-ED4C-4805-B12A-535F4338AF29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A9CD689-ED4C-4805-B12A-535F4338AF29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A9CD689-ED4C-4805-B12A-535F4338AF29}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7A9CD689-ED4C-4805-B12A-535F4338AF29}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7A9CD689-ED4C-4805-B12A-535F4338AF29}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7A9CD689-ED4C-4805-B12A-535F4338AF29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A9CD689-ED4C-4805-B12A-535F4338AF29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A9CD689-ED4C-4805-B12A-535F4338AF29}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7A9CD689-ED4C-4805-B12A-535F4338AF29}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7A9CD689-ED4C-4805-B12A-535F4338AF29}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FCDC4F87-6F42-4703-A194-14B911F0A372} = {000FDE8B-27EE-4D1B-AE23-70A935D11993}
+		{8144A502-7CA8-4012-AF83-74EB57FA4DDF} = {000FDE8B-27EE-4D1B-AE23-70A935D11993}
+		{7A9CD689-ED4C-4805-B12A-535F4338AF29} = {C7C609B8-87AB-48F0-ABAD-6F847D44EB45}
+	EndGlobalSection
+EndGlobal
