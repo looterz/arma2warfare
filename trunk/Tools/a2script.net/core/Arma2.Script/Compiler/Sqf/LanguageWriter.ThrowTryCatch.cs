@@ -58,7 +58,6 @@ namespace Arma2.Script.Compiler.Sqf
                     }
 
                     formatter.Write("_handledException = true;"); 
-                    formatter.WriteLine();
                     formatter.WriteOutdent();
                     formatter.WriteLine();
                     formatter.Write("};");
