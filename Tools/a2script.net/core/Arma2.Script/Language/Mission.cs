@@ -1,20 +1,24 @@
 ﻿using System;
 using Arma2.Script.Compiler.Sqf.Attributes;
 using Arma2.Script.Language.Contracts;
+using Arma2.Script.Language.Types;
 
 namespace Arma2.Script.Language
 {
     public class Mission
     {
-        [InlineMethod("accTime")]
-        public static double accTime { get { throw new NotImplementedException(); } }
+        public static double accTime
+        {
+            [InlineMethod("accTime")]
+            get { throw new NotImplementedException(); }
+        }
 
         /// <summary>
         /// Returns a list of dikCodes of buttons assigned to the given user action.
         /// </summary>
         /// <param name="userAction"></param>
         /// <returns></returns>
-        [InlineMethod("actionKeys {0}")]
+        [InlineMethod("(actionKeys {0})")]
         public static int[] actionKeys(string userAction) { throw new NotImplementedException(); }
 
         /// <summary>
@@ -22,7 +26,7 @@ namespace Arma2.Script.Language
         /// </summary>
         /// <param name="userAction"></param>
         /// <returns></returns>
-        [InlineMethod("actionKeysImages {0}")]
+        [InlineMethod("(actionKeysImages {0})")]
         public static string[] actionKeysImages(string userAction) { throw new NotImplementedException(); }
 
         /// <summary>
@@ -31,7 +35,7 @@ namespace Arma2.Script.Language
         /// <param name="userAction"></param>
         /// <param name="maxKeys">A maximum of maxKeys keys is listed.</param>
         /// <returns></returns>
-        [InlineMethod("actionKeysImages[{0}, {1}]")]
+        [InlineMethod("(actionKeysImages[{0}, {1}])")]
         public static string[] actionKeysImages(string userAction, int maxKeys) { throw new NotImplementedException(); }
 
         /// <summary>
@@ -39,7 +43,7 @@ namespace Arma2.Script.Language
         /// </summary>
         /// <param name="userAction"></param>
         /// <returns></returns>
-        [InlineMethod("actionKeysNames {0}")]
+        [InlineMethod("(actionKeysNames {0})")]
         public static string actionKeysNames(string userAction) { throw new NotImplementedException(); }
 
         /// <summary>
@@ -48,7 +52,7 @@ namespace Arma2.Script.Language
         /// <param name="userAction"></param>
         /// <param name="maxKeys">A maximum of maxKeys keys is listed.</param>
         /// <returns></returns>
-        [InlineMethod("actionKeysNames[{0}, {1}]")]
+        [InlineMethod("(actionKeysNames[{0}, {1}])")]
         public static string actionKeysNames(string userAction, int maxKeys) { throw new NotImplementedException(); }
 
         /// <summary>
@@ -57,7 +61,7 @@ namespace Arma2.Script.Language
         /// <param name="userAction"></param>
         /// <param name="maxKeys">A maximum of maxKeys keys is listed.</param>
         /// <returns></returns>
-        [InlineMethod("actionKeysNamesArray {0}")]
+        [InlineMethod("(actionKeysNamesArray {0})")]
         public static string[] actionKeysNamesArray(string userAction) { throw new NotImplementedException(); }
 
         /// <summary>
@@ -66,7 +70,7 @@ namespace Arma2.Script.Language
         /// <param name="userAction"></param>
         /// <param name="maxKeys">A maximum of maxKeys keys is listed.</param>
         /// <returns></returns>
-        [InlineMethod("actionKeysNamesArray[{0}, {1}]")]
+        [InlineMethod("(actionKeysNamesArray[{0}, {1}])")]
         public static string[] actionKeysNamesArray(string userAction, int maxKeys) { throw new NotImplementedException(); }
 
         /// <summary>
@@ -109,10 +113,10 @@ namespace Arma2.Script.Language
             get { throw new NotImplementedException(); }
         }
 
-        [InlineMethod("agent {0}")]
+        [InlineMethod("(agent {0})")]
         public static IUnit agent(IObject teamMember) { throw new NotImplementedException(); }
 
-        [InlineMethod("agents {0}")]
+        [InlineMethod("(agents {0})")]
         public static IUnit[] agents() { throw new NotImplementedException(); }
 
         [InlineMethod("AISFinishHeal [{0}, {1}, {2}]")]
@@ -124,10 +128,10 @@ namespace Arma2.Script.Language
         [InlineMethod("allGroups")]
         public static IUnitGroup[] allGroups() { throw new NotImplementedException(); }
 
-        [InlineMethod("allMissionObjects {0}")]
+        [InlineMethod("(allMissionObjects {0})")]
         public static IObject[] allMissionObjects(string objectType) { throw new NotImplementedException(); }
 
-        [InlineMethod("{0} allowGetIn {1}")]
+        [InlineMethod("({0} allowGetIn {1})")]
         public static void allowGetIn(IUnit[] units, bool allowGetIn) { throw new NotImplementedException(); }
 
         [InlineMethod("allUnits")]
@@ -136,7 +140,45 @@ namespace Arma2.Script.Language
         [InlineMethod("benchmark")]
         public static double benchmark() { throw new NotImplementedException(); }
 
-        [InlineMethod("time")]
+        [InlineMethod("({0} buildingExit {1})")]
+        public static IPosition buildingExit(IObject building, int exitIndex) { throw new NotImplementedException(); }
+
+        [InlineMethod("({0} buildingPos {1})")]
+        public static IPosition buildingPos(IObject building, int exitIndex) { throw new NotImplementedException(); }
+
+        [InlineMethod("(buttonAction {0})")]
+        public static string buttonAction(int idc) { throw new NotImplementedException(); }
+
+        [InlineMethod("(buttonAction {0})")]
+        public static string buttonAction(IUIControl control) { throw new NotImplementedException(); }
+
+        [InlineMethod("buttonSetAction [{0}, {1}]")]
+        public static void buttonSetAction(int idc, string action) { throw new NotImplementedException(); }
+
+        public static bool cadetMode
+        {
+            [InlineMethod("cadetMode")]
+            get { throw new NotImplementedException(); }
+        }
+
+        [InlineMethod("{0} camCreate {1}")]
+        public static ICamera camCreate(string camType, IPosition position) { throw new NotImplementedException(); }
+
+        [InlineMethod("cameraEffectEnableHUD {0}")]
+        public static void cameraEffectEnableHUD(bool enabled) { throw new NotImplementedException(); }
+
+        [InlineMethod("cameraInterest {0}")]
+        public static double cameraInterest(IObject entity) { throw new NotImplementedException(); }
+
+        [InlineMethod("cameraOn")]
+        public static IObject cameraOn() { throw new NotImplementedException(); }
+
+        [InlineMethod("cameraView")]
+        public static CamViewType cameraView() { throw new NotImplementedException(); }
+
+        [InlineMethod("camUseNVG {0}")]
+        public static void camUseNVG(bool useNightVision) { throw new NotImplementedException(); }
+
         public static double time
         {
             [InlineMethod("time")]

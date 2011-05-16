@@ -52,10 +52,15 @@
   <ItemGroup>
     <Compile Include="Compiler\Sqf\LanguageWriter.ConstructorInvoke.cs" />
     <Compile Include="Language\Contracts\Dtos\IBoundingBox.cs" />
+    <Compile Include="Language\Contracts\ICamera.cs" />
     <Compile Include="Language\Types\BehaviourType.cs" />
     <Compile Include="Language\Mission.cs" />
     <Compile Include="Language\Position.cs" />
     <Compile Include="Language\Contracts\Dtos\IBackpackSpace.cs" />
+    <Compile Include="Language\Types\CamCommandType.cs" />
+    <Compile Include="Language\Types\CamEffectPosition.cs" />
+    <Compile Include="Language\Types\CamEffectType.cs" />
+    <Compile Include="Language\Types\CamViewType.cs" />
     <Compile Include="Language\Vehicle.cs" />
     <Compile Include="Language\Contracts\IBackpack.cs" />
     <Compile Include="Language\Contracts\IUIControl.cs" />

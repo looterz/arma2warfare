@@ -72,6 +72,10 @@ namespace Arma2.Script.Language.Contracts
         [InlineMethod("{0} assignTeam {1}")]
         void assignTeam(TeamType team);
 
+        [InlineMethod("canUnloadInCombat {0}")]
+        bool canUnloadInCombat();
+
+
         [InlineMethod("fuel {0}")]
         double fuel();
     }

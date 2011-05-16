@@ -37,5 +37,10 @@ namespace Arma2.Script.Language.Contracts
 
         [InlineMethod("boundingBox {0}")]
         IBoundingBox boundingBox();
+
+        [InlineMethod("boundingCenter {0}")]
+        IPosition boundingCenter();
+
+
     }
 }

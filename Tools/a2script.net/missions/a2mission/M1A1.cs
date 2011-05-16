@@ -65,7 +65,7 @@ namespace a2mission
         {
             IUnitGroup group = null;
             var pos111 = new double[] {1, 1, 1, 1, 1, 1, 1, 0};
-            group.addWaypoint(pos111, 50);
+            group.addWaypoint(new Position(1, 1, 1), 50);
 
             IObject obj = null;
 
@@ -73,10 +73,23 @@ namespace a2mission
             //double x = ;
 
             string t = "HelloWorld";
-            if (bbox.Max.X > 0)
+            if (bbox.Max.X > time * accTime)
             {
                 t = "12345";
             }
+
+            ICamera cam = null;
+            cam.camCommand(CamCommandType.Landed);
+            cam.camCommand(CamCommandType.InertiaOn);
+
+            cam.camConstuctionSetParams(new Position(5,5,5), 55, 10);
+
+            var pos = player.getPos();
+            pos.X = 5;
+            player.setPos(pos);
+
+
+
         }
     }
 }

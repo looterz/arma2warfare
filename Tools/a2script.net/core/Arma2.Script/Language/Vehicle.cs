@@ -58,6 +58,11 @@ namespace Arma2.Script.Language
             throw new NotImplementedException();
         }
 
+        public IPosition boundingCenter()
+        {
+            throw new NotImplementedException();
+        }
+
         public void addBackpackCargo(string packClassName, int count)
         {
             throw new NotImplementedException();
@@ -139,6 +144,11 @@ namespace Arma2.Script.Language
         }
 
         public void assignTeam(TeamType team)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool canUnloadInCombat()
         {
             throw new NotImplementedException();
         }
