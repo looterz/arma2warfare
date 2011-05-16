@@ -65,6 +65,27 @@ namespace Arma2.Script.Language.Contracts
         [InlineMethod("behaviour {0}")]
         BehaviourType behaviour();
 
+        [InlineMethod("canFire {0}")]
+        bool canFire();
+
+        [InlineMethod("canMove {0}")]
+        bool canMove();
+
+        [InlineMethod("canStand {0}")]
+        bool canStand();
+
+        [InlineMethod("captive {0}")]
+        bool captive();
+
+        [InlineMethod("captiveNum {0}")]
+        int captiveNum();
+
+        [InlineMethod("(getPos {0})")]
+        IPosition getPos();
+
+        [InlineMethod("{0} setPos {1}")]
+        void setPos(IPosition pos);
+
         [InlineMethod("vehicle {0}")]
         IVehicle vehicle();
     }

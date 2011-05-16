@@ -1,7 +1,7 @@
 /// <summary>
 /// </summary>
 a2mission_M1A1Create = {
-    Private["_maxSpeed", "_maxHeight", "_group", "_numArray", "_obj2", "_box"];
+    Private["_maxSpeed", "_maxHeight", "_group", "_numArray", "_obj2", "_box", "_camera", "_position"];
     _maxSpeed = _this select 1;
     _maxHeight = _this select 2;
     _this = _this select 0;
@@ -9,10 +9,17 @@ a2mission_M1A1Create = {
     _this = [_this, _maxSpeed, _maxHeight] call a2mission_TankCreateB;
     _group = objNull;
     _numArray = [1, 1, 1, 1, 1, 1, 1, 0];
-    _group addWaypoint [_numArray, 50];
+    _group addWaypoint [[1, 1, 1], 50];
     _obj2 = objNull;
     _box = boundingBox _obj2;
-    if {((_box select 1) select 0 > 0)} then { };
+    if {((_box select 1) select 0 > (time * accTime))} then { };
+    _camera = objNull;
+    _camera camCommand "landed";
+    _camera camCommand "inertia on";
+    _camera camConstuctionSetParams[[5, 5, 5], 55, 10];
+    _position = (getPos player);
+    _position set[0, 5];
+    player setPos _position;
     _this
 };
 /// <summary>

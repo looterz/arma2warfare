@@ -20,12 +20,6 @@ namespace Arma2.Script.Language.Contracts
         [InlineMethod("{0} addWaypoint [{1}, {2}, {3}]")]
         IWaypoint[] addWaypoint(IPosition pos, double radius, int index);
 
-        [InlineMethod("{0} addWaypoint [{1}, {2}]")]
-        IWaypoint[] addWaypoint(double[] pos, double radius);
-
-        [InlineMethod("{0} addWaypoint [{1}, {2}, {3}]")]
-        IWaypoint[] addWaypoint(double[] pos, double radius, int index);
-
         [InlineMethod("{0} allowFleeing {1}")]
         void allowFleeing(double cowardice);
 
