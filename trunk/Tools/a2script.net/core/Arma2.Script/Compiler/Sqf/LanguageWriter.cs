@@ -3045,57 +3045,6 @@ namespace Arma2.Script.Compiler.Sqf
             }
         }
 
-        private void WriteTryCatchFinallyStatement(ITryCatchFinallyStatement statement, IFormatter formatter)
-        {
-            WriteStatementSeparator(formatter);
-            if ((statement.Finally != null) && (statement.Finally.Statements.Count > 0) && (statement.CatchClauses.Count > 0))
-            {
-                formatter.WriteKeyword("try");
-                formatter.WriteLine();
-                formatter.WriteIndent();
-            }
-            if ((statement.Finally != null) && (statement.Finally.Statements.Count > 0) || (statement.CatchClauses.Count > 0))
-            {
-                formatter.WriteKeyword("try");
-                WriteOptionalSpace();
-                formatter.Write("{");
-                formatter.WriteLine();
-                formatter.WriteIndent();
-            }
-            if (statement.Try != null)
-            {
-                WriteStatement(statement.Try, formatter);
-            }
-            WritePendingOutdent(formatter);
-            formatter.WriteLine();
-            formatter.WriteOutdent();
-            formatter.Write("}");
-            WriteOptionalSpace();
-
-            if (statement.CatchClauses.Count > 0)
-            {
-                foreach (ICatchClause catchClause in statement.CatchClauses)
-                {
-                    formatter.WriteKeyword("catch");
-                    WriteOptionalSpace();
-                    formatter.Write("{");
-                    formatter.WriteLine();
-                    formatter.WriteIndent(); 
-                    
-                    catchClause.Variable.Name = "_exception";
-                    if (catchClause.Body != null)
-                    {
-                        WriteStatement(catchClause.Body, formatter);
-                    }
-
-                    WritePendingOutdent(formatter);
-                    formatter.WriteLine();
-                    formatter.WriteOutdent();
-                    formatter.Write("};");
-                }
-            }
-        }
-
         private void WriteAssignExpression(IAssignExpression value, IFormatter formatter)
         {
             var binaryExpression = value.Expression as IBinaryExpression;
@@ -3616,23 +3565,6 @@ namespace Arma2.Script.Compiler.Sqf
             formatter.WriteKeyword("continue");
             formatter.Write(";");
             formatter.WriteLine();
-        }
-
-        private void WriteThrowExceptionStatement(IThrowExceptionStatement statement, IFormatter formatter)
-        {
-            WriteStatementSeparator(formatter);
-            formatter.WriteKeyword("raise");
-            formatter.Write(" ");
-            if (statement.Expression != null)
-            {
-                WriteExpression(statement.Expression, formatter);
-            }
-            else
-            {
-                WriteDeclaration("Exception", formatter);
-                formatter.Write(".");
-                formatter.WriteKeyword("Create");
-            }
         }
 
         private void WriteVariableDeclarationExpression(IVariableDeclarationExpression expression, IFormatter formatter)

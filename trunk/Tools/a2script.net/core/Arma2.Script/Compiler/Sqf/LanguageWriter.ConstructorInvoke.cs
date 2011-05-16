@@ -36,8 +36,10 @@ namespace Arma2.Script.Compiler.Sqf
                     }
                 }
 
-                formatter.Write("call ");
+                formatter.Write("call");
+                formatter.Write(" ");
                 WriteMethodReference(value.Constructor, formatter);
+                return;
             }
 
             throw new ApplicationException("try create object that not has constuctor");

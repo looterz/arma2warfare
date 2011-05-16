@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Arma2.Script.Language;
 
 namespace a2mission
@@ -88,6 +89,7 @@ namespace a2mission
         {
             try
             {
+                throw new AbandonedMutexException();
                 Delete();
             }
             catch (Exception e)
@@ -96,6 +98,12 @@ namespace a2mission
                 {
                     _speed = 5;
                 }
+                throw;
+            }
+            finally
+            {
+                _speed = 10;
+                
             }
         }
 

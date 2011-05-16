@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Compiler\Sqf\Adapters\SystemExceptionAdapter.cs" />
+    <Compile Include="Compiler\Sqf\LanguageWriter.ThrowTryCatch.cs" />
     <Compile Include="Compiler\Sqf\LanguageWriter.ConstructorInvoke.cs" />
     <Compile Include="Language\Contracts\Dtos\IBoundingBox.cs" />
     <Compile Include="Language\Contracts\ICamera.cs" />
