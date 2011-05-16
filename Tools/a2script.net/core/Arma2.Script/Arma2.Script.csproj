@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compiler\Sqf\LanguageWriter.ConstructorInvoke.cs" />
     <Compile Include="Language\Mission.cs" />
     <Compile Include="Language\Position.cs" />
     <Compile Include="Language\Contracts\IBackpackSpace.cs" />

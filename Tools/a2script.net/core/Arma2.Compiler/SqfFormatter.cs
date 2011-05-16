@@ -50,8 +50,8 @@ namespace Arma2.Compiler
 
         public override void Write(string value)
         {
-            if (value.Contains("WarfareBE_TeamType_Red"))
-                value = "WarfareBE_TeamType_Red";
+            if (value.Contains("Arma2ScriptLanguage_Position.Create"))
+                value = "Arma2ScriptLanguage_Position.Create";
 
             if (_renderIdent)
             {
