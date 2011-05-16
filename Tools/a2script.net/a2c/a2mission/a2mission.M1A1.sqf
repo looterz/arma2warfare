@@ -8,7 +8,7 @@ a2mission_M1A1Create = {
     if (isNil "_this") then {_this = 'objectBase' createVehicle [0, 0, 0]};
     _this = [_this, _maxSpeed, _maxHeight] call a2mission_TankCreateB;
     _group = objNull;
-    _numArray = [];
+    _numArray = [1, 1, 1, 1, 1, 1, 1, 0];
     _group addWaypoint [_numArray, 50];
     _this
 };
@@ -17,7 +17,7 @@ a2mission_M1A1Create = {
 a2mission_M1A1Delete = {
     Private["_str"];
     _this = _this select 0;
-    _str = format["Now: %1",call Arma2ScriptLanguage_MissionGettime];
+    _str = format["Now: %1",time];
     if {((_this call a2mission_TankGetSpeed) < 50)} then {[_this, 50] call a2mission_TankSetSpeed };
     _this call a2mission_TankDelete
 };

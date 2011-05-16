@@ -87,9 +87,16 @@ namespace a2mission
         {
             this._startTank.Speed = 5;
 
-            object[] states = new object[50];
+            int arraySize = 50;
+            int[] states = new int[arraySize];
+            int[] states2 = new int[50];
+            int[] states3 = new int[5];
+            object[] states4 = new object[5];
 
-            ((object[])(states[1]))[5] = (_speed < 100);
+            //((object[])(states[1]))[5] = (_speed < 100);
+
+
+            int L = states.Length;
 
             _speed = (_speed < 100) ? 500 : 100;
             _hasSpeed = (_speed < 100); 
