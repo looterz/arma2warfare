@@ -1,7 +1,7 @@
 /// <summary>
 /// </summary>
 a2mission_M1A1Create = {
-    Private["_maxSpeed", "_maxHeight", "_group", "_numArray"];
+    Private["_maxSpeed", "_maxHeight", "_group", "_numArray", "_obj2", "_box"];
     _maxSpeed = _this select 1;
     _maxHeight = _this select 2;
     _this = _this select 0;
@@ -10,6 +10,9 @@ a2mission_M1A1Create = {
     _group = objNull;
     _numArray = [1, 1, 1, 1, 1, 1, 1, 0];
     _group addWaypoint [_numArray, 50];
+    _obj2 = objNull;
+    _box = boundingBox _obj2;
+    if {((_box select 1) select 0 > 0)} then { };
     _this
 };
 /// <summary>

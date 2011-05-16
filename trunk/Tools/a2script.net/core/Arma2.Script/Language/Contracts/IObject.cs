@@ -1,5 +1,6 @@
 ﻿using System;
 using Arma2.Script.Compiler.Sqf.Attributes;
+using Arma2.Script.Language.Contracts.Dtos;
 
 namespace Arma2.Script.Language.Contracts
 {
@@ -33,5 +34,8 @@ namespace Arma2.Script.Language.Contracts
 
         [InlineMethod("{0} attachTo[{1}, {2}, {3}]")]
         void attachTo(IObject attachTo, IPosition offset, string memPoint);
+
+        [InlineMethod("boundingBox {0}")]
+        IBoundingBox boundingBox();
     }
 }

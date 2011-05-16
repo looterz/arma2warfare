@@ -1,6 +1,8 @@
 ﻿using System;
 using Arma2.Script.Language;
 using Arma2.Script.Language.Contracts;
+using Arma2.Script.Language.Contracts.Dtos;
+using Arma2.Script.Language.Types;
 
 namespace Arma2.Script.Language
 {
@@ -47,6 +49,11 @@ namespace Arma2.Script.Language
         }
 
         public void attachTo(IObject attachTo, IPosition offset, string memPoint)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IBoundingBox boundingBox()
         {
             throw new NotImplementedException();
         }

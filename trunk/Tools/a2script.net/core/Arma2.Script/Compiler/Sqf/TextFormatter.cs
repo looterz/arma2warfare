@@ -19,13 +19,13 @@ namespace Arma2.Script.Compiler.Sqf
 
         #region IFormatter Members
 
-        public void Write(string text)
+        public void Write(string value)
         {
-            if (text.Contains("[]"))
-                text = "[]";
+            if (value.Contains("{0} select 1"))
+                value = "{0} select 1";
 
             ApplyIndent();
-            writer.Write(text);
+            writer.Write(value);
         }
 
         public void WriteDeclaration(string text)
