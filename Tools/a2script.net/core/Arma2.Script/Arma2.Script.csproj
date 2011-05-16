@@ -51,9 +51,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Compiler\Sqf\LanguageWriter.ConstructorInvoke.cs" />
+    <Compile Include="Language\Contracts\Dtos\IBoundingBox.cs" />
+    <Compile Include="Language\Types\BehaviourType.cs" />
     <Compile Include="Language\Mission.cs" />
     <Compile Include="Language\Position.cs" />
-    <Compile Include="Language\Contracts\IBackpackSpace.cs" />
+    <Compile Include="Language\Contracts\Dtos\IBackpackSpace.cs" />
     <Compile Include="Language\Vehicle.cs" />
     <Compile Include="Language\Contracts\IBackpack.cs" />
     <Compile Include="Language\Contracts\IUIControl.cs" />
@@ -64,8 +66,8 @@
     <Compile Include="Language\Contracts\IPosition.cs" />
     <Compile Include="Language\Contracts\IUnit.cs" />
     <Compile Include="Language\Contracts\IVehicle.cs" />
-    <Compile Include="Language\Contracts\IWaypoint.cs" />
-    <Compile Include="Language\TeamType.cs" />
+    <Compile Include="Language\Contracts\Dtos\IWaypoint.cs" />
+    <Compile Include="Language\Types\TeamType.cs" />
     <Compile Include="Compiler\Sqf\Adapters\BaseAdapter.cs" />
     <Compile Include="Compiler\Sqf\Adapters\SystemMathAdapter.cs" />
     <Compile Include="Compiler\Sqf\Adapters\SystemStringAdapter.cs" />

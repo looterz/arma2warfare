@@ -69,7 +69,7 @@ a2mission_TankCreateC = {
 /// <summary>
 /// </summary>
 a2mission_TankDelete = {
-    Private["_num", "_numArray", "_numArray2", "_numArray3", _objArray, "_length"];
+    Private["_num", "_numArray", "_numArray2", "_numArray3", "_objArray", "_length"];
     _this = _this select 0;
     [(_this getVariable "_startTank"), 5] call a2mission_TankSetSpeed;
     _num = 50;

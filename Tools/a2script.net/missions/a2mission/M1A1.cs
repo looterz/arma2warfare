@@ -2,6 +2,7 @@
 using System.Linq;
 using Arma2.Script.Language;
 using Arma2.Script.Language.Contracts;
+using Arma2.Script.Language.Types;
 
 namespace a2mission
 {
@@ -66,8 +67,16 @@ namespace a2mission
             var pos111 = new double[] {1, 1, 1, 1, 1, 1, 1, 0};
             group.addWaypoint(pos111, 50);
 
- 
+            IObject obj = null;
 
+            var bbox = obj.boundingBox();
+            //double x = ;
+
+            string t = "HelloWorld";
+            if (bbox.Max.X > 0)
+            {
+                t = "12345";
+            }
         }
     }
 }

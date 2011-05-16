@@ -133,6 +133,9 @@ namespace Arma2.Script.Language
         [InlineMethod("allUnits")]
         public static IUnit[] allUnits() { throw new NotImplementedException(); }
 
+        [InlineMethod("benchmark")]
+        public static double benchmark() { throw new NotImplementedException(); }
+
         [InlineMethod("time")]
         public static double time
         {

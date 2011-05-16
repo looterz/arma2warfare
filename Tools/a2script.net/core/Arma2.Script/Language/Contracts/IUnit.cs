@@ -1,4 +1,5 @@
 ﻿using Arma2.Script.Compiler.Sqf.Attributes;
+using Arma2.Script.Language.Types;
 
 namespace Arma2.Script.Language.Contracts
 {
@@ -61,6 +62,8 @@ namespace Arma2.Script.Language.Contracts
         [InlineMethod("backpack {0}")]
         IBackpack backpack();
 
+        [InlineMethod("behaviour {0}")]
+        BehaviourType behaviour();
 
         [InlineMethod("vehicle {0}")]
         IVehicle vehicle();

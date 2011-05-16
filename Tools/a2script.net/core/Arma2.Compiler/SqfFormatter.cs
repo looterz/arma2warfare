@@ -50,8 +50,8 @@ namespace Arma2.Compiler
 
         public override void Write(string value)
         {
-            if (value.Contains("_objArray"))
-                value = "_objArray";
+            if (value.Contains("{0} select 1"))
+                value = "{0} select 1";
 
             if (_renderIdent)
             {

@@ -142,121 +142,22 @@ namespace Arma2.Script.Compiler.Sqf
 
         public void WriteAssembly(IAssembly value)
         {
-            formatter.Write("// Assembly");
-            formatter.Write(" ");
-            formatter.WriteDeclaration(value.Name);
-
-            if (value.Version != null)
-            {
-                formatter.Write(", ");
-                formatter.Write("Version");
-                formatter.Write(" ");
-                formatter.Write(value.Version.ToString());
-            }
-
-            formatter.WriteLine();
-
-            if ((configuration["ShowCustomAttributes"] == "true") && (value.Attributes.Count != 0))
-            {
-                formatter.WriteLine();
-                WriteCustomAttributeList(value, formatter);
-                formatter.WriteLine();
-            }
-
-            formatter.WriteProperty("Location", value.Location);
-            formatter.WriteProperty("Name", value.ToString());
-
-            switch (value.Type)
-            {
-                case AssemblyType.Application:
-                    formatter.WriteProperty("Type", "Windows Application");
-                    break;
-
-                case AssemblyType.Console:
-                    formatter.WriteProperty("Type", "Console Application");
-                    break;
-
-                case AssemblyType.Library:
-                    formatter.WriteProperty("Type", "Library");
-                    break;
-            }
         }
 
         public void WriteAssemblyReference(IAssemblyReference value)
         {
-            formatter.Write("// Assembly Reference");
-            formatter.Write(" ");
-            formatter.WriteDeclaration(value.Name);
-            formatter.WriteLine();
-
-            formatter.WriteProperty("Version", value.Version.ToString());
-            formatter.WriteProperty("Name", value.ToString());
         }
 
         public void WriteModule(IModule value)
         {
-            formatter.Write("// Module");
-            formatter.Write(" ");
-            formatter.WriteDeclaration(value.Name);
-            formatter.WriteLine();
-
-            if ((configuration["ShowCustomAttributes"] == "true") && (value.Attributes.Count != 0))
-            {
-                formatter.WriteLine();
-                WriteCustomAttributeList(value, formatter);
-                formatter.WriteLine();
-            }
-
-            formatter.WriteProperty("Version", value.Version.ToString());
-            formatter.WriteProperty("Location", value.Location);
-
-            string location = Environment.ExpandEnvironmentVariables(value.Location);
-            if (File.Exists(location))
-            {
-                formatter.WriteProperty("Size", new FileInfo(location).Length + " Bytes");
-            }
         }
 
         public void WriteModuleReference(IModuleReference value)
         {
-            formatter.Write("// Module Reference");
-            formatter.Write(" ");
-            formatter.WriteDeclaration(value.Name);
-            formatter.WriteLine();
         }
 
         public void WriteResource(IResource value)
         {
-            formatter.Write("// ");
-
-            switch (value.Visibility)
-            {
-                case ResourceVisibility.Public:
-                    formatter.WriteKeyword("public");
-                    break;
-
-                case ResourceVisibility.Private:
-                    formatter.WriteKeyword("private");
-                    break;
-            }
-
-            formatter.Write(" ");
-            formatter.WriteKeyword("resource");
-            formatter.Write(" ");
-            formatter.WriteDeclaration(value.Name, value);
-            formatter.WriteLine();
-
-            var embeddedResource = value as IEmbeddedResource;
-            if ((embeddedResource != null) && (embeddedResource.Value != null))
-            {
-                formatter.WriteProperty("Size", embeddedResource.Value.Length.ToString(CultureInfo.InvariantCulture) + " bytes");
-            }
-
-            var fileResource = value as IFileResource;
-            if (fileResource != null)
-            {
-                formatter.WriteProperty("Location", fileResource.Location);
-            }
         }
 
         public void WriteNamespace(INamespace value)
@@ -265,247 +166,7 @@ namespace Arma2.Script.Compiler.Sqf
 
         public void WriteTypeDeclaration(ITypeDeclaration value)
         {
-            if ((configuration["ShowCustomAttributes"] == "true") && (value.Attributes.Count != 0))
-            {
-                WriteCustomAttributeList(value, formatter);
-                formatter.WriteLine();
-            }
-
-            WriteTypeVisibility(value.Visibility, formatter);
-
-            WriteDeclaration(value.Name, value, formatter);
-            formatter.Write(" = ");
-
-            if (Helper.IsDelegate(value))
-            {
-                IMethodDeclaration methodDeclaration = Helper.GetMethod(value, "Invoke");
-                string method = "procedure";
-                bool isFunction = false;
-                if (!IsType(methodDeclaration.ReturnType.Type, "System", "Void"))
-                {
-                    method = "function";
-                    isFunction = true;
-                }
-
-                formatter.WriteKeyword(method);
-                formatter.Write(" ");
-                WriteDeclaration(methodDeclaration.Name, value, formatter);
-
-                // Generic Parameters
-                WriteGenericArgumentList(methodDeclaration.GenericArguments, formatter);
-
-                // Method Parameters
-                if ((methodDeclaration.Parameters.Count > 0) || (methodDeclaration.CallingConvention == MethodCallingConvention.VariableArguments))
-                {
-                    formatter.Write("(");
-                    WriteParameterDeclarationList(methodDeclaration.Parameters, formatter, configuration);
-                    formatter.Write(")");
-                }
-                WriteGenericParameterConstraintList(methodDeclaration, formatter);
-
-                if (isFunction)
-                {
-                    formatter.Write(": ");
-                    WriteType(methodDeclaration.ReturnType.Type, formatter);
-                }
-                formatter.Write(";");
-            }
-            else if (Helper.IsEnumeration(value))
-            {
-                bool first = true;
-                formatter.Write("(");
-                foreach (IFieldDeclaration fieldDeclaration in Helper.GetFields(value, configuration.Visibility))
-                {
-                    // Do not render underlying "value__" field
-                    if ((!fieldDeclaration.SpecialName) || (!fieldDeclaration.RuntimeSpecialName) || (fieldDeclaration.FieldType.Equals(value)))
-                    {
-                        if (first)
-                        {
-                            first = false;
-                        }
-                        else
-                        {
-                            formatter.Write(", ");
-                        }
-
-                        WriteDeclaration(fieldDeclaration.Name, fieldDeclaration, formatter);
-                        IExpression initializer = fieldDeclaration.Initializer;
-                        if (initializer != null)
-                        {
-                            formatter.Write("=");
-                            WriteExpression(initializer, formatter);
-                        }
-                    }
-                }
-                formatter.Write(");");
-            }
-            else
-            {
-                bool bracketPrinted = false;
-
-                if (Helper.IsValueType(value))
-                {
-                    formatter.WriteKeyword("record");
-                    WriteGenericArgumentList(value.GenericArguments, formatter);
-                }
-                else if (value.Interface)
-                {
-                    formatter.WriteKeyword("interface");
-                    WriteGenericArgumentList(value.GenericArguments, formatter);
-                }
-                else
-                {
-                    formatter.WriteKeyword("class");
-                    if (value.Abstract)
-                    {
-                        formatter.Write(" ");
-                        formatter.WriteKeyword("abstract");
-                    }
-
-                    if (value.Sealed)
-                    {
-                        formatter.Write(" ");
-                        formatter.WriteKeyword("sealed");
-                    }
-                    WriteGenericArgumentList(value.GenericArguments, formatter);
-
-                    ITypeReference baseType = value.BaseType;
-                    if ((baseType != null) && (!IsType(baseType, "System", "Object")))
-                    {
-                        formatter.Write("(");
-                        WriteType(baseType, formatter);
-                        bracketPrinted = true;
-                    }
-                }
-
-                // TODO filter interfaces
-                foreach (ITypeReference interfaceType in value.Interfaces)
-                {
-                    formatter.Write(bracketPrinted ? ", " : " (");
-                    WriteType(interfaceType, formatter);
-                    bracketPrinted = true;
-                }
-
-                WriteGenericParameterConstraintList(value, formatter);
-                if (bracketPrinted)
-                {
-                    formatter.Write(")");
-                }
-            }
-
-            formatter.WriteProperty("Name", GetDelphiStyleResolutionScope(value));
-            WriteDeclaringAssembly(Helper.GetAssemblyReference(value), formatter);
-
-            if ((configuration["ShowTypeDeclarationBody"] == "true") && (!Helper.IsEnumeration(value)) && (!Helper.IsDelegate(value)))
-            {
-                formatter.WriteLine();
-                formatter.WriteIndent();
-
-                bool newLine = false;
-                ICollection events = Helper.GetEvents(value, configuration.Visibility);
-                if (events.Count > 0)
-                {
-                    if (newLine)
-                    {
-                        formatter.WriteLine();
-                    }
-                    newLine = true;
-                    formatter.WriteComment("// Events");
-                    formatter.WriteLine();
-
-                    foreach (IEventDeclaration eventDeclaration in events)
-                    {
-                        WriteEventDeclaration(eventDeclaration);
-                        formatter.WriteLine();
-                    }
-                }
-
-                ICollection methods = Helper.GetMethods(value, configuration.Visibility);
-                if (methods.Count > 0)
-                {
-                    if (newLine)
-                    {
-                        formatter.WriteLine();
-                    }
-                    newLine = true;
-                    formatter.WriteComment("// Methods");
-                    formatter.WriteLine();
-
-                    foreach (IMethodDeclaration methodDeclaration in methods)
-                    {
-                        WriteMethodDeclaration(methodDeclaration);
-                        formatter.WriteLine();
-                    }
-                }
-
-                ICollection properties = Helper.GetProperties(value, configuration.Visibility);
-                if (properties.Count > 0)
-                {
-                    if (newLine)
-                    {
-                        formatter.WriteLine();
-                    }
-                    newLine = true;
-                    formatter.WriteComment("// Properties");
-                    formatter.WriteLine();
-
-                    foreach (IPropertyDeclaration propertyDeclaration in properties)
-                    {
-                        WritePropertyDeclaration(propertyDeclaration);
-                        formatter.WriteLine();
-                    }
-                }
-
-                ICollection fields = Helper.GetFields(value, configuration.Visibility);
-                if (fields.Count > 0)
-                {
-                    if (newLine)
-                    {
-                        formatter.WriteLine();
-                    }
-                    newLine = true;
-                    formatter.WriteComment("// Fields");
-                    formatter.WriteLine();
-
-                    foreach (IFieldDeclaration fieldDeclaration in fields)
-                    {
-                        if ((!fieldDeclaration.SpecialName) || (fieldDeclaration.Name != "value__"))
-                        {
-                            WriteFieldDeclaration(fieldDeclaration);
-                            formatter.WriteLine();
-                        }
-                    }
-                }
-
-                ICollection nestedTypes = Helper.GetNestedTypes(value, configuration.Visibility);
-                if (nestedTypes.Count > 0)
-                {
-                    if (newLine)
-                    {
-                        formatter.WriteLine();
-                    }
-                    newLine = true;
-
-                    formatter.WriteKeyword("type");
-                    formatter.Write(" ");
-                    formatter.WriteComment("// Nested Types");
-                    formatter.WriteLine();
-                    formatter.WriteIndent();
-                    foreach (ITypeDeclaration nestedTypeDeclaration in nestedTypes)
-                    {
-                        WriteTypeDeclaration(nestedTypeDeclaration);
-                        formatter.WriteLine();
-                    }
-                    formatter.WriteOutdent();
-                }
-
-                formatter.WriteLine();
-                formatter.WriteOutdent();
-                formatter.WriteKeyword("end");
-                formatter.Write(";");
-                formatter.WriteLine();
-            }
-        }
+ }
 
         public void WriteFieldDeclaration(IFieldDeclaration value)
         {
@@ -1202,18 +863,6 @@ namespace Arma2.Script.Compiler.Sqf
             return (Helper.GetAssemblyReference(value).Name == assemblyName);
         }
 
-        private ICustomAttribute GetCustomAttribute(ICustomAttributeProvider value, string namespaceName, string name)
-        {
-            ICustomAttribute customAttribute = GetCustomAttribute(value, namespaceName, name, "mscorlib");
-
-            if (customAttribute == null)
-            {
-                customAttribute = GetCustomAttribute(value, namespaceName, name, "sscorlib");
-            }
-
-            return customAttribute;
-        }
-
         private ICustomAttribute GetCustomAttribute(ICustomAttributeProvider value, string namespaceName, string name, string assemblyName)
         {
             foreach (ICustomAttribute customAttribute in value.Attributes)
@@ -1222,17 +871,6 @@ namespace Arma2.Script.Compiler.Sqf
                 {
                     return customAttribute;
                 }
-            }
-
-            return null;
-        }
-
-        private ILiteralExpression GetDefaultParameterValue(IParameterDeclaration value)
-        {
-            ICustomAttribute customAttribute = GetCustomAttribute(value, "System.Runtime.InteropServices", "DefaultParameterValueAttribute", "System");
-            if ((customAttribute != null) && (customAttribute.Arguments.Count == 1))
-            {
-                return customAttribute.Arguments[0] as ILiteralExpression;
             }
 
             return null;
@@ -1304,29 +942,17 @@ namespace Arma2.Script.Compiler.Sqf
 
         private void WriteDeclaration(string name, IFormatter formatter)
         {
-            formatter.WriteDeclaration((Array.IndexOf(keywords, name) != -1) ? ("&" + name) : name);
+            formatter.WriteDeclaration((Array.IndexOf(keywords, name) != -1) ? (name) : name);
         }
 
         private void WriteDeclaration(string name, object target, IFormatter formatter)
         {
-            formatter.WriteDeclaration((Array.IndexOf(keywords, name) != -1) ? ("&" + name) : name, target);
+            formatter.WriteDeclaration((Array.IndexOf(keywords, name) != -1) ? (name) : name, target);
         }
 
         private void WriteReference(string name, IFormatter formatter, string toolTip, object reference)
         {
             string text = name;
-            if (name.Equals(".ctor"))
-            {
-                text = "Create";
-            }
-            if (name.Equals("..ctor"))
-            {
-                text = "Create";
-            }
-            if (Array.IndexOf(keywords, name) != -1)
-            {
-                text = "&" + name;
-            }
             formatter.WriteReference(text, toolTip, reference);
         }
 
@@ -1775,14 +1401,6 @@ namespace Arma2.Script.Compiler.Sqf
 
         private void WriteArrayCreateExpression(IArrayCreateExpression expression, IFormatter formatter)
         {
-            //formatter.WriteKeyword("New(array[");
-            //this.WriteExpressionList(expression.Dimensions, formatter);
-            //formatter.Write("] of ");
-            //this.WriteArrayElementType(expression.Type, formatter);
-
-            // 	this.WriteArrayDimension(expression.Type, formatter);
-
-            
             if (expression.Initializer != null)
             {
                 formatter.Write("[");
@@ -2001,9 +1619,7 @@ namespace Arma2.Script.Compiler.Sqf
                 if (inlineAttribute != null)
                 {
                     var value = (string)((ILiteralExpression)inlineAttribute.Arguments[0]).Value;
-                    formatter.Write("\"");
                     formatter.Write(value);
-                    formatter.Write("\"");
                     return;
                 }
             }
@@ -2727,29 +2343,7 @@ namespace Arma2.Script.Compiler.Sqf
 
         private void WriteTypeReference(ITypeReference typeReference, IFormatter formatter, string description, object target)
         {
-            string name = typeReference.Name;
-
-            // TODO mscorlib test
-            if (typeReference.Namespace == "System")
-            {
-                if (specialTypeNames.Contains(name))
-                {
-                    name = (string)specialTypeNames[name];
-                }
-            }
-
             formatter.Write(Helper.GetTypeName(typeReference));
-
-            //ITypeReference genericType = typeReference.GenericType;
-            //if (genericType != null)
-            //{
-            //    WriteReference(name, formatter, description, genericType);
-            //    WriteGenericArgumentList(typeReference.GenericArguments, formatter);
-            //}
-            //else
-            //{
-            //    WriteReference(name, formatter, description, target);
-            //}
         }
 
         private void WriteFieldReference(IFieldReference fieldReference, IFormatter formatter)
