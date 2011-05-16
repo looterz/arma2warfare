@@ -75,6 +75,24 @@ namespace Arma2.Script.Compiler.Sqf.Adapters
                 return true;
             }
 
+            if (methodReferenceExpression.Method.Name == "Ceiling")
+            {
+                WriteStaticFunc("ceil", methodInvoke.Arguments, languageWriter, formatter);
+                return true;
+            }
+
+            if (methodReferenceExpression.Method.Name == "Floor")
+            {
+                WriteStaticFunc("floor", methodInvoke.Arguments, languageWriter, formatter);
+                return true;
+            }
+
+            if (methodReferenceExpression.Method.Name == "Round")
+            {
+                WriteStaticFunc("round", methodInvoke.Arguments, languageWriter, formatter);
+                return true;
+            }
+
             return false;
         }
 
