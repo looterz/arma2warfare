@@ -50,8 +50,8 @@ namespace Arma2.Compiler
 
         public override void Write(string value)
         {
-            if (value.Contains("Arma2ScriptLanguage_Position.Create"))
-                value = "Arma2ScriptLanguage_Position.Create";
+            if (value.Contains("_objArray"))
+                value = "_objArray";
 
             if (_renderIdent)
             {

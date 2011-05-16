@@ -1782,12 +1782,49 @@ namespace Arma2.Script.Compiler.Sqf
 
             // 	this.WriteArrayDimension(expression.Type, formatter);
 
-            formatter.Write("[");
+            
             if (expression.Initializer != null)
             {
+                formatter.Write("[");
                 WriteExpression(expression.Initializer, formatter);
+                formatter.Write("]");
             }
-            formatter.Write("]");
+            else
+            {
+                var type = (expression.Type as ITypeReference).Resolve();
+                var value = type.ValueType ? "0" : "objNull";
+
+                var size = expression.Dimensions[0] as ILiteralExpression;
+                if (size != null && size.Value is int)
+                {
+                    int sz = (int) size.Value;
+                    if (sz < 10)
+                    {
+                        formatter.Write("[");
+                        for (int i = 0; i < sz; i++)
+                        {
+                            if (i != 0)
+                            {
+                                formatter.Write(",");
+                                WriteOptionalSpace();
+                            }
+                            formatter.Write(value);
+                        }
+                        formatter.Write("]");
+                        return;
+                    }
+                    var initArrayScript1 =
+                        "(call {private[\"_array\", \"_i\"];_array=[]; for \"_i\" from 0 to " + sz + " do {_array set[_i," + value + "];};_array})";
+                    formatter.Write(initArrayScript1);
+                    return;
+                }
+
+                TextFormatter maxValue = new TextFormatter();
+                WriteExpression(expression.Dimensions[0], maxValue);
+                var initArrayScript = 
+                    "(call {private[\"_array\", \"_i\"];_array=[];_i=0;while{_i<" + maxValue + "} do {_array set[_i,"+ value + "];_i=_i+1;};_array})";
+                formatter.Write(initArrayScript);
+            }
         }
 
         private void WriteBlockExpression(IBlockExpression expression, IFormatter formatter)

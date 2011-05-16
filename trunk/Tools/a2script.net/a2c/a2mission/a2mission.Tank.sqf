@@ -69,11 +69,15 @@ a2mission_TankCreateC = {
 /// <summary>
 /// </summary>
 a2mission_TankDelete = {
-    Private["_objArray"];
+    Private["_num", "_numArray", "_numArray2", "_numArray3", _objArray, "_length"];
     _this = _this select 0;
     [(_this getVariable "_startTank"), 5] call a2mission_TankSetSpeed;
-    _objArray = [];
-    (_objArray select 1) set [5, if(((_this getVariable "_speed") < 100)) then { true } else { false }];
+    _num = 50;
+    _numArray = (call {private["_array", "_i"];_array=[];_i=0;while{_i<_num} do {_array set[_i,0];_i=_i+1;};_array});
+    _numArray2 = (call {private["_array", "_i"];_array=[]; for "_i" from 0 to 50 do {_array set[_i,0];};_array});
+    _numArray3 = [0, 0, 0, 0, 0];
+    _objArray = [objNull, objNull, objNull, objNull, objNull];
+    _length = count(_numArray);
     _this setVariable ["_speed", if { ((_this getVariable "_speed") < 100) } then { 500 } else { 100 }];
     _this setVariable ["_hasSpeed", if(((_this getVariable "_speed") < 100)) then { true } else { false }];
     if {((_this getVariable "_speed") >= 100)} then {_this setVariable ["_speed", 100] } else {_this setVariable ["_speed", 50] };

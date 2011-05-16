@@ -21,8 +21,8 @@ namespace Arma2.Script.Compiler.Sqf
 
         public void Write(string text)
         {
-            if (text.Contains("Arma2ScriptLanguage_Position"))
-                text = "Arma2ScriptLanguage_Position";
+            if (text.Contains("[]"))
+                text = "[]";
 
             ApplyIndent();
             writer.Write(text);

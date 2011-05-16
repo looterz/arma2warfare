@@ -101,8 +101,13 @@ namespace Arma2.Script.Language
         [InlineMethod("addWeaponPool[{0}, {1}]")]
         public static void addWeaponPool(string weaponName, int count) { throw new NotImplementedException(); }
 
+
         [InlineMethod("player")]
-        public static IUnit player { get { throw new NotImplementedException(); } }
+        public static IUnit player
+        {
+            [InlineMethod("player")]
+            get { throw new NotImplementedException(); }
+        }
 
         [InlineMethod("agent {0}")]
         public static IUnit agent(IObject teamMember) { throw new NotImplementedException(); }
@@ -129,6 +134,10 @@ namespace Arma2.Script.Language
         public static IUnit[] allUnits() { throw new NotImplementedException(); }
 
         [InlineMethod("time")]
-        public static double time { get { throw new NotImplementedException(); } }
+        public static double time
+        {
+            [InlineMethod("time")]
+            get { throw new NotImplementedException(); }
+        }
     }
 }

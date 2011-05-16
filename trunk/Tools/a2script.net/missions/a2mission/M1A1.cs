@@ -63,7 +63,8 @@ namespace a2mission
             : base(maxSpeed, maxHeight)
         {
             IUnitGroup group = null;
-            group.addWaypoint(new double[] { 0, 0, 0 }, 50);
+            var pos111 = new double[] {1, 1, 1, 1, 1, 1, 1, 0};
+            group.addWaypoint(pos111, 50);
 
  
 
