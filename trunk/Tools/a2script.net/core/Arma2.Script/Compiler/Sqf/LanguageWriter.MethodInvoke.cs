@@ -13,52 +13,17 @@ namespace Arma2.Script.Compiler.Sqf
             if (VisitorFactory.BaseVisitor.WriteMethodInvokeExpression(expression, this, formatter))
                 return;
 
-            var methodReferenceExpression = expression.Method as IMethodReferenceExpression;
-            var method = (methodReferenceExpression != null) ? methodReferenceExpression.Method.Resolve() : null;
+            var refMethod = expression.Method as IMethodReferenceExpression;
+            var method = (refMethod != null) ? Helper.ResolveMethod(refMethod.Method) : null;
 
-            if (method == null)
-                method = null;
-
-
-            ICustomAttribute inlineAttribute = (method != null) ? Helper.GetInlineAttribute(method.Attributes) : null;
-            var baseMethod = method;
-            while(inlineAttribute == null && baseMethod != null)
-            {
-                baseMethod = Helper.GetBaseMethod(baseMethod);
-                if (baseMethod != null)
-                {
-                    baseMethod = baseMethod.Resolve();
-                    inlineAttribute = Helper.GetInlineAttribute(baseMethod.Attributes);
-                }
-            }
-
-            if (inlineAttribute != null)
-            {
-                string text = (string)((ILiteralExpression) inlineAttribute.Arguments[0]).Value;
-
-                var expressions = expression.Arguments.Cast<IExpression>().ToList();
-                if (!method.Static)
-                    expressions.Insert(0, methodReferenceExpression.Target);
-
-                var args = expressions.Select(exp =>
-                {
-                    TextFormatter sb = new TextFormatter();
-                    WriteExpression(exp, sb);
-                    return sb.ToString();
-                }).ToArray();
-
-                if (args.Count() > 0)
-                    text = string.Format(text, args);
-
-                formatter.Write(text);
+            if (WriteInlineMethod(method, (refMethod != null) ? refMethod.Target : null, expression.Arguments, formatter))
                 return;
-            }
 
             bool isTargetDelegate1 = false;
 
-            if (methodReferenceExpression != null && methodReferenceExpression.Target is ArgumentReferenceExpression)
+            if (refMethod != null && refMethod.Target is ArgumentReferenceExpression)
             {
-                var argumentRef = ((ArgumentReferenceExpression)methodReferenceExpression.Target);
+                var argumentRef = ((ArgumentReferenceExpression)refMethod.Target);
                 ITypeReference typeRef = argumentRef.Parameter.Resolve().ParameterType as ITypeReference;
 
                 if (Helper.IsDelegate(typeRef))
@@ -70,7 +35,7 @@ namespace Arma2.Script.Compiler.Sqf
             ExpressionCollection arguments = new ExpressionCollection();
             if (!isTargetDelegate1 && method != null && !method.Static)
             {
-                arguments.Add(methodReferenceExpression.Target);
+                arguments.Add(refMethod.Target);
             }
             arguments.AddRange(expression.Arguments);
 
@@ -90,16 +55,16 @@ namespace Arma2.Script.Compiler.Sqf
                 }
             }
 
-            if (methodReferenceExpression != null)
+            if (refMethod != null)
             {
                 if (!isTargetDelegate1)
                 {
-                    WriteMethodReferenceExpression(methodReferenceExpression, formatter);
+                    WriteMethodReferenceExpression(refMethod, formatter);
                 }
                 else
                 {
                     formatter.Write("call ");
-                    WriteExpression(methodReferenceExpression.Target);
+                    WriteExpression(refMethod.Target);
                 }
             }
             else
@@ -110,6 +75,46 @@ namespace Arma2.Script.Compiler.Sqf
                 WriteOptionalSpace();
                 formatter.Write("}");
             }
+        }
+
+        private bool WriteInlineMethod(
+            IMethodDeclaration method, IExpression target, IExpressionCollection arguments, IFormatter formatter)
+        {
+            if (method == null)
+                return false;
+
+            ICustomAttribute inlineAttribute = (method != null) ? Helper.GetInlineAttribute(method.Attributes) : null;
+            var baseMethod = method;
+            while(inlineAttribute == null && baseMethod != null)
+            {
+                baseMethod = Helper.GetBaseMethod(baseMethod);
+                if (baseMethod != null)
+                {
+                    baseMethod = baseMethod.Resolve();
+                    inlineAttribute = Helper.GetInlineAttribute(baseMethod.Attributes);
+                }
+            }
+
+            if (inlineAttribute != null)
+            {
+                string format = (string)((ILiteralExpression)inlineAttribute.Arguments[0]).Value;
+
+                var expressions = arguments.Cast<IExpression>().ToList();
+                if (!method.Static && target != null)
+                    expressions.Insert(0, target);
+
+                var args = expressions.Select(exp =>
+                {
+                    TextFormatter sb = new TextFormatter();
+                    WriteExpression(exp, sb);
+                    return sb.ToString();
+                }).ToArray();
+
+                string text = (args.Count() > 0) ? string.Format(format, args) : format;
+                formatter.Write(text);
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -21,8 +21,8 @@ namespace Arma2.Script.Compiler.Sqf
 
         public void Write(string text)
         {
-            if (text.Contains("WarfareBE_TeamType_Red"))
-                text = "WarfareBE_TeamType_Red";
+            if (text.Contains("Arma2ScriptLanguage_Position"))
+                text = "Arma2ScriptLanguage_Position";
 
             ApplyIndent();
             writer.Write(text);

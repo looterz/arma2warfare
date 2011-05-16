@@ -2121,34 +2121,7 @@ namespace Arma2.Script.Compiler.Sqf
             formatter.Write(")");
         }
 
-        private void WriteObjectCreateExpression(IObjectCreateExpression value, IFormatter formatter)
-        {
-            if (value.Constructor != null)
-            {
-                WriteTypeReference((ITypeReference)value.Type, formatter, GetMethodReferenceDescription(value.Constructor), value.Constructor);
-            }
-            else
-            {
-                WriteType(value.Type, formatter);
-            }
 
-            formatter.Write(".");
-            formatter.WriteKeyword("Create");
-
-            if (value.Arguments.Count > 0)
-            {
-                formatter.Write("(");
-                WriteExpressionList(value.Arguments, formatter);
-                formatter.Write(")");
-            }
-
-            IBlockExpression initializer = value.Initializer;
-            if ((initializer != null) && (initializer.Expressions.Count > 0))
-            {
-                formatter.Write(" ");
-                WriteExpression(initializer, formatter);
-            }
-        }
 
         private void WriteThisReferenceExpression(IThisReferenceExpression expression, IFormatter formatter)
         {

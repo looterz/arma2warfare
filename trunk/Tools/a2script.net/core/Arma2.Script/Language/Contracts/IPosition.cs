@@ -8,7 +8,7 @@ namespace Arma2.Script.Language.Contracts
         {
             [InlineMethod("{0} select 0")]
             get;
-            [InlineMethod("{0} set[0, {1}")]
+            [InlineMethod("{0} set[0, {1}]")]
             set;
         }
 
@@ -16,7 +16,7 @@ namespace Arma2.Script.Language.Contracts
         {
             [InlineMethod("{0} select 1")]
             get;
-            [InlineMethod("{0} set[1, {1}")]
+            [InlineMethod("{0} set[1, {1}]")]
             set;
         }
 
@@ -24,7 +24,7 @@ namespace Arma2.Script.Language.Contracts
         {
             [InlineMethod("{0} select 2")]
             get;
-            [InlineMethod("{0} set[2, {1}")]
+            [InlineMethod("{0} set[2, {1}]")]
             set;
         }
     }
