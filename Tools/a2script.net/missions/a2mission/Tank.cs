@@ -1,4 +1,5 @@
-﻿using Arma2.Script.Language;
+﻿using System;
+using Arma2.Script.Language;
 
 namespace a2mission
 {
@@ -78,6 +79,24 @@ namespace a2mission
         public void SetSpeed()
         {
             _speed = 5;
+        }
+
+        /// <summary>
+        /// Delete Tank
+        /// </summary>
+        public virtual void TryDelete()
+        {
+            try
+            {
+                Delete();
+            }
+            catch (Exception e)
+            {
+                if (e.Message == "Hello")
+                {
+                    _speed = 5;
+                }
+            }
         }
 
         /// <summary>

@@ -3057,6 +3057,8 @@ namespace Arma2.Script.Compiler.Sqf
             if ((statement.Finally != null) && (statement.Finally.Statements.Count > 0) || (statement.CatchClauses.Count > 0))
             {
                 formatter.WriteKeyword("try");
+                WriteOptionalSpace();
+                formatter.Write("{");
                 formatter.WriteLine();
                 formatter.WriteIndent();
             }
@@ -3067,89 +3069,30 @@ namespace Arma2.Script.Compiler.Sqf
             WritePendingOutdent(formatter);
             formatter.WriteLine();
             formatter.WriteOutdent();
+            formatter.Write("}");
+            WriteOptionalSpace();
+
             if (statement.CatchClauses.Count > 0)
             {
-                formatter.WriteKeyword("except");
-                formatter.WriteLine();
-                formatter.WriteIndent();
-                _hasSeparator = true;
                 foreach (ICatchClause catchClause in statement.CatchClauses)
                 {
-                    WriteStatementSeparator(formatter);
-                    formatter.WriteKeyword("on");
-                    var catchType = (ITypeReference)catchClause.Variable.VariableType;
-                    bool hiddenName = (catchClause.Variable.Name.Length == 0);
-                    bool hiddenType = IsType(catchType, "System", "Object");
-
-                    if ((!hiddenName) || (!hiddenType))
-                    {
-                        if (!hiddenName)
-                        {
-                            formatter.Write(" ");
-                            formatter.WriteDeclaration(catchClause.Variable.Name);
-                            formatter.Write(":");
-                        }
-                        formatter.Write(" ");
-                        WriteType(catchClause.Variable.VariableType, formatter);
-                        formatter.Write(" ");
-                        formatter.WriteKeyword("do");
-                        formatter.WriteLine();
-                    }
-
-                    if (catchClause.Condition != null)
-                    {
-                        formatter.Write(" ");
-                        formatter.WriteKeyword("if");
-                        formatter.Write(" ");
-                        WriteExpression(catchClause.Condition, formatter);
-                        formatter.Write(" ");
-                        formatter.WriteKeyword("then");
-                    }
-
-                    if ((catchClause.Body != null) && (catchClause.Body.Statements.Count > 1))
-                    {
-                        formatter.WriteKeyword("begin");
-                        formatter.WriteLine();
-                    }
-                    formatter.WriteIndent();
+                    formatter.WriteKeyword("catch");
+                    WriteOptionalSpace();
+                    formatter.Write("{");
+                    formatter.WriteLine();
+                    formatter.WriteIndent(); 
+                    
+                    catchClause.Variable.Name = "_exception";
                     if (catchClause.Body != null)
                     {
                         WriteStatement(catchClause.Body, formatter);
                     }
-                    if ((catchClause.Body != null) && (catchClause.Body.Statements.Count > 1))
-                    {
-                        WritePendingOutdent(formatter);
-                        formatter.WriteLine();
-                        formatter.WriteOutdent();
-                        formatter.WriteKeyword("end");
-                    }
-                    else
-                    {
-                        MakePendingOutdent();
-                    }
-                }
-            }
 
-            if ((statement.Finally != null) && (statement.Finally.Statements.Count > 0))
-            {
-                formatter.WriteKeyword("finally");
-                formatter.WriteLine();
-                formatter.WriteIndent();
-                if (statement.Finally != null)
-                {
-                    WriteStatement(statement.Finally, formatter);
+                    WritePendingOutdent(formatter);
+                    formatter.WriteLine();
+                    formatter.WriteOutdent();
+                    formatter.Write("};");
                 }
-                WritePendingOutdent(formatter);
-                formatter.WriteLine();
-                formatter.WriteOutdent();
-                formatter.WriteKeyword("end");
-            }
-            if (statement.CatchClauses.Count > 0)
-            {
-                WritePendingOutdent(formatter);
-                formatter.WriteLine();
-                formatter.WriteOutdent();
-                formatter.WriteKeyword("end");
             }
         }
 
