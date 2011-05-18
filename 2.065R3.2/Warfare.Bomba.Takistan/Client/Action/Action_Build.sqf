@@ -1,0 +1,1 @@
+[player,player,2,MCoin,getpos player,_this select 0] ExecVM "Client\Module\CoIn\coin_interface.sqf";

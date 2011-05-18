@@ -1,0 +1,1131 @@
+/*%FSM<COMPILE "D:\game\Arma2Tools\FSM Editor Personal Edition\scriptedFSM.cfg, aiteam">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"Init",0,250,-122.166946,-25.441090,-32.166927,24.558716,0.000000,"Init"};
+item1[] = {"AI",4,218,-121.992767,123.477478,-31.992760,173.477478,0.000000,"AI"};
+item2[] = {"Player",4,218,67.115692,-25.949543,157.115662,24.050507,1.000000,"Player"};
+item3[] = {"End",1,250,329.445679,-26.890308,419.445587,23.109680,0.000000,"End"};
+item4[] = {"_",-1,250,72.283508,-10.420727,72.283508,-5.012115,0.000000,""};
+item5[] = {"Advanced_Init",2,250,-122.169350,254.111176,-32.169357,304.111267,0.000000,"Advanced Init"};
+item6[] = {"Loop",4,218,-121.154266,397.892426,-31.154282,447.892456,0.000000,"Loop"};
+item7[] = {"",7,210,620.625732,720.843689,628.625732,728.843689,0.000000,""};
+item8[] = {"_",8,218,97.766228,548.955078,129.342010,571.690369,0.000000,""};
+item9[] = {"Towns",4,218,231.327728,1126.437988,321.327759,1176.437988,1.000000,"Towns"};
+item10[] = {"Check",2,250,68.492722,398.523865,158.492874,448.523865,0.000000,"Check"};
+item11[] = {"Handle_AI_Mode",2,250,66.429871,700.151428,156.429932,750.151367,0.000000,"Handle" \n "AI Mode"};
+item12[] = {"Handle_Towns",2,250,372.848572,1126.655518,462.848938,1176.655518,0.000000,"Handle Towns"};
+item13[] = {"Auto_Move",4,218,68.640800,839.131470,158.640839,889.131531,1.000000,"Auto Move"};
+item14[] = {"CommandMode",4,218,218.248474,689.607239,315.306946,760.783508,0.000000,"CommandMode"};
+item15[] = {"Handle_Movement",2,250,64.167992,1066.532471,154.167999,1116.533447,0.000000,"Handle" \n "Movement"};
+item16[] = {"Default",4,218,232.747070,1186.705566,322.747070,1236.705566,0.000000,"Default"};
+item17[] = {"_",8,218,551.715088,716.823608,569.048584,732.220459,0.000000,""};
+item18[] = {"_",8,218,564.350647,1043.910522,582.549194,1064.497925,0.000000,""};
+item19[] = {"Independant",2,250,408.025330,699.534668,498.025085,749.534668,0.000000,"Independant"};
+item20[] = {"",7,210,616.632385,1208.109863,624.632385,1216.109863,0.000000,""};
+item21[] = {"Handle_Buildings",2,250,821.847107,700.071533,911.848694,750.071289,0.000000,"Handle Buildings"};
+item22[] = {"Not_Ready",4,218,943.825684,699.528076,1033.825562,749.528198,0.000000,"Not Ready"};
+item23[] = {"Ready",4,218,821.310608,799.217896,911.310486,849.218018,1.000000,"Ready"};
+item24[] = {"Update_Building",2,250,822.049744,935.750244,912.049744,985.750366,0.000000,"Update Building"};
+item25[] = {"_",8,218,1005.339478,948.701172,1028.512207,974.305542,0.000000,""};
+item26[] = {"",7,210,617.389648,1049.427856,625.389648,1057.427856,0.000000,""};
+item27[] = {"",7,210,1138.758789,719.202148,1146.758789,727.202148,0.000000,""};
+item28[] = {"Handle_Vehicles",2,250,1755.917236,698.842896,1845.917236,748.843018,0.000000,"Handle Vehicles"};
+item29[] = {"Not_Ready",4,218,1918.986328,699.121338,2008.986328,749.121338,0.000000,"Not Ready"};
+item30[] = {"Ready",4,218,1755.196045,808.531982,1845.196045,858.531982,0.000000,"Ready"};
+item31[] = {"Update_vehicles",2,250,1752.463623,971.090576,1842.463623,1021.090576,0.000000,"Update vehicles"};
+item32[] = {"",7,210,2068.264404,720.026367,2076.264404,728.026367,0.000000,""};
+item33[] = {"_",8,218,1920.211426,985.259766,1942.425049,1006.318970,0.000000,""};
+item34[] = {"Handle_Purchases",2,250,2632.529297,700.972473,2722.529785,750.972473,0.000000,"Handle" \n "Purchases"};
+item35[] = {"Skip",4,218,2776.640625,698.928955,2866.640625,748.928955,0.000000,"Skip"};
+item36[] = {"Purchase",4,218,2632.417480,794.182678,2722.417480,844.182556,0.000000,"Purchase"};
+item37[] = {"",7,210,2998.749023,720.264954,3006.749023,728.264954,0.000000,""};
+item38[] = {"Handle_Env",2,250,2633.752441,917.541931,2723.752441,967.542175,0.000000,"Handle Env"};
+item39[] = {"Done",2,250,-326.382324,397.279388,-236.382294,447.279388,0.000000,"Done"};
+item40[] = {"Continue",4,218,2633.541016,1031.577148,2723.541016,1081.577393,0.000000,"Continue"};
+item41[] = {"Skip",4,218,2767.760742,916.830566,2857.760742,966.830505,0.000000,"Skip"};
+item42[] = {"Handle_Cargo__Towns",2,250,2223.358154,699.146606,2313.358643,749.146240,0.000000,"Handle Cargo" \n "(Towns)"};
+item43[] = {"Cargos",4,218,2222.769775,815.115601,2312.769775,865.115601,0.000000,"Cargos"};
+item44[] = {"No_Cargos",4,218,2361.927490,699.449707,2451.927490,749.449951,0.000000,"No Cargos"};
+item45[] = {"Handle_Purchase",2,250,2633.665039,1126.910889,2723.665039,1176.910645,0.000000,"Handle" \n "Purchase"};
+item46[] = {"_",8,218,2806.350098,1141.497559,2833.917480,1161.407471,0.000000,""};
+item47[] = {"Update_Cargo",2,250,2223.000732,942.136353,2313.000732,992.136353,0.000000,"Update Cargo"};
+item48[] = {"_",8,218,2392.285889,958.371216,2409.364990,974.346436,0.000000,""};
+item49[] = {"Handle_Move",2,250,371.883667,1064.982422,461.883545,1114.982422,0.000000,"Handle Move"};
+item50[] = {"Move",4,218,230.683929,1064.359863,320.683960,1114.359375,0.000000,"Move"};
+item51[] = {"Patrol",4,218,232.896606,1002.693970,322.896606,1052.694092,0.000000,"Patrol"};
+item52[] = {"Handle_Patrol",2,250,371.889343,1003.558777,461.889404,1053.558594,0.000000,"Handle Patrol"};
+item53[] = {"Defense",4,218,231.814758,941.027893,321.814697,991.027893,0.000000,"Defense"};
+item54[] = {"Handle_Defense",2,250,374.274719,941.049072,464.274231,991.049133,0.000000,"Handle Defense"};
+item55[] = {"Handle_Injured",2,250,1308.100586,698.262329,1398.100586,748.262329,0.000000,"Handle Injured"};
+item56[] = {"Not_Ready",4,218,1464.949951,698.425293,1554.949951,748.425537,0.000000,"Not Ready"};
+item57[] = {"Ready",4,218,1307.714600,814.284668,1397.714355,864.284912,0.000000,"Ready"};
+item58[] = {"Update_Injured",2,250,1308.858154,937.718262,1398.858154,987.718506,0.000000,"Update Injured"};
+item59[] = {"",7,210,1612.394287,719.979492,1620.394287,727.979492,0.000000,""};
+item60[] = {"_",8,218,1503.037354,950.875732,1527.989990,974.262207,0.000000,""};
+item61[] = {"",7,210,2982.141602,1391.170410,2990.141602,1399.170410,0.000000,""};
+item62[] = {"",7,210,-286.941650,1392.353638,-278.941650,1400.353638,0.000000,""};
+item63[] = {"",7,210,2494.318604,720.906494,2502.318604,728.906372,0.000000,""};
+version=1;
+class LayoutItems
+{
+	class Item4
+	{
+		class ItemInfo
+		{
+			FontFace="Arial";
+			FontHeight=10;
+			lStyle=1;
+		};
+	};
+};
+link0[] = {0,1};
+link1[] = {0,2};
+link2[] = {1,5};
+link3[] = {2,3};
+link4[] = {5,6};
+link5[] = {6,10};
+link6[] = {7,21};
+link7[] = {8,11};
+link8[] = {9,12};
+link9[] = {10,2};
+link10[] = {10,8};
+link11[] = {11,13};
+link12[] = {11,14};
+link13[] = {12,18};
+link14[] = {13,15};
+link15[] = {14,19};
+link16[] = {15,9};
+link17[] = {15,16};
+link18[] = {15,50};
+link19[] = {15,51};
+link20[] = {15,53};
+link21[] = {16,20};
+link22[] = {17,7};
+link23[] = {18,26};
+link24[] = {19,17};
+link25[] = {20,26};
+link26[] = {21,22};
+link27[] = {21,23};
+link28[] = {22,27};
+link29[] = {23,24};
+link30[] = {24,25};
+link31[] = {25,27};
+link32[] = {26,7};
+link33[] = {27,55};
+link34[] = {28,29};
+link35[] = {28,30};
+link36[] = {29,32};
+link37[] = {30,31};
+link38[] = {31,33};
+link39[] = {32,42};
+link40[] = {33,32};
+link41[] = {34,35};
+link42[] = {34,36};
+link43[] = {35,37};
+link44[] = {36,38};
+link45[] = {37,61};
+link46[] = {38,40};
+link47[] = {38,41};
+link48[] = {39,6};
+link49[] = {40,45};
+link50[] = {41,37};
+link51[] = {42,43};
+link52[] = {42,44};
+link53[] = {43,47};
+link54[] = {44,63};
+link55[] = {45,46};
+link56[] = {46,37};
+link57[] = {47,48};
+link58[] = {48,63};
+link59[] = {49,18};
+link60[] = {50,49};
+link61[] = {51,52};
+link62[] = {52,18};
+link63[] = {53,54};
+link64[] = {54,18};
+link65[] = {55,56};
+link66[] = {55,57};
+link67[] = {56,59};
+link68[] = {57,58};
+link69[] = {58,60};
+link70[] = {59,28};
+link71[] = {60,59};
+link72[] = {61,62};
+link73[] = {62,39};
+link74[] = {63,34};
+globals[] = {0.000000,0,0,0,0,640,480,1,110,6316128,1,-507.804932,3191.399170,2418.657715,-1219.402588,847,833,1};
+window[] = {2,-1,-1,-1,-1,862,125,1417,125,3,865};
+*//*%FSM</HEAD>*/
+class FSM
+{
+  fsmName = "aiteam";
+  class States
+  {
+    /*%FSM<STATE "Init">*/
+    class Init
+    {
+      name = "Init";
+      init = /*%FSM<STATEINIT""">*/"_team = _this select 0;" \n
+       "_lastPos = position (leader _team);" \n
+       "format[""AITEAM.FSM: Team %1 Init"", _team] call LogInform;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Player">*/
+        class Player
+        {
+          priority = 1.000000;
+          to="End";
+          precondition = /*%FSM<CONDPRECONDITION""">*/"format[""AITEAM.FSM: Team %1 IsPlayer"", _team] call LogInform;"/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"isPlayer leader _team || isNull _team || gameOver"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "AI">*/
+        class AI
+        {
+          priority = 0.000000;
+          to="Advanced_Init";
+          precondition = /*%FSM<CONDPRECONDITION""">*/"format[""AITEAM.FSM: Team %1 IsAI"", _team] call LogInform;"/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!(isPlayer Leader _team)"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "End">*/
+    class End
+    {
+      name = "End";
+      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: EndFSM team:%1"", _team] call LogInform;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Advanced_Init">*/
+    class Advanced_Init
+    {
+      name = "Advanced_Init";
+      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 AdvancedInit"", _team] call LogInform;" \n
+       "" \n
+       "_side = side _team;" \n
+       "_sideText = str _side;" \n
+       "_sideID = (_side) Call GetSideID;" \n
+       "" \n
+       "" \n
+       "_cargos = [];" \n
+       "" \n
+       "_ccInRange = false;" \n
+       "_ccr = 'WFBE_COMMANDCENTERRANGE' Call GetNamespace;" \n
+       "_defenseTime = -120;" \n
+       "_dr = 'WFBE_DEFENSEMANRANGE' Call GetNamespace;" \n
+       "_lastBuyType = -1;" \n
+       "_lastCheckBuilding = -200;" \n
+       "_lastCheckInjured = -200;" \n
+       "_lastCheckVehicles = -200;" \n
+       "_lastCheck = -100;" \n
+       "_lastCoord = [0,0,0];" \n
+       "_mbu = 'WFBE_MAXGROUPSIZEAI' Call GetNamespace;" \n
+       "_minCheckArray = [800,1600,3200,6400];" \n
+       "_moveAtRunning = false;" \n
+       "_moveAtLast = objNull;" \n
+       "_moveAt = objNull;" \n
+       "_pur = 'WFBE_PURCHASEUNITSRANGE' Call GetNamespace;" \n
+       "_purchaseTime = 0;" \n
+       "_pr = 'WFBE_PATROLRANGE' Call GetNamespace;" \n
+       "_templates = Format [""WFBE_%1AITEAMTEMPLATES"",_sideText] Call GetNamespace;" \n
+       "_templatesRequire =  Format [""WFBE_%1AITEAMTEMPLATEREQUIRES"",_sideText] Call GetNamespace;" \n
+       "_templatesUpgrade = Format [""WFBE_%1AITEAMUPGRADES"",_sideText] Call GetNamespace;" \n
+       "_upgradeLevel = -1;" \n
+       "" \n
+       "_buyType = (_team) Call GetTeamType;" \n
+       "if (_buyType == -1) then {" \n
+       "	_index = round(random(count(_templates) - 1));" \n
+       "	_teamType = _templates select _index;" \n
+       "	_teamRequire = _templatesRequire select _index;" \n
+       "	[_team,_index] Call SetTeamType;" \n
+       "};" \n
+       "" \n
+       "(leader _team) removeAllEventHandlers ""killed"";" \n
+       "Call Compile Format [""(leader _team) addEventHandler ['Killed',{[_this select 0,_this select 1,%1] Spawn UnitKilled; (group (_this select 0)) spawn AISquadRespawn;}]"",_side];" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Loop">*/
+        class Loop
+        {
+          priority = 0.000000;
+          to="Check";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastCheck > (14 + random 1);"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Check">*/
+    class Check
+    {
+      name = "Check";
+      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Check"", _team] call LogInform;" \n
+       "_lastCheck = time;" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Player">*/
+        class Player
+        {
+          priority = 1.000000;
+          to="End";
+          precondition = /*%FSM<CONDPRECONDITION""">*/"format[""AITEAM.FSM: Team %1 IsPlayer"", _team] call LogInform;"/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"isPlayer leader _team || isNull _team || gameOver"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "_">*/
+        class _
+        {
+          priority = 0.000000;
+          to="Handle_AI_Mode";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Handle_AI_Mode">*/
+    class Handle_AI_Mode
+    {
+      name = "Handle_AI_Mode";
+      init = /*%FSM<STATEINIT""">*/"_commandMode = _team Call GetTeamAutonomous;" \n
+       "" \n
+       "format[""AITEAM.FSM: Team %1 Handle AIMode:%2"", _team, _commandMode] call LogInform;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Auto_Move">*/
+        class Auto_Move
+        {
+          priority = 1.000000;
+          to="Handle_Movement";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!_commandMode"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "CommandMode">*/
+        class CommandMode
+        {
+          priority = 0.000000;
+          to="Independant";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_commandMode"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_commandMode"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Handle_Towns">*/
+    class Handle_Towns
+    {
+      name = "Handle_Towns";
+      init = /*%FSM<STATEINIT""">*/"if !(isNull _moveAt) then {" \n
+       "	_tsideID = _moveAt getVariable 'sideID';" \n
+       "	if ((leader _team) distance _moveAt < 40 || _tsideID == _sideID) then {" \n
+       "		if (_tsideID == _sideID) then {" \n
+       "			_moveAtLast = _moveAt;" \n
+       "			_moveAt = objNull;" \n
+       "			_moveAtRunning = false;" \n
+       "		};" \n
+       "	};" \n
+       "};" \n
+       "" \n
+       "if (isNull _moveAt) then {" \n
+       "	_moveAt = [leader _team, _sideID] Call GetClosestLocationBySide;" \n
+       "	_cargos = [];" \n
+       "};" \n
+       "" \n
+       "if (!isNull _moveAtLast && !isNull _moveAt) then {" \n
+       "	_tlsideID = _moveAtLast getVariable 'sideID';" \n
+       "	if (_tlsideID != _sideID && ((leader _team) distance _moveAt > (leader _team) distance _moveAtLast)) then {" \n
+       "		_moveAtLast = _moveAt;" \n
+       "		_moveAt = objNull;" \n
+       "		_moveAtRunning = false;" \n
+       "	};" \n
+       "};" \n
+       "" \n
+       "if (!isNull _moveAt && !_moveAtRunning) then {" \n
+       "	_rPos = [_moveAt, 100, 350] Call GetRandomPositionEx;" \n
+       "	_update = (_team) Call CanUpdateTeam;" \n
+       "	if (_update) then {_team Call UpdateTeam};" \n
+       "	[_team,true,[[_rPos, 'MOVE', 40, 20]]] Call AIWPAdd;" \n
+       "	[_team,false,[[_moveAt, 'MOVE', 35, 20]]] Call AIWPAdd;" \n
+       "	_moveAtRunning = true;" \n
+       "};"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "_">*/
+        class _
+        {
+          priority = 0.000000;
+          to="Handle_Buildings";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Handle_Movement">*/
+    class Handle_Movement
+    {
+      name = "Handle_Movement";
+      init = /*%FSM<STATEINIT""">*/"_moveMode = _team Call GetTeamMoveMode;" \n
+       "format[""AITEAM.FSM: Team %1 Handle movement %2"", _team, _moveMode] call LogInform;" \n
+       "" \n
+       "if (  ((leader _team) distance _lastPos) < 1) then {" \n
+       "	_moveAtRunning = false;		// fix units stayed at base after respawn" \n
+       "};" \n
+       "_lastPos = position (leader _team);"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Towns">*/
+        class Towns
+        {
+          priority = 1.000000;
+          to="Handle_Towns";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_moveMode == 'towns'"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Move">*/
+        class Move
+        {
+          priority = 0.000000;
+          to="Handle_Move";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_moveMode == 'move'"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Patrol">*/
+        class Patrol
+        {
+          priority = 0.000000;
+          to="Handle_Patrol";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_moveMode == 'patrol'"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Defense">*/
+        class Defense
+        {
+          priority = 0.000000;
+          to="Handle_Defense";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_moveMode == 'defense'"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Default">*/
+        class Default
+        {
+          priority = 0.000000;
+          to="Handle_Buildings";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_moveMode == """""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Independant">*/
+    class Independant
+    {
+      name = "Independant";
+      init = /*%FSM<STATEINIT""">*/"_moveAt = objNull;" \n
+       "_moveAtLast = objNull;" \n
+       "_moveAtRunning = false;" \n
+       "" \n
+       "format[""AITEAM.FSM: Team %1 Independant move"", _team] call LogInform;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "_">*/
+        class _
+        {
+          priority = 0.000000;
+          to="Handle_Buildings";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Handle_Buildings">*/
+    class Handle_Buildings
+    {
+      name = "Handle_Buildings";
+      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Handle Buildings"", _team] call LogInform;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Ready">*/
+        class Ready
+        {
+          priority = 1.000000;
+          to="Update_Building";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastCheckBuilding >= 29"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Not_Ready">*/
+        class Not_Ready
+        {
+          priority = 0.000000;
+          to="Handle_Injured";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastCheckBuilding < 29"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Update_Building">*/
+    class Update_Building
+    {
+      name = "Update_Building";
+      init = /*%FSM<STATEINIT""">*/"_lastCheckBuilding = time;" \n
+       "" \n
+       "_purchaseRange = if (_ccInRange) then {_ccr} else {_pur};" \n
+       "_buildings = (_sideText) Call GetSideStructures;" \n
+       "" \n
+       "_check = ['BARRACKSTYPE',_buildings,_purchaseRange,_side,leader _team] Call BuildingInRange;" \n
+       "_barrack = _check select 0;" \n
+       "_barracksInRange = _check select 1;" \n
+       "" \n
+       "_check = ['LIGHTTYPE',_buildings,_purchaseRange,_side,leader _team] Call BuildingInRange;" \n
+       "_light = _check select 0;" \n
+       "_lightInRange = _check select 1;" \n
+       "" \n
+       "_check = ['HEAVYTYPE',_buildings,_purchaseRange,_side,leader _team] Call BuildingInRange;" \n
+       "_heavy = _check select 0;" \n
+       "_heavyInRange = _check select 1;" \n
+       "" \n
+       "_check = ['AIRCRAFTTYPE',_buildings,_purchaseRange,_side,leader _team] Call BuildingInRange;" \n
+       "_air = _check select 0;" \n
+       "_airInRange = _check select 1;" \n
+       "" \n
+       "_check = ['COMMANDCENTERTYPE',_buildings,_ccr,_side,leader _team] Call BuildingInRange;" \n
+       "_ccInRange = _check select 1;" \n
+       "" \n
+       "_buildingArray = [_barrack,_light,_heavy,_air];"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "_">*/
+        class _
+        {
+          priority = 0.000000;
+          to="Handle_Injured";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Handle_Vehicles">*/
+    class Handle_Vehicles
+    {
+      name = "Handle_Vehicles";
+      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Handle Vehicles"", _team] call LogInform;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Ready">*/
+        class Ready
+        {
+          priority = 0.000000;
+          to="Update_vehicles";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastCheckVehicles >= 119"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Not_Ready">*/
+        class Not_Ready
+        {
+          priority = 0.000000;
+          to="Handle_Cargo__Towns";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastCheckVehicles < 119"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Update_vehicles">*/
+    class Update_vehicles
+    {
+      name = "Update_vehicles";
+      init = /*%FSM<STATEINIT""">*/"_lastCheckVehicles = time;" \n
+       "" \n
+       "_vehicles = [_team, false] Call GetTeamVehicles;" \n
+       "" \n
+       "{" \n
+       "	if (canMove _x) then {" \n
+       "		if (_moveMode != 'towns') then {" \n
+       "			_team addVehicle _x;" \n
+       "			(units _team) allowGetIn true;" \n
+       "			(units _team) orderGetIn true;" \n
+       "		} else {" \n
+       "			if !(_x in _cargos) then {_team addVehicle _x; (units _team) allowGetIn true;(units _team) orderGetIn true};" \n
+       "		};" \n
+       "		_cargo = (crew _x) - [driver _x, gunner _x, commander _x];" \n
+       "		if ((_x emptyPositions 'cargo' != 0 || count _cargo != 0) && !(_x in _cargos)) then {" \n
+       "			_cargos = _cargos + [_x];" \n
+       "		};" \n
+       "		if (leader _team == vehicle leader _team && _x distance (leader _team) < 150 && _x emptyPositions 'cargo' == 0) then {" \n
+       "			(driver _x) setDammage 1;" \n
+       "			[leader _team] orderGetIn true;" \n
+       "			(leader _team) assignAsDriver _x;" \n
+       "			(leader _team) moveInDriver _x;" \n
+       "		};" \n
+       "	} else {" \n
+       "		if (((vectorUp _x) select 2) < 0) then {" \n
+       "			_x setPos (getPos _x);" \n
+       "			_x setVelocity [0,0,-1];" \n
+       "		} else {" \n
+       "			_team leaveVehicle _x;" \n
+       "			if (_x in _cargos) then {" \n
+       "				_cargos = _cargos - [_x];" \n
+       "			};" \n
+       "		};" \n
+       "	};" \n
+       "} forEach _vehicles;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "_">*/
+        class _
+        {
+          priority = 0.000000;
+          to="Handle_Cargo__Towns";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Handle_Purchases">*/
+    class Handle_Purchases
+    {
+      name = "Handle_Purchases";
+      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Handle Purchases"", _team] call LogInform;" \n
+       "" \n
+       "_size = Count ((units  _team) Call GetLiveUnits);"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Purchase">*/
+        class Purchase
+        {
+          priority = 0.000000;
+          to="Handle_Env";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_size <= _mbu && alive (leader _team)"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Skip">*/
+        class Skip
+        {
+          priority = 0.000000;
+          to="Done";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_size > _mbu"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Handle_Env">*/
+    class Handle_Env
+    {
+      name = "Handle_Env";
+      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Handle Env"", _team] call LogInform;" \n
+       "" \n
+       "_buyType = (_team) Call GetTeamType;" \n
+       "" \n
+       "_teamType = _templates select _buyType;" \n
+       "_teamRequire = _templatesRequire select _buyType;" \n
+       "_teamUpgrade = _templatesUpgrade select _buyType;" \n
+       "" \n
+       "_upgrades = (_sideText) Call GetSideUpgrades;" \n
+       "" \n
+       "_barrackUpLevel = _upgrades select 0;" \n
+       "_lightUpLevel = _upgrades select 1;" \n
+       "_heavyUpLevel = _upgrades select 2;" \n
+       "_airUpLevel = _upgrades select 3;" \n
+       "" \n
+       "_upArray = [_barrackUpLevel,_lightUpLevel,_heavyUpLevel,_airUpLevel];" \n
+       "_funds = _team Call GetTeamFunds;" \n
+       "" \n
+       "_canBuy = true;" \n
+       "for '_i' from 0 to 3 do {" \n
+       "	if ((_upArray select _i) < (_teamUpgrade select _i)) then {" \n
+       "		_canBuy = false;" \n
+       "	} else {" \n
+       "		if (_teamRequire select _i) then {" \n
+       "			if (_funds < (_minCheckArray select _i)) then {" \n
+       "				_canBuy = false;" \n
+       "			};" \n
+       "		};" \n
+       "	};" \n
+       "};"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Skip">*/
+        class Skip
+        {
+          priority = 0.000000;
+          to="Done";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!_canBuy"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Continue">*/
+        class Continue
+        {
+          priority = 0.000000;
+          to="Handle_Purchase";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_canBuy"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Done">*/
+    class Done
+    {
+      name = "Done";
+      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Done"", _team] call LogInform;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Loop">*/
+        class Loop
+        {
+          priority = 0.000000;
+          to="Check";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastCheck > (14 + random 1);"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Handle_Cargo__Towns">*/
+    class Handle_Cargo__Towns
+    {
+      name = "Handle_Cargo__Towns";
+      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Handle Carge"", _team] call LogInform;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "No_Cargos">*/
+        class No_Cargos
+        {
+          priority = 0.000000;
+          to="Handle_Purchases";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"count _cargos == 0 || _moveMode != 'towns'"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Cargos">*/
+        class Cargos
+        {
+          priority = 0.000000;
+          to="Update_Cargo";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"count _cargos != 0 && _moveMode == 'towns'"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Handle_Purchase">*/
+    class Handle_Purchase
+    {
+      name = "Handle_Purchase";
+      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Handle Purchase"", _team] call LogInform;" \n
+       "" \n
+       "_buyType = (_team) Call GetTeamType;" \n
+       "if (_lastBuyType != _buyType) then {" \n
+       "	if (_buyType != -1) then {" \n
+       "		_teamType = _templates select _buyType;" \n
+       "		_teamRequire = _templatesRequire select _buyType;" \n
+       "	};" \n
+       "	_lastBuyType = _buyType;" \n
+       "};" \n
+       "" \n
+       "format[""AITEAM.FSM: Team %1 Handle Purchase, purchaseTime:%2"", _team, _purchaseTime] call LogInform;" \n
+       "format[""AITEAM.FSM: Team %1 Handle Purchase, dT:%2"", _team, (time - _purchaseTime)] call LogInform;" \n
+       "if (time - _purchaseTime > 60) then {" \n
+       "	_purchaseTime = time;" \n
+       "	_needs = [];" \n
+       "	if (_teamRequire select 0) then {_needs = _needs + [_barracksInRange]};" \n
+       "	if (_teamRequire select 1) then {_needs = _needs + [_lightInRange]};" \n
+       "	if (_teamRequire select 2) then {_needs = _needs + [_heavyInRange]};" \n
+       "	if (_teamRequire select 3) then {_needs = _needs + [_airInRange]};" \n
+       "	" \n
+       "	format[""AITEAM.FSM: Team %1 Handle Purchase, Factories Required: %2"", _team, _needs] call LogInform;" \n
+       "	" \n
+       "	_canBuy = true;" \n
+       "	{if (!_x) then {_canBuy = false}} forEach _needs;" \n
+       "	" \n
+       "	format[""AITEAM.FSM: Team %1 Handle Purchase, CanBuy: %2"", _team, _canBuy] call LogInform;" \n
+       "" \n
+       "	if (_canBuy) then {" \n
+       "		_upgrades = (_sideText) Call GetSideUpgrades;" \n
+       "		{" \n
+       "			format[""AITEAM.FSM: Team %1 Handle Purchase, teamType: %2"", _team, _x] call LogInform;" \n
+       "		" \n
+       "			_buyFrom = objNull;" \n
+       "			_kindDetail = _x Call GetNamespace;" \n
+       "			format[""AITEAM.FSM: Team %1 Handle Purchase, kindDetail: %2"", _team, _kindDetail] call LogInform;			" \n
+       "			" \n
+       "			if !(isNil '_kindDetail') then {" \n
+       "				_crews = _kindDetail select QUERYUNITCREW;" \n
+       "				_price = _kindDetail select QUERYUNITPRICE;" \n
+       "				_upgradeRequired = _kindDetail select QUERYUNITUPGRADE;" \n
+       "				_unitType = _kindDetail select QUERYUNITFACTORY;" \n
+       "				switch (_unitType) do {" \n
+       "					case 0: {" \n
+       "						_buyFrom = _barrack;" \n
+       "						_upgradeLevel = 0;" \n
+       "					};" \n
+       "					case 1: {" \n
+       "						_buyFrom = _light;" \n
+       "						_upgradeLevel = 1;" \n
+       "					};" \n
+       "					case 2: {" \n
+       "						_buyFrom = _heavy;" \n
+       "						_upgradeLevel = 2;" \n
+       "					};" \n
+       "					case 3: {" \n
+       "						_buyFrom = _air;" \n
+       "						_upgradeLevel = 2;" \n
+       "					};" \n
+       "				};" \n
+       "				" \n
+       "				format[""AITEAM.FSM: Team %1 Handle Purchase, _buyFrom: %2"", _team, _buyFrom] call LogInform;							" \n
+       "				if !(isNull _buyFrom) then {" \n
+       "					_upgradeStatus = _upgrades select _upgradeLevel;" \n
+       "					_canBuy = _team getVariable ""canOrderUnit"";" \n
+       "					if (isNil ""_canBuy"") then { _canBuy = 1; };" \n
+       "					" \n
+       "					format[""AITEAM.FSM: Team %1 Handle Purchase, canBuy: %2"", _team, _canBuy] call LogInform;							" \n
+       "					format[""AITEAM.FSM: Team %1 Handle Purchase, size: %2 < mbu:%3"", _team, _size, _mbu] call LogInform;							" \n
+       "					format[""AITEAM.FSM: Team %1 Handle Purchase, funds: %2 > price:%3"", _team, _funds, _price] call LogInform;							" \n
+       "					format[""AITEAM.FSM: Team %1 Handle Purchase, upgradeStatus: %2 > upgradeRequired:%3"", _team, _upgradeStatus, _upgradeRequired] call LogInform;							" \n
+       "					" \n
+       "					_mbu1 = _mbu;" \n
+       "					//_mbu1 = if (WF_DEBUG) then { _mbu*100 } else { _mbu };" \n
+       "					//if (WF_DEBUG) then { _canBuy = 1; };" \n
+       "					if ( (_canBuy == 1) &&  (_size < _mbu1) && _funds > _price && _upgradeStatus >= _upgradeRequired) then {" \n
+       "						_vehiSlots = [true,false,false];" \n
+       "						if (!(_x isKindOf ""Man"")) then {" \n
+       "							if (_crews < 3 && _crews != 1) then {" \n
+       "								_vehiSlots = [true,true,false];" \n
+       "							};" \n
+       "							if (_crews > 2) then {" \n
+       "								_vehiSlots = [true,true,true];" \n
+       "							};" \n
+       "						};" \n
+       "						_team setVariable [""canOrderUnit"", 0];" \n
+       "" \n
+       "						_buyRequest = [objNull, _buyFrom, _x, _side, _team, _vehiSlots];" \n
+       "						format[""AITEAM.FSM: Team %1 Handle Purchase, AIBuyUnit: %2"", _team, _buyRequest] call LogInform;							" \n
+       "						" \n
+       "						_buyRequest Spawn AIBuyUnit;" \n
+       "						if (WF_DEBUG) then { price = 0; };" \n
+       "						[_team,-_price] Call ChangeTeamFunds;	" \n
+       "					};" \n
+       "				};" \n
+       "			} else {" \n
+       "				Format [""aiteam.fsm: Element %1 is not defined within the core system"",_x] call LogError;" \n
+       "			};" \n
+       "		} forEach _teamType;" \n
+       "	};" \n
+       "};"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "_">*/
+        class _
+        {
+          priority = 0.000000;
+          to="Done";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Update_Cargo">*/
+    class Update_Cargo
+    {
+      name = "Update_Cargo";
+      init = /*%FSM<STATEINIT""">*/"_temp = _cargos;" \n
+       "" \n
+       "{" \n
+       "	if (!alive _x || isNull _x) then {" \n
+       "		_temp =  _temp - [_x];" \n
+       "	} else {" \n
+       "		if !(isNull _moveAt) then {" \n
+       "			if (_x distance _moveAt < 775) then {" \n
+       "				if (_x isKindOf 'Air') then {" \n
+       "					_x spawn {" \n
+       "						_cargo = (crew _this) - [driver _this, gunner _this, commander _this];" \n
+       "						{" \n
+       "							if (alive _x && _this == vehicle _x && local _x) then {" \n
+       "								unassignVehicle _x;" \n
+       "								[_x] orderGetIn false;" \n
+       "								_x action [""EJECT"", _this];" \n
+       "								[_x] allowGetIn false;" \n
+       "							};" \n
+       "							sleep 1;" \n
+       "						} forEach _cargo;" \n
+       "					};" \n
+       "				} else {" \n
+       "					_cargo = (crew _x) - [driver _x, gunner _x, commander _x];" \n
+       "					{" \n
+       "						if (alive _x && local _x) then {" \n
+       "							[_x] orderGetIn false;" \n
+       "							unassignVehicle _x;" \n
+       "							[_x] allowGetIn false;" \n
+       "						};" \n
+       "					} forEach _cargo;" \n
+       "				};" \n
+       "			};" \n
+       "		};" \n
+       "	};" \n
+       "} forEach _cargos;" \n
+       "" \n
+       "_cargos = _temp;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "_">*/
+        class _
+        {
+          priority = 0.000000;
+          to="Handle_Purchases";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Handle_Move">*/
+    class Handle_Move
+    {
+      name = "Handle_Move";
+      init = /*%FSM<STATEINIT""">*/"_coord = (_team) Call GetTeamMovePos;" \n
+       "if ((_coord select 0 != _lastCoord select 0)&&(_coord select 1 != _lastCoord select 1)) then {" \n
+       "	_lastCoord = _coord;" \n
+       "	_update = (_team) Call CanUpdateTeam;" \n
+       "	if (_update) then {_team Call UpdateTeam};" \n
+       "	[_team,true,[[_coord, 'MOVE', 40, 20]]] Call AIWPAdd;" \n
+       "" \n
+       "	_moveAtLast = _moveAt;" \n
+       "	_moveAt = objNull;" \n
+       "	_moveAtRunning = false;" \n
+       "};"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "_">*/
+        class _
+        {
+          priority = 0.000000;
+          to="Handle_Buildings";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Handle_Patrol">*/
+    class Handle_Patrol
+    {
+      name = "Handle_Patrol";
+      init = /*%FSM<STATEINIT""">*/"_coord = (_team) Call GetTeamMovePos;" \n
+       "if ((_coord select 0 != _lastCoord select 0)&&(_coord select 1 != _lastCoord select 1)) then {" \n
+       "	_lastCoord = _coord;" \n
+       "	[_team,_coord,_pr] Call AIPatrol;" \n
+       "" \n
+       "	_moveAtLast = _moveAt;" \n
+       "	_moveAt = objNull;" \n
+       "	_moveAtRunning = false;" \n
+       "};"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "_">*/
+        class _
+        {
+          priority = 0.000000;
+          to="Handle_Buildings";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Handle_Defense">*/
+    class Handle_Defense
+    {
+      name = "Handle_Defense";
+      init = /*%FSM<STATEINIT""">*/"_coord = (_team) Call GetTeamMovePos;" \n
+       "if ((_coord select 0 != _lastCoord select 0)&&(_coord select 1 != _lastCoord select 1)) then {" \n
+       "	_lastCoord = _coord;" \n
+       "	[_team,_coord,_pr] Call AIPatrol;" \n
+       "" \n
+       "	_moveAtLast = _moveAt;" \n
+       "	_moveAt = objNull;" \n
+       "	_moveAtRunning = false;" \n
+       "};" \n
+       "" \n
+       "if (time - _defenseTime > 60) then {" \n
+       "	_defenseTime = time;" \n
+       "	[units _team,_dr] Call UseStationaryDefense;" \n
+       "};"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "_">*/
+        class _
+        {
+          priority = 0.000000;
+          to="Handle_Buildings";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Handle_Injured">*/
+    class Handle_Injured
+    {
+      name = "Handle_Injured";
+      init = /*%FSM<STATEINIT""">*/"format[""AITEAM.FSM: Team %1 Handle Injured"", _team] call LogInform;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Ready">*/
+        class Ready
+        {
+          priority = 0.000000;
+          to="Update_Injured";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastCheckInjured >= 119"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Not_Ready">*/
+        class Not_Ready
+        {
+          priority = 0.000000;
+          to="Handle_Vehicles";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"time - _lastCheckInjured < 119"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "Update_Injured">*/
+    class Update_Injured
+    {
+      name = "Update_Injured";
+      init = /*%FSM<STATEINIT""">*/"_lastCheckInjured = time;" \n
+       "" \n
+       "_alives = (units  _team) Call GetLiveUnits;" \n
+       "" \n
+       "{" \n
+       "	if (vehicle _x == _x) then {" \n
+       "		if !(canStand _x) then {" \n
+       "			_x playMove ""amovppnemstpsraswrfldnon_healed"";" \n
+       "			_x setDammage 0;" \n
+       "		};" \n
+       "	};" \n
+       "} forEach _alives;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "_">*/
+        class _
+        {
+          priority = 0.000000;
+          to="Handle_Vehicles";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+  };
+  initState="Init";
+  finalStates[] =
+  {
+    "End",
+  };
+};
+/*%FSM</COMPILE>*/
