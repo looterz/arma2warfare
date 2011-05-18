@@ -1,1 +1,0 @@
-[sideJoinedText, clientID] call GetClientFunds;
