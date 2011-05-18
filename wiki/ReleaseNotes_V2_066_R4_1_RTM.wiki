@@ -1,14 +1,33 @@
-#summary Release Notes: Warfare V2.066 R4.1 RTM Bomba Edition
+#summary Release Notes: Warfare V2.066 R4 RTM Bomba Edition
 #labels Featured
 
 = [http://code.google.com/p/arma2warfare/downloads/detail?name=WarfareV2.066.R4.1.Bomba.Edition.zip Warfare V2.066 R4.1 RTM Bomba Edition] =
 Build 486
 
+*Highlights*
+
+ * New: Team notification after commander sold factory
+ * New: Aircrafts can flight out of boundaries, if boundaries are enabled
+ * New: Support Lingor island
+ * New: Mando Missiles
+
+ * Fix AI units not respawned sometimes
+ * Fix Artillery fired before animation completed (set direction)
+ * Fix Marker tracking on map now depend from client FPS (for reduce lags on client machine)
+ * Fix Disabled ability to build factories and defences in stones.
+ * Fix Optimize server scripts, reduce lags
+ * Fix: Sometimes discount prices are not displayed
+ * Fix: Arty different types does not work (work only one arty type).For sample GRAD_RU and GRAD_TK_EP1 - with different camufludge - work only GRAD-RU
+ * Fix: Town patrol: AI units dont patrolled town, stayed at respawn place
+ * Fix: Magazines setted to two slots in Buy Gear Menu
+ * Fix: On Chernarus world, playable units replaced to takistan units, which can use backpacks.
+ * Other bugs and improvements - see beta version wiki pages
+
 Whats new: 
  * BaseHunting restriction within a specified period in the settings (30min, 1h, 1.5h, 2h) 
 - The player has violated the basehunting restriction, die and lose their money. 
 
- * To increase the strength of buildings to 5 times 
+ * Iincreased strength of buildings to 5 times 
  * Changed the mechanism of charging money for the capture of the city 
 For the capture of the city charged the total cash = 500 `*` (last max SV) - the maximum value is reached under the occupation 
 This cash is divided into equal among all players who participated in the capture of the city (including AI) 

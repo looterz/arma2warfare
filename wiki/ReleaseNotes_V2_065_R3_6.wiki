@@ -1,9 +1,0 @@
-#summary Release Notes: Warfare V2.065 R3.6beta Bomba Edition
-#labels ReleaseNotes,Beta
-
-= [http://code.google.com/p/arma2warfare/downloads/detail?name=WarfareV2.065.R3.6b.Bomba.Edition.zip&can=2&q=#makechanges Warfare V2.065 R3.6b Bomba Edition] =
-Build 375
-
-=== Fixed Bugs ==
-
- * Optimize server perfomance, reduce lags
