@@ -1,7 +1,8 @@
-﻿using Arma2.Script.Compiler.Sqf.Attributes;
+﻿using Arma2.Script.Attributes;
 
 namespace Arma2.Script.Language.Contracts
 {
+    [Script]
     public interface IUIMapControl : IUIControl
     {
         [InlineMethod("{0} addEditorObject[{1}, {2}, {3}]")]

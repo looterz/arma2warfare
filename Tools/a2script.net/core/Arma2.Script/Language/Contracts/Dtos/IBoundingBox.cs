@@ -1,4 +1,4 @@
-﻿using Arma2.Script.Compiler.Sqf.Attributes;
+﻿using Arma2.Script.Attributes;
 
 namespace Arma2.Script.Language.Contracts.Dtos
 {

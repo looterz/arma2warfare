@@ -1,9 +1,10 @@
-﻿using Arma2.Script.Language;
-using Arma2.Script.Compiler.Sqf.Attributes;
+﻿using Arma2.Script.Attributes;
+using Arma2.Script.Language;
 using Arma2.Script.Language.Types;
 
 namespace Arma2.Script.Language.Contracts
 {
+    [Script]
     public interface IVehicle : IObject
     {
         [InlineMethod("{0} addBackpackCargo[{1}, {2}]")]

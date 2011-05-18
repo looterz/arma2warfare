@@ -1,8 +1,9 @@
 ﻿using System;
-using Arma2.Script.Compiler.Sqf.Attributes;
+using Arma2.Script.Attributes;
 
 namespace Arma2.Script.Language.Contracts
 {
+    [Script]
     public interface IUnitGroup
     {
         [InlineMethod("{0} addGroupIcon[{1}]")]

@@ -22,30 +22,6 @@ namespace Arma2.Compiler
 
         private static string[] ignoredAssemblies = {"Reflector", "mscorlib", "System.", "Microsoft."};
 
-        private static ITypeDeclaration[] AssemblyLoad(IAssemblyManager assemblyManager, ITranslator translator, string location)
-        {
-            IAssembly assembly1 = assemblyManager.LoadFile(location);
-            IAssembly assembly = translator.TranslateAssembly(assembly1, true);
-
-            List<ITypeDeclaration> types = new List<ITypeDeclaration>();
-
-            foreach (IModule module1 in assembly.Modules)
-            {
-                var module = translator.TranslateModule(module1, true);
-                types.AddRange(module.Types.Cast<ITypeDeclaration>());
-
-                module.AssemblyReferences.Cast<IAssemblyReference>().
-                    ForEach(assemlyRef =>
-                    {
-                        if (ignoredAssemblies.Any(ignoreName => assemlyRef.Name.StartsWith(ignoreName)) == false)
-                        {
-                            types.AddRange(AssemblyLoad(assemblyManager, translator, assemlyRef.Resolve().Location));
-                        }
-                    });
-            }
-            return types.ToArray();
-        }
-
         private static void CompileSqf(string assemblyPath, string outputFolder)
         {
             var serviceProvider = new ApplicationManager(null);
@@ -60,7 +36,7 @@ namespace Arma2.Compiler
             assemblyManager.Resolver = new AssemblyResolver(assemblyManager);
 
             var translator = translatorManager.CreateDisassembler("true", "");
-            ILanguage language = new SqfLanguage();
+            SqfLanguage language = new SqfLanguage();
             var assembly = assemblyManager.LoadFile(assemblyPath);
             var assemblyScript = assemblyManager.LoadFile("Arma2.Script.dll");
 

@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\ScriptAttribute.cs" />
     <Compile Include="Compiler\Sqf\Adapters\SystemExceptionAdapter.cs" />
     <Compile Include="Compiler\Sqf\LanguageWriter.ThrowTryCatch.cs" />
     <Compile Include="Compiler\Sqf\LanguageWriter.ConstructorInvoke.cs" />
