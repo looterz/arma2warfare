@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Arma2.Script.Compiler.Sqf.Attributes;
+using Arma2.Script.Attributes;
 using Reflector.CodeModel;
 
 namespace Arma2.Script.Compiler.Sqf

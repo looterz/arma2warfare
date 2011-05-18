@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Arma2.Script.Compiler.Sqf.Attributes
+namespace Arma2.Script.Attributes
 {
     public class InlineMethodAttribute : Attribute
     {

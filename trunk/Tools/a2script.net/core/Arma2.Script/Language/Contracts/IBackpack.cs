@@ -1,8 +1,9 @@
-﻿using Arma2.Script.Language.Contracts;
-using Arma2.Script.Compiler.Sqf.Attributes;
+﻿using Arma2.Script.Attributes;
+using Arma2.Script.Language.Contracts;
 
 namespace Arma2.Script.Language.Contracts
 {
+    [Script]
     public interface IBackpack
     {
         [InlineMethod("{0} backpackSpaceFor {1}")]

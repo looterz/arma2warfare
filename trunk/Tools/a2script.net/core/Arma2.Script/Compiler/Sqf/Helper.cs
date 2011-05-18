@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Arma2.Script.Compiler.Sqf
 {
-    public sealed partial class Helper
+    public partial class Helper
 	{
 		private Helper()
 		{
@@ -584,10 +584,6 @@ namespace Arma2.Script.Compiler.Sqf
             if (typeReference != null)
             {
                 methodName = GetTypeName(typeReference) + methodName;
-            }
-            else
-            {
-                int a = 0;
             }
             
             methodName = GetGlobalUniqueName(methodName);

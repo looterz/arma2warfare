@@ -1,8 +1,9 @@
-﻿using Arma2.Script.Compiler.Sqf.Attributes;
+﻿using Arma2.Script.Attributes;
 using Arma2.Script.Language.Types;
 
 namespace Arma2.Script.Language.Contracts
 {
+    [Script]
     public interface IUnit : IObject
     {
         [InlineMethod("{0} action[{1}, {2}]")]

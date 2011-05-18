@@ -1,11 +1,12 @@
 ﻿using System;
-using Arma2.Script.Compiler.Sqf.Attributes;
+using Arma2.Script.Attributes;
 using Arma2.Script.Language.Contracts.Dtos;
 
 namespace Arma2.Script.Language.Contracts
 {
     public delegate void EventHandler();
 
+    [Script]
     public interface IObject
     {
         [InlineMethod("{0} addEventHandler[{1}, {2}]")]

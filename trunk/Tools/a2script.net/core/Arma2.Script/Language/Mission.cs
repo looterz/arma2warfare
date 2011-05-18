@@ -1,5 +1,5 @@
 ﻿using System;
-using Arma2.Script.Compiler.Sqf.Attributes;
+using Arma2.Script.Attributes;
 using Arma2.Script.Language.Contracts;
 using Arma2.Script.Language.Types;
 
