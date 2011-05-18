@@ -65,7 +65,10 @@ namespace a2mission
         {
             IUnitGroup group = null;
             var pos111 = new double[] {1, 1, 1, 1, 1, 1, 1, 0};
-            group.addWaypoint(new Position(1, 1, 1), 50);
+
+            var pos1 = pos111.Where(m => m != 0).ToArray();
+
+            group.addWaypoint(new Position(pos1[1], 1, 1), 50);
 
             IObject obj = null;
 
