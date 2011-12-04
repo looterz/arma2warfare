@@ -55,7 +55,7 @@ private['_defenceRange', '_nearTowns', '_closest', '_supply'];
 	};
 	
 	defenceGetSupplyObjectResult = _supply;
-	defenceGetSupplyObjectTimeout = if (isNull defenceGetSupplyObjectResult) then { time + 5 } else { time + 1 };	
+	defenceGetSupplyObjectTimeout = if (isNull defenceGetSupplyObjectResult) then { time + 10 } else { time + 5 };	
 	_supply;
 };
 
@@ -134,7 +134,7 @@ DefenceConditionBuy = {
 
 		if (defenceBuyContitionTimeout < time) then {
 				defenceBuyContitionState = (call DefenceConditionBuyInternal);
-				defenceBuyContitionTimeout = if (defenceBuyContitionState) then { time + 0.5 } else { time + 5 };
+				defenceBuyContitionTimeout = if (defenceBuyContitionState) then { time + 5 } else { time + 10 };
 		};
 		defenceBuyContitionState;
 };
