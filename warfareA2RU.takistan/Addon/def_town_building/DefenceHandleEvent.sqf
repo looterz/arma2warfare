@@ -8,7 +8,7 @@ _defence = _this;
 	};
 	
 	DefenceMarkerIdCounter = DefenceMarkerIdCounter + 1;
-	_markerName = format["defence-%1", DefenceMarkerIdCounter];
+	_markerName = format["defence%1", DefenceMarkerIdCounter];
 
 	createMarkerLocal [_markerName, position _defence];
 	
@@ -22,7 +22,7 @@ _defence = _this;
 	_defence setVariable["LastContact", 0];
 
 	_defence addEventHandler["Fired", {
-		private['_defence', '_lastcontact'];
+		private['_defence', '_lastcontact', '_markerName'];
 
 		_defence = _this select 0;
 		if ((vehicle player) == _defence) exitWith {};
@@ -65,7 +65,7 @@ _defence = _this;
 			_markerName setMarkerAlphaLocal 0.25;
 		};		
 		
-		sleep 5;
+		sleep 15;
 	};
 	
 	deleteMarkerLocal _markerName;

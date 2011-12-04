@@ -1,3 +1,5 @@
+if (!paramRealisticBallistic) exitWith {}
+
 #include "Config_Subsystems.sqf";
 
 System_CurrentGPSightLevel=2;
