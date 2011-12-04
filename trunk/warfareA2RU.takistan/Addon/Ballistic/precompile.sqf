@@ -1,3 +1,5 @@
+if (!paramRealisticBallistic) exitWith {}
+
 #include "Config_Subsystems.sqf";
 
 System_CurrentGPSightLevel=2;
@@ -27,3 +29,5 @@ Func_System_SetPitchBank = compile preprocessFile "Addon\Ballistic\Func_System_S
 	} forEach System_BallisticMissileTypes;
 	//End missile ballistics data	
 };
+
+diag_log "Addon::Ballistic Enabled";

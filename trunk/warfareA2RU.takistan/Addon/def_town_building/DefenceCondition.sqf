@@ -236,6 +236,8 @@ DefenceConditionBuyInternal = {
 
 /// Продажа сооружения
 DefenceConditionSellInternal = {
+private['_defence', '_defenceType'];
+
 	statDefenceSell = statDefenceSell + 1;
 
 	if (!(isNull (player getVariable "DefenceTaken"))) exitWith { false; };
@@ -279,6 +281,7 @@ DefenceConditionCancelInternal = {
 
 /// Условие для разрешения перемещения объекта  
 DefenceConditionTakeInternal = {
+private['_defence', '_defenceType', '_defenceInfo'];
 	statDefenceTake = statDefenceTake+1;
 
 	if (!(isNull (player getVariable "DefenceTaken"))) exitWith { false; };
@@ -303,6 +306,7 @@ DefenceConditionTakeInternal = {
 
 /// Условие для возможности положить объект
 DefenceConditionDropInternal = {
+private['_taken', '_defenceType'];
 	statDefenceDrop = statDefenceDrop+1;
 
   if ((isNull (player getVariable "DefenceTaken"))) exitWith { false; }; 
