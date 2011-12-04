@@ -107,8 +107,9 @@ paramDefenseCollide = true;
 paramKeepCamps = true;
 paramUseWorkers = false;
 paramMoneyOnly = false;
-paramHandWeaponBallistic = false;
+paramHandWeaponBallistic = true;
 paramTownStaticDefences = true;
+missionNamespace setVariable ['WFBE_TOWNSTARTINGMODE', 2];
 
 //--- Multiplayers Parameter, the order it the same as Parameters.hpp
 if !(isNil "paramsArray") then {

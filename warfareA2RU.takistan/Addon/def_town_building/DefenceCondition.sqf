@@ -112,7 +112,7 @@ statDefenceDrop = 0;
 
 DefencePrintStats = {
 private['_txt'];	
-	_txt = "";
+	_txt = format["time=%1; ", time];
 	_txt = _txt + format["Buy=%1; ", statDefenceBuy];
 	_txt = _txt + format["Sell=%1; ", statDefenceSell];
 	_txt = _txt + format["Place=%1; ", statDefencePlace];
