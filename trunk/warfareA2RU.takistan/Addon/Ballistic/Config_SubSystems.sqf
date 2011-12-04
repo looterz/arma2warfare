@@ -1,0 +1,4 @@
+System_BallisticMissileTypes=[["R_SMAW_HEAA",230,0.5,1.2,1.6,2.1],["R_SMAW_HEDP",230,0.5,1.2,1.6,2.1],["R_MEEWS_HEAT",175,0.9,1.5,1.9,2.5],["R_MEEWS_HEDP",175,0.9,1.5,1.9,2.5],["R_M136_AT",195,0.8,1.3,1.8,2.3],["R_RPG18_AT",210,0.8,1.3,1.7,2.2],["R_PG7V_AT",200,1.0,1.2,1.9,2.5],["R_PG7VL_AT",200,1.0,1.2,1.9,2.5],["R_PG7VR_AT",150,1.2,1.9,2.5,3.2],["R_OG7_AT",200,1.0,1.2,1.9,2.5]];
+System_BallisticGrenadeTypes=["G_40mm_HE","G_40mm_SmokeYellow","G_40mm_SmokeGreen","G_40mm_SmokeRed","G_40mm_Smoke"];
+System_BallisticGrenadeAngles=[[50,-5.5],[100,-3],[150,0],[200,4],[250,8],[300,12]];	
+System_GrenadeLauncherMuzzles=["GP25Muzzle","M203Muzzle","XM320Muzzle","EGLMMuzzle","BAF_L17_40mm"];
