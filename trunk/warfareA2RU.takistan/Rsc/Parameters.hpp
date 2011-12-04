@@ -680,11 +680,5 @@ class Params {
 		values[] = {0,1};
 		texts[] = {"$STR_WF_PARAMETER_No","$STR_WF_PARAMETER_Yes"};
 		default = 1;
-	};
-	class enableTownConstruction {
-		title = "GAMEPLAY: Construction Static Defences at Towns";
-		values[] = {0,1};
-		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-		default = 1;
-	};	
+	}
 };
