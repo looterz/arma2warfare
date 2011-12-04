@@ -1,4 +1,4 @@
-﻿if (!paramTownDefenceConstruction) exitWith {};
+﻿if (!paramTownStaticDefences) exitWith {};
 
 // execVM "Addon\def_town_building\init.sqf"
 

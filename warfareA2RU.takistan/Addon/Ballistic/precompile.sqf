@@ -1,4 +1,4 @@
-if (!paramRealisticBallistic) exitWith {};
+if (!paramHandWeaponBallistic) exitWith {};
 
 #include "Config_Subsystems.sqf";
 
