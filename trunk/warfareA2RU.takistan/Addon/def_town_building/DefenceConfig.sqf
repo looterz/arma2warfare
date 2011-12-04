@@ -25,7 +25,7 @@ WF_DefenceTypeList = [
      ["2b14_82mm_TK_EP1"       		 , 10, 1   , 1200 ,  0.0 , "", "y",   0.25, _WEAPON, _SIDE_EAST, -1 ],
 	 ["Metis_TK_EP1"	       		 , 10, 1   , 1225 ,  0.0 , "", "y",   0.25, _WEAPON, _SIDE_EAST,  5 ],
 	 ["Igla_AA_pod_TK_EP1"	       	 , 10, 1   , 1225 ,  0.0 , "", "y",   0.25, _WEAPON, _SIDE_EAST,  5 ],
-	                                                            
+	
      ["M2StaticMG_US_EP1"            , 10, 1   ,  250 , -0.1 , "", "y", 0.00,   _WEAPON, _SIDE_WEST, -1 ],
      ["M2HD_mini_TriPod_US_EP1"      , 10, 1   ,  250 , -0.1 , "", "y", 0.00,   _WEAPON, _SIDE_WEST, -1 ],
      ["MK19_TriPod_US_EP1"           , 10, 1   , 1100 , -0.1 , "", "y", 0.00,   _WEAPON, _SIDE_WEST, -1 ],
@@ -37,10 +37,10 @@ WF_DefenceTypeList = [
 	 ["RU_WarfareBMGNest_PK",          10, 3   ,  250,   0.0 , "", "y",   2.50, _WEAPON, _SIDE_EAST, 0.5 ],
 	 ["Land_Ind_IlluminantTower"     , 10, 3   , 1100,   0.0 , "", "y",   0.0,  _STRUCT, _SIDE_BOTH, 0.5 ],
      ["Fort_Barricade"               , 30, 3   , 100 , 0.00 ,  "", "n", 0.00,   _STRUCT, _SIDE_BOTH, 0.5 ],
-     ["Fort_RazorWire"               , 20, 2   ,  30 , 0.00 ,  "", "n", 0.00,   _STRUCT, _SIDE_BOTH,  -1 ],	 
+     ["Fort_RazorWire"               , 20, 2   ,  30 , 0.00 ,  "", "n", 0.00,   _STRUCT, _SIDE_BOTH, -1 ],	 
      ["Hedgehog"                     , 20, 2   ,  50 , 0.00 ,  "", "n", 0.00,   _STRUCT, _SIDE_BOTH, 0.5 ],
-     ["Land_BagFenceLong"            , 5 , 1   ,  30 , 0.00 ,  "", "y", 0.00,   _STRUCT, _SIDE_BOTH,  -1 ],
-     ["Land_BagFenceShort"           , 5 , 1   ,  15 , 0.00 ,  "", "y", 0.00,   _STRUCT, _SIDE_BOTH,  -1 ],
+     ["Land_BagFenceLong"            , 5 , 1   ,  30 , 0.00 ,  "", "y", 0.00,   _STRUCT, _SIDE_BOTH, -1 ],
+     ["Land_BagFenceShort"           , 5 , 1   ,  15 , 0.00 ,  "", "y", 0.00,   _STRUCT, _SIDE_BOTH, -1 ],
      ["Fort_EnvelopeBig"             , 10, 1   ,  50 , 0.15 ,  "", "n", 0.00,   _STRUCT, _SIDE_BOTH, 0.5 ],
      ["Fort_EnvelopeSmall"           , 10, 1   ,  25 , 0.15 ,  "", "n", 0.00,   _STRUCT, _SIDE_BOTH, 0.5 ]
 ];
