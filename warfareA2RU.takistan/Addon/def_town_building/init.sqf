@@ -1,4 +1,6 @@
-﻿// execVM "Addon\def_town_building\init.sqf"
+﻿if (!paramTownDefenceConstruction) exitWith {}
+
+// execVM "Addon\def_town_building\init.sqf"
 
 DefenceAddonPath = "Addon\def_town_building\";		// Путь
 
@@ -69,3 +71,5 @@ DefenceMarkerIdCounter = 0;
 		sleep 0.5;
 	};
 };
+
+diag_log "Addon::DefTownBuilding Enabled";

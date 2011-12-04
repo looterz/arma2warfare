@@ -107,8 +107,6 @@ paramDefenseCollide = true;
 paramKeepCamps = true;
 paramUseWorkers = false;
 paramMoneyOnly = false;
-paramRealisticBallistic = false
-paramTownDefenceConstruction = true;
 
 //--- Multiplayers Parameter, the order it the same as Parameters.hpp
 if !(isNil "paramsArray") then {
@@ -220,8 +218,6 @@ if !(isNil "paramsArray") then {
 	if ((paramsArray select _u) == 0) then {paramResReinf = false} else {paramResReinf = true};_u = _u + 1; //--- Town Resistance Reinforcement.
 	if ((paramsArray select _u) == 0) then {paramResVehLock = false} else {paramResVehLock = true};_u = _u + 1; //--- Town Resistance Vehicles Lock.
 	missionNamespace setVariable ['WFBE_TOWNSTARTINGMODE',(paramsArray select _u)];_u = _u + 1;
-	if ((paramsArray select _u) == 0) then {paramRealisticBallistic = false} else {paramRealisticBallistic = true};_u = _u + 1; //--- Town Defence Construction Menu	
-	if ((paramsArray select _u) == 0) then {paramTownDefenceConstruction = false} else {paramTownDefenceConstruction = true};_u = _u + 1; //--- Town Defence Construction Menu	
 };
 
 //--- Debug.
