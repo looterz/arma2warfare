@@ -1,6 +1,4 @@
-﻿if (!paramTownDefenceConstruction) exitWith {}
-
-// execVM "Addon\def_town_building\init.sqf"
+﻿// execVM "Addon\def_town_building\init.sqf"
 
 DefenceAddonPath = "Addon\def_town_building\";		// Путь
 
@@ -37,24 +35,23 @@ DefencePlayerKilledEH = player addEventHandler["Killed", {
 
 _menuFormat = "<t color='#d67e00'>%1</t>";
 
-_actionId = player addAction [format[_menuFormat, localize "PC_create_object"], DefenceAddonPath+"DefenceActionBuy.sqf" ,  "", 1, false, true, "",  "call DefenceConditionBuy"];
+_actionId = player addAction [format[_menuFormat, localize "PC_create_object"], DefenceAddonPath+"DefenceActionBuy.sqf" ,  "", 1, true, true, "teamSwitchPrev", "call DefenceConditionBuy"];
 DefencePlayerAction = DefencePlayerAction + [_actionId];
-_actionId = player addAction [format[_menuFormat, localize "PC_remove_object"], DefenceAddonPath+"DefenceActionSell.sqf" , "", 1, false, true, "",  "call DefenceConditionSell"];
+_actionId = player addAction [format[_menuFormat, localize "PC_remove_object"], DefenceAddonPath+"DefenceActionSell.sqf" , "", 1, true, true, "teamSwitchPrev", "call DefenceConditionSell"];
 DefencePlayerAction = DefencePlayerAction + [_actionId];
-_actionId = player addAction [format[_menuFormat, localize "PC_set_object"]   , DefenceAddonPath+"DefenceActionPlace.sqf", "", 1, false, true, "",  "call DefenceConditionPlace"];
+_actionId = player addAction [format[_menuFormat, localize "PC_set_object"]   , DefenceAddonPath+"DefenceActionPlace.sqf", "", 1, true, true, "teamSwitchPrev", "call DefenceConditionPlace"];
 DefencePlayerAction = DefencePlayerAction + [_actionId];
-_actionId = player addAction [format[_menuFormat, localize "PC_cancel"]       , DefenceAddonPath+"DefenceActionCancel.sqf", "", 1, false, true, "", "call DefenceConditionCancel"];
+_actionId = player addAction [format[_menuFormat, localize "PC_cancel"]       , DefenceAddonPath+"DefenceActionCancel.sqf", "", 1, true, true, "teamSwitchPrev", "call DefenceConditionCancel"];
 DefencePlayerAction = DefencePlayerAction + [_actionId];
-_actionId = player addAction [format[_menuFormat, localize "PC_take_object"]  , DefenceAddonPath+"DefenceActionTake.sqf"  , "", 1, false, true, "", "call DefenceConditionTake"];
+_actionId = player addAction [format[_menuFormat, localize "PC_take_object"]  , DefenceAddonPath+"DefenceActionTake.sqf"  , "", 1, true, true, "teamSwitchPrev", "call DefenceConditionTake"];
 DefencePlayerAction = DefencePlayerAction + [_actionId];
-_actionId = player addAction [format[_menuFormat, localize "PC_set_object"]   , DefenceAddonPath+"DefenceActionDrop.sqf"  , "", 1, false, true, "", "call DefenceConditionDrop"];
+_actionId = player addAction [format[_menuFormat, localize "PC_set_object"]   , DefenceAddonPath+"DefenceActionDrop.sqf"  , "", 1, true, true, "teamSwitchPrev", "call DefenceConditionDrop"];
 DefencePlayerAction = DefencePlayerAction + [_actionId];
 
 DefenceMarkerIdCounter = 0;
 
 [] spawn {
 
-	_timeout = time + 5;
 	while { !gameOver && DefenceActiveScript } do {
 		if (vehicle player != player && !isNull(player getVariable "DefencePreview")) then {
 			execVM DefenceAddonPath + "cancel.sqf";
@@ -63,13 +60,6 @@ DefenceMarkerIdCounter = 0;
 		if (vehicle player != player && !isNull(player getVariable "DefenceTaken")) then {
 			commandGetOut player;
 		};		
-		
-		if (_timeout < time) then {
-			[] call DefencePrintStats;	
-			_timeout = time + 5;			
-		};	
 		sleep 0.5;
 	};
 };
-
-diag_log "Addon::DefTownBuilding Enabled";
