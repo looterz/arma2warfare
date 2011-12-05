@@ -20,7 +20,7 @@ _magazines = [configFile >> 'CfgVehicles' >> typeOf _vehicle] call GetVehicleMag
 reload _vehicle;
 
 /* CM Parameter */
-if (paramCounterMeasures && _vehicle isKindOf 'Air') then {
+if (WF_A2_Vanilla && paramCounterMeasures && _vehicle isKindOf 'Air') then {
 	_amount = if (_vehicle isKindOf 'Plane') then {'WFBE_COUNTERMEASUREPLANES' Call GetNamespace} else {'WFBE_COUNTERMEASURECHOPPERS' Call GetNamespace};
 	_vehicle setVariable ['FlareCount', _amount];
 };
@@ -40,3 +40,5 @@ if (paramEASA) then {
 		if !(isNil '_get') then {[_vehicle,0] Call EASA_Equip};
 	};
 };
+
+[_vehicle, _side] call RearmFlares;

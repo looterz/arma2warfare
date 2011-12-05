@@ -163,7 +163,7 @@ if (_isMan) then {
 		};
 		
 		//--- Countermeasures parameter (Vanilla).
-		if (paramCounterMeasures) then {
+		if (paramCounterMeasures && WF_A2_Vanilla) then {
 			_upgrades = (sideJoinedText) Call GetSideUpgrades;
 			if (_upgrades select 9 > 0) then {_init = _init + "nullReturn = [this] ExecVM 'Client\Module\CM\CM_Init.sqf';this addEventHandler ['incomingMissile',{_this Spawn CM_Countermeasures}];"};
 		};

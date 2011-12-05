@@ -10,7 +10,7 @@ Call Compile Format ["WFBE_%1_Upgrading = true; publicVariable 'WFBE_%1_Upgradin
 
 _upgrades_old = (_sideText) Call GetSideUpgrades;
 
-sleep _time;
+sleep (if (!WF_DEBUG) then {_time} else {1});
 
 _upgrades = (_sideText) Call GetSideUpgrades;
 

@@ -375,14 +375,12 @@ class Params {
 		texts[] = {"200m","500m","800m","1000m","1500m","2000m","2500m","3000m","3500m","4000m","4500m","5000m"};
 		default = 4000;
 	};
-	#ifdef VANILLA
-		class moduleCM {
-			title = "$STR_WF_PARAMETER_Countermeasures";
-			values[] = {0,1};
-			texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
-			default = 0;
-		};
-	#endif
+	class moduleCM {
+		title = "$STR_WF_PARAMETER_Countermeasures";
+		values[] = {0,1};
+		texts[] = {"$STR_WF_Disabled","$STR_WF_Enabled"};
+		default = 1;
+	};
 	class moduleEASA {
 		title = "$STR_WF_PARAMETER_EASA";
 		values[] = {0,1};
