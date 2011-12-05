@@ -54,6 +54,7 @@ if (_veh isKindOf 'Car' || _veh isKindOf 'Motorcycle') then {_refTime = round(_r
 hint parseText(Format[localize "STR_WF_INFO_Refueling",_name,_refTime]);
 
 //--- Make sure that we still have something as a support.
+_refTime = if (WF_DEBUG) then { 1 } else { _refTime };
 _cts = 0;
 _i = 0;
 while {true} do {

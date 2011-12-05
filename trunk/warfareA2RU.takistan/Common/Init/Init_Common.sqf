@@ -68,6 +68,7 @@ if !(WF_A2_Vanilla) then {
 	GetTurretsMags = Compile preprocessFile "Common\Functions\Common_GetTurretsMags.sqf";
 	GetVehicleMags = Compile preprocessFile "Common\Functions\Common_GetVehicleMags.sqf";
 	RearmVehicle = Compile preprocessFile "Common\Functions\Common_RearmVehicleOA.sqf";
+	RearmFlares = Compile preprocessFile "Common\Functions\Common_RearmFlares.sqf";
 	SetTurretsMags = Compile preprocessFile "Common\Functions\Common_SetTurretsMags.sqf";
 } else {
 	RearmVehicle = Compile preprocessFile "Common\Functions\Common_RearmVehicle.sqf";

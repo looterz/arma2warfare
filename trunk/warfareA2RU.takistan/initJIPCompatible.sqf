@@ -63,7 +63,7 @@ mysql = false;
 
 //--- Gameplay variables.
 paramMobileRespawn = true;
-paramBalancing = false;
+paramBalancing = true;
 paramAI = true;
 paramAIcom = true;
 paramRestrictionKamov = false;
@@ -78,7 +78,7 @@ paramGearRespawn = true;
 paramGearRestriction = false;
 paramHangars = true;
 paramAARadar = false;
-paramCounterMeasures = false;
+paramCounterMeasures = true;
 paramVolumClouds = true;
 paramICBM = true;
 paramHighCommand = true;
@@ -184,7 +184,7 @@ if !(isNil "paramsArray") then {
 	if ((paramsArray select _u) == 0) then {paramUpgradesWest = false} else {paramUpgradesWest = true};_u = _u + 1; //--- Upgrades.
 	missionNamespace setVariable ['WFBE_VICTORYCONDITION',(paramsArray select _u)];_u = _u + 1;
 	missionNamespace setVariable ['WFBE_MAXVIEWDISTANCE',(paramsArray select _u)];_u = _u + 1;
-	if (WF_A2_Vanilla) then {if ((paramsArray select _u) == 0) then {paramCounterMeasures = false} else {paramCounterMeasures = true};_u = _u + 1}; //--- Countermeasures.
+	if ((paramsArray select _u) == 0) then {paramCounterMeasures = false} else {paramCounterMeasures = true};_u = _u + 1; //--- Countermeasures.
 	if ((paramsArray select _u) == 0) then {paramEASA = false} else {paramEASA = true};_u = _u + 1; //--- EASA.
 	if ((paramsArray select _u) == 0) then {paramHighCommand = false} else {paramHighCommand = true};_u = _u + 1; //--- High Command.
 	if ((paramsArray select _u) == 0) then {paramICBM = false} else {paramICBM = true};_u = _u + 1; //--- ICBM.
@@ -228,8 +228,8 @@ if !(isNil "paramsArray") then {
 
 //--- Debug.
 if (WF_Debug) then {
-	paramUpgradesEast = false;
-	paramUpgradesWest = false;
+	paramUpgradesEast = true;
+	paramUpgradesWest = true;
 	//paramRes = false;
 	//paramOccup = false;
 };

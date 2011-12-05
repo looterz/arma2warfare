@@ -1,4 +1,4 @@
-Private ["_unit"];
+Private ["_unit", "_isFlareMagazine", "_upgrades" ];
 _unit = _this select 0;
 
 switch (typeOf _unit) do {
@@ -94,3 +94,6 @@ switch (typeOf _unit) do {
         }
     };
 };
+
+[_unit, (side _unit)] call RearmFlares;
+

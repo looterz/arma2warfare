@@ -406,7 +406,7 @@ if (WF_A2_Vanilla) then {
 //--- Special condition.
 ['WFBE_UPGRADECONDITION',[true,true,true,true,true,true,true,true,true,paramCounterMeasures,paramArty,paramICBM,if (('WFBE_FASTTRAVEL' Call GetNamespace) > 0) then {true} else {false},true,true,paramEASA,true,true],true] Call SetNamespace;
 //--- [Supply,Money].
-['WFBE_UPGRADEPRICESLEVEL1',[[300,750],[800,1850],[3600,4000],[5600,11000],[3200,7400],[2500,5600],[1800,6200],[500,1800],[950,2450],[3400,8200],[1200,2950],[50000,80000],[1350,3550],[250,500],[750,2250],[4400,12500],[3250,8800],[2400,4550]],true] Call SetNamespace;
+['WFBE_UPGRADEPRICESLEVEL1',[[300,750],[800,1850],[3600,4000],[5600,11000],[3200,7400],[2500,5600],[1800,6200],[500,1800],[950,2450],[15000,82000],[1200,2950],[50000,80000],[1350,3550],[250,500],[750,2250],[4400,12500],[3250,8800],[2400,4550]],true] Call SetNamespace;
 ['WFBE_UPGRADEPRICESLEVEL2',[[400,1150],[1400,2450],[4500,6750],[7600,16000],[3800,8700],[],[3600,12400],[700,2400],[],[],[1800,4400],[],[],[650,2550],[],[],[],[3500,8500]],true] Call SetNamespace;
 ['WFBE_UPGRADEPRICESLEVEL3',[[500,1620],[1900,3400],[5500,8050],[9500,21250],[4400,9800],[],[],[],[],[],[5000,10500],[],[],[1400,4250],[],[],[],[6200,12000]],true] Call SetNamespace;
 //--- Time required per upgrade.

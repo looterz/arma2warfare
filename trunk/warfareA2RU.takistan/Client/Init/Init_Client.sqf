@@ -24,7 +24,7 @@ if (paramBoundaries) then {
 BuildUnit = Compile preprocessFile "Client\Functions\Client_BuildUnit.sqf";
 ChangePlayerFunds = Compile preprocessFile "Client\Functions\Client_ChangePlayerFunds.sqf";
 CommandChatMessage = Compile preprocessFile "Client\Functions\Client_CommandChatMessage.sqf";
-if (paramCounterMeasures) then {
+if (paramCounterMeasures && WF_A2_Vanilla) then {
 	CM_Countermeasures = Compile preprocessFile "Client\Module\CM\CM_Countermeasures.sqf";
 	CM_Flares = Compile preprocessFile "Client\Module\CM\CM_Flares.sqf";
 	CM_Spoofing = Compile preprocessFile "Client\Module\CM\CM_Spoofing.sqf";

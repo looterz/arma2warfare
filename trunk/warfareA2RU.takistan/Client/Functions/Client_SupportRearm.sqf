@@ -56,6 +56,8 @@ hint parseText(Format[localize "STR_WF_INFO_Rearming",_name,_rearmTime]);
 //--- Make sure that we still have something as a support.
 _cts = 0;
 _i = 0;
+
+_rearmTime = if (WF_DEBUG) then { 1 } else { _rearmTime };
 while {true} do {
 	sleep 1;
 	

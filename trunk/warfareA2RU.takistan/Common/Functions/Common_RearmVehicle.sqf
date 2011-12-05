@@ -14,7 +14,7 @@ _magazines = _magazines + getArray (configFile >> "CfgVehicles" >> typeOf _vehic
 {_vehicle addMagazine _x} forEach _magazines;
 
 /* CM Parameter */
-if (paramCounterMeasures && _isAir) then {
+if (paramCounterMeasures && _isAir && WF_A2_Vanilla) then {
 	_amount = if (_vehicle isKindOf "Plane") then {'WFBE_COUNTERMEASUREPLANES' Call GetNamespace} else {'WFBE_COUNTERMEASURECHOPPERS' Call GetNamespace};
 	_vehicle setVariable ["FlareCount", _amount];
 };
