@@ -287,7 +287,7 @@ if (_isDeployed) then {
 };
 
 /* Options menu. */
-Options = player addAction ["<t color='#42b6ff'>" + (localize "STR_WF_Options") + "</t>","Client\Action\Action_Menu.sqf", "", 1, false, true, "", "_target == player"];
+//Options = player addAction ["<t color='#42b6ff'>" + (localize "STR_WF_Options") + "</t>","Client\Action\Action_Menu.sqf", "", 1, false, true, "", "_target == player"];
 
 /* Zeta Cargo Lifter. */
 [] Call Compile preprocessFile "Client\Module\ZetaCargo\Zeta_Init.sqf";
