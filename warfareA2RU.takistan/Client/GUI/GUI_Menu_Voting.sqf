@@ -55,7 +55,27 @@ while {true} do {
 		_total = 1;
 
 		{
-			if !(isNil '_x') then {if (_x In _playerSlots) then {_total = _total + 1;_selection = lbAdd[10006,Format ["%1        %2",_votes select _count+1,name (leader _x)]];lbSetValue [10006,_selection,_count]}};_count = _count + 1;
+			if !(isNil '_x') then {
+				if (_x In _playerSlots) then {
+					_total = _total + 1;
+					_selection = lbAdd[10006,Format ["%1        %2",_votes select _count+1,name (leader _x)]];
+					lbSetValue [10006,_selection, _count];
+					
+					_vote = (Call Compile Format ["%1Team%2Vote", sideJoined, (_count+1)]) + 1;
+					_voted = false;
+					if (_vote > 0) then {
+						_team = clientTeams select (_vote-1);
+						if (!isNil '_team') then {
+							_voted = _team in _playerSlots;
+						};
+					};
+					
+					if (!_voted) then {
+						lbSetColor [10006, _selection, [0.7,0.1,0.1,1]];
+					};
+				}
+			};
+			_count = _count + 1;
 		} forEach clientTeams;
 		_lastTeams = +_playerSlots;
 
