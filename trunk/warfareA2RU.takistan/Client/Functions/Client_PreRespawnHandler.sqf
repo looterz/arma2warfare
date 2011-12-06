@@ -3,9 +3,8 @@ Private ["_hq","_unit"];
 _unit = _this;
 
 (_unit) Call WFBE_SK_FNC_Apply;
-[] ExecFSM "Client\FSM\updateactions.fsm";
-
-Options = _unit addAction ["<t color='#42b6ff'>" + (localize "STR_WF_Options") + "</t>","Client\Action\Action_Menu.sqf", "", 1, false, true, "", "_target == player"];
+//[] ExecFSM "Client\FSM\updateactions.fsm";
+//Options = _unit addAction ["<t color='#42b6ff'>" + (localize "STR_WF_Options") + "</t>","Client\Action\Action_Menu.sqf", "", 1, false, true, "", "_target == player"];
 
 [] execVM "Addon\wheel\action\AddActions.sqf";
 [] execVM "Addon\def_town_building\init.sqf";
