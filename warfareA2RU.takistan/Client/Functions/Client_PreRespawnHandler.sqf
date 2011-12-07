@@ -1,4 +1,4 @@
-Private ["_hq","_unit"];
+Private ["_hq","_unit","_menuId"];
 
 _unit = _this;
 
@@ -8,6 +8,15 @@ _unit = _this;
 
 [] execVM "Addon\wheel\action\AddActions.sqf";
 [] execVM "Addon\def_town_building\init.sqf";
+
+[] spawn {
+	sleep 5;
+	_menuId = player getVariable "menuWFOptions";
+	if (!isNil "_menuId") then {
+		player removeAction _menuId;
+		player setVariable ["menuWFOptions", nil];
+	};
+};
 
 if (!isNull commanderTeam) then {
 	_hq = (sideJoinedText) Call GetSideHQ;
