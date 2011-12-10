@@ -1,4 +1,5 @@
 $missionName = $env:MissionName;
+$missionFileName = $env:MissionFileName;
 $sourcePath = $env:SourcePath;
 $outputDir = $env:OutputFolder;
 
@@ -128,7 +129,8 @@ function compile-version {
 		
 	
 
-	$projectName =  "WarfareV2_068Lite$gamemode$maxplayers.$islandName";
+	$projectName =  "$missionFileName$gamemode$maxplayers.$islandName"; #-- "WarfareV2_068Lite$gamemode$maxplayers.$islandName";
+	$missionName1 = "$missionFullName - $islandName";
 	
 	Copy-Item "$source\briefing.sqf" "$tmpfolder" -Force
 	
@@ -143,8 +145,8 @@ function compile-version {
 	$patBuildVersion = [System.Text.RegularExpressions.Regex]::Escape("`$BUILDVERSION");
 	
 	$spyMission = "$spyName $gamever$missionMods + $world";
-	replace-pattern -pattern $patMissioName -replaceTo $missionName -fileName "$tmpfolder\version.sqf";
-	replace-pattern -pattern $patMissioName -replaceTo $missionName -fileName "$tmpfolder\mission.sqm";
+	replace-pattern -pattern $patMissioName -replaceTo $missionName1 -fileName "$tmpfolder\version.sqf";
+	replace-pattern -pattern $patMissioName -replaceTo $missionName1 -fileName "$tmpfolder\mission.sqm";
 
 	replace-pattern -pattern $patMaxPlayers -replaceTo "40" -fileName "$tmpfolder\version.sqf";
 	replace-pattern -pattern $patMaxPlayers -replaceTo "40" -fileName "$tmpfolder\mission.sqm";
