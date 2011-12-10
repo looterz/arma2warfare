@@ -239,12 +239,12 @@ function SVN-GetHistory {
 
 function Add-References {
 
-	$currentDirectory = [string](Get-Location);
-	$assemblyPath =$currentDirectory + "\ArmA2.Script.Compiler.dll"; 
-	[Void] [System.Reflection.Assembly]::LoadFile( $assemblyPath );
+	# $currentDirectory = [string](Get-Location);
+	# $assemblyPath =$currentDirectory + "\ArmA2.Script.Compiler.dll"; 
+	# [Void] [System.Reflection.Assembly]::LoadFile( $assemblyPath );
 	
-	$assemblyPath =$currentDirectory + "\Mac.Arma.dll"; 
-	[Void] [System.Reflection.Assembly]::LoadFile( $assemblyPath );	
+	# $assemblyPath =$currentDirectory + "\Mac.Arma.dll"; 
+	# [Void] [System.Reflection.Assembly]::LoadFile( $assemblyPath );	
 }
 
 Add-References;
