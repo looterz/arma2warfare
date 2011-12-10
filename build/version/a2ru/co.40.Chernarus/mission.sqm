@@ -1,0 +1,4578 @@
+version=11;
+class Mission
+{
+	addOns[]={"cacharacters2", "cacharacters_e", "chernarus", "ca_modules_functions", "warfarebuildings", "CAWheeled_E_stryker", "CAWheeled2_BTR90", "caweapons_warfare_weapons", "ca_highcommand", "warfare2vehicles", "cacharacters_baf", "cawheeled_w_baf", "catracked_w_baf", "caair_baf_ch_47f", "caair_baf", "caweapons_baf", "cacharacters_pmc", "cawheeled_pmc_armoredsuv", "caair_pmc_ka60"};
+	addOnsAuto[]={"cacharacters_e", "cacharacters2", "ca_modules_functions", "ca_highcommand", "CAWheeled_E_stryker", "CAWheeled2_BTR90", "warfarebuildings", "caweapons_warfare_weapons", "chernarus"};
+	randomSeed=10034581;
+	class Intel
+	{
+		briefingName="$MISSIONNAME CO $MAXPLAYER - Chernarus";
+		briefingDescription="By Benny";
+		resistanceWest=0;
+		startWeather=0;
+		forecastWeather=0;
+		year=2008;
+		month=10;
+		day=11;
+		hour=9;
+		minute=20;
+	};
+	class Groups
+	{
+		items=76;
+		class Item0
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2285.044, 514.658, 15296.22};
+					id=0;
+					side="WEST";
+					vehicle="FR_R";
+					player="PLAYER COMMANDER";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="WestSlot1";
+				};
+			};
+		};
+		class Item1
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2286.044, 514.658, 15296.22};
+					id=1;
+					side="WEST";
+					vehicle="FR_R";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="WestSlot2";
+				};
+			};
+		};
+		class Item2
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2287.044, 514.658, 15296.22};
+					id=2;
+					side="WEST";
+					vehicle="FR_TL";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="WestSlot3";
+				};
+			};
+		};
+		class Item3
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2288.044, 514.658, 15296.22};
+					id=3;
+					side="WEST";
+					vehicle="FR_TL";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="WestSlot4";
+				};
+			};
+		};
+		class Item4
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2289.044, 514.658, 15296.22};
+					id=4;
+					side="WEST";
+					vehicle="USMC_SoldierS_Sniper";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="WestSlot5";
+				};
+			};
+		};
+		class Item5
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2290.044, 514.658, 15296.22};
+					id=5;
+					side="WEST";
+					vehicle="USMC_SoldierS_Sniper";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="WestSlot6";
+				};
+			};
+		};
+		class Item6
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2291.044, 514.658, 15296.22};
+					id=6;
+					side="WEST";
+					vehicle="USMC_SoldierS_Engineer";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="WestSlot7";
+				};
+			};
+		};
+		class Item7
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2292.044, 514.658, 15296.22};
+					id=7;
+					side="WEST";
+					vehicle="USMC_SoldierS_Engineer";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="WestSlot8";
+				};
+			};
+		};
+		class Item8
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2293.044, 514.658, 15296.22};
+					id=8;
+					side="WEST";
+					vehicle="USMC_SoldierS_Engineer";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="WestSlot9";
+				};
+			};
+		};
+		class Item9
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2294.044, 514.658, 15296.22};
+					id=9;
+					side="WEST";
+					vehicle="USMC_SoldierS_Engineer";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="WestSlot10";
+				};
+			};
+		};
+		class Item10
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2285.044, 514.658, 15295.22};
+					id=10;
+					side="WEST";
+					vehicle="FR_Commander";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="WestSlot11";
+				};
+			};
+		};
+		class Item11
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2286.044, 514.658, 15295.22};
+					id=11;
+					side="WEST";
+					vehicle="FR_Sapper";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="WestSlot12";
+				};
+			};
+		};
+		class Item12
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2287.044, 514.658, 15295.22};
+					id=12;
+					side="WEST";
+					vehicle="USMC_Soldier_Medic";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="WestSlot13";
+				};
+			};
+		};
+		class Item13
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2288.044, 514.658, 15295.22};
+					id=13;
+					side="WEST";
+					vehicle="USMC_Soldier_Medic";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="WestSlot14";
+				};
+			};
+		};
+		class Item14
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2289.044, 514.658, 15295.22};
+					id=14;
+					side="WEST";
+					vehicle="FR_Corpsman";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="WestSlot15";
+				};
+			};
+		};
+		class Item15
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2290.044, 514.658, 15295.22};
+					id=15;
+					side="WEST";
+					vehicle="FR_Corpsman";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="WestSlot16";
+				};
+			};
+		};
+		class Item16
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={36.4597, 5.655468, 1591.312};
+					id=18;
+					side="EAST";
+					vehicle="RUS_Soldier1";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="EastSlot1";
+				};
+			};
+		};
+		class Item17
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={37.4597, 5.655468, 1591.312};
+					id=19;
+					side="EAST";
+					vehicle="RUS_Soldier1";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="EastSlot2";
+				};
+			};
+		};
+		class Item18
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={38.4597, 5.655468, 1591.312};
+					id=20;
+					side="EAST";
+					vehicle="RUS_Soldier_TL";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="EastSlot3";
+				};
+			};
+		};
+		class Item19
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={39.4597, 5.655468, 1591.312};
+					id=21;
+					side="EAST";
+					vehicle="RUS_Soldier_TL";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="EastSlot4";
+				};
+			};
+		};
+		class Item20
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={40.4597, 5.655468, 1591.312};
+					id=22;
+					side="EAST";
+					vehicle="RU_Soldier_Sniper";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="EastSlot5";
+				};
+			};
+		};
+		class Item21
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={41.4597, 5.655468, 1591.312};
+					id=23;
+					side="EAST";
+					vehicle="RU_Soldier_Sniper";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="EastSlot6";
+				};
+			};
+		};
+		class Item22
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={42.4597, 5.655468, 1591.312};
+					id=24;
+					side="EAST";
+					vehicle="MVD_Soldier_TL";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="EastSlot7";
+				};
+			};
+		};
+		class Item23
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={43.4597, 5.655468, 1591.312};
+					id=25;
+					side="EAST";
+					vehicle="MVD_Soldier_TL";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="EastSlot8";
+				};
+			};
+		};
+		class Item24
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={44.4597, 5.655468, 1591.312};
+					id=26;
+					side="EAST";
+					vehicle="MVD_Soldier_TL";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="EastSlot9";
+				};
+			};
+		};
+		class Item25
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={45.4597, 5.655468, 1591.312};
+					id=27;
+					side="EAST";
+					vehicle="MVD_Soldier_TL";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="EastSlot10";
+				};
+			};
+		};
+		class Item26
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={36.4597, 5.655468, 1590.312};
+					id=28;
+					side="EAST";
+					vehicle="RUS_Commander";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="EastSlot11";
+				};
+			};
+		};
+		class Item27
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={37.4597, 5.655468, 1590.312};
+					id=29;
+					side="EAST";
+					vehicle="RUS_Soldier3";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="EastSlot12";
+				};
+			};
+		};
+		class Item28
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={38.4597, 5.655468, 1590.312};
+					id=30;
+					side="EAST";
+					vehicle="RU_Soldier_Medic";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="EastSlot13";
+				};
+			};
+		};
+		class Item29
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={39.4597, 5.655468, 1590.312};
+					id=31;
+					side="EAST";
+					vehicle="RU_Soldier_Medic";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="EastSlot14";
+				};
+			};
+		};
+		class Item30
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={40.4597, 5.655468, 1590.312};
+					id=32;
+					side="EAST";
+					vehicle="RU_Soldier_Medic";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="EastSlot15";
+				};
+			};
+		};
+		class Item31
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={41.4597, 5.655468, 1590.312};
+					id=33;
+					side="EAST";
+					vehicle="RU_Soldier_Medic";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="EastSlot16";
+				};
+			};
+		};
+		class Item32
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={11963.82, 135.8822, 13128.98};
+					id=34;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation0";
+				};
+			};
+		};
+		class Item33
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={1083.405, 6.009723, 2519.518};
+					id=35;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation1";
+				};
+			};
+		};
+		class Item34
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={6666.667, 233.5717, 4720.734};
+					id=36;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation2";
+				};
+			};
+		};
+		class Item35
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={6876.314, 386.3468, 11294.19};
+					id=37;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation3";
+				};
+			};
+		};
+		class Item36
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={4650.901, 9, 2501.761};
+					id=38;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation4";
+				};
+			};
+		};
+		class Item37
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={10780.92, 150.3527, 9195.83};
+					id=39;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation5";
+				};
+			};
+		};
+		class Item38
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={9758.169, 177.7579, 10540.88};
+					id=40;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation6";
+				};
+			};
+		};
+		class Item39
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={6325.153, 353.6233, 9114.892};
+					id=41;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation8";
+				};
+			};
+		};
+		class Item40
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={11461.95, 317.2924, 11343.25};
+					id=42;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation9";
+				};
+			};
+		};
+		class Item41
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={8655.291, 328.5188, 8106.889};
+					id=43;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation10";
+				};
+			};
+		};
+		class Item42
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={12978.74, 18.15985, 5524.075};
+					id=124;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation11";
+				};
+			};
+		};
+		class Item43
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={11763.76, 198.7855, 4555.043};
+					id=125;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation12";
+				};
+			};
+		};
+		class Item44
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={11382.65, 221.2752, 7532.807};
+					id=126;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation13";
+				};
+			};
+		};
+		class Item45
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5443.17, 290.1987, 6817.775};
+					id=127;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation14";
+				};
+			};
+		};
+		class Item46
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={1678.885, 156.3257, 5206.158};
+					id=128;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation15";
+				};
+			};
+		};
+		class Item47
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={7395.481, 216.5683, 6290.525};
+					id=129;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation16";
+				};
+			};
+		};
+		class Item48
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={4926.199, 337.7739, 7606.878};
+					id=130;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation17";
+				};
+			};
+		};
+		class Item49
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5319.003, 181.4464, 3931.737};
+					id=131;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation18";
+				};
+			};
+		};
+		class Item50
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={10032.93, 175.173, 7190.265};
+					id=132;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation19";
+				};
+			};
+		};
+		class Item51
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={4129.522, 338.1195, 11077.99};
+					id=133;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation20";
+				};
+			};
+		};
+		class Item52
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5837.609, 165.4628, 12367.87};
+					id=134;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation21";
+				};
+			};
+		};
+		class Item53
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={8496.504, 12.42731, 2601.093};
+					id=135;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation22";
+				};
+			};
+		};
+		class Item54
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={12829.92, 6.012787, 9822.516};
+					id=136;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation23";
+				};
+			};
+		};
+		class Item55
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={1924.569, 285.8387, 9114.644};
+					id=137;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation24";
+				};
+			};
+		};
+		class Item56
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={10238.43, 15.41065, 2851.057};
+					id=138;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation25";
+				};
+			};
+		};
+		class Item57
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={9284.518, 293.7267, 5867.835};
+					id=139;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation26";
+				};
+			};
+		};
+		class Item58
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2730.662, 136.3258, 3229.63};
+					id=140;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation27";
+				};
+			};
+		};
+		class Item59
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={3342.775, 346.3799, 6570.457};
+					id=141;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation28";
+				};
+			};
+		};
+		class Item60
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={13106.16, 6.162485, 6965.122};
+					id=142;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation29";
+				};
+			};
+		};
+		class Item61
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5120.106, 0.1469675, 463.9417};
+					id=143;
+					side="LOGIC";
+					vehicle="Logic";
+					leader=1;
+					skill=0.6;
+					text="WF_Logic";
+					init="this setVariable [""totalTowns"",43];this setVariable [""Towns_RemovedXSmall"",[""Sosnovka"",""Zelenogorsk"",""Dolina"",""StarySobor"",""Myshkino"",""Chernogorsk"",""Dubrovka"",""Pogorevka"",""Bor"",""Staroye"",""Pulkovo"",""Khelm"",""Kamyshovo"",""Pavlovo"",""Nadezhdino"",""Mogilevka"",""Vyshnoye"",""Berezino"",""Krasnostav"",""Gorka"",""Elektrozavodsk"",""Msta"",""Komarovo"",""Petrovka"",""Shakhovka"",""Prigorodki"",""Olsha"",""Orlovets"",""Nizhnoye"",""Solnichniy"",""Tulga"",""Kozlovka"",""Polana"",""Kamenka"",""Gvozdno"",""NovySobor"",""Pusta"",""Guglovo""]];this setVariable [""Towns_RemovedSmall"",[""Sosnovka"",""Zelenogorsk"",""Dolina"",""StarySobor"",""Lopatino"",""Myshkino"",""Chernogorsk"",""Pogorevka"",""Bor"",""Kabanino"",""Staroye"",""Pulkovo"",""Kamyshovo"",""Vybor"",""Pavlovo"",""Nadezhdino"",""Grishino"",""Mogilevka"",""Vyshnoye"",""Elektrozavodsk"",""Msta"",""Komarovo"",""Petrovka"",""Shakhovka"",""Prigorodki"",""Nizhnoye"",""Solnichniy"",""Tulga"",""Kozlovka"",""Pustoshka"",""Kamenka"",""NovySobor"",""Pusta"",""Guglovo""]];this setVariable [""Towns_RemovedMedium"",[""Dolina"",""Dubrovka"",""Bor"",""Staroye"",""Elektrozavodsk"",""Berezino"",""Krasnostav"",""Pulkovo"",""Khelm"",""Kamyshovo"",""Vyshnoye"",""Gorka"",""Msta"",""Petrovka"",""Shakhovka"",""Prigorodki"",""Olsha"",""Orlovets"",""Nizhnoye"",""Solnichniy"",""Tulga"",""Polana"",""Gvozdno"",""NovySobor"",""Pusta"",""Guglovo"",""Sosnovka""]];this setVariable [""Towns_RemovedLarge"",[""Bor"",""Pulkovo"",""Khelm"",""Msta"",""Shakhovka"",""Prigorodki"",""Olsha"",""Orlovets"",""Nizhnoye"",""Tulga"",""Kozlovka"",""Pustoshka"",""Kamenka"",""NovySobor"",""Sosnovka""]];nullReturn = [this] ExecVM ""Common\Init\Init_TownMode.sqf""";
+				};
+			};
+		};
+		class Item62
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={8201.354, 417.7276, 9761.939};
+					id=144;
+					side="LOGIC";
+					vehicle="LocationLogic";
+					leader=1;
+					skill=0.6;
+					text="StartingLocation7";
+				};
+			};
+		};
+		class Item63
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5149.708, 0.3715701, 464.1329};
+					id=228;
+					side="LOGIC";
+					vehicle="Logic";
+					leader=1;
+					skill=0.6;
+					text="RCoin";
+				};
+			};
+		};
+		class Item64
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5134.266, 0.3510225, 464.1329};
+					id=229;
+					side="LOGIC";
+					vehicle="Logic";
+					leader=1;
+					skill=0.6;
+					text="MCoin";
+				};
+			};
+		};
+		class Item65
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5163.992, 0.262468, 464.2755};
+					id=230;
+					side="LOGIC";
+					vehicle="Logic";
+					leader=1;
+					skill=0.6;
+					text="UAVL";
+				};
+			};
+		};
+		class Item66
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5164.107, 0.09956618, 477.5848};
+					id=237;
+					side="LOGIC";
+					vehicle="FunctionsManager";
+					leader=1;
+					skill=0.6;
+				};
+			};
+		};
+		class Item67
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={5163.971, 0.2687187, 490.2997};
+					id=238;
+					side="LOGIC";
+					vehicle="HighCommand";
+					leader=1;
+					skill=0.6;
+					text="HC";
+					init="this SetVariable [""addAllGroups"",false];";
+				};
+			};
+		};
+		class Item68
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					id=69;
+					text="WestSlot17";
+					position[]={2291.044, 514.658, 15295.22};
+					vehicle="FR_R";
+					side="WEST";
+					player="PLAYER COMMANDER";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+				};
+			};
+		};
+		class Item69
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					id=70;
+					text="WestSlot18";
+					position[]={2292.044, 514.658, 15295.22};
+					vehicle="FR_R";
+					side="WEST";
+					player="PLAYER COMMANDER";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+				};
+			};
+		};
+		class Item70
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					id=71;
+					text="WestSlot19";
+					position[]={2293.044, 514.658, 15295.22};
+					vehicle="FR_R";
+					side="WEST";
+					player="PLAYER COMMANDER";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+				};
+			};
+		};
+		class Item71
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					id=72;
+					text="WestSlot20";
+					position[]={2294.044, 514.658, 15295.22};
+					vehicle="FR_R";
+					side="WEST";
+					player="PLAYER COMMANDER";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+				};
+			};
+		};
+		class Item72
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					id=73;
+					text="EastSlot17";
+					position[]={42.4597, 5.655468, 1590.312};
+					vehicle="RUS_Soldier1";
+					side="EAST";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+				};
+			};
+		};
+		class Item73
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					id=74;
+					text="EastSlot18";
+					position[]={43.4597, 5.655468, 1590.312};
+					vehicle="RUS_Soldier1";
+					side="EAST";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+				};
+			};
+		};
+		class Item74
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					id=75;
+					text="EastSlot19";
+					position[]={44.4597, 5.655468, 1590.312};
+					vehicle="RUS_Soldier1";
+					side="EAST";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+				};
+			};
+		};
+		class Item75
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					id=76;
+					text="EastSlot20";
+					position[]={45.4597, 5.655468, 1590.312};
+					vehicle="RUS_Soldier1";
+					side="EAST";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+				};
+			};
+		};
+	};
+	class Vehicles
+	{
+		items=259;
+		class Item0
+		{
+			position[]={2279.667, 514.1691, 15295.71};
+			id=16;
+			side="EMPTY";
+			vehicle="M1130_CV_EP1";
+			leader=1;
+			lock="LOCKED";
+			skill=0.6;
+			text="WestMHQ";
+		};
+		class Item1
+		{
+			position[]={32.08038, 5.575797, 1589.901};
+			id=17;
+			side="EMPTY";
+			vehicle="BTR90_HQ";
+			leader=1;
+			lock="LOCKED";
+			skill=0.6;
+			text="EastMHQ";
+		};
+		class Item2
+		{
+			position[]={4477.977, 297.8239, 6309.056};
+			id=44;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Pogorevka";
+			init="nullreturn = [this,""Pogorevka"",[""SmallTown"",""SmallTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item3
+		{
+			position[]={4342.805, 302.3795, 6531.934};
+			azimut=35;
+			id=45;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="PogorevkaCamp1";
+			init="nullreturn = [this,Pogorevka]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item4
+		{
+			position[]={4421.964, 307.6821, 6164.9};
+			azimut=275;
+			id=46;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="PogorevkaCamp2";
+			init="nullreturn = [this,Pogorevka]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item5
+		{
+			position[]={2642.127, 208.242, 5397.987};
+			id=47;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Zelenogorsk";
+			init="nullreturn = [this,""Zelenogorsk"",[""HugeTown"",""HugeTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item6
+		{
+			position[]={2946.904, 229.6631, 5526.158};
+			azimut=290;
+			id=48;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="ZelenogorskCamp1";
+			init="nullreturn = [this,Zelenogorsk]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item7
+		{
+			position[]={2642.21, 223.9484, 5613.01};
+			azimut=280;
+			id=49;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="ZelenogorskCamp2";
+			init="nullreturn = [this,Zelenogorsk]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item8
+		{
+			position[]={2632.89, 193.8234, 5149.467};
+			azimut=310;
+			id=50;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="ZelenogorskCamp3";
+			init="nullreturn = [this,Zelenogorsk]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item9
+		{
+			position[]={1915.069, 261, 7439.329};
+			azimut=340;
+			id=51;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Myshkino";
+			init="nullreturn = [this,""Myshkino"",[""SmallTown"",""SmallTown2"",""MediumTown""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item10
+		{
+			position[]={1886.779, 277.4043, 7640.133};
+			azimut=35;
+			id=52;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="MyshkinoCamp1";
+			init="nullreturn = [this,Myshkino]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item11
+		{
+			position[]={2139.933, 273.6347, 7325.556};
+			azimut=205;
+			id=53;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="MyshkinoCamp2";
+			init="nullreturn = [this,Myshkino]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item12
+		{
+			position[]={2786.827, 273.9141, 9832.12};
+			azimut=25;
+			id=54;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Lopatino";
+			init="nullreturn = [this,""Lopatino"",[""LargeTown"",""LargeTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item13
+		{
+			position[]={2643.143, 262.4183, 9830.417};
+			azimut=130;
+			id=55;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="LopatinoCamp1";
+			init="nullreturn = [this,Lopatino]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item14
+		{
+			position[]={2632.803, 274.3864, 10100.61};
+			azimut=60;
+			id=56;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="LopatinoCamp3";
+			init="nullreturn = [this,Lopatino]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item15
+		{
+			position[]={2987.424, 288.2705, 9993.311};
+			azimut=170;
+			id=57;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="LopatinoCamp2";
+			init="nullreturn = [this,Lopatino]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item16
+		{
+			position[]={6221.578, 302.4467, 7822.095};
+			azimut=25;
+			id=58;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="StarySobor";
+			init="nullreturn = [this,""Stary Sobor"",[""LargeTown"",""LargeTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item17
+		{
+			position[]={5971.843, 311.8589, 7662.781};
+			azimut=130;
+			id=59;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="StarySoborCamp1";
+			init="nullreturn = [this,StarySobor]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item18
+		{
+			position[]={5920.042, 305.3477, 7916.802};
+			azimut=210;
+			id=60;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="StarySoborCamp3";
+			init="nullreturn = [this,StarySobor]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item19
+		{
+			position[]={6370.035, 288.0878, 7553.306};
+			azimut=325;
+			id=61;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="StarySoborCamp2";
+			init="nullreturn = [this,StarySobor]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item20
+		{
+			position[]={10060.96, 245.0334, 5439.769};
+			azimut=25;
+			id=62;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Staroye";
+			init="nullreturn = [this,""Staroye"",[""LargeTown"",""LargeTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item21
+		{
+			position[]={10023.56, 261.8049, 5721.707};
+			azimut=145;
+			id=63;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="StaroyeCamp1";
+			init="nullreturn = [this,Staroye]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item22
+		{
+			position[]={10196.15, 228.0304, 5214.835};
+			azimut=325;
+			id=64;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="StaroyeCamp2";
+			init="nullreturn = [this,Staroye]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item23
+		{
+			position[]={6837.56, 6, 2429.087};
+			azimut=325;
+			id=65;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Chernogorsk";
+			init="nullreturn = [this,""Chernogorsk"",[""HugeTown"",""HugeTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item24
+		{
+			position[]={7046.104, 5.978821, 2677.259};
+			azimut=140;
+			id=66;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="ChernogorskCamp1";
+			init="nullreturn = [this,Chernogorsk]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item25
+		{
+			position[]={6683.905, 6, 2711.922};
+			azimut=310;
+			id=67;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="ChernogorskCamp2";
+			init="nullreturn = [this,Chernogorsk]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item26
+		{
+			position[]={6629.765, 6, 2481.883};
+			azimut=310;
+			id=68;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="ChernogorskCamp3";
+			init="nullreturn = [this,Chernogorsk]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item27
+		{
+			position[]={3511.398, 7.365547, 2484.468};
+			azimut=340;
+			id=69;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Komarovo";
+			init="nullreturn = [this,""Komarovo"",[""MediumTown1Tank"",""MediumTown2Tank""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item28
+		{
+			position[]={3299.874, 42.49619, 2550.927};
+			azimut=125;
+			id=70;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="KomarovoCamp1";
+			init="nullreturn = [this,Komarovo]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item29
+		{
+			position[]={3812.829, 6.637749, 2537.29};
+			azimut=210;
+			id=71;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="KomarovoCamp2";
+			init="nullreturn = [this,Komarovo]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item30
+		{
+			position[]={1754.418, 143.7827, 3925.351};
+			azimut=15;
+			id=72;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Pavlovo";
+			init="nullreturn = [this,""Pavlovo"",[""SmallTown"",""SmallTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item31
+		{
+			position[]={1961.192, 144.2178, 3876.059};
+			azimut=15;
+			id=73;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="PavlovoCamp1";
+			init="nullreturn = [this,Pavlovo]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item32
+		{
+			position[]={1803.626, 156.6605, 4096.198};
+			azimut=215;
+			id=74;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="PavlovoCamp2";
+			init="nullreturn = [this,Pavlovo]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item33
+		{
+			position[]={3723.645, 311.0553, 8988.256};
+			azimut=25;
+			id=75;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Vybor";
+			init="nullreturn = [this,""Vybor"",[""SmallTown"",""SmallTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item34
+		{
+			position[]={3533.451, 310.2874, 9096.603};
+			azimut=130;
+			id=76;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="VyborCamp1";
+			init="nullreturn = [this,Vybor]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item35
+		{
+			position[]={4018.777, 316.4054, 8812.618};
+			azimut=15;
+			id=77;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="VyborCamp2";
+			init="nullreturn = [this,Vybor]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item36
+		{
+			position[]={10294.72, 7.570928, 1966.49};
+			id=78;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Elektrozavodsk";
+			init="nullreturn = [this,""Elektrozavodsk"",[""HugeTown"",""HugeTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item37
+		{
+			position[]={10080.38, 6.006843, 1983.629};
+			azimut=65;
+			id=79;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="ElektrozavodskCamp1";
+			init="nullreturn = [this,Elektrozavodsk]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item38
+		{
+			position[]={10515.14, 6.484402, 2087.31};
+			azimut=335;
+			id=80;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="ElektrozavodskCamp2";
+			init="nullreturn = [this,Elektrozavodsk]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item39
+		{
+			position[]={10251.67, 5.5, 2172.71};
+			azimut=165;
+			id=81;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="ElektrozavodskCamp3";
+			init="nullreturn = [this,Elektrozavodsk]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item40
+		{
+			position[]={12139.82, 51.27516, 9112.798};
+			azimut=45;
+			id=82;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Berezino";
+			init="nullreturn = [this,""Berezino"",[""HugeTown"",""HugeTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item41
+		{
+			position[]={12116.36, 35.96407, 9323.825};
+			azimut=215;
+			id=83;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="BerezinoCamp1";
+			init="nullreturn = [this,Berezino]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item42
+		{
+			position[]={11907.42, 69.18, 8973.133};
+			azimut=85;
+			id=84;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="BerezinoCamp3";
+			init="nullreturn = [this,Berezino]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item43
+		{
+			position[]={12289.69, 34.19473, 8982.933};
+			azimut=35;
+			id=85;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="BerezinoCamp2";
+			init="nullreturn = [this,Berezino]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item44
+		{
+			position[]={10984.04, 224.3651, 12372.89};
+			id=86;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Krasnostav";
+			init="nullreturn = [this,""Krasnostav"",[""HugeTown"",""HugeTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item45
+		{
+			position[]={11161.14, 208.98, 12375.06};
+			azimut=300;
+			id=87;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="KrasnostavCamp1";
+			init="nullreturn = [this,Krasnostav]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item46
+		{
+			position[]={10840.34, 246.0708, 12455.17};
+			azimut=95;
+			id=88;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="KrasnostavCamp3";
+			init="nullreturn = [this,Krasnostav]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item47
+		{
+			position[]={11063.17, 211.199, 12237.58};
+			azimut=25;
+			id=89;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="KrasnostavCamp2";
+			init="nullreturn = [this,Krasnostav]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item48
+		{
+			position[]={9628.995, 300.8914, 8866.231};
+			azimut=25;
+			id=90;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Gorka";
+			init="nullreturn = [this,""Gorka"",[""LargeTown"",""LargeTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item49
+		{
+			position[]={9470.671, 303.8948, 8759.401};
+			azimut=95;
+			id=91;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="GorkaCamp1";
+			init="nullreturn = [this,Gorka]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item50
+		{
+			position[]={9808.119, 290.4535, 8822.794};
+			azimut=5;
+			id=92;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="GorkaCamp2";
+			init="nullreturn = [this,Gorka]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item51
+		{
+			position[]={6075.931, 267.1373, 10378.04};
+			azimut=25;
+			id=93;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Grishino";
+			init="nullreturn = [this,""Grishino"",[""LargeTown"",""LargeTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item52
+		{
+			position[]={5941.401, 273.2448, 10228.31};
+			azimut=130;
+			id=94;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="GrishinoCamp1";
+			init="nullreturn = [this,Grishino]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item53
+		{
+			position[]={6042.954, 267.0116, 10542.83};
+			azimut=200;
+			id=95;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="GrishinoCamp3";
+			init="nullreturn = [this,Grishino]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item54
+		{
+			position[]={6328.222, 285.0547, 10409.27};
+			azimut=300;
+			id=96;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="GrishinoCamp2";
+			init="nullreturn = [this,Grishino]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item55
+		{
+			position[]={6531.417, 321.9788, 6151.278};
+			id=97;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Vyshnoye";
+			init="nullreturn = [this,""Vyshnoye"",[""SmallTown"",""SmallTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item56
+		{
+			position[]={6379.349, 321.4813, 6207.815};
+			azimut=235;
+			id=98;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="VyshnoyeCamp1";
+			init="nullreturn = [this,Vyshnoye]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item57
+		{
+			position[]={6583.545, 319.4773, 5979.953};
+			azimut=240;
+			id=99;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="VyshnoyeCamp2";
+			init="nullreturn = [this,Vyshnoye]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item58
+		{
+			position[]={4982.829, 181.1, 12593.55};
+			id=100;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Petrovka";
+			init="nullreturn = [this,""Petrovka"",[""SmallTown"",""SmallTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item59
+		{
+			position[]={4839.383, 191.3272, 12522.88};
+			azimut=290;
+			id=101;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="PetrovkaCamp1";
+			init="nullreturn = [this,Petrovka]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item60
+		{
+			position[]={5038.2, 181.9904, 12463.51};
+			azimut=205;
+			id=102;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="PetrovkaCamp2";
+			init="nullreturn = [this,Petrovka]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item61
+		{
+			position[]={9110.509, 224.0808, 3808.729};
+			id=103;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Pusta";
+			init="nullreturn = [this,""Pusta"",[""SmallTown"",""SmallTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item62
+		{
+			position[]={8987.069, 243.9704, 3907.969};
+			azimut=120;
+			id=104;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="PustaCamp1";
+			init="nullreturn = [this,Pusta]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item63
+		{
+			position[]={9174.21, 212.5964, 3664.965};
+			azimut=45;
+			id=105;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="PustaCamp2";
+			init="nullreturn = [this,Pusta]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item64
+		{
+			position[]={11958.18, 6.047247, 3523.688};
+			azimut=350;
+			id=106;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Kamyshovo";
+			init="nullreturn = [this,""Kamyshovo"",[""MediumTown"",""MediumTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item65
+		{
+			position[]={12167.02, 5.694561, 3533.789};
+			azimut=185;
+			id=107;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="KamyshovoCamp1";
+			init="nullreturn = [this,Kamyshovo]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item66
+		{
+			position[]={11878.9, 6.134049, 3477.504};
+			azimut=255;
+			id=108;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="KamyshovoCamp2";
+			init="nullreturn = [this,Kamyshovo]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item67
+		{
+			position[]={13405.31, 6.513433, 6178.183};
+			azimut=25;
+			id=109;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Solnichniy";
+			init="nullreturn = [this,""Solnichniy"",[""LargeTown"",""LargeTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item68
+		{
+			position[]={13385.9, 5.393767, 6338.407};
+			azimut=190;
+			id=110;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="SolnichniyCamp1";
+			init="nullreturn = [this,Solnichniy]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item69
+		{
+			position[]={13417.35, 5.844207, 6046.064};
+			azimut=5;
+			id=111;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="SolnichniyCamp2";
+			init="nullreturn = [this,Solnichniy]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item70
+		{
+			position[]={11268.56, 77.49344, 6593.705};
+			azimut=350;
+			id=112;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Dolina";
+			init="nullreturn = [this,""Dolina"",[""SmallTown"",""SmallTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item71
+		{
+			position[]={11450.04, 66.98686, 6597.306};
+			azimut=345;
+			id=113;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="DolinaCamp1";
+			init="nullreturn = [this,Dolina]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item72
+		{
+			position[]={11082.16, 94.24761, 6669.254};
+			azimut=10;
+			id=114;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="DolinaCamp2";
+			init="nullreturn = [this,Dolina]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item73
+		{
+			position[]={8414.331, 355.536, 6738.163};
+			azimut=15;
+			id=115;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Guglovo";
+			init="nullreturn = [this,""Guglovo"",[""SmallTown"",""SmallTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item74
+		{
+			position[]={8594.788, 351.7201, 6639.051};
+			azimut=35;
+			id=116;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="GuglovoCamp1";
+			init="nullreturn = [this,Guglovo]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item75
+		{
+			position[]={8297.928, 354.799, 6852.682};
+			azimut=65;
+			id=117;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="GuglovoCamp2";
+			init="nullreturn = [this,Guglovo]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item76
+		{
+			position[]={10498.49, 112.32, 9823.642};
+			azimut=25;
+			id=118;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Dubrovka";
+			init="nullreturn = [this,""Dubrovka"",[""SmallTown"",""SmallTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item77
+		{
+			position[]={10246.68, 141.6033, 9845.77};
+			azimut=305;
+			id=119;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="DubrovkaCamp1";
+			init="nullreturn = [this,Dubrovka]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item78
+		{
+			position[]={10590.66, 102.2528, 9982.332};
+			azimut=130;
+			id=120;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="DubrovkaCamp2";
+			init="nullreturn = [this,Dubrovka]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item79
+		{
+			position[]={8638.666, 185.9053, 11945.96};
+			id=121;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Gvozdno";
+			init="nullreturn = [this,""Gvozdno"",[""SmallTown"",""SmallTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item80
+		{
+			position[]={8525.188, 169.6729, 12009.08};
+			azimut=130;
+			id=122;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="GvozdnoCamp1";
+			init="nullreturn = [this,Gvozdno]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item81
+		{
+			position[]={8693.139, 197.0963, 11850.37};
+			azimut=290;
+			id=123;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="GvozdnoCamp2";
+			init="nullreturn = [this,Gvozdno]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item82
+		{
+			position[]={5423.463, 329.5991, 8616.313};
+			id=145;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Kabanino";
+			init="nullreturn = [this,""Kabanino"",[""MediumTown1Tank"",""MediumTown2Tank""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item83
+		{
+			position[]={5436.19, 335.728, 8441.92};
+			azimut=340;
+			id=146;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="KabaninoCamp1";
+			init="nullreturn = [this,Kabanino]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item84
+		{
+			position[]={5166.121, 344.9325, 8631.619};
+			azimut=105;
+			id=147;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="KabaninoCamp2";
+			init="nullreturn = [this,Kabanino]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item85
+		{
+			position[]={5923.618, 147.4485, 4726.412};
+			azimut=345;
+			id=148;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Nadezhdino";
+			init="nullreturn = [this,""Nadezhdino"",[""MediumTown1Tank"",""MediumTown2Tank""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item86
+		{
+			position[]={5801.401, 127.2731, 4817.026};
+			azimut=205;
+			id=149;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="NadezhdinoCamp1";
+			init="nullreturn = [this,Nadezhdino]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item87
+		{
+			position[]={5792.257, 122.0498, 4638.318};
+			azimut=270;
+			id=150;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="NadezhdinoCamp2";
+			init="nullreturn = [this,Nadezhdino]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item88
+		{
+			position[]={2656.955, 223.3407, 5623.452};
+			azimut=15;
+			id=151;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item89
+		{
+			position[]={2956.54, 231.4256, 5487.058};
+			azimut=70;
+			id=152;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item90
+		{
+			position[]={2562.847, 194, 5052.291};
+			azimut=225;
+			id=153;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item91
+		{
+			position[]={2154.714, 274.396, 7312.021};
+			azimut=140;
+			id=154;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item92
+		{
+			position[]={1885.521, 279.6314, 7660.964};
+			id=155;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item93
+		{
+			position[]={2592.549, 261.3076, 9843.891};
+			azimut=200;
+			id=156;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item94
+		{
+			position[]={2598.762, 277.2811, 10155.89};
+			azimut=320;
+			id=157;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item95
+		{
+			position[]={3010.748, 289.8621, 9996.394};
+			azimut=80;
+			id=158;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item96
+		{
+			position[]={3556.182, 313.5728, 9139.864};
+			azimut=265;
+			id=159;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item97
+		{
+			position[]={4034.203, 316.9429, 8808.593};
+			azimut=110;
+			id=160;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item98
+		{
+			position[]={4252.565, 305.5878, 6566.086};
+			azimut=295;
+			id=161;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item99
+		{
+			position[]={4386.507, 309.5803, 6089.916};
+			azimut=175;
+			id=162;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item100
+		{
+			position[]={4661.667, 278.2339, 6418.414};
+			azimut=70;
+			id=163;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item101
+		{
+			position[]={1965.167, 141.553, 3822.873};
+			azimut=100;
+			id=164;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item102
+		{
+			position[]={1771.411, 156.5523, 4112.376};
+			azimut=30;
+			id=165;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item103
+		{
+			position[]={3359.771, 32.18367, 2555.921};
+			azimut=270;
+			id=166;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item104
+		{
+			position[]={3767.88, 7.018836, 2553.386};
+			azimut=70;
+			id=167;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item105
+		{
+			position[]={6686.313, 6, 2500.16};
+			azimut=305;
+			id=168;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item106
+		{
+			position[]={6568.362, 7.838927, 2474.037};
+			azimut=250;
+			id=169;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item107
+		{
+			position[]={6832.296, 6, 2323.915};
+			azimut=250;
+			id=170;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item108
+		{
+			position[]={6911.967, 6.012787, 2412.155};
+			azimut=45;
+			id=171;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item109
+		{
+			position[]={6955.993, 5.978821, 2597.684};
+			azimut=45;
+			id=172;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item110
+		{
+			position[]={6764.463, 6, 2683.947};
+			azimut=310;
+			id=173;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item111
+		{
+			position[]={5855.032, 138.4374, 4649.247};
+			azimut=175;
+			id=174;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item112
+		{
+			position[]={5896.457, 135.7857, 4877.459};
+			azimut=325;
+			id=175;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item113
+		{
+			position[]={6623.547, 322.7813, 5966.134};
+			azimut=170;
+			id=176;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item114
+		{
+			position[]={6359.931, 321.0699, 6225.234};
+			azimut=315;
+			id=177;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item115
+		{
+			position[]={6410.779, 286.8154, 7540.408};
+			azimut=100;
+			id=178;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item116
+		{
+			position[]={5984.185, 312.147, 7627.364};
+			azimut=225;
+			id=179;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item117
+		{
+			position[]={5932.156, 307.2363, 8009.023};
+			azimut=320;
+			id=180;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item118
+		{
+			position[]={5475.385, 336.7853, 8384.624};
+			azimut=135;
+			id=181;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item119
+		{
+			position[]={5145.169, 345.6429, 8632.446};
+			azimut=280;
+			id=182;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item120
+		{
+			position[]={5165.042, 347.4971, 8567.189};
+			azimut=215;
+			id=183;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item121
+		{
+			position[]={5309.632, 337.561, 8750.918};
+			azimut=15;
+			id=184;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item122
+		{
+			position[]={6035.538, 277.3701, 10244.18};
+			azimut=210;
+			id=185;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item123
+		{
+			position[]={5905.641, 269.0474, 10310.1};
+			azimut=180;
+			id=186;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item124
+		{
+			position[]={6341.558, 286.479, 10397.97};
+			azimut=125;
+			id=187;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item125
+		{
+			position[]={6089.301, 260.622, 10579.35};
+			azimut=25;
+			id=188;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item126
+		{
+			position[]={6021.759, 267.0189, 10548.62};
+			azimut=320;
+			id=189;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item127
+		{
+			position[]={5084.911, 181.9344, 12465.76};
+			azimut=110;
+			id=190;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item128
+		{
+			position[]={4895.388, 183.689, 12536.54};
+			azimut=240;
+			id=191;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item129
+		{
+			position[]={8516.099, 170.0397, 11996.1};
+			azimut=315;
+			id=192;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item130
+		{
+			position[]={8706.501, 198.7724, 11831.33};
+			azimut=160;
+			id=193;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item131
+		{
+			position[]={8717.193, 197.9093, 11853.48};
+			azimut=95;
+			id=194;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item132
+		{
+			position[]={8976.222, 247.3944, 3923.4};
+			azimut=320;
+			id=195;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item133
+		{
+			position[]={9180.036, 212.3709, 3651.354};
+			azimut=115;
+			id=196;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item134
+		{
+			position[]={9965.98, 6.173732, 2044.613};
+			azimut=265;
+			id=197;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item135
+		{
+			position[]={10273.42, 5.5, 2163.794};
+			azimut=90;
+			id=198;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item136
+		{
+			position[]={10484.84, 6, 2141.079};
+			azimut=45;
+			id=199;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item137
+		{
+			position[]={10504.09, 6.687513, 2002.317};
+			azimut=325;
+			id=200;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item138
+		{
+			position[]={11855.33, 6.168082, 3473.345};
+			azimut=240;
+			id=201;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item139
+		{
+			position[]={12275.2, 5.622825, 3530.181};
+			azimut=85;
+			id=202;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item140
+		{
+			position[]={10172.33, 228.766, 5179.219};
+			azimut=110;
+			id=203;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item141
+		{
+			position[]={9984.408, 264.6784, 5704.727};
+			azimut=345;
+			id=204;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item142
+		{
+			position[]={10039.28, 261.0288, 5732.274};
+			azimut=70;
+			id=205;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item143
+		{
+			position[]={8200.868, 355.816, 6894.551};
+			azimut=305;
+			id=206;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item144
+		{
+			position[]={8580.663, 352.6505, 6614.856};
+			azimut=125;
+			id=207;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item145
+		{
+			position[]={11059.54, 102.3406, 6724.861};
+			azimut=235;
+			id=208;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item146
+		{
+			position[]={11425.11, 67.06953, 6560.707};
+			azimut=80;
+			id=209;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item147
+		{
+			position[]={13433.52, 5.709834, 5946.036};
+			azimut=200;
+			id=210;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item148
+		{
+			position[]={13450.53, 5.904652, 6391.62};
+			azimut=350;
+			id=211;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item149
+		{
+			position[]={13177.13, 6.823438, 6246.007};
+			azimut=280;
+			id=212;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item150
+		{
+			position[]={9461.63, 303.3797, 8741.464};
+			azimut=220;
+			id=213;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item151
+		{
+			position[]={9825.674, 288.9394, 8791.771};
+			azimut=75;
+			id=214;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item152
+		{
+			position[]={9393.075, 309.3732, 8818.724};
+			azimut=300;
+			id=215;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item153
+		{
+			position[]={10256.85, 140.202, 9856.584};
+			azimut=40;
+			id=216;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item154
+		{
+			position[]={10261.92, 140.3914, 9827.661};
+			azimut=190;
+			id=217;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item155
+		{
+			position[]={10429.36, 119.0441, 10002.1};
+			azimut=35;
+			id=218;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item156
+		{
+			position[]={10730.88, 86.17145, 9986.887};
+			azimut=85;
+			id=219;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item157
+		{
+			position[]={11974.4, 69.2227, 8911.34};
+			azimut=190;
+			id=220;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item158
+		{
+			position[]={12134.27, 33.56485, 9351.942};
+			azimut=35;
+			id=221;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item159
+		{
+			position[]={12312.73, 35.27251, 8958.921};
+			azimut=135;
+			id=222;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item160
+		{
+			position[]={10744.05, 251.4602, 12414.79};
+			azimut=260;
+			id=223;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item161
+		{
+			position[]={11201.09, 208.9479, 12418.34};
+			azimut=15;
+			id=224;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item162
+		{
+			position[]={11222.01, 191.2345, 12173.34};
+			azimut=210;
+			id=225;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item163
+		{
+			position[]={11323.24, 188.2081, 12225.94};
+			azimut=100;
+			id=226;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item164
+		{
+			position[]={10238.31, 5.5, 2155.585};
+			azimut=240;
+			id=227;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item165
+		{
+			position[]={10701.29, 211.5891, 7985.523};
+			azimut=305;
+			id=231;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Polana";
+			init="nullreturn = [this,""Polana"",[""MediumTown1Tank"",""MediumTown2Tank""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item166
+		{
+			position[]={10516.18, 188.16, 7801.282};
+			azimut=280;
+			id=232;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="PolanaCamp2";
+			init="nullreturn = [this,Polana]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item167
+		{
+			position[]={10824.13, 238.7795, 8244.373};
+			azimut=230;
+			id=233;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="PolanaCamp1";
+			init="nullreturn = [this,Polana]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item168
+		{
+			position[]={10812.59, 239.692, 8274.938};
+			azimut=280;
+			id=234;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item169
+		{
+			position[]={10526.61, 187.2117, 7755.17};
+			azimut=215;
+			id=235;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item170
+		{
+			position[]={10849.21, 238.2367, 8228.911};
+			azimut=165;
+			id=236;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item171
+		{
+			position[]={5773.182, 117.8801, 4601.873};
+			azimut=15;
+			id=239;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item172
+		{
+			position[]={5736.702, 146.9892, 4873.531};
+			azimut=290;
+			id=240;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item173
+		{
+			position[]={11812.23, 158.9807, 12623.39};
+			azimut=205;
+			id=241;
+			side="EMPTY";
+			vehicle="WarfareBAirport";
+			skill=0.6;
+			init="nullreturn = [this] ExecVM ""Common\Init\Init_Airfield.sqf""";
+		};
+		class Item174
+		{
+			position[]={4479.625, 339, 10618.55};
+			azimut=330;
+			id=242;
+			side="EMPTY";
+			vehicle="WarfareBAirport";
+			skill=0.6;
+			init="nullreturn = [this] ExecVM ""Common\Init\Init_Airfield.sqf""";
+		};
+		class Item175
+		{
+			position[]={5050.338, 9.127983, 2411.165};
+			azimut=30;
+			id=243;
+			side="EMPTY";
+			vehicle="WarfareBAirport";
+			skill=0.6;
+			init="nullreturn = [this] ExecVM ""Common\Init\Init_Airfield.sqf""";
+		};
+		class Item176
+		{
+			position[]={3112.69, 298.98, 7961.295};
+			azimut=25;
+			id=244;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Pustoshka";
+			init="nullreturn = [this,""Pustoshka"",[""MediumTown1Tank"",""MediumTown2Tank""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item177
+		{
+			position[]={2987.906, 314.3757, 7831.609};
+			azimut=285;
+			id=245;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="PustoshkaCamp1";
+			init="nullreturn = [this,Pustoshka]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item178
+		{
+			position[]={3279.738, 299.0307, 7940.789};
+			azimut=205;
+			id=246;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="PustoshkaCamp2";
+			init="nullreturn = [this,Pustoshka]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item179
+		{
+			position[]={3295.893, 299.3862, 7919.836};
+			azimut=150;
+			id=247;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item180
+		{
+			position[]={2986.752, 315.249, 7813.891};
+			azimut=180;
+			id=248;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item181
+		{
+			position[]={3321.609, 298.7085, 7948.28};
+			azimut=90;
+			id=249;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item182
+		{
+			position[]={4457.563, 229.8872, 4580.709};
+			azimut=305;
+			id=250;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Kozlovka";
+			init="nullreturn = [this,""Kozlovka"",[""SmallTown"",""SmallTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item183
+		{
+			position[]={4557.882, 222.6, 4385.165};
+			azimut=220;
+			id=251;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="KozlovkaCamp1";
+			init="nullreturn = [this,Kozlovka]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item184
+		{
+			position[]={4316.696, 247.5509, 4802.023};
+			azimut=45;
+			id=252;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="KozlovkaCamp2";
+			init="nullreturn = [this,Kozlovka]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item185
+		{
+			position[]={4569.69, 222.6, 4377.425};
+			azimut=100;
+			id=253;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item186
+		{
+			position[]={4359, 251.2879, 4798.637};
+			azimut=275;
+			id=254;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item187
+		{
+			position[]={1827.378, 8.077571, 2260.341};
+			azimut=160;
+			id=255;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Kamenka";
+			init="nullreturn = [this,""Kamenka"",[""MediumTown1Tank"",""MediumTown2Tank""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item188
+		{
+			position[]={1742.787, 18.16095, 2356.759};
+			azimut=260;
+			id=256;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="KamenkaCamp1";
+			init="nullreturn = [this,Kamenka]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item189
+		{
+			position[]={1994.888, 6.171819, 2270.529};
+			azimut=350;
+			id=257;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="KamenkaCamp2";
+			init="nullreturn = [this,Kamenka]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item190
+		{
+			position[]={1771.376, 19.08624, 2373.12};
+			azimut=345;
+			id=258;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item191
+		{
+			position[]={2043.045, 5.542192, 2269.511};
+			azimut=90;
+			id=259;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item192
+		{
+			position[]={12784.36, 166.8358, 4473.673};
+			azimut=15;
+			id=260;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Tulga";
+			init="nullreturn = [this,""Tulga"",[""SmallTown"",""SmallTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item193
+		{
+			position[]={12538.74, 172.8364, 4573.087};
+			azimut=245;
+			id=261;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="TulgaCamp1";
+			init="nullreturn = [this,Tulga]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item194
+		{
+			position[]={12583.03, 181.8849, 4384.155};
+			azimut=105;
+			id=262;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="TulgaCamp2";
+			init="nullreturn = [this,Tulga]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item195
+		{
+			position[]={12556.56, 169.1195, 4576.994};
+			azimut=30;
+			id=263;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item196
+		{
+			position[]={12574.52, 181.412, 4402.712};
+			azimut=280;
+			id=264;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item197
+		{
+			position[]={7476.713, 217.1467, 5203.15};
+			azimut=25;
+			id=265;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Mogilevka";
+			init="nullreturn = [this,""Mogilevka"",[""LargeTown"",""LargeTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item198
+		{
+			position[]={7729.018, 226.7892, 5256.028};
+			azimut=340;
+			id=266;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="MogilevkaCamp1";
+			init="nullreturn = [this,Mogilevka]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item199
+		{
+			position[]={7414.892, 249.0401, 5406.609};
+			azimut=25;
+			id=267;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="MogilevkaCamp3";
+			init="nullreturn = [this,Mogilevka]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item200
+		{
+			position[]={7518.358, 209.6597, 4963.419};
+			azimut=295;
+			id=268;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="MogilevkaCamp2";
+			init="nullreturn = [this,Mogilevka]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item201
+		{
+			position[]={7510.649, 210.683, 4952.461};
+			azimut=205;
+			id=269;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item202
+		{
+			position[]={7760.785, 227.0592, 5275.63};
+			azimut=25;
+			id=270;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item203
+		{
+			position[]={7375.707, 249.79, 5402.141};
+			azimut=310;
+			id=271;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item204
+		{
+			position[]={7556.191, 202.2041, 4976.561};
+			azimut=130;
+			id=272;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item205
+		{
+			position[]={7139.519, 293.7965, 7757.805};
+			id=273;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="NovySobor";
+			init="nullreturn = [this,""Novy Sobor"",[""MediumTown1Tank"",""MediumTown2Tank""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item206
+		{
+			position[]={7173.192, 272.3339, 7420.287};
+			azimut=30;
+			id=274;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="NovySoborCamp1";
+			init="nullreturn = [this,NovySobor]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item207
+		{
+			position[]={6941.315, 301.2672, 7964.781};
+			azimut=105;
+			id=275;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="NovySoborCamp2";
+			init="nullreturn = [this,NovySobor]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item208
+		{
+			position[]={7197.681, 274.8815, 7429.107};
+			azimut=215;
+			id=276;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item209
+		{
+			position[]={6911.075, 291.6656, 7622.099};
+			azimut=255;
+			id=277;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item210
+		{
+			position[]={6916.025, 300.7172, 7959.585};
+			azimut=40;
+			id=278;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item211
+		{
+			position[]={7373.398, 311.8124, 7707.209};
+			azimut=130;
+			id=279;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item212
+		{
+			position[]={8117.944, 5.442508, 3306.982};
+			azimut=15;
+			id=280;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Prigorodki";
+			init="nullreturn = [this,""Prigorodki"",[""SmallTown"",""SmallTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item213
+		{
+			position[]={8169.685, 6.030068, 3139.17};
+			azimut=25;
+			id=281;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="PrigorodkiCamp1";
+			init="nullreturn = [this,Prigorodki]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item214
+		{
+			position[]={7861.907, 6, 3450.695};
+			azimut=350;
+			id=282;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="PrigorodkiCamp2";
+			init="nullreturn = [this,Prigorodki]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item215
+		{
+			position[]={8176.296, 6.892793, 3094.483};
+			azimut=100;
+			id=283;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item216
+		{
+			position[]={12235.97, 171.8789, 7223.854};
+			azimut=340;
+			id=284;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Orlovets";
+			init="nullreturn = [this,""Orlovets"",[""MediumTown1Tank"",""MediumTown2Tank""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item217
+		{
+			position[]={12322.2, 163.0315, 7401.97};
+			azimut=265;
+			id=285;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="OrlovetsCamp1";
+			init="nullreturn = [this,Orlovets]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item218
+		{
+			position[]={11941.2, 200.6783, 7260.598};
+			azimut=15;
+			id=286;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="OrlovetsCamp2";
+			init="nullreturn = [this,Orlovets]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item219
+		{
+			position[]={12334.66, 160.7159, 7419.187};
+			azimut=25;
+			id=287;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item220
+		{
+			position[]={11930.16, 208.8367, 7316.122};
+			azimut=280;
+			id=288;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item221
+		{
+			position[]={12375.94, 97.3398, 10878.35};
+			azimut=25;
+			id=289;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Khelm";
+			init="nullreturn = [this,""Khelm"",[""SmallTown"",""SmallTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item222
+		{
+			position[]={12285.41, 91.97609, 10660.65};
+			azimut=270;
+			id=290;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="KhelmCamp1";
+			init="nullreturn = [this,Khelm]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item223
+		{
+			position[]={12243.17, 133.342, 11101.71};
+			azimut=145;
+			id=291;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="KhelmCamp2";
+			init="nullreturn = [this,Khelm]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item224
+		{
+			position[]={12325.3, 87.42875, 10659.2};
+			azimut=160;
+			id=292;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item225
+		{
+			position[]={13385.44, 94, 12856.22};
+			azimut=25;
+			id=293;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Olsha";
+			init="nullreturn = [this,""Olsha"",[""SmallTown"",""SmallTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item226
+		{
+			position[]={13333.54, 109.1268, 12715.24};
+			azimut=285;
+			id=294;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="OlshaCamp1";
+			init="nullreturn = [this,Olsha]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item227
+		{
+			position[]={13555.18, 66.98413, 12785.73};
+			azimut=280;
+			id=295;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="OlshaCamp2";
+			init="nullreturn = [this,Olsha]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item228
+		{
+			position[]={13311.89, 113.7717, 12687.12};
+			azimut=210;
+			id=296;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item229
+		{
+			position[]={12809.7, 7.114831, 8132.599};
+			azimut=260;
+			id=297;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Nizhnoye";
+			init="nullreturn = [this,""Nizhnoye"",[""SmallTown"",""SmallTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item230
+		{
+			position[]={13018.79, 5.632365, 8074.468};
+			azimut=265;
+			id=298;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="NizhnoyeCamp1";
+			init="nullreturn = [this,Nizhnoye]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item231
+		{
+			position[]={12747.57, 5.687937, 8316.772};
+			azimut=165;
+			id=299;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="NizhnoyeCamp2";
+			init="nullreturn = [this,Nizhnoye]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item232
+		{
+			position[]={13022.76, 5.464388, 8063.158};
+			azimut=160;
+			id=300;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item233
+		{
+			position[]={12729.63, 6.316951, 8324.891};
+			azimut=295;
+			id=301;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item234
+		{
+			position[]={12767.71, 5.505269, 8315.972};
+			azimut=65;
+			id=302;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item235
+		{
+			position[]={11394.38, 254.2577, 5511.133};
+			azimut=15;
+			id=303;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Msta";
+			init="nullreturn = [this,""Msta"",[""SmallTown"",""SmallTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item236
+		{
+			position[]={11687.85, 217.6194, 5518.542};
+			azimut=150;
+			id=304;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="MstaCamp1";
+			init="nullreturn = [this,Msta]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item237
+		{
+			position[]={11231.61, 252.6883, 5378.291};
+			azimut=100;
+			id=305;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="MstaCamp2";
+			init="nullreturn = [this,Msta]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item238
+		{
+			position[]={11665.51, 223.499, 5561.528};
+			azimut=70;
+			id=306;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item239
+		{
+			position[]={9734.715, 206.4473, 6517.274};
+			azimut=15;
+			id=307;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Shakhovka";
+			init="nullreturn = [this,""Shakhovka"",[""SmallTown"",""SmallTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item240
+		{
+			position[]={9617.399, 245.2066, 6383.999};
+			azimut=200;
+			id=308;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="ShakhovkaCamp1";
+			init="nullreturn = [this,Shakhovka]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item241
+		{
+			position[]={9504.186, 212.936, 6647.575};
+			azimut=215;
+			id=309;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="ShakhovkaCamp2";
+			init="nullreturn = [this,Shakhovka]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item242
+		{
+			position[]={9626.78, 251.3445, 6350.471};
+			azimut=100;
+			id=310;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item243
+		{
+			position[]={9584.127, 201.5031, 6639.32};
+			azimut=310;
+			id=311;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item244
+		{
+			position[]={3452.276, 186.3084, 3910.729};
+			azimut=15;
+			id=312;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Bor";
+			init="nullreturn = [this,""Bor"",[""SmallTown"",""SmallTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item245
+		{
+			position[]={3710.645, 203.6683, 3899.282};
+			azimut=10;
+			id=313;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="BorCamp1";
+			init="nullreturn = [this,Bor]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item246
+		{
+			position[]={3279.785, 219.6996, 4100.328};
+			azimut=335;
+			id=314;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="BorCamp2";
+			init="nullreturn = [this,Bor]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item247
+		{
+			position[]={3740.313, 201.7998, 3864.768};
+			azimut=125;
+			id=315;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item248
+		{
+			position[]={3272.341, 214.2698, 4077.099};
+			azimut=175;
+			id=316;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item249
+		{
+			position[]={5009.877, 317.5443, 5599.288};
+			azimut=45;
+			id=317;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Pulkovo";
+			init="nullreturn = [this,""Pulkovo"",[""SmallTown"",""SmallTown2""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item250
+		{
+			position[]={5243.184, 304.0663, 5517.972};
+			azimut=195;
+			id=318;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="PulkovoCamp1";
+			init="nullreturn = [this,Pulkovo]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item251
+		{
+			position[]={4799.216, 318.2601, 5740.007};
+			azimut=140;
+			id=319;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="PulkovoCamp2";
+			init="nullreturn = [this,Pulkovo]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item252
+		{
+			position[]={4763.628, 324.1113, 5661.805};
+			azimut=300;
+			id=320;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item253
+		{
+			position[]={4793.454, 315.4345, 5773.661};
+			id=321;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item254
+		{
+			position[]={2327.987, 319.2876, 6359.328};
+			azimut=325;
+			id=322;
+			side="EMPTY";
+			vehicle="WarfareBDepot";
+			leader=1;
+			skill=0.6;
+			text="Sosnovka";
+			init="nullreturn = [this,""Sosnovka"",[""SmallTown"",""SmallTown2"",""MediumTown""]]ExecVM ""Server\Config\Config_Town.sqf""";
+		};
+		class Item255
+		{
+			position[]={2521.081, 329.4692, 6574.765};
+			azimut=315;
+			id=323;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="SosnovkaCamp1";
+			init="nullreturn = [this,Sosnovka]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item256
+		{
+			position[]={2548.537, 283.3283, 6237.268};
+			azimut=260;
+			id=324;
+			side="EMPTY";
+			vehicle="WarfareBCamp";
+			leader=1;
+			skill=0.6;
+			text="SosnovkaCamp2";
+			init="nullreturn = [this,Sosnovka]ExecVM ""Common\Init\Init_Camp.sqf""";
+		};
+		class Item257
+		{
+			position[]={2459.788, 283.5878, 6179.48};
+			azimut=140;
+			id=325;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item258
+		{
+			position[]={2538.769, 327.3683, 6573.709};
+			azimut=50;
+			id=326;
+			side="EMPTY";
+			vehicle="GUE_WarfareBMGNest_PK";
+			leader=1;
+			skill=0.6;
+		};
+		class Item259
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2287.173, 514.827, 15296.23};
+					id=327;
+					side="WEST";
+					vehicle="FR_R";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="WestSlot17";
+				};
+			};
+		};
+		class Item260
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2287.173, 514.827, 15296.23};
+					id=328;
+					side="WEST";
+					vehicle="FR_R";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="WestSlot18";
+				};
+			};
+		};
+		class Item261
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2287.173, 514.827, 15296.23};
+					id=329;
+					side="WEST";
+					vehicle="FR_R";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="WestSlot19";
+				};
+			};
+		};
+		class Item262
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={2287.173, 514.827, 15296.23};
+					id=330;
+					side="WEST";
+					vehicle="FR_R";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="WestSlot20";
+				};
+			};
+		};
+		class Item263
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={36.4597, 5.655468, 1591.312};
+					id=331;
+					side="EAST";
+					vehicle="RUS_Soldier1";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="EastSlot17";
+				};
+			};
+		};
+		class Item264
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={36.4597, 5.655468, 1591.312};
+					id=332;
+					side="EAST";
+					vehicle="RUS_Soldier1";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="EastSlot18";
+				};
+			};
+		};
+		class Item265
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={36.4597, 5.655468, 1591.312};
+					id=333;
+					side="EAST";
+					vehicle="RUS_Soldier1";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="EastSlot19";
+				};
+			};
+		};
+		class Item266
+		{
+			side="EAST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={36.4597, 5.655468, 1591.312};
+					id=334;
+					side="EAST";
+					vehicle="RUS_Soldier1";
+					player="PLAY CDG";
+					leader=1;
+					rank="LIEUTENANT";
+					skill=0.6;
+					text="EastSlot20";
+				};
+			};
+		};
+	};
+	class Markers
+	{
+		items=5;
+		class Item0
+		{
+			position[]={14155.42, 17.16461, 2797.734};
+			name="WestTempRespawnMarker";
+			type="Empty";
+		};
+		class Item1
+		{
+			position[]={13510.15, 64.2931, 3362.604};
+			name="EastTempRespawnMarker";
+			type="Empty";
+		};
+		class Item2
+		{
+			position[]={11811.42, 158.9807, 12623.79};
+			name="Airport1";
+			type="mil_triangle";
+			colorName="ColorBlue";
+		};
+		class Item3
+		{
+			position[]={4478.819, 339, 10618.95};
+			name="Airport2";
+			type="mil_triangle";
+			colorName="ColorBlue";
+		};
+		class Item4
+		{
+			position[]={5050.305, 9.128233, 2411.184};
+			name="Airport3";
+			type="mil_triangle";
+			colorName="ColorBlue";
+		};
+	};
+};
+class Intro
+{
+	addOns[]={"chernarus"};
+	addOnsAuto[]={"chernarus"};
+	randomSeed=13267190;
+	class Intel
+	{
+		startWeather=0.25;
+		forecastWeather=0.25;
+		year=2008;
+		month=10;
+		day=11;
+		hour=9;
+		minute=20;
+	};
+};
+class OutroWin
+{
+	addOns[]={"chernarus"};
+	addOnsAuto[]={"chernarus"};
+	randomSeed=10462969;
+	class Intel
+	{
+		startWeather=0.25;
+		forecastWeather=0.25;
+		year=2008;
+		month=10;
+		day=11;
+		hour=9;
+		minute=20;
+	};
+};
+class OutroLoose
+{
+	addOns[]={"chernarus"};
+	addOnsAuto[]={"chernarus"};
+	randomSeed=12603217;
+	class Intel
+	{
+		startWeather=0.25;
+		forecastWeather=0.25;
+		year=2008;
+		month=10;
+		day=11;
+		hour=9;
+		minute=20;
+	};
+};
