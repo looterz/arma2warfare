@@ -1,4 +1,4 @@
-$missionName = $env:MissionName;
+$missionFullName = $env:missionFullName;
 $missionFileName = $env:MissionFileName;
 $sourcePath = $env:SourcePath;
 $outputDir = $env:OutputFolder;
@@ -130,7 +130,7 @@ function compile-version {
 	
 
 	$projectName =  "$missionFileName$gamemode$maxplayers.$islandName"; #-- "WarfareV2_068Lite$gamemode$maxplayers.$islandName";
-	$missionName1 = "$missionFullName - $islandName";
+	$missionName1 = "$missionFullName";
 	
 	Copy-Item "$source\briefing.sqf" "$tmpfolder" -Force
 	
