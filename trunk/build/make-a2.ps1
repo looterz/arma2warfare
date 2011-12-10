@@ -2,6 +2,7 @@ $missionFullName = $env:missionFullName;
 $missionFileName = $env:MissionFileName;
 $sourcePath = $env:SourcePath;
 $outputDir = $env:OutputFolder;
+$versionFolder = $env:VersionFolder;
 
 $currentDirectory = [string](Get-Location);
 $revisionNumber = "";
@@ -20,7 +21,7 @@ function EntryPoint
 	#-- $root1 = [System.IO.Path]::GetFullPath($currentDirectory + "\..\..");
 	#-- $source = "$root1\WarfareBE";
 	
-	$versionDir = "$root\a2ru\";
+	$versionDir = "$root\$versionFolder\";
 	$tmpfolder = [System.IO.Path]::GetTempPath() + "buildwarfare";
 
 	if ([System.IO.Directory]::Exists($outputDir) -eq $false) {
